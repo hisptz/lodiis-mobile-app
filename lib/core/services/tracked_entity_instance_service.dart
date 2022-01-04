@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class TrackedEntityInstanceService {
-  Future discoverTrackedEntityInstnaceById(String teiId) async {
+  Future discoverTrackedEntityInstanceById(String teiId) async {
     try {
       CurrentUser? currentUser = await (UserService().getCurrentUser());
       HttpService httpService = HttpService(
@@ -38,43 +38,43 @@ class TrackedEntityInstanceService {
         if (response.statusCode == 200) {
           Map<String, dynamic> teiJson = json.decode(response.body);
           List teiEnrollmentsJson = teiJson["enrollments"] ?? [];
-          List teiReleationShipsJson = teiJson["relationships"] ?? [];
+          List teiRelationshipsJson = teiJson["relationships"] ?? [];
           List teiEventsJson = [];
           for (var enrollment in teiEnrollmentsJson) {
             teiEventsJson.addAll(enrollment["events"] ?? []);
           }
-          await saveTrackeEntityInstanceProfile(teiJson);
-          await saveTrackeEntityInstanceEnrollment(teiEnrollmentsJson);
-          await saveTrackeEntityInstanceEvents(teiEventsJson);
-          await saveTrackeEntityInstanceRelationShips(teiReleationShipsJson);
+          await saveTrackedEntityInstanceProfile(teiJson);
+          await saveTrackedEntityInstanceEnrollment(teiEnrollmentsJson);
+          await saveTrackedEntityInstanceEvents(teiEventsJson);
+          await saveTrackedEntityInstanceRelationShips(teiRelationshipsJson);
         }
       }
     } catch (error) {}
   }
 
-  Future saveTrackeEntityInstanceProfile(dynamic teiJson) async {
+  Future saveTrackedEntityInstanceProfile(dynamic teiJson) async {
     await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(
             TrackedEntityInstance().fromJson(teiJson));
   }
 
-  Future saveTrackeEntityInstanceEnrollment(List teiEnrollmentsJson) async {
+  Future saveTrackedEntityInstanceEnrollment(List teiEnrollmentsJson) async {
     for (dynamic json in teiEnrollmentsJson) {
       await EnrollmentOfflineProvider()
           .addOrUpdateEnrollment(Enrollment().fromJson(json));
     }
   }
 
-  Future saveTrackeEntityInstanceEvents(List teiEventsJson) async {
+  Future saveTrackedEntityInstanceEvents(List teiEventsJson) async {
     for (dynamic json in teiEventsJson) {
       await EventOfflineProvider().addOrUpdateEvent(Events().fromJson(json));
     }
   }
 
-  Future saveTrackeEntityInstanceRelationShips(
-    List teiReleationShipsJson,
+  Future saveTrackedEntityInstanceRelationShips(
+    List teiRelationshipsJson,
   ) async {
-    for (dynamic json in teiReleationShipsJson) {
+    for (dynamic json in teiRelationshipsJson) {
       await TeiRelationshipOfflineProvider()
           .addOrUpdateTeiRelationship(TeiRelationship().fromJson(json));
     }

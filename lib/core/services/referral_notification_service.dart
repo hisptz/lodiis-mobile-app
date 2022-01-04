@@ -66,7 +66,7 @@ class ReferralNotificationService {
     try {
       for (String teiId in beneficiaryIds) {
         await TrackedEntityInstanceService()
-            .discoverTrackedEntityInstnaceById(teiId);
+            .discoverTrackedEntityInstanceById(teiId);
       }
       await Provider.of<SynchronizationState>(context, listen: false)
           .refreshBeneficiaryCounts();
