@@ -89,28 +89,36 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         ),
       );
 
+  String getApiFilterString() {
+    // remove empty values
+    onlineSearchDataObject.removeWhere((String key, String value) {
+      return value.isEmpty;
+    });
+
+    List<String> apiFilters = [];
+    onlineSearchDataObject.forEach((key, value) {
+      apiFilters.add('$key:like:$value');
+    });
+
+    return apiFilters.join('&filter=');
+  }
+
   Future<void> onBeneficiarySearch(BuildContext context, String program) async {
     FocusScope.of(context).requestFocus(FocusNode());
     List<OnlineBeneficiarySearchResult> searchedTeis = [];
     updateSearchResults();
     updateSearchResultMessage('');
 
-    // remove empty values
-    onlineSearchDataObject.removeWhere((String key, String value) {
-      return value.isEmpty;
-    });
-
-    // generate filter url
-    List<String> apiFilters = [];
-    onlineSearchDataObject.forEach((key, value) {
-      apiFilters.add('$key:like:$value');
-    });
-    String searchFilterUrl = apiFilters.join('&filter=');
+    String searchFilterUrl = getApiFilterString();
 
     try {
       List<String> searchablePrograms =
           getSearchableProgramsByUserAccess(context, program);
-      // TODO: Add a check for unavailable searchable programs
+      if (searchablePrograms.isEmpty) {
+        updateSearchResultMessage(
+            'You do not have searching access to this intervention');
+        return;
+      }
 
       List<dynamic> results = await TrackedEntityInstanceService()
           .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
