@@ -94,6 +94,8 @@ class OvcHouseholdService extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => HouseholdServiceForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
           shouldEditCaseGapServiceProvision: true,
         ),
@@ -104,79 +106,78 @@ class OvcHouseholdService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<LanguageTranslationState>(
-            builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<InterventionCardState>(
-                builder: (context, interventionCardState, child) {
-                  InterventionCard activeInterventionProgram =
-                      interventionCardState.currentInterventionProgram;
-                  return SubPageAppBar(
-                    label: currentLanguage != 'lesotho'
-                        ? label
-                        : translatedServiceProvisionLabel,
-                    activeInterventionProgram: activeInterventionProgram,
-                  );
-                },
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+                InterventionCard activeInterventionProgram =
+                    interventionCardState.currentInterventionProgram;
+                return SubPageAppBar(
+                  label: currentLanguage != 'lesotho'
+                      ? label
+                      : translatedServiceProvisionLabel,
+                  activeInterventionProgram: activeInterventionProgram,
+                );
+              },
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              var currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+              return Container(
+                child: Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Container(
+                      child: Consumer<ServiceEventDataState>(
+                        builder: (context, serviceEventDataState, child) {
+                          bool isLoading = serviceEventDataState.isLoading;
+                          Map<String?, List<Events>> eventListByProgramStage =
+                              serviceEventDataState.eventListByProgramStage;
+                          return isLoading
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      ServicesHomeListContainer(
+                                        programStageIds:
+                                            casePlanProgramStageIds,
+                                        onViewCasePlan: (casePlanEvents) =>
+                                            onViewCasePlan(
+                                          context,
+                                          casePlanEvents,
+                                          eventListByProgramStage,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                var currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                            bool isLoading = serviceEventDataState.isLoading;
-                            Map<String?, List<Events>> eventListByProgramStage =
-                                serviceEventDataState.eventListByProgramStage;
-                            return isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        ServicesHomeListContainer(
-                                          programStageIds:
-                                              casePlanProgramStageIds,
-                                          onViewCasePlan: (casePlanEvents) =>
-                                              onViewCasePlan(
-                                            context,
-                                            casePlanEvents,
-                                            eventListByProgramStage,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

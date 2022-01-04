@@ -31,11 +31,13 @@ class OvcHouseholdCasePlanForm extends StatefulWidget {
     this.shouldEditCaseGapServiceProvision = false,
     this.shouldViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
+    this.hasEditAccess = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
+  final bool hasEditAccess;
 
   @override
   _OvcHouseholdCasePlanFormState createState() =>
@@ -233,6 +235,8 @@ class _OvcHouseholdCasePlanFormState extends State<OvcHouseholdCasePlanForm> {
                                                   CasePlanFormContainer(
                                                 shouldAddCasePlanGap:
                                                     widget.shouldAddCasePlanGap,
+                                                hasEditAccess:
+                                                    widget.hasEditAccess,
                                                 shouldEditCaseGapServiceProvision:
                                                     widget
                                                         .shouldEditCaseGapServiceProvision,

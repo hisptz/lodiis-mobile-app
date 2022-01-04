@@ -125,7 +125,6 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             AgywDreamsServiceFormSkipLogic.evaluateSkipLogicsBySession(
           dataObject,
         );
-        //@TODO Set appropriate message session number
         if (shouldSaveForm) {
           bool sessionAlreadyExists = AgywDreamsServiceFormSkipLogic
               .evaluateSkipLogicBySessionReoccurrence(dataObject);

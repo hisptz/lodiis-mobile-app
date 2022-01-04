@@ -1,6 +1,4 @@
 class OvcServiceFormSessionNumber {
-  //@TODO adding maping of auto populations for service autofill for OVCs & caregivers
-
   static final Map<String, String> serviceToSessionMapping = {
     // service : session number
     "HzI5X2yHef6": "uU4TvD2O1uL",

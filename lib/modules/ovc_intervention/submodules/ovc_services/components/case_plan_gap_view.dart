@@ -31,6 +31,7 @@ class CasePlanGapView extends StatefulWidget {
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
     required this.formSectionColor,
+    required this.hasEditAccess,
   }) : super(key: key);
   final Map casePlanGap;
   final Color? formSectionColor;
@@ -39,6 +40,7 @@ class CasePlanGapView extends StatefulWidget {
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapViewState createState() => _CasePlanGapViewState();
@@ -278,6 +280,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
                             .toList()
                           ..add(Container(
                             child: CasePlanGapServiceProvisionContainer(
+                              hasEditAccess: widget.hasEditAccess,
                               domainId: widget.domainId,
                               formSectionColor: widget.formSectionColor,
                               isCasePlanForHousehold:

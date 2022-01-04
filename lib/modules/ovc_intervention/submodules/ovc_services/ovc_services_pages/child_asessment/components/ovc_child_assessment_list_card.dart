@@ -27,7 +27,10 @@ class OvcChildAssessmentListCard extends StatelessWidget {
       ),
       child: MaterialCard(
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          padding: EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 20.0,
+          ),
           child: Column(
             children: [
               Row(
@@ -67,31 +70,39 @@ class OvcChildAssessmentListCard extends StatelessWidget {
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 5.0,
+                          ),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
                             color: Color(0xFF4B9F46),
                           ),
                         )),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 5.0,
-                    ),
-                    child: InkWell(
+                  Visibility(
+                    visible: eventData.enrollmentOuAccessible!,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                      ),
+                      child: InkWell(
                         onTap: onEditAssessment as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 5.0,
+                          ),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
                             color: Color(0xFF4B9F46),
                           ),
-                        )),
-                  ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               )
             ],

@@ -23,6 +23,7 @@ class CasePlanGapServiceViewContainer extends StatefulWidget {
     required this.themeColor,
     required this.domainId,
     required this.casePlanGap,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final String? casePlanGapToServiceProvisionLinkageValue;
@@ -31,6 +32,7 @@ class CasePlanGapServiceViewContainer extends StatefulWidget {
   final String? domainId;
   final Color? themeColor;
   final Map casePlanGap;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapServiceViewContainerState createState() =>
@@ -264,25 +266,29 @@ class _CasePlanGapServiceViewContainerState
                                                 ),
                                               ),
                                             ),
-                                            Container(
+                                            Visibility(
+                                              visible: widget.hasEditAccess,
                                               child: Container(
-                                                child: InkWell(
-                                                  onTap: () =>
-                                                      onEditCasePlanServiceProvision(
-                                                    context,
-                                                    casePlanGapServiceProvision,
-                                                  ),
-                                                  child: Container(
-                                                    height: iconHeight,
-                                                    width: iconHeight,
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 5,
+                                                child: Container(
+                                                  child: InkWell(
+                                                    onTap: () =>
+                                                        onEditCasePlanServiceProvision(
+                                                      context,
+                                                      casePlanGapServiceProvision,
                                                     ),
-                                                    child: SvgPicture.asset(
-                                                      'assets/icons/edit-icon.svg',
-                                                      color: widget.themeColor,
+                                                    child: Container(
+                                                      height: iconHeight,
+                                                      width: iconHeight,
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                        vertical: 5,
+                                                        horizontal: 5,
+                                                      ),
+                                                      child: SvgPicture.asset(
+                                                        'assets/icons/edit-icon.svg',
+                                                        color:
+                                                            widget.themeColor,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

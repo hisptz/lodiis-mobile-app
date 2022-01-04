@@ -26,11 +26,13 @@ class OcvServiceCasePlanForm extends StatefulWidget {
     this.shouldEditCaseGapServiceProvision = false,
     this.shouldViewCaseGapServiceProvision = false,
     this.isServiceMonitoring = false,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final bool isServiceMonitoring;
+  final bool hasEditAccess;
 
   @override
   _OcvServiceCasePlanFormState createState() => _OcvServiceCasePlanFormState();
@@ -204,6 +206,8 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
                                                 formSection.id == 'Schooled')
                                             ? Container()
                                             : ServiceFormContainer(
+                                                hasEditAccess:
+                                                    widget.hasEditAccess,
                                                 shouldEditCaseGapServiceProvision:
                                                     widget
                                                         .shouldEditCaseGapServiceProvision,

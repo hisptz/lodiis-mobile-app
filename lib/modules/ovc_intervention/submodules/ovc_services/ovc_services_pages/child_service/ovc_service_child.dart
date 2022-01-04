@@ -92,6 +92,8 @@ class OvcServiceSubPageChildView extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OcvServiceCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
           shouldEditCaseGapServiceProvision: true,
         ),

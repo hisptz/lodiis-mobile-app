@@ -97,9 +97,12 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
           position: ToastGravity.TOP);
     } else {
       updateformState(context, isEditableMode, null, eventListByProgramStage);
-      // TODO Add autosave
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => OvcHouseholdCasePlanForm()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseholdCasePlanForm(),
+        ),
+      );
     }
   }
 
@@ -115,6 +118,8 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
           shouldAddCasePlanGap: true,
         ),
@@ -134,6 +139,8 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcHouseholdCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
         ),
       ),
@@ -143,92 +150,95 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              var currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+              return Container(
+                child: Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Container(
+                      child: Consumer<ServiceEventDataState>(
+                        builder: (context, serviceEventDataState, child) {
+                          bool isLoading = serviceEventDataState.isLoading;
+                          Map<String?, List<Events>> eventListByProgramStage =
+                              serviceEventDataState.eventListByProgramStage;
+                          return isLoading
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CasePlanHomeListContainer(
+                                        programStageIds:
+                                            casePlanProgramStageIds,
+                                        onEditCasePlan: (casePlanEvents) =>
+                                            onEditCasePlan(
+                                          context,
+                                          casePlanEvents,
+                                          eventListByProgramStage,
+                                        ),
+                                        onViewCasePlan: (casePlanEvents) =>
+                                            onViewCasePlan(
+                                          context,
+                                          casePlanEvents,
+                                          eventListByProgramStage,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Visibility(
+                                          visible: !isLoading &&
+                                              currentOvcHousehold!
+                                                  .enrollmentOuAccessible!,
+                                          child: EntryFormSaveButton(
+                                            label: 'NEW CASE PLAN',
+                                            labelColor: Colors.white,
+                                            fontSize: 10.0,
+                                            buttonColor: Color(0xFF4B9F46),
+                                            onPressButton: () =>
+                                                onAddNewCasePlan(
+                                              context,
+                                              eventListByProgramStage,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                var currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                            bool isLoading = serviceEventDataState.isLoading;
-                            Map<String?, List<Events>> eventListByProgramStage =
-                                serviceEventDataState.eventListByProgramStage;
-                            return isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        CasePlanHomeListContainer(
-                                          programStageIds:
-                                              casePlanProgramStageIds,
-                                          onEditCasePlan: (casePlanEvents) =>
-                                              onEditCasePlan(
-                                            context,
-                                            casePlanEvents,
-                                            eventListByProgramStage,
-                                          ),
-                                          onViewCasePlan: (casePlanEvents) =>
-                                              onViewCasePlan(
-                                            context,
-                                            casePlanEvents,
-                                            eventListByProgramStage,
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Visibility(
-                                            visible: !isLoading,
-                                            child: EntryFormSaveButton(
-                                                label: 'NEW CASE PLAN',
-                                                labelColor: Colors.white,
-                                                fontSize: 10,
-                                                buttonColor: Color(0xFF4B9F46),
-                                                onPressButton: () =>
-                                                    onAddNewCasePlan(
-                                                      context,
-                                                      eventListByProgramStage,
-                                                    )),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }
