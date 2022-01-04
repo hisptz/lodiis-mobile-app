@@ -203,6 +203,8 @@ class _EducationBursaryClubsAttendancePageState
                                                                 .attended
                                                             ? 'Attended'
                                                             : 'Not Attended',
+                                                        canEdit: attendance
+                                                            .enrollmentOuAccessible!,
                                                         onEdit: () =>
                                                             onEditAttendance(
                                                           context,

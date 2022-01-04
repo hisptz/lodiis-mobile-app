@@ -212,7 +212,8 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                 children: [
                   Container(
                     child: Visibility(
-                      visible: shouldAddOutcome,
+                      visible: shouldAddOutcome &&
+                          lbseReferral.enrollmentOuAccessible!,
                       child: LineSeparator(
                         color: Color(0xFF009688).withOpacity(0.3),
                       ),
@@ -220,12 +221,15 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
                   ),
                   Container(
                     child: shouldAddOutcome
-                        ? _getActionButton(
-                            backgroundColor: Color(0xFF009688).withOpacity(0.1),
-                            label: 'ADD OUTCOME',
-                            labelColor: Color(0xFF009688),
-                            onTap: () => onAddingOutcome(context),
-                          )
+                        ? Visibility(
+                            visible: lbseReferral.enrollmentOuAccessible!,
+                            child: _getActionButton(
+                              backgroundColor:
+                                  Color(0xFF009688).withOpacity(0.1),
+                              label: 'ADD OUTCOME',
+                              labelColor: Color(0xFF009688),
+                              onTap: () => onAddingOutcome(context),
+                            ))
                         : Container(
                             margin: EdgeInsets.symmetric(
                               vertical: 15.0,

@@ -169,6 +169,8 @@ class _EducationBursarySchoolPerformanceState
                                                 date: event.eventDate!,
                                                 title:
                                                     'Performance $eventCount',
+                                                canEdit: event
+                                                    .enrollmentOuAccessible!,
                                                 onEdit: () => onEditPerformance(
                                                   context,
                                                   bursaryBeneficiary!,
