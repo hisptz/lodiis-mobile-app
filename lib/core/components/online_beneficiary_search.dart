@@ -80,6 +80,10 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
     }
   }
 
+  bool canSearch() {
+    return searchInputs.any((input) => isItemSearched(input));
+  }
+
   Widget makeFilterDismissible({required Widget child}) => GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => Navigator.of(context).pop(),
@@ -198,11 +202,19 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                     ? Text('Searching...')
                                     : InkWell(
                                         onTap: () => {
-                                          onBeneficiarySearch(context, program)
+                                          if (canSearch())
+                                            {
+                                              onBeneficiarySearch(
+                                                  context, program)
+                                            }
                                         },
                                         child: Text(
                                           'Search',
-                                          style: TextStyle(color: primaryColor),
+                                          style: TextStyle(
+                                              color: canSearch()
+                                                  ? primaryColor
+                                                  : primaryColor!
+                                                      .withOpacity(0.3)),
                                         ),
                                       ),
                               )
