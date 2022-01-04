@@ -8,6 +8,7 @@ class LbseReferralOutcomeFollowUpEvent {
   String? comments;
   bool? isRequireFollowUp;
   String? referralOutcomeToReferralOutComeFollowingUpLinkage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   LbseReferralOutcomeFollowUpEvent({
@@ -17,6 +18,7 @@ class LbseReferralOutcomeFollowUpEvent {
     this.followUpStatus,
     this.isRequireFollowUp,
     this.referralOutcomeToReferralOutComeFollowingUpLinkage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -49,6 +51,7 @@ class LbseReferralOutcomeFollowUpEvent {
               LbseInterventionConstant
                   .referralOutcomeToReferralOutComeFollowingUpLinkage] ??
           '',
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

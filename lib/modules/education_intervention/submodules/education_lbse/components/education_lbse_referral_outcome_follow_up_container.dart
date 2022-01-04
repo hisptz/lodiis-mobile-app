@@ -129,7 +129,9 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
                               child: EducationLbseReferralOutcomeFollowUpCard(
                                 color: color,
                                 shouldEditFollowingUp: followUpIndex ==
-                                    referralOutcomeFollowUps.length,
+                                        referralOutcomeFollowUps.length &&
+                                    referralOutcomeFollowUpEvent
+                                        .enrollmentOuAccessible!,
                                 followUpIndex: followUpIndex,
                                 referralOutcomeFollowUpEvent:
                                     referralOutcomeFollowUpEvent,
@@ -144,7 +146,8 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
                     ),
                     Visibility(
                       visible:
-                          _isOutcomeRequireFollowUp(referralOutcomeFollowUps),
+                          _isOutcomeRequireFollowUp(referralOutcomeFollowUps) &&
+                              referralOutcomeEvent.enrollmentOuAccessible!,
                       child: _getActionButton(
                         backgroundColor: color,
                         label: 'ADD FOLLOW UP',

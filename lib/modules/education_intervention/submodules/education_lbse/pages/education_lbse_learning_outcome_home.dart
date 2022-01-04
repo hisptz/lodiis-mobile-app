@@ -200,6 +200,8 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
                                                           .date!,
                                                       title: lbseLearningOutcome
                                                           .toString(),
+                                                      canEdit: lbseLearningOutcome
+                                                          .enrollmentOuAccessible!,
                                                       onEdit: () =>
                                                           onEditLearningOutcome(
                                                         context,

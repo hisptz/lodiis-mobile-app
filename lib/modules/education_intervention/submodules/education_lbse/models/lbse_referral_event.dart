@@ -8,6 +8,7 @@ class LbseReferralEvent {
   String? referralTo;
   String? description;
   String? referralToReferralOutcomeLinkage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   LbseReferralEvent({
@@ -17,6 +18,7 @@ class LbseReferralEvent {
     this.referralTo,
     this.description,
     this.referralToReferralOutcomeLinkage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -44,6 +46,7 @@ class LbseReferralEvent {
       referralToReferralOutcomeLinkage:
           data[LbseInterventionConstant.referralToReferralOutcomeLinkage] ?? '',
       date: eventData.eventDate,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

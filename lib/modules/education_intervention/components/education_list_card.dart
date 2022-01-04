@@ -7,12 +7,14 @@ class EducationListCard extends StatelessWidget {
     Key? key,
     required this.title,
     required this.date,
+    required this.canEdit,
     this.onView,
     this.onEdit,
   }) : super(key: key);
 
   final String title;
   final String date;
+  final bool canEdit;
   final VoidCallback? onView;
   final VoidCallback? onEdit;
 
@@ -87,8 +89,17 @@ class EducationListCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  _getListActionButton(onTap: onView, svgIcon: viewSvgIcon),
-                  _getListActionButton(onTap: onEdit, svgIcon: editSvgIcon),
+                  _getListActionButton(
+                    onTap: onView,
+                    svgIcon: viewSvgIcon,
+                  ),
+                  Visibility(
+                    visible: canEdit,
+                    child: _getListActionButton(
+                      onTap: onEdit,
+                      svgIcon: editSvgIcon,
+                    ),
+                  ),
                 ],
               )
             ],

@@ -105,16 +105,22 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      currentLanguage == 'lesotho' ? 'Outcome' : 'Outcome',
-                      style: TextStyle().copyWith(
-                        color: Color(0xFFB2B7B9),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 7.0,
+                      ),
+                      child: Text(
+                        currentLanguage == 'lesotho' ? 'Outcome' : 'Outcome',
+                        style: TextStyle().copyWith(
+                          color: Color(0xFFB2B7B9),
+                        ),
                       ),
                     ),
                   ),
                   Container(
                     child: Visibility(
-                      visible: !hasOutccomeHasFollowUps,
+                      visible: !hasOutccomeHasFollowUps &&
+                          referralOutcomeEvent.enrollmentOuAccessible!,
                       child: InkWell(
                         onTap: onEditReferralOutcome,
                         child: Container(
