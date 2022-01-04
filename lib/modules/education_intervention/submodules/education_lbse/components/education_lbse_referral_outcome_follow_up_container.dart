@@ -144,7 +144,8 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
                     ),
                     Visibility(
                       visible:
-                          _isOutcomeRequireFollowUp(referralOutcomeFollowUps),
+                          _isOutcomeRequireFollowUp(referralOutcomeFollowUps) &&
+                              referralOutcomeEvent.enrollmentOuAccessible!,
                       child: _getActionButton(
                         backgroundColor: color,
                         label: 'ADD FOLLOW UP',
