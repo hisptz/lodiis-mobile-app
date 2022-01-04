@@ -4,12 +4,14 @@ class BursaryAttendanceEvent {
   String? id;
   bool attended;
   String? date;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   BursaryAttendanceEvent({
     this.id,
     this.attended = false,
     this.date,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -30,6 +32,7 @@ class BursaryAttendanceEvent {
       id: eventData.event,
       attended: data['WvYI4dliZyk'] == 'true',
       date: eventData.eventDate,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }
