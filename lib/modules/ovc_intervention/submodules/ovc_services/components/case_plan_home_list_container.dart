@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
@@ -127,9 +128,10 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: _hasAccessToEditCasePlan(
-                                            groupedEventByDates[
-                                                assessmentDate]),
+                                        visible: AppUtil
+                                            .hasAccessToEditCasePlanServiceData(
+                                          groupedEventByDates[assessmentDate],
+                                        ),
                                         child: Container(
                                           margin: EdgeInsets.symmetric(
                                             horizontal: 5.0,

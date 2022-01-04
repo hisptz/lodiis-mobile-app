@@ -12,6 +12,7 @@ class CasePlanGapServiceProvisionContainer extends StatefulWidget {
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
     required this.domainId,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final Map casePlanGap;
@@ -20,6 +21,7 @@ class CasePlanGapServiceProvisionContainer extends StatefulWidget {
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final String? domainId;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapServiceProvisionContainerState createState() =>
@@ -55,6 +57,7 @@ class _CasePlanGapServiceProvisionContainerState
               Container(
                 child: CasePlanGapServiceViewContainer(
                   casePlanGap: widget.casePlanGap,
+                  hasEditAccess: widget.hasEditAccess,
                   domainId: widget.domainId,
                   themeColor: widget.formSectionColor,
                   casePlanGapToServiceProvisionLinkageValue:

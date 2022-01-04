@@ -56,14 +56,17 @@ class ServicesHomeListContainer extends StatelessWidget {
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                  border: Border(
-                                left: BorderSide(
-                                  color: Color(0xFF4B9F46),
-                                  width: 9.0,
+                                border: Border(
+                                  left: BorderSide(
+                                    color: Color(0xFF4B9F46),
+                                    width: 9.0,
+                                  ),
                                 ),
-                              )),
+                              ),
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 20.0),
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
                               child: Consumer<LanguageTranslationState>(builder:
                                   (context, languageTranslationState, child) {
                                 String? currentLanguage =
@@ -107,19 +110,22 @@ class ServicesHomeListContainer extends StatelessWidget {
                                             horizontal: 5.0,
                                           ),
                                           child: InkWell(
-                                              onTap: () => onViewCasePlan!(
-                                                  groupedEventByDates[
-                                                      assessmentDate]),
-                                              child: Container(
-                                                height: iconHeight,
-                                                width: iconHeight,
-                                                margin: EdgeInsets.symmetric(
-                                                    vertical: 5, horizontal: 5),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/expand_icon.svg',
-                                                  color: Color(0xFF4B9F46),
-                                                ),
-                                              )),
+                                            onTap: () => onViewCasePlan!(
+                                                groupedEventByDates[
+                                                    assessmentDate]),
+                                            child: Container(
+                                              height: iconHeight,
+                                              width: iconHeight,
+                                              margin: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 5.0,
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/expand_icon.svg',
+                                                color: Color(0xFF4B9F46),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     )
