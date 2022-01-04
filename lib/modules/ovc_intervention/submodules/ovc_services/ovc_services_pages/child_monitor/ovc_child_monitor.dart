@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -35,50 +34,51 @@ class _OvcChildMonitorState extends State<OvcChildMonitor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Column(children: [
-              OvcChildInfoTopHeader(),
-              Container(
-                child: Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    bool isLoading = serviceEventDataState.isLoading;
-                    return isLoading
-                        ? CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          )
-                        : Column(
-                            children: [
-                              OvcMonitoringTopBarSelection(
-                                  isClicked: isSchoolMonitoringSelected,
-                                  onSelectSchoolMonitoring: () =>
-                                      onSelectSchoolMonitoring(context),
-                                  onSelectServiceMonitoring: () =>
-                                      onSelectServiceMonitoring(context)),
-                              isSchoolMonitoringSelected
-                                  ? OvcSchoolMonitoring()
-                                  : OvcServiceMonitoring()
-                            ],
-                          );
-                  },
-                ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Column(children: [
+            OvcChildInfoTopHeader(),
+            Container(
+              child: Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  bool isLoading = serviceEventDataState.isLoading;
+                  return isLoading
+                      ? CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        )
+                      : Column(
+                          children: [
+                            OvcMonitoringTopBarSelection(
+                                isClicked: isSchoolMonitoringSelected,
+                                onSelectSchoolMonitoring: () =>
+                                    onSelectSchoolMonitoring(context),
+                                onSelectServiceMonitoring: () =>
+                                    onSelectServiceMonitoring(context)),
+                            isSchoolMonitoringSelected
+                                ? OvcSchoolMonitoring()
+                                : OvcServiceMonitoring()
+                          ],
+                        );
+                },
               ),
-            ]),
-          ),
+            ),
+          ]),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }
