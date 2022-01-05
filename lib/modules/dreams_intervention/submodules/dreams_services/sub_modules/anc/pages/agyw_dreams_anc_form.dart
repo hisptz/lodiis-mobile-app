@@ -91,6 +91,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
           AppUtil.getServiceProvisionLocationSection(
         inputColor: AgywDreamsEnrollmentConstant.inputColor,
         labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
         allowedSelectedLevels:
             AgywDreamsEnrollmentConstant.allowedSelectedLevels,
         program: AgywDreamsEnrollmentConstant.program,
@@ -132,7 +133,7 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
             ANCConstant.program,
             ANCConstant.programStage,
             orgUnit,
-            formSections!,
+            defaultFormSections!,
             dataObject,
             eventDate,
             agywDream!.id,

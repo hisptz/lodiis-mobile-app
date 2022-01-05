@@ -77,6 +77,7 @@ class _PpPrevInterventionServiceProvisionFormState
       FormSection serviceProvisionForm =
           AppUtil.getServiceProvisionLocationSection(
         inputColor: PpPrevInterventionConstant.inputColor,
+        sectionLabelColor: PpPrevInterventionConstant.inputColor,
         labelColor: PpPrevInterventionConstant.labelColor,
         allowedSelectedLevels: PpPrevInterventionConstant.allowedSelectedLevels,
         program: PpPrevInterventionConstant.program,

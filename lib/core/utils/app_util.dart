@@ -14,12 +14,13 @@ class AppUtil {
   static FormSection getServiceProvisionLocationSection({
     required Color inputColor,
     required Color labelColor,
+    required Color sectionLabelColor,
     required List<int> allowedSelectedLevels,
     required String program,
   }) {
     return FormSection(
       name: "Service Provision Location",
-      color: inputColor,
+      color: sectionLabelColor,
       inputFields: [
         InputField(
           id: 'location',
