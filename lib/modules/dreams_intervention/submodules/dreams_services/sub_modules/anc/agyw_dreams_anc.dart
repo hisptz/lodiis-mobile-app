@@ -50,6 +50,8 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -75,15 +77,23 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
     } else {
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsANCForm(),
+        ),
+      );
     }
   }
 
   void onViewANC(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AgywDreamsANCForm()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsANCForm(),
+      ),
+    );
   }
 
   void onEditANC(
@@ -190,12 +200,13 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
                                               ),
                                       ),
                                       EntryFormSaveButton(
-                                          label: 'ADD ANC VISIT',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF1F8ECE),
-                                          fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddANC(context, agywDream!))
+                                        label: 'ADD ANC VISIT',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF1F8ECE),
+                                        fontSize: 15.0,
+                                        onPressButton: () =>
+                                            onAddANC(context, agywDream!),
+                                      )
                                     ],
                                   ),
                           ),

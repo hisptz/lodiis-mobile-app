@@ -21,6 +21,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_anc_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/constants/anc_constant.dart';
@@ -38,13 +39,17 @@ class AgywDreamsANCForm extends StatefulWidget {
 class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   final String label = 'ANC form';
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = Map();
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
-    formSections = DreamsANCInfo.getFormSections();
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -68,6 +73,39 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
     );
   }
 
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsANCInfo.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: AgywDreamsEnrollmentConstant.inputColor,
+        labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        allowedSelectedLevels:
+            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        program: AgywDreamsEnrollmentConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields = FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      );
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
@@ -77,52 +115,64 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream? agywDream) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+        setState(() {
+          isSaving = true;
+        });
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             ANCConstant.program,
             ANCConstant.programStage,
-            agywDream!.orgUnit,
+            orgUnit,
             formSections!,
             dataObject,
             eventDate,
-            agywDream.id,
+            agywDream!.id,
             eventId,
-            hiddenFields);
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String? currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
-            Navigator.pop(context);
+            hiddenFields,
+          );
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String? currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
+              Navigator.pop(context);
+            });
           });
-        });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
           });
-        });
+        }
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least one form field',
+        message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
       );
     }
@@ -217,7 +267,10 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
                                           hiddenSections:
                                               serviceFormState.hiddenSections,
                                           formSections: formSections,
-                                          mandatoryFieldObject: Map(),
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:
