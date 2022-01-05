@@ -59,13 +59,14 @@ class FormUtil {
     return sections;
   }
 
-  static List<String> getFormFieldIds(List<FormSection> formSections) {
+  static List<String> getFormFieldIds(
+    List<FormSection> formSections, {
+    bool includeLocationId = false,
+  }) {
     List<String> fieldIds = [];
     for (FormSection formSection in formSections) {
       for (InputField inputField in formSection.inputFields!) {
-        if (inputField.id != '' &&
-            inputField.id != 'location' &&
-            inputField.valueType != 'CHECK_BOX') {
+        if (inputField.id != '' && inputField.valueType != 'CHECK_BOX') {
           fieldIds.add(inputField.id);
         }
         if (inputField.valueType == 'CHECK_BOX') {
@@ -78,7 +79,9 @@ class FormUtil {
           getFormFieldIds(formSection.subSections!);
       fieldIds.addAll(subSectionFormFields);
     }
-    return fieldIds;
+    return includeLocationId
+        ? fieldIds
+        : fieldIds.where((String id) => id != 'location').toList();
   }
 
   static bool geFormFilledStatus(

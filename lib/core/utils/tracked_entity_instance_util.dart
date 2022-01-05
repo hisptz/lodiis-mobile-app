@@ -74,8 +74,9 @@ class TrackedEntityInstanceUtil {
 
   static List<Events> getAllEventListFromServiceDataStateByProgramStages(
     Map<String?, List<Events>> eventListByProgramStage,
-    List<String?> programStageIds,
-  ) {
+    List<String?> programStageIds, {
+    bool shouldSortByDate = false,
+  }) {
     programStageIds = programStageIds.toSet().toList();
     List<Events> events = [];
     for (String? programStageId in programStageIds) {
@@ -84,7 +85,7 @@ class TrackedEntityInstanceUtil {
         events.addAll(data);
       } catch (e) {}
     }
-    return events.toList();
+    return shouldSortByDate ? events.reversed.toList() : events.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataState(

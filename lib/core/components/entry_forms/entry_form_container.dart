@@ -81,7 +81,8 @@ class EntryFormContainer extends StatelessWidget {
                                                         formSection
                                                                 .translatedName !=
                                                             null
-                                                    ? formSection.translatedName!
+                                                    ? formSection
+                                                        .translatedName!
                                                     : formSection.name,
                                                 style: TextStyle().copyWith(
                                                     color: formSection.color,
@@ -109,7 +110,8 @@ class EntryFormContainer extends StatelessWidget {
                                                               null
                                                       ? formSection
                                                           .translatedDescription!
-                                                      : formSection.description!,
+                                                      : formSection
+                                                          .description!,
                                                   style: TextStyle().copyWith(
                                                       color: formSection.color,
                                                       fontSize: 14.0,
@@ -212,7 +214,8 @@ class EntryFormContainer extends StatelessWidget {
   }
 
   void setFieldErrors() {
-    if (unFilledMandatoryFields != null && unFilledMandatoryFields!.isNotEmpty) {
+    if (unFilledMandatoryFields != null &&
+        unFilledMandatoryFields!.isNotEmpty) {
       formSections!.forEach((section) {
         section.inputFields!.forEach((inputField) {
           if (unFilledMandatoryFields!.contains(inputField.id)) {
@@ -220,6 +223,12 @@ class EntryFormContainer extends StatelessWidget {
           } else {
             inputField.hasError = false;
           }
+        });
+      });
+    } else {
+      formSections!.forEach((section) {
+        section.inputFields!.forEach((inputField) {
+          inputField.hasError = false;
         });
       });
     }

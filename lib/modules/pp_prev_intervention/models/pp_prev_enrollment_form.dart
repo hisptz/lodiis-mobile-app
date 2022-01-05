@@ -26,7 +26,8 @@ class PpPrevEnrollmentForm {
             name: 'Location',
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3],
+            allowedSelectedLevels:
+                PpPrevInterventionConstant.allowedSelectedLevels,
             filteredPrograms: [PpPrevInterventionConstant.program],
             inputColor: Color(0xFF9B2BAE),
             labelColor: Color(0xFF737373),
@@ -121,8 +122,14 @@ class PpPrevEnrollmentForm {
             inputColor: Color(0xFF9B2BAE),
             labelColor: Color(0xFF737373),
             options: [
-              InputFieldOption(code: "Active", name: "Active"),
-              InputFieldOption(code: "NewEnrollee", name: "New Enrollee"),
+              InputFieldOption(
+                code: "Active",
+                name: "Active",
+              ),
+              InputFieldOption(
+                code: "NewEnrollee",
+                name: "New Enrollee",
+              ),
             ],
           ),
         ],

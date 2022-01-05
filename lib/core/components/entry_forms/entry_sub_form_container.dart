@@ -106,7 +106,8 @@ class EntrySubFormContainer extends StatelessWidget {
                               .map(
                                 (InputField inputField) => Visibility(
                                   visible: hiddenFields == null ||
-                                      '${hiddenFields![inputField.id]}'.trim() !=
+                                      '${hiddenFields![inputField.id]}'
+                                              .trim() !=
                                           'true',
                                   child: Container(
                                     margin: EdgeInsets.only(
@@ -167,7 +168,8 @@ class EntrySubFormContainer extends StatelessWidget {
   }
 
   void setFieldErrors() {
-    if (unFilledMandatoryFields != null && unFilledMandatoryFields!.isNotEmpty) {
+    if (unFilledMandatoryFields != null &&
+        unFilledMandatoryFields!.isNotEmpty) {
       subSections!.forEach((section) {
         section.inputFields!.forEach((inputField) {
           if (unFilledMandatoryFields!.contains(inputField.id)) {
@@ -175,6 +177,12 @@ class EntrySubFormContainer extends StatelessWidget {
           } else {
             inputField.hasError = false;
           }
+        });
+      });
+    } else {
+      subSections!.forEach((section) {
+        section.inputFields!.forEach((inputField) {
+          inputField.hasError = false;
         });
       });
     }

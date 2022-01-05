@@ -17,11 +17,13 @@ class OrganisationUnitInputFieldContainer extends StatefulWidget {
     required this.inputField,
     required this.onInputValueChange,
     required this.currentUserCountryLevelReferences,
+    required this.isEditableMode,
     this.inputValue,
     this.filteredPrograms,
   }) : super(key: key);
 
   final InputField inputField;
+  final bool isEditableMode;
   final Function onInputValueChange;
   final List<String?> currentUserCountryLevelReferences;
   final String? inputValue;
@@ -70,7 +72,11 @@ class _OrganisationUnitInputFieldContainerState
     if (widget.inputField != null) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([widget.inputValue]);
-      String? value = ous.length > 0 ? ous[0].name : null;
+      String? value = ous.length > 0
+          ? ous[0].name
+          : !widget.isEditableMode
+              ? widget.inputValue
+              : null;
       setOrganisationunit(value);
     }
   }
@@ -131,9 +137,10 @@ class _OrganisationUnitInputFieldContainerState
                     style: TextStyle().copyWith(
                       color: widget.inputField.inputColor,
                     ),
-                    onTap: () => widget.inputField.isReadOnly!
-                        ? null
-                        : openOrganisationUnit(context),
+                    onTap: () =>
+                        widget.inputField.isReadOnly! || !widget.isEditableMode
+                            ? null
+                            : openOrganisationUnit(context),
                     readOnly: true,
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
@@ -143,7 +150,8 @@ class _OrganisationUnitInputFieldContainerState
                   ),
           ),
           InputCheckedIcon(
-            showTickedIcon: _value != null && _value != '',
+            showTickedIcon:
+                _value != null && _value != '' && widget.isEditableMode,
             color: widget.inputField.inputColor,
           )
         ],
