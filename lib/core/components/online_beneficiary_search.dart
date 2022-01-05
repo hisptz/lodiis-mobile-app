@@ -204,7 +204,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                           child: Row(
                             children: [
                               Expanded(
-                                flex: 9,
+                                flex: 8,
                                 child: Container(
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
@@ -217,7 +217,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                 ),
                               ),
                               Expanded(
-                                flex: 1,
+                                flex: 2,
                                 child: Container(
                                   alignment: Alignment.center,
                                   padding:
@@ -225,8 +225,8 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                   child: isSearching
                                       ? CircularProcessLoader(
                                           color: primaryColor,
-                                          height: 20.0,
-                                          width: 20.0,
+                                          height: 19.0,
+                                          width: 19.0,
                                           size: 2,
                                         )
                                       : InkWell(
@@ -328,7 +328,6 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 16.0),
                                             )),
-                                        LineSeparator(color: lineColor),
                                       ],
                                     ),
                                   )),
