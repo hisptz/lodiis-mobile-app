@@ -36,6 +36,14 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
     OnlineBeneficiarySearchInput(
         label: 'Date of Birth',
         inputField: InputField(id: 'qZP982qpSPS', name: '', valueType: 'DATE')),
+    OnlineBeneficiarySearchInput(
+        label: 'Primary UIC',
+        interventions: ['dreams', 'ovc'],
+        inputField: InputField(id: 'fTSAY18LgCF', name: '', valueType: 'TEXT')),
+    OnlineBeneficiarySearchInput(
+        label: 'School Name',
+        interventions: ['education'],
+        inputField: InputField(id: 'EwZil0AnlYo', name: '', valueType: 'TEXT')),
   ];
 
   bool isItemSearched(OnlineBeneficiarySearchInput input) {
@@ -172,6 +180,16 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                       .currentInterventionProgram.countLabelColor;
                   var backgroundColor = interventionCardState
                       .currentInterventionProgram.background;
+
+                  String currentIntervention =
+                      interventionCardState.currentInterventionProgram.id ?? '';
+                  List<OnlineBeneficiarySearchInput> filteredSearchInputs =
+                      searchInputs
+                          .where((input) =>
+                              input.interventions!.isEmpty ||
+                              input.interventions!
+                                  .contains(currentIntervention))
+                          .toList();
                   return Container(
                     padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
                     decoration: BoxDecoration(
@@ -238,7 +256,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                             child: ListView(
                                 controller: scrollController,
                                 children: [
-                              ...searchInputs
+                              ...filteredSearchInputs
                                   .map((OnlineBeneficiarySearchInput input) {
                                 InputField inputField = input.inputField;
                                 inputField.inputColor = primaryColor;
