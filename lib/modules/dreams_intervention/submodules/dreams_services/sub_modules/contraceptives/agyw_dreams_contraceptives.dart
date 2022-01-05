@@ -52,6 +52,8 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -78,18 +80,22 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsContraceptivesForm()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsContraceptivesForm(),
+        ),
+      );
     }
   }
 
   void onViewContraceptives(BuildContext context, Events eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsContraceptivesForm()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsContraceptivesForm(),
+      ),
+    );
   }
 
   void onEditContraceptives(
@@ -108,118 +114,123 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AgywDreamsContraceptivesForm()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsContraceptivesForm(),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  AgywDream? agywDream =
+                      dreamBeneficiarySelectionState.currentAgywDream;
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
+                  int referralIndex = events.length + 1;
+                  return Container(
+                    child: Column(
+                      children: [
+                        DreamsBeneficiaryTopHeader(
+                          agywDream: agywDream,
+                        ),
+                        Container(
+                          child: isLoading
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: events.length == 0
+                                          ? Text(
+                                              'There is no visit at a moment')
+                                          : Container(
+                                              margin: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 13.0,
+                                              ),
+                                              child: Column(
+                                                children: events
+                                                    .map((Events eventData) {
+                                                  referralIndex--;
+
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                      bottom: 15.0,
+                                                    ),
+                                                    child:
+                                                        DreamsServiceVisitCard(
+                                                      visitName: "Visit",
+                                                      onEdit: () =>
+                                                          onEditContraceptives(
+                                                              context,
+                                                              eventData,
+                                                              agywDream!),
+                                                      onView: () =>
+                                                          onViewContraceptives(
+                                                              context,
+                                                              eventData),
+                                                      eventData: eventData,
+                                                      visitCount: referralIndex,
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                    ),
+                                    EntryFormSaveButton(
+                                      label: 'ADD VISIT',
+                                      labelColor: Colors.white,
+                                      buttonColor: Color(0xFF1F8ECE),
+                                      fontSize: 15.0,
+                                      onPressButton: () => onAddContraceptives(
+                                          context, agywDream!),
+                                    )
+                                  ],
+                                ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamsBeneficiarySelectionState>(
-              builder: (context, dreamBeneficiarySelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    AgywDream? agywDream =
-                        dreamBeneficiarySelectionState.currentAgywDream;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
-                    int referralIndex = events.length + 1;
-                    return Container(
-                      child: Column(
-                        children: [
-                          DreamsBeneficiaryTopHeader(
-                            agywDream: agywDream,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no visit at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    referralIndex--;
-
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          DreamsServiceVisitCard(
-                                                        visitName: "Visit",
-                                                        onEdit: () =>
-                                                            onEditContraceptives(
-                                                                context,
-                                                                eventData,
-                                                                agywDream!),
-                                                        onView: () =>
-                                                            onViewContraceptives(
-                                                                context,
-                                                                eventData),
-                                                        eventData: eventData,
-                                                        visitCount:
-                                                            referralIndex,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                      ),
-                                      EntryFormSaveButton(
-                                          label: 'ADD VISIT',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF1F8ECE),
-                                          fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddContraceptives(
-                                                  context, agywDream!))
-                                    ],
-                                  ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

@@ -115,7 +115,10 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream? agywDream) async {
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream,
+  ) async {
     setMandatoryFields(dataObject);
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
