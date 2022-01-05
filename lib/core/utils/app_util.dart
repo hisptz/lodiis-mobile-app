@@ -7,8 +7,34 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kb_mobile_app/models/app_semantic_version.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 
 class AppUtil {
+  static FormSection getServiceProvisionLocationSection({
+    required Color inputColor,
+    required Color labelColor,
+    required List<int> allowedSelectedLevels,
+    required String program,
+  }) {
+    return FormSection(
+      name: "Service Provision Location",
+      color: inputColor,
+      inputFields: [
+        InputField(
+          id: 'location',
+          name: 'Location',
+          translatedName: 'Sebaka',
+          valueType: 'ORGANISATION_UNIT',
+          allowedSelectedLevels: allowedSelectedLevels,
+          filteredPrograms: [program],
+          inputColor: inputColor,
+          labelColor: labelColor,
+        ),
+      ],
+    );
+  }
+
   static bool hasAccessToEditCasePlanServiceData(List<Events> events) {
     return events.length ==
         events

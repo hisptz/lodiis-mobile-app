@@ -46,7 +46,12 @@ class InputFieldContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: inputField.background),
       padding: inputField.background != Colors.transparent
-          ? EdgeInsets.only(top: 10.0, bottom: 0.0, left: 10.0, right: 10.0)
+          ? EdgeInsets.only(
+              top: 10.0,
+              bottom: 0.0,
+              left: 10.0,
+              right: 10.0,
+            )
           : EdgeInsets.all(0),
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -125,8 +130,12 @@ class InputFieldContainer extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      child: isEditableMode!
-                          ? _getInputField(inputField)
+                      child: isEditableMode! ||
+                              inputField.valueType == 'ORGANISATION_UNIT'
+                          ? _getInputField(
+                              inputField.subInputField,
+                              isEditableMode,
+                            )
                           : _getInputFieldLabel(inputField),
                     ),
                   ),
@@ -150,8 +159,12 @@ class InputFieldContainer extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            child: isEditableMode!
-                                ? _getInputField(inputField.subInputField)
+                            child: isEditableMode! ||
+                                    inputField.valueType == 'ORGANISATION_UNIT'
+                                ? _getInputField(
+                                    inputField.subInputField,
+                                    isEditableMode,
+                                  )
                                 : _getInputFieldLabel(inputField.subInputField),
                           ),
                         ],
@@ -165,8 +178,12 @@ class InputFieldContainer extends StatelessWidget {
               visible:
                   !inputField.hasSubInputField! && !inputField.hasLabelOnly!,
               child: Container(
-                child: isEditableMode!
-                    ? _getInputField(inputField)
+                child: isEditableMode! ||
+                        inputField.valueType == 'ORGANISATION_UNIT'
+                    ? _getInputField(
+                        inputField,
+                        isEditableMode,
+                      )
                     : _getInputFieldLabel(inputField),
               ),
             ),
@@ -243,7 +260,10 @@ class InputFieldContainer extends StatelessWidget {
     );
   }
 
-  Widget _getInputField(InputField? inputField) {
+  Widget _getInputField(
+    InputField? inputField,
+    bool? isEditableMode,
+  ) {
     return Container(
       child: inputField != null
           ? Container(
@@ -348,6 +368,8 @@ class InputFieldContainer extends StatelessWidget {
                                                         ? OrganisationUnitInputFieldContainer(
                                                             inputField:
                                                                 inputField,
+                                                            isEditableMode:
+                                                                isEditableMode!,
                                                             currentUserCountryLevelReferences:
                                                                 currentUserCountryLevelReferences,
                                                             filteredPrograms:
@@ -392,7 +414,8 @@ class InputFieldContainer extends StatelessWidget {
                           dataObject![inputField.id] != null &&
                           dataObject![inputField.id] != '' &&
                           inputField.isReadOnly == false &&
-                          showClearIcon,
+                          showClearIcon &&
+                          isEditableMode!,
                       onClearInput: () {
                         onInputValueChange!(inputField.id, null);
                       })

@@ -39,6 +39,8 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -145,7 +147,8 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                         serviceEventDataState.eventListByProgramStage;
                     List<Events> events = TrackedEntityInstanceUtil
                         .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
+                            eventListByProgramStage, programStageIds,
+                            shouldSortByDate: true);
                     int serviceIndex = events.length + 1;
                     return Container(
                       child: Column(

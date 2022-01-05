@@ -40,19 +40,56 @@ class _PpPrevInterventionServiceProvisionFormState
     extends State<PpPrevInterventionServiceProvisionForm> {
   final String label = "PP Prev Service Provision Form";
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = Map();
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
-    formSections = PpPrevServiceForm.getFormSections();
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    var currentPpPrev = Provider.of<PpPrevInterventionCurrentSelectionState>(
+      context,
+      listen: false,
+    ).currentPpPrev;
+    defaultFormSections = PpPrevServiceForm.getFormSections();
+    if (currentPpPrev!.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: PpPrevInterventionConstant.inputColor,
+        labelColor: PpPrevInterventionConstant.labelColor,
+        allowedSelectedLevels: PpPrevInterventionConstant.allowedSelectedLevels,
+        program: PpPrevInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields = FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      );
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -77,58 +114,73 @@ class _PpPrevInterventionServiceProvisionFormState
     onUpdateFormAutoSaveState(context);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject,
-      PpPrevBeneficiary ppPrevBeneficiary) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+  void onSaveForm(
+    BuildContext context,
+    Map dataObject,
+    PpPrevBeneficiary ppPrevBeneficiary,
+  ) async {
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, defaultFormSections)) {
+        setState(() {
+          isSaving = true;
+        });
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        String orgUnit = dataObject['location'] ?? ppPrevBeneficiary.orgUnit;
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PpPrevInterventionConstant.program,
             PpPrevInterventionConstant.programStage,
-            ppPrevBeneficiary.orgUnit,
-            formSections!,
+            orgUnit,
+            defaultFormSections!,
             dataObject,
             eventDate,
             ppPrevBeneficiary.id,
             eventId,
-            hiddenFields);
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(ppPrevBeneficiary.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String? currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            clearFormAutoSaveState(
-              context,
-              ppPrevBeneficiary.id,
-              eventId ?? '',
-            );
-            Navigator.pop(context);
+            hiddenFields,
+          );
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(ppPrevBeneficiary.id);
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              String? currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              clearFormAutoSaveState(
+                context,
+                ppPrevBeneficiary.id,
+                eventId ?? '',
+              );
+              Navigator.pop(context);
+            });
           });
-        });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        } catch (e) {
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
           });
-        });
+        }
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least one form field',
+        message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
       );
     }
@@ -230,7 +282,10 @@ class _PpPrevInterventionServiceProvisionFormState
                                             hiddenSections:
                                                 serviceFormState.hiddenSections,
                                             formSections: formSections,
-                                            mandatoryFieldObject: Map(),
+                                            mandatoryFieldObject:
+                                                mandatoryFieldObject,
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
                                             isEditableMode:
                                                 serviceFormState.isEditableMode,
                                             dataObject:

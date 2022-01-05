@@ -165,8 +165,9 @@ class _PpPrevInterventionEnrollmentFormState
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
