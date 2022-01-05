@@ -64,9 +64,16 @@ class HttpService {
     Map<String, dynamic>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    return await http.get(apiUrl, headers: {
+    apiUrl = sanitizeUrl(apiUrl);
+    return await http.get((apiUrl), headers: {
       HttpHeaders.authorizationHeader: "Basic $basicAuth",
     });
+  }
+
+  // A hack around having query parameters in the url that are having the same key
+  Uri sanitizeUrl(Uri url) {
+    String urlToParse = Uri.decodeFull(url.toString());
+    return Uri.parse(urlToParse);
   }
 
   Future<http.Response> httpGetPagination(

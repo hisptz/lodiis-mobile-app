@@ -60,40 +60,44 @@ class InputFieldContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        text: currentLanguage == 'lesotho' &&
-                                inputField.translatedName != null
-                            ? inputField.translatedName
-                            : inputField.name,
-                        style: TextStyle(
-                          color: inputField.hasError != null &&
-                                  inputField.hasError!
-                              ? Colors.red
-                              : inputField.labelColor,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.normal,
+            Visibility(
+              visible: inputField.name != '',
+              child: Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          text: currentLanguage == 'lesotho' &&
+                                  inputField.translatedName != null
+                              ? inputField.translatedName
+                              : inputField.name,
+                          style: TextStyle(
+                            color: inputField.hasError != null &&
+                                    inputField.hasError!
+                                ? Colors.red
+                                : inputField.labelColor,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: mandatoryFieldObject != null &&
+                                      mandatoryFieldObject![inputField.id] ==
+                                          true
+                                  ? ' *'
+                                  : '',
+                              style: TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: 12.0,
+                              ),
+                            )
+                          ],
                         ),
-                        children: [
-                          TextSpan(
-                            text: mandatoryFieldObject != null &&
-                                    mandatoryFieldObject![inputField.id] == true
-                                ? ' *'
-                                : '',
-                            style: TextStyle(
-                              color: Colors.redAccent,
-                              fontSize: 12.0,
-                            ),
-                          )
-                        ],
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
             Visibility(

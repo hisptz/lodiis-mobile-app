@@ -176,11 +176,14 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
             builder: (context, interventionCardState, child) {
           List<BeneficiaryFilter> filters = getFilterMetadata(
               interventionCardState.currentInterventionProgram);
+          var backgroundColor =
+              interventionCardState.currentInterventionProgram.background;
           return Container(
               padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                  color: Colors.white),
+                  color: Color.alphaBlend(
+                      backgroundColor ?? Colors.white, Colors.white)),
               child: Consumer<BeneficiaryFilterState>(
                 builder: (context, beneficiaryFilterState, child) {
                   return Column(
