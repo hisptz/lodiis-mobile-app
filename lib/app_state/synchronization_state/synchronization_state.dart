@@ -206,7 +206,6 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: false);
   }
 
-// TODO updated the sync status
   Future<void> startCheckingStatusOfUnsyncedData({
     bool isAutoUpload = false,
   }) async {

@@ -26,12 +26,14 @@ class CasePlanServiceProvisionContainer extends StatefulWidget {
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
     required this.domainId,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final Map casePlanGap;
   final Color? formSectionColor;
   final bool isCasePlanForHousehold;
   final bool isServiceMonitoring;
+  final bool hasEditAccess;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final String? domainId;
@@ -96,7 +98,9 @@ class _CasePlanServiceProvisionContainerState
   }
 
   Future<void> editCasePlanGap(
-      BuildContext context, Map casePlanGapDataObject) async {
+    BuildContext context,
+    Map casePlanGapDataObject,
+  ) async {
     String programId = widget.isCasePlanForHousehold
         ? OvcHouseholdCasePlanConstant.program
         : OvcChildCasePlanConstant.program;
@@ -183,6 +187,7 @@ class _CasePlanServiceProvisionContainerState
               Container(
                 child: widget.isServiceMonitoring
                     ? CasePlanGapServiceMonitoringViewContainer(
+                        hasEditAccess: widget.hasEditAccess,
                         casePlanGap: widget.casePlanGap,
                         domainId: widget.domainId,
                         themeColor: widget.formSectionColor,
@@ -192,6 +197,7 @@ class _CasePlanServiceProvisionContainerState
                         isCasePlanForHousehold: widget.isCasePlanForHousehold,
                       )
                     : CasePlanGapServiceViewContainer(
+                        hasEditAccess: widget.hasEditAccess,
                         casePlanGap: widget.casePlanGap,
                         domainId: widget.domainId,
                         themeColor: widget.formSectionColor,
@@ -202,7 +208,8 @@ class _CasePlanServiceProvisionContainerState
                       ),
               ),
               Visibility(
-                visible: widget.shouldViewCaseGapServiceProvision,
+                visible: widget.shouldViewCaseGapServiceProvision &&
+                    widget.hasEditAccess,
                 child: Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) {
                     String? currentLanguage =

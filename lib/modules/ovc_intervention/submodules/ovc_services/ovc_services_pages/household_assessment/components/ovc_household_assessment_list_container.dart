@@ -54,7 +54,9 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
                             ),
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 20.0),
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
                               child: Column(
                                 children: [
                                   Row(
@@ -91,25 +93,31 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () =>
-                                                onViewHouseholdAssessment!(
-                                                    assessment),
-                                            child: Container(
-                                              height: iconHeight,
-                                              width: iconHeight,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 5),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/expand_icon.svg',
-                                                color: Color(0xFF4B9F46),
-                                              ),
-                                            )),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          horizontal: 5.0,
+                                          onTap: () =>
+                                              onViewHouseholdAssessment!(
+                                                  assessment),
+                                          child: Container(
+                                            height: iconHeight,
+                                            width: iconHeight,
+                                            margin: EdgeInsets.symmetric(
+                                              vertical: 5.0,
+                                              horizontal: 5.0,
+                                            ),
+                                            child: SvgPicture.asset(
+                                              'assets/icons/expand_icon.svg',
+                                              color: Color(0xFF4B9F46),
+                                            ),
+                                          ),
                                         ),
-                                        child: InkWell(
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            assessment.enrollmentOuAccessible!,
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                            horizontal: 5.0,
+                                          ),
+                                          child: InkWell(
                                             onTap: () =>
                                                 onEditHouseholdAssessment!(
                                                     assessment),
@@ -117,12 +125,16 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
                                               height: iconHeight,
                                               width: iconHeight,
                                               margin: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 5),
+                                                vertical: 5.0,
+                                                horizontal: 5.0,
+                                              ),
                                               child: SvgPicture.asset(
                                                 'assets/icons/edit-icon.svg',
                                                 color: Color(0xFF4B9F46),
                                               ),
-                                            )),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   )

@@ -125,24 +125,29 @@ class OvcHouseholdGraduationListContainer extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.symmetric(
-                                                horizontal: 5.0,
-                                              ),
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    onEditHouseholdAchievement!(
-                                                        achievement),
-                                                child: Container(
-                                                  height: iconHeight,
-                                                  width: iconHeight,
-                                                  margin: EdgeInsets.symmetric(
-                                                    vertical: 5.0,
-                                                    horizontal: 5.0,
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/edit-icon.svg',
-                                                    color: Color(0xFF4B9F46),
+                                            Visibility(
+                                              visible: achievement
+                                                  .enrollmentOuAccessible!,
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                  horizontal: 5.0,
+                                                ),
+                                                child: InkWell(
+                                                  onTap: () =>
+                                                      onEditHouseholdAchievement!(
+                                                          achievement),
+                                                  child: Container(
+                                                    height: iconHeight,
+                                                    width: iconHeight,
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 5.0,
+                                                      horizontal: 5.0,
+                                                    ),
+                                                    child: SvgPicture.asset(
+                                                      'assets/icons/edit-icon.svg',
+                                                      color: Color(0xFF4B9F46),
+                                                    ),
                                                   ),
                                                 ),
                                               ),

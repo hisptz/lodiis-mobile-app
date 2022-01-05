@@ -224,14 +224,18 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                             labelColor: Colors.white,
                                             buttonColor: Color(0xFF1F8ECE),
                                             fontSize: 15.0,
-                                            onPressButton: () =>
-                                                onAddPrep(context, agywDream!),
+                                            onPressButton: () => onAddPrep(
+                                              context,
+                                              agywDream!,
+                                            ),
                                           )
                                         : Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 20.0),
+                                              bottom: 20.0,
+                                            ),
                                             child: Text(
-                                                'Prep program was stopped'),
+                                              'Prep program was stopped',
+                                            ),
                                           )
                                   ],
                                 ),

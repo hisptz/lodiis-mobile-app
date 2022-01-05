@@ -5,12 +5,10 @@ class EducationLbseReferralHeader extends StatelessWidget {
   const EducationLbseReferralHeader({
     Key? key,
     required this.referralIndex,
-    this.canEdit = true,
+    required this.canEdit,
     this.onView,
     this.onEdit,
   }) : super(key: key);
-
-  // @TODO hide edit button based on filling outcomes
   final int referralIndex;
   final bool canEdit;
 

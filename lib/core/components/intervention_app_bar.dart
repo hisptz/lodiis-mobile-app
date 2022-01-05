@@ -63,7 +63,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     inputColor: Colors.white,
   );
 
-//@TODO adding support of activate and deactivate based on changes on tabs [education module]
   void onActivateOrDeactivateSearch(
     BuildContext context,
   ) async {
@@ -300,8 +299,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                         .getCurrentInterventionBottomNavigation(
                   widget.activeInterventionProgram,
                 );
-
-                // TODO update the value for search
                 return Visibility(
                   visible: widget.activeInterventionProgram.id == 'pp_prev' ||
                       widget.activeInterventionProgram.id == 'education' ||

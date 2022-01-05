@@ -184,7 +184,6 @@ class OvcEnrollmentChild {
                     translatedName: '7-12 likhoeli tse fetileng'),
               ],
             ),
-            // TODO Migration for the type of data [Add checkbox options]
             InputField(
                 id: 'wtrZQadTkOL',
                 name: '5.2. What type of violence /abuse did you experience?',
@@ -234,7 +233,9 @@ class OvcEnrollmentChild {
                       name: 'Police -CGPU',
                       translatedName: 'Mapoleseng'),
                   InputFieldOption(
-                      code: 'FVBsqRoLGYW', name: 'Chief', translatedName: 'Morena'),
+                      code: 'FVBsqRoLGYW',
+                      name: 'Chief',
+                      translatedName: 'Morena'),
                   InputFieldOption(
                       code: 'PoQuVkWjI4K',
                       name: 'Councilor',
@@ -244,7 +245,9 @@ class OvcEnrollmentChild {
                       name: 'Social Worker',
                       translatedName: 'Mohlabolli'),
                   InputFieldOption(
-                      code: 'Yu4SpTnnAqb', name: 'Other', translatedName: 'Tse ling'),
+                      code: 'Yu4SpTnnAqb',
+                      name: 'Other',
+                      translatedName: 'Tse ling'),
                 ]),
             InputField(
                 id: 'GM2mJDlGZin',
@@ -308,7 +311,7 @@ class OvcEnrollmentChild {
                       name: 'deaf or hard hearing',
                       translatedName: 'setholo kapa kutlo e thata'),
                   InputFieldOption(
-                    code:'ULr0tYkjTTB',
+                      code: 'ULr0tYkjTTB',
                       name: 'intellectual disability',
                       translatedName: 'bokooa ba kelello'),
                   InputFieldOption(

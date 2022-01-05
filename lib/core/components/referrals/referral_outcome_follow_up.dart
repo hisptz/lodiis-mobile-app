@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -65,55 +63,71 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: Text(
-                        'FOLLOW UP $index',
-                        style: TextStyle().copyWith(
-                          color: themeColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14.0,
+                        child: Text(
+                          'FOLLOW UP $index',
+                          style: TextStyle().copyWith(
+                            color: themeColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14.0,
+                          ),
                         ),
-                      )),
+                      ),
                       Visibility(
-                        visible: isEditableMode,
+                        visible: isEditableMode &&
+                            referralOutComeFollowUpEvent
+                                .enrollmentOuAccessible!,
                         child: InkWell(
-                            onTap: () => {
-                                  editOutComeFollowUp(context,
-                                      referralOutComeFollowUpEvent.eventData)
-                                },
-                            child: Container(
-                              height: editIconHeight,
-                              width: editIconHeight,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              child: SvgPicture.asset(
-                                'assets/icons/edit-icon.svg',
-                                color: themeColor,
-                              ),
-                            )),
+                          onTap: () => {
+                            editOutComeFollowUp(
+                              context,
+                              referralOutComeFollowUpEvent.eventData,
+                            )
+                          },
+                          child: Container(
+                            height: editIconHeight,
+                            width: editIconHeight,
+                            margin: EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 10.0,
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/icons/edit-icon.svg',
+                              color: themeColor,
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
                 ),
                 Container(
-                  child: LineSeparator(color: themeColor!.withOpacity(0.2)),
+                  child: LineSeparator(
+                    color: themeColor!.withOpacity(0.2),
+                  ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 15.0, top: 5.0),
+                  margin: EdgeInsets.only(
+                    left: 15.0,
+                    top: 5.0,
+                  ),
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 5.0,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
-                                child: Text(
-                              'Follow-up date',
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: themeColor!.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
+                              child: Text(
+                                'Follow-up date',
+                                style: TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  color: themeColor!.withOpacity(0.8),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ))
+                            )
                           ],
                         ),
                       ),
@@ -121,19 +135,22 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                         child: Row(
                           children: [
                             Expanded(
-                                child: Text(
-                              referralOutComeFollowUpEvent.followUpDate!,
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: Color(0xFF1A3518),
-                                fontWeight: FontWeight.w500,
+                              child: Text(
+                                referralOutComeFollowUpEvent.followUpDate!,
+                                style: TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  color: Color(0xFF1A3518),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ))
+                            )
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 5.0,
+                        ),
                         child: Row(
                           children: [
                             Expanded(

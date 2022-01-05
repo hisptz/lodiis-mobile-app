@@ -82,9 +82,12 @@ class OvcHouseholdMonitor extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => HouseholdServiceForm(
-            shouldEditCaseGapServiceProvision: true,
-            shouldViewCaseGapServiceProvision: true,
-            isServiceMonitoring: true),
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
+          shouldEditCaseGapServiceProvision: true,
+          shouldViewCaseGapServiceProvision: true,
+          isServiceMonitoring: true,
+        ),
       ),
     );
   }

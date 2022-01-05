@@ -21,6 +21,7 @@ class ServiceFormContainer extends StatelessWidget {
     this.onInputValueChange,
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final Color formSectionColor;
@@ -29,6 +30,7 @@ class ServiceFormContainer extends StatelessWidget {
   final Map dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
+  final bool hasEditAccess;
   final bool isServiceMonitoring;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
@@ -107,6 +109,7 @@ class ServiceFormContainer extends StatelessWidget {
                 ),
                 CasePlanServiceProvisionViewContainer(
                   casePlanGaps: dataObject['gaps'] ?? [],
+                  hasEditAccess: hasEditAccess,
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   isServiceMonitoring: isServiceMonitoring,

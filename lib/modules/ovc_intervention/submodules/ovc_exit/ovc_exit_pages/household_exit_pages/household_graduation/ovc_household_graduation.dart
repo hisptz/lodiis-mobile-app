@@ -179,7 +179,9 @@ class OvcHouseholdGraduation extends StatelessWidget {
                                                 ),
                                                 Container(
                                                   child: Visibility(
-                                                    visible: !isLoading,
+                                                    visible: !isLoading &&
+                                                        currentOvcHousehold!
+                                                            .enrollmentOuAccessible!,
                                                     child: EntryFormSaveButton(
                                                       label: currentLanguage ==
                                                               'lesotho'

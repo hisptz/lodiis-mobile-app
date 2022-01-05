@@ -86,112 +86,116 @@ class OvcHouseholdAssessment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              var currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+              return Container(
+                child: Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Container(
+                      child: Consumer<OvcHouseholdCurrentSelectionState>(
+                        builder: (context, ovcHouseholdCurrentSelectionState,
+                            child) {
+                          OvcHousehold? currentOvcHousehold =
+                              ovcHouseholdCurrentSelectionState
+                                  .currentOvcHousehold;
+                          return Container(
+                            child: Consumer<ServiceEventDataState>(
+                              builder: (context, serviceEventDataState, child) {
+                                bool isLoading =
+                                    serviceEventDataState.isLoading;
+                                return isLoading
+                                    ? CircularProcessLoader(
+                                        color: Colors.blueGrey,
+                                      )
+                                    : Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                top: 10.0,
+                                                right: 13.0,
+                                                left: 13.0,
+                                              ),
+                                              child:
+                                                  OvcHouseholdAssessmentListContainer(
+                                                programStageIds:
+                                                    programStageIds,
+                                                onEditHouseholdAssessment:
+                                                    (Events assessment) =>
+                                                        onEditHouseholdAssessment(
+                                                  context,
+                                                  currentOvcHousehold,
+                                                  assessment,
+                                                ),
+                                                onViewHouseholdAssessment:
+                                                    (Events assessment) =>
+                                                        onViewHouseholdAssessment(
+                                                  context,
+                                                  currentOvcHousehold,
+                                                  assessment,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Visibility(
+                                                visible: !isLoading &&
+                                                    currentOvcHousehold!
+                                                        .enrollmentOuAccessible!,
+                                                child: EntryFormSaveButton(
+                                                  label: "NEW ASSESSMENT",
+                                                  labelColor: Colors.white,
+                                                  fontSize: 10,
+                                                  buttonColor:
+                                                      Color(0xFF4B9F46),
+                                                  onPressButton: () =>
+                                                      onAddNewHouseholdAssessment(
+                                                    context,
+                                                    currentOvcHousehold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                var currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        child: Consumer<OvcHouseholdCurrentSelectionState>(
-                          builder: (context, ovcHouseholdCurrentSelectionState,
-                              child) {
-                            OvcHousehold? currentOvcHousehold =
-                                ovcHouseholdCurrentSelectionState
-                                    .currentOvcHousehold;
-                            return Container(
-                              child: Consumer<ServiceEventDataState>(
-                                builder:
-                                    (context, serviceEventDataState, child) {
-                                  bool isLoading =
-                                      serviceEventDataState.isLoading;
-                                  return isLoading
-                                      ? CircularProcessLoader(
-                                          color: Colors.blueGrey,
-                                        )
-                                      : Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                  top: 10.0,
-                                                  right: 13.0,
-                                                  left: 13.0,
-                                                ),
-                                                child:
-                                                    OvcHouseholdAssessmentListContainer(
-                                                        programStageIds:
-                                                            programStageIds,
-                                                        onEditHouseholdAssessment:
-                                                            (Events assessment) =>
-                                                                onEditHouseholdAssessment(
-                                                                  context,
-                                                                  currentOvcHousehold,
-                                                                  assessment,
-                                                                ),
-                                                        onViewHouseholdAssessment:
-                                                            (Events assessment) =>
-                                                                onViewHouseholdAssessment(
-                                                                  context,
-                                                                  currentOvcHousehold,
-                                                                  assessment,
-                                                                )),
-                                              ),
-                                              Container(
-                                                child: Visibility(
-                                                  visible: !isLoading,
-                                                  child: EntryFormSaveButton(
-                                                      label: "NEW ASSESSMENT",
-                                                      labelColor: Colors.white,
-                                                      fontSize: 10,
-                                                      buttonColor:
-                                                          Color(0xFF4B9F46),
-                                                      onPressButton: () =>
-                                                          onAddNewHouseholdAssessment(
-                                                            context,
-                                                            currentOvcHousehold,
-                                                          )),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

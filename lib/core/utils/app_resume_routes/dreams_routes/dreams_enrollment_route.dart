@@ -156,7 +156,4 @@ class DreamsEnrollmentRoute {
       ),
     );
   }
-
-//@TODO redirect for agyw/dreams beneficiaries' services
-  redirectToAgyw(BuildContext context, FormAutoSave formAutoSave) {}
 }

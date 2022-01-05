@@ -56,14 +56,18 @@ class TrackedEntityInstanceUtil {
   }
 
   static Future<List<Events>> getSavedTrackedEntityInstanceEventData(
-    String? trackedEntityInstance,
-  ) async {
+    String? trackedEntityInstance, {
+    List<String>? accessibleOrgUnits,
+  }) async {
+    accessibleOrgUnits = accessibleOrgUnits ?? [];
     List<Events> events = [];
     List<String?> trackedEntityInstanceIds = [];
     try {
       trackedEntityInstanceIds.add(trackedEntityInstance);
-      events = await EventOfflineProvider()
-          .getTrackedEntityInstanceEvents(trackedEntityInstanceIds);
+      events = await EventOfflineProvider().getTrackedEntityInstanceEvents(
+        trackedEntityInstanceIds,
+        accessibleOrgUnits: accessibleOrgUnits,
+      );
     } catch (e) {}
     return events.reversed.toList();
   }

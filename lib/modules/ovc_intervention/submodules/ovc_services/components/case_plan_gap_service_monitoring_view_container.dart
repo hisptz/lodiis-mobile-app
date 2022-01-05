@@ -22,6 +22,7 @@ class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
     required this.themeColor,
     required this.domainId,
     required this.casePlanGap,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final String? casePlanGapToServiceMonitoringLinkageValue;
@@ -30,6 +31,7 @@ class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
   final String? domainId;
   final Color? themeColor;
   final Map casePlanGap;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapServiceMonitoringViewContainerState createState() =>
@@ -242,24 +244,27 @@ class _CasePlanGapServiceMonitoringViewContainerState
                                             ),
                                           ),
                                         ),
-                                        Container(
+                                        Visibility(
+                                          visible: widget.hasEditAccess,
                                           child: Container(
-                                            child: InkWell(
-                                              onTap: () =>
-                                                  onEditCasePlanServiceMonitoring(
-                                                context,
-                                                casePlanGapServiceMonitoring,
-                                              ),
-                                              child: Container(
-                                                height: iconHeight,
-                                                width: iconHeight,
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5,
-                                                  horizontal: 5,
+                                            child: Container(
+                                              child: InkWell(
+                                                onTap: () =>
+                                                    onEditCasePlanServiceMonitoring(
+                                                  context,
+                                                  casePlanGapServiceMonitoring,
                                                 ),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/edit-icon.svg',
-                                                  color: widget.themeColor,
+                                                child: Container(
+                                                  height: iconHeight,
+                                                  width: iconHeight,
+                                                  margin: EdgeInsets.symmetric(
+                                                    vertical: 5,
+                                                    horizontal: 5,
+                                                  ),
+                                                  child: SvgPicture.asset(
+                                                    'assets/icons/edit-icon.svg',
+                                                    color: widget.themeColor,
+                                                  ),
                                                 ),
                                               ),
                                             ),

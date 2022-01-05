@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,14 @@ class CasePlanHomeListContainer extends StatelessWidget {
   final List<String> programStageIds;
   final Function? onViewCasePlan;
   final Function? onEditCasePlan;
+
+  bool _hasAccessToEditCasePlan(List<Events> events) {
+    return events.length ==
+        events
+            .where((Events event) => event.enrollmentOuAccessible!)
+            .toList()
+            .length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +66,17 @@ class CasePlanHomeListContainer extends StatelessWidget {
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                  border: Border(
-                                left: BorderSide(
-                                  color: Color(0xFF4B9F46),
-                                  width: 9.0,
+                                border: Border(
+                                  left: BorderSide(
+                                    color: Color(0xFF4B9F46),
+                                    width: 9.0,
+                                  ),
                                 ),
-                              )),
+                              ),
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 20.0),
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
                               child: Column(
                                 children: [
                                   Row(
@@ -100,25 +112,31 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                            onTap: () => onViewCasePlan!(
-                                                groupedEventByDates[
-                                                    assessmentDate]),
-                                            child: Container(
-                                              height: iconHeight,
-                                              width: iconHeight,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 5),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/expand_icon.svg',
-                                                color: Color(0xFF4B9F46),
-                                              ),
-                                            )),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          horizontal: 5.0,
+                                          onTap: () => onViewCasePlan!(
+                                              groupedEventByDates[
+                                                  assessmentDate]),
+                                          child: Container(
+                                            height: iconHeight,
+                                            width: iconHeight,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5, horizontal: 5),
+                                            child: SvgPicture.asset(
+                                              'assets/icons/expand_icon.svg',
+                                              color: Color(0xFF4B9F46),
+                                            ),
+                                          ),
                                         ),
-                                        child: InkWell(
+                                      ),
+                                      Visibility(
+                                        visible: AppUtil
+                                            .hasAccessToEditCasePlanServiceData(
+                                          groupedEventByDates[assessmentDate],
+                                        ),
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                            horizontal: 5.0,
+                                          ),
+                                          child: InkWell(
                                             onTap: () => onEditCasePlan!(
                                                 groupedEventByDates[
                                                     assessmentDate]),
@@ -131,7 +149,9 @@ class CasePlanHomeListContainer extends StatelessWidget {
                                                 'assets/icons/edit-icon.svg',
                                                 color: Color(0xFF4B9F46),
                                               ),
-                                            )),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   )
