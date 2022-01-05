@@ -147,7 +147,10 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
                   int artReFillndex = events.length + 1;
                   return Container(
                     child: Column(

@@ -165,14 +165,17 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
           Timer(Duration(seconds: 1), () {
             setState(() {
               AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
             });
           });
         }
       } else {
         AppUtil.showToastMessage(
-            message: 'Please fill at least one form field',
-            position: ToastGravity.TOP);
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
       }
     } else {
       AppUtil.showToastMessage(

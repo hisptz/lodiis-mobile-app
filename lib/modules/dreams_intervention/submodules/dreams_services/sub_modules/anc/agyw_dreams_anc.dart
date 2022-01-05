@@ -145,7 +145,10 @@ class _AgywDreamsANCState extends State<AgywDreamsANC> {
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
                   int ancVisitIndex = events.length + 1;
                   return Container(
                     child: Column(
