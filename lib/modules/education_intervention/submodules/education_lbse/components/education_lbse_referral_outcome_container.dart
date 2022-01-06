@@ -67,7 +67,6 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
       formSections: formSections,
       mandatoryFields: mandatoryFields,
     );
-    //@TODO handle outcome saving
     await AppUtil.showPopUpModal(
       context,
       modal,
@@ -93,8 +92,9 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     List<FormSection> formSections =
         EducationLbseReferralOutcomeFollowUpForm.getFormSections();
     Widget modal = EducationLbseRefferalOutcomeFollowUpModal(
-        formSections: formSections, mandatoryFields: mandatoryFields);
-    //@TODO handle outcome following ups
+      formSections: formSections,
+      mandatoryFields: mandatoryFields,
+    );
     await AppUtil.showPopUpModal(
       context,
       modal,
