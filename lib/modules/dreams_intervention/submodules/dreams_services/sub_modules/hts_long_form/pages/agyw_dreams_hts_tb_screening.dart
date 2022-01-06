@@ -18,12 +18,11 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_tb_screening_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_tb_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/skip_logics/agyw_dreams_hts_tb_screening_skip_logics.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
-
-import '../../../models/dreams_service_tb_screening_form_info.dart';
 
 class AgywDreamsHTSTBForm extends StatefulWidget {
   AgywDreamsHTSTBForm({
@@ -87,17 +86,19 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
       dataObject[AgywDreamsHTSTBConstant.htsToTBLinkage] =
           widget.htsToTBLinkageValue;
       List<String> hiddenFields = [AgywDreamsHTSTBConstant.htsToTBLinkage];
+      String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            AgywDreamsHTSTBConstant.program,
-            AgywDreamsHTSTBConstant.programStage,
-            agywDream!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          AgywDreamsHTSTBConstant.program,
+          AgywDreamsHTSTBConstant.programStage,
+          orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          agywDream!.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
@@ -118,14 +119,17 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 

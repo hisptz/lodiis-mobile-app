@@ -88,8 +88,6 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
-      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
-          .setCurrentAgywDream(agywDream);
       if (isComingFromPrep == true &&
           dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
               'Negative') {
@@ -102,17 +100,20 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: 'You are not eligible to take PREP program',
-                position: ToastGravity.TOP);
+              message: 'You are not eligible to take PREP program',
+              position: ToastGravity.TOP,
+            );
             clearFormAutoSaveState(context);
             Navigator.popUntil(context, (route) => route.isFirst);
           });
         });
       } else {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSConsentForReleaseStatus(),
+          ),
+        );
       }
     } else {
       setState(() {
@@ -120,8 +121,9 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
             AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
       });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -165,21 +167,22 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -243,8 +246,10 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
                 },
               );
             },
-          )),
+          ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }
