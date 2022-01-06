@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -28,28 +29,6 @@ class EducationBursarySchoolAttendance extends StatefulWidget {
 
 class _EducationBursarySchoolAttendanceState
     extends State<EducationBursarySchoolAttendance> {
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   void redirectToAttendanceForm(BuildContext context) {
     Navigator.push(
       context,
@@ -66,7 +45,7 @@ class _EducationBursarySchoolAttendanceState
     Events eventData,
   ) {
     bool isEditableMode = false;
-    updateFormState(context, isEditableMode, eventData);
+    FormUtil.updateServiceFormState(context, isEditableMode, eventData);
     redirectToAttendanceForm(context);
   }
 
@@ -86,8 +65,7 @@ class _EducationBursarySchoolAttendanceState
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, null);
-      // Assign current date as event date
+      FormUtil.updateServiceFormState(context, isEditableMode, null);
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
           'eventDate',
           '${AppUtil.formattedDateTimeIntoString(DateTime.now())}');
@@ -113,7 +91,7 @@ class _EducationBursarySchoolAttendanceState
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, eventData);
+      FormUtil.updateServiceFormState(context, isEditableMode, eventData);
       redirectToAttendanceForm(context);
     }
   }
