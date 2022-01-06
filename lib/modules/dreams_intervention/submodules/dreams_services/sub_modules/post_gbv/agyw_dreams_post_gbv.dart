@@ -55,15 +55,23 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
     } else {
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsPostGBVForm(),
+        ),
+      );
     }
   }
 
   void onViewPrep(BuildContext context, Events eventData) {
     FormUtil.updateServiceFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsPostGBVForm(),
+      ),
+    );
   }
 
   void onEditPrep(
@@ -81,115 +89,118 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgywDreamsPostGBVForm()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AgywDreamsPostGBVForm(),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  AgywDream? agywDream =
+                      dreamBeneficiarySelectionState.currentAgywDream;
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                          eventListByProgramStage, programStageIds);
+                  int postGbvVisitIndex = events.length + 1;
+                  return Container(
+                    child: Column(
+                      children: [
+                        DreamsBeneficiaryTopHeader(
+                          agywDream: agywDream,
+                        ),
+                        Container(
+                          child: isLoading
+                              ? CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: events.length == 0
+                                          ? Text(
+                                              'There is no POST GBV at a moment')
+                                          : Container(
+                                              margin: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 13.0,
+                                              ),
+                                              child: Column(
+                                                children: events
+                                                    .map((Events eventData) {
+                                                  postGbvVisitIndex--;
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                      bottom: 15.0,
+                                                    ),
+                                                    child:
+                                                        DreamsServiceVisitCard(
+                                                      visitName: "POST GBV",
+                                                      onEdit: () => onEditPrep(
+                                                          context,
+                                                          eventData,
+                                                          agywDream!),
+                                                      onView: () => onViewPrep(
+                                                          context, eventData),
+                                                      eventData: eventData,
+                                                      visitCount:
+                                                          postGbvVisitIndex,
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                    ),
+                                    EntryFormSaveButton(
+                                      label: 'ADD POST GBV VISIT',
+                                      labelColor: Colors.white,
+                                      buttonColor: Color(0xFF1F8ECE),
+                                      fontSize: 15.0,
+                                      onPressButton: () =>
+                                          onAddPrep(context, agywDream!),
+                                    )
+                                  ],
+                                ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamsBeneficiarySelectionState>(
-              builder: (context, dreamBeneficiarySelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    AgywDream? agywDream =
-                        dreamBeneficiarySelectionState.currentAgywDream;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
-                    int referralIndex = events.length + 1;
-                    return Container(
-                      child: Column(
-                        children: [
-                          DreamsBeneficiaryTopHeader(
-                            agywDream: agywDream,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no POST GBV at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    referralIndex--;
-
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          DreamsServiceVisitCard(
-                                                        visitName: "POST GBV",
-                                                        onEdit: () =>
-                                                            onEditPrep(
-                                                                context,
-                                                                eventData,
-                                                                agywDream!),
-                                                        onView: () =>
-                                                            onViewPrep(context,
-                                                                eventData),
-                                                        eventData: eventData,
-                                                        visitCount:
-                                                            referralIndex,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                      ),
-                                      EntryFormSaveButton(
-                                          label: 'ADD POST GBV VISIT',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF1F8ECE),
-                                          fontSize: 15.0,
-                                          onPressButton: () =>
-                                              onAddPrep(context, agywDream!))
-                                    ],
-                                  ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }
