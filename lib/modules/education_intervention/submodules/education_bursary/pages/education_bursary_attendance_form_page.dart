@@ -45,7 +45,8 @@ class _EducationBursaryAttendanceFormPageState
   final String schoolAttendanceLabel = 'School Attendance Form';
   final String clubsAttendanceLabel = 'Clubs Attendance Form';
   List<FormSection>? formSections;
-  final List<String> mandatoryFields =
+  List<FormSection>? defaultFormSections;
+  List<String> mandatoryFields =
       EducationBursaryAttendanceForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   List unFilledMandatoryFields = [];
@@ -55,16 +56,47 @@ class _EducationBursaryAttendanceFormPageState
   @override
   void initState() {
     super.initState();
-    formSections = EducationBursaryAttendanceForm.getFormSections();
-    for (String id in mandatoryFields) {
-      mandatoryFieldObject[id] = true;
-    }
+    setFormSections();
+    evaluateSkipLogics();
     Timer(Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      isFormReady = true;
+      setState(() {});
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    EducationBeneficiary bursaryBeneficiary =
+        Provider.of<EducationInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentBeneficiciary!;
+    defaultFormSections = EducationBursaryAttendanceForm.getFormSections();
+    if (bursaryBeneficiary.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: BursaryInterventionConstant.inputColor,
+        labelColor: BursaryInterventionConstant.labelColor,
+        sectionLabelColor: BursaryInterventionConstant.inputColor,
+        allowedSelectedLevels:
+            BursaryInterventionConstant.allowedSelectedLevels,
+        program: BursaryInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
   }
 
   evaluateSkipLogics() {
@@ -87,33 +119,34 @@ class _EducationBursaryAttendanceFormPageState
     Map dataObject,
     EducationBeneficiary bursaryBeneficiary,
   ) async {
-    setState(() {
-      isSaving = true;
-    });
+    setMandatoryFields(dataObject);
     bool hasAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       if (hasAllMandatoryFilled) {
+        setState(() {
+          isSaving = true;
+        });
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
-
         String programStage = widget.isSchoolAttendance
             ? BursaryInterventionConstant.schoolAttendanceProgramStage
             : BursaryInterventionConstant.clubsAttendanceProgramStage;
         String program = BursaryInterventionConstant.program;
-
+        String orgUnit = dataObject['location'] ?? bursaryBeneficiary.orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-              program,
-              programStage,
-              bursaryBeneficiary.orgUnit,
-              formSections!,
-              dataObject,
-              eventDate,
-              bursaryBeneficiary.id,
-              eventId,
-              hiddenFields);
+            program,
+            programStage,
+            orgUnit,
+            defaultFormSections!,
+            dataObject,
+            eventDate,
+            bursaryBeneficiary.id,
+            eventId,
+            hiddenFields,
+          );
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(bursaryBeneficiary.id);
           Timer(Duration(seconds: 1), () {
@@ -138,23 +171,22 @@ class _EducationBursaryAttendanceFormPageState
           Timer(Duration(seconds: 1), () {
             setState(() {
               AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
             });
           });
         }
       } else {
-        setState(() {
-          unFilledMandatoryFields =
-              AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-        });
         AppUtil.showToastMessage(
             message: 'Please fill all mandatory field',
             position: ToastGravity.TOP);
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 

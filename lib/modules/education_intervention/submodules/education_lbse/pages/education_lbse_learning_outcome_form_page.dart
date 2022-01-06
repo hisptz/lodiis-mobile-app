@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -43,7 +44,8 @@ class _EducationLbseLearningOutcomeFormPageState
     extends State<EducationLbseLearningOutcomeFormPage> {
   final String label = "Learning Outcome Form";
   List<FormSection>? formSections;
-  final List<String> mandatoryFields =
+  List<FormSection>? defaultFormSections;
+  List<String> mandatoryFields =
       EducationLbseLearningOutcomeForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   List unFilledMandatoryFields = [];
@@ -53,18 +55,7 @@ class _EducationLbseLearningOutcomeFormPageState
   @override
   void initState() {
     super.initState();
-    formSections = EducationLbseLearningOutcomeForm.getFormSections();
-    if (widget.isNewLearningOutcomeForm) {
-      formSections!.addAll(
-          EducationLbseLearningOutcomeForm.getReferralCheckFormSections());
-      formSections!.addAll(EducationLbseReferralForm.getFormSections());
-      mandatoryFields.addAll(EducationLbseReferralForm.getMandatoryField());
-      mandatoryFields
-          .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
-    }
-    for (String id in mandatoryFields) {
-      mandatoryFieldObject[id] = true;
-    }
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -86,6 +77,48 @@ class _EducationLbseLearningOutcomeFormPageState
         );
       },
     );
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    EducationBeneficiary lbseBeneficiary =
+        Provider.of<EducationInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentBeneficiciary!;
+    defaultFormSections = EducationLbseLearningOutcomeForm.getFormSections();
+    if (widget.isNewLearningOutcomeForm) {
+      defaultFormSections!.addAll(
+          EducationLbseLearningOutcomeForm.getReferralCheckFormSections());
+      defaultFormSections!.addAll(EducationLbseReferralForm.getFormSections());
+      mandatoryFields.addAll(EducationLbseReferralForm.getMandatoryField());
+      mandatoryFields
+          .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
+    }
+    if (lbseBeneficiary.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: LbseInterventionConstant.inputColor,
+        labelColor: LbseInterventionConstant.labelColor,
+        sectionLabelColor: LbseInterventionConstant.inputColor,
+        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
+        program: LbseInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -117,6 +150,7 @@ class _EducationLbseLearningOutcomeFormPageState
     Map dataObject,
     EducationBeneficiary lbseBeneficiary,
   ) async {
+    setMandatoryFields(dataObject);
     bool isReferralNeed = isLearningOutcomeReferralNeeded(dataObject);
     List<String> allMandatoryFields =
         getMandatoryFielOnFormSubmission(isReferralNeed);
@@ -140,12 +174,13 @@ class _EducationLbseLearningOutcomeFormPageState
         EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck,
         learningOutcomeToReferralLinkage
       ];
+      String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,
           LbseInterventionConstant.learningOutcomeProgamStage,
-          lbseBeneficiary.orgUnit,
-          formSections!,
+          orgUnit,
+          defaultFormSections!,
           dataObject,
           eventDate,
           lbseBeneficiary.id,
@@ -160,8 +195,8 @@ class _EducationLbseLearningOutcomeFormPageState
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             LbseInterventionConstant.program,
             LbseInterventionConstant.referralProgamStage,
-            lbseBeneficiary.orgUnit,
-            formSections!,
+            orgUnit,
+            defaultFormSections!,
             dataObject,
             eventDate,
             lbseBeneficiary.id,
@@ -192,18 +227,17 @@ class _EducationLbseLearningOutcomeFormPageState
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(allMandatoryFields, dataObject);
-      });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 

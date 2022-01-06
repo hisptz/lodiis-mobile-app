@@ -25,8 +25,8 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
   final bool canEdit;
   final Function? onViewBeneficiary;
   final Function? onEditBeneficiary;
-
-  final String svgIcon = 'assets/icons/dreams-header-icon.svg';
+  final String femaleSvgIcon = 'assets/icons/female-education-beneficiary.svg';
+  final String maleSvgIcon = 'assets/icons/male-education-beneficiary.svg';
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,9 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                               height: 20.0,
                               width: 20.0,
                               child: SvgPicture.asset(
-                                svgIcon,
+                                beneficiary.isMaleBeneficiary!
+                                    ? maleSvgIcon
+                                    : femaleSvgIcon,
                                 color: currentIntervention.primaryColor,
                               ),
                             ),

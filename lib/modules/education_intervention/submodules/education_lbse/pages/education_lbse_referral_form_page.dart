@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -39,8 +40,8 @@ class _EducationLbseReferralFormPageState
     extends State<EducationLbseReferralFormPage> {
   final String label = "Referral Form";
   List<FormSection>? formSections;
-  final List<String> mandatoryFields =
-      EducationLbseReferralForm.getMandatoryField();
+  List<FormSection>? defaultFormSections;
+  List<String> mandatoryFields = EducationLbseReferralForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   List unFilledMandatoryFields = [];
   bool isFormReady = false;
@@ -49,15 +50,45 @@ class _EducationLbseReferralFormPageState
   @override
   void initState() {
     super.initState();
-    formSections = EducationLbseReferralForm.getFormSections();
-
-    for (String id in mandatoryFields) {
-      mandatoryFieldObject[id] = true;
-    }
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       isFormReady = true;
       setState(() {});
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    EducationBeneficiary lbseBeneficiary =
+        Provider.of<EducationInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentBeneficiciary!;
+    defaultFormSections = EducationLbseReferralForm.getFormSections();
+    if (lbseBeneficiary.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: LbseInterventionConstant.inputColor,
+        labelColor: LbseInterventionConstant.labelColor,
+        sectionLabelColor: LbseInterventionConstant.inputColor,
+        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
+        program: LbseInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -91,12 +122,12 @@ class _EducationLbseReferralFormPageState
         learningOutcomeToReferralLinkage,
         referralToReferralOutcomeLinkage
       ];
-
+      String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,
           LbseInterventionConstant.referralProgamStage,
-          lbseBeneficiary.orgUnit,
+          orgUnit,
           formSections!,
           dataObject,
           eventDate,

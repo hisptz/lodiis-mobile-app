@@ -29,7 +29,8 @@ class EducationLbseEnrollmentForm {
             name: 'Location',
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3],
+            allowedSelectedLevels:
+                LbseInterventionConstant.allowedSelectedLevels,
             filteredPrograms: [LbseInterventionConstant.program],
             inputColor: Color(0xFF009688),
             labelColor: Color(0xFF737373),

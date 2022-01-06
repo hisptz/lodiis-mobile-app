@@ -38,70 +38,72 @@ class _EducationBursarySchoolPageState
     String schoolPerformanceLabel = 'Student Performance Tracking';
     return SafeArea(
       child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(65.0),
-            child: Consumer<InterventionCardState>(
-              builder: (context, interventionCardState, child) {
-                InterventionCard activeInterventionProgram =
-                    interventionCardState.currentInterventionProgram;
-                return SubPageAppBar(
-                  label: isSchoolPerformanceSelected
-                      ? schoolPerformanceLabel
-                      : schoolAttendanceLabel,
-                  activeInterventionProgram: activeInterventionProgram,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  interventionCardState.currentInterventionProgram;
+              return SubPageAppBar(
+                label: isSchoolPerformanceSelected
+                    ? schoolPerformanceLabel
+                    : schoolAttendanceLabel,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            child: Consumer<EducationInterventionCurrentSelectionState>(
+              builder:
+                  (context, educationInterventionCurrentSelectionState, child) {
+                return Consumer<ServiceEventDataState>(
+                  builder: (context, serviceFormState, child) {
+                    EducationBeneficiary? bursaryBeneficiary =
+                        educationInterventionCurrentSelectionState
+                            .currentBeneficiciary;
+                    bool isLoading = serviceFormState.isLoading;
+                    return Container(
+                      child: Column(
+                        children: [
+                          EducationBeneficiaryTopHeader(
+                            educationBeneficiary: bursaryBeneficiary!,
+                          ),
+                          Container(
+                            child: isLoading
+                                ? CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Column(
+                                    children: [
+                                      EducationBursarySchoolTopBarSelection(
+                                        isSchoolPerformanceSelected:
+                                            isSchoolPerformanceSelected,
+                                        selectSchoolPerformance: () =>
+                                            onChangeTabsSelection(true),
+                                        selectSchoolAttendance: () =>
+                                            onChangeTabsSelection(false),
+                                      ),
+                                      Container(
+                                        child: isSchoolPerformanceSelected
+                                            ? EducationBursarySchoolPerformance()
+                                            : EducationBursarySchoolAttendance(),
+                                      )
+                                    ],
+                                  ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 );
               },
             ),
           ),
-          body: SubPageBody(
-            body: Container(
-              child: Consumer<EducationInterventionCurrentSelectionState>(
-                builder: (context, educationInterventionCurrentSelectionState,
-                    child) {
-                  return Consumer<ServiceEventDataState>(
-                    builder: (context, serviceFormState, child) {
-                      EducationBeneficiary? bursaryBeneficiary =
-                          educationInterventionCurrentSelectionState
-                              .currentBeneficiciary;
-                      bool isLoading = serviceFormState.isLoading;
-                      return Container(
-                        child: Column(
-                          children: [
-                            EducationBeneficiaryTopHeader(
-                              educationBeneficiary: bursaryBeneficiary!,
-                            ),
-                            Container(
-                              child: isLoading
-                                  ? CircularProcessLoader(
-                                      color: Colors.blueGrey,
-                                    )
-                                  : Column(
-                                      children: [
-                                        EducationBursarySchoolTopBarSelection(
-                                          isSchoolPerformanceSelected:
-                                              isSchoolPerformanceSelected,
-                                          selectSchoolPerformance: () =>
-                                              onChangeTabsSelection(true),
-                                          selectSchoolAttendance: () =>
-                                              onChangeTabsSelection(false),
-                                        ),
-                                        Container(
-                                            child: isSchoolPerformanceSelected
-                                                ? EducationBursarySchoolPerformance()
-                                                : EducationBursarySchoolAttendance())
-                                      ],
-                                    ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-          bottomNavigationBar: InterventionBottomNavigationBarContainer()),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
     );
   }
 }

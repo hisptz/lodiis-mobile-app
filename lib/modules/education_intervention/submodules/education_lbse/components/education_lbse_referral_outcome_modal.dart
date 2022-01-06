@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -34,23 +35,57 @@ class EducationLbseRefferalOutcomeModal extends StatefulWidget {
 class _EducationLbseRefferalOutcomeModalState
     extends State<EducationLbseRefferalOutcomeModal> {
   Map mandatoryFieldObject = Map();
+  List<FormSection>? defaultFormSections;
+  List<FormSection>? formSections;
   List unFilledMandatoryFields = [];
+  List mandatoryFields = [];
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in widget.mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-    });
-    evaluateSkipLogics();
-    isFormReady = true;
+    setFormSections();
     Timer(Duration(seconds: 1), () {
+      evaluateSkipLogics();
+      isFormReady = true;
       setState(() {});
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    EducationBeneficiary lbseBeneficiary =
+        Provider.of<EducationInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentBeneficiciary!;
+    defaultFormSections = widget.formSections;
+    mandatoryFields.addAll(widget.mandatoryFields);
+    if (lbseBeneficiary.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: LbseInterventionConstant.inputColor,
+        labelColor: LbseInterventionConstant.labelColor,
+        sectionLabelColor: LbseInterventionConstant.inputColor,
+        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
+        program: LbseInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
   }
 
   evaluateSkipLogics() {
@@ -78,6 +113,7 @@ class _EducationLbseRefferalOutcomeModalState
     BuildContext context,
     Map dataObject,
   ) async {
+    setMandatoryFields(dataObject);
     EducationBeneficiary? lbseBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
@@ -104,12 +140,13 @@ class _EducationLbseRefferalOutcomeModalState
         referralToReferralOutcomeLinkage,
         referralOutcomeToReferralOutComeFollowingUpLinkage
       ];
+      String orgUnit = dataObject['location'] ?? lbseBeneficiary?.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,
           LbseInterventionConstant.referralOutcomeProgamStage,
-          lbseBeneficiary?.orgUnit,
-          widget.formSections,
+          orgUnit,
+          defaultFormSections!,
           dataObject,
           eventDate,
           lbseBeneficiary?.id,
@@ -178,7 +215,7 @@ class _EducationLbseRefferalOutcomeModalState
                           elevation: 0.0,
                           hiddenFields: serviceFormState.hiddenFields,
                           hiddenSections: serviceFormState.hiddenSections,
-                          formSections: widget.formSections,
+                          formSections: formSections,
                           mandatoryFieldObject: mandatoryFieldObject,
                           hiddenInputFieldOptions:
                               serviceFormState.hiddenInputFieldOptions,

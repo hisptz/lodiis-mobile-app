@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -43,7 +44,7 @@ class _EducationBursarySchoolPerformanceState
     Events eventData,
   ) {
     bool isEditableMode = false;
-    updateFormState(context, isEditableMode, eventData);
+    FormUtil.updateServiceFormState(context, isEditableMode, eventData);
     redirectToPerformanceForm(context);
   }
 
@@ -63,8 +64,7 @@ class _EducationBursarySchoolPerformanceState
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, null);
-      // Assign current date as event date
+      FormUtil.updateServiceFormState(context, isEditableMode, null);
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
           'eventDate',
           '${AppUtil.formattedDateTimeIntoString(DateTime.now())}');
@@ -90,30 +90,8 @@ class _EducationBursarySchoolPerformanceState
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, eventData);
+      FormUtil.updateServiceFormState(context, isEditableMode, eventData);
       redirectToPerformanceForm(context);
-    }
-  }
-
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
     }
   }
 
@@ -135,8 +113,8 @@ class _EducationBursarySchoolPerformanceState
                   serviceEventDataState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
-                      eventListByProgramStage, programStageIds);
-
+                      eventListByProgramStage, programStageIds)
+                ..sort((a, b) => b.eventDate!.compareTo(a.eventDate!));
               int eventCount = events.length + 1;
               return Container(
                 child: Column(
