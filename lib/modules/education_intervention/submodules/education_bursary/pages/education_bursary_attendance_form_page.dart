@@ -71,31 +71,22 @@ class _EducationBursaryAttendanceFormPageState
   }
 
   setFormSections() {
-    EducationBeneficiary lbseBeneficiary =
+    EducationBeneficiary bursaryBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
             .currentBeneficiciary!;
     defaultFormSections = EducationBursaryAttendanceForm.getFormSections();
-    if (lbseBeneficiary.enrollmentOuAccessible!) {
+    if (bursaryBeneficiary.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
       FormSection serviceProvisionForm =
           AppUtil.getServiceProvisionLocationSection(
-        inputColor: widget.isSchoolAttendance
-            ? BursaryInterventionConstant.inputColor
-            : BursaryInterventionConstant.inputColor,
-        labelColor: widget.isSchoolAttendance
-            ? BursaryInterventionConstant.labelColor
-            : BursaryInterventionConstant.labelColor,
-        sectionLabelColor: widget.isSchoolAttendance
-            ? BursaryInterventionConstant.inputColor
-            : BursaryInterventionConstant.inputColor,
-        allowedSelectedLevels: widget.isSchoolAttendance
-            ? BursaryInterventionConstant.allowedSelectedLevels
-            : BursaryInterventionConstant.allowedSelectedLevels,
-        program: widget.isSchoolAttendance
-            ? BursaryInterventionConstant.program
-            : BursaryInterventionConstant.program,
+        inputColor: BursaryInterventionConstant.inputColor,
+        labelColor: BursaryInterventionConstant.labelColor,
+        sectionLabelColor: BursaryInterventionConstant.inputColor,
+        allowedSelectedLevels:
+            BursaryInterventionConstant.allowedSelectedLevels,
+        program: BursaryInterventionConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
       mandatoryFields.addAll(FormUtil.getFormFieldIds(
@@ -180,7 +171,9 @@ class _EducationBursaryAttendanceFormPageState
           Timer(Duration(seconds: 1), () {
             setState(() {
               AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
             });
           });
         }

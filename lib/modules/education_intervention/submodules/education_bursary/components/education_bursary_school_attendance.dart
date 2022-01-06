@@ -115,8 +115,8 @@ class _EducationBursarySchoolAttendanceState
                   serviceEventDataState.eventListByProgramStage;
               List<Events> events = TrackedEntityInstanceUtil
                   .getAllEventListFromServiceDataStateByProgramStages(
-                      eventListByProgramStage, programStageIds);
-
+                      eventListByProgramStage, programStageIds)
+                ..sort((a, b) => b.eventDate!.compareTo(a.eventDate!));
               List<BursaryAttendanceEvent> attendances = events
                   .map((Events event) =>
                       BursaryAttendanceEvent().fromTeiModel(event))
