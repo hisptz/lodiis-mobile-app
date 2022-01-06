@@ -127,7 +127,10 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
                   int postGbvVisitIndex = events.length + 1;
                   return Container(
                     child: Column(

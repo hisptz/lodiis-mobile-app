@@ -125,6 +125,7 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
     AgywDream? agywDream, {
     hiddenFields = const {},
   }) async {
+    setMandatoryFields(dataObject);
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,

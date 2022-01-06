@@ -21,6 +21,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_service_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
@@ -44,7 +45,8 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final String sessionNumberInputField = 'vL6NpUA0rIU';
   final String typeOfIntervention = 'Eug4BXDFLym';
   List<FormSection>? formSections;
-  final List<String> mandatoryFields = DreamsServiceForm.getMandatoryField();
+  List<FormSection>? defaultFormSections;
+  List<String> mandatoryFields = DreamsServiceForm.getMandatoryField();
   final Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
@@ -53,16 +55,47 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   @override
   void initState() {
     super.initState();
-    for (String id in mandatoryFields) {
-      mandatoryFieldObject[id] = true;
-    }
-    formSections = DreamsServiceForm.getFormSections();
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsServiceForm.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: AgywDreamsEnrollmentConstant.inputColor,
+        labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
+        allowedSelectedLevels:
+            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        program: AgywDreamsEnrollmentConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -116,7 +149,11 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream? agywDream) async {
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream,
+  ) async {
+    setMandatoryFields(dataObject);
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
@@ -145,17 +182,17 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
               'interventionSessions',
               'eventSessions'
             ];
-
+            String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
             try {
               await TrackedEntityInstanceUtil
                   .savingTrackedEntityInstanceEventData(
                 ServiceFormConstant.program,
                 ServiceFormConstant.programStage,
-                agywDream!.orgUnit,
-                formSections!,
+                orgUnit,
+                defaultFormSections!,
                 dataObject,
                 eventDate,
-                agywDream.id,
+                agywDream!.id,
                 eventId,
                 hiddenFields,
                 skippedFields: skippedFields,
