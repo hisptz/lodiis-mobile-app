@@ -41,8 +41,12 @@ class _AgywDreamsPrepShortFormHomePageState
   }
 
   redirectPrepShortForm(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsPrepShortForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsPrepShortForm(),
+      ),
+    );
   }
 
   onEditPREP(
@@ -79,7 +83,6 @@ class _AgywDreamsPrepShortFormHomePageState
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
-
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -104,93 +107,106 @@ class _AgywDreamsPrepShortFormHomePageState
         ),
       ),
       body: SubPageBody(
-          body: Column(children: [
-        Consumer<DreamsBeneficiarySelectionState>(
-            builder: (context, dreamBeneficiarySelectionState, child) {
-          return Consumer<ServiceEventDataState>(
-              builder: (context, serviceEventDataState, child) {
-            AgywDream? agywDream =
-                dreamBeneficiarySelectionState.currentAgywDream;
-            bool isLoading = serviceEventDataState.isLoading;
-            Map<String?, List<Events>> eventListByProgramStage =
-                serviceEventDataState.eventListByProgramStage;
-            List<Events> events = TrackedEntityInstanceUtil
+        body: Column(
+          children: [
+            Consumer<DreamsBeneficiarySelectionState>(
+                builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                AgywDream? agywDream =
+                    dreamBeneficiarySelectionState.currentAgywDream;
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String?, List<Events>> eventListByProgramStage =
+                    serviceEventDataState.eventListByProgramStage;
+                List<Events> events = TrackedEntityInstanceUtil
                     .getAllEventListFromServiceDataStateByProgramStages(
-                        eventListByProgramStage, programStageIds)
-                .toList();
-            int sessionIndex = events.length + 1;
-            return Container(
-                child: Column(children: [
-              Container(
-                child: DreamsBeneficiaryTopHeader(
-                  agywDream: agywDream,
-                ),
-              ),
-              Container(
-                child: isLoading
-                    ? Container(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    : Container(
-                        child: Column(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.symmetric(vertical: 10.0),
-                                child: events.length == 0
-                                    ? Container(
-                                        child: Text(
-                                          "There is no PrEP visit at a moment",
-                                        ),
-                                      )
-                                    : Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 5.0,
-                                          horizontal: 13.0,
-                                        ),
-                                        child: Column(
-                                          children:
-                                              events.map((Events eventData) {
-                                            sessionIndex--;
-                                            return Container(
-                                              margin: EdgeInsets.only(
-                                                bottom: 15.0,
-                                              ),
-                                              child: DreamsServiceVisitCard(
-                                                visitName: "PrEP ",
-                                                onEdit: () => onEditPREP(
-                                                    context,
-                                                    eventData,
-                                                    agywDream),
-                                                onView: () => onViewPREP(
-                                                  context,
-                                                  eventData,
-                                                ),
-                                                eventData: eventData,
-                                                visitCount: sessionIndex,
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ))),
-                            EntryFormSaveButton(
-                              label: 'ADD PREP VISIT',
-                              labelColor: Colors.white,
-                              buttonColor: Color(0xFF1F8ECE),
-                              fontSize: 15.0,
-                              onPressButton: () => onAddPREP(
-                                context,
-                                agywDream!,
-                              ),
-                            )
-                          ],
+                  eventListByProgramStage,
+                  programStageIds,
+                  shouldSortByDate: true,
+                ).toList();
+                int sessionIndex = events.length + 1;
+                return Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: DreamsBeneficiaryTopHeader(
+                          agywDream: agywDream,
                         ),
                       ),
-              )
-            ]));
-          });
-        })
-      ])),
+                      Container(
+                        child: isLoading
+                            ? Container(
+                                child: CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                ),
+                              )
+                            : Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: events.length == 0
+                                          ? Container(
+                                              child: Text(
+                                                "There is no PrEP visit at a moment",
+                                              ),
+                                            )
+                                          : Container(
+                                              margin: EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 13.0,
+                                              ),
+                                              child: Column(
+                                                children: events
+                                                    .map((Events eventData) {
+                                                  sessionIndex--;
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                      bottom: 15.0,
+                                                    ),
+                                                    child:
+                                                        DreamsServiceVisitCard(
+                                                      visitName: "PrEP ",
+                                                      onEdit: () => onEditPREP(
+                                                          context,
+                                                          eventData,
+                                                          agywDream),
+                                                      onView: () => onViewPREP(
+                                                        context,
+                                                        eventData,
+                                                      ),
+                                                      eventData: eventData,
+                                                      visitCount: sessionIndex,
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                    ),
+                                    EntryFormSaveButton(
+                                      label: 'ADD PREP VISIT',
+                                      labelColor: Colors.white,
+                                      buttonColor: Color(0xFF1F8ECE),
+                                      fontSize: 15.0,
+                                      onPressButton: () => onAddPREP(
+                                        context,
+                                        agywDream!,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                      )
+                    ],
+                  ),
+                );
+              });
+            })
+          ],
+        ),
+      ),
       bottomNavigationBar: InterventionBottomNavigationBarContainer(),
     );
   }

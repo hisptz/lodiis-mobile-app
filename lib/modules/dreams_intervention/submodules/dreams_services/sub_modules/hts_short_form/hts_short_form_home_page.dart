@@ -124,10 +124,12 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                   Map<String?, List<Events>> eventListByProgramStage =
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
-                          .getAllEventListFromServiceDataStateByProgramStages(
-                              eventListByProgramStage, programStageIds)
-                      .toList();
-                  int sessionIndex = events.length + 1;
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  ).toList();
+                  int htsVisitIndex = events.length + 1;
                   return Container(
                     child: Column(
                       children: [
@@ -162,7 +164,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                 child: Column(
                                                   children: events
                                                       .map((Events eventData) {
-                                                    sessionIndex--;
+                                                    htsVisitIndex--;
                                                     return Container(
                                                       margin: EdgeInsets.only(
                                                         bottom: 15.0,
@@ -182,7 +184,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                         ),
                                                         eventData: eventData,
                                                         visitCount:
-                                                            sessionIndex,
+                                                            htsVisitIndex,
                                                       ),
                                                     );
                                                   }).toList(),

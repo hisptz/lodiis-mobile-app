@@ -132,7 +132,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                     programStageIds,
                     shouldSortByDate: true,
                   );
-                  int referralIndex = events.length + 1;
+                  int hivMessageIndex = events.length + 1;
                   return Container(
                     child: Column(
                       children: [
@@ -161,7 +161,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                               child: Column(
                                                 children: events
                                                     .map((Events eventData) {
-                                                  referralIndex--;
+                                                  hivMessageIndex--;
                                                   return Container(
                                                     margin: EdgeInsets.only(
                                                       bottom: 15.0,
@@ -180,7 +180,8 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                                               context,
                                                               eventData),
                                                       eventData: eventData,
-                                                      visitCount: referralIndex,
+                                                      visitCount:
+                                                          hivMessageIndex,
                                                     ),
                                                   );
                                                 }).toList(),

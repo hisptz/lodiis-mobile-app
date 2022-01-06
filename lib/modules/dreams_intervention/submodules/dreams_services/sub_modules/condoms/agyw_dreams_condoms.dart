@@ -130,7 +130,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                     programStageIds,
                     shouldSortByDate: true,
                   );
-                  int referralIndex = events.length + 1;
+                  int condomIndex = events.length + 1;
                   return Container(
                     child: Column(
                       children: [
@@ -159,7 +159,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                               child: Column(
                                                 children: events
                                                     .map((Events eventData) {
-                                                  referralIndex--;
+                                                  condomIndex--;
 
                                                   return Container(
                                                     margin: EdgeInsets.only(
@@ -175,7 +175,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                                       onView: () => onViewPrep(
                                                           context, eventData),
                                                       eventData: eventData,
-                                                      visitCount: referralIndex,
+                                                      visitCount: condomIndex,
                                                     ),
                                                   );
                                                 }).toList(),

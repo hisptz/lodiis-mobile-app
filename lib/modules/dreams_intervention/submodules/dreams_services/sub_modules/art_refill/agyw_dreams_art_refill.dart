@@ -157,7 +157,6 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
                                                 children: events
                                                     .map((Events eventData) {
                                                   artReFillndex--;
-
                                                   return Container(
                                                     margin: EdgeInsets.only(
                                                       bottom: 15.0,
