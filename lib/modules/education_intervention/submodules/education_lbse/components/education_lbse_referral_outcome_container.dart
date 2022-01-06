@@ -40,6 +40,8 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', lbseReferral.eventData!.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -90,7 +92,9 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     List<FormSection> formSections =
         EducationLbseReferralOutcomeFollowUpForm.getFormSections();
     Widget modal = EducationLbseRefferalOutcomeFollowUpModal(
-        formSections: formSections, mandatoryFields: mandatoryFields);
+      formSections: formSections,
+      mandatoryFields: mandatoryFields,
+    );
     await AppUtil.showPopUpModal(
       context,
       modal,

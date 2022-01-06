@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -36,28 +37,6 @@ class EducationBursaryClubsAttendancePage extends StatefulWidget {
 
 class _EducationBursaryClubsAttendancePageState
     extends State<EducationBursaryClubsAttendancePage> {
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   void redirectToAttendanceForm(BuildContext context) {
     Navigator.push(
       context,
@@ -74,7 +53,7 @@ class _EducationBursaryClubsAttendancePageState
     Events eventData,
   ) {
     bool isEditableMode = false;
-    updateFormState(context, isEditableMode, eventData);
+    FormUtil.updateServiceFormState(context, isEditableMode, eventData);
     redirectToAttendanceForm(context);
   }
 
@@ -94,8 +73,7 @@ class _EducationBursaryClubsAttendancePageState
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, null);
-      // Assign current date as event date
+      FormUtil.updateServiceFormState(context, isEditableMode, null);
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
           'eventDate',
           '${AppUtil.formattedDateTimeIntoString(DateTime.now())}');
@@ -121,7 +99,7 @@ class _EducationBursaryClubsAttendancePageState
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, isEditableMode, eventData);
+      FormUtil.updateServiceFormState(context, isEditableMode, eventData);
       redirectToAttendanceForm(context);
     }
   }
@@ -133,115 +111,115 @@ class _EducationBursaryClubsAttendancePageState
     ];
     return SafeArea(
       child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(65.0),
-            child: Consumer<InterventionCardState>(
-              builder: (context, interventionCardState, child) {
-                InterventionCard activeInterventionProgram =
-                    interventionCardState.currentInterventionProgram;
-                return SubPageAppBar(
-                  label: widget.label,
-                  activeInterventionProgram: activeInterventionProgram,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(65.0),
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  interventionCardState.currentInterventionProgram;
+              return SubPageAppBar(
+                label: widget.label,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
+        ),
+        body: SubPageBody(
+          body: Container(
+            child: Consumer<EducationInterventionCurrentSelectionState>(
+              builder:
+                  (context, educationInterventionCurrentSelectionState, child) {
+                return Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                    EducationBeneficiary? bursaryBeneficiary =
+                        educationInterventionCurrentSelectionState
+                            .currentBeneficiciary;
+                    bool isLoading = serviceEventDataState.isLoading;
+                    Map<String?, List<Events>> eventListByProgramStage =
+                        serviceEventDataState.eventListByProgramStage;
+                    List<Events> events = TrackedEntityInstanceUtil
+                        .getAllEventListFromServiceDataStateByProgramStages(
+                            eventListByProgramStage, programStageIds)
+                      ..sort((a, b) => b.eventDate!.compareTo(a.eventDate!));
+                    List<BursaryAttendanceEvent> attendances = events
+                        .map((Events event) =>
+                            BursaryAttendanceEvent().fromTeiModel(event))
+                        .toList();
+                    return Container(
+                      child: Column(
+                        children: [
+                          EducationBeneficiaryTopHeader(
+                            educationBeneficiary: bursaryBeneficiary!,
+                          ),
+                          Container(
+                            child: isLoading
+                                ? CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                          vertical: 10.0,
+                                        ),
+                                        child: events.length == 0
+                                            ? Text(
+                                                'There is no clubs attendance at a moment',
+                                              )
+                                            : Container(
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 5.0,
+                                                  horizontal: 13.0,
+                                                ),
+                                                child: Column(
+                                                  children: attendances.map(
+                                                      (BursaryAttendanceEvent
+                                                          attendance) {
+                                                    return EducationListCard(
+                                                      date: attendance.date!,
+                                                      title: attendance.attended
+                                                          ? 'Attended'
+                                                          : 'Not Attended',
+                                                      canEdit: attendance
+                                                          .enrollmentOuAccessible!,
+                                                      onEdit: () =>
+                                                          onEditAttendance(
+                                                        context,
+                                                        bursaryBeneficiary,
+                                                        attendance.eventData!,
+                                                      ),
+                                                      onView: () =>
+                                                          onViewAttendance(
+                                                        context,
+                                                        attendance.eventData!,
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                      ),
+                                      EntryFormSaveButton(
+                                        label: 'ADD CLUB ATTENDANCE',
+                                        labelColor: Colors.white,
+                                        buttonColor: Color(0xFF009688),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onAddAttendance(
+                                            context, bursaryBeneficiary),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 );
               },
             ),
           ),
-          body: SubPageBody(
-            body: Container(
-              child: Consumer<EducationInterventionCurrentSelectionState>(
-                builder: (context, educationInterventionCurrentSelectionState,
-                    child) {
-                  return Consumer<ServiceEventDataState>(
-                    builder: (context, serviceEventDataState, child) {
-                      EducationBeneficiary? bursaryBeneficiary =
-                          educationInterventionCurrentSelectionState
-                              .currentBeneficiciary;
-                      bool isLoading = serviceEventDataState.isLoading;
-                      Map<String?, List<Events>> eventListByProgramStage =
-                          serviceEventDataState.eventListByProgramStage;
-                      List<Events> events = TrackedEntityInstanceUtil
-                          .getAllEventListFromServiceDataStateByProgramStages(
-                              eventListByProgramStage, programStageIds);
-
-                      List<BursaryAttendanceEvent> attendances = events
-                          .map((Events event) =>
-                              BursaryAttendanceEvent().fromTeiModel(event))
-                          .toList();
-                      return Container(
-                        child: Column(
-                          children: [
-                            EducationBeneficiaryTopHeader(
-                              educationBeneficiary: bursaryBeneficiary!,
-                            ),
-                            Container(
-                              child: isLoading
-                                  ? CircularProcessLoader(
-                                      color: Colors.blueGrey,
-                                    )
-                                  : Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                            vertical: 10.0,
-                                          ),
-                                          child: events.length == 0
-                                              ? Text(
-                                                  'There is no clubs attendance at a moment',
-                                                )
-                                              : Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                    vertical: 5.0,
-                                                    horizontal: 13.0,
-                                                  ),
-                                                  child: Column(
-                                                    children: attendances.map(
-                                                        (BursaryAttendanceEvent
-                                                            attendance) {
-                                                      return EducationListCard(
-                                                        date: attendance.date!,
-                                                        title: attendance
-                                                                .attended
-                                                            ? 'Attended'
-                                                            : 'Not Attended',
-                                                        canEdit: attendance
-                                                            .enrollmentOuAccessible!,
-                                                        onEdit: () =>
-                                                            onEditAttendance(
-                                                          context,
-                                                          bursaryBeneficiary,
-                                                          attendance.eventData!,
-                                                        ),
-                                                        onView: () =>
-                                                            onViewAttendance(
-                                                          context,
-                                                          attendance.eventData!,
-                                                        ),
-                                                      );
-                                                    }).toList(),
-                                                  ),
-                                                ),
-                                        ),
-                                        EntryFormSaveButton(
-                                          label: 'ADD CLUB ATTENDANCE',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF009688),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddAttendance(
-                                              context, bursaryBeneficiary),
-                                        ),
-                                      ],
-                                    ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
-          bottomNavigationBar: InterventionBottomNavigationBarContainer()),
+        ),
+        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      ),
     );
   }
 }

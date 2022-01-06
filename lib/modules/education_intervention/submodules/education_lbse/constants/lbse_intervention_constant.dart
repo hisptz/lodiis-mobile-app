@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class LbseInterventionConstant {
   static final String program = 'tkL2hvIRwMy';
   static final String trackedEntityType = 'XZIKX0bA8WN';
@@ -9,4 +11,7 @@ class LbseInterventionConstant {
   static final String referralToReferralOutcomeLinkage = "Z5EqipAAPAF";
   static final String referralOutcomeToReferralOutComeFollowingUpLinkage =
       "CGVjLExKToU";
+  static final List<int> allowedSelectedLevels = [3];
+  static final Color inputColor = Color(0xFF009688);
+  static final Color labelColor = Color(0xFF737373);
 }
