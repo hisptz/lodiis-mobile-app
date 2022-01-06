@@ -97,6 +97,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                               ),
                               ReferralOutComeCardContainer(
                                 isOvcIntervention: false,
+                                isIncomingReferral: widget.isIncomingReferral,
                                 currentEventId: widget.eventData.event,
                                 currentProgramStage:
                                     widget.eventData.programStage,

@@ -190,7 +190,10 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                             referralNotificationState.incomingReferrals;
                         List<Events> events = TrackedEntityInstanceUtil
                             .getAllEventListFromServiceDataStateByProgramStages(
-                                eventListByProgramStage, programStageIds);
+                          eventListByProgramStage,
+                          programStageIds,
+                          shouldSortByDate: true,
+                        );
                         String? currentInterventionBottomNavigationId =
                             interventionBottomNavigationState
                                 .currentInterventionBottomNavigationId;

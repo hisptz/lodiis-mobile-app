@@ -79,6 +79,7 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                               ),
                               ReferralOutComeCard(
                                 isOvcIntervention: false,
+                                isIncomingReferral: widget.isIncomingReferral,
                                 beneficiary: currentDreamsAgywBeneficiary
                                     .trackedEntityInstanceData,
                                 eventData: widget.eventData,
