@@ -14,12 +14,14 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_prep_follow_up_visit.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/constants/prep_intake_constant.dart';
@@ -38,8 +40,9 @@ class AgywPrepVisitForm extends StatefulWidget {
 class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
   final String label = 'PREP VISIT';
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   late List<String> mandatoryFields;
-  Map mandatoryFieldsObject = Map();
+  Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
   List unFilledMandatoryFields = [];
@@ -47,17 +50,48 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsPrepFollowUpVisit.getFormSections();
-    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
-    for (String fieldId in mandatoryFields) {
-      mandatoryFieldsObject[fieldId] = true;
-    }
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsPrepFollowUpVisit.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: AgywDreamsEnrollmentConstant.inputColor,
+        labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
+        allowedSelectedLevels:
+            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        program: AgywDreamsEnrollmentConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -83,12 +117,16 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
     onUpdateFormAutoSaveState(context);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream,
-      {hiddenFields: const {}}) async {
+  void onSaveForm(
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream, {
+    hiddenFields: const {},
+  }) async {
+    setMandatoryFields(dataObject);
     bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
-
     if (hasAllMandatoryFieldsFilled) {
       setState(() {
         isSaving = true;
@@ -96,17 +134,19 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
+      String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            PrepIntakeConstant.program,
-            PrepIntakeConstant.prepVisitProgramStage,
-            agywDream!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          PrepIntakeConstant.program,
+          PrepIntakeConstant.prepVisitProgramStage,
+          orgUnit,
+          defaultFormSections!,
+          dataObject,
+          eventDate,
+          agywDream!.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
@@ -129,18 +169,17 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -179,121 +218,122 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
-        ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return Consumer<DreamsBeneficiarySelectionState>(
-                  builder: (context, agywState, child) {
-                    AgywDream? agywDream = agywState.currentAgywDream;
-                    return Consumer<ServiceFormState>(
-                      builder: (context, serviceFormState, child) {
-                        return Container(
-                          child: Column(
-                            children: [
-                              DreamsBeneficiaryTopHeader(
-                                agywDream: agywDream,
-                              ),
-                              !isFormReady
-                                  ? Container(
-                                      child: CircularProcessLoader(
-                                        color: Colors.blueGrey,
-                                      ),
-                                    )
-                                  : Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            top: 10.0,
-                                            left: 13.0,
-                                            right: 13.0,
-                                          ),
-                                          child: EntryFormContainer(
-                                            hiddenFields:
-                                                serviceFormState.hiddenFields,
-                                            hiddenSections:
-                                                serviceFormState.hiddenSections,
-                                            formSections: formSections,
-                                            mandatoryFieldObject:
-                                                mandatoryFieldsObject,
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            dataObject:
-                                                serviceFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                            unFilledMandatoryFields:
-                                                unFilledMandatoryFields,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              serviceFormState.isEditableMode,
-                                          child: EntryFormSaveButton(
-                                            label: isSaving
-                                                ? 'Saving ...'
-                                                : currentLanguage == 'lesotho'
-                                                    ? 'Boloka'
-                                                    : 'Save',
-                                            labelColor: Colors.white,
-                                            buttonColor: Color(0xFF258DCC),
-                                            fontSize: 15.0,
-                                            onPressButton: () => onSaveForm(
-                                                context,
-                                                serviceFormState.formState,
-                                                agywDream,
-                                                hiddenFields: serviceFormState
-                                                    .hiddenFields),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
-  }
-
   void evaluatePrePMandatoryFieldChange(Map dataObject) {
     if (dataObject[NonAgywPrepVisitConstant.hivRapidTestId] == 'Positive') {
       setState(() {
         mandatoryFields.add(NonAgywPrepVisitConstant.datePrepStopped);
-        mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] = true;
+        mandatoryFieldObject[NonAgywPrepVisitConstant.datePrepStopped] = true;
       });
     } else {
       if (mandatoryFields.indexOf(NonAgywPrepVisitConstant.datePrepStopped) >
               0 ||
-          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] !=
+          mandatoryFieldObject[NonAgywPrepVisitConstant.datePrepStopped] !=
               null) {
         mandatoryFields.remove(NonAgywPrepVisitConstant.datePrepStopped);
-        mandatoryFieldsObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
+        mandatoryFieldObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
       }
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return Consumer<DreamsBeneficiarySelectionState>(
+                builder: (context, agywState, child) {
+                  AgywDream? agywDream = agywState.currentAgywDream;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            DreamsBeneficiaryTopHeader(
+                              agywDream: agywDream,
+                            ),
+                            !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          formSections: formSections,
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: EntryFormSaveButton(
+                                          label: isSaving
+                                              ? 'Saving ...'
+                                              : currentLanguage == 'lesotho'
+                                                  ? 'Boloka'
+                                                  : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: Color(0xFF258DCC),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                              context,
+                                              serviceFormState.formState,
+                                              agywDream,
+                                              hiddenFields: serviceFormState
+                                                  .hiddenFields),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

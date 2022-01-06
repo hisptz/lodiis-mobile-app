@@ -24,7 +24,8 @@ class AgywEnrollmentConcent {
             name: 'Location',
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3, 4],
+            allowedSelectedLevels:
+                AgywDreamsEnrollmentConstant.allowedSelectedLevels,
             filteredPrograms: [AgywDreamsEnrollmentConstant.program],
             inputColor: Color(0xFF258DCC),
             labelColor: Color(0xFF737373)),

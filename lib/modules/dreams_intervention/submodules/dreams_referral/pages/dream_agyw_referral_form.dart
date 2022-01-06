@@ -29,6 +29,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_notification.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral.dart';
@@ -49,25 +50,57 @@ class DreamsAgywAddReferralForm extends StatefulWidget {
 class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   final String label = 'Dream Referral Form';
   final Map mandatoryFieldObject = Map();
-  final List<String> mandatoryFields = DreamsReferral.getMandatoryFields();
+  List<String> mandatoryFields = DreamsReferral.getMandatoryFields();
   List unFilledMandatoryFields = [];
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    formSections = DreamsReferral.getFormSections();
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
-        for (String id in mandatoryFields) {
-          mandatoryFieldObject[id] = true;
-        }
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsReferral.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: AgywDreamsEnrollmentConstant.inputColor,
+        labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
+        allowedSelectedLevels:
+            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        program: AgywDreamsEnrollmentConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -111,96 +144,86 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
     AgywDream? currentAgywDream, {
     Map hiddenFieldsObject = const {},
   }) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-          mandatoryFields, dataObject,
-          hiddenFields: hiddenFieldsObject);
-
-      if (hadAllMandatoryFilled) {
-        setState(() {
-          isSaving = true;
-        });
-        String? eventDate = dataObject['eventDate'];
-        String? eventId = dataObject['eventId'];
-        dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] =
-            dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] ??
-                AppUtil.getUid();
-        List<String> hiddenFields = [
-          DreamsAgywReferralConstant.referralToFollowUpLinkage
-        ];
-        try {
-          if (eventId == null) {
-            // Assign data element
-            CurrentUser? user = await UserService().getCurrentUser();
-            dataObject[UserAccountReference.implementingPartnerDataElement] =
-                dataObject[
-                        UserAccountReference.implementingPartnerDataElement] ??
-                    user!.implementingPartner;
-            eventId = AppUtil.getUid();
-            String currentImplementingPartner =
-                Provider.of<ReferralNotificationState>(context, listen: false)
-                    .currentImplementingPartner;
-            await updateReferralNotification(
-              eventId,
-              dataObject,
-              currentAgywDream!,
-              currentImplementingPartner,
-            );
-          }
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            DreamsAgywReferralConstant.program,
-            DreamsAgywReferralConstant.programStage,
-            currentAgywDream!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            currentAgywDream.id,
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFieldsObject,
+    );
+    if (hadAllMandatoryFilled) {
+      setState(() {
+        isSaving = true;
+      });
+      String? eventDate = dataObject['eventDate'];
+      String? eventId = dataObject['eventId'];
+      String orgUnit = dataObject['location'] ?? currentAgywDream!.orgUnit;
+      dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] =
+          dataObject[DreamsAgywReferralConstant.referralToFollowUpLinkage] ??
+              AppUtil.getUid();
+      List<String> hiddenFields = [
+        DreamsAgywReferralConstant.referralToFollowUpLinkage
+      ];
+      try {
+        if (eventId == null) {
+          CurrentUser? user = await UserService().getCurrentUser();
+          dataObject[UserAccountReference.implementingPartnerDataElement] =
+              dataObject[UserAccountReference.implementingPartnerDataElement] ??
+                  user!.implementingPartner;
+          eventId = AppUtil.getUid();
+          String currentImplementingPartner =
+              Provider.of<ReferralNotificationState>(context, listen: false)
+                  .currentImplementingPartner;
+          await updateReferralNotification(
             eventId,
-            hiddenFields,
-            skippedFields: [],
+            dataObject,
+            currentAgywDream!,
+            currentImplementingPartner,
           );
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(currentAgywDream.id);
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              String? currentLanguage =
-                  Provider.of<LanguageTranslationState>(context, listen: false)
-                      .currentLanguage;
-              AppUtil.showToastMessage(
-                message: currentLanguage == 'lesotho'
-                    ? 'Fomo e bolokeile'
-                    : 'Form has been saved successfully',
-                position: ToastGravity.TOP,
-              );
-              clearFormAutoSaveState(
-                  context, currentAgywDream.id, eventId ?? '');
-              Navigator.pop(context);
-            });
-          });
-        } catch (error) {
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              AppUtil.showToastMessage(
-                  message: error.toString(), position: ToastGravity.BOTTOM);
-            });
-          });
         }
-      } else {
-        setState(() {
-          unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-              mandatoryFields, dataObject,
-              hiddenFields: hiddenFieldsObject);
-        });
-        AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP,
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          DreamsAgywReferralConstant.program,
+          DreamsAgywReferralConstant.programStage,
+          orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          currentAgywDream!.id,
+          eventId,
+          hiddenFields,
+          skippedFields: [],
         );
+        Provider.of<ServiceEventDataState>(context, listen: false)
+            .resetServiceEventDataState(currentAgywDream.id);
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
+            AppUtil.showToastMessage(
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
+            );
+            clearFormAutoSaveState(context, currentAgywDream.id, eventId ?? '');
+            Navigator.pop(context);
+          });
+        });
+      } catch (error) {
+        Timer(Duration(seconds: 1), () {
+          setState(() {
+            AppUtil.showToastMessage(
+              message: error.toString(),
+              position: ToastGravity.BOTTOM,
+            );
+          });
+        });
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
-      Navigator.pop(context);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 

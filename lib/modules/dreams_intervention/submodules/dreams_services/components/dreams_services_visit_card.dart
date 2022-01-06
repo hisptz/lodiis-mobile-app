@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 
 class DreamsServiceVisitCard extends StatelessWidget {
@@ -94,7 +96,11 @@ class DreamsServiceVisitCard extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: editDisabled == true
-                            ? null
+                            ? () => AppUtil.showToastMessage(
+                                  message:
+                                      'This visit has been disabled for editing',
+                                  position: ToastGravity.TOP,
+                                )
                             : onEdit as void Function()?,
                         child: Container(
                           height: iconHeight,

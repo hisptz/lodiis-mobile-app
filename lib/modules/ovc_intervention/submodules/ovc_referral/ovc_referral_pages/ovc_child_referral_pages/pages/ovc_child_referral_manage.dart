@@ -78,6 +78,7 @@ class _OvcChildReferralManageState extends State<OvcChildReferralManage> {
                                   eventData: widget.eventData,
                                 ),
                                 ReferralOutComeCardContainer(
+                                  isIncomingReferral: widget.isIncomingReferral,
                                   isOvcIntervention: true,
                                   currentEventId: widget.eventData.event,
                                   currentProgramStage:
