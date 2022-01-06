@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -212,7 +211,6 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                         .getAllEventListFromServiceDataStateByProgramStages(
                       eventListByProgramStage,
                       visitProgramStageIds,
-                      shouldSortByDate: true,
                     );
                     int visitprepVisitIndex = visits.length;
                     return Container(
@@ -236,7 +234,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                         margin: EdgeInsets.symmetric(
                                           vertical:
                                               isEligibleForPrep(agywDream!)
-                                                  ? 10.0
+                                                  ? 5.0
                                                   : 0,
                                         ),
                                         child: events.length == 0

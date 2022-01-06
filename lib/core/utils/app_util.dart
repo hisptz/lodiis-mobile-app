@@ -17,6 +17,7 @@ class AppUtil {
     required Color sectionLabelColor,
     required List<int> allowedSelectedLevels,
     required String program,
+    bool isReadOnly = false,
   }) {
     return FormSection(
       name: "Service Provision Location",
@@ -27,6 +28,7 @@ class AppUtil {
           name: 'Location',
           translatedName: 'Sebaka',
           valueType: 'ORGANISATION_UNIT',
+          isReadOnly: isReadOnly,
           allowedSelectedLevels: allowedSelectedLevels,
           filteredPrograms: [program],
           inputColor: inputColor,

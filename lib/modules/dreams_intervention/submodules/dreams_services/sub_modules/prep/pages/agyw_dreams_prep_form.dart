@@ -81,6 +81,7 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
         allowedSelectedLevels:
             AgywDreamsEnrollmentConstant.allowedSelectedLevels,
         program: AgywDreamsEnrollmentConstant.program,
+        isReadOnly: true,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
       mandatoryFields.addAll(FormUtil.getFormFieldIds(
