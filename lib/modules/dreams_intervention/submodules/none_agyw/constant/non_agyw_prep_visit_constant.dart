@@ -1,5 +1,10 @@
+import 'package:flutter/material.dart';
+
 class NonAgywPrepVisitConstant {
   static final String program = 'CK4iMK8b0aZ';
+  static final List<int> allowedSelectedLevels = [3, 4];
+  static final Color inputColor = Color(0xFF258DCC);
+  static final Color labelColor = Color(0xFF737373);
   static final String programStage = 'Yn6AJ0CAxb2';
   static final String hivRapidTestId = 'VW9nRqUEWbi';
   static final String datePrepStopped = 'UL0xa3Sz9ML';
