@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -38,32 +39,8 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
     super.initState();
   }
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('location', eventData.orgUnit);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   void onAddPrep(BuildContext context, AgywDream agywDream) async {
-    updateFormState(context, true, null);
+    FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
     String eventId = '';
     String formAutoSaveId =
@@ -88,7 +65,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
   }
 
   void onViewPrep(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
+    FormUtil.updateServiceFormState(context, false, eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -99,7 +76,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
 
   void onEditPrep(
       BuildContext context, Events eventData, AgywDream agywDream) async {
-    updateFormState(context, true, eventData);
+    FormUtil.updateServiceFormState(context, true, eventData);
     String? beneficiaryId = agywDream.id;
     String eventId = eventData.event!;
     String formAutoSaveId =

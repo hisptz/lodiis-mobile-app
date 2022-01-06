@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -39,28 +40,6 @@ class _AgywDreamsPrepShortFormHomePageState
     super.initState();
   }
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   redirectPrepShortForm(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AgywDreamsPrepShortForm()));
@@ -68,7 +47,7 @@ class _AgywDreamsPrepShortFormHomePageState
 
   onEditPREP(
       BuildContext context, Events eventData, AgywDream? agywDream) async {
-    updateFormState(context, true, eventData);
+    FormUtil.updateServiceFormState(context, true, eventData);
     String? beneficiaryId = agywDream!.id;
     String? eventId = eventData.event;
     String formAutoSaveId =
@@ -86,12 +65,12 @@ class _AgywDreamsPrepShortFormHomePageState
   }
 
   onViewPREP(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
+    FormUtil.updateServiceFormState(context, false, eventData);
     redirectPrepShortForm(context);
   }
 
   onAddPREP(BuildContext context, AgywDream agywDream) async {
-    updateFormState(context, true, null);
+    FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
     String eventId = '';
     String formAutoSaveId =
