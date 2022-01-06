@@ -13,6 +13,7 @@ class NoneParticipationBeneficiary {
   String? phoneNumber;
   String? searchableValue;
   String? reason;
+  bool? isMaleBeneficiary;
   bool? enrollmentOuAccessible;
   Events? eventData;
 
@@ -28,6 +29,7 @@ class NoneParticipationBeneficiary {
     this.sex,
     this.searchableValue,
     this.enrollmentOuAccessible,
+    this.isMaleBeneficiary,
     this.reason,
     this.eventData,
   });
@@ -53,7 +55,8 @@ class NoneParticipationBeneficiary {
 
     int age = AppUtil.getAgeInYear(data['jVSwC6Ln95H']);
     String phoneNumber = data["ox6mydZjgC3"] ?? '';
-
+    String sex = data['an7w8LYPZ7y'] ?? '';
+    bool isMaleBeneficiary = '$sex'.trim().toLowerCase() == "male";
     NoneParticipationBeneficiary beneficiary = NoneParticipationBeneficiary(
       event: eventData.event,
       eventDate: eventData.eventDate,
@@ -63,7 +66,8 @@ class NoneParticipationBeneficiary {
       phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
       firstname: data['JhOvli80Qbx'] ?? '',
       surname: data['jjZWuJfVStp'] ?? '',
-      sex: data['an7w8LYPZ7y'] ?? '',
+      sex: sex,
+      isMaleBeneficiary: isMaleBeneficiary,
       searchableValue:
           "${data['an7w8LYPZ7y']} ${data['JhOvli80Qbx']}, ${data['jjZWuJfVStp']}",
       reason: data['FHn0nJPumhO'] ?? '',
