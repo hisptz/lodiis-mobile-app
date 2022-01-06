@@ -82,11 +82,13 @@ class _AgywDreamsHTSClientInformationState
     dataObject.remove(AgywDreamsHTSLongFormConstant.bmiKey);
     onUpdateFormAutoSaveState(context, isSaveForm: true);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSRegisterForm(
-                  isComingFromPrep: isComingFromPrep,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsHTSRegisterForm(
+          isComingFromPrep: isComingFromPrep,
+        ),
+      ),
+    );
   }
 
   void onUpdateFormAutoSaveState(
@@ -119,21 +121,22 @@ class _AgywDreamsHTSClientInformationState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(child: Consumer<DreamsBeneficiarySelectionState>(
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<DreamsBeneficiarySelectionState>(
             builder: (context, nonAgywState, child) {
               AgywDream? agywDream = nonAgywState.currentAgywDream;
               return Consumer<ServiceFormState>(
@@ -194,8 +197,10 @@ class _AgywDreamsHTSClientInformationState
                 },
               );
             },
-          )),
+          ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

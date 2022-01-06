@@ -62,6 +62,8 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -134,8 +136,12 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     AgywDream agywDream,
   ) {
     updateFormState(context, false, eventData, agywDream, null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsServiceForm()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsServiceForm(),
+      ),
+    );
   }
 
   void onEditService(
@@ -203,7 +209,10 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
                   List<ServiceEvent> serviceEvents = events
                       .map((Events event) =>
                           ServiceEvent().getServiceSessions(event))

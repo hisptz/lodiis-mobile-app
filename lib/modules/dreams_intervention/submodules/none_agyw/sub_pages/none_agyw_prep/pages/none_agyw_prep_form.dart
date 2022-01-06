@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -35,10 +36,11 @@ class NoneAgywPrepForm extends StatefulWidget {
 }
 
 class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
-  final String label = 'PREP VISIT';
+  final String label = 'PREP VISIT-yes';
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   late List<String> mandatoryFields;
-  Map mandatoryFieldsObject = Map();
+  Map mandatoryFieldObject = Map();
   bool isFormReady = false;
   bool isSaving = false;
   List unFilledMandatoryFields = [];
@@ -46,17 +48,47 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   @override
   void initState() {
     super.initState();
-    formSections = DreamsPrepFollowUpVisit.getFormSections();
-    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
-    for (String fieldId in mandatoryFields) {
-      mandatoryFieldsObject[fieldId] = true;
-    }
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    mandatoryFields = DreamsPrepFollowUpVisit.getMandatoryField();
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsPrepFollowUpVisit.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: NonAgywPrepVisitConstant.inputColor,
+        labelColor: NonAgywPrepVisitConstant.labelColor,
+        sectionLabelColor: NonAgywPrepVisitConstant.labelColor,
+        allowedSelectedLevels: NonAgywPrepVisitConstant.allowedSelectedLevels,
+        program: NonAgywPrepVisitConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -116,12 +148,18 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     onUpdateFormAutoSaveState(context, beneficiaryId);
   }
 
-  void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream,
-      {hiddenFields: const {}}) async {
+  void onSaveForm(
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream, {
+    hiddenFields: const {},
+  }) async {
+    setMandatoryFields(dataObject);
     bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: hiddenFields);
-
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hasAllMandatoryFieldsFilled) {
       setState(() {
         isSaving = true;
@@ -129,17 +167,19 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
+      String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            NonAgywPrepVisitConstant.program,
-            NonAgywPrepVisitConstant.programStage,
-            agywDream!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          NonAgywPrepVisitConstant.program,
+          NonAgywPrepVisitConstant.programStage,
+          orgUnit,
+          defaultFormSections!,
+          dataObject,
+          eventDate,
+          agywDream!.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         clearFormAutoSaveState(context, agywDream.id);
@@ -162,19 +202,34 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
-      setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields: hiddenFields);
-      });
       AppUtil.showToastMessage(
-          message: 'Please fill all mandatory field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
+    }
+  }
+
+  void evaluatePrePMandatoryFieldChange(Map dataObject) {
+    if (dataObject[NonAgywPrepVisitConstant.hivRapidTestId] == 'Positive') {
+      setState(() {
+        mandatoryFields.add(NonAgywPrepVisitConstant.datePrepStopped);
+        mandatoryFieldObject[NonAgywPrepVisitConstant.datePrepStopped] = true;
+      });
+    } else {
+      if (mandatoryFields.indexOf(NonAgywPrepVisitConstant.datePrepStopped) >
+              0 ||
+          mandatoryFieldObject[NonAgywPrepVisitConstant.datePrepStopped] !=
+              null) {
+        mandatoryFields.remove(NonAgywPrepVisitConstant.datePrepStopped);
+        mandatoryFieldObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
+      }
     }
   }
 
@@ -232,7 +287,7 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                                                 serviceFormState.hiddenSections,
                                             formSections: formSections,
                                             mandatoryFieldObject:
-                                                mandatoryFieldsObject,
+                                                mandatoryFieldObject,
                                             isEditableMode:
                                                 serviceFormState.isEditableMode,
                                             dataObject:
@@ -279,22 +334,5 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
           ),
         ),
         bottomNavigationBar: InterventionBottomNavigationBarContainer());
-  }
-
-  void evaluatePrePMandatoryFieldChange(Map dataObject) {
-    if (dataObject[NonAgywPrepVisitConstant.hivRapidTestId] == 'Positive') {
-      setState(() {
-        mandatoryFields.add(NonAgywPrepVisitConstant.datePrepStopped);
-        mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] = true;
-      });
-    } else {
-      if (mandatoryFields.indexOf(NonAgywPrepVisitConstant.datePrepStopped) >
-              0 ||
-          mandatoryFieldsObject[NonAgywPrepVisitConstant.datePrepStopped] !=
-              null) {
-        mandatoryFields.remove(NonAgywPrepVisitConstant.datePrepStopped);
-        mandatoryFieldsObject.remove(NonAgywPrepVisitConstant.datePrepStopped);
-      }
-    }
   }
 }

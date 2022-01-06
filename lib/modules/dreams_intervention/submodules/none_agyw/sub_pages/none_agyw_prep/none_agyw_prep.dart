@@ -160,8 +160,11 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
-                  int referralIndex = events.length + 1;
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
+                  int prepVisitIndex = events.length + 1;
 
                   return Container(
                     child: Column(
@@ -191,7 +194,7 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                               child: Column(
                                                 children: events
                                                     .map((Events eventData) {
-                                                  referralIndex--;
+                                                  prepVisitIndex--;
                                                   return Container(
                                                     margin: EdgeInsets.only(
                                                       bottom: 15.0,
@@ -209,7 +212,8 @@ class _NoneAgywPrepState extends State<NoneAgywPrep> {
                                                         eventData,
                                                       ),
                                                       eventData: eventData,
-                                                      visitCount: referralIndex,
+                                                      visitCount:
+                                                          prepVisitIndex,
                                                       editDisabled: eventData !=
                                                           events.first,
                                                     ),

@@ -82,6 +82,7 @@ class _OvcHouseholdReferralManageState
                               eventData: widget.eventData,
                             ),
                             ReferralOutComeCardContainer(
+                              isIncomingReferral: widget.isIncomingReferral,
                               isOvcIntervention: true,
                               currentEventId: widget.eventData.event,
                               currentProgramStage:

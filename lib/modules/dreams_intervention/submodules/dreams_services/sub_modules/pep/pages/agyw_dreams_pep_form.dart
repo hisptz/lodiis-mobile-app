@@ -21,6 +21,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_pep_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/constants/pep_constant.dart';
@@ -38,19 +39,57 @@ class AgywDreamsPEPForm extends StatefulWidget {
 class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   final String label = 'PEP form';
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = Map();
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
-    formSections = DreamsPEPInfo.getFormSections();
+    setFormSections();
     Timer(Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsPEPInfo.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: AgywDreamsEnrollmentConstant.inputColor,
+        labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
+        allowedSelectedLevels:
+            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        program: AgywDreamsEnrollmentConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields = FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      );
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -76,7 +115,20 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream? agywDream) async {
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream,
+  ) async {
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+    } else {
+      AppUtil.showToastMessage(
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
+    }
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;
@@ -84,17 +136,19 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
+      String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            PepConstant.program,
-            PepConstant.programStage,
-            agywDream!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            agywDream.id,
-            eventId,
-            hiddenFields);
+          PepConstant.program,
+          PepConstant.programStage,
+          orgUnit,
+          defaultFormSections!,
+          dataObject,
+          eventDate,
+          agywDream!.id,
+          eventId,
+          hiddenFields,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
         Timer(Duration(seconds: 1), () {
@@ -117,14 +171,17 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
         Timer(Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
           });
         });
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill at least one form field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -166,96 +223,100 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Container(
+          child: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return Consumer<DreamsBeneficiarySelectionState>(
+                builder: (context, nonAgywState, child) {
+                  AgywDream? agywDream = nonAgywState.currentAgywDream;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            DreamsBeneficiaryTopHeader(
+                              agywDream: agywDream,
+                            ),
+                            !isFormReady
+                                ? Container(
+                                    child: CircularProcessLoader(
+                                      color: Colors.blueGrey,
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          formSections: formSections,
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: EntryFormSaveButton(
+                                          label: isSaving
+                                              ? 'Saving ...'
+                                              : currentLanguage == 'lesotho'
+                                                  ? 'Boloka'
+                                                  : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: Color(0xFF258DCC),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                              context,
+                                              serviceFormState.formState,
+                                              agywDream),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
               );
             },
           ),
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return Consumer<DreamsBeneficiarySelectionState>(
-                  builder: (context, nonAgywState, child) {
-                    AgywDream? agywDream = nonAgywState.currentAgywDream;
-                    return Consumer<ServiceFormState>(
-                      builder: (context, serviceFormState, child) {
-                        return Container(
-                          child: Column(
-                            children: [
-                              DreamsBeneficiaryTopHeader(
-                                agywDream: agywDream,
-                              ),
-                              !isFormReady
-                                  ? Container(
-                                      child: CircularProcessLoader(
-                                        color: Colors.blueGrey,
-                                      ),
-                                    )
-                                  : Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            top: 10.0,
-                                            left: 13.0,
-                                            right: 13.0,
-                                          ),
-                                          child: EntryFormContainer(
-                                            hiddenFields:
-                                                serviceFormState.hiddenFields,
-                                            hiddenSections:
-                                                serviceFormState.hiddenSections,
-                                            formSections: formSections,
-                                            mandatoryFieldObject: Map(),
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            dataObject:
-                                                serviceFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              serviceFormState.isEditableMode,
-                                          child: EntryFormSaveButton(
-                                            label: isSaving
-                                                ? 'Saving ...'
-                                                : currentLanguage == 'lesotho'
-                                                    ? 'Boloka'
-                                                    : 'Save',
-                                            labelColor: Colors.white,
-                                            buttonColor: Color(0xFF258DCC),
-                                            fontSize: 15.0,
-                                            onPressButton: () => onSaveForm(
-                                                context,
-                                                serviceFormState.formState,
-                                                agywDream),
-                                          ),
-                                        )
-                                      ],
-                                    )
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+    );
   }
 }

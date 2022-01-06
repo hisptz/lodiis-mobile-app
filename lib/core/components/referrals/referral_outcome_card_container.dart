@@ -17,6 +17,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
     required this.referralToFollowUpLinkage,
     required this.referralProgram,
     required this.isOvcIntervention,
+    required this.isIncomingReferral,
     this.isHouseholdReferral = false,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
   final String referralProgram;
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
+  final bool isIncomingReferral;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class ReferralOutComeCardContainer extends StatelessWidget {
                 )
               : eventData != null
                   ? ReferralOutComeCard(
+                      isIncomingReferral: isIncomingReferral,
                       isOvcIntervention: isOvcIntervention,
                       beneficiary: beneficiary,
                       eventData: eventData,

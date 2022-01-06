@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -12,6 +11,7 @@ import 'package:kb_mobile_app/core/components/referrals/referral_card_data.dart'
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -79,34 +79,12 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
     }
   }
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   onEditReferral(BuildContext context) async {
     CurrentUser? user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
         .setImplementingPartnerServices();
-    updateFormState(context, true, widget.eventData);
+    FormUtil.updateServiceFormState(context, true, widget.eventData);
     dynamic beneficiary = widget.isOvcIntervention
         ? widget.isHouseholdReferral
             ? Provider.of<OvcHouseholdCurrentSelectionState>(context,

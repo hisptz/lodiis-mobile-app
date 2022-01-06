@@ -90,15 +90,16 @@ class _AgywDreamsHTSConsentForReleaseStatusState
         AgywDreamsHTSLongFormConstant.htsToTBLinkage,
         AgywDreamsHTSLongFormConstant.htsToHtsRegisterLinkage
       ];
+      String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSLongFormConstant.program,
           AgywDreamsHTSLongFormConstant.programStage,
-          agywDream!.orgUnit,
+          orgUnit,
           htsFormSections,
           dataObject,
           eventDate,
-          agywDream.id,
+          agywDream!.id,
           eventId,
           hiddenFields,
           skippedFields: [AgywDreamsHTSLongFormConstant.bmiKey],
@@ -106,7 +107,7 @@ class _AgywDreamsHTSConsentForReleaseStatusState
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSLongFormConstant.program,
           AgywDreamsHTSLongFormConstant.htsRegisterProgramStage,
-          agywDream.orgUnit,
+          orgUnit,
           htsRegisterFormSections,
           dataObject,
           eventDate,
@@ -118,11 +119,14 @@ class _AgywDreamsHTSConsentForReleaseStatusState
         if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
             'Positive') {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AgywDreamsHTSTBForm(
-                      htsToTBLinkageValue: dataObject[
-                          AgywDreamsHTSLongFormConstant.htsToTBLinkage])));
+            context,
+            MaterialPageRoute(
+              builder: (context) => AgywDreamsHTSTBForm(
+                htsToTBLinkageValue:
+                    dataObject[AgywDreamsHTSLongFormConstant.htsToTBLinkage],
+              ),
+            ),
+          );
         } else {
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(agywDream.id);

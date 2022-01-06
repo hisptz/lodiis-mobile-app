@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -49,30 +50,6 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
   final List<String> programStageIds = [
     DreamsAgywReferralConstant.programStage
   ];
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      if (eventData != null) {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState('eventDate', eventData.eventDate);
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState('eventId', eventData.event);
-        for (Map dataValue in eventData.dataValues) {
-          if (dataValue['value'] != '') {
-            Provider.of<ServiceFormState>(context, listen: false)
-                .setFormFieldState(
-                    dataValue['dataElement'], dataValue['value']);
-          }
-        }
-      }
-    }
-  }
 
   void onAddReferral(BuildContext context, AgywDream agywDream) async {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
@@ -110,7 +87,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     int referralIndex,
   ) {
     updateViewStatusOfReferralNotification(context, eventData);
-    updateFormState(context, false, eventData);
+    FormUtil.updateServiceFormState(context, false, eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -166,7 +143,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     Events eventData,
     int referralIndex,
   ) {
-    updateFormState(context, false, eventData);
+    FormUtil.updateServiceFormState(context, false, eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -213,7 +190,10 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                             referralNotificationState.incomingReferrals;
                         List<Events> events = TrackedEntityInstanceUtil
                             .getAllEventListFromServiceDataStateByProgramStages(
-                                eventListByProgramStage, programStageIds);
+                          eventListByProgramStage,
+                          programStageIds,
+                          shouldSortByDate: true,
+                        );
                         String? currentInterventionBottomNavigationId =
                             interventionBottomNavigationState
                                 .currentInterventionBottomNavigationId;

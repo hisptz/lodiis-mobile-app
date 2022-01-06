@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
@@ -14,8 +16,33 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:provider/provider.dart';
 
 class FormUtil {
+  static updateServiceFormState(
+    BuildContext context,
+    bool isEditableMode,
+    Events? eventData,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (eventData != null) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', eventData.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
+        }
+      }
+    }
+  }
+
   static List<FormSection> getFormSectionWithReadOnlyStatus(
       List<FormSection> formSections,
       bool isReadOnly,
