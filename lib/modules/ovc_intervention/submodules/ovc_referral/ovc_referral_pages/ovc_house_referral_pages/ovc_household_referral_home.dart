@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -43,30 +44,8 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
   final String label = 'Household Referral';
   List<String> programStageIds = [OvcHouseholdReferralConstant.referralStage];
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   void onAddReferral(BuildContext context, OvcHousehold? household) async {
-    updateFormState(context, true, null);
+    FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = household!.id;
     String eventId = '';
     String formAutoSaveId =
@@ -75,14 +54,15 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
-
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => OvcHouseholdAddReferralForm()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => OvcHouseholdAddReferralForm(),
+        ),
+      );
     }
   }
 
@@ -230,16 +210,20 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
                                                   ),
                                                 ),
                                         ),
-                                        EntryFormSaveButton(
-                                          label: currentLanguage == 'lesotho'
-                                              ? 'Kenya Referral'.toUpperCase()
-                                              : 'ADD REFERRAL',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddReferral(
-                                            context,
-                                            currentOvcHousehold,
+                                        Visibility(
+                                          visible: currentOvcHousehold!
+                                              .enrollmentOuAccessible!,
+                                          child: EntryFormSaveButton(
+                                            label: currentLanguage == 'lesotho'
+                                                ? 'Kenya Referral'.toUpperCase()
+                                                : 'ADD REFERRAL',
+                                            labelColor: Colors.white,
+                                            buttonColor: Color(0xFF4B9F46),
+                                            fontSize: 15.0,
+                                            onPressButton: () => onAddReferral(
+                                              context,
+                                              currentOvcHousehold,
+                                            ),
                                           ),
                                         )
                                       ],

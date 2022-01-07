@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/referrals/clo_referral_card_body_summary.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -34,33 +35,8 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
     OvcChildCLOReferralConstant.referralCLOOutReceivedStage
   ];
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      if (eventData != null) {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState('eventDate', eventData.eventDate);
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState('eventId', eventData.event);
-        for (Map dataValue in eventData.dataValues) {
-          if (dataValue['value'] != '') {
-            Provider.of<ServiceFormState>(context, listen: false)
-                .setFormFieldState(
-                    dataValue['dataElement'], dataValue['value']);
-          }
-        }
-      }
-    }
-  }
-
   void onAddReferral(BuildContext context, OvcHouseholdChild? child) async {
-    updateFormState(context, true, null);
+    FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = child!.id;
     String eventId = '';
     String formAutoSaveId =
@@ -202,13 +178,17 @@ class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {
                                           ),
                                         ),
                                 ),
-                                EntryFormSaveButton(
-                                  label: 'ADD CLO REFERRAL',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF4B9F46),
-                                  fontSize: 15.0,
-                                  onPressButton: () => onAddReferral(
-                                      context, currentOvcHouseholdChild),
+                                Visibility(
+                                  visible: currentOvcHouseholdChild!
+                                      .enrollmentOuAccessible!,
+                                  child: EntryFormSaveButton(
+                                    label: 'ADD CLO REFERRAL',
+                                    labelColor: Colors.white,
+                                    buttonColor: Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onAddReferral(
+                                        context, currentOvcHouseholdChild),
+                                  ),
                                 )
                               ],
                             ),
