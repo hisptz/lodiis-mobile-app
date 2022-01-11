@@ -139,7 +139,8 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
           .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
           .toList();
     } catch (error) {
-      // TODO handle error
+      print(error);
+      // TODO add error messages
     }
     updateSearchResults(results: searchedTeis);
   }
@@ -223,6 +224,8 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
                                   child: isSearching
+
+                                      // Add a cross button to stop the search
                                       ? CircularProcessLoader(
                                           color: primaryColor,
                                           height: 19.0,

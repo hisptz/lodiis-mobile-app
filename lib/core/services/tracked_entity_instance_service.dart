@@ -144,8 +144,8 @@ class TrackedEntityInstanceService {
       var response =
           await httpService.httpGet(url, queryParameters: queryParameters);
       if (response.statusCode == 200) {
-        Map<String, dynamic> dataReponse = json.decode(response.body);
-        List enrollments = dataReponse["enrollments"] ?? [];
+        Map<String, dynamic> dataResponse = json.decode(response.body);
+        List enrollments = dataResponse["enrollments"] ?? [];
         for (var enrollment in enrollments) {
           programs.add(enrollment["program"] ?? "");
         }
