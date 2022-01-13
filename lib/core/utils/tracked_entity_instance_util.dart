@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -114,5 +115,31 @@ class TrackedEntityInstanceUtil {
           events.where((event) => event.eventDate == eventDate).toList();
     }
     return groupedEvents;
+  }
+
+  static String getEnrollmentSearchableValue(dynamic tei) {
+    String searchableValue = "";
+    try {
+      var searchableAttributes = (tei['attributes'] ?? [])
+          .map((attribute) {
+            return [
+              'WTZ7GLTrE8Q',
+              's1HaiT6OllL',
+              'rSP9c21JsfC',
+              'VJiWumvINR6',
+              'klLkGxy328c',
+              BeneficiaryIdentification.beneficiaryId,
+              BeneficiaryIdentification.primaryUIC,
+              BeneficiaryIdentification.secondaryUIC,
+            ].contains(attribute['attribute'])
+                ? attribute['value']
+                : '';
+          })
+          .where((value) => value.trim() != '')
+          .toList();
+      searchableValue = searchableAttributes.join(' ');
+    } catch (e) {}
+
+    return searchableValue.toLowerCase();
   }
 }
