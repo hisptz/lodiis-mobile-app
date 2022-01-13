@@ -113,18 +113,17 @@ class TrackedEntityInstanceService {
           queryParameters: queryParameters,
         );
         for (var pageFilter in pageFilters) {
-          Map<String, String> dataQueryParameters = {
-            "fields":
-                "trackedEntityInstance,attributes[attribute,value],enrollments[orgUnitName, program]"
-          };
+          Map<String, String> dataQueryParameters = {};
           dataQueryParameters.addAll(queryParameters);
           dataQueryParameters.addAll(pageFilter);
-          Response response = await httpService.httpGet(url,
+          String queryUrl = "api/trackedEntityInstances/query.json";
+          Response response = await httpService.httpGet(queryUrl,
               queryParameters: dataQueryParameters);
 
           if (response.statusCode == 200) {
             Map<String, dynamic> teiJson = json.decode(response.body);
-            tei.addAll(teiJson["trackedEntityInstances"] ?? []);
+            List sanitizedTeiJson = getSanitizedJson(teiJson, program);
+            tei.addAll(sanitizedTeiJson);
           }
         }
       }
@@ -135,6 +134,33 @@ class TrackedEntityInstanceService {
       await AppLogsOfflineProvider().addLogs(log);
     }
     return tei;
+  }
+
+  List getSanitizedJson(dynamic json, String programId) {
+    List<dynamic> headers = json['headers'] ?? [];
+    List<dynamic> rows = json['rows'] ?? [];
+
+    int teiIndex =
+        headers.indexWhere((dynamic item) => item['name'] == 'instance');
+    int ouNameIndex =
+        headers.indexWhere((dynamic item) => item['name'] == 'ouname');
+
+    return rows.map((dynamic row) {
+      return {
+        "trackedEntityInstance": row[teiIndex],
+        "enrollments": [
+          {"orgUnitName": row[ouNameIndex], "program": programId}
+        ],
+        "attributes": row
+            .asMap()
+            .entries
+            .map((rowItem) => {
+                  "attribute": headers[rowItem.key]['name'] ?? '',
+                  "value": rowItem.value,
+                })
+            .toList(),
+      };
+    }).toList();
   }
 
   Future<List<String>> discoveringBeneficiaryPrograms(String teiId) async {
