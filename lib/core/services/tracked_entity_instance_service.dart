@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tr
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -43,6 +44,11 @@ class TrackedEntityInstanceService {
           for (var enrollment in teiEnrollmentsJson) {
             teiEventsJson.addAll(enrollment["events"] ?? []);
           }
+          String searchableValue =
+              TrackedEntityInstanceUtil.getEnrollmentSearchableValue(teiJson);
+          teiEnrollmentsJson.forEach((enrollment) {
+            enrollment["searchableValue"] = searchableValue;
+          });
           await saveTrackedEntityInstanceProfile(teiJson);
           await saveTrackedEntityInstanceEnrollment(teiEnrollmentsJson);
           await saveTrackedEntityInstanceEvents(teiEventsJson);
