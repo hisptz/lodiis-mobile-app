@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tr
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -209,37 +210,12 @@ class SynchronizationService {
         ?.toList();
   }
 
-  String getEnrollmentSearchableValue(dynamic tei) {
-    String searchableValue = "";
-    try {
-      var searchableAttributes = (tei['attributes'] ?? [])
-          .map((attribute) {
-            return [
-              'WTZ7GLTrE8Q',
-              's1HaiT6OllL',
-              'rSP9c21JsfC',
-              'VJiWumvINR6',
-              'klLkGxy328c',
-              BeneficiaryIdentification.beneficiaryId,
-              BeneficiaryIdentification.primaryUIC,
-              BeneficiaryIdentification.secondaryUIC,
-            ].contains(attribute['attribute'])
-                ? attribute['value']
-                : '';
-          })
-          .where((value) => value.trim() != '')
-          .toList();
-      searchableValue = searchableAttributes.join(' ');
-    } catch (e) {}
-
-    return searchableValue.toLowerCase();
-  }
-
   Map<String, List> getEnrollmentsAndRelationshipsFromResponse(responseData) {
     List<Enrollment> enrollments = [];
     List<TeiRelationship> relationships = [];
     for (var tei in responseData['trackedEntityInstances']) {
-      String searchableValue = getEnrollmentSearchableValue(tei);
+      String searchableValue =
+          TrackedEntityInstanceUtil.getEnrollmentSearchableValue(tei);
       enrollments.addAll(tei['enrollments']?.map<Enrollment>((enrollment) {
         enrollment['searchableValue'] = searchableValue;
         return Enrollment().fromJson(enrollment);

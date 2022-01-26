@@ -93,20 +93,25 @@ class _OnlineBeneficiarySearchResultCardState
                             width: 20.0,
                             size: 2,
                           )
-                        : SizedBox(
-                            height: 20.0,
-                            width: 20.0,
-                            child: downloaded
-                                ? Icon(
-                                    Icons.check,
-                                    color: widget.primaryColor,
-                                  )
-                                : IconButton(
-                                    onPressed: onDownloadResult,
-                                    icon: Icon(
-                                      Icons.download,
-                                      color: widget.primaryColor,
-                                    )),
+                        : InkWell(
+                            onTap: () =>
+                                {downloaded ? null : onDownloadResult()},
+                            child: SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: downloaded
+                                    ? Icon(
+                                        Icons.check,
+                                        color: widget.primaryColor,
+                                      )
+                                    : Icon(
+                                        Icons.download,
+                                        color: widget.primaryColor,
+                                      ),
+                              ),
+                            ),
                           ))
               ],
             ),
