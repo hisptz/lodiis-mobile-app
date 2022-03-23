@@ -6,7 +6,7 @@ class InterventionCardState with ChangeNotifier {
   // initial state
   final List<InterventionCard> interventions =
       InterventionCard.getInterventions();
-  InterventionCard _currentInterventionProgram = new InterventionCard(name: '');
+  InterventionCard _currentInterventionProgram = InterventionCard(name: '');
 
   // Reducers
   void setCurrentInterventionProgram(
@@ -23,7 +23,7 @@ class InterventionCardState with ChangeNotifier {
   }
 
   void resetCurrentInterventionProgram() {
-    _currentInterventionProgram = new InterventionCard(name: '');
+    _currentInterventionProgram = InterventionCard(name: '');
   }
 
   // selectors

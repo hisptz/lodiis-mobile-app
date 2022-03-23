@@ -27,31 +27,21 @@ class AppDeviceInfoState with ChangeNotifier {
     Map<String, dynamic> deviceData = <String, dynamic>{};
     try {
       final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-      if (kIsWeb) {
-        print('It s on web');
-      } else {
-        if (Platform.isAndroid) {
-          deviceData = DeviceInfoUtil.readAndroidBuildData(
-              await deviceInfoPlugin.androidInfo);
-          _securityPatch = deviceData['version.securityPatch'] ?? '';
-          _osVersion = deviceData['version.release'] ?? '';
-          _brand = deviceData['brand'] ?? '';
-          _device = deviceData['device'] ?? '';
-          _manufacturer = deviceData['manufacturer'] ?? '';
-          _model = deviceData['model'] ?? '';
-          _product = deviceData['product'] ?? '';
-          _androidDeviceId = deviceData['androidId'] ?? '';
-        } else if (Platform.isIOS) {
-          print('It s on iOS');
-        } else if (Platform.isLinux) {
-          print('It s on linux');
-        } else if (Platform.isMacOS) {
-          print('It s on macos');
-        } else if (Platform.isWindows) {
-          print('It s on window');
-        }
+      if (Platform.isAndroid) {
+        deviceData = DeviceInfoUtil.readAndroidBuildData(
+            await deviceInfoPlugin.androidInfo);
+        _securityPatch = deviceData['version.securityPatch'] ?? '';
+        _osVersion = deviceData['version.release'] ?? '';
+        _brand = deviceData['brand'] ?? '';
+        _device = deviceData['device'] ?? '';
+        _manufacturer = deviceData['manufacturer'] ?? '';
+        _model = deviceData['model'] ?? '';
+        _product = deviceData['product'] ?? '';
+        _androidDeviceId = deviceData['androidId'] ?? '';
       }
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
     notifyListeners();
   }
 }

@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 
 class ServiceFormState with ChangeNotifier {
   // initial state
-  Map _formState = Map();
-  Map _hiddenFields = Map();
-  Map _hiddenSections = Map();
-  Map _hiddenInputFieldOptions = Map();
+  final Map _formState = {};
+  Map _hiddenFields = {};
+  Map _hiddenSections = {};
+  Map _hiddenInputFieldOptions = {};
   bool _isEditableMode = true;
 
   // selector

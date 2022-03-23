@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BeneficiaryFilterState with ChangeNotifier {
-  Map<String, List<Map<String, dynamic>>> _filters = {
+  final Map<String, List<Map<String, dynamic>>> _filters = {
     'dreams': [],
     'ovc': [],
     'ogac': [],
@@ -16,7 +16,7 @@ class BeneficiaryFilterState with ChangeNotifier {
     if (_filters.containsKey(program)) {
       List<Map<String, dynamic>> programFilters = _filters[program]!;
       programFilters.removeWhere((filter) => filter.keys.contains(key));
-      programFilters.add({'$key': value});
+      programFilters.add({key: value});
 
       _filters[program] = programFilters;
       notifyListeners();

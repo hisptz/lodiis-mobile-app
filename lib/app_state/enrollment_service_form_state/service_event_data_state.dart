@@ -11,7 +11,7 @@ class ServiceEventDataState with ChangeNotifier {
   final BuildContext? context;
   // initial state
   bool _isLoading = false;
-  Map _eventListByProgramStage = Map<String?, List<Events>>();
+  final Map _eventListByProgramStage = <String?, List<Events>>{};
 
   ServiceEventDataState(this.context);
 
@@ -20,7 +20,7 @@ class ServiceEventDataState with ChangeNotifier {
 
   Map<String?, List<Events>> get eventListByProgramStage =>
       _eventListByProgramStage as Map<String?, List<Events>>? ??
-      Map<String, List<Events>>();
+      <String, List<Events>>{};
 
   // reducer
 
@@ -46,7 +46,7 @@ class ServiceEventDataState with ChangeNotifier {
     }
     Provider.of<SynchronizationStatusState>(context!, listen: false)
         .resetSyncStatusReferences();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       _isLoading = false;
       notifyListeners();
     });

@@ -41,7 +41,7 @@ class InterventionBottomNavigationState with ChangeNotifier {
       var filteredList = interventionBottomNavigations
           .where((nav) => nav.id == _currentInterventionBottomNavigationId)
           .toList();
-      interventionBottomNavigation = filteredList.length > 0
+      interventionBottomNavigation = filteredList.isNotEmpty
           ? filteredList[0]
           : interventionBottomNavigation;
     }

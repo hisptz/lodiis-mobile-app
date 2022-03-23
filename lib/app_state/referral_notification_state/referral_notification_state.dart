@@ -30,9 +30,9 @@ class ReferralNotificationState with ChangeNotifier {
 
   List<String> getListOfTeiWithIncomingResolvedReferrals() {
     List<String> teiList = [];
-    _incomingResolvedReferrals!.forEach((referral) {
+    for (var referral in _incomingResolvedReferrals!) {
       teiList.add(referral.tei);
-    });
+    }
     return teiList.toSet().toList();
   }
 

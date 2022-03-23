@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
@@ -17,7 +16,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
       <NoneParticipationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationBursary = 0;
-  Map<String, int> _numberOfEducationBursaryBySex = Map();
+  Map<String, int> _numberOfEducationBursaryBySex = {};
   int _numberOfEducationBursaryWithoutVulnerability = 0;
   int _numberOfBursaryPages = 0;
   int _numberOfBursaryWithoutVulnerabilityPages = 0;
