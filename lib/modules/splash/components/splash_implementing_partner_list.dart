@@ -8,26 +8,24 @@ class SplashImplementingPartnerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
-          color: Color(0xFFFFFFFF),
-          padding: EdgeInsets.only(top: CustomDimension.defaultPadding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                height: 40,
-                child: Image(image: AssetImage('assets/logos/usaid.png')),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                height: 50,
-                child: Image(image: AssetImage('assets/logos/perpfar.png')),
-              ),
-              SvgPicture.asset('assets/logos/kb.svg'),
-              SvgPicture.asset('assets/logos/hisptz.svg'),
-            ],
-          )),
-    );
+        color: const Color(0xFFFFFFFF),
+        padding: EdgeInsets.only(top: CustomDimension.defaultPadding),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              height: 40,
+              child: const Image(image: AssetImage('assets/logos/usaid.png')),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              height: 50,
+              child: const Image(image: AssetImage('assets/logos/perpfar.png')),
+            ),
+            SvgPicture.asset('assets/logos/kb.svg'),
+            SvgPicture.asset('assets/logos/hisptz.svg'),
+          ],
+        ));
   }
 }

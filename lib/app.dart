@@ -32,6 +32,8 @@ import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -95,7 +97,7 @@ class MyApp extends StatelessWidget {
               ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          home: SafeArea(child: Splash()),
+          home: const SafeArea(child: Splash()),
         ));
   }
 }

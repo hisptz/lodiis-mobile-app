@@ -10,6 +10,8 @@ import 'package:kb_mobile_app/modules/login/components/login_top_icon.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -44,28 +46,26 @@ class _LoginState extends State<Login> {
               ),
             ),
             SingleChildScrollView(
-              child: Container(
-                child: Consumer<LanguageTranslationState>(
-                  builder: (context, languageTranslationState, child) {
-                    String? currentLanguage =
-                        languageTranslationState.currentLanguage;
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        LoginTopIcon(
-                          appLabel: appLabel,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        LoginFormContainer(
-                          currentLanguage: currentLanguage,
-                          appLabel: appLabel,
-                        )
-                      ],
-                    );
-                  },
-                ),
+              child: Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+                  String? currentLanguage =
+                      languageTranslationState.currentLanguage;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      LoginTopIcon(
+                        appLabel: appLabel,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      LoginFormContainer(
+                        currentLanguage: currentLanguage,
+                        appLabel: appLabel,
+                      )
+                    ],
+                  );
+                },
               ),
             )
           ],
