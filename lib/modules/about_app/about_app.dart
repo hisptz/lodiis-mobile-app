@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/modules/about_app/components/user_info_container.d
 import 'package:provider/provider.dart';
 
 class AboutApp extends StatefulWidget {
-  AboutApp({Key? key}) : super(key: key);
+  const AboutApp({Key? key}) : super(key: key);
 
   @override
   _AboutAppState createState() => _AboutAppState();
@@ -25,7 +25,7 @@ class _AboutAppState extends State<AboutApp> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -39,62 +39,60 @@ class _AboutAppState extends State<AboutApp> {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return Consumer<LanguageTranslationState>(
-                builder: (context, languageTranslationState, child) {
-                  String? currentLanguage =
-                      languageTranslationState.currentLanguage;
-                  return Consumer<AppInfoState>(
-                    builder: (context, appInfoState, child) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 10,
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              AppInfoContainer(
-                                currentLanguage: currentLanguage ?? "",
+        body: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String? currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Consumer<AppInfoState>(
+                  builder: (context, appInfoState, child) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 10,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            AppInfoContainer(
+                              currentLanguage: currentLanguage ?? "",
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                top: 10.0,
                               ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: 10.0,
-                                ),
-                                child: Table(
-                                  defaultColumnWidth:
-                                      FixedColumnWidth(size.width * 0.7),
-                                  children: [
-                                    TableRow(
-                                      children: [
-                                        LineSeparator(
-                                          color: activeInterventionProgram
-                                                  .secondaryColor
-                                                  ?.withOpacity(0.3) ??
-                                              Colors.black87.withOpacity(0.3),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                              child: Table(
+                                defaultColumnWidth:
+                                    FixedColumnWidth(size.width * 0.7),
+                                children: [
+                                  TableRow(
+                                    children: [
+                                      LineSeparator(
+                                        color: activeInterventionProgram
+                                                .secondaryColor
+                                                ?.withOpacity(0.3) ??
+                                            Colors.black87.withOpacity(0.3),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
-                              UserInfoContainer(
-                                currentLanguage: currentLanguage ?? "",
-                              )
-                            ],
-                          ),
+                            ),
+                            UserInfoContainer(
+                              currentLanguage: currentLanguage ?? "",
+                            )
+                          ],
                         ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
     );

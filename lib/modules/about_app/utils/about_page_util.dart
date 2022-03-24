@@ -6,12 +6,12 @@ class AboutPageUtil {
       children: [
         TableCell(
           child: Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 5.0,
             ),
             child: Text(
               tableRowKey,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -20,12 +20,12 @@ class AboutPageUtil {
         ),
         TableCell(
           child: Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 5.0,
             ),
             child: Text(
               tableRowValue,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 fontSize: 12.0,
               ),
             ),

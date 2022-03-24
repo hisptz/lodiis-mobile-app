@@ -22,10 +22,10 @@ class UserInfoContainer extends StatelessWidget {
         return Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 vertical: 10.0,
               ),
-              child: Text(
+              child: const Text(
                 "User Info",
                 style: TextStyle(
                   fontSize: 14.0,
@@ -33,55 +33,53 @@ class UserInfoContainer extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Table(
-                    defaultColumnWidth: FixedColumnWidth(
-                      size.width * 0.3,
-                    ),
-                    children: [
-                      AboutPageUtil.getTableRowContent(
-                        "Full name",
-                        currentUser?.name ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "username",
-                        currentUser?.username ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "email",
-                        currentUser?.email ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "phone number",
-                        currentUser?.phoneNumber ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "Assigned locations",
-                        currentUserLocations,
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "Implementing Partner",
-                        currentUser?.implementingPartner ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "Sub implementing Partner",
-                        currentUser?.subImplementingPartner ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "Assigned Roles",
-                        currentUser?.userRoles ?? "",
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        "Assigned Groups",
-                        currentUser?.userGroups ?? "",
-                      ),
-                    ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Table(
+                  defaultColumnWidth: FixedColumnWidth(
+                    size.width * 0.3,
                   ),
-                ],
-              ),
+                  children: [
+                    AboutPageUtil.getTableRowContent(
+                      "Full name",
+                      currentUser?.name ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "username",
+                      currentUser?.username ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "email",
+                      currentUser?.email ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "phone number",
+                      currentUser?.phoneNumber ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "Assigned locations",
+                      currentUserLocations,
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "Implementing Partner",
+                      currentUser?.implementingPartner ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "Sub implementing Partner",
+                      currentUser?.subImplementingPartner ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "Assigned Roles",
+                      currentUser?.userRoles ?? "",
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      "Assigned Groups",
+                      currentUser?.userGroups ?? "",
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         );
