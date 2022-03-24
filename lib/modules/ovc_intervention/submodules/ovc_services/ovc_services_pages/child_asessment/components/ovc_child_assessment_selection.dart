@@ -4,18 +4,28 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildAssessmentSelection extends StatelessWidget {
+class OvcChildAssessmentSelection extends StatefulWidget {
+  const OvcChildAssessmentSelection({Key? key}) : super(key: key);
+
+  @override
+  State<OvcChildAssessmentSelection> createState() =>
+      _OvcChildAssessmentSelectionState();
+}
+
+class _OvcChildAssessmentSelectionState
+    extends State<OvcChildAssessmentSelection> {
   final List<String> assessmentTitles = ['Well-being'];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
-      margin: EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: Text(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: const Text(
               'SELECT ASSESSMENT',
               style: TextStyle(
                 color: Color(0xFF4B9F46),
@@ -24,7 +34,7 @@ class OvcChildAssessmentSelection extends StatelessWidget {
               ),
             ),
           ),
-          Container(child: Consumer<OvcHouseholdCurrentSelectionState>(
+          Consumer<OvcHouseholdCurrentSelectionState>(
             builder: (context, ovcHouseholdCurrentSelectionState, child) {
               OvcHouseholdChild currentOvcHouseholdChild =
                   ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild!;
@@ -41,14 +51,12 @@ class OvcChildAssessmentSelection extends StatelessWidget {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        child: LineSeparator(
-                          color: Color(0xFFE0E6E0),
-                          height: 1.0,
-                        ),
+                      const LineSeparator(
+                        color: Color(0xFFE0E6E0),
+                        height: 1.0,
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        margin: const EdgeInsets.symmetric(vertical: 5.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -58,10 +66,11 @@ class OvcChildAssessmentSelection extends StatelessWidget {
                                     Navigator.pop(context, assessmentTitle),
                                 child: Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(vertical: 12),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
                                     child: Text(
                                       assessmentTitle,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF1A3518),
                                         fontWeight: FontWeight.w700,
                                         fontSize: 14,
@@ -77,7 +86,7 @@ class OvcChildAssessmentSelection extends StatelessWidget {
                 }).toList(),
               );
             },
-          )),
+          ),
         ],
       ),
     );

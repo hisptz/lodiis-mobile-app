@@ -55,7 +55,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseholdAssessment(),
+        builder: (context) => const OvcHouseholdAssessment(),
       ),
     );
   }
@@ -66,7 +66,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseholdCasePlanHome(),
+        builder: (context) => const OvcHouseholdCasePlanHome(),
       ),
     );
   }
@@ -76,7 +76,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseholdMonitor(),
+        builder: (context) => const OvcHouseholdMonitor(),
       ),
     );
   }
@@ -86,33 +86,31 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseholdService(),
+        builder: (context) => const OvcHouseholdService(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = currentLanguage == 'lesotho'
-                  ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                  : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} households';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-                showFilter: true,
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = currentLanguage == 'lesotho'
+                ? 'Lethathamo la malapa'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : 'Household list'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+            return SubModuleHomeContainer(
+              header: header,
+              bodyContents: _buildBody(currentLanguage),
+              showFilter: true,
+            );
+          },
+        );
+      },
     );
   }
 
@@ -136,14 +134,14 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
           cardButtonActions: ClipRRect(
             borderRadius: ovcHousehold.id == toggleCardId
                 ? BorderRadius.zero
-                : BorderRadius.only(
+                : const BorderRadius.only(
                     bottomLeft: Radius.circular(12.0),
                     bottomRight: Radius.circular(12.0),
                   ),
             child: Container(
                 height: 50.0,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0XFFF6FAF6),
                 ),
                 child: ListView(
@@ -152,80 +150,64 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                       screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
                   shrinkWrap: true,
                   children: [
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: TextButton(
-                            onPressed: () => onOpenHouseholdAssess(
-                              context,
-                              ovcHousehold,
-                            ),
-                            child: Text(
-                              'ASSESS',
-                              style: TextStyle().copyWith(
-                                fontSize: 12.0,
-                                color: Color(0xFF4B9F46),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        onPressed: () => onOpenHouseholdAssess(
+                          context,
+                          ovcHousehold,
+                        ),
+                        child: Text(
+                          'ASSESS',
+                          style: const TextStyle().copyWith(
+                            fontSize: 12.0,
+                            color: const Color(0xFF4B9F46),
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
                     ),
-                    Container(
-                      child: Container(
-                        child: TextButton(
-                          onPressed: () => onOpenHouseholdCasePlan(
-                            context,
-                            ovcHousehold,
-                          ),
-                          child: Text(
-                            'PLAN',
-                            style: TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: Color(0xFF4B9F46),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                    TextButton(
+                      onPressed: () => onOpenHouseholdCasePlan(
+                        context,
+                        ovcHousehold,
+                      ),
+                      child: Text(
+                        'PLAN',
+                        style: const TextStyle().copyWith(
+                          fontSize: 12.0,
+                          color: const Color(0xFF4B9F46),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Container(
-                      child: Container(
-                        child: TextButton(
-                          onPressed: () => onOpenHouseholdService(
-                            context,
-                            ovcHousehold,
-                          ),
-                          child: Text(
-                            currentLanguage == 'lesotho'
-                                ? 'Litsebeletso'.toUpperCase()
-                                : 'SERVICES',
-                            style: TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: Color(0xFF4B9F46),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                    TextButton(
+                      onPressed: () => onOpenHouseholdService(
+                        context,
+                        ovcHousehold,
+                      ),
+                      child: Text(
+                        currentLanguage == 'lesotho'
+                            ? 'Litsebeletso'.toUpperCase()
+                            : 'SERVICES',
+                        style: const TextStyle().copyWith(
+                          fontSize: 12.0,
+                          color: const Color(0xFF4B9F46),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    Container(
-                      child: Container(
-                        child: TextButton(
-                          onPressed: () => onOpenHouseholdMonitor(
-                            context,
-                            ovcHousehold,
-                          ),
-                          child: Text(
-                            'MONITOR',
-                            style: TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: Color(0xFF4B9F46),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                    TextButton(
+                      onPressed: () => onOpenHouseholdMonitor(
+                        context,
+                        ovcHousehold,
+                      ),
+                      child: Text(
+                        'MONITOR',
+                        style: const TextStyle().copyWith(
+                          fontSize: 12.0,
+                          color: const Color(0xFF4B9F46),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),

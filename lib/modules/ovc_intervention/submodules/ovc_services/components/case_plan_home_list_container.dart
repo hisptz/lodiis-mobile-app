@@ -19,19 +19,11 @@ class CasePlanHomeListContainer extends StatelessWidget {
   final Function? onViewCasePlan;
   final Function? onEditCasePlan;
 
-  bool _hasAccessToEditCasePlan(List<Events> events) {
-    return events.length ==
-        events
-            .where((Events event) => event.enrollmentOuAccessible!)
-            .toList()
-            .length;
-  }
-
   @override
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
       ),
       child: Consumer<ServiceEventDataState>(
@@ -45,124 +37,120 @@ class CasePlanHomeListContainer extends StatelessWidget {
               TrackedEntityInstanceUtil.getGroupedEventByDates(events);
           int assessmentIndex = groupedEventByDates.keys.toList().length;
           return assessmentIndex == 0
-              ? Center(
+              ? const Center(
                   child: Text('There is no case plan at moment'),
                 )
-              : Container(
-                  child: Column(
-                    children:
-                        groupedEventByDates.keys.toList().map((assessmentDate) {
-                      assessmentIndex--;
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 5.0,
-                          horizontal: 17.0,
-                        ),
-                        child: MaterialCard(
-                          body: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12.0),
-                              bottomLeft: Radius.circular(12.0),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  left: BorderSide(
-                                    color: Color(0xFF4B9F46),
-                                    width: 9.0,
-                                  ),
+              : Column(
+                  children:
+                      groupedEventByDates.keys.toList().map((assessmentDate) {
+                    assessmentIndex--;
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 17.0,
+                      ),
+                      child: MaterialCard(
+                        body: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(12.0),
+                            bottomLeft: Radius.circular(12.0),
+                          ),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                left: BorderSide(
+                                  color: Color(0xFF4B9F46),
+                                  width: 9.0,
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        child: Expanded(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: '$assessmentDate   ',
-                                              style: TextStyle().copyWith(
-                                                color: Color(0xFF92A791),
-                                                fontSize: 12.0,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 20.0,
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: RichText(
+                                        text: TextSpan(
+                                          text: '$assessmentDate   ',
+                                          style: const TextStyle().copyWith(
+                                            color: const Color(0xFF92A791),
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text:
+                                                  'Case plan ${assessmentIndex + 1}',
+                                              style: const TextStyle().copyWith(
+                                                color: const Color(0xFF1A3518),
+                                                fontSize: 14.0,
                                                 fontWeight: FontWeight.w700,
                                               ),
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      'Case plan ${assessmentIndex + 1}',
-                                                  style: TextStyle().copyWith(
-                                                    color: Color(0xFF1A3518),
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 5.0,
+                                      ),
+                                      child: InkWell(
+                                        onTap: () => onViewCasePlan!(
+                                            groupedEventByDates[
+                                                assessmentDate]),
+                                        child: Container(
+                                          height: iconHeight,
+                                          width: iconHeight,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 5),
+                                          child: SvgPicture.asset(
+                                            'assets/icons/expand_icon.svg',
+                                            color: const Color(0xFF4B9F46),
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
+                                    ),
+                                    Visibility(
+                                      visible: AppUtil
+                                          .hasAccessToEditCasePlanServiceData(
+                                        groupedEventByDates[assessmentDate],
+                                      ),
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
                                           horizontal: 5.0,
                                         ),
                                         child: InkWell(
-                                          onTap: () => onViewCasePlan!(
+                                          onTap: () => onEditCasePlan!(
                                               groupedEventByDates[
                                                   assessmentDate]),
                                           child: Container(
                                             height: iconHeight,
                                             width: iconHeight,
-                                            margin: EdgeInsets.symmetric(
+                                            margin: const EdgeInsets.symmetric(
                                                 vertical: 5, horizontal: 5),
                                             child: SvgPicture.asset(
-                                              'assets/icons/expand_icon.svg',
-                                              color: Color(0xFF4B9F46),
+                                              'assets/icons/edit-icon.svg',
+                                              color: const Color(0xFF4B9F46),
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Visibility(
-                                        visible: AppUtil
-                                            .hasAccessToEditCasePlanServiceData(
-                                          groupedEventByDates[assessmentDate],
-                                        ),
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                            horizontal: 5.0,
-                                          ),
-                                          child: InkWell(
-                                            onTap: () => onEditCasePlan!(
-                                                groupedEventByDates[
-                                                    assessmentDate]),
-                                            child: Container(
-                                              height: iconHeight,
-                                              width: iconHeight,
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 5, horizontal: 5),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/edit-icon.svg',
-                                                color: Color(0xFF4B9F46),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
+                      ),
+                    );
+                  }).toList(),
                 );
         },
       ),

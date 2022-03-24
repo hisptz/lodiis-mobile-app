@@ -21,22 +21,20 @@ class _OvcNoneParticipationRecordsState
     extends State<OvcNoneParticipationRecords> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = 'OVC none participants'.toUpperCase() +
-                  ': ${ovcInterventionListState.numberOfOvcNoneParticipants}';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = 'OVC none participants'.toUpperCase() +
+                ': ${ovcInterventionListState.numberOfOvcNoneParticipants}';
+            return SubModuleHomeContainer(
+              header: header,
+              bodyContents: _buildBody(currentLanguage),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -48,7 +46,7 @@ class _OvcNoneParticipationRecordsState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcEnrollmentNoneParticipationForm(),
+        builder: (context) => const OvcEnrollmentNoneParticipationForm(),
       ),
     );
   }
@@ -61,7 +59,7 @@ class _OvcNoneParticipationRecordsState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcEnrollmentNoneParticipationForm(),
+        builder: (context) => const OvcEnrollmentNoneParticipationForm(),
       ),
     );
   }
@@ -70,12 +68,12 @@ class _OvcNoneParticipationRecordsState
     return Consumer<OvcInterventionListState>(
       builder: (context, ovcState, child) => CustomPaginatedListView(
         errorWidget: Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             bottom: 16.0,
             right: 13.0,
             left: 13.0,
           ),
-          child: Center(
+          child: const Center(
             child: Text(
               'There is no OVC none participants at moment',
               textAlign: TextAlign.center,
@@ -93,14 +91,14 @@ class _OvcNoneParticipationRecordsState
               onEditBeneficiary(context, ovcNoneParticipant),
         ),
         emptyListWidget: Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             bottom: 16.0,
             right: 13.0,
             left: 13.0,
           ),
           child: Center(
             child: Column(
-              children: [
+              children: const [
                 Text(
                   'There is no OVC none participants at moment',
                   textAlign: TextAlign.center,

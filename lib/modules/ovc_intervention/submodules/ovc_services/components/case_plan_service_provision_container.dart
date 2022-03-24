@@ -66,7 +66,7 @@ class _CasePlanServiceProvisionContainerState
   }
 
   void addServiceMonitoring(BuildContext context) async {
-    Map dataObject = Map();
+    Map dataObject = {};
     for (var key in widget.casePlanGap.keys) {
       if (key != 'eventId' && key != 'eventDate') {
         dataObject[key] = widget.casePlanGap[key];
@@ -152,7 +152,7 @@ class _CasePlanServiceProvisionContainerState
         ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
         : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
 
-    Map dataObject = Map();
+    Map dataObject = {};
     for (var key in widget.casePlanGap.keys) {
       if (key != 'eventId' && key != 'eventDate') {
         dataObject[key] = widget.casePlanGap[key];
@@ -177,81 +177,77 @@ class _CasePlanServiceProvisionContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Visibility(
-        visible: widget.shouldEditCaseGapServiceProvision ||
-            widget.shouldViewCaseGapServiceProvision,
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                child: widget.isServiceMonitoring
-                    ? CasePlanGapServiceMonitoringViewContainer(
-                        hasEditAccess: widget.hasEditAccess,
-                        casePlanGap: widget.casePlanGap,
-                        domainId: widget.domainId,
-                        themeColor: widget.formSectionColor,
-                        casePlanGapToServiceMonitoringLinkageValue:
-                            casePlanGapToServiceMonitoringLinkageValue,
-                        shouldEditCaseGapServiceMonitoring: false,
-                        isCasePlanForHousehold: widget.isCasePlanForHousehold,
-                      )
-                    : CasePlanGapServiceViewContainer(
-                        hasEditAccess: widget.hasEditAccess,
-                        casePlanGap: widget.casePlanGap,
-                        domainId: widget.domainId,
-                        themeColor: widget.formSectionColor,
-                        casePlanGapToServiceProvisionLinkageValue:
-                            casePlanGapToServiceProvisionLinkageValue,
-                        shouldEditCaseGapServiceProvision: false,
-                        isCasePlanForHousehold: widget.isCasePlanForHousehold,
-                      ),
-              ),
-              Visibility(
-                visible: widget.shouldViewCaseGapServiceProvision &&
-                    widget.hasEditAccess,
-                child: Consumer<LanguageTranslationState>(
-                  builder: (context, languageTranslationState, child) {
-                    String? currentLanguage =
-                        languageTranslationState.currentLanguage;
-                    return Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                      ),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: widget.formSectionColor!,
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          padding: EdgeInsets.all(15.0),
-                        ),
-                        onPressed: () => widget.isServiceMonitoring
-                            ? this.addServiceMonitoring(context)
-                            : this.addServiceProvision(context),
-                        child: Text(
-                          widget.isServiceMonitoring
-                              ? 'ADD MONITORING'
-                              : currentLanguage != 'lesotho'
-                                  ? 'ADD SERVICE'
-                                  : 'KENYA LITSEBELETSO',
-                          style: TextStyle().copyWith(
-                            color: widget.formSectionColor,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+    return Visibility(
+      visible: widget.shouldEditCaseGapServiceProvision ||
+          widget.shouldViewCaseGapServiceProvision,
+      child: Column(
+        children: [
+          Container(
+            child: widget.isServiceMonitoring
+                ? CasePlanGapServiceMonitoringViewContainer(
+                    hasEditAccess: widget.hasEditAccess,
+                    casePlanGap: widget.casePlanGap,
+                    domainId: widget.domainId,
+                    themeColor: widget.formSectionColor,
+                    casePlanGapToServiceMonitoringLinkageValue:
+                        casePlanGapToServiceMonitoringLinkageValue,
+                    shouldEditCaseGapServiceMonitoring: false,
+                    isCasePlanForHousehold: widget.isCasePlanForHousehold,
+                  )
+                : CasePlanGapServiceViewContainer(
+                    hasEditAccess: widget.hasEditAccess,
+                    casePlanGap: widget.casePlanGap,
+                    domainId: widget.domainId,
+                    themeColor: widget.formSectionColor,
+                    casePlanGapToServiceProvisionLinkageValue:
+                        casePlanGapToServiceProvisionLinkageValue,
+                    shouldEditCaseGapServiceProvision: false,
+                    isCasePlanForHousehold: widget.isCasePlanForHousehold,
+                  ),
           ),
-        ),
+          Visibility(
+            visible: widget.shouldViewCaseGapServiceProvision &&
+                widget.hasEditAccess,
+            child: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String? currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Container(
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 10.0,
+                  ),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: widget.formSectionColor!,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      padding: const EdgeInsets.all(15.0),
+                    ),
+                    onPressed: () => widget.isServiceMonitoring
+                        ? addServiceMonitoring(context)
+                        : addServiceProvision(context),
+                    child: Text(
+                      widget.isServiceMonitoring
+                          ? 'ADD MONITORING'
+                          : currentLanguage != 'lesotho'
+                              ? 'ADD SERVICE'
+                              : 'KENYA LITSEBELETSO',
+                      style: const TextStyle().copyWith(
+                        color: widget.formSectionColor,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

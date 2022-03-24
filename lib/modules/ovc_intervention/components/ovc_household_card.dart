@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCard extends StatelessWidget {
-  OvcHouseholdCard({
+  const OvcHouseholdCard({
     Key? key,
     required this.ovcHousehold,
     required this.canEdit,
@@ -89,7 +89,7 @@ class OvcHouseholdCard extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcEnrollmentHouseholdEditForm(),
+          builder: (context) => const OvcEnrollmentHouseholdEditForm(),
         ),
       );
     }
@@ -100,7 +100,7 @@ class OvcHouseholdCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcEnrollmentHouseholdViewForm(),
+        builder: (context) => const OvcEnrollmentHouseholdViewForm(),
       ),
     );
   }
@@ -108,38 +108,32 @@ class OvcHouseholdCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
-        margin: EdgeInsets.only(
-          bottom: 16.0,
-          right: 13.0,
-          left: 13.0,
-        ),
-        child: MaterialCard(
-          body: Container(
-            child: Column(
-              children: [
-                Container(
-                  child: OvcHouseholdCardHeader(
-                    ovcHousehold: ovcHousehold,
-                    svgIcon: svgIcon,
-                    canEdit: canEdit,
-                    canExpand: canExpand,
-                    canView: canView,
-                    isExpanded: isExpanded,
-                    onToggleCard: onCardToggle,
-                    onEdit: () => onEditHousehold(context),
-                    onView: () => onViewHousehold(context),
-                  ),
-                ),
-                cardBody,
-                cardButtonActions,
-                Visibility(
-                  visible: isExpanded,
-                  child: cardButtonContent,
-                ),
-              ],
+      margin: const EdgeInsets.only(
+        bottom: 16.0,
+        right: 13.0,
+        left: 13.0,
+      ),
+      child: MaterialCard(
+        body: Column(
+          children: [
+            OvcHouseholdCardHeader(
+              ovcHousehold: ovcHousehold,
+              svgIcon: svgIcon,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              canView: canView,
+              isExpanded: isExpanded,
+              onToggleCard: onCardToggle,
+              onEdit: () => onEditHousehold(context),
+              onView: () => onViewHousehold(context),
             ),
-          ),
+            cardBody,
+            cardButtonActions,
+            Visibility(
+              visible: isExpanded,
+              child: cardButtonContent,
+            ),
+          ],
         ),
       ),
     );

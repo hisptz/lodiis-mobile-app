@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -36,7 +36,7 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
   final String label = 'Consent Form';
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
   final List<String> mandatoryFields = OvcEnrollmentConsent.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   bool isFormReady = false;
   List unFilledMandatoryFields = [];
 
@@ -69,8 +69,8 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
         context,
         MaterialPageRoute(
           builder: (context) => hasConsent
-              ? OvcEnrollmentBasicInfoForm()
-              : OvcEnrollmentNoneParticipationForm(),
+              ? const OvcEnrollmentBasicInfoForm()
+              : const OvcEnrollmentNoneParticipationForm(),
         ),
       );
     } else {
@@ -118,7 +118,7 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -132,13 +132,13 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 13.0,
             ),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -146,46 +146,41 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
-                                ),
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            EntryFormSaveButton(
+                              label: currentLanguage == 'lesotho'
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
+                              labelColor: Colors.white,
+                              buttonColor: const Color(0xFF4B9F46),
+                              fontSize: 15.0,
+                              onPressButton: () => onSaveAndContinue(
+                                context,
+                                enrollmentFormState.formState,
                               ),
-                              EntryFormSaveButton(
-                                label: currentLanguage == 'lesotho'
-                                    ? 'Boloka ebe u fetela pele'
-                                    : 'Save and Continue',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF4B9F46),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                  context,
-                                  enrollmentFormState.formState,
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

@@ -1,10 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -28,8 +27,16 @@ import 'package:provider/provider.dart';
 import 'components/ovc_exit_list_card.dart';
 import 'components/ovc_exit_selection.dart';
 
-class OvcChildExitHome extends StatelessWidget {
+class OvcChildExitHome extends StatefulWidget {
+  const OvcChildExitHome({Key? key}) : super(key: key);
+
+  @override
+  State<OvcChildExitHome> createState() => _OvcChildExitHomeState();
+}
+
+class _OvcChildExitHomeState extends State<OvcChildExitHome> {
   final String label = 'Child Exit';
+
   final List<String> programStageIds = [];
 
   void onAddNewExit(BuildContext context, List<Events> events) async {
@@ -76,21 +83,21 @@ class OvcChildExitHome extends StatelessWidget {
             ? Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OvcExitInformationForm(),
+                  builder: (context) => const OvcExitInformationForm(),
                 ),
               )
             : exitResponse == 'Transfer'
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OvcExitCaseTransferForm(),
+                      builder: (context) => const OvcExitCaseTransferForm(),
                     ),
                   )
                 : exitResponse == 'Case closure'
                     ? Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OvcExitCaseClosureForm(),
+                          builder: (context) => const OvcExitCaseClosureForm(),
                         ),
                       )
                     : exitResponse == 'Graduation'
@@ -98,10 +105,10 @@ class OvcChildExitHome extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  OvcExitCasePlanGraduationReadinessForm(),
+                                  const OvcExitCasePlanGraduationReadinessForm(),
                             ),
                           )
-                        : print(exitResponse);
+                        : '';
       }
     }
   }
@@ -144,7 +151,7 @@ class OvcChildExitHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -157,104 +164,92 @@ class OvcChildExitHome extends StatelessWidget {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Column(children: [
-            OvcChildInfoTopHeader(),
-            Container(
-              child: Consumer<ServiceEventDataState>(
-                builder: (context, serviceEventDataState, child) {
-                  bool isLoading = serviceEventDataState.isLoading;
-                  Map<String?, List<Events>> eventListByProgramStage =
-                      serviceEventDataState.eventListByProgramStage;
-                  Map programStageMap =
-                      OvcExitConstant.getOvcExitProgramStageMap();
-                  for (var id in programStageMap.keys.toList()) {
-                    programStageIds.add('$id');
-                  }
-                  List<Events> events = TrackedEntityInstanceUtil
-                      .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
-                  bool shouldAllowAddNewButton = events
-                          .map((Events event) => event.programStage)
-                          .toList()
-                          .length <
-                      programStageIds.toSet().toList().length;
-                  return isLoading
-                      ? CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        )
-                      : Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 10.0),
-                              child: events.length == 0
-                                  ? Center(
-                                      child: Text(
-                                          'There is no any exit details at moment'),
-                                    )
-                                  : Column(
-                                      children: events
-                                          .map(
-                                            (Events eventData) =>
-                                                OvcExitListCard(
-                                              eventData: eventData,
-                                              programStageMap: programStageMap,
-                                              onEditExit: () {
-                                                String? exitResponse =
-                                                    programStageMap[
-                                                        eventData.programStage];
-                                                onEditExit(context,
-                                                    exitResponse, eventData);
-                                              },
-                                              onViewExit: () {
-                                                String? exitResponse =
-                                                    programStageMap[
-                                                        eventData.programStage];
-                                                onViewExit(context,
-                                                    exitResponse, eventData);
-                                              },
-                                            ),
-                                          )
-                                          .toList(),
-                                    ),
+        body: Column(children: [
+          const OvcChildInfoTopHeader(),
+          Consumer<ServiceEventDataState>(
+            builder: (context, serviceEventDataState, child) {
+              bool isLoading = serviceEventDataState.isLoading;
+              Map<String?, List<Events>> eventListByProgramStage =
+                  serviceEventDataState.eventListByProgramStage;
+              Map programStageMap = OvcExitConstant.getOvcExitProgramStageMap();
+              for (var id in programStageMap.keys.toList()) {
+                programStageIds.add('$id');
+              }
+              List<Events> events = TrackedEntityInstanceUtil
+                  .getAllEventListFromServiceDataStateByProgramStages(
+                      eventListByProgramStage, programStageIds);
+              bool shouldAllowAddNewButton = events
+                      .map((Events event) => event.programStage)
+                      .toList()
+                      .length <
+                  programStageIds.toSet().toList().length;
+              return isLoading
+                  ? const CircularProcessLoader(
+                      color: Colors.blueGrey,
+                    )
+                  : Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 10.0),
+                          child: events.isEmpty
+                              ? const Center(
+                                  child: Text(
+                                      'There is no any exit details at moment'),
+                                )
+                              : Column(
+                                  children: events
+                                      .map(
+                                        (Events eventData) => OvcExitListCard(
+                                          eventData: eventData,
+                                          programStageMap: programStageMap,
+                                          onEditExit: () {
+                                            String? exitResponse =
+                                                programStageMap[
+                                                    eventData.programStage];
+                                            onEditExit(context, exitResponse,
+                                                eventData);
+                                          },
+                                          onViewExit: () {
+                                            String? exitResponse =
+                                                programStageMap[
+                                                    eventData.programStage];
+                                            onViewExit(context, exitResponse,
+                                                eventData);
+                                          },
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                        ),
+                        Consumer<OvcHouseholdCurrentSelectionState>(builder:
+                            (context, ovcHouseholdCurrentSelectionState,
+                                child) {
+                          var currentOvcHouseholdChild =
+                              ovcHouseholdCurrentSelectionState
+                                  .currentOvcHouseholdChild!;
+                          return Visibility(
+                            visible: shouldAllowAddNewButton &&
+                                currentOvcHouseholdChild
+                                    .enrollmentOuAccessible!,
+                            child: EntryFormSaveButton(
+                              label: 'ADD',
+                              labelColor: Colors.white,
+                              fontSize: 14,
+                              buttonColor: const Color(0xFF4B9F46),
+                              onPressButton: () => onAddNewExit(
+                                context,
+                                events,
+                              ),
                             ),
-                            Container(
-                              child:
-                                  Consumer<OvcHouseholdCurrentSelectionState>(
-                                      builder: (context,
-                                          ovcHouseholdCurrentSelectionState,
-                                          child) {
-                                var currentOvcHouseholdChild =
-                                    ovcHouseholdCurrentSelectionState
-                                        .currentOvcHouseholdChild!;
-                                return Visibility(
-                                  visible: shouldAllowAddNewButton &&
-                                      currentOvcHouseholdChild
-                                          .enrollmentOuAccessible!,
-                                  child: Container(
-                                    child: EntryFormSaveButton(
-                                      label: 'ADD',
-                                      labelColor: Colors.white,
-                                      fontSize: 14,
-                                      buttonColor: Color(0xFF4B9F46),
-                                      onPressButton: () => onAddNewExit(
-                                        context,
-                                        events,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          ],
-                        );
-                },
-              ),
-            ),
-          ]),
-        ),
+                          );
+                        }),
+                      ],
+                    );
+            },
+          ),
+        ]),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

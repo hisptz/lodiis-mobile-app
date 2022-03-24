@@ -14,7 +14,7 @@ class OvcHouseholdChildCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 2.0,
       ),
       child: Row(
@@ -24,9 +24,9 @@ class OvcHouseholdChildCount extends StatelessWidget {
             flex: 1,
             child: Text(
               '# of OVC',
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 fontSize: 14.0,
-                color: Color(0XFF92A791),
+                color: const Color(0XFF92A791),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -35,24 +35,22 @@ class OvcHouseholdChildCount extends StatelessWidget {
             flex: 2,
             child: Row(
               children: [
-                Container(
-                  child: Text(
-                    currentLanguage == 'lesotho'
-                        ? 'Mosali - ${ovcHousehold.ovcFemaleCount}'
-                        : 'Female - ${ovcHousehold.ovcFemaleCount}',
-                    style: TextStyle().copyWith(
-                      fontSize: 14.0,
-                      color: Color(0XFF536852),
-                      fontWeight: FontWeight.w500,
-                    ),
+                Text(
+                  currentLanguage == 'lesotho'
+                      ? 'Mosali - ${ovcHousehold.ovcFemaleCount}'
+                      : 'Female - ${ovcHousehold.ovcFemaleCount}',
+                  style: const TextStyle().copyWith(
+                    fontSize: 14.0,
+                    color: const Color(0XFF536852),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 Container(
                   height: 14.0,
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 20.0,
                   ),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     border: Border(
                       left: BorderSide(
                         color: Color(0xFFC9E2C7),
@@ -61,16 +59,14 @@ class OvcHouseholdChildCount extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    currentLanguage == 'lesotho'
-                        ? 'Monna - ${ovcHousehold.ovcMaleCount}'
-                        : 'Male - ${ovcHousehold.ovcMaleCount}',
-                    style: TextStyle().copyWith(
-                      fontSize: 14.0,
-                      color: Color(0XFF536852),
-                      fontWeight: FontWeight.w500,
-                    ),
+                Text(
+                  currentLanguage == 'lesotho'
+                      ? 'Monna - ${ovcHousehold.ovcMaleCount}'
+                      : 'Male - ${ovcHousehold.ovcMaleCount}',
+                  style: const TextStyle().copyWith(
+                    fontSize: 14.0,
+                    color: const Color(0XFF536852),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],

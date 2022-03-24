@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -25,6 +25,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:provider/provider.dart';
 
 class OvcServiceHIVAssessmentForm extends StatefulWidget {
+  const OvcServiceHIVAssessmentForm({Key? key}) : super(key: key);
+
   @override
   _OvcServiceHIVAssessmentFormState createState() =>
       _OvcServiceHIVAssessmentFormState();
@@ -41,7 +43,7 @@ class _OvcServiceHIVAssessmentFormState
   void initState() {
     super.initState();
     formSections = OvcServicesHivScreening.getFormSections();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -51,7 +53,7 @@ class _OvcServiceHIVAssessmentFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -100,7 +102,7 @@ class _OvcServiceHIVAssessmentFormState
             skippedFields: skippedFields);
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseholdChild.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
           });
@@ -116,7 +118,7 @@ class _OvcServiceHIVAssessmentFormState
           Navigator.pop(context);
         });
       } catch (e) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
@@ -136,7 +138,7 @@ class _OvcServiceHIVAssessmentFormState
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -149,84 +151,78 @@ class _OvcServiceHIVAssessmentFormState
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return Consumer<OvcHouseholdCurrentSelectionState>(
-                  builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHouseholdChild? currentOvcHouseholdChild =
-                        ovcHouseholdCurrentSelectionState
-                            .currentOvcHouseholdChild;
-                    return Consumer<ServiceFormState>(
-                      builder: (context, serviceFormState, child) {
-                        return Container(
-                          child: Column(
-                            children: [
-                              OvcChildInfoTopHeader(),
-                              Container(
-                                child: !isFormReady
-                                    ? Container(
-                                        child: CircularProcessLoader(
-                                          color: Colors.blueGrey,
+          body: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return Consumer<OvcHouseholdCurrentSelectionState>(
+                builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                  OvcHouseholdChild? currentOvcHouseholdChild =
+                      ovcHouseholdCurrentSelectionState
+                          .currentOvcHouseholdChild;
+                  return Consumer<ServiceFormState>(
+                    builder: (context, serviceFormState, child) {
+                      return Column(
+                        children: [
+                          const OvcChildInfoTopHeader(),
+                          Container(
+                            child: !isFormReady
+                                ? const CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                          top: 10.0,
+                                          left: 13.0,
+                                          right: 13.0,
+                                        ),
+                                        child: EntryFormContainer(
+                                          hiddenSections:
+                                              serviceFormState.hiddenSections,
+                                          hiddenFields:
+                                              serviceFormState.hiddenFields,
+                                          formSections: formSections,
+                                          mandatoryFieldObject: const {},
+                                          dataObject:
+                                              serviceFormState.formState,
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          onInputValueChange:
+                                              onInputValueChange,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: EntryFormSaveButton(
+                                          label: isSaving
+                                              ? 'Saving ...'
+                                              : currentLanguage == 'lesotho'
+                                                  ? 'Boloka'
+                                                  : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: const Color(0xFF4B9F46),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                              context,
+                                              serviceFormState.formState,
+                                              currentOvcHouseholdChild),
                                         ),
                                       )
-                                    : Column(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                              top: 10.0,
-                                              left: 13.0,
-                                              right: 13.0,
-                                            ),
-                                            child: EntryFormContainer(
-                                              hiddenSections: serviceFormState
-                                                  .hiddenSections,
-                                              hiddenFields:
-                                                  serviceFormState.hiddenFields,
-                                              formSections: formSections,
-                                              mandatoryFieldObject: Map(),
-                                              dataObject:
-                                                  serviceFormState.formState,
-                                              isEditableMode: serviceFormState
-                                                  .isEditableMode,
-                                              onInputValueChange:
-                                                  onInputValueChange,
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible:
-                                                serviceFormState.isEditableMode,
-                                            child: EntryFormSaveButton(
-                                              label: isSaving
-                                                  ? 'Saving ...'
-                                                  : currentLanguage == 'lesotho'
-                                                      ? 'Boloka'
-                                                      : 'Save',
-                                              labelColor: Colors.white,
-                                              buttonColor: Color(0xFF4B9F46),
-                                              fontSize: 15.0,
-                                              onPressButton: () => onSaveForm(
-                                                  context,
-                                                  serviceFormState.formState,
-                                                  currentOvcHouseholdChild),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                              ),
-                            ],
+                                    ],
+                                  ),
                           ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
   }
 }

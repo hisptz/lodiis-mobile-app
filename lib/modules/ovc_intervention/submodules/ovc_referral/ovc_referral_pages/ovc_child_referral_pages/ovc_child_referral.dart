@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
@@ -22,7 +21,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class OvcChildReferral extends StatefulWidget {
-  OvcChildReferral({
+  const OvcChildReferral({
     Key? key,
     required this.isIncomingReferral,
   }) : super(key: key);
@@ -53,7 +52,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcChildReferralAddForm(),
+          builder: (context) => const OvcChildReferralAddForm(),
         ),
       );
     }
@@ -95,125 +94,116 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcHouseholdCurrentSelectionState>(
-            builder: (context, ovcHouseholdCurrentSelectionState, child) {
-              return Consumer<ServiceEventDataState>(
-                builder: (context, serviceEventDataState, child) {
-                  OvcHouseholdChild? currentOvcHouseholdChild =
-                      ovcHouseholdCurrentSelectionState
-                          .currentOvcHouseholdChild;
-                  bool isLoading = serviceEventDataState.isLoading;
-                  Map<String?, List<Events>> eventListByProgramStage =
-                      serviceEventDataState.eventListByProgramStage;
-                  List<Events> events = TrackedEntityInstanceUtil
-                      .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds);
-                  int referralIndex = events.length;
-                  return Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: isLoading
-                              ? CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                )
-                              : Container(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                currentLanguage == 'lesotho'
-                                                    ? 'Ha ho ngoana ea seng a referiloe'
-                                                    : 'There is no Child Referrals at a moment',
-                                              )
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcHouseholdCurrentSelectionState>(
+          builder: (context, ovcHouseholdCurrentSelectionState, child) {
+            return Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                OvcHouseholdChild? currentOvcHouseholdChild =
+                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String?, List<Events>> eventListByProgramStage =
+                    serviceEventDataState.eventListByProgramStage;
+                List<Events> events = TrackedEntityInstanceUtil
+                    .getAllEventListFromServiceDataStateByProgramStages(
+                        eventListByProgramStage, programStageIds);
+                int referralIndex = events.length;
+                return Column(
+                  children: [
+                    Container(
+                      child: isLoading
+                          ? const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                  ),
+                                  child: events.isEmpty
+                                      ? Text(
+                                          currentLanguage == 'lesotho'
+                                              ? 'Ha ho ngoana ea seng a referiloe'
+                                              : 'There is no Child Referrals at a moment',
+                                        )
+                                      : Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            vertical: 5.0,
+                                            horizontal: 13.0,
+                                          ),
+                                          child: Column(
+                                            children:
+                                                events.map((Events eventData) {
+                                              int count = referralIndex--;
+                                              return Container(
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 15.0,
                                                 ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    int count = referralIndex--;
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          ReferralCardSummary(
-                                                        borderColor:
-                                                            Color(0xFFEDF5EC),
-                                                        buttonLabelColor:
-                                                            Color(0xFF4B9F46),
-                                                        titleColor:
-                                                            Color(0xFF1B3518),
-                                                        count: count,
-                                                        cardBody:
-                                                            ReferralCardBodySummary(
-                                                          isIncomingReferral: widget
-                                                              .isIncomingReferral,
-                                                          labelColor:
-                                                              Color(0XFF92A791),
-                                                          valueColor:
-                                                              Color(0XFF536852),
-                                                          referralEvent:
-                                                              eventData,
-                                                        ),
-                                                        onView: () =>
-                                                            onViewChildReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
-                                                        onManage: () =>
-                                                            onManageChildReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }).toList(),
+                                                child: ReferralCardSummary(
+                                                  borderColor:
+                                                      const Color(0xFFEDF5EC),
+                                                  buttonLabelColor:
+                                                      const Color(0xFF4B9F46),
+                                                  titleColor:
+                                                      const Color(0xFF1B3518),
+                                                  count: count,
+                                                  cardBody:
+                                                      ReferralCardBodySummary(
+                                                    isIncomingReferral: widget
+                                                        .isIncomingReferral,
+                                                    labelColor:
+                                                        const Color(0XFF92A791),
+                                                    valueColor:
+                                                        const Color(0XFF536852),
+                                                    referralEvent: eventData,
+                                                  ),
+                                                  onView: () =>
+                                                      onViewChildReferral(
+                                                    context,
+                                                    eventData,
+                                                    count,
+                                                  ),
+                                                  onManage: () =>
+                                                      onManageChildReferral(
+                                                    context,
+                                                    eventData,
+                                                    count,
+                                                  ),
                                                 ),
-                                              ),
-                                      ),
-                                      Visibility(
-                                        visible: currentOvcHouseholdChild!
-                                            .enrollmentOuAccessible!,
-                                        child: EntryFormSaveButton(
-                                          label: currentLanguage == 'lesotho'
-                                              ? 'Kenya Referral'.toUpperCase()
-                                              : 'ADD REFERRAL',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddReferral(
-                                            context,
-                                            currentOvcHouseholdChild,
+                                              );
+                                            }).toList(),
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  ),
                                 ),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+                                Visibility(
+                                  visible: currentOvcHouseholdChild!
+                                      .enrollmentOuAccessible!,
+                                  child: EntryFormSaveButton(
+                                    label: currentLanguage == 'lesotho'
+                                        ? 'Kenya Referral'.toUpperCase()
+                                        : 'ADD REFERRAL',
+                                    labelColor: Colors.white,
+                                    buttonColor: const Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onAddReferral(
+                                      context,
+                                      currentOvcHouseholdChild,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                    )
+                  ],
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

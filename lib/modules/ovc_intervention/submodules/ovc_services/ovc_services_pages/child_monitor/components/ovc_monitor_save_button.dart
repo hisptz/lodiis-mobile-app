@@ -37,7 +37,7 @@ class OvcMonitorSaveButton extends StatelessWidget {
         left: marginLeft,
         right: marginRight,
       ),
-      child: Container(
+      child: SizedBox(
         width: width,
         child: TextButton(
           style: TextButton.styleFrom(
@@ -48,23 +48,21 @@ class OvcMonitorSaveButton extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(12.0),
             ),
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
           ),
           onPressed: onPressButton as void Function()?,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(20.0),
               ),
             ),
-            child: Container(
-              child: Text(
-                label,
-                style: TextStyle().copyWith(
-                  color: labelColor,
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w700,
-                ),
+            child: Text(
+              label,
+              style: const TextStyle().copyWith(
+                color: labelColor,
+                fontSize: fontSize,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),

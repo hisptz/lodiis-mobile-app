@@ -8,7 +8,7 @@ class OvcServicesWellbeingAssessment {
     return [
       FormSection(
           name: 'Role/Impact of a Child to the family',
-          color: Color(0xFF4B9F46),
+          color: const Color(0xFF4B9F46),
           inputFields: [
             InputField(
                 id: 'lt88RMPaBPg',
@@ -19,16 +19,16 @@ class OvcServicesWellbeingAssessment {
                 description:
                     'For example, do you cook, do housework or make items such as clothes or tools? Do you sell in the market or work outside of the household? Do you take care of other family members?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'Wstcittf',
                 name: '43. What is the child\'s impact to the family?',
                 translatedName:
                     '43. Boitsoaro ba ngoana bo ama lelapa lee joang?',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'm2ghW6ZMUru',
@@ -54,8 +54,8 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other impacts',
                 translatedName: 'Tse ling (Hlalosa)',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'HdtChyf',
                 name: '44. How does the child help your family?',
@@ -63,8 +63,8 @@ class OvcServicesWellbeingAssessment {
                     'Mohlala, na o thusana ka mesebetsi ea lelapa kapa ho hlokomela liphoofolo?',
                 translatedName: '44. o thusa lelapa le joang? ',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'yJKX39H7HBL',
@@ -106,15 +106,15 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other activities',
                 translatedName: 'Tse ling, Hlakisa',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373))
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373))
           ]),
       FormSection(
           name: 'DOMAIN SCHOOLED',
           translatedName: 'TSA SEKOLO',
           id: 'domainschooltsasekolo',
-          color: Color(0xFF9B2BAE),
-          borderColor: Color(0xFF9B2BAE),
+          color: const Color(0xFF9B2BAE),
+          borderColor: const Color(0xFF9B2BAE),
           inputFields: [
             InputField(
                 id: 'DaVKi2U248S',
@@ -122,8 +122,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '45. Na hona joale ngoana o ngolisitse sekolong?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'TWvKsmKyCSc',
                 name:
@@ -131,23 +131,23 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '3. Na hona joale u kena sekolo sa lithuto kapa sa mosebetsi oa matsoho? ',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'emR9ocfi1Vm',
                 name: '46. Has the OVC ever been enrolled in school?',
                 translatedName: '46. Na ngoana o kile a ingolisa sekolong?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'DaVKi2U248S_checkbox',
                 name: '47. Record why the child is not enrolled in school',
                 translatedName:
                     '47. Ngola na hobaneng ngoana a sa kene sekolo.',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(
                       code: 'fcWZ0cctQlO',
@@ -189,15 +189,15 @@ class OvcServicesWellbeingAssessment {
                     'Specify other reason why the child is not enrolled in school',
                 translatedName: 'Tse ling (Hlalosa)',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'cv8RKCPOOAo',
                 name: 'Which one you are enrolled in?',
                 translatedName: 'U ngolisitse ho efe?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(
                       code: 'School', name: 'School', translatedName: 'Sekolo'),
@@ -211,8 +211,8 @@ class OvcServicesWellbeingAssessment {
                 name: 'What level of education is the child in now?',
                 translatedName: 'Hona joale ngoana o boemong bofe ba thuto?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(code: 'Primary', name: 'Primary'),
                   InputFieldOption(code: 'Secondary', name: 'Secondary')
@@ -222,8 +222,8 @@ class OvcServicesWellbeingAssessment {
                 name: '4. What level of education are you now?',
                 translatedName: '4. Boemo ba hau ba thuto ke bofe hona joale?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(code: 'Primary', name: 'Primary'),
                   InputFieldOption(
@@ -236,30 +236,30 @@ class OvcServicesWellbeingAssessment {
                 name: '48. What grade?',
                 translatedName: 'Sehlopheng sefe?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'pczeYqyA3Bj',
                 name: '48. What form?',
                 translatedName: 'Ka foromo efe?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'IUdOAhmhqj1',
                 name: '48. What year?',
                 translatedName: 'Selemong sefe?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'M3AaNTqC9d6',
                 name: '48. What level of education was the child last year?',
                 translatedName:
                     '48. Ngwana o ne a le maemong a makae selemong se fetileng?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(code: 'Primary', name: 'Primary'),
                   InputFieldOption(
@@ -272,8 +272,8 @@ class OvcServicesWellbeingAssessment {
                 name: '5. What level of education where you last year?',
                 translatedName: '5. Ke boemo bofe ba thuto boo u bo fetileng?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(code: 'Primary', name: 'Primary'),
                   InputFieldOption(
@@ -286,36 +286,36 @@ class OvcServicesWellbeingAssessment {
                 name: 'What grade was the child in last year?',
                 translatedName: 'Sehlopheng sefe selemong se fetileng?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'SGCjKsX1Mzl',
                 name: '49. What form was the child in last year?',
                 translatedName: '49. Foromo sefe selemong se fetileng?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'dwJns2uXUcG',
                 name: 'What program are you studying?',
                 translatedName: 'O ithuta lenaneo lefe?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'tnaSD0CNrHH',
                 name: 'What is your graduation year?',
                 translatedName: 'Selemo sa hau sa kabo ea mangolo ke eng?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'mozNkqqfYRp',
                 name: 'Was the child enrolled during the last month ?',
                 translatedName: 'Na ngoana o ngolisitsoe khoeling e fetileng?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'YKuTfp8LIRr',
                 name:
@@ -323,8 +323,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '50. Na ngoana o hlotsoe ke sekolo matsatsi a fetang a mararo?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'YKuTfp8LIRr_checkboxes',
                 name:
@@ -332,8 +332,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '50. Na khoeling e fetileng e ngoana o la sitoa ho ea sekolong matsatsi a ka fetang mararo ka mabaka a itseng?',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(
                       code: 'tY54kDbZs3F',
@@ -362,8 +362,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     'Hlalosa lebaka le leng la ho se ee sekolong nako e fetang matsatsi a mararo',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'ot2CtK0hAHo',
                 translatedName:
@@ -371,8 +371,8 @@ class OvcServicesWellbeingAssessment {
                 name:
                     '6. During the last month,did you miss more than three school/vocational training days?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'VMP6xJWkWHK',
                 name:
@@ -380,30 +380,30 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     'Hlalosa lebaka le leng la ho se ee sekolong nako e fetang matsatsi a mararo',
                 valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'vmvnozO37i7',
                 name: '51. Does the child like to go to school?',
                 translatedName: '51. Na ngoana o rata ho ea sekolong?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'mtZfZIAkVjt',
                 name: '7. Do you like going to school or vocational training?',
                 translatedName:
                     '7. Na o rata ho ea sekolong kapa koetliso ea mosebetsi oa matsoho?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227)),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227)),
             InputField(
                 id: 'mtZfZIAkVjt_checkbox',
                 name: 'Reasons why a child does not like going to school',
                 translatedName: 'Hobaneng ngoana a sa batle ho kena sekolo?',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227),
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227),
                 options: [
                   InputFieldOption(
                       code: 'qK6pCo37tWW',
@@ -431,29 +431,29 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other reason',
                 translatedName: 'ka kopo, Hlalosa',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF9B2BAE),
-                labelColor: Color(0xFF284227))
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF284227))
           ]),
       FormSection(
           name: 'DOMAIN STABLE',
           translatedName: 'BOTSITSO',
-          color: Color(0xFF4D9E49),
-          borderColor: Color(0xFF4D9E49),
+          color: const Color(0xFF4D9E49),
+          borderColor: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
                 id: 'OBugEkynJG0',
                 name: '52. Are there any signs of malnutrition?',
                 translatedName: '52. Ngola mat’soao a ho haelloa ke phepo.',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44)),
             InputField(
                 id: 'OBugEkynJG0_checkbox',
                 name: 'Signs of malnutrition',
                 translatedName: 'Matšoao a khaello ea phepo e nepahetseng',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44),
                 options: [
                   InputFieldOption(
                       code: 'UHMtTnEP9Yh', name: 'Emaciated and dry skin'),
@@ -475,8 +475,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     'Hlalosa Matšoao a khaello ea phepo e nepahetseng',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44)),
             InputField(
                 id: 'aaERjQ9jSZn',
                 name:
@@ -484,8 +484,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '53. Na ngoana o kile a robala a sa ja khoeling e fetileng?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44)),
             InputField(
                 id: 'MEmFZrOhvb3',
                 name:
@@ -493,15 +493,15 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'BOOLEAN',
                 translatedName:
                     '8. Khoeling e fetileng u kile oa qeta letsatsi kapa bosiu kaofela u sa ja letho hobane ho ne ho se na lijo tse lekaneng?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44)),
             InputField(
                 id: 'cGJa4gfVPQ7',
                 name: '54. How often would you say this happens?',
                 translatedName: '54. u ka re se etsahetse hakae?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44),
                 options: [
                   InputFieldOption(
                       code: 'Every night',
@@ -523,8 +523,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '55. Na ngoana o kile a fumana limatlafatsi khoeling e fetileng?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -547,8 +547,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '56. Ngoana o fumane limatlafatsi tsa mofuta ofe?',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF455B44),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF455B44),
                 options: [
                   InputFieldOption(
                       code: 'sGmUf0A8OG3', name: 'Iron supplement'),
@@ -567,8 +567,8 @@ class OvcServicesWellbeingAssessment {
       FormSection(
           name: 'DOMAIN HEALTH',
           translatedName: 'BOPHELO BO BOTLE',
-          color: Color(0xFF2895F0),
-          borderColor: Color(0xFF2895F0),
+          color: const Color(0xFF2895F0),
+          borderColor: const Color(0xFF2895F0),
           inputFields: [
             InputField(
                 id: 'H84JX4fQWsK',
@@ -577,8 +577,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '58. Na ngoana o kile a kula kapa a khathala haholo ho a setiloeng ho etsa mabaka a mehla khoeling e fetileng?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -596,8 +596,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     ' 9. Khoeling e fetileng, na u kile oa qeta matsatsi a fetang a mararo u kula haholo kapa u khathetse haholo oa ba oa sitoa ho oa nka karolo mesebetsing ea letsatsi le letsatsi?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'ETI9FukQuNo',
                 name:
@@ -605,8 +605,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '10. Lekhetlo la ho qetela ha une u kula, na u ile oa lo bona ngaka kapa oa ea sepetlele?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'Vc7Q23oTNhu',
                 name:
@@ -614,22 +614,22 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '59. ngoana o na le bokuli kapa bokooa boo u ka ratang ho mpolella ka bona?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'qI9a8II1g54',
                 name: 'List illness or disability',
                 translatedName: 'Thathamisa ho kula kapa bokooa',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'ToOqcUP9338',
                 name: 'What kind of illness?',
                 translatedName: 'Ke bokulo bofe?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'TQGFUJ7MTPu',
                 name:
@@ -637,8 +637,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '60. Na ngoana o fumana kalafo ea ho kula kapa ho holofala?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'lz56QGytZkD',
                 name:
@@ -646,36 +646,36 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '61. Ke litšebeletso tsa mofuta ofe kapa kalafo eo ngoana a e fumanang?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'lxF2SNfIGa0',
                 name: 'From whom does the child receive these services?',
                 translatedName: 'Ngoana o fumana litšebeletso tsee ho mang?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'YZ9ORZBKzHk',
                 name: 'From whom do you receive treatment for your illness?',
                 translatedName: 'O fumana kalafo ho mang ho kula ha hao?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'RC28ZyOhzUQ',
                 name: '12. Do you have any disability?',
                 translatedName: '12. Na u phela le bokooa? ',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'RC28ZyOhzUQ_checkbox',
                 name: 'Which disability do you have?',
                 translatedName: 'U na le bokooa bofe?',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'rVAImAgvrYe',
@@ -707,58 +707,58 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other disability',
                 translatedName: 'Qaqisa bokooa bo bong',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'puLHlflNeg6',
                 name: '62. Do you know child’s HIV status?',
                 translatedName: '62. Na u tseba boemo ba ngoana ba HIV?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'uMwExnG6Flk',
                 name: '13. Have you ever heard talk of HIV?',
                 translatedName: '13. Na u kile ua utloa puo ea HIV?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'wO2o2ZqG65D',
                 name: 'Where did you hear about HIV?',
                 translatedName: 'U utloile kae ka HIV?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'ef1ixon3YBh',
                 name: '63. OVC ever been tested for HIV?',
                 translatedName: '63. Na ngoana o kile a hlahlobela HIV?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'J4ozQS4koE8',
                 name: 'When were you tested?',
                 translatedName: 'U ile oa lekoa neng?',
                 valueType: 'DATE',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'o2XWRHW5zwb',
                 name: 'Do you know the results of your test?',
                 translatedName: 'O tseba sephetho sa tlhahlobo eo?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'eSJhbqT1NQb',
                 name: '64. Latest HIV test result?',
                 translatedName:
                     '64. Liphetho tsa liteko tsa HIV tsa morao-rao?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Positive',
@@ -782,8 +782,8 @@ class OvcServicesWellbeingAssessment {
                 name: '14. Could you share the results of the test with me?',
                 translatedName: '14. Na u nka mpolella sephetho sa hau?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Positive',
@@ -803,8 +803,8 @@ class OvcServicesWellbeingAssessment {
                 name: '15. How did you find out about your HIV status?',
                 translatedName: '15. U tsebile joang ka boemo ba hau ba HIV?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Service Provider',
@@ -842,37 +842,37 @@ class OvcServicesWellbeingAssessment {
                 translatedName: 'Tse ling, hlakisa hlalosa',
                 name: 'Specify other ways you found out about your HIV status',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'kqQ3MMTTO2t',
                 name: 'How old were you the first time you heard this news?',
                 translatedName:
                     'U ne u le lilemo li kae ha u utloa litaba tsee?',
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'pU5ywj3cjSA',
                 name: '16. Do you take medication for HIV?',
                 translatedName: '16. Na u noa litlhare bakeng sa HIV?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'HXk5d3kxy37',
                 name: 'Do you have problems taking your treatment?',
                 translatedName: 'Na u na le mathata a ho noa litlhare?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'ndK4JCMORL0',
                 name: 'How do you cope with those challenges?',
                 translatedName: 'U sebetsana joang le mathata ao?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'wv3YAGLZlev',
                 name: '17. Which health facility do you visit?',
@@ -880,8 +880,8 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
                 allowedSelectedLevels: [4],
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'Tr5lrn4ctTN',
                 name:
@@ -889,8 +889,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '18. Ke bo-mang ka lapeng la hao kapa bophelong ba hao ba tsebang boemo ba hao ba HIV?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Mother', name: 'Mother', translatedName: 'Mè'),
@@ -924,15 +924,15 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other people know about your HIV status',
                 translatedName: 'hlalosa.',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'wi6Iq4yVdXV',
                 name: '19. What is their attitude towards you?',
                 translatedName: '19. maikutlo a hae ke afe ka oena?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Discriminates',
@@ -958,15 +958,15 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '20. Na u tseba motho ea phelang le HIV ka lapeng leno?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'sHUjPZTqpy2',
                 name: '65. Is the child currently on ART?',
                 translatedName: '65. Na hona joale ngoana o sebelisa li-ART?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -991,16 +991,16 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
                 allowedSelectedLevels: [4],
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'VFLlpMdPCTX_checkboxes',
                 name: '67. Why do you take the child in that health facility?',
                 translatedName:
                     '67. Hobaneng ngoana a ea setsing seo sa bophelo',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'FeL9c9Grwlx',
@@ -1052,15 +1052,15 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '68. Na ngoana o ile a bolelloa ka boemo ba hae?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'f2GIuwu1LGh',
                 name: '69. What was their response?',
                 translatedName: '69. Ha a bolelletsoe, o ile a reng?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Positive/neutral reaction',
@@ -1092,16 +1092,16 @@ class OvcServicesWellbeingAssessment {
                 translatedName: 'Tse ling, hlakisa.',
                 name: 'Specify other response',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'EYb2XmgHt58',
                 name: '70. Why was the status not shared with the child?',
                 translatedName:
                     '70. hobaneng ngoana a sa bolelloa ka boemo ba hae?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'They are too young',
@@ -1130,8 +1130,8 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other response',
                 translatedName: 'Tse ling, hlakisa',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'kcG670LJt3J',
                 name:
@@ -1139,16 +1139,16 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'BOOLEAN',
                 translatedName:
                     '71. Na boemo ba ngoana bo ile ba bolelloa litho tse ling tsa lelapa?',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'gAzb8e8cLga',
                 name:
                     '72. Family response to child HIV status disclosure to them',
                 translatedName: '72. ba ile ba reng?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Neutral/ no reaction',
@@ -1168,22 +1168,22 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other response',
                 translatedName: 'Tse ling, hlakisa',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF2895F0),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFF2895F0),
+                labelColor: const Color(0xFF1A3518)),
           ]),
       FormSection(
           name: 'DOMAIN SAFE',
           translatedName: 'TSIRELETSO',
-          color: Color(0xFFEE6E21),
-          borderColor: Color(0xFFEE6E21),
+          color: const Color(0xFFEE6E21),
+          borderColor: const Color(0xFFEE6E21),
           inputFields: [
             InputField(
                 id: 'zjjAVMVuvxe',
                 name: '73. Has the child ever experienced violence?',
                 translatedName: '73. Na ngoana o kile a ba le pefo?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'wP7nZkrJIlp',
                 name:
@@ -1191,8 +1191,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '74. Na ngoana o fumane kapa o ntsa fumana litsebeletso ho mo thusa ka toantso/tlhekefetso eo?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -1212,8 +1212,8 @@ class OvcServicesWellbeingAssessment {
                 name: 'From whom?',
                 translatedName: 'Ho tsoa ho mang?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'M0lo7wANrwN',
                 name:
@@ -1221,8 +1221,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '75. Na ngoana o utloa eka bothata ba tlhekefetso bo felile?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'D1ebTZQurSL',
                 name:
@@ -1230,8 +1230,8 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'TEXT',
                 translatedName:
                     '76. Ke ha ngata hakae u qoqang kapa u qoqelang, u binang, u bapalang kapa u thusang ngoana ka mosebetsi oa sekolo',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'All the time',
@@ -1256,8 +1256,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '77. Ho latela bohlokoa ba likamano le likhokahanyo ke mang eo u ka reng ngoano o mo tloaetse haholo?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Grandfather',
@@ -1287,15 +1287,15 @@ class OvcServicesWellbeingAssessment {
                 name: 'Specify other person close to the child',
                 translatedName: 'Tse ling, hlakisa.',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'XG1a90T7iBF',
                 name: '78. Does the child have a birth certificate?',
                 translatedName: '78. Na ngoana o na le lengolo la tlhaho?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'iQcx8GPINN0',
                 name:
@@ -1303,8 +1303,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '79. Ke ha ngata hakae ngoana eo a bapalang le metsoalle ea hae kapa ba lelapa?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'All the time',
@@ -1330,8 +1330,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '80. Na ho na le motho ea kileng a otla kapa a otla ngoana ka lebanta, molamu kapa ntho e \'ngoe e thata?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -1349,8 +1349,8 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'TEXT',
                 translatedName:
                     '81. Ke hangata hakae motho a otlang kapa a otlang ngoana ka lebanta, thupa kapa ntho e \'ngoe e thata? U ka re ho joalo',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Almost everyday',
@@ -1376,8 +1376,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '82. na ngoana ola sala ale metopa, eka o chele kapa a robehile masapo kapa meno, kapa maqeba a mang?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -1395,8 +1395,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '83. na ngoana o ntsa fumana litsebeletso bakeng sa bothata bo?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'kslj60leTJf',
                 name:
@@ -1404,15 +1404,15 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '84. hona le motho ka hara lelapa kapa baahisane a kileng a itsoara ka tsela e sa tloaelehang ka pela ngoana eo? ',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'LjhWZuKCIJu',
                 name: 'Who has behaved inappropriately with the child?',
                 translatedName: 'Ke mang ea itšoereng hampe ka ngoana?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'gdooctJzx2o',
                 name:
@@ -1420,8 +1420,8 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '23. Na u ka re mohlokomeli oa hao oa mamela ha u bua le eena?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Almost everyday',
@@ -1447,16 +1447,16 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '22. Na ho nale ts’ehetso/thuso eo u e fumanang ea sechaba?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 't1VRnFuBb7I_checkbox',
                 name: 'Child or social protection support received',
                 valueType: 'CHECK_BOX',
                 translatedName:
                     'Ts\'ehetso ea ts\'ireletso ea bana kapa ea sechaba e amohetse',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'seiWBkesnnc',
@@ -1481,14 +1481,14 @@ class OvcServicesWellbeingAssessment {
                 id: 'nLoEbs7cRIu',
                 name: 'Specify which public Assistance',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'LU0OIdYmV7K',
                 name: 'Specify other child or social supports',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'ahAIJZ9IkCV',
                 name:
@@ -1496,8 +1496,8 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'TEXT',
                 translatedName:
                     '24.  Na u phutholohile ho batla thuso le likeletso ka mathata (maikutlo) mme o fumane thuso ea ho rarolla mathata a hau?',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518),
                 options: [
                   InputFieldOption(
                       code: 'Almost everyday',
@@ -1523,23 +1523,23 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     '25. Na u ikutloa eka maikutlo a hao a utloahala ka oena le ka bophelo ba hao?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'ebeAKSCVsYo',
                 name: '25. Can you cope in difficult situations?',
                 translatedName: '26. Na u ka sebetsana le maemo a thata?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'XXHMvERCGLn',
                 name: 'Why can\'t you cope in difficult situations?',
                 translatedName:
                     'Hobaneng o sa khone ho sebetsana le maemo a thata?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'MlcK6DAGoCx',
                 name:
@@ -1547,8 +1547,8 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'BOOLEAN',
                 translatedName:
                     '27. Na u na le metsoalle e ka holimo ho oena ka lilemo e u rekelang kapa e u fang limpho?',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'W91GgtMqWnl',
                 name:
@@ -1556,16 +1556,16 @@ class OvcServicesWellbeingAssessment {
                 translatedName:
                     'Na u ikutloa u hatelloa ho etsa ntho efe kapa efe e le phapanyetsano bakeng sa limpho?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518)),
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518)),
             InputField(
                 id: 'sM8amXv7Nck',
                 name: 'Who helped with child abuse problem?',
                 translatedName:
                     'Ke mang ea thusitseng ka bothata ba tlhekefetso ea bana?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFFEE6E22),
-                labelColor: Color(0xFF1A3518))
+                inputColor: const Color(0xFFEE6E22),
+                labelColor: const Color(0xFF1A3518))
           ]),
       FormSection(
           name: 'GOALS',
@@ -1574,50 +1574,50 @@ class OvcServicesWellbeingAssessment {
               'Caseworker reads: “Now I’m going to ask you some questions about how you would like to grow and improve over the next year.”',
           translatedDescription:
               'Mosebeletsi oa morero: “Joale ke tla u botsa lipotso tse mabapi le kamoo u ka ratang ho hōla le ho ntlafala kateng selemong se hlahlamang."',
-          color: Color(0xFF1B3519),
+          color: const Color(0xFF1B3519),
           inputFields: [
             InputField(
                 id: 'ADc3clrQRl4',
                 name: 'Goal 1',
                 translatedName: 'Sepheo 1',
                 valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'WmnbKX3Vj05',
                 allowFuturePeriod: true,
                 name: 'Timeline for goal 1',
                 valueType: 'DATE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'rEIhH5N4z0e',
                 name: 'Actions need to take place to accomplish goal 1',
                 translatedName: 'Likhato tsa sepheo 1',
                 valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'efNgDIqhlNs',
                 name: 'Goal 2',
                 translatedName: 'Sepheo 2',
                 valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'cbxJhkrHUtk',
                 allowFuturePeriod: true,
                 name: 'Timeline for goal 2',
                 valueType: 'DATE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'iDkUpkg6vO6',
                 name: 'Actions need to take place to accomplish goal 2',
                 translatedName: 'Likhato tsa sepheo 2',
                 valueType: 'LONG_TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373))
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373))
           ]),
     ];
   }

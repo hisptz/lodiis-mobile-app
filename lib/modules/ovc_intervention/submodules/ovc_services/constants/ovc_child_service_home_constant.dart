@@ -15,11 +15,10 @@ class OvcChildServiceHomeConstant {
       this.programStages,
       this.groupByDate,
       this.groupingProgramStages}) {
-    this.programStages = this.programStages ?? [];
-    this.groupByDate = this.groupByDate ?? false;
-    this.groupingProgramStages = this.groupByDate == true
-        ? this.groupingProgramStages ?? this.programStages
-        : [];
+    programStages = programStages ?? [];
+    groupByDate = groupByDate ?? false;
+    groupingProgramStages =
+        groupByDate == true ? groupingProgramStages ?? programStages : [];
   }
 
   static List<OvcChildServiceHomeConstant> getOvcChildServiceHomeConstant() {

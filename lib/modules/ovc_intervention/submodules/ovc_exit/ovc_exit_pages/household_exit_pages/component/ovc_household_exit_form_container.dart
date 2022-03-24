@@ -51,8 +51,8 @@ class _OvcHouseholdExitFormContainerState
   @override
   void initState() {
     super.initState();
-    if (!isFormReady)
-      Timer(Duration(seconds: 1), () {
+    if (!isFormReady) {
+      Timer(const Duration(seconds: 1), () {
         bool isEditableMode = widget.event == null;
         updateFormState(context, isEditableMode, widget.event);
         setState(() {
@@ -60,11 +60,12 @@ class _OvcHouseholdExitFormContainerState
           evaluateSkipLogics();
         });
       });
+    }
   }
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -172,13 +173,12 @@ class _OvcHouseholdExitFormContainerState
   @override
   Widget build(BuildContext context) {
     return !isFormReady
-        ? Container(
-            child: CircularProcessLoader(
-              color: Colors.blueGrey,
-            ),
+        ? const CircularProcessLoader(
+            color: Colors.blueGrey,
           )
         : Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
                 String? currentLanguage =
@@ -194,7 +194,8 @@ class _OvcHouseholdExitFormContainerState
                               Container(
                                 alignment: Alignment.topRight,
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
                                   child: Visibility(
                                     visible: !serviceFormState.isEditableMode &&
                                         widget.event!.enrollmentOuAccessible!,
@@ -203,41 +204,36 @@ class _OvcHouseholdExitFormContainerState
                                         backgroundColor: Colors.transparent,
                                         shape: RoundedRectangleBorder(
                                           side: BorderSide(
-                                            color: Color(0xFF4B9F46)
+                                            color: const Color(0xFF4B9F46)
                                                 .withOpacity(0.3),
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        padding: EdgeInsets.all(5.0),
+                                        padding: const EdgeInsets.all(5.0),
                                       ),
                                       onPressed: () => onEditForm(),
-                                      child: Container(
-                                          child: Text(
+                                      child: Text(
                                         'Update',
-                                        style: TextStyle().copyWith(
-                                          color: Color(0xFF4B9F46),
+                                        style: const TextStyle().copyWith(
+                                          color: const Color(0xFF4B9F46),
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
                                         ),
-                                      )),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Container(
-                                child: EntryFormContainer(
-                                  elevation: 0.0,
-                                  hiddenFields: serviceFormState.hiddenFields,
-                                  hiddenSections:
-                                      serviceFormState.hiddenSections,
-                                  formSections: widget.formSections,
-                                  mandatoryFieldObject: Map(),
-                                  dataObject: serviceFormState.formState,
-                                  isEditableMode:
-                                      serviceFormState.isEditableMode,
-                                  onInputValueChange: onInputValueChange,
-                                ),
+                              EntryFormContainer(
+                                elevation: 0.0,
+                                hiddenFields: serviceFormState.hiddenFields,
+                                hiddenSections: serviceFormState.hiddenSections,
+                                formSections: widget.formSections,
+                                mandatoryFieldObject: const {},
+                                dataObject: serviceFormState.formState,
+                                isEditableMode: serviceFormState.isEditableMode,
+                                onInputValueChange: onInputValueChange,
                               )
                             ],
                           ),
@@ -251,7 +247,7 @@ class _OvcHouseholdExitFormContainerState
                                     ? 'Boloka'
                                     : 'Save',
                             labelColor: Colors.white,
-                            buttonColor: Color(0xFF4B9F46),
+                            buttonColor: const Color(0xFF4B9F46),
                             fontSize: 15.0,
                             onPressButton: () {
                               widget.onSaveForm!(serviceFormState.formState);

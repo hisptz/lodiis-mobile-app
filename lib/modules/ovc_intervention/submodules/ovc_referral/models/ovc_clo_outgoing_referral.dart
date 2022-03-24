@@ -9,33 +9,33 @@ class OvcCLOOutgoingReferral {
     return [
       FormSection(
           name: 'CLO Outgoing Referrals',
-          color: Color(0xFF1B3519),
+          color: const Color(0xFF1B3519),
           inputFields: [
             InputField(
               id: 'g6J1vZ2kDXB',
               name: 'Viral Load Results (for CLHIV)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
-              id: 'Cwg16RorxzK',
-              name: 'Multi-Month Despensing (MMD)',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373)),
+                id: 'Cwg16RorxzK',
+                name: 'Multi-Month Despensing (MMD)',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
-              id: 'vEeBBzeQrQU',
-              name: 'Referred to (Name and Surname of Community Cadre)',
-              valueType: 'TEXT',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373)),
+                id: 'vEeBBzeQrQU',
+                name: 'Referred to (Name and Surname of Community Cadre)',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'RiNop7mvTRW',
                 name: 'Community Partner',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'LENEPHWA', name: 'LENEPHWA'),
                   InputFieldOption(code: 'WLSA', name: 'WLSA'),
@@ -46,17 +46,17 @@ class OvcCLOOutgoingReferral {
                   InputFieldOption(code: 'SWAALES', name: 'SWAALES'),
                 ]),
             InputField(
-              id: 'OIUDljKyNgy',
-              name: 'Date of referral',
-              valueType: 'DATE',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373)),
-           InputField(
+                id: 'OIUDljKyNgy',
+                name: 'Date of referral',
+                valueType: 'DATE',
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
+            InputField(
                 id: 'pdUklLmaauR',
                 name: 'Outcome Status',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Complete', name: 'Complete'),
                   InputFieldOption(code: 'Not complete', name: 'Not complete')

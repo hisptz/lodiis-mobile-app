@@ -5,12 +5,18 @@ import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class EnrolledChildrenList extends StatelessWidget {
+class EnrolledChildrenList extends StatefulWidget {
   final List<String?> childrenList;
+
+  const EnrolledChildrenList({Key? key, required this.childrenList})
+      : super(key: key);
+
+  @override
+  State<EnrolledChildrenList> createState() => _EnrolledChildrenListState();
+}
+
+class _EnrolledChildrenListState extends State<EnrolledChildrenList> {
   final String title = 'Enrolled Children';
-
-  EnrolledChildrenList(this.childrenList);
-
   @override
   Widget build(BuildContext context) {
     return MaterialCard(
@@ -19,24 +25,24 @@ class EnrolledChildrenList extends StatelessWidget {
         builder: (context, languageTranslationState, child) {
           String? currentLanguage = languageTranslationState.currentLanguage;
           return Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 10.0,
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 13.0,
                     vertical: 10.0,
                   ),
                   child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           right: 10.0,
                         ),
                         child: SvgPicture.asset(
@@ -44,16 +50,14 @@ class EnrolledChildrenList extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          child: Text(
-                            currentLanguage == 'lesotho'
-                                ? 'Lethathamo la bana'
-                                : 'Children List',
-                            style: TextStyle().copyWith(
-                              fontSize: 14.0,
-                              color: Color(0xFF536852),
-                              fontWeight: FontWeight.w700,
-                            ),
+                        child: Text(
+                          currentLanguage == 'lesotho'
+                              ? 'Lethathamo la bana'
+                              : 'Children List',
+                          style: const TextStyle().copyWith(
+                            fontSize: 14.0,
+                            color: const Color(0xFF536852),
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       )
@@ -62,25 +66,23 @@ class EnrolledChildrenList extends StatelessWidget {
                 ),
                 Visibility(
                   visible: title != '',
-                  child: Container(
-                    child: LineSeparator(
-                      color: Color(0xFF1A3518).withOpacity(0.1),
-                    ),
+                  child: LineSeparator(
+                    color: const Color(0xFF1A3518).withOpacity(0.1),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 5.0,
                     horizontal: 10.0,
                   ),
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 10.0,
                     horizontal: 10.0,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: childrenList.map((child) {
-                      int index = childrenList.indexOf(child);
+                    children: widget.childrenList.map((child) {
+                      int index = widget.childrenList.indexOf(child);
                       return Row(
                         children: [
                           Padding(

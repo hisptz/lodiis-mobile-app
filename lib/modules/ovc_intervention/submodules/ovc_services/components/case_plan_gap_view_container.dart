@@ -24,14 +24,14 @@ class CasePlanGapViewContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: casePlanGaps.length > 0,
+      visible: casePlanGaps.isNotEmpty,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: casePlanGaps.map((casePlanGap) {
           int gapIndex = casePlanGaps.indexOf(casePlanGap);
           return Container(
-            margin: EdgeInsets.only(bottom: 10.0),
+            margin: const EdgeInsets.only(bottom: 10.0),
             child: CasePlanGapView(
               hasEditAccess: hasEditAccess,
               gapIndex: gapIndex,

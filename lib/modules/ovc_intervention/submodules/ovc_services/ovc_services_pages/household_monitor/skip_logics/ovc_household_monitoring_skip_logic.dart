@@ -5,8 +5,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdMonitoringSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -24,10 +24,10 @@ class OvcHouseholdMonitoringSkipLogic {
     //   String value = '${dataObject[inputFieldId]}';
     //   // print(value);
     // }
-     dataObject.forEach((key, value) {
+    dataObject.forEach((key, value) {
       if (key == 'kEa51XegbF1' && value == 'false') {
         hiddenFields['whQroZXYFXl'] = false;
-      } 
+      }
     });
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =

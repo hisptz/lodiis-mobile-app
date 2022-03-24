@@ -81,7 +81,7 @@ class OvcEnrollmentHouseholdService {
       for (Enrollment enrollment in enrollments) {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
@@ -108,7 +108,9 @@ class OvcEnrollmentHouseholdService {
             tei =
                 getUpdatedHouseholdWithOvcCounts(tei, houseHoldChildrenTeiData);
             FormUtil.savingTrackedEntityInstance(tei);
-          } catch (e) {}
+          } catch (e) {
+            //
+          }
           ovcHouseHoldList.add(OvcHousehold().fromTeiModel(
             tei,
             location,
@@ -119,7 +121,9 @@ class OvcEnrollmentHouseholdService {
           ));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     if (filters.isNotEmpty) {
       for (Map<String, dynamic> filter in filters) {
         String? implementingPartner = filter['implementingPartner'];
@@ -196,7 +200,7 @@ class OvcEnrollmentHouseholdService {
       if (attributeObj['attribute'] == 'BXUNH6LXeGA') {
         value = female.toString();
       }
-      Map newMap = Map();
+      Map newMap = {};
       newMap['attribute'] = attributeObj['attribute'];
       newMap['value'] = value;
       attributes.add(newMap);

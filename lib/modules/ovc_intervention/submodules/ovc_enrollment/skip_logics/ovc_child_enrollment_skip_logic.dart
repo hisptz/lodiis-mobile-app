@@ -7,9 +7,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:provider/provider.dart';
 
 class OvcChildEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -37,7 +37,7 @@ class OvcChildEnrollmentSkipLogic {
         }
       }
       if (inputFieldId == 'nOgf8LKXS4k') {
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         String relationShipToCaregiver = '${dataObject['iS9mAp3jDaU']}';
         if (relationShipToCaregiver == 'Biological mother') {
           hiddenOptions['Single Orphan(Mother)'] = true;
@@ -50,15 +50,15 @@ class OvcChildEnrollmentSkipLogic {
       }
 
       if (inputFieldId == 'UeF4OvjIIEK' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
+          (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
       }
       if (inputFieldId == 'wmKqYZML8GA' &&
-          (value.isEmpty || '$value'.trim() == 'true')) {
+          (value.isEmpty || value.trim() == 'true')) {
         hiddenFields['GMcljM7jbNG'] = true;
       }
       if (inputFieldId == 'Gkjp5XZD70V' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
+          (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['Sa0KVprHUr7'] = true;
         hiddenFields['wtrZQadTkOL'] = true;
         hiddenFields['Mc3k3bSwXNe'] = true;
@@ -66,12 +66,12 @@ class OvcChildEnrollmentSkipLogic {
         hiddenFields['GM2mJDlGZin'] = true;
       }
       if (inputFieldId == 'Mc3k3bSwXNe' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
+          (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['CePNVGSnj00'] = true;
         hiddenFields['GM2mJDlGZin'] = true;
       }
       if (inputFieldId == 'CePNVGSnj00' &&
-          (value.isEmpty || '$value'.trim() != 'Other')) {
+          (value.isEmpty || value.trim() != 'Other')) {
         hiddenFields['GM2mJDlGZin'] = true;
       }
       if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
@@ -125,8 +125,9 @@ class OvcChildEnrollmentSkipLogic {
             primaryVulnerabilitiesOptions[
                 vulnerabilities.indexOf(vulnerabilityKey)]);
         break;
-      } else
+      } else {
         continue;
+      }
     }
     if (vulnerabilities.every((element) =>
         (dataObject[element] == false || dataObject[element] == null))) {

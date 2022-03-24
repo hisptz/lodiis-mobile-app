@@ -27,8 +27,10 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcSchoolMonitoringForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const OvcSchoolMonitoringForm()));
   }
 
   void updateFormStateData(BuildContext context, Events eventData) {
@@ -52,8 +54,10 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
     updateFormStateData(context, eventData);
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcSchoolMonitoringForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const OvcSchoolMonitoringForm()));
   }
 
   void onViewSchoolMonitoring(
@@ -64,8 +68,10 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
     updateFormStateData(context, eventData);
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcSchoolMonitoringForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const OvcSchoolMonitoringForm()));
   }
 
   @override
@@ -81,20 +87,20 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
               eventListByProgramStage, programStageIds);
       int monitoringCount = events.length;
       return isLoading
-          ? CircularProcessLoader(
+          ? const CircularProcessLoader(
               color: Colors.blueGrey,
             )
           : Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 10.0),
-                  child: events.length == 0
-                      ? Text('There is no School Monitoring at a moment')
+                  margin: const EdgeInsets.only(top: 10.0),
+                  child: events.isEmpty
+                      ? const Text('There is no School Monitoring at a moment')
                       : Column(
                           children: events.map((Events event) {
                             int index = monitoringCount--;
                             return Container(
-                              margin: EdgeInsets.only(bottom: 15.0),
+                              margin: const EdgeInsets.only(bottom: 15.0),
                               child: OvcChildSchoolMonitorContainer(
                                 eventData: event,
                                 index: index,
@@ -107,26 +113,22 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
                           }).toList(),
                         ),
                 ),
-                Container(
-                  child: Consumer<OvcHouseholdCurrentSelectionState>(
-                    builder:
-                        (context, ovcHouseholdCurrentSelectionState, child) {
-                      var currentOvcHouseholdChild =
-                          ovcHouseholdCurrentSelectionState
-                              .currentOvcHouseholdChild!;
-                      return Visibility(
-                        visible:
-                            currentOvcHouseholdChild.enrollmentOuAccessible!,
-                        child: EntryFormSaveButton(
-                          label: 'ADD MONITORING',
-                          labelColor: Colors.white,
-                          buttonColor: Color(0xFF4B9F46),
-                          fontSize: 15.0,
-                          onPressButton: () => onAddSchoolMonitoring(context),
-                        ),
-                      );
-                    },
-                  ),
+                Consumer<OvcHouseholdCurrentSelectionState>(
+                  builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                    var currentOvcHouseholdChild =
+                        ovcHouseholdCurrentSelectionState
+                            .currentOvcHouseholdChild!;
+                    return Visibility(
+                      visible: currentOvcHouseholdChild.enrollmentOuAccessible!,
+                      child: EntryFormSaveButton(
+                        label: 'ADD MONITORING',
+                        labelColor: Colors.white,
+                        buttonColor: const Color(0xFF4B9F46),
+                        fontSize: 15.0,
+                        onPressButton: () => onAddSchoolMonitoring(context),
+                      ),
+                    );
+                  },
                 )
               ],
             );

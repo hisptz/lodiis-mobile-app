@@ -59,7 +59,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcHouseholdGraduation(),
+        builder: (context) => const OvcHouseholdGraduation(),
       ),
     );
   }
@@ -81,7 +81,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseholdExit(),
+          builder: (context) => const OvcHouseholdExit(),
         ),
       );
     }
@@ -98,14 +98,13 @@ class _OvcExitPageState extends State<OvcExitPage> {
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
     if (shouldResumeWithUnSavedChanges) {
-      print(formAutoSave);
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       Provider.of<ServiceFormState>(context, listen: false).resetFormState();
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseholdCaseTransfer(),
+          builder: (context) => const OvcHouseholdCaseTransfer(),
         ),
       );
     }
@@ -128,7 +127,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseholdCaseClosure(),
+          builder: (context) => const OvcHouseholdCaseClosure(),
         ),
       );
     }
@@ -136,26 +135,24 @@ class _OvcExitPageState extends State<OvcExitPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = currentLanguage == 'lesotho'
-                  ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                  : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} households';
-              return SubModuleHomeContainer(
-                header: header,
-                showFilter: true,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = currentLanguage == 'lesotho'
+                ? 'Lethathamo la malapa'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : 'Household list'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+            return SubModuleHomeContainer(
+              header: header,
+              showFilter: true,
+              bodyContents: _buildBody(currentLanguage),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -179,14 +176,14 @@ class _OvcExitPageState extends State<OvcExitPage> {
                 cardButtonActions: ClipRRect(
                   borderRadius: ovcHousehold.id == toggleCardId
                       ? BorderRadius.zero
-                      : BorderRadius.only(
+                      : const BorderRadius.only(
                           bottomLeft: Radius.circular(12.0),
                           bottomRight: Radius.circular(12.0),
                         ),
                   child: Container(
                     height: 50.0,
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0XFFF6FAF6),
                     ),
                     child: ListView(
@@ -195,84 +192,76 @@ class _OvcExitPageState extends State<OvcExitPage> {
                           screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
                       shrinkWrap: true,
                       children: [
-                        Container(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5.0,
-                                horizontal: 0.0,
-                              ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                              horizontal: 0.0,
                             ),
-                            onPressed: () =>
-                                onViewGraduation(context, ovcHousehold),
-                            child: Text(
-                              'GRADUATION',
-                              style: TextStyle().copyWith(
-                                fontSize: 12.0,
-                                color: Color(0xFF4B9F46),
-                                fontWeight: FontWeight.normal,
-                              ),
+                          ),
+                          onPressed: () =>
+                              onViewGraduation(context, ovcHousehold),
+                          child: Text(
+                            'GRADUATION',
+                            style: const TextStyle().copyWith(
+                              fontSize: 12.0,
+                              color: const Color(0xFF4B9F46),
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ),
-                        Container(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5.0,
-                                horizontal: 0.0,
-                              ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                              horizontal: 0.0,
                             ),
-                            onPressed: () => onViewExit(context, ovcHousehold),
-                            child: Text(
-                              currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
-                              style: TextStyle().copyWith(
-                                fontSize: 12.0,
-                                color: Color(0xFF4B9F46),
-                                fontWeight: FontWeight.normal,
-                              ),
+                          ),
+                          onPressed: () => onViewExit(context, ovcHousehold),
+                          child: Text(
+                            currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
+                            style: const TextStyle().copyWith(
+                              fontSize: 12.0,
+                              color: const Color(0xFF4B9F46),
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ),
-                        Container(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5.0,
-                                horizontal: 0.0,
-                              ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                              horizontal: 0.0,
                             ),
-                            onPressed: () =>
-                                onViewTransfer(context, ovcHousehold),
-                            child: Text(
-                              'TRANSFER',
-                              style: TextStyle().copyWith(
-                                fontSize: 12.0,
-                                color: Color(0xFF4B9F46),
-                                fontWeight: FontWeight.normal,
-                              ),
+                          ),
+                          onPressed: () =>
+                              onViewTransfer(context, ovcHousehold),
+                          child: Text(
+                            'TRANSFER',
+                            style: const TextStyle().copyWith(
+                              fontSize: 12.0,
+                              color: const Color(0xFF4B9F46),
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ),
-                        Container(
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5.0,
-                                horizontal: 0.0,
-                              ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                              horizontal: 0.0,
                             ),
-                            onPressed: () => onViewClosure(
-                              context,
-                              ovcHousehold,
-                            ),
-                            child: Text(
-                              'CLOSURE',
-                              style: TextStyle().copyWith(
-                                fontSize: 12.0,
-                                color: Color(0xFF4B9F46),
-                                fontWeight: FontWeight.normal,
-                              ),
+                          ),
+                          onPressed: () => onViewClosure(
+                            context,
+                            ovcHousehold,
+                          ),
+                          child: Text(
+                            'CLOSURE',
+                            style: const TextStyle().copyWith(
+                              fontSize: 12.0,
+                              color: const Color(0xFF4B9F46),
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         )

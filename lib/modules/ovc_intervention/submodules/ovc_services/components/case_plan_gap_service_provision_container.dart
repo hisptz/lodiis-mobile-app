@@ -47,29 +47,23 @@ class _CasePlanGapServiceProvisionContainerState
 // handling state management on adding following ups
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Visibility(
-        visible: widget.shouldEditCaseGapServiceProvision ||
-            widget.shouldViewCaseGapServiceProvision,
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                child: CasePlanGapServiceViewContainer(
-                  casePlanGap: widget.casePlanGap,
-                  hasEditAccess: widget.hasEditAccess,
-                  domainId: widget.domainId,
-                  themeColor: widget.formSectionColor,
-                  casePlanGapToServiceProvisionLinkageValue:
-                      casePlanGapToServiceProvisionLinkageValue,
-                  shouldEditCaseGapServiceProvision:
-                      widget.shouldEditCaseGapServiceProvision,
-                  isCasePlanForHousehold: widget.isCasePlanForHousehold,
-                ),
-              ),
-            ],
+    return Visibility(
+      visible: widget.shouldEditCaseGapServiceProvision ||
+          widget.shouldViewCaseGapServiceProvision,
+      child: Column(
+        children: [
+          CasePlanGapServiceViewContainer(
+            casePlanGap: widget.casePlanGap,
+            hasEditAccess: widget.hasEditAccess,
+            domainId: widget.domainId,
+            themeColor: widget.formSectionColor,
+            casePlanGapToServiceProvisionLinkageValue:
+                casePlanGapToServiceProvisionLinkageValue,
+            shouldEditCaseGapServiceProvision:
+                widget.shouldEditCaseGapServiceProvision,
+            isCasePlanForHousehold: widget.isCasePlanForHousehold,
           ),
-        ),
+        ],
       ),
     );
   }
