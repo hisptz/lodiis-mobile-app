@@ -27,7 +27,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class OgacEnrollmentForm extends StatefulWidget {
-  OgacEnrollmentForm({Key? key}) : super(key: key);
+  const OgacEnrollmentForm({Key? key}) : super(key: key);
 
   @override
   _OgacEnrollmentFormState createState() => _OgacEnrollmentFormState();
@@ -37,7 +37,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
   final String label = 'OGAC Enrollment Form';
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   List<FormSection>? formSections;
   late List<FormSection> stageFormSections;
   bool isSaving = false;
@@ -61,7 +61,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -138,7 +138,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
         );
         Provider.of<OgacInterventionListState>(context, listen: false)
             .onBeneficiaryAdd();
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           if (Navigator.canPop(context)) {
             setState(() {
               isSaving = false;
@@ -186,7 +186,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -200,10 +200,11 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -211,55 +212,47 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  isEditableMode:
-                                      enrollmentFormState.isEditableMode,
-                                  hiddenFields:
-                                      enrollmentFormState.hiddenFields,
-                                  hiddenSections:
-                                      enrollmentFormState.hiddenSections,
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              isEditableMode:
+                                  enrollmentFormState.isEditableMode,
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: const Color(0xFFF05A2A),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveAndContinue(
+                                  context,
+                                  enrollmentFormState.formState,
                                 ),
                               ),
-                              Container(
-                                child: Visibility(
-                                  visible: enrollmentFormState.isEditableMode,
-                                  child: EntryFormSaveButton(
-                                    label: isSaving
-                                        ? 'Saving ...'
-                                        : currentLanguage == 'lesotho'
-                                            ? 'Boloka'
-                                            : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFFF05A2A),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onSaveAndContinue(
-                                      context,
-                                      enrollmentFormState.formState,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),

@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 import 'constants/ogac_routes_constant.dart';
 
 class OgacIntervention extends StatefulWidget {
-  OgacIntervention({Key? key}) : super(key: key);
+  const OgacIntervention({Key? key}) : super(key: key);
 
   @override
   _OgacInterventionState createState() => _OgacInterventionState();
@@ -42,7 +42,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isViewReady = true;
       });
@@ -107,7 +107,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return OgacEnrollmentForm();
+            return const OgacEnrollmentForm();
           },
         ),
       );
@@ -124,7 +124,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
                 interventionCardState.currentInterventionProgram;
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(105),
+                preferredSize: const Size.fromHeight(105),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   onClickHome: onClickHome,
@@ -142,30 +142,25 @@ class _OgacInterventionState extends State<OgacIntervention> {
                 return Container(
                   child: !isViewReady
                       ? Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             top: 20.0,
                           ),
-                          child: CircularProcessLoader(
+                          child: const CircularProcessLoader(
                             color: Colors.blueGrey,
                           ),
                         )
                       : !hasAccessToDataEntry
-                          ? AccessToDataEntryWarning()
-                          : Container(
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          activeInterventionProgram.background,
-                                    ),
+                          ? const AccessToDataEntryWarning()
+                          : Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: activeInterventionProgram.background,
                                   ),
-                                  Container(
-                                    child: OgacInterventionHome(),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                const OgacInterventionHome(),
+                              ],
                             ),
                 );
               }),

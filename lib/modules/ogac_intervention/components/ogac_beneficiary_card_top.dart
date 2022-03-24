@@ -22,7 +22,7 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 15.0,
       ),
@@ -31,8 +31,8 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
           Expanded(
             child: Text(
               ogacBeneficiary.toString(),
-              style: TextStyle().copyWith(
-                color: Color(0xFF651900),
+              style: const TextStyle().copyWith(
+                color: const Color(0xFF651900),
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -48,39 +48,35 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
               isSynced: isSynced,
             );
           }),
-          Container(
-            child: InkWell(
-              onTap: onViewBeneficiary,
-              child: Container(
-                height: iconHeight,
-                width: iconHeight,
-                margin: EdgeInsets.symmetric(
-                  vertical: 5.0,
-                  horizontal: 5.0,
-                ),
-                child: SvgPicture.asset(
-                  'assets/icons/expand_icon.svg',
-                  color: Color(0xFFF05A2A),
-                ),
+          InkWell(
+            onTap: onViewBeneficiary,
+            child: Container(
+              height: iconHeight,
+              width: iconHeight,
+              margin: const EdgeInsets.symmetric(
+                vertical: 5.0,
+                horizontal: 5.0,
+              ),
+              child: SvgPicture.asset(
+                'assets/icons/expand_icon.svg',
+                color: const Color(0xFFF05A2A),
               ),
             ),
           ),
           Visibility(
             visible: ogacBeneficiary.enrollmentOuAccessible!,
-            child: Container(
-              child: InkWell(
-                onTap: onEditBeneficiary,
-                child: Container(
-                  height: iconHeight,
-                  width: iconHeight,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 5.0,
-                    horizontal: 5.0,
-                  ),
-                  child: SvgPicture.asset(
-                    'assets/icons/edit-icon.svg',
-                    color: Color(0xFFF05A2A),
-                  ),
+            child: InkWell(
+              onTap: onEditBeneficiary,
+              child: Container(
+                height: iconHeight,
+                width: iconHeight,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 5.0,
+                  horizontal: 5.0,
+                ),
+                child: SvgPicture.asset(
+                  'assets/icons/edit-icon.svg',
+                  color: const Color(0xFFF05A2A),
                 ),
               ),
             ),

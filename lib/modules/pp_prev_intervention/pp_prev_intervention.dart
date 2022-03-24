@@ -25,7 +25,7 @@ import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
 class PpPrevIntervention extends StatefulWidget {
-  PpPrevIntervention({Key? key}) : super(key: key);
+  const PpPrevIntervention({Key? key}) : super(key: key);
 
   @override
   _PpPrevInterventionState createState() => _PpPrevInterventionState();
@@ -41,7 +41,7 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isViewReady = true;
       });
@@ -107,7 +107,7 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return PpPrevInterventionEnrollmentForm();
+            return const PpPrevInterventionEnrollmentForm();
           },
         ),
       );
@@ -124,7 +124,7 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
                 interventionCardState.currentInterventionProgram;
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(105),
+                preferredSize: const Size.fromHeight(105),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   onClickHome: onClickHome,
@@ -142,30 +142,25 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
                 return Container(
                   child: !isViewReady
                       ? Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             top: 20.0,
                           ),
-                          child: CircularProcessLoader(
+                          child: const CircularProcessLoader(
                             color: Colors.blueGrey,
                           ),
                         )
                       : !hasAccessToDataEntry
-                          ? AccessToDataEntryWarning()
-                          : Container(
-                              child: Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          activeInterventionProgram.background,
-                                    ),
+                          ? const AccessToDataEntryWarning()
+                          : Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: activeInterventionProgram.background,
                                   ),
-                                  Container(
-                                    child: PpPrevInterventionHome(),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                const PpPrevInterventionHome(),
+                              ],
                             ),
                 );
               }),
