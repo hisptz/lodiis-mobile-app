@@ -10,7 +10,7 @@ class UserOuOfflineProvider extends OfflineDbProvider {
   addOrUpdateUserOrganisationUnits(CurrentUser user) async {
     var dbClient = await db;
     for (id in user.userOrgUnitIds ?? []) {
-      var data = Map<String, dynamic>();
+      var data = <String, dynamic>{};
       data['id'] = id;
       data['userId'] = user.id;
       await dbClient!.insert(CurrentUser.userOrganisationUnitTable, data,
@@ -40,7 +40,9 @@ class UserOuOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return userOrganisationUnits;
   }
 }

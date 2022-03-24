@@ -19,7 +19,7 @@ class ImplementingPartnerReferralServicesOfflineProvider
       await dbClient!.insert(table, data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
-      print('addOrUpdateReferralServices: ${e.toString()}');
+      //
     }
   }
 
@@ -29,9 +29,11 @@ class ImplementingPartnerReferralServicesOfflineProvider
       var dbClient = await db;
       List<Map> maps = await dbClient!.query(table, columns: [id]);
       appLogs.addAll(maps);
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
-    return appLogs.length > 0;
+    return appLogs.isNotEmpty;
   }
 
   Future<String?> getImplementingPartnerReferralServices(
@@ -55,7 +57,7 @@ class ImplementingPartnerReferralServicesOfflineProvider
         return '';
       }
     } catch (e) {
-      print(e.toString());
+      //
       return '';
     }
   }

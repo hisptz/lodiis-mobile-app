@@ -38,8 +38,7 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
       await ReferralEventNotificationOfflineProvider()
           .addOrUpdateReferralEventNotification(referralEvents);
     } catch (error) {
-      print(
-          "addOrUpdateReferralNotification offline-provider : ${error.toString()}");
+      //
     }
   }
 
@@ -66,11 +65,11 @@ class ReferralNotificationOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (error) {
-      print("getReferralNotifications : ${error.toString()}");
+      //
     }
     return referralNotifications
         .where((ReferralNotification referralNotification) =>
-            referralNotification.referrals!.length > 0)
+            referralNotification.referrals!.isNotEmpty)
         .toList();
   }
 }

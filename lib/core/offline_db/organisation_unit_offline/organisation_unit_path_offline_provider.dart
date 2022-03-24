@@ -14,12 +14,14 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
   ) async {
     try {
       var dbClient = await db;
-      var map = Map<String, dynamic>();
+      var map = <String, dynamic>{};
       map['id'] = organisationUnit.id;
       map['path'] = organisationUnit.path;
       await dbClient!
           .insert(table, map, conflictAlgorithm: ConflictAlgorithm.replace);
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
   }
 
   Future<List<String>> getAccessableOrganisationUnits(
@@ -37,7 +39,9 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
             .toList()
             .map((map) => "${map[id]}"));
       }
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return organisationUnitIds.toList().toSet().toList();
   }
 
@@ -68,7 +72,9 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
           );
         }
       }
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return organisationUnitIds.toList().toSet().toList();
   }
 
@@ -85,7 +91,9 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
       if (maps.isNotEmpty) {
         organisationUnitPath = maps.first["path"];
       }
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return organisationUnitPath;
   }
 }
