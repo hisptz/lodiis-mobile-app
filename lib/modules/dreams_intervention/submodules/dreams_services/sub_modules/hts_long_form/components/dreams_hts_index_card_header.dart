@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 
 class DreamsHTSIndexCardHeader extends StatelessWidget {
-  DreamsHTSIndexCardHeader({
+  const DreamsHTSIndexCardHeader({
     Key? key,
     required this.event,
     required this.svgIcon,
@@ -34,7 +34,7 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,11 +43,11 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                   child: Expanded(
                     flex: canEdit && canView ? 9 : 10,
                     child: Container(
-                      padding: EdgeInsets.only(left: 5.0),
+                      padding: const EdgeInsets.only(left: 5.0),
                       child: Text(
                         'Index Information',
-                        style: TextStyle().copyWith(
-                            color: Color(0xFF1A3518),
+                        style: const TextStyle().copyWith(
+                            color: const Color(0xFF1A3518),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w700),
                       ),
@@ -58,15 +58,16 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                   child: Expanded(
                     flex: 1,
                     child: InkWell(
-                        onTap: event == null ? null : onView as void Function()?,
+                        onTap:
+                            event == null ? null : onView as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
-                            color: Color(0xFF258DCC),
+                            color: const Color(0xFF258DCC),
                           ),
                         )),
                   )),
@@ -75,15 +76,16 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                   child: Expanded(
                     flex: 1,
                     child: InkWell(
-                        onTap: event == null ? null : onEdit as void Function()?,
+                        onTap:
+                            event == null ? null : onEdit as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: Color(0xFF258DCC),
+                            color: const Color(0xFF258DCC),
                           ),
                         )),
                   )),
@@ -96,23 +98,23 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                         child: Container(
                           height: iconHeight * 0.8,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             isExpanded
                                 ? 'assets/icons/chevron_up.svg'
                                 : 'assets/icons/chevron_down.svg',
-                            color: Color(0xFF05131B),
+                            color: const Color(0xFF05131B),
                           ),
                         )),
                   )),
             ],
           ),
         ),
-        LineSeparator(
+        const LineSeparator(
           color: Color(0xFFECF5EC),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         )
       ],

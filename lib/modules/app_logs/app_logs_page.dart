@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
-import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/app_logs/components/app_logs_card.dart';
@@ -18,6 +17,7 @@ class AppLogsPage extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
   _AppLogsState createState() => _AppLogsState();
 }
 
@@ -51,109 +51,94 @@ class _AppLogsState extends State<AppLogsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<InterventionCardState>(
-        builder: (context, interventionCardState, child) {
-          InterventionCard activeInterventionProgram =
-              interventionCardState.currentInterventionProgram;
-          return SafeArea(
-            child: Scaffold(
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(65.0),
-                  child: Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return SubPageAppBar(
-                          label: currentLanguage == 'lesotho'
-                              ? translatedLabel
-                              : label,
-                          activeInterventionProgram: activeInterventionProgram,
-                          disableSelectionOfActiveIntervention: false,
-                        );
-                      },
-                    ),
-                  )),
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: interventionCardState
-                    .currentInterventionProgram.primaryColor,
-                onPressed: () async {
-                  await onDownloadLogs(context);
-                },
-                tooltip: 'download',
-                child: Icon(Icons.download),
-              ),
-              body: Container(
-                child: Consumer<AppLogsState>(
-                  builder: (context, appLogsState, child) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        automaticallyImplyLeading: false,
-                        title: Row(children: <Widget>[
-                          Expanded(
-                              child: SearchInput(
-                            onSearch: (value) => onSearchLogs(context, value),
-                          )),
-                          IconButton(
-                              iconSize: 30,
-                              icon: Icon(Icons.delete),
-                              color: Colors.red.withOpacity(0.8),
-                              onPressed: () {
-                                clearAllLogs(context);
-                              })
-                        ]),
-                        backgroundColor: Colors.white,
-                      ),
-                      body: Container(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: activeInterventionProgram.background),
-                            ),
-                            Container(
-                              child: Container(
-                                child: CustomPaginatedListView(
-                                  childBuilder: (context, appLog, child) =>
-                                      Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 10),
-                                          child: AppLogsCard(
-                                            appLog: appLog,
-                                            currentInterventionColor:
-                                                activeInterventionProgram
-                                                    .countLabelColor,
-                                          )),
-                                  pagingController:
-                                      appLogsState.pagingController,
-                                  emptyListWidget: Column(children: [
-                                    Center(
-                                      child: Text(
-                                        'There are no application logs at a moment.',
-                                      ),
-                                    )
-                                  ]),
-                                  errorWidget: Center(
-                                    child: Text(
-                                      'There are no application logs list at a moment.',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+    return Consumer<InterventionCardState>(
+      builder: (context, interventionCardState, child) {
+        InterventionCard activeInterventionProgram =
+            interventionCardState.currentInterventionProgram;
+        return SafeArea(
+          child: Scaffold(
+            appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(65.0),
+                child: Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) {
+                    String? currentLanguage =
+                        languageTranslationState.currentLanguage;
+                    return SubPageAppBar(
+                      label: currentLanguage == 'lesotho'
+                          ? translatedLabel
+                          : label,
+                      activeInterventionProgram: activeInterventionProgram,
+                      disableSelectionOfActiveIntervention: false,
                     );
                   },
-                ),
-              ),
+                )),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor:
+                  interventionCardState.currentInterventionProgram.primaryColor,
+              onPressed: () async {
+                await onDownloadLogs(context);
+              },
+              tooltip: 'download',
+              child: const Icon(Icons.download),
             ),
-          );
-        },
-      ),
+            body: Consumer<AppLogsState>(
+              builder: (context, appLogsState, child) {
+                return Scaffold(
+                  appBar: AppBar(
+                    automaticallyImplyLeading: false,
+                    title: Row(children: <Widget>[
+                      Expanded(
+                          child: SearchInput(
+                        onSearch: (value) => onSearchLogs(context, value),
+                      )),
+                      IconButton(
+                          iconSize: 30,
+                          icon: const Icon(Icons.delete),
+                          color: Colors.red.withOpacity(0.8),
+                          onPressed: () {
+                            clearAllLogs(context);
+                          })
+                    ]),
+                    backgroundColor: Colors.white,
+                  ),
+                  body: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: activeInterventionProgram.background),
+                      ),
+                      CustomPaginatedListView(
+                        childBuilder: (context, appLog, child) => Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: AppLogsCard(
+                              appLog: appLog,
+                              currentInterventionColor:
+                                  activeInterventionProgram.countLabelColor,
+                            )),
+                        pagingController: appLogsState.pagingController,
+                        emptyListWidget: Column(children: const [
+                          Center(
+                            child: Text(
+                              'There are no application logs at a moment.',
+                            ),
+                          )
+                        ]),
+                        errorWidget: const Center(
+                          child: Text(
+                            'There are no application logs list at a moment.',
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

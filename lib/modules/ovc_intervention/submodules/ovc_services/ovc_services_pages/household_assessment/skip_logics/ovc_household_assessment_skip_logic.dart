@@ -5,9 +5,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class OvchouseHoldAssessmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -132,7 +132,7 @@ class OvchouseHoldAssessmentSkipLogic {
         hiddenFields['ZuaV20IvVV2'] = true;
       }
       if (inputFieldId == 'ZuaV20IvVV2') {
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         if (value == 'Regular') {
           hiddenOptions['Sometimes a month'] = true;
           hiddenOptions['Once a week'] = true;
@@ -152,7 +152,7 @@ class OvchouseHoldAssessmentSkipLogic {
       if (inputFieldId == 'JmLdZM3XYfY' && value == 'No') {
         hiddenFields['JmLdZM3XYfY_checkbox'] = true;
       }
-      if (inputFieldId == 'blod3xZ2dPP' && value != null && value != '0') {
+      if (inputFieldId == 'blod3xZ2dPP' && value != '0') {
         hiddenFields['eShHDoV4ARm'] = true;
       }
 

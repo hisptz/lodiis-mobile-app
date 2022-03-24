@@ -21,7 +21,7 @@ class AppLogsService {
       }).toList();
       appLogsList.addAll(refactoredAppLogs);
     } catch (e) {
-      print('Error: $e');
+      //
     }
 
     return searchableValue == ''
@@ -42,7 +42,7 @@ class AppLogsService {
       }).toList();
       appLogsList.addAll(refactoredAppLogs);
     } catch (e) {
-      print('Error: $e');
+      //
     }
     return appLogsList;
   }

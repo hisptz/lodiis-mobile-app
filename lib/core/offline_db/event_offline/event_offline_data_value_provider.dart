@@ -19,7 +19,7 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
         if ('${dataValue[value]}'.isNotEmpty &&
             '${dataValue[value]}' != 'null') {
           String? dataElement = dataValue['dataElement'];
-          Map data = Map<String, dynamic>();
+          Map data = <String, dynamic>{};
           data['id'] = '$event-$dataElement';
           data['event'] = event;
           data['dataElement'] = dataElement;
@@ -28,7 +28,9 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
               conflictAlgorithm: ConflictAlgorithm.replace);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   Future<List> getEventDataValuesByEventId(
@@ -50,7 +52,9 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return dataValues;
   }
 }

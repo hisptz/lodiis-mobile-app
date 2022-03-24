@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -37,7 +37,7 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
   final String label = 'Consent Form';
   final List<String> mandatoryFields =
       AgywEnrollmentConcent.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   bool isFormReady = false;
   List unFilledMandatoryFields = [];
 
@@ -56,7 +56,7 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -118,8 +118,8 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
         context,
         MaterialPageRoute(
           builder: (context) => hasConsent
-              ? AgywDreamsRiskAssessment()
-              : AgywEnrollmentNoneParticipationForm(),
+              ? const AgywDreamsRiskAssessment()
+              : const AgywEnrollmentNoneParticipationForm(),
         ),
       );
     } else {
@@ -139,7 +139,7 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -153,13 +153,13 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 13.0,
             ),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -167,48 +167,42 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  hiddenFields:
-                                      enrollmentFormState.hiddenFields,
-                                  hiddenSections:
-                                      enrollmentFormState.hiddenSections,
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
-                                ),
-                              ),
-                              EntryFormSaveButton(
-                                label: currentLanguage == 'lesotho'
-                                    ? 'Boloka ebe u fetela pele'
-                                    : 'Save and Continue',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF258DCC),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                    context, enrollmentFormState.formState),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            EntryFormSaveButton(
+                              label: currentLanguage == 'lesotho'
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
+                              labelColor: Colors.white,
+                              buttonColor: const Color(0xFF258DCC),
+                              fontSize: 15.0,
+                              onPressButton: () => onSaveAndContinue(
+                                  context, enrollmentFormState.formState),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

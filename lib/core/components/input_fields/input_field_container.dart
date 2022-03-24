@@ -46,15 +46,15 @@ class InputFieldContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: inputField.background),
       padding: inputField.background != Colors.transparent
-          ? EdgeInsets.only(
+          ? const EdgeInsets.only(
               top: 10.0,
               bottom: 0.0,
               left: 10.0,
               right: 10.0,
             )
-          : EdgeInsets.all(0),
+          : const EdgeInsets.all(0),
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 2.0,
         ),
         child: Column(
@@ -62,48 +62,45 @@ class InputFieldContainer extends StatelessWidget {
           children: [
             Visibility(
               visible: inputField.name != '',
-              child: Container(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          text: currentLanguage == 'lesotho' &&
-                                  inputField.translatedName != null
-                              ? inputField.translatedName
-                              : inputField.name,
-                          style: TextStyle(
-                            color: inputField.hasError != null &&
-                                    inputField.hasError!
-                                ? Colors.red
-                                : inputField.labelColor,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: mandatoryFieldObject != null &&
-                                      mandatoryFieldObject![inputField.id] ==
-                                          true
-                                  ? ' *'
-                                  : '',
-                              style: TextStyle(
-                                color: Colors.redAccent,
-                                fontSize: 12.0,
-                              ),
-                            )
-                          ],
+              child: Row(
+                children: [
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        text: currentLanguage == 'lesotho' &&
+                                inputField.translatedName != null
+                            ? inputField.translatedName
+                            : inputField.name,
+                        style: TextStyle(
+                          color: inputField.hasError != null &&
+                                  inputField.hasError!
+                              ? Colors.red
+                              : inputField.labelColor,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.normal,
                         ),
+                        children: [
+                          TextSpan(
+                            text: mandatoryFieldObject != null &&
+                                    mandatoryFieldObject![inputField.id] == true
+                                ? ' *'
+                                : '',
+                            style: const TextStyle(
+                              color: Colors.redAccent,
+                              fontSize: 12.0,
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
             Visibility(
               visible: inputField.description != '',
               child: Container(
-                padding: EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -112,7 +109,7 @@ class InputFieldContainer extends StatelessWidget {
                                 inputField.translatedDescription != null
                             ? inputField.translatedDescription!
                             : inputField.description!,
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                           color: inputField.labelColor,
                           fontSize: 12.0,
                           fontStyle: FontStyle.italic,
@@ -149,18 +146,15 @@ class InputFieldContainer extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Container(
-                            child: Text(
-                              inputField.subInputField != null
-                                  ? currentLanguage == 'lesotho' &&
-                                          inputField.subInputField!
-                                                  .translatedName !=
-                                              null
-                                      ? inputField
-                                          .subInputField!.translatedName!
-                                      : inputField.subInputField!.name
-                                  : '',
-                            ),
+                          Text(
+                            inputField.subInputField != null
+                                ? currentLanguage == 'lesotho' &&
+                                        inputField.subInputField!
+                                                .translatedName !=
+                                            null
+                                    ? inputField.subInputField!.translatedName!
+                                    : inputField.subInputField!.name
+                                : '',
                           ),
                           Container(
                             child: isEditableMode! ||
@@ -235,7 +229,7 @@ class InputFieldContainer extends StatelessWidget {
     return Container(
       child: inputField != null && inputField.valueType == 'CHECK_BOX'
           ? CheckBoxListInputField(
-              hiddenFields: hiddenFields ?? Map(),
+              hiddenFields: hiddenFields ?? {},
               currentLanguage: currentLanguage,
               inputField: inputField,
               isReadOnly: true, //this.onInputValueChange,
@@ -244,13 +238,13 @@ class InputFieldContainer extends StatelessWidget {
           : Row(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 15.0,
                     horizontal: 10.0,
                   ),
                   child: Text(
                     value.toString(),
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       color: inputField != null && inputField.inputColor != null
                           ? inputField.inputColor
                           : null,
@@ -270,163 +264,151 @@ class InputFieldContainer extends StatelessWidget {
   ) {
     return Container(
       child: inputField != null
-          ? Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: inputField.valueType == 'CHECK_BOX'
-                        ? CheckBoxListInputField(
-                            hiddenFields: hiddenFields ?? Map(),
-                            currentLanguage: currentLanguage,
-                            inputField: inputField,
-                            onInputValueChange: (id, value) {
-                              this.onInputValueChange!(id, value);
-                            },
-                            dataObject: dataObject,
-                          )
-                        : inputField.options!.length > 0
-                            ? SelectInputField(
-                                hiddenInputFieldOptions:
-                                    hiddenInputFieldOptions[inputField.id] ??
-                                        Map(),
-                                currentLanguage: currentLanguage,
-                                color: inputField.inputColor,
-                                isReadOnly: inputField.isReadOnly,
-                                renderAsRadio: inputField.renderAsRadio,
-                                onInputValueChange: (dynamic value) => this
-                                    .onInputValueChange!(inputField.id, value),
-                                options: inputField.options,
-                                selectedOption: dataObject![inputField.id],
-                              )
-                            : inputField.valueType == 'TEXT' ||
-                                    inputField.valueType == 'LONG_TEXT'
-                                ? TextInputFieldContainer(
-                                    inputField: inputField,
-                                    inputValue: dataObject![inputField.id],
-                                    onInputValueChange: (dynamic value) =>
-                                        this.onInputValueChange!(
-                                            inputField.id, value),
-                                  )
-                                : inputField.valueType ==
-                                            'INTEGER_ZERO_OR_POSITIVE' ||
-                                        inputField.valueType == 'NUMBER'
-                                    ? NumericalInputFieldContainer(
-                                        inputField: inputField,
-                                        inputValue: dataObject![inputField.id],
-                                        onInputValueChange: (dynamic value) =>
-                                            this.onInputValueChange!(
-                                                inputField.id, value),
-                                      )
-                                    : inputField.valueType == 'PHONE_NUMBER'
-                                        ? PhoneNumberInputFieldContainer(
-                                            inputField: inputField,
-                                            inputValue:
-                                                dataObject![inputField.id],
-                                            onInputValueChange:
-                                                (dynamic value) =>
-                                                    this.onInputValueChange!(
-                                                        inputField.id, value),
-                                          )
-                                        : inputField.valueType == 'BOOLEAN'
-                                            ? BooleanInputFieldContainer(
-                                                currentLanguage:
-                                                    currentLanguage,
-                                                inputField: inputField,
-                                                inputValue:
-                                                    dataObject![inputField.id],
-                                                onInputValueChange: (dynamic
-                                                        value) =>
-                                                    this.onInputValueChange!(
-                                                        inputField.id, value),
-                                              )
-                                            : inputField.valueType ==
-                                                    'TRUE_ONLY'
-                                                ? TrueOnlyInputFieldContainer(
-                                                    currentLanguage:
-                                                        currentLanguage,
-                                                    inputField: inputField,
-                                                    inputValue: dataObject![
-                                                        inputField.id],
-                                                    onInputValueChange: (dynamic
-                                                            value) =>
-                                                        this.onInputValueChange!(
-                                                            inputField.id,
-                                                            value),
-                                                  )
-                                                : inputField.valueType == 'DATE'
-                                                    ? DateInputFieldContainer(
-                                                        inputField: inputField,
-                                                        currentLanguage:
-                                                            currentLanguage,
-                                                        inputValue: dataObject![
-                                                            inputField.id],
-                                                        onInputValueChange:
-                                                            (dynamic value) =>
-                                                                this.onInputValueChange!(
-                                                                    inputField
-                                                                        .id,
-                                                                    value),
-                                                      )
-                                                    : inputField.valueType ==
-                                                            'ORGANISATION_UNIT'
-                                                        ? OrganisationUnitInputFieldContainer(
-                                                            inputField:
-                                                                inputField,
-                                                            isEditableMode:
-                                                                isEditableMode!,
-                                                            currentUserCountryLevelReferences:
-                                                                currentUserCountryLevelReferences,
-                                                            filteredPrograms:
-                                                                inputField
-                                                                    .filteredPrograms,
-                                                            inputValue:
-                                                                dataObject![
-                                                                    inputField
-                                                                        .id],
-                                                            onInputValueChange:
-                                                                (dynamic
-                                                                        value) =>
-                                                                    this.onInputValueChange!(
-                                                                        inputField
-                                                                            .id,
-                                                                        value),
-                                                          )
-                                                        : inputField.valueType ==
-                                                                'COORDINATE'
-                                                            ? CoordinateInputFieldContainer(
-                                                                inputField:
-                                                                    inputField,
-                                                                inputValue:
-                                                                    dataObject![
-                                                                        inputField
-                                                                            .id],
-                                                                onInputValueChange: (dynamic
-                                                                        value) =>
-                                                                    this.onInputValueChange!(
-                                                                        inputField
-                                                                            .id,
-                                                                        value),
-                                                              )
-                                                            : Container(
-                                                                child: Text(
-                                                                  '${inputField.valueType} is not supported',
-                                                                ),
-                                                              ),
-                  ),
-                  InputClearIcon(
-                      showClearIcon: inputField != null &&
-                          dataObject![inputField.id] != null &&
-                          dataObject![inputField.id] != '' &&
-                          inputField.isReadOnly == false &&
-                          showClearIcon &&
-                          isEditableMode!,
-                      onClearInput: () {
-                        onInputValueChange!(inputField.id, null);
-                      })
-                ],
-              ),
+          ? Row(
+              children: [
+                Expanded(
+                  child: inputField.valueType == 'CHECK_BOX'
+                      ? CheckBoxListInputField(
+                          hiddenFields: hiddenFields ?? {},
+                          currentLanguage: currentLanguage,
+                          inputField: inputField,
+                          onInputValueChange: (id, value) {
+                            onInputValueChange!(id, value);
+                          },
+                          dataObject: dataObject,
+                        )
+                      : inputField.options!.isNotEmpty
+                          ? SelectInputField(
+                              hiddenInputFieldOptions:
+                                  hiddenInputFieldOptions[inputField.id] ?? {},
+                              currentLanguage: currentLanguage,
+                              color: inputField.inputColor,
+                              isReadOnly: inputField.isReadOnly,
+                              renderAsRadio: inputField.renderAsRadio,
+                              onInputValueChange: (dynamic value) =>
+                                  onInputValueChange!(inputField.id, value),
+                              options: inputField.options,
+                              selectedOption: dataObject![inputField.id],
+                            )
+                          : inputField.valueType == 'TEXT' ||
+                                  inputField.valueType == 'LONG_TEXT'
+                              ? TextInputFieldContainer(
+                                  inputField: inputField,
+                                  inputValue: dataObject![inputField.id],
+                                  onInputValueChange: (dynamic value) =>
+                                      onInputValueChange!(inputField.id, value),
+                                )
+                              : inputField.valueType ==
+                                          'INTEGER_ZERO_OR_POSITIVE' ||
+                                      inputField.valueType == 'NUMBER'
+                                  ? NumericalInputFieldContainer(
+                                      inputField: inputField,
+                                      inputValue: dataObject![inputField.id],
+                                      onInputValueChange: (dynamic value) =>
+                                          onInputValueChange!(
+                                              inputField.id, value),
+                                    )
+                                  : inputField.valueType == 'PHONE_NUMBER'
+                                      ? PhoneNumberInputFieldContainer(
+                                          inputField: inputField,
+                                          inputValue:
+                                              dataObject![inputField.id],
+                                          onInputValueChange: (dynamic value) =>
+                                              onInputValueChange!(
+                                                  inputField.id, value),
+                                        )
+                                      : inputField.valueType == 'BOOLEAN'
+                                          ? BooleanInputFieldContainer(
+                                              currentLanguage: currentLanguage,
+                                              inputField: inputField,
+                                              inputValue:
+                                                  dataObject![inputField.id],
+                                              onInputValueChange:
+                                                  (dynamic value) =>
+                                                      onInputValueChange!(
+                                                          inputField.id, value),
+                                            )
+                                          : inputField.valueType == 'TRUE_ONLY'
+                                              ? TrueOnlyInputFieldContainer(
+                                                  currentLanguage:
+                                                      currentLanguage,
+                                                  inputField: inputField,
+                                                  inputValue: dataObject![
+                                                      inputField.id],
+                                                  onInputValueChange:
+                                                      (dynamic value) =>
+                                                          onInputValueChange!(
+                                                              inputField.id,
+                                                              value),
+                                                )
+                                              : inputField.valueType == 'DATE'
+                                                  ? DateInputFieldContainer(
+                                                      inputField: inputField,
+                                                      currentLanguage:
+                                                          currentLanguage,
+                                                      inputValue: dataObject![
+                                                          inputField.id],
+                                                      onInputValueChange:
+                                                          (dynamic value) =>
+                                                              onInputValueChange!(
+                                                                  inputField.id,
+                                                                  value),
+                                                    )
+                                                  : inputField.valueType ==
+                                                          'ORGANISATION_UNIT'
+                                                      ? OrganisationUnitInputFieldContainer(
+                                                          inputField:
+                                                              inputField,
+                                                          isEditableMode:
+                                                              isEditableMode!,
+                                                          currentUserCountryLevelReferences:
+                                                              currentUserCountryLevelReferences,
+                                                          filteredPrograms:
+                                                              inputField
+                                                                  .filteredPrograms,
+                                                          inputValue:
+                                                              dataObject![
+                                                                  inputField
+                                                                      .id],
+                                                          onInputValueChange:
+                                                              (dynamic value) =>
+                                                                  onInputValueChange!(
+                                                                      inputField
+                                                                          .id,
+                                                                      value),
+                                                        )
+                                                      : inputField.valueType ==
+                                                              'COORDINATE'
+                                                          ? CoordinateInputFieldContainer(
+                                                              inputField:
+                                                                  inputField,
+                                                              inputValue:
+                                                                  dataObject![
+                                                                      inputField
+                                                                          .id],
+                                                              onInputValueChange: (dynamic
+                                                                      value) =>
+                                                                  onInputValueChange!(
+                                                                      inputField
+                                                                          .id,
+                                                                      value),
+                                                            )
+                                                          : Text(
+                                                              '${inputField.valueType} is not supported',
+                                                            ),
+                ),
+                InputClearIcon(
+                    showClearIcon: dataObject![inputField.id] != null &&
+                        dataObject![inputField.id] != '' &&
+                        inputField.isReadOnly == false &&
+                        showClearIcon &&
+                        isEditableMode!,
+                    onClearInput: () {
+                      onInputValueChange!(inputField.id, null);
+                    })
+              ],
             )
-          : Text(''),
+          : const Text(''),
     );
   }
 }

@@ -14,7 +14,7 @@ class TrackedEntityInstance {
     this.syncStatus,
     this.attributes,
   }) {
-    this.attributes = this.attributes ?? [];
+    attributes = attributes ?? [];
   }
 
   @override
@@ -36,7 +36,7 @@ class TrackedEntityInstance {
   }
 
   Map toOffline(TrackedEntityInstance trackedEntityInstanceObj) {
-    Map mapData = Map<String, dynamic>();
+    Map mapData = <String, dynamic>{};
     mapData['trackedEntityInstance'] =
         trackedEntityInstanceObj.trackedEntityInstance;
     mapData['trackedEntityType'] = trackedEntityInstanceObj.trackedEntityType;
@@ -47,10 +47,10 @@ class TrackedEntityInstance {
   }
 
   TrackedEntityInstance.fromOffline(Map<String, dynamic> mapData) {
-    this.trackedEntityInstance = mapData['trackedEntityInstance'];
-    this.trackedEntityType = mapData['trackedEntityType'];
-    this.orgUnit = mapData['orgUnit'];
-    this.syncStatus = mapData['syncStatus'];
-    this.attributes = mapData['attributes'] ?? [];
+    trackedEntityInstance = mapData['trackedEntityInstance'];
+    trackedEntityType = mapData['trackedEntityType'];
+    orgUnit = mapData['orgUnit'];
+    syncStatus = mapData['syncStatus'];
+    attributes = mapData['attributes'] ?? [];
   }
 }

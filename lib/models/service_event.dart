@@ -22,10 +22,10 @@ class ServiceEvent {
       'vL6NpUA0rIU',
     ];
 
-    Map data = Map();
+    Map data = {};
     for (Map dataValues in events.dataValues) {
       String? attribute = dataValues['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${dataValues['value']}'.trim();
       }
     }

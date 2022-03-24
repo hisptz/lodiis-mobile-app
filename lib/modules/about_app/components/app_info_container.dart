@@ -22,15 +22,15 @@ class AppInfoContainer extends StatelessWidget {
               alignment: Alignment.center,
               child: CircleAvatar(
                 radius: size.width * 0.1,
-                backgroundColor: Color(0xFFF3F3F3),
-                backgroundImage: AssetImage('assets/logos/app-logo.png'),
+                backgroundColor: const Color(0xFFF3F3F3),
+                backgroundImage: const AssetImage('assets/logos/app-logo.png'),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 vertical: 10.0,
               ),
-              child: Text(
+              child: const Text(
                 "App Info",
                 style: TextStyle(
                   fontSize: 14.0,
@@ -38,31 +38,29 @@ class AppInfoContainer extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Table(
-                    defaultColumnWidth: FixedColumnWidth(size.width * 0.3),
-                    children: [
-                      AboutPageUtil.getTableRowContent(
-                        this.currentLanguage == 'lesotho'
-                            ? 'Lebitso la App'
-                            : 'App Name',
-                        appInfoState.currentAppName,
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        'App Version',
-                        appInfoState.currentAppVersion,
-                      ),
-                      AboutPageUtil.getTableRowContent(
-                        'App Id',
-                        appInfoState.currentAppId,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Table(
+                  defaultColumnWidth: FixedColumnWidth(size.width * 0.3),
+                  children: [
+                    AboutPageUtil.getTableRowContent(
+                      currentLanguage == 'lesotho'
+                          ? 'Lebitso la App'
+                          : 'App Name',
+                      appInfoState.currentAppName,
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      'App Version',
+                      appInfoState.currentAppVersion,
+                    ),
+                    AboutPageUtil.getTableRowContent(
+                      'App Id',
+                      appInfoState.currentAppId,
+                    ),
+                  ],
+                ),
+              ],
             )
           ],
         );

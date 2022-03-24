@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class AgywDreamsEnrollmentNoneParticipationConstant {
   String attribute;
   String dataElement;

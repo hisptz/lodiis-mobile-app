@@ -44,7 +44,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             noResult: true, continueOnError: true);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -87,7 +87,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
   }
@@ -115,7 +117,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
   }
@@ -125,13 +129,15 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       enrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
-          'SELECT COUNT(*) FROM $table WHERE $program = ?', ['$programId']));
-    } catch (e) {}
+          'SELECT COUNT(*) FROM $table WHERE $program = ?', [programId]));
+    } catch (e) {
+      //
+    }
     return enrollmentsCount ?? 0;
   }
 
   Future<Map<String, int>> getEnrollmentsCountBySex(String programId) async {
-    Map<String, int> enrollmentsCountBySex = Map();
+    Map<String, int> enrollmentsCountBySex = {};
     String attributesTable = 'tracked_entity_instance_attribute';
     String attribute = 'attribute';
     String sexAttribute = 'vIX4GTSCX4P';
@@ -142,12 +148,13 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       for (String sexValue in sex) {
         int? enrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
             'SELECT COUNT($table.$trackedEntityInstance) FROM $table, $attributesTable WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $attributesTable.$attribute = ? AND $attributesTable.$value = ?',
-            ['$programId', '$sexAttribute', '$sexValue']));
+            [programId, sexAttribute, sexValue]));
 
-        enrollmentsCountBySex['$sexValue'.toLowerCase()] =
-            enrollmentsCount ?? 0;
+        enrollmentsCountBySex[sexValue.toLowerCase()] = enrollmentsCount ?? 0;
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollmentsCountBySex;
   }
 
@@ -183,7 +190,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments;
   }
 
@@ -251,7 +260,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {
-      print(e);
+      //
     }
     return enrollments
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
@@ -265,7 +274,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
           ['$programId', '$orgUnitId']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return offlineEnrollmentsCount ?? 0;
   }
 
@@ -275,7 +286,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $searchableValue = ?', ['']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return offlineEnrollmentsCount ?? 0;
   }
 
@@ -304,7 +317,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments;
   }
 }

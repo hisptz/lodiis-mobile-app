@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepShortFormHomePage extends StatefulWidget {
-  AgywDreamsPrepShortFormHomePage({Key? key}) : super(key: key);
+  const AgywDreamsPrepShortFormHomePage({Key? key}) : super(key: key);
   @override
   _AgywDreamsPrepShortFormHomePageState createState() =>
       _AgywDreamsPrepShortFormHomePageState();
@@ -43,7 +43,7 @@ class _AgywDreamsPrepShortFormHomePageState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPrepShortForm(),
+        builder: (context) => const AgywDreamsPrepShortForm(),
       ),
     );
   }
@@ -96,7 +96,7 @@ class _AgywDreamsPrepShortFormHomePageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -127,89 +127,78 @@ class _AgywDreamsPrepShortFormHomePageState
                   shouldSortByDate: true,
                 ).toList();
                 int sessionIndex = events.length + 1;
-                return Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: DreamsBeneficiaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                      ),
-                      Container(
-                        child: isLoading
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
+                return Column(
+                  children: [
+                    DreamsBeneficiaryTopHeader(
+                      agywDream: agywDream,
+                    ),
+                    Container(
+                      child: isLoading
+                          ? const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                  ),
+                                  child: events.isEmpty
+                                      ? const Text(
+                                          "There is no PrEP visit at a moment",
+                                        )
+                                      : Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            vertical: 5.0,
+                                            horizontal: 13.0,
+                                          ),
+                                          child: Column(
+                                            children:
+                                                events.map((Events eventData) {
+                                              sessionIndex--;
+                                              return Container(
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 15.0,
+                                                ),
+                                                child: DreamsServiceVisitCard(
+                                                  visitName: "PrEP ",
+                                                  onEdit: () => onEditPREP(
+                                                      context,
+                                                      eventData,
+                                                      agywDream),
+                                                  onView: () => onViewPREP(
+                                                    context,
+                                                    eventData,
+                                                  ),
+                                                  eventData: eventData,
+                                                  visitCount: sessionIndex,
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
                                 ),
-                              )
-                            : Container(
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                        vertical: 10.0,
-                                      ),
-                                      child: events.length == 0
-                                          ? Container(
-                                              child: Text(
-                                                "There is no PrEP visit at a moment",
-                                              ),
-                                            )
-                                          : Container(
-                                              margin: EdgeInsets.symmetric(
-                                                vertical: 5.0,
-                                                horizontal: 13.0,
-                                              ),
-                                              child: Column(
-                                                children: events
-                                                    .map((Events eventData) {
-                                                  sessionIndex--;
-                                                  return Container(
-                                                    margin: EdgeInsets.only(
-                                                      bottom: 15.0,
-                                                    ),
-                                                    child:
-                                                        DreamsServiceVisitCard(
-                                                      visitName: "PrEP ",
-                                                      onEdit: () => onEditPREP(
-                                                          context,
-                                                          eventData,
-                                                          agywDream),
-                                                      onView: () => onViewPREP(
-                                                        context,
-                                                        eventData,
-                                                      ),
-                                                      eventData: eventData,
-                                                      visitCount: sessionIndex,
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                    ),
-                                    EntryFormSaveButton(
-                                      label: 'ADD PREP VISIT',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF1F8ECE),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onAddPREP(
-                                        context,
-                                        agywDream!,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                      )
-                    ],
-                  ),
+                                EntryFormSaveButton(
+                                  label: 'ADD PREP VISIT',
+                                  labelColor: Colors.white,
+                                  buttonColor: const Color(0xFF1F8ECE),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onAddPREP(
+                                    context,
+                                    agywDream!,
+                                  ),
+                                )
+                              ],
+                            ),
+                    )
+                  ],
                 );
               });
             })
           ],
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

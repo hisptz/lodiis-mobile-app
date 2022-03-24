@@ -5,8 +5,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class AgywPrepSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -55,7 +55,7 @@ class AgywPrepSkipLogic {
           .toList());
 
       for (String inputFieldId in hiddenSectionInputFieldIds) {
-        if (allInputFieldIds.indexOf(inputFieldId) == -1) {
+        if (!allInputFieldIds.contains(inputFieldId)) {
           hiddenFields[inputFieldId] = true;
         }
       }

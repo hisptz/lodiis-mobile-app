@@ -52,7 +52,7 @@ class EventOfflineProvider extends OfflineDbProvider {
             exclusive: true, noResult: true, continueOnError: true);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -65,7 +65,7 @@ class EventOfflineProvider extends OfflineDbProvider {
         offlineEventIds.addAll(maps.map((map) => map[id] as String?).toList());
       }
     } catch (error) {
-      print("getAllOfflineTrackedEntitiyInstanceIds : ${error.toString()}");
+      //
     }
     return offlineEventIds.toSet().toList();
   }
@@ -106,7 +106,9 @@ class EventOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return events..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
 
@@ -139,7 +141,9 @@ class EventOfflineProvider extends OfflineDbProvider {
                 ? map[trackedEntityInstance]
                 : map[event]));
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return references.toSet().toList();
   }
 
@@ -180,7 +184,9 @@ class EventOfflineProvider extends OfflineDbProvider {
               .add(NoneParticipationBeneficiary().fromEventsModel(eventData));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return eventsProgramBeneficiaries
       ..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
@@ -192,8 +198,11 @@ class EventOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       offlineEventsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $programStage = ?',
+          // ignore: unnecessary_string_interpolations
           ['$programId', '$programStageId']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return offlineEventsCount ?? 0;
   }
 
@@ -267,7 +276,9 @@ class EventOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return events..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
 
@@ -294,7 +305,9 @@ class EventOfflineProvider extends OfflineDbProvider {
               .addAll(maps.map((Map map) => map[trackedEntityInstance] ?? ""));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return teiIds;
   }
 
@@ -304,9 +317,11 @@ class EventOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       eventsCounts = Sqflite.firstIntValue(await dbClient!
           .rawQuery('SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', [
-        '$status',
+        status,
       ]));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return eventsCounts ?? 0;
   }
 
@@ -317,7 +332,9 @@ class EventOfflineProvider extends OfflineDbProvider {
       offlineEventsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
           ['$programId', '$orgUnitId']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return offlineEventsCount ?? 0;
   }
 }

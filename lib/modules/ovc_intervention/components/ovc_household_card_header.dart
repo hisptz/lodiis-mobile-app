@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCardHeader extends StatelessWidget {
-  OvcHouseholdCardHeader({
+  const OvcHouseholdCardHeader({
     Key? key,
     required this.ovcHousehold,
     required this.svgIcon,
@@ -49,7 +49,7 @@ class OvcHouseholdCardHeader extends StatelessWidget {
           child: Container(
             height: iconHeight * 0.8,
             width: iconHeight,
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 5.0,
               horizontal: 5.0,
             ),
@@ -82,7 +82,7 @@ class OvcHouseholdCardHeader extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -90,20 +90,20 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                 iconHeight: iconHeight,
                 isVisible: true,
                 svgIcon: svgIcon,
-                iconColor: Color(0xFF4B9F46),
+                iconColor: const Color(0xFF4B9F46),
               ),
               Visibility(
                 visible: true,
                 child: Expanded(
                   flex: canEdit && canView ? 9 : 10,
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 5.0,
                     ),
                     child: Text(
                       ovcHousehold!.primaryUIC!,
-                      style: TextStyle().copyWith(
-                        color: Color(0xFF1A3518),
+                      style: const TextStyle().copyWith(
+                        color: const Color(0xFF1A3518),
                         fontSize: 14.0,
                         fontWeight: FontWeight.w700,
                       ),
@@ -111,30 +111,28 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                child: Consumer<SynchronizationStatusState>(
-                    builder: (context, synchronizationStatusState, child) {
-                  List<String> unsyncedTeiReferences =
-                      synchronizationStatusState.unsyncedTeiReferences;
-                  return BeneficiarySyncStatusIndicator(
-                    isSynced: _getSyncStatusOfHousehold(
-                        ovcHousehold!, unsyncedTeiReferences),
-                  );
-                }),
-              ),
+              Consumer<SynchronizationStatusState>(
+                  builder: (context, synchronizationStatusState, child) {
+                List<String> unsyncedTeiReferences =
+                    synchronizationStatusState.unsyncedTeiReferences;
+                return BeneficiarySyncStatusIndicator(
+                  isSynced: _getSyncStatusOfHousehold(
+                      ovcHousehold!, unsyncedTeiReferences),
+                );
+              }),
               _getOvcHouseHoldCardHeaderIcon(
                 iconHeight: iconHeight,
                 isVisible: canView,
                 onTap: onView,
                 svgIcon: 'assets/icons/expand_icon.svg',
-                iconColor: Color(0xFF4B9F46),
+                iconColor: const Color(0xFF4B9F46),
               ),
               _getOvcHouseHoldCardHeaderIcon(
                 iconHeight: iconHeight,
                 isVisible: canEdit && ovcHousehold!.enrollmentOuAccessible!,
                 onTap: onEdit,
                 svgIcon: 'assets/icons/edit-icon.svg',
-                iconColor: Color(0xFF4B9F46),
+                iconColor: const Color(0xFF4B9F46),
               ),
               _getOvcHouseHoldCardHeaderIcon(
                 iconHeight: iconHeight,
@@ -143,15 +141,15 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                 svgIcon: isExpanded
                     ? 'assets/icons/chevron_up.svg'
                     : 'assets/icons/chevron_down.svg',
-                iconColor: Color(0xFF05131B),
+                iconColor: const Color(0xFF05131B),
               ),
             ],
           ),
         ),
-        LineSeparator(
+        const LineSeparator(
           color: Color(0xFFECF5EC),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         )
       ],

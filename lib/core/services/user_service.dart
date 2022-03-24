@@ -26,7 +26,7 @@ class UserService {
           "fields":
               "id,name,email,phoneNumber,programs,organisationUnits[id],attributeValues[value,attribute[id]],userGroups[name,id],userCredentials[userRoles[id,name]]"
         };
-        HttpService http = new HttpService(
+        HttpService http = HttpService(
           username: username,
           password: password,
         );
@@ -52,7 +52,7 @@ class UserService {
       }
       return user;
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -70,7 +70,7 @@ class UserService {
     CurrentUser? user = await getCurrentUser();
     var url = 'api/me.json';
     var queryParameters = {"fields": "authorities,userGroups[id]"};
-    HttpService http = new HttpService(
+    HttpService http = HttpService(
       username: user?.username,
       password: user?.password,
     );
@@ -87,19 +87,21 @@ class UserService {
               UserAccountReference.allowedGroupsForDataEntry;
           String userGroupId =
               userGroup.keys.toList().indexOf("id") > -1 ? userGroup["id"] : "";
-          return allowedGroupsForDataEntry.indexOf("$userGroupId") > -1;
+          return allowedGroupsForDataEntry.contains(userGroupId);
         }).toList();
         currentUserDataEntryAuthorityStatus =
-            userGroups.isNotEmpty || authorities.indexOf("ALL") > -1;
+            userGroups.isNotEmpty || authorities.contains("ALL");
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return currentUserDataEntryAuthorityStatus;
   }
 
   Future<bool> getSavedDataEntryAuthorityStatus() async {
     String? status = await PreferenceProvider.getPreferenceValue(
         currentUserDataEntryAuthorityPreferenceKey);
-    return status == null ? true : '$status' == "true";
+    return status == null ? true : status == "true";
   }
 
   Future setDataEntryAuthorityStatus(status) async {
@@ -112,7 +114,7 @@ class UserService {
     List<CurrentUser> users = await UserOfflineProvider().getUsers();
     List<CurrentUser> filteredUsers =
         users.where((CurrentUser user) => user.id == userId).toList();
-    return filteredUsers.length > 0 ? filteredUsers[0] : null;
+    return filteredUsers.isNotEmpty ? filteredUsers[0] : null;
   }
 
   resetUserAssociatedMetadata(String? userId) async {

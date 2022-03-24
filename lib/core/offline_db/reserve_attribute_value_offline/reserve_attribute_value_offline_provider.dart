@@ -17,7 +17,9 @@ class ReserveAttributeValueOfflineProvider extends OfflineDbProvider {
         await dbClient!.insert(reservedValueTable,
             reservedValue.toOffline(reservedValue) as Map<String, Object?>,
             conflictAlgorithm: ConflictAlgorithm.replace);
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
     }
   }
 
@@ -40,7 +42,9 @@ class ReserveAttributeValueOfflineProvider extends OfflineDbProvider {
               ReservedAttributeValue.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return reservedAttributeValues;
   }
 

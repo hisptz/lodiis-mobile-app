@@ -29,12 +29,12 @@ class TeiRelationship {
   }
 
   TeiRelationship fromOnline(dynamic json) {
-    Map from = json['from'] ?? Map();
-    Map fromTrackedEntityInstance = from['trackedEntityInstance'] ?? Map();
+    Map from = json['from'] ?? {};
+    Map fromTrackedEntityInstance = from['trackedEntityInstance'] ?? {};
     String fromTei = fromTrackedEntityInstance['trackedEntityInstance'] ?? '';
 
-    Map to = json['to'] ?? Map();
-    Map toTrackedEntityInstance = to['trackedEntityInstance'] ?? Map();
+    Map to = json['to'] ?? {};
+    Map toTrackedEntityInstance = to['trackedEntityInstance'] ?? {};
     String toTei = toTrackedEntityInstance['trackedEntityInstance'] ?? '';
 
     return TeiRelationship(
@@ -47,15 +47,15 @@ class TeiRelationship {
   }
 
   Map toOnline() {
-    Map data = new Map<String, dynamic>();
+    Map data = <String, dynamic>{};
     data['relationshipType'] = relationshipType;
     data['relationship'] = id;
     data['syncStatus'] = syncStatus;
 
-    Map from = new Map<String, dynamic>();
+    Map from = <String, dynamic>{};
     Map fromTrackedEntityInstance = {'trackedEntityInstance': fromTei};
     from['trackedEntityInstance'] = fromTrackedEntityInstance;
-    Map to = new Map<String, dynamic>();
+    Map to = <String, dynamic>{};
     Map toTrackedEntityInstance = {'trackedEntityInstance': toTei};
     to['trackedEntityInstance'] = toTrackedEntityInstance;
 
@@ -70,7 +70,7 @@ class TeiRelationship {
   }
 
   Map toOffline(TeiRelationship teiRelationshipData) {
-    Map mapData = Map<String, dynamic>();
+    Map mapData = <String, dynamic>{};
     mapData['id'] = teiRelationshipData.id;
     mapData['relationshipType'] = teiRelationshipData.relationshipType;
     mapData['fromTei'] = teiRelationshipData.fromTei;
@@ -80,10 +80,10 @@ class TeiRelationship {
   }
 
   TeiRelationship.fromOffline(Map<String, dynamic> mapData) {
-    this.id = mapData['id'];
-    this.relationshipType = mapData['relationshipType'];
-    this.fromTei = mapData['fromTei'];
-    this.toTei = mapData['toTei'];
-    this.syncStatus = mapData['syncStatus'];
+    id = mapData['id'];
+    relationshipType = mapData['relationshipType'];
+    fromTei = mapData['fromTei'];
+    toTei = mapData['toTei'];
+    syncStatus = mapData['syncStatus'];
   }
 }

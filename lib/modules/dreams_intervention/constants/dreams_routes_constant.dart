@@ -1,77 +1,77 @@
 class DreamsRoutesConstant {
   // routes constants for none agyw
-  static final String noneAgywEnrollmentPage = "None Agyw Enrollment Form";
-  static final String noneAgywEnrollmentNextPage = "None Agyw Enrollment Form";
-  static final String noneAgywHtsConsentPage = "HTS Consent";
-  static final String noneAgywHtsConsentNextPage = "Client Bio";
-  static final String noneAgywHtsClientInfoPage = "Client Bio";
-  static final String noneAgywHtsClientInfoNextPage = "HTS Register";
-  static final String noneAgywHtsRegisterPage = "HTS Register";
-  static final String noneAgywHtsRegisterNextPage =
+  static const String noneAgywEnrollmentPage = "None Agyw Enrollment Form";
+  static const String noneAgywEnrollmentNextPage = "None Agyw Enrollment Form";
+  static const String noneAgywHtsConsentPage = "HTS Consent";
+  static const String noneAgywHtsConsentNextPage = "Client Bio";
+  static const String noneAgywHtsClientInfoPage = "Client Bio";
+  static const String noneAgywHtsClientInfoNextPage = "HTS Register";
+  static const String noneAgywHtsRegisterPage = "HTS Register";
+  static const String noneAgywHtsRegisterNextPage =
       "PrEP Screening for Substantial Risk and Eligibility";
-  static final String noneAgywPrepScreeningPage =
+  static const String noneAgywPrepScreeningPage =
       "PrEP Screening for Substantial Risk and Eligibility";
-  static final String noneAgywPrepScreeningNextPage =
+  static const String noneAgywPrepScreeningNextPage =
       "PrEP Screening for Substantial Risk and Eligibility";
-  static final String noneAgywPrepFormPage = "PREP VISIT";
-  static final String noneAgywPrepFormNextPage = "PREP VISIT";
+  static const String noneAgywPrepFormPage = "PREP VISIT";
+  static const String noneAgywPrepFormNextPage = "PREP VISIT";
 
   // routes constants for agyw beneficiaries enrollments
-  static final String agywNoneParticipationPage =
+  static const String agywNoneParticipationPage =
       "Agyw None Participation Form";
-  static final String agywNoneParticipationNextPage =
+  static const String agywNoneParticipationNextPage =
       "Agyw None Participation Form";
-  static final String agywWithoutEnrollmentCriteriaPage =
+  static const String agywWithoutEnrollmentCriteriaPage =
       "Agyw None Participation Form";
-  static final String agywWithoutEnrollmentCriteriaNextPage =
+  static const String agywWithoutEnrollmentCriteriaNextPage =
       "Agyw None Participation Form";
-  static final String agywEnrollmentFormEditPage = "Agyw Enrollment Form";
-  static final String agywEnrollmentFormEditNextPage = "Agyw Enrollment Form";
-  static final String agywConsentPage = "Agyw Consent Form";
-  static final String agywConsentNextPage = "Agyw Risk Assessment";
-  static final String agywRiskAssessmentPage = "Agyw Risk Assessment";
-  static final String agywRiskAssessmentNextPage = "DREAMS Enrollment Form";
-  static final String agywEnrollmentFormPage = "DREAMS Enrollment Form";
-  static final String agywEnrollmentFormNextPage = "DREAMS Enrollment Form";
+  static const String agywEnrollmentFormEditPage = "Agyw Enrollment Form";
+  static const String agywEnrollmentFormEditNextPage = "Agyw Enrollment Form";
+  static const String agywConsentPage = "Agyw Consent Form";
+  static const String agywConsentNextPage = "Agyw Risk Assessment";
+  static const String agywRiskAssessmentPage = "Agyw Risk Assessment";
+  static const String agywRiskAssessmentNextPage = "DREAMS Enrollment Form";
+  static const String agywEnrollmentFormPage = "DREAMS Enrollment Form";
+  static const String agywEnrollmentFormNextPage = "DREAMS Enrollment Form";
 
   // routes for agyw services
-  static final String agywDreamsANCFormPage = "ANC form";
-  static final String agywDreamsANCFormNextPage = "ANC form";
-  static final String agywDreamsArtRefillPage = "ART Re-fill";
-  static final String agywDreamsArtRefillNextPage = "ART Re-fill";
-  static final String agywDreamsCondomsFormPage = "Condoms";
-  static final String agywDreamsCondomsFormNextPage = "Condoms";
-  static final String agywDreamsContraceptivesPage = "Contraceptives form";
-  static final String agywDreamsContraceptivesNextPage = "Contraceptives form";
-  static final String agywDreamsHTSShortFormPage = "HTS Form";
-  static final String agywDreamsHTSShortFormNextPage = "HTS Form";
-  static final String agywDreamHIVMessageFormPage = "MSG HIV form";
-  static final String agywDreamHIVMessageFormNextPage = "MSG HIV form";
-  static final String agywDreamsPEPFormPage = "PEP form";
-  static final String agywDreamsPEPFormNextPage = "PEP form";
-  static final String agywDreamsPrEPHTSConsentPage = "HTS Consent (PrEP)";
-  static final String agywDreamsPrEPHTSConsentNextPage = "Client Bio (PrEP)";
-  static final String agywDreamsPrEPHTSClientInformationPage =
+  static const String agywDreamsANCFormPage = "ANC form";
+  static const String agywDreamsANCFormNextPage = "ANC form";
+  static const String agywDreamsArtRefillPage = "ART Re-fill";
+  static const String agywDreamsArtRefillNextPage = "ART Re-fill";
+  static const String agywDreamsCondomsFormPage = "Condoms";
+  static const String agywDreamsCondomsFormNextPage = "Condoms";
+  static const String agywDreamsContraceptivesPage = "Contraceptives form";
+  static const String agywDreamsContraceptivesNextPage = "Contraceptives form";
+  static const String agywDreamsHTSShortFormPage = "HTS Form";
+  static const String agywDreamsHTSShortFormNextPage = "HTS Form";
+  static const String agywDreamHIVMessageFormPage = "MSG HIV form";
+  static const String agywDreamHIVMessageFormNextPage = "MSG HIV form";
+  static const String agywDreamsPEPFormPage = "PEP form";
+  static const String agywDreamsPEPFormNextPage = "PEP form";
+  static const String agywDreamsPrEPHTSConsentPage = "HTS Consent (PrEP)";
+  static const String agywDreamsPrEPHTSConsentNextPage = "Client Bio (PrEP)";
+  static const String agywDreamsPrEPHTSClientInformationPage =
       "Client Bio (PrEP)";
-  static final String agywDreamsPrEPHTSClientInformationNextPage =
+  static const String agywDreamsPrEPHTSClientInformationNextPage =
       "HTS Register (PrEP)";
-  static final String agywDreamsPrEPHTSRegisterPage = "HTS Register (PrEP)";
-  static final String agywDreamsPrEPHTSRegisterNextPage =
+  static const String agywDreamsPrEPHTSRegisterPage = "HTS Register (PrEP)";
+  static const String agywDreamsPrEPHTSRegisterNextPage =
       "DREAMS PrEP Screening for Substantial Risk and Eligibility";
-  static final String agywDreamsPrEPLongFormPage =
+  static const String agywDreamsPrEPLongFormPage =
       "DREAMS PrEP Screening for Substantial Risk and Eligibility";
-  static final String agywDreamsPrEPFormNextPage =
+  static const String agywDreamsPrEPFormNextPage =
       "DREAMS PrEP Screening for Substantial Risk and Eligibility";
-  static final String agywDreamsPrepVisitFormPage = "DREAMS PREP VISIT";
-  static final String agywDreamsPrepVisitFormNextPage = "DREAMS PREP VISIT";
-  static final String agywDreamsPrEPShortFormPage = "AGYW PrEP Form";
-  static final String agywDreamsPrEPShortFormNextPage = "AGYW PrEP Form";
-  static final String agywDreamsServiceFormPage = "Service Form";
-  static final String agywDreamsServiceFormNextPage = "Service Form";
-  static final String agywDreamsPostGBVFormPage = "POST GBV form";
-  static final String agywDreamsPostGBVFormNextPage = "POST GBV form";
+  static const String agywDreamsPrepVisitFormPage = "DREAMS PREP VISIT";
+  static const String agywDreamsPrepVisitFormNextPage = "DREAMS PREP VISIT";
+  static const String agywDreamsPrEPShortFormPage = "AGYW PrEP Form";
+  static const String agywDreamsPrEPShortFormNextPage = "AGYW PrEP Form";
+  static const String agywDreamsServiceFormPage = "Service Form";
+  static const String agywDreamsServiceFormNextPage = "Service Form";
+  static const String agywDreamsPostGBVFormPage = "POST GBV form";
+  static const String agywDreamsPostGBVFormNextPage = "POST GBV form";
 
   // routes for agyw referrals
-  static final String agywDreamsReferralPage = "Dream Referral Form";
-  static final String agywDreamsReferralNextPage = "Dream Referral Form";
+  static const String agywDreamsReferralPage = "Dream Referral Form";
+  static const String agywDreamsReferralNextPage = "Dream Referral Form";
 }

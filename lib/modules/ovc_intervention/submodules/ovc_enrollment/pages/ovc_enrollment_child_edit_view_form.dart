@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -44,7 +44,7 @@ class _OvcEnrollmentChildEditViewFormState
   bool isFormReady = false;
 
   late List<String> mandatoryFields;
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   List unFilledMandatoryFields = [];
 
   @override
@@ -63,7 +63,7 @@ class _OvcEnrollmentChildEditViewFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -110,7 +110,7 @@ class _OvcEnrollmentChildEditViewFormState
 
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
-      Timer(Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;
@@ -184,7 +184,7 @@ class _OvcEnrollmentChildEditViewFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -200,7 +200,7 @@ class _OvcEnrollmentChildEditViewFormState
           body: Container(
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -210,21 +210,19 @@ class _OvcEnrollmentChildEditViewFormState
                   )
                 : Column(
                     children: [
-                      Container(
-                        child: Consumer<OvcHouseholdCurrentSelectionState>(
-                          builder: (context, ovcHouseholdCurrentSelectionState,
-                              child) {
-                            OvcHousehold? currentOvcHousehold =
-                                ovcHouseholdCurrentSelectionState
-                                    .currentOvcHousehold;
-                            return OvcHouseholdInfoTopHeader(
-                              currentOvcHousehold: currentOvcHousehold,
-                            );
-                          },
-                        ),
+                      Consumer<OvcHouseholdCurrentSelectionState>(
+                        builder: (context, ovcHouseholdCurrentSelectionState,
+                            child) {
+                          OvcHousehold? currentOvcHousehold =
+                              ovcHouseholdCurrentSelectionState
+                                  .currentOvcHousehold;
+                          return OvcHouseholdInfoTopHeader(
+                            currentOvcHousehold: currentOvcHousehold,
+                          );
+                        },
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           vertical: 16.0,
                           horizontal: 13.0,
                         ),
@@ -236,26 +234,23 @@ class _OvcEnrollmentChildEditViewFormState
                               builder: (context, enrollmentFormState, child) {
                                 return Column(
                                   children: [
-                                    Container(
-                                      child: EntryFormContainer(
-                                        hiddenFields:
-                                            enrollmentFormState.hiddenFields,
-                                        hiddenSections:
-                                            enrollmentFormState.hiddenSections,
-                                        hiddenInputFieldOptions:
-                                            enrollmentFormState
-                                                .hiddenInputFieldOptions,
-                                        formSections: formSections,
-                                        mandatoryFieldObject:
-                                            mandatoryFieldObject,
-                                        isEditableMode:
-                                            enrollmentFormState.isEditableMode,
-                                        dataObject:
-                                            enrollmentFormState.formState,
-                                        onInputValueChange: onInputValueChange,
-                                        unFilledMandatoryFields:
-                                            unFilledMandatoryFields,
-                                      ),
+                                    EntryFormContainer(
+                                      hiddenFields:
+                                          enrollmentFormState.hiddenFields,
+                                      hiddenSections:
+                                          enrollmentFormState.hiddenSections,
+                                      hiddenInputFieldOptions:
+                                          enrollmentFormState
+                                              .hiddenInputFieldOptions,
+                                      formSections: formSections,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      isEditableMode:
+                                          enrollmentFormState.isEditableMode,
+                                      dataObject: enrollmentFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                     ),
                                     Visibility(
                                       visible:
@@ -267,7 +262,7 @@ class _OvcEnrollmentChildEditViewFormState
                                                 ? 'Boloka'
                                                 : 'Save',
                                         labelColor: Colors.white,
-                                        buttonColor: Color(0xFF4B9F46),
+                                        buttonColor: const Color(0xFF4B9F46),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveForm(
                                           context,
@@ -286,7 +281,7 @@ class _OvcEnrollmentChildEditViewFormState
                   ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

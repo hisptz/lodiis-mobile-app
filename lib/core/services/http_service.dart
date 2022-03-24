@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class HttpService {
-  static final String baseUrl = 'lsis-ovc-dreams.org';
+  static const String baseUrl = 'lsis-ovc-dreams.org';
   final String? username;
   final String? password;
   String? basicAuth;
 
   HttpService({required this.username, required this.password}) {
-    this.basicAuth = base64Encode(utf8.encode('$username:$password'));
+    basicAuth = base64Encode(utf8.encode('$username:$password'));
   }
 
   Uri getApiUrl(String url, {Map<String, dynamic>? queryParameters}) {
@@ -86,7 +86,7 @@ class HttpService {
       "fields": "none",
     };
     dataQueryParameters.addAll(queryParameters as Map<String, String?>);
-    return await this.httpGet(url, queryParameters: dataQueryParameters);
+    return await httpGet(url, queryParameters: dataQueryParameters);
   }
 
   @override

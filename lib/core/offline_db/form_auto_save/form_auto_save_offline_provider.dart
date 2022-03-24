@@ -22,7 +22,9 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
         data as Map<String, Object?>,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
   }
 
   Future deleteSavedFormAutoFormData(
@@ -35,7 +37,9 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
         where: '$id = ?',
         whereArgs: [formAutoSaveId],
       );
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
   }
 
   Future<FormAutoSave> getSavedFormAutoSaveFormDataById(
@@ -62,7 +66,9 @@ class FormAutoSaveOfflineProvider extends OfflineDbProvider {
               .add(FormAutoSave.fromOffline(mapData as Map<String, dynamic>));
         }
       }
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return formAutoSaveList.isNotEmpty
         ? formAutoSaveList.first
         : FormAutoSave(id: formAutoSaveId);

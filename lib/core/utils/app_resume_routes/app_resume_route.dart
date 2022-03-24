@@ -208,9 +208,6 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.householdTransferFormPage) {
       redirectToOvcHouseholdTransferForm(context, formAutoSave);
-    } else {
-      print("$formAutoSave \n");
-      print("Not page to redirect ${formAutoSave.nextPageModule}\n\n");
     }
   }
 

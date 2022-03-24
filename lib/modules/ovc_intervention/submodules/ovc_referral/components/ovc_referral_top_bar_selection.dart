@@ -5,30 +5,33 @@ class OvcReferralTopBarSelection extends StatelessWidget {
   final VoidCallback onSelectReferral;
   final bool isClicked;
 
-  OvcReferralTopBarSelection(
-      {required this.onSelectCLOReferral,
+  const OvcReferralTopBarSelection(
+      {Key? key,
+      required this.onSelectCLOReferral,
       required this.onSelectReferral,
-      this.isClicked = false});
+      this.isClicked = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       clipBehavior: Clip.hardEdge,
-      borderRadius: BorderRadius.only(),
+      borderRadius: const BorderRadius.only(),
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 15.0,
         ),
         child: Container(
-          decoration: BoxDecoration(color: Colors.black12),
+          decoration: const BoxDecoration(color: Colors.black12),
           child: Row(
             children: [
               Expanded(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor:
-                        !isClicked ? Color(0xFF4B9F46) : Colors.transparent,
-                    padding: EdgeInsets.symmetric(
+                    backgroundColor: !isClicked
+                        ? const Color(0xFF4B9F46)
+                        : Colors.transparent,
+                    padding: const EdgeInsets.symmetric(
                       vertical: 5.0,
                       horizontal: 5.0,
                     ),
@@ -36,9 +39,10 @@ class OvcReferralTopBarSelection extends StatelessWidget {
                   onPressed: onSelectReferral,
                   child: Text(
                     'Referral',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14.0,
-                      color: !isClicked ? Colors.white : Color(0xFF1A3518),
+                      color:
+                          !isClicked ? Colors.white : const Color(0xFF1A3518),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -47,9 +51,10 @@ class OvcReferralTopBarSelection extends StatelessWidget {
               Expanded(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor:
-                        isClicked ? Color(0xFF4B9F46) : Colors.transparent,
-                    padding: EdgeInsets.symmetric(
+                    backgroundColor: isClicked
+                        ? const Color(0xFF4B9F46)
+                        : Colors.transparent,
+                    padding: const EdgeInsets.symmetric(
                       vertical: 5.0,
                       horizontal: 5.0,
                     ),
@@ -57,9 +62,9 @@ class OvcReferralTopBarSelection extends StatelessWidget {
                   onPressed: onSelectCLOReferral,
                   child: Text(
                     'CLO Referral',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14.0,
-                      color: isClicked ? Colors.white : Color(0xFF1A3518),
+                      color: isClicked ? Colors.white : const Color(0xFF1A3518),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

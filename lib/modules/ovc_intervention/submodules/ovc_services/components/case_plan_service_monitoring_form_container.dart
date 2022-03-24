@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
@@ -54,9 +53,9 @@ class _CasePlanServiceMonitoringFormContainerState
   void initState() {
     dataObject = widget.dataObject;
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
-        mandatoryFieldObject = Map();
+        mandatoryFieldObject = {};
         formSections = widget.isCasePlanForHousehold
             ? HouseholdServicesOngoingMonitoring.getFormSections()
             : OvcServicesOngoingMonitoring.getFormSections();
@@ -66,7 +65,7 @@ class _CasePlanServiceMonitoringFormContainerState
                 formSection.id == '' ||
                 formSection.id == null)
             .toList();
-        formSectionColor = formSections!.length > 0
+        formSectionColor = formSections!.isNotEmpty
             ? formSections![0].borderColor
             : Colors.transparent;
 
@@ -91,7 +90,7 @@ class _CasePlanServiceMonitoringFormContainerState
     List<String> inputFieldLabels = [];
     for (FormSection formSection in formSections) {
       for (InputField inputField in formSection.inputFields!) {
-        if (inputFieldIds.indexOf(inputField.id) > -1) {
+        if (inputFieldIds.contains(inputField.id)) {
           if (inputField.id != '' &&
               inputField.id != 'location' &&
               inputField.valueType != 'CHECK_BOX') {
@@ -165,7 +164,7 @@ class _CasePlanServiceMonitoringFormContainerState
           eventId,
           hiddenFields,
         );
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
           });
@@ -183,7 +182,7 @@ class _CasePlanServiceMonitoringFormContainerState
           Navigator.pop(context);
         });
       } catch (e) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
@@ -205,80 +204,76 @@ class _CasePlanServiceMonitoringFormContainerState
   Widget build(BuildContext context) {
     return Container(
       child: !isFormReady
-          ? Container(
-              child: CircularProcessLoader(
-                color: Colors.blueGrey,
-              ),
+          ? const CircularProcessLoader(
+              color: Colors.blueGrey,
             )
-          : Container(
-              child: Column(
-                children: [
-                  EntryFormContainer(
-                    hiddenFields: hiddenFields,
-                    hiddenSections: hiddenSections,
-                    elevation: 0.0,
-                    formSections: formSections,
-                    mandatoryFieldObject: mandatoryFieldObject,
-                    dataObject: widget.dataObject,
-                    isEditableMode: widget.isEditableMode,
-                    onInputValueChange: onInputValueChange,
+          : Column(
+              children: [
+                EntryFormContainer(
+                  hiddenFields: hiddenFields,
+                  hiddenSections: hiddenSections,
+                  elevation: 0.0,
+                  formSections: formSections,
+                  mandatoryFieldObject: mandatoryFieldObject,
+                  dataObject: widget.dataObject,
+                  isEditableMode: widget.isEditableMode,
+                  onInputValueChange: onInputValueChange,
+                ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(12.0),
+                    bottomRight: Radius.circular(12.0),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(12.0),
-                      bottomRight: Radius.circular(12.0),
-                    ),
-                    child: Visibility(
-                      visible: widget.isEditableMode,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Consumer<OvcHouseholdCurrentSelectionState>(
-                              builder: (
-                                context,
-                                ovcHouseholdCurrentSelectionState,
-                                child,
-                              ) {
-                                OvcHousehold? currentOvcHousehold =
-                                    ovcHouseholdCurrentSelectionState
-                                        .currentOvcHousehold;
-                                OvcHouseholdChild? currentOvcHouseholdChild =
-                                    ovcHouseholdCurrentSelectionState
-                                        .currentOvcHouseholdChild;
-                                return TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: formSectionColor,
-                                  ),
-                                  onPressed: () => onSaveForm(
-                                      context,
-                                      dataObject,
-                                      currentOvcHousehold,
-                                      currentOvcHouseholdChild),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 22.0),
-                                    child: Text(
-                                      isSaving
-                                          ? 'SAVING MONITORING ...'
-                                          : 'SAVE MONITORING',
-                                      style: TextStyle().copyWith(
-                                        color: Color(0xFFFAFAFA),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                  child: Visibility(
+                    visible: widget.isEditableMode,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Consumer<OvcHouseholdCurrentSelectionState>(
+                            builder: (
+                              context,
+                              ovcHouseholdCurrentSelectionState,
+                              child,
+                            ) {
+                              OvcHousehold? currentOvcHousehold =
+                                  ovcHouseholdCurrentSelectionState
+                                      .currentOvcHousehold;
+                              OvcHouseholdChild? currentOvcHouseholdChild =
+                                  ovcHouseholdCurrentSelectionState
+                                      .currentOvcHouseholdChild;
+                              return TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: formSectionColor,
+                                ),
+                                onPressed: () => onSaveForm(
+                                    context,
+                                    dataObject,
+                                    currentOvcHousehold,
+                                    currentOvcHouseholdChild),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 22.0),
+                                  child: Text(
+                                    isSaving
+                                        ? 'SAVING MONITORING ...'
+                                        : 'SAVE MONITORING',
+                                    style: const TextStyle().copyWith(
+                                      color: const Color(0xFFFAFAFA),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
     );
   }

@@ -12,7 +12,7 @@ class UserAccessOfflineProvider extends OfflineDbProvider {
     String userAccessData,
   ) async {
     var dbClient = await db;
-    var data = Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data[id] = userAccessId;
     data[userAccess] = userAccessData;
     await dbClient!.insert(
@@ -23,7 +23,7 @@ class UserAccessOfflineProvider extends OfflineDbProvider {
   }
 
   Future<dynamic> getAllUserAccessConfigurationById(userAccessId) async {
-    var userAccessConfig;
+    dynamic userAccessConfig;
     try {
       var dbClient = await db;
       List<Map> maps = await dbClient!.query(
@@ -36,9 +36,11 @@ class UserAccessOfflineProvider extends OfflineDbProvider {
         whereArgs: [userAccessId],
       );
       if (maps.isNotEmpty) {
-        userAccessConfig = maps[0][userAccess] ?? null;
+        userAccessConfig = maps[0][userAccess];
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return userAccessConfig;
   }
 }

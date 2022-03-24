@@ -31,10 +31,10 @@ class LbseReferralEvent {
       'OT97N8oZhpF',
       LbseInterventionConstant.referralToReferralOutcomeLinkage,
     ];
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }

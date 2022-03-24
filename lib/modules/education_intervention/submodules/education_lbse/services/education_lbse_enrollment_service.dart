@@ -1,7 +1,6 @@
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -60,7 +59,7 @@ class EducationLbseEnrollmentService {
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
-      String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+      String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;

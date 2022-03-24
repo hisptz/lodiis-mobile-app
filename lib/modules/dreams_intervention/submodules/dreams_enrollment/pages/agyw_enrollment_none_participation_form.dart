@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enro
 import 'package:provider/provider.dart';
 
 class AgywEnrollmentNoneParticipationForm extends StatefulWidget {
-  AgywEnrollmentNoneParticipationForm({Key? key}) : super(key: key);
+  const AgywEnrollmentNoneParticipationForm({Key? key}) : super(key: key);
 
   @override
   _AgywEnrollmentNoneParticipationFormState createState() =>
@@ -37,7 +37,7 @@ class _AgywEnrollmentNoneParticipationFormState
   final String label = 'None Participation Form';
   final List<String> mandatoryFields =
       AgywEnrollmentNoneParticipation.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -102,7 +102,7 @@ class _AgywEnrollmentNoneParticipationFormState
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshAllDreamsLists();
       clearFormAutoSaveState(context);
-      Timer(Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;
@@ -145,7 +145,7 @@ class _AgywEnrollmentNoneParticipationFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -159,13 +159,13 @@ class _AgywEnrollmentNoneParticipationFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 13.0,
             ),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -173,55 +173,50 @@ class _AgywEnrollmentNoneParticipationFormState
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  formSections: formSections,
-                                  isEditableMode:
-                                      enrollmentFormState.isEditableMode,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
-                                ),
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              formSections: formSections,
+                              isEditableMode:
+                                  enrollmentFormState.isEditableMode,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: const Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => isSaving
+                                    ? null
+                                    : onSaveAndContinue(
+                                        context,
+                                        enrollmentFormState.formState,
+                                      ),
                               ),
-                              Visibility(
-                                visible: enrollmentFormState.isEditableMode,
-                                child: EntryFormSaveButton(
-                                  label: isSaving
-                                      ? 'Saving ...'
-                                      : currentLanguage == 'lesotho'
-                                          ? 'Boloka'
-                                          : 'Save',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF258DCC),
-                                  fontSize: 15.0,
-                                  onPressButton: () => isSaving
-                                      ? null
-                                      : onSaveAndContinue(
-                                          context,
-                                          enrollmentFormState.formState,
-                                        ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

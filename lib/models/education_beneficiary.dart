@@ -58,16 +58,16 @@ class EducationBeneficiary {
       'klLkGxy328c',
       BeneficiaryIdentification.beneficiaryId
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in trackedEntityInstance.attributes) {
       String? attribute = detailObj['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     String sex = data['vIX4GTSCX4P'] ?? '';
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
-    bool isMaleBeneficiary = '$sex'.trim().toLowerCase() == "male";
+    bool isMaleBeneficiary = sex.trim().toLowerCase() == "male";
     return EducationBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',

@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:provider/provider.dart';
 
 class EducationBursary extends StatefulWidget {
-  EducationBursary({Key? key}) : super(key: key);
+  const EducationBursary({Key? key}) : super(key: key);
 
   @override
   _EducationBursaryState createState() => _EducationBursaryState();
@@ -89,7 +89,7 @@ class _EducationBursaryState extends State<EducationBursary> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return EducationBursaryAssessmentFormPage();
+            return const EducationBursaryAssessmentFormPage();
           },
         ),
       );
@@ -106,7 +106,7 @@ class _EducationBursaryState extends State<EducationBursary> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationBursaryEnrollmentViewPage();
+          return const EducationBursaryEnrollmentViewPage();
         },
       ),
     );
@@ -136,7 +136,7 @@ class _EducationBursaryState extends State<EducationBursary> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return EducationBursaryEnrollmentEditFormPage();
+            return const EducationBursaryEnrollmentEditFormPage();
           },
         ),
       );
@@ -156,7 +156,7 @@ class _EducationBursaryState extends State<EducationBursary> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationBursarySchoolPage();
+          return const EducationBursarySchoolPage();
         },
       ),
     );
@@ -175,7 +175,7 @@ class _EducationBursaryState extends State<EducationBursary> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationBursaryClubsAttendancePage();
+          return const EducationBursaryClubsAttendancePage();
         },
       ),
     );
@@ -186,62 +186,53 @@ class _EducationBursaryState extends State<EducationBursary> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: 10.0,
             ),
-            child: Text(
+            child: const Text(
               'There is no LBSE beneficiaries enrolled at moment',
             ),
           ),
-          Container(
-            child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/add-beneficiary.svg',
-                color: Colors.blueGrey,
-              ),
-              onPressed: () => onAddBursaryBeneficiary(context),
+          IconButton(
+            icon: SvgPicture.asset(
+              'assets/icons/add-beneficiary.svg',
+              color: Colors.blueGrey,
             ),
+            onPressed: () => onAddBursaryBeneficiary(context),
           )
         ],
       ),
     );
   }
 
-  Container _buildBody() {
-    return Container(
-      child: Container(
-        child: Consumer<EducationBursaryInterventionState>(
-          builder: (context, educationBursaryInterventionState, child) {
-            return CustomPaginatedListView(
-              childBuilder: (context, bursaryBeneficiary, child) => Container(
-                child: EducationBeneficiaryCard(
-                  canEdit: canEdit,
-                  canView: canView,
-                  canExpand: canExpand,
-                  isExpanded: toggleCardId == bursaryBeneficiary.id,
-                  isLbseLearningOutcomeVisible: false,
-                  isLbseReferralVisible: false,
-                  isBursarySchoolVisible: true,
-                  isBursaryClubVisible: true,
-                  educationBeneficiary: bursaryBeneficiary,
-                  onEdit: () => onEditBeneficiary(context, bursaryBeneficiary),
-                  onView: () => onViewBeneficiary(context, bursaryBeneficiary),
-                  onCardToggle: () =>
-                      onCardToggle(context, bursaryBeneficiary.id),
-                  onOpenBursarySchool: () =>
-                      onOpenBeneficiarySchool(context, bursaryBeneficiary),
-                  onOpenBursaryClub: () =>
-                      onOpenBeneficiaryClub(context, bursaryBeneficiary),
-                ),
-              ),
-              pagingController:
-                  educationBursaryInterventionState.pagingController!,
-              emptyListWidget: _getEmptyListContainer(context),
-              errorWidget: _getEmptyListContainer(context),
-            );
-          },
-        ),
-      ),
+  Consumer<EducationBursaryInterventionState> _buildBody() {
+    return Consumer<EducationBursaryInterventionState>(
+      builder: (context, educationBursaryInterventionState, child) {
+        return CustomPaginatedListView(
+          childBuilder: (context, bursaryBeneficiary, child) =>
+              EducationBeneficiaryCard(
+            canEdit: canEdit,
+            canView: canView,
+            canExpand: canExpand,
+            isExpanded: toggleCardId == bursaryBeneficiary.id,
+            isLbseLearningOutcomeVisible: false,
+            isLbseReferralVisible: false,
+            isBursarySchoolVisible: true,
+            isBursaryClubVisible: true,
+            educationBeneficiary: bursaryBeneficiary,
+            onEdit: () => onEditBeneficiary(context, bursaryBeneficiary),
+            onView: () => onViewBeneficiary(context, bursaryBeneficiary),
+            onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),
+            onOpenBursarySchool: () =>
+                onOpenBeneficiarySchool(context, bursaryBeneficiary),
+            onOpenBursaryClub: () =>
+                onOpenBeneficiaryClub(context, bursaryBeneficiary),
+          ),
+          pagingController: educationBursaryInterventionState.pagingController!,
+          emptyListWidget: _getEmptyListContainer(context),
+          errorWidget: _getEmptyListContainer(context),
+        );
+      },
     );
   }
 

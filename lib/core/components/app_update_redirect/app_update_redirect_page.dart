@@ -32,14 +32,14 @@ class AppUpdateRedirectPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Color(0xFF4B9F46),
+          color: const Color(0xFF4B9F46),
           child:
               Consumer<AppInfoState>(builder: (context, appInfoState, child) {
             VersionStatus versionStatus = appInfoState.versionStatus!;
             String appStoreLink = versionStatus.appStoreLink;
             String appName = appInfoState.currentAppName;
             return Container(
-              margin: EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class AppUpdateRedirectPage extends StatelessWidget {
                   AppUpdateWarningMessage(
                     message:
                         "$appName application should be updated to version ${versionStatus.storeVersion} in order to be used. Click below to update!",
-                    color: Color(0xFFFAFAFA),
+                    color: const Color(0xFFFAFAFA),
                   ),
                   AppUpdateActionButtons(
                     onCloseApp: () => onCloseApp(context),

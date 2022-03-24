@@ -43,61 +43,58 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
 
   onViewFollowUp(BuildContext context) {
     updateFormState(context, false);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (_) => AgywDreamsIndexFollowUp()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => const AgywDreamsIndexFollowUp()));
   }
 
   onEditFollowUp(BuildContext context) {
     updateFormState(context, true);
-    Navigator.push(
-        context, MaterialPageRoute(builder: (_) => AgywDreamsIndexFollowUp()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => const AgywDreamsIndexFollowUp()));
   }
 
   @override
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 17.0,
       ),
       child: MaterialCard(
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Column(
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                      child: RichText(
+                  RichText(
                     text: TextSpan(
                       text: "Follow Up " + followUpNo.toString(),
-                      style: TextStyle().copyWith(
-                        color: Color(0xFF05131B),
+                      style: const TextStyle().copyWith(
+                        color: const Color(0xFF05131B),
                         fontSize: 14.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )),
-                  Container(
-                    child: RichText(
-                        text: TextSpan(
-                      text: indexContactFollowUpModel.date,
-                      style: TextStyle().copyWith(
-                        color: Color(0xFF82898D),
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )),
                   ),
+                  RichText(
+                      text: TextSpan(
+                    text: indexContactFollowUpModel.date,
+                    style: const TextStyle().copyWith(
+                      color: const Color(0xFF82898D),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )),
                   Row(
                     children: [
                       Visibility(
                         visible: isEditable ?? false,
                         child: Container(
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                             horizontal: 5.0,
                           ),
                           child: InkWell(
@@ -105,17 +102,17 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
                               child: Container(
                                 height: iconHeight,
                                 width: iconHeight,
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 5),
                                 child: SvgPicture.asset(
                                   'assets/icons/edit_icon.svg',
-                                  color: Color(0xFF1F8ECE),
+                                  color: const Color(0xFF1F8ECE),
                                 ),
                               )),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           horizontal: 5.0,
                         ),
                         child: InkWell(
@@ -123,11 +120,11 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
                             child: Container(
                               height: iconHeight,
                               width: iconHeight,
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 5),
                               child: SvgPicture.asset(
                                 'assets/icons/expand_icon.svg',
-                                color: Color(0xFF1F8ECE),
+                                color: const Color(0xFF1F8ECE),
                               ),
                             )),
                       ),

@@ -20,82 +20,78 @@ class InterventionPopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 45,
         right: 45,
         bottom: 20,
       ),
-      child: Container(
-        child: Consumer<LanguageTranslationState>(
-          builder: (context, languageTranslationState, child) {
-            String? currentLanguage = languageTranslationState.currentLanguage;
-            return Consumer<CurrentUserState>(
-              builder: (context, currentUserState, child) {
-                List<InterventionPopActionMenu> popUpMenus =
-                    InterventionPopActionMenu
-                        .getDefaultInterventionPopActionMenus();
-                List<InterventionCard> interventionPrograms =
-                    InterventionSelectionHelper.getInterventionSelections(
-                        InterventionCard.getInterventions(), currentUserState);
-                popUpMenus.addAll(
-                  interventionPrograms.map(
-                    (interventionProgram) {
-                      return new InterventionPopActionMenu(
-                          id: interventionProgram.id,
-                          name: 'Switch to ${interventionProgram.shortName}',
-                          color: interventionProgram.primaryColor,
-                          fontWeight: FontWeight.bold);
-                    },
-                  ),
-                );
-                return Column(
-                  children: popUpMenus
-                      .map((InterventionPopActionMenu popUpMenu) => Container(
-                              child: Visibility(
-                            visible:
-                                popUpMenu.id != activeInterventionProgram.id ||
-                                    !disableSelectionOfActiveIntervention,
-                            child: GestureDetector(
-                              onTap: () => {
-                                Navigator.pop(context, popUpMenu),
-                              },
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 15,
-                                        ),
-                                        child: Text(
-                                          currentLanguage == 'lesotho' &&
-                                                  popUpMenu.translatedName !=
-                                                      null
-                                              ? popUpMenu.translatedName!
-                                              : popUpMenu.name!,
-                                          style: TextStyle(
-                                              color: popUpMenu.color,
-                                              fontSize: 14.0,
-                                              fontWeight: popUpMenu.fontWeight),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  LineSeparator(
-                                    color: Color(0xFFE0E6E0),
-                                    height: 1,
-                                  )
-                                ],
-                              ),
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String? currentLanguage = languageTranslationState.currentLanguage;
+          return Consumer<CurrentUserState>(
+            builder: (context, currentUserState, child) {
+              List<InterventionPopActionMenu> popUpMenus =
+                  InterventionPopActionMenu
+                      .getDefaultInterventionPopActionMenus();
+              List<InterventionCard> interventionPrograms =
+                  InterventionSelectionHelper.getInterventionSelections(
+                      InterventionCard.getInterventions(), currentUserState);
+              popUpMenus.addAll(
+                interventionPrograms.map(
+                  (interventionProgram) {
+                    return InterventionPopActionMenu(
+                        id: interventionProgram.id,
+                        name: 'Switch to ${interventionProgram.shortName}',
+                        color: interventionProgram.primaryColor,
+                        fontWeight: FontWeight.bold);
+                  },
+                ),
+              );
+              return Column(
+                children: popUpMenus
+                    .map((InterventionPopActionMenu popUpMenu) => Visibility(
+                          visible:
+                              popUpMenu.id != activeInterventionProgram.id ||
+                                  !disableSelectionOfActiveIntervention,
+                          child: GestureDetector(
+                            onTap: () => {
+                              Navigator.pop(context, popUpMenu),
+                            },
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 15,
+                                      ),
+                                      child: Text(
+                                        currentLanguage == 'lesotho' &&
+                                                popUpMenu.translatedName != null
+                                            ? popUpMenu.translatedName!
+                                            : popUpMenu.name!,
+                                        style: TextStyle(
+                                            color: popUpMenu.color,
+                                            fontSize: 14.0,
+                                            fontWeight: popUpMenu.fontWeight),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const LineSeparator(
+                                  color: Color(0xFFE0E6E0),
+                                  height: 1,
+                                )
+                              ],
                             ),
-                          )))
-                      .toList(),
-                );
-              },
-            );
-          },
-        ),
+                          ),
+                        ))
+                    .toList(),
+              );
+            },
+          );
+        },
       ),
     );
   }

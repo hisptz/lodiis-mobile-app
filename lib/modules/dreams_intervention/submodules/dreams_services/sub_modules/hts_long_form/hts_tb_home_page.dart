@@ -12,7 +12,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class HTSTBHomePage extends StatefulWidget {
-  HTSTBHomePage(
+  const HTSTBHomePage(
       {Key? key, required this.htsToTBLinkageValue, this.hivResultStatus})
       : super(key: key);
 
@@ -63,7 +63,7 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
   void onViewTB(BuildContext context, DreamsHTSTBScreeningEvent? eventData) {
     updateFormState(context, false, eventData);
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHTSTBForm()));
+        MaterialPageRoute(builder: (context) => const AgywDreamsHTSTBForm()));
   }
 
   void onEditTB(BuildContext context, DreamsHTSTBScreeningEvent? eventData) {
@@ -77,39 +77,36 @@ class _HTSTBHomePageState extends State<HTSTBHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(child: Consumer<ServiceEventDataState>(
-        builder: (context, serviceEventDataState, child) {
-          bool isLoading = serviceEventDataState.isLoading;
-          Map<String?, List<Events>> eventListByProgramStage =
-              serviceEventDataState.eventListByProgramStage;
-          List<Events> events = TrackedEntityInstanceUtil
-              .getAllEventListFromServiceDataStateByProgramStages(
-                  eventListByProgramStage, programStageIds);
-          List<DreamsHTSTBScreeningEvent> tbEvents = events
-              .map((Events eventData) =>
-                  DreamsHTSTBScreeningEvent().fromTeiModel(eventData))
-              .toList()
-              .where((element) =>
-                  element.htsTBLinkage == widget.htsToTBLinkageValue)
-              .toList();
-          DreamsHTSTBScreeningEvent? tbEvent =
-              tbEvents.length > 0 ? tbEvents[0] : null;
-          return Container(
-              child: isLoading
-                  ? CircularProcessLoader(
-                      color: Colors.blueGrey,
+    return Consumer<ServiceEventDataState>(
+      builder: (context, serviceEventDataState, child) {
+        bool isLoading = serviceEventDataState.isLoading;
+        Map<String?, List<Events>> eventListByProgramStage =
+            serviceEventDataState.eventListByProgramStage;
+        List<Events> events = TrackedEntityInstanceUtil
+            .getAllEventListFromServiceDataStateByProgramStages(
+                eventListByProgramStage, programStageIds);
+        List<DreamsHTSTBScreeningEvent> tbEvents = events
+            .map((Events eventData) =>
+                DreamsHTSTBScreeningEvent().fromTeiModel(eventData))
+            .toList()
+            .where(
+                (element) => element.htsTBLinkage == widget.htsToTBLinkageValue)
+            .toList();
+        DreamsHTSTBScreeningEvent? tbEvent =
+            tbEvents.isNotEmpty ? tbEvents[0] : null;
+        return Container(
+            child: isLoading
+                ? const CircularProcessLoader(
+                    color: Colors.blueGrey,
+                  )
+                : Column(children: [
+                    DreamsHTSTBScreeningCard(
+                      onEditTB: () => onEditTB(context, tbEvent),
+                      onViewTB: () => onViewTB(context, tbEvent),
+                      tbEvents: tbEvent,
                     )
-                  : Column(children: [
-                      Container(
-                          child: DreamsHTSTBScreeningCard(
-                        onEditTB: () => onEditTB(context, tbEvent),
-                        onViewTB: () => onViewTB(context, tbEvent),
-                        tbEvents: tbEvent,
-                      ))
-                    ]));
-        },
-      )),
+                  ]));
+      },
     );
   }
 }

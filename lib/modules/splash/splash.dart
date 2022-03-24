@@ -22,6 +22,8 @@ import 'package:kb_mobile_app/modules/splash/components/splash_implementing_part
 import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _SplashState();
@@ -52,7 +54,7 @@ class _SplashState extends State<Splash> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => AppUpdateRedirectPage(),
+          builder: (context) => const AppUpdateRedirectPage(),
         ),
       );
     } else if (currentLanguage != null) {
@@ -78,11 +80,11 @@ class _SplashState extends State<Splash> {
 
   void setLanguageSelectionPage() {
     Timer(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LanguageSelection(),
+          builder: (context) => const LanguageSelection(),
         ),
       ),
     );
@@ -90,12 +92,12 @@ class _SplashState extends State<Splash> {
 
   void setLandingPage(bool? isUserLoginIn) {
     Timer(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) =>
-              isUserLoginIn! ? InterventionSelection() : Login(),
+              isUserLoginIn! ? const InterventionSelection() : const Login(),
         ),
       ),
     );
@@ -118,7 +120,7 @@ class _SplashState extends State<Splash> {
                 size: 2.0,
               ),
             ),
-            SplashImplementingPartnerList(),
+            const SplashImplementingPartnerList(),
           ],
         ),
       ),

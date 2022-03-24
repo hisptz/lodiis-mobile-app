@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCardBody extends StatelessWidget {
-  OvcHouseholdCardBody({
+  const OvcHouseholdCardBody({
     Key? key,
     required this.ovcHousehold,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class OvcHouseholdCardBody extends StatelessWidget {
       flex: flex,
       child: Text(
         value,
-        style: TextStyle().copyWith(
+        style: const TextStyle().copyWith(
           fontSize: 14.0,
           color: color,
           fontWeight: FontWeight.w500,
@@ -35,7 +35,7 @@ class OvcHouseholdCardBody extends StatelessWidget {
     required String value,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 2.0,
       ),
       child: Row(
@@ -44,12 +44,12 @@ class OvcHouseholdCardBody extends StatelessWidget {
           _getOvcHouseholdDetailsWidget(
             value: key,
             flex: 1,
-            color: Color(0XFF536852),
+            color: const Color(0XFF536852),
           ),
           _getOvcHouseholdDetailsWidget(
             value: value,
             flex: 2,
-            color: Color(0XFF92A791),
+            color: const Color(0XFF92A791),
           ),
         ],
       ),
@@ -58,40 +58,36 @@ class OvcHouseholdCardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 13.0,
-              vertical: 10.0,
-            ),
-            child: Column(
-              children: [
-                _getOvcHouseholdRowWidget(
-                  key: currentLanguage == 'lesotho'
-                      ? 'Mohlokomeli'
-                      : 'Caregiver',
-                  value: ovcHousehold.toString(),
-                ),
-                _getOvcHouseholdRowWidget(
-                  key: "Created",
-                  value: ovcHousehold.createdDate!,
-                ),
-                _getOvcHouseholdRowWidget(
-                  key: currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
-                  value: ovcHousehold.location!,
-                ),
-                OvcHouseholdChildCount(
-                  currentLanguage: currentLanguage,
-                  ovcHousehold: ovcHousehold,
-                )
-              ],
-            ),
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 13.0,
+            vertical: 10.0,
+          ),
+          child: Column(
+            children: [
+              _getOvcHouseholdRowWidget(
+                key: currentLanguage == 'lesotho' ? 'Mohlokomeli' : 'Caregiver',
+                value: ovcHousehold.toString(),
+              ),
+              _getOvcHouseholdRowWidget(
+                key: "Created",
+                value: ovcHousehold.createdDate!,
+              ),
+              _getOvcHouseholdRowWidget(
+                key: currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
+                value: ovcHousehold.location!,
+              ),
+              OvcHouseholdChildCount(
+                currentLanguage: currentLanguage,
+                ovcHousehold: ovcHousehold,
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

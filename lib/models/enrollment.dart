@@ -45,7 +45,7 @@ class Enrollment {
   }
 
   Map toOffline(Enrollment enrollmentData) {
-    var mapData = Map<String, dynamic>();
+    var mapData = <String, dynamic>{};
     mapData['enrollment'] = enrollmentData.enrollment;
     mapData['enrollmentDate'] = enrollmentData.enrollmentDate;
     mapData['incidentDate'] = enrollmentData.incidentDate;
@@ -59,14 +59,14 @@ class Enrollment {
   }
 
   Enrollment.fromOffline(Map<String, dynamic> mapData) {
-    this.enrollment = mapData['enrollment'];
-    this.enrollmentDate = mapData['enrollmentDate'];
-    this.incidentDate = mapData['incidentDate'];
-    this.program = mapData['program'];
-    this.orgUnit = mapData['orgUnit'];
-    this.trackedEntityInstance = mapData['trackedEntityInstance'];
-    this.status = mapData['status'];
-    this.syncStatus = mapData['syncStatus'];
-    this.searchableValue = mapData['searchableValue'];
+    enrollment = mapData['enrollment'];
+    enrollmentDate = mapData['enrollmentDate'];
+    incidentDate = mapData['incidentDate'];
+    program = mapData['program'];
+    orgUnit = mapData['orgUnit'];
+    trackedEntityInstance = mapData['trackedEntityInstance'];
+    status = mapData['status'];
+    syncStatus = mapData['syncStatus'];
+    searchableValue = mapData['searchableValue'];
   }
 }

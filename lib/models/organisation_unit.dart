@@ -22,9 +22,9 @@ class OrganisationUnit {
     this.children,
     this.path,
   }) {
-    this.children = this.children ?? [];
-    this.program = this.program ?? [];
-    this.path = this.path ?? "";
+    children = children ?? [];
+    program = program ?? [];
+    path = path ?? "";
   }
 
   factory OrganisationUnit.fromJson(Map<String, dynamic> json) {
@@ -50,16 +50,14 @@ class OrganisationUnit {
         name: json["name"],
         level: json["level"],
         path: json["path"],
-        code: json['code'] != null
-            ? json['code']
-            : parentObj != null && parentObj['code'] != null
-                ? parentObj['code']
-                : '',
+        code: json['code'] ?? parentObj != null && parentObj['code'] != null
+            ? parentObj['code']
+            : '',
         program: programs,
         children: children);
   }
   Map toOffline(OrganisationUnit organisationUnit) {
-    var map = Map<String, dynamic>();
+    var map = <String, dynamic>{};
     map['id'] = organisationUnit.id;
     map['name'] = organisationUnit.name;
     map['code'] = organisationUnit.code;
@@ -69,14 +67,14 @@ class OrganisationUnit {
   }
 
   OrganisationUnit.fromOffline(Map<String, dynamic> map) {
-    this.id = map['id'];
-    this.name = map['name'];
-    this.parent = map['parent'];
-    this.level = map["level"];
-    this.code = map["code"];
-    this.children = [];
-    this.program = [];
-    this.path = "";
+    id = map['id'];
+    name = map['name'];
+    parent = map['parent'];
+    level = map["level"];
+    code = map["code"];
+    children = [];
+    program = [];
+    path = "";
   }
 
   @override

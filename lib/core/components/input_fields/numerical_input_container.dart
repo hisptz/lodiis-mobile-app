@@ -65,44 +65,42 @@ class _NumericalInputFieldContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              readOnly: widget.inputField.isReadOnly!,
-              controller: widget.inputField.isReadOnly!
-                  ? TextEditingController(
-                      text: widget.inputValue,
-                    )
-                  : numericalController,
-              keyboardType: TextInputType.number,
-              onChanged: onValueChange,
-              style: TextStyle().copyWith(
-                color: widget.inputField.inputColor,
-              ),
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                errorText: null,
-              ),
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            readOnly: widget.inputField.isReadOnly!,
+            controller: widget.inputField.isReadOnly!
+                ? TextEditingController(
+                    text: widget.inputValue,
+                  )
+                : numericalController,
+            keyboardType: TextInputType.number,
+            onChanged: onValueChange,
+            style: const TextStyle().copyWith(
+              color: widget.inputField.inputColor,
+            ),
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              errorText: null,
             ),
           ),
-          Visibility(
-            child: Text(widget.inputField.suffixLabel ?? '',
-                style: TextStyle().copyWith(
-                  color: widget.inputField.inputColor,
-                )),
-            visible: widget.inputField.suffixLabel != '' &&
-                _value != null &&
-                '$_value'.trim() != '',
-          ),
-          InputCheckedIcon(
-            showTickedIcon: _value != null && '$_value'.trim() != '',
-            color: widget.inputField.inputColor,
-          )
-        ],
-      ),
+        ),
+        Visibility(
+          child: Text(widget.inputField.suffixLabel ?? '',
+              style: const TextStyle().copyWith(
+                color: widget.inputField.inputColor,
+              )),
+          visible: widget.inputField.suffixLabel != '' &&
+              _value != null &&
+              '$_value'.trim() != '',
+        ),
+        InputCheckedIcon(
+          showTickedIcon: _value != null && '$_value'.trim() != '',
+          color: widget.inputField.inputColor,
+        )
+      ],
     );
   }
 }

@@ -1,10 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/agyw_dreams_index_info_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/components/dreams_hts_index_card_bottom_content.dart';
 
 class DreamsHTSIndexCardBody extends StatelessWidget {
-  DreamsHTSIndexCardBody({
+  const DreamsHTSIndexCardBody({
     Key? key,
     this.event,
     Container? cardButtonActions,
@@ -16,19 +15,19 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
       child: Column(
         children: [
           event == null
               ? Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 10.0,
                   ),
-                  child: Text('Index is not yet registered'))
+                  child: const Text('Index is not yet registered'))
               : Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 2.0),
+                      margin: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -36,25 +35,25 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                               flex: 1,
                               child: Text(
                                 'Index Details',
-                                style: TextStyle().copyWith(
+                                style: const TextStyle().copyWith(
                                     fontSize: 16.0,
-                                    color: Color(0xFF82898D),
+                                    color: const Color(0xFF82898D),
                                     fontWeight: FontWeight.w500),
                               )),
                           Expanded(
                               flex: 2,
                               child: Text(
                                 '',
-                                style: TextStyle().copyWith(
+                                style: const TextStyle().copyWith(
                                     fontSize: 14.0,
-                                    color: Color(0XFF536852),
+                                    color: const Color(0XFF536852),
                                     fontWeight: FontWeight.w500),
                               ))
                         ],
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 2.0),
+                      margin: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -62,25 +61,25 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                               flex: 1,
                               child: Text(
                                 'Created',
-                                style: TextStyle().copyWith(
+                                style: const TextStyle().copyWith(
                                     fontSize: 14.0,
-                                    color: Color(0xFF82898D),
+                                    color: const Color(0xFF82898D),
                                     fontWeight: FontWeight.w500),
                               )),
                           Expanded(
                               flex: 2,
                               child: Text(
                                 event!.date!,
-                                style: TextStyle().copyWith(
+                                style: const TextStyle().copyWith(
                                     fontSize: 14.0,
-                                    color: Color(0XFF536852),
+                                    color: const Color(0XFF536852),
                                     fontWeight: FontWeight.w500),
                               ))
                         ],
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 2.0),
+                      margin: const EdgeInsets.symmetric(vertical: 2.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -88,18 +87,18 @@ class DreamsHTSIndexCardBody extends StatelessWidget {
                               flex: 1,
                               child: Text(
                                 'On ART',
-                                style: TextStyle().copyWith(
+                                style: const TextStyle().copyWith(
                                     fontSize: 14.0,
-                                    color: Color(0xFF82898D),
+                                    color: const Color(0xFF82898D),
                                     fontWeight: FontWeight.w500),
                               )),
                           Expanded(
                               flex: 2,
                               child: Text(
                                 event!.onART == 'true' ? 'Yes' : 'No',
-                                style: TextStyle().copyWith(
+                                style: const TextStyle().copyWith(
                                     fontSize: 14.0,
-                                    color: Color(0XFF536852),
+                                    color: const Color(0XFF536852),
                                     fontWeight: FontWeight.w500),
                               ))
                         ],

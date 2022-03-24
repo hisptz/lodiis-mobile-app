@@ -56,26 +56,23 @@ class _ServiceGapViewState extends State<ServiceGapView> {
               .toList();
       List keys = widget.casePlanGap.keys.toList();
       inputFields = FormUtil.getFormInputFields(formSections)
-          .where((InputField inputField) => keys.indexOf((inputField.id)) > -1)
+          .where((InputField inputField) => keys.contains((inputField.id)))
           .toList();
     });
   }
 
   _getInputValue(InputField inputField, Map dataObject) {
-    dynamic value =
-        inputField != null && '${dataObject[inputField.id]}' != 'null'
-            ? '${dataObject[inputField.id]}'
-            : '   ';
-    if (inputField != null) {
-      if (inputField.valueType == 'BOOLEAN') {
-        value = value == 'true'
-            ? 'Yes'
-            : value == 'false'
-                ? 'No'
-                : value;
-      } else if (inputField.valueType == 'TRUE_ONLY') {
-        value = value == 'true' ? 'Yes' : value;
-      }
+    dynamic value = '${dataObject[inputField.id]}' != 'null'
+        ? '${dataObject[inputField.id]}'
+        : '   ';
+    if (inputField.valueType == 'BOOLEAN') {
+      value = value == 'true'
+          ? 'Yes'
+          : value == 'false'
+              ? 'No'
+              : value;
+    } else if (inputField.valueType == 'TRUE_ONLY') {
+      value = value == 'true' ? 'Yes' : value;
     }
     return value.toString();
   }
@@ -83,121 +80,115 @@ class _ServiceGapViewState extends State<ServiceGapView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 10.0,
       ),
       decoration: BoxDecoration(
         color: widget.formSectionColor!.withOpacity(0.2),
       ),
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 20.0,
         ),
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 10.0,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: Text(
-                        label,
-                        style: TextStyle().copyWith(
-                          color: widget.formSectionColor,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    label,
+                    style: const TextStyle().copyWith(
+                      color: widget.formSectionColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                    child: Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: inputFields
-                            .map(
-                              (InputField inputField) => Container(
-                                child: Column(
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: inputFields
+                        .map(
+                          (InputField inputField) => Container(
+                            margin: const EdgeInsets.all(0),
+                            child: Column(
+                              children: [
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                              vertical: 5.0,
-                                            ),
-                                            child: Text(
-                                              inputField.name,
-                                              style: TextStyle().copyWith(
-                                                color: widget.formSectionColor,
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
+                                    Expanded(
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                          vertical: 5.0,
+                                        ),
+                                        child: Text(
+                                          inputField.name,
+                                          style: const TextStyle().copyWith(
+                                            color: widget.formSectionColor,
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                              bottom: 5.0,
-                                            ),
-                                            child: Text(
-                                              _getInputValue(inputField,
-                                                  widget.casePlanGap),
-                                              style: TextStyle().copyWith(
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    LineSeparator(
-                                      color: widget.formSectionColor!
-                                          .withOpacity(0.5),
-                                    )
                                   ],
                                 ),
-                              ),
-                            )
-                            .toList()
-                          ..add(
-                            Container(
-                              child: CasePlanServiceProvisionContainer(
-                                domainId: widget.domainId,
-                                hasEditAccess: widget.hasEditAccess,
-                                formSectionColor: widget.formSectionColor,
-                                isCasePlanForHousehold:
-                                    widget.isCasePlanForHousehold,
-                                isServiceMonitoring: widget.isServiceMonitoring,
-                                casePlanGap: widget.casePlanGap,
-                                shouldEditCaseGapServiceProvision:
-                                    widget.shouldEditCaseGapServiceProvision,
-                                shouldViewCaseGapServiceProvision:
-                                    widget.shouldViewCaseGapServiceProvision,
-                              ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: const EdgeInsets.only(
+                                          bottom: 5.0,
+                                        ),
+                                        child: Text(
+                                          _getInputValue(
+                                              inputField, widget.casePlanGap),
+                                          style: const TextStyle().copyWith(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                LineSeparator(
+                                  color:
+                                      widget.formSectionColor!.withOpacity(0.5),
+                                )
+                              ],
                             ),
                           ),
+                        )
+                        .toList()
+                      ..add(
+                        Container(
+                          margin: const EdgeInsets.all(0),
+                          child: CasePlanServiceProvisionContainer(
+                            domainId: widget.domainId,
+                            hasEditAccess: widget.hasEditAccess,
+                            formSectionColor: widget.formSectionColor,
+                            isCasePlanForHousehold:
+                                widget.isCasePlanForHousehold,
+                            isServiceMonitoring: widget.isServiceMonitoring,
+                            casePlanGap: widget.casePlanGap,
+                            shouldEditCaseGapServiceProvision:
+                                widget.shouldEditCaseGapServiceProvision,
+                            shouldViewCaseGapServiceProvision:
+                                widget.shouldViewCaseGapServiceProvision,
+                          ),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ],
         ),

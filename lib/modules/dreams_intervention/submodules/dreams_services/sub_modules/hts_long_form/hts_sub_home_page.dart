@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_cu
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -26,7 +26,7 @@ import 'pages/agyw_dreams_hts_consent_for_release_status.dart';
 import 'pages/agyw_dreams_hts_consent_for_release_status_edit.dart';
 
 class HTSSubHomePage extends StatefulWidget {
-  HTSSubHomePage({
+  const HTSSubHomePage({
     Key? key,
     required this.eventId,
     this.htsIndexLinkage,
@@ -86,8 +86,10 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
 
   void onViewConsent(BuildContext context, DreamsHTSEvent eventData) {
     updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHTSConsentForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const AgywDreamsHTSConsentForm()));
   }
 
   void onEditConsent(BuildContext context, DreamsHTSEvent eventData) {
@@ -95,7 +97,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSConsentFormEdit()));
+            builder: (context) => const AgywDreamsHTSConsentFormEdit()));
   }
 
   void onViewIntake(BuildContext context, DreamsHTSEvent eventData) {
@@ -103,7 +105,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSClientInformation()));
+            builder: (context) => const AgywDreamsHTSClientInformation()));
   }
 
   void onEditIntake(BuildContext context, DreamsHTSEvent eventData) {
@@ -111,7 +113,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSClientInformationEdit()));
+            builder: (context) => const AgywDreamsHTSClientInformationEdit()));
   }
 
   void onViewStatus(BuildContext context, DreamsHTSEvent eventData) {
@@ -119,7 +121,8 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSConsentForReleaseStatus()));
+            builder: (context) =>
+                const AgywDreamsHTSConsentForReleaseStatus()));
   }
 
   void onEditStatus(BuildContext context, DreamsHTSEvent eventData) {
@@ -127,13 +130,16 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSConsentForReleaseStatusEdit()));
+            builder: (context) =>
+                const AgywDreamsHTSConsentForReleaseStatusEdit()));
   }
 
   void onViewRegister(BuildContext context, DreamsHTSEvent? eventData) {
     updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsHTSRegisterForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const AgywDreamsHTSRegisterForm()));
   }
 
   void onEditRegister(BuildContext context, DreamsHTSEvent? eventData) {
@@ -141,7 +147,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSRegisterFormEdit()));
+            builder: (context) => const AgywDreamsHTSRegisterFormEdit()));
   }
 
   DreamsHTSEvent? getHtsRegisterEventData(
@@ -193,7 +199,7 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -206,111 +212,108 @@ class _HTSSubHomePageState extends State<HTSSubHomePage> {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamsBeneficiarySelectionState>(
-              builder: (context, dreamBeneficiarySelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    AgywDream? agywDream =
-                        dreamBeneficiarySelectionState.currentAgywDream;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                            .getAllEventListFromServiceDataStateByProgramStages(
-                                eventListByProgramStage, programStageIds)
-                        .where((Events eventData) =>
-                            eventData.event == widget.eventId)
-                        .toList();
-                    List<DreamsHTSEvent> indexEvents = events
-                        .map((Events eventData) =>
-                            DreamsHTSEvent().fromTeiModel(eventData))
-                        .toList();
-                    DreamsHTSEvent? htsRegisterEventData =
-                        getHtsRegisterEventData(
-                            eventListByProgramStage, indexEvents);
-                    bool canAccessIndexContacts =
-                        canAccessIndexContactsInformation(htsRegisterEventData);
-                    String hivResultStatus =
-                        getHtsRegisterHivStatus(htsRegisterEventData);
-                    return Container(
-                      child: Column(
-                        children: [
-                          DreamsBeneficiaryTopHeader(
-                            agywDream: agywDream,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no details at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: indexEvents.map(
-                                                    (DreamsHTSEvent eventData) {
-                                                      return Container(
-                                                        margin: EdgeInsets.only(
-                                                          bottom: 15.0,
-                                                        ),
-                                                        child: DreamsSubHTSListCard(
-                                                            onEditRegister: () =>
-                                                                onEditRegister(
-                                                                    context, htsRegisterEventData),
-                                                            onViewRegister: () =>
-                                                                onViewRegister(
-                                                                    context,
-                                                                    htsRegisterEventData),
-                                                            onEditConsent: () =>
-                                                                onEditConsent(
-                                                                    context, eventData),
-                                                            onViewConsent: () =>
-                                                                onViewConsent(
-                                                                    context, eventData),
-                                                            onEditIntake: () =>
-                                                                onEditIntake(
-                                                                    context, eventData),
-                                                            onViewIntake: () =>
-                                                                onViewIntake(context, eventData),
-                                                            onEditStatus: () => onEditStatus(context, eventData),
-                                                            onViewStatus: () => onViewStatus(context, eventData),
-                                                            eventData: eventData,
-                                                            canAccessIndexContact: canAccessIndexContacts,
-                                                            hivResultStatus: hivResultStatus
-                                                            // tbCard:HTSTBHomePage(
-                                                            //   htsToTBLinkageValue:eventData.htsTBLinkage,
-                                                            // )
-                                                            ),
-                                                      );
-                                                    },
-                                                  ).toList(),
-                                                ),
-                                              ),
-                                      )
-                                    ],
-                                  ),
-                          ),
-                        ],
+          body: Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  AgywDream? agywDream =
+                      dreamBeneficiarySelectionState.currentAgywDream;
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                          .getAllEventListFromServiceDataStateByProgramStages(
+                              eventListByProgramStage, programStageIds)
+                      .where((Events eventData) =>
+                          eventData.event == widget.eventId)
+                      .toList();
+                  List<DreamsHTSEvent> indexEvents = events
+                      .map((Events eventData) =>
+                          DreamsHTSEvent().fromTeiModel(eventData))
+                      .toList();
+                  DreamsHTSEvent? htsRegisterEventData =
+                      getHtsRegisterEventData(
+                          eventListByProgramStage, indexEvents);
+                  bool canAccessIndexContacts =
+                      canAccessIndexContactsInformation(htsRegisterEventData);
+                  String hivResultStatus =
+                      getHtsRegisterHivStatus(htsRegisterEventData);
+                  return Column(
+                    children: [
+                      DreamsBeneficiaryTopHeader(
+                        agywDream: agywDream,
                       ),
-                    );
-                  },
-                );
-              },
-            ),
+                      Container(
+                        child: isLoading
+                            ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: events.isEmpty
+                                        ? const Text(
+                                            'There is no details at a moment')
+                                        : Container(
+                                            margin: const EdgeInsets.symmetric(
+                                              vertical: 5.0,
+                                              horizontal: 13.0,
+                                            ),
+                                            child: Column(
+                                              children: indexEvents.map(
+                                                (DreamsHTSEvent eventData) {
+                                                  return Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                      bottom: 15.0,
+                                                    ),
+                                                    child: DreamsSubHTSListCard(
+                                                        onEditRegister: () =>
+                                                            onEditRegister(
+                                                                context, htsRegisterEventData),
+                                                        onViewRegister: () =>
+                                                            onViewRegister(
+                                                                context,
+                                                                htsRegisterEventData),
+                                                        onEditConsent: () =>
+                                                            onEditConsent(
+                                                                context, eventData),
+                                                        onViewConsent: () =>
+                                                            onViewConsent(
+                                                                context, eventData),
+                                                        onEditIntake: () =>
+                                                            onEditIntake(
+                                                                context, eventData),
+                                                        onViewIntake: () =>
+                                                            onViewIntake(context, eventData),
+                                                        onEditStatus: () => onEditStatus(context, eventData),
+                                                        onViewStatus: () => onViewStatus(context, eventData),
+                                                        eventData: eventData,
+                                                        canAccessIndexContact: canAccessIndexContacts,
+                                                        hivResultStatus: hivResultStatus
+                                                        // tbCard:HTSTBHomePage(
+                                                        //   htsToTBLinkageValue:eventData.htsTBLinkage,
+                                                        // )
+                                                        ),
+                                                  );
+                                                },
+                                              ).toList(),
+                                            ),
+                                          ),
+                                  )
+                                ],
+                              ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
   }
 }

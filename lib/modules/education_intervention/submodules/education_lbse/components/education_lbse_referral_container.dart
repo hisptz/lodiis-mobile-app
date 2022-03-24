@@ -44,40 +44,32 @@ class EducationLbseReferralContainer extends StatelessWidget {
             referralOutcomeEvent.referralToReferralOutcomeLinkage ==
             lbseReferral.referralToReferralOutcomeLinkage)
         .toList();
-    return referralOutcomeEvents.length == 0 &&
+    return referralOutcomeEvents.isEmpty &&
         lbseReferral.enrollmentOuAccessible!;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 15.0,
       ),
       child: MaterialCard(
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                child: EducationLbseReferralHeader(
-                  referralIndex: referralIndex,
-                  canEdit: _canEditLbseReferral(context),
-                  onEdit: onEdit,
-                  onView: onView,
-                ),
-              ),
-              Container(
-                child: EducationLbseReferralBody(
-                  lbseReferral: lbseReferral,
-                ),
-              ),
-              Container(
-                child: EducationLbseReferralOutComeContainer(
-                  lbseReferral: lbseReferral,
-                ),
-              )
-            ],
-          ),
+        body: Column(
+          children: [
+            EducationLbseReferralHeader(
+              referralIndex: referralIndex,
+              canEdit: _canEditLbseReferral(context),
+              onEdit: onEdit,
+              onView: onView,
+            ),
+            EducationLbseReferralBody(
+              lbseReferral: lbseReferral,
+            ),
+            EducationLbseReferralOutComeContainer(
+              lbseReferral: lbseReferral,
+            )
+          ],
         ),
       ),
     );

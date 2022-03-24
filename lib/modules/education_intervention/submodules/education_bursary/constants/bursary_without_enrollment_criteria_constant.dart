@@ -1,4 +1,4 @@
 class BursaryWithoutEnrollmentCriteriaConstant {
-  static final String program = 'pgNSwBiZS2j';
-  static final String programStage = 'olqTx9y6Cfm';
+  static const String program = 'pgNSwBiZS2j';
+  static const String programStage = 'olqTx9y6Cfm';
 }

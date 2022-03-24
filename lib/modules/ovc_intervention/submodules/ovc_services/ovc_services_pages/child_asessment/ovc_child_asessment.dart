@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -25,10 +25,12 @@ import 'package:provider/provider.dart';
 class OvcChildAssessment extends StatelessWidget {
   final String label = 'Child Assessment';
 
+  const OvcChildAssessment({Key? key}) : super(key: key);
+
   void onAddNewChildAssessment(
       BuildContext context, OvcHouseholdChild child) async {
     updateFormStateData(context, null, child);
-    Widget model = OvcChildAssessmentSelection();
+    Widget model = const OvcChildAssessmentSelection();
     String? assessmentResponse =
         await AppUtil.showPopUpModal(context, model, false);
     onRedirectToAssessmentForm(context, assessmentResponse, true);
@@ -43,24 +45,25 @@ class OvcChildAssessment extends StatelessWidget {
           ? Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => OvcServiceWellBeingAssessmentForm(),
+                builder: (context) => const OvcServiceWellBeingAssessmentForm(),
               ),
             )
           : assessmentResponse == 'TB'
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OvcServiceTBAssessmentForm(),
+                    builder: (context) => const OvcServiceTBAssessmentForm(),
                   ),
                 )
               : assessmentResponse == 'HIV'
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => OvcServiceHIVAssessmentForm(),
+                        builder: (context) =>
+                            const OvcServiceHIVAssessmentForm(),
                       ),
                     )
-                  : print(assessmentResponse);
+                  : '';
     }
   }
 
@@ -102,7 +105,7 @@ class OvcChildAssessment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -115,101 +118,89 @@ class OvcChildAssessment extends StatelessWidget {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<OvcHouseholdCurrentSelectionState>(
-            builder: (context, ovcHouseholdCurrentSelectionState, child) {
-              OvcHouseholdChild? currentOvcHouseholdChild =
-                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
-              return Column(
-                children: [
-                  OvcChildInfoTopHeader(),
-                  Container(
-                    child: Container(
-                      child: Consumer<ServiceEventDataState>(
-                        builder: (context, serviceEventDataState, child) {
-                          bool isLoading = serviceEventDataState.isLoading;
-                          Map<String?, List<Events>> eventListByProgramStage =
-                              serviceEventDataState.eventListByProgramStage;
-                          Map programStageMap = OvcAssessmentConstant
-                              .getOvcAssessmentProgramStageMap();
-                          List<String> programStageIds = [];
-                          for (var id in programStageMap.keys.toList()) {
-                            programStageIds.add('$id');
-                          }
-                          List<Events> events = TrackedEntityInstanceUtil
-                              .getAllEventListFromServiceDataStateByProgramStages(
-                                  eventListByProgramStage, programStageIds);
-                          return isLoading
-                              ? CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                )
-                              : Container(
-                                  margin: EdgeInsets.only(top: 10.0),
-                                  child: events.length == 0
-                                      ? Center(
-                                          child: Text(
-                                              'There is no asseement at moment'),
+        body: Consumer<OvcHouseholdCurrentSelectionState>(
+          builder: (context, ovcHouseholdCurrentSelectionState, child) {
+            OvcHouseholdChild? currentOvcHouseholdChild =
+                ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+            return Column(
+              children: [
+                const OvcChildInfoTopHeader(),
+                Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                    bool isLoading = serviceEventDataState.isLoading;
+                    Map<String?, List<Events>> eventListByProgramStage =
+                        serviceEventDataState.eventListByProgramStage;
+                    Map programStageMap =
+                        OvcAssessmentConstant.getOvcAssessmentProgramStageMap();
+                    List<String> programStageIds = [];
+                    for (var id in programStageMap.keys.toList()) {
+                      programStageIds.add('$id');
+                    }
+                    List<Events> events = TrackedEntityInstanceUtil
+                        .getAllEventListFromServiceDataStateByProgramStages(
+                            eventListByProgramStage, programStageIds);
+                    return isLoading
+                        ? const CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          )
+                        : Container(
+                            margin: const EdgeInsets.only(top: 10.0),
+                            child: events.isEmpty
+                                ? const Center(
+                                    child:
+                                        Text('There is no asseement at moment'),
+                                  )
+                                : Column(
+                                    children: events
+                                        .map(
+                                          (Events eventData) =>
+                                              OvcChildAssessmentListCard(
+                                            eventData: eventData,
+                                            programStageMap: programStageMap,
+                                            onEditAssessment: () {
+                                              String? assessmentResponse =
+                                                  programStageMap[
+                                                      eventData.programStage];
+                                              onEditAssessment(
+                                                  context,
+                                                  assessmentResponse,
+                                                  eventData,
+                                                  currentOvcHouseholdChild!);
+                                            },
+                                            onViewAssessment: () {
+                                              String? assessmentResponse =
+                                                  programStageMap[
+                                                      eventData.programStage];
+                                              onViewAssessment(
+                                                  context,
+                                                  assessmentResponse,
+                                                  eventData,
+                                                  currentOvcHouseholdChild!);
+                                            },
+                                          ),
                                         )
-                                      : Column(
-                                          children: events
-                                              .map(
-                                                (Events eventData) =>
-                                                    OvcChildAssessmentListCard(
-                                                  eventData: eventData,
-                                                  programStageMap:
-                                                      programStageMap,
-                                                  onEditAssessment: () {
-                                                    String? assessmentResponse =
-                                                        programStageMap[
-                                                            eventData
-                                                                .programStage];
-                                                    onEditAssessment(
-                                                        context,
-                                                        assessmentResponse,
-                                                        eventData,
-                                                        currentOvcHouseholdChild!);
-                                                  },
-                                                  onViewAssessment: () {
-                                                    String? assessmentResponse =
-                                                        programStageMap[
-                                                            eventData
-                                                                .programStage];
-                                                    onViewAssessment(
-                                                        context,
-                                                        assessmentResponse,
-                                                        eventData,
-                                                        currentOvcHouseholdChild!);
-                                                  },
-                                                ),
-                                              )
-                                              .toList(),
-                                        ),
-                                );
-                        },
-                      ),
-                    ),
+                                        .toList(),
+                                  ),
+                          );
+                  },
+                ),
+                Visibility(
+                  visible: currentOvcHouseholdChild!.enrollmentOuAccessible!,
+                  child: EntryFormSaveButton(
+                    label: 'NEW ASSESSMENT',
+                    labelColor: Colors.white,
+                    fontSize: 14,
+                    buttonColor: const Color(0xFF4B9F46),
+                    onPressButton: () => onAddNewChildAssessment(
+                        context, currentOvcHouseholdChild),
                   ),
-                  Container(
-                    child: Visibility(
-                      visible:
-                          currentOvcHouseholdChild!.enrollmentOuAccessible!,
-                      child: EntryFormSaveButton(
-                        label: 'NEW ASSESSMENT',
-                        labelColor: Colors.white,
-                        fontSize: 14,
-                        buttonColor: Color(0xFF4B9F46),
-                        onPressButton: () => onAddNewChildAssessment(
-                            context, currentOvcHouseholdChild),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
+                )
+              ],
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

@@ -35,25 +35,23 @@ class _OvcEnrollmentRecordsState extends State<OvcEnrollmentRecords> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = currentLanguage == 'lesotho'
-                  ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                  : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} households';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = currentLanguage == 'lesotho'
+                ? 'Lethathamo la malapa'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : 'Household list'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+            return SubModuleHomeContainer(
+              header: header,
+              bodyContents: _buildBody(currentLanguage),
+            );
+          },
+        );
+      },
     );
   }
 

@@ -42,7 +42,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
             .addOrUpdateMultipleTrackedEntityInstanceAttributes(attributesList);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -70,7 +70,7 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
             maps.map((map) => map[trackedEntityInstance] as String?).toList());
       }
     } catch (error) {
-      print("getAllOfflineTrackedEntitiyInstanceIds : ${error.toString()}");
+      //
     }
     return offlineTrackedEntityInstanceIds.toSet().toList();
   }
@@ -112,7 +112,9 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return trackedEntityInstances;
   }
 
@@ -121,8 +123,10 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       teiCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
-          'SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', ['$status']));
-    } catch (e) {}
+          'SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', [status]));
+    } catch (e) {
+      //
+    }
     return teiCount ?? 0;
   }
 
@@ -146,7 +150,9 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
       for (Map map in maps) {
         references.add(map[trackedEntityInstance] as String);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     return references;
   }
@@ -180,7 +186,9 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
           trackedEntityInstances.add(tei);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return trackedEntityInstances;
   }
 }

@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -20,7 +20,16 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceSubPageChildView extends StatelessWidget {
+class OvcServiceSubPageChildView extends StatefulWidget {
+  const OvcServiceSubPageChildView({Key? key}) : super(key: key);
+
+  @override
+  State<OvcServiceSubPageChildView> createState() =>
+      _OvcServiceSubPageChildViewState();
+}
+
+class _OvcServiceSubPageChildViewState
+    extends State<OvcServiceSubPageChildView> {
   final String label = 'Service Provision';
   final String translatedLabel = 'Phano ea Litsebeletso';
   final List<String> casePlanProgramStageIds = [
@@ -30,7 +39,6 @@ class OvcServiceSubPageChildView extends StatelessWidget {
   final List<String> casePlanGapProgramStageIds = [
     OvcChildCasePlanConstant.casePlanGapProgramStage
   ];
-
   updateformState(
     BuildContext context,
     bool isEditableMode,
@@ -41,23 +49,19 @@ class OvcServiceSubPageChildView extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Map? sanitizedDataObject;
-    if (casePlanEvents != null) {
-      List<Events> casePlanGapsEvents = eventListByProgramStage[
-              OvcChildCasePlanConstant.casePlanGapProgramStage] ??
-          [];
-      sanitizedDataObject =
-          OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
-        casePlanEvents,
-        casePlanGapsEvents,
-      );
-    }
+    List<Events> casePlanGapsEvents = eventListByProgramStage[
+            OvcChildCasePlanConstant.casePlanGapProgramStage] ??
+        [];
+    sanitizedDataObject = OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
+      casePlanEvents,
+      casePlanGapsEvents,
+    );
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       String? formSectionId = formSection.id;
       String casePlanToGapLinkage = AppUtil.getUid();
-      Map map = sanitizedDataObject != null &&
-              sanitizedDataObject.containsKey(formSectionId)
+      Map map = sanitizedDataObject.containsKey(formSectionId)
           ? sanitizedDataObject[formSectionId]
-          : Map();
+          : {};
       map['gaps'] = map['gaps'] ?? [];
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
@@ -77,7 +81,7 @@ class OvcServiceSubPageChildView extends StatelessWidget {
     Map groupedEventByDates =
         TrackedEntityInstanceUtil.getGroupedEventByDates(events);
     String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
-    return groupedEventByDates.keys.toList().indexOf(today) > -1;
+    return groupedEventByDates.keys.toList().contains(today);
   }
 
   void onViewCasePlan(
@@ -105,7 +109,7 @@ class OvcServiceSubPageChildView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -123,42 +127,35 @@ class OvcServiceSubPageChildView extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Column(children: [
-              OvcChildInfoTopHeader(),
-              Container(
-                child: Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    return isLoading
-                        ? CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          )
-                        : Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ServicesHomeListContainer(
-                                  programStageIds: casePlanProgramStageIds,
-                                  onViewCasePlan: (casePlanEvents) =>
-                                      onViewCasePlan(
-                                    context,
-                                    casePlanEvents,
-                                    eventListByProgramStage,
-                                  ),
-                                ),
-                              ],
+          body: Column(children: [
+            const OvcChildInfoTopHeader(),
+            Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String?, List<Events>> eventListByProgramStage =
+                    serviceEventDataState.eventListByProgramStage;
+                return isLoading
+                    ? const CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ServicesHomeListContainer(
+                            programStageIds: casePlanProgramStageIds,
+                            onViewCasePlan: (casePlanEvents) => onViewCasePlan(
+                              context,
+                              casePlanEvents,
+                              eventListByProgramStage,
                             ),
-                          );
-                  },
-                ),
-              )
-            ]),
-          ),
+                          ),
+                        ],
+                      );
+              },
+            )
+          ]),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
   }
 }

@@ -17,7 +17,7 @@ class PaginationService {
         pagingController.dispose();
       }
     } catch (e) {
-      print(e);
+      //
     }
   }
 

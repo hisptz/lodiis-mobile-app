@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_interv
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_list_filter.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +34,7 @@ class SubModuleHomeContainer extends StatelessWidget {
         isDismissible: true,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (BuildContext context) => BeneficiaryListFilter());
+        builder: (BuildContext context) => const BeneficiaryListFilter());
   }
 
   int getCurrentInterventionFilterCount(
@@ -75,87 +75,82 @@ class SubModuleHomeContainer extends StatelessWidget {
     return Scaffold(
         appBar: header != null && header != ''
             ? AppBar(
-                title: Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        header!,
-                        style: TextStyle().copyWith(
+                title: Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      header!,
+                      style: const TextStyle().copyWith(
+                          color: const Color(0xFF82898D),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold),
+                    )),
+                    Visibility(
+                        visible: hasInfo,
+                        child: InkWell(
+                          onTap: onOpenInfo as void Function()?,
+                          child: const Icon(
+                            Icons.info_outline,
                             color: Color(0xFF82898D),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold),
-                      )),
-                      Visibility(
-                          visible: hasInfo,
-                          child: InkWell(
-                            onTap: onOpenInfo as void Function()?,
-                            child: Icon(
-                              Icons.info_outline,
-                              color: Color(0xFF82898D),
-                              size: 24.0,
-                            ),
-                          )),
-                      Visibility(
-                        visible: showFilter,
-                        child: Consumer<InterventionCardState>(
-                          builder: (context, interventionCardState, child) {
-                            int filterCount = getCurrentInterventionFilterCount(
-                                context,
-                                interventionCardState
-                                    .currentInterventionProgram);
-                            return Stack(
-                              children: [
-                                IconButton(
-                                  onPressed: () => openFilters(context),
-                                  icon: Icon(
-                                    Icons.filter_list_outlined,
-                                    color: interventionCardState
-                                        .currentInterventionProgram
-                                        .primaryColor,
-                                    size: 24.0,
-                                  ),
+                            size: 24.0,
+                          ),
+                        )),
+                    Visibility(
+                      visible: showFilter,
+                      child: Consumer<InterventionCardState>(
+                        builder: (context, interventionCardState, child) {
+                          int filterCount = getCurrentInterventionFilterCount(
+                              context,
+                              interventionCardState.currentInterventionProgram);
+                          return Stack(
+                            children: [
+                              IconButton(
+                                onPressed: () => openFilters(context),
+                                icon: Icon(
+                                  Icons.filter_list_outlined,
+                                  color: interventionCardState
+                                      .currentInterventionProgram.primaryColor,
+                                  size: 24.0,
                                 ),
-                                filterCount != 0
-                                    ? Positioned(
-                                        child: InkWell(
-                                          onTap: () => openFilters(context),
-                                          child: Container(
-                                            padding: EdgeInsets.all(2.0),
-                                            decoration: BoxDecoration(
-                                                color: interventionCardState
-                                                    .currentInterventionProgram
-                                                    .primaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        12.0)),
-                                            constraints: BoxConstraints(
-                                              minWidth: 14,
-                                              minHeight: 14,
-                                            ),
-                                            child: Text(
-                                              "$filterCount",
-                                              style: TextStyle().copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 10.0,
-                                                  fontWeight: FontWeight.bold),
-                                              textAlign: TextAlign.center,
-                                            ),
+                              ),
+                              filterCount != 0
+                                  ? Positioned(
+                                      child: InkWell(
+                                        onTap: () => openFilters(context),
+                                        child: Container(
+                                          padding: const EdgeInsets.all(2.0),
+                                          decoration: BoxDecoration(
+                                              color: interventionCardState
+                                                  .currentInterventionProgram
+                                                  .primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0)),
+                                          constraints: const BoxConstraints(
+                                            minWidth: 14,
+                                            minHeight: 14,
+                                          ),
+                                          child: Text(
+                                            "$filterCount",
+                                            style: const TextStyle().copyWith(
+                                                color: Colors.white,
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        right: 11,
-                                        top: 11,
-                                      )
-                                    : Container(),
-                              ],
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
+                                      ),
+                                      right: 11,
+                                      top: 11,
+                                    )
+                                  : Container(),
+                            ],
+                          );
+                        },
+                      ),
+                    )
+                  ],
                 ),
-                backgroundColor: Color(0xFFFFFFFF),
+                backgroundColor: const Color(0xFFFFFFFF),
                 elevation: 1,
               )
             : null,

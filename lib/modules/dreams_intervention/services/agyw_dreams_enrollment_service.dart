@@ -70,7 +70,7 @@ class AgywDreamsEnrollmentService {
       for (Enrollment enrollment in enrollments) {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
@@ -84,7 +84,9 @@ class AgywDreamsEnrollmentService {
               createdDate, enrollmentId, enrollmentOuAccessible));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return searchableValue == ''
         ? agywDreamList
         : agywDreamList.where((AgywDream beneficiary) {
@@ -109,7 +111,7 @@ class AgywDreamsEnrollmentService {
       for (Enrollment enrollment in enrollments) {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
@@ -123,7 +125,9 @@ class AgywDreamsEnrollmentService {
               createdDate, enrollmentId, enrollmentOuAccessible));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     if (filters.isNotEmpty) {
       for (Map<String, dynamic> filter in filters) {
         String? implementingPartner = filter['implementingPartner'];

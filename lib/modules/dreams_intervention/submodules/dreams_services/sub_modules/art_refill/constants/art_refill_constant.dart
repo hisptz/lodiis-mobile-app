@@ -1,4 +1,4 @@
-class ARTRefillConstant  {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'Gk494qKQP8B';
+class ARTRefillConstant {
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'Gk494qKQP8B';
 }

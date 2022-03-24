@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionBottomNavigationState with ChangeNotifier {
@@ -41,7 +41,7 @@ class InterventionBottomNavigationState with ChangeNotifier {
       var filteredList = interventionBottomNavigations
           .where((nav) => nav.id == _currentInterventionBottomNavigationId)
           .toList();
-      interventionBottomNavigation = filteredList.length > 0
+      interventionBottomNavigation = filteredList.isNotEmpty
           ? filteredList[0]
           : interventionBottomNavigation;
     }

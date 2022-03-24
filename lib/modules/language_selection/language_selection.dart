@@ -53,7 +53,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Login(),
+          builder: (context) => const Login(),
         ),
       );
     }
@@ -61,66 +61,56 @@ class _LanguageSelectionState extends State<LanguageSelection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-        child: Scaffold(
-          appBar: !widget.showLanguageSettingAppBar
-              ? null
-              : PreferredSize(
-                  preferredSize: Size.fromHeight(65.0),
-                  child: Consumer<InterventionCardState>(
-                    builder: (context, interventionCardState, child) {
-                      InterventionCard activeInterventionProgram =
-                          interventionCardState.currentInterventionProgram;
-                      return Container(
-                        child: Consumer<LanguageTranslationState>(
-                          builder: (context, languageTranslationState, child) {
-                            String? currentLanguage =
-                                languageTranslationState.currentLanguage;
-                            return SubPageAppBar(
-                              label: currentLanguage == 'lesotho'
-                                  ? translatedLabel
-                                  : label,
-                              activeInterventionProgram:
-                                  activeInterventionProgram,
-                              disableSelectionOfActiveIntervention: false,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: !widget.showLanguageSettingAppBar
+            ? null
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(65.0),
+                child: Consumer<InterventionCardState>(
+                  builder: (context, interventionCardState, child) {
+                    InterventionCard activeInterventionProgram =
+                        interventionCardState.currentInterventionProgram;
+                    return Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) {
+                        String? currentLanguage =
+                            languageTranslationState.currentLanguage;
+                        return SubPageAppBar(
+                          label: currentLanguage == 'lesotho'
+                              ? translatedLabel
+                              : label,
+                          activeInterventionProgram: activeInterventionProgram,
+                          disableSelectionOfActiveIntervention: false,
+                        );
+                      },
+                    );
+                  },
                 ),
-          body: Container(
-            child: Consumer<CurrentUserState>(
-                builder: (context, currentUserState, child) {
-              bool hasAccessToDataEntry =
-                  currentUserState.canCurrentUserDoDataEntry;
-              return !hasAccessToDataEntry
-                  ? AccessToDataEntryWarning()
-                  : Container(
-                      child: Consumer<LanguageTranslationState>(
-                        builder: (context, languageTranslationState, child) {
-                          String? currentLanguage =
-                              languageTranslationState.currentLanguage;
-                          return LanguageSelectionContainer(
-                            currentLanguage: currentLanguage,
-                            selectionLanguageCode: selectionLanguageCode,
-                            showLanguageSettingAppBar:
-                                widget.showLanguageSettingAppBar,
-                            onSetSelectedLanguage:
-                                (String selectionLanguageCode) =>
-                                    onSetSelectedLanguage(
-                              context,
-                              selectionLanguageCode,
-                            ),
-                          );
-                        },
+              ),
+        body: Consumer<CurrentUserState>(
+            builder: (context, currentUserState, child) {
+          bool hasAccessToDataEntry =
+              currentUserState.canCurrentUserDoDataEntry;
+          return !hasAccessToDataEntry
+              ? const AccessToDataEntryWarning()
+              : Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) {
+                    String? currentLanguage =
+                        languageTranslationState.currentLanguage;
+                    return LanguageSelectionContainer(
+                      currentLanguage: currentLanguage,
+                      selectionLanguageCode: selectionLanguageCode,
+                      showLanguageSettingAppBar:
+                          widget.showLanguageSettingAppBar,
+                      onSetSelectedLanguage: (String selectionLanguageCode) =>
+                          onSetSelectedLanguage(
+                        context,
+                        selectionLanguageCode,
                       ),
                     );
-            }),
-          ),
-        ),
+                  },
+                );
+        }),
       ),
     );
   }

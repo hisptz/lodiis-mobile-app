@@ -11,7 +11,7 @@ class OrganisationUnitProgramOfflineProvider extends OfflineDbProvider {
   addOrUpdateProgramOrganisationUnits(OrganisationUnit organisationUnit) async {
     var dbClient = await db;
     for (id in organisationUnit.program ?? []) {
-      var map = Map<String, dynamic>();
+      var map = <String, dynamic>{};
       map['id'] = '$id-${organisationUnit.id}';
       map['programId'] = id;
       map['organisationId'] = organisationUnit.id;

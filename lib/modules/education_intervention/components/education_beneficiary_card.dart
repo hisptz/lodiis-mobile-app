@@ -60,63 +60,59 @@ class EducationBeneficiaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 16.0,
         right: 13.0,
         left: 13.0,
       ),
       child: MaterialCard(
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                child: Consumer<SynchronizationStatusState>(
-                    builder: (context, synchronizationStatusState, child) {
-                  List<String> unsyncedTeiReferences =
-                      synchronizationStatusState.unsyncedTeiReferences;
-                  return EducationBeneficiaryCardHeader(
-                    svgIcon: educationBeneficiary.isMaleBeneficiary!
-                        ? maleSvgIcon
-                        : femaleSvgIcon,
-                    isSynced: _syncStatusOfLbseBeneficiary(
-                        educationBeneficiary, unsyncedTeiReferences),
-                    beneficiaryName: educationBeneficiary.toString(),
-                    canEdit:
-                        canEdit && educationBeneficiary.enrollmentOuAccessible!,
-                    canExpand: canExpand,
-                    canView: canView,
-                    isExpanded: isExpanded,
-                    onToggleCard: onCardToggle,
-                    onEdit: onEdit,
-                    onView: onView,
-                  );
-                }),
+        body: Column(
+          children: [
+            Consumer<SynchronizationStatusState>(
+                builder: (context, synchronizationStatusState, child) {
+              List<String> unsyncedTeiReferences =
+                  synchronizationStatusState.unsyncedTeiReferences;
+              return EducationBeneficiaryCardHeader(
+                svgIcon: educationBeneficiary.isMaleBeneficiary!
+                    ? maleSvgIcon
+                    : femaleSvgIcon,
+                isSynced: _syncStatusOfLbseBeneficiary(
+                    educationBeneficiary, unsyncedTeiReferences),
+                beneficiaryName: educationBeneficiary.toString(),
+                canEdit:
+                    canEdit && educationBeneficiary.enrollmentOuAccessible!,
+                canExpand: canExpand,
+                canView: canView,
+                isExpanded: isExpanded,
+                onToggleCard: onCardToggle,
+                onEdit: onEdit,
+                onView: onView,
+              );
+            }),
+            EducationBeneficiaryCardBody(
+              isVerticalLayout: isExpanded,
+              educationBeneficiary: educationBeneficiary,
+            ),
+            LineSeparator(
+              color: const Color(0xFF009688).withOpacity(0.1),
+            ),
+            Visibility(
+              visible: isBursaryClubVisible ||
+                  isBursarySchoolVisible ||
+                  isLbseLearningOutcomeVisible ||
+                  isLbseReferralVisible,
+              child: EducationBeneficiaryBottonAction(
+                isLbseLearningOutcomeVisible: isLbseLearningOutcomeVisible,
+                isLbseReferralVisible: isLbseReferralVisible,
+                isBursarySchoolVisible: isBursarySchoolVisible,
+                isBursaryClubVisible: isBursaryClubVisible,
+                onOpenLbseLearningOutcome: onOpenLbseLearningOutcome,
+                onOpenLbseReferral: onOpenLbseReferral,
+                onOpenBursarySchool: onOpenBursarySchool,
+                onOpenBursaryClub: onOpenBursaryClub,
               ),
-              EducationBeneficiaryCardBody(
-                isVerticalLayout: isExpanded,
-                educationBeneficiary: educationBeneficiary,
-              ),
-              LineSeparator(
-                color: Color(0xFF009688).withOpacity(0.1),
-              ),
-              Visibility(
-                visible: isBursaryClubVisible ||
-                    isBursarySchoolVisible ||
-                    isLbseLearningOutcomeVisible ||
-                    isLbseReferralVisible,
-                child: EducationBeneficiaryBottonAction(
-                  isLbseLearningOutcomeVisible: isLbseLearningOutcomeVisible,
-                  isLbseReferralVisible: isLbseReferralVisible,
-                  isBursarySchoolVisible: isBursarySchoolVisible,
-                  isBursaryClubVisible: isBursaryClubVisible,
-                  onOpenLbseLearningOutcome: onOpenLbseLearningOutcome,
-                  onOpenLbseReferral: onOpenLbseReferral,
-                  onOpenBursarySchool: onOpenBursarySchool,
-                  onOpenBursaryClub: onOpenBursaryClub,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

@@ -6,13 +6,13 @@ class AppLanguage {
   String? image;
 
   AppLanguage({
-    this.id,
-    this.name,
-    this.image,
+    required this.id,
+    required this.name,
+    required this.image,
     this.isDefault,
     this.translatedName,
   }) {
-    this.isDefault = this.isDefault ?? false;
+    isDefault = isDefault ?? false;
   }
 
   static List<AppLanguage> getSupportedLanguage() {

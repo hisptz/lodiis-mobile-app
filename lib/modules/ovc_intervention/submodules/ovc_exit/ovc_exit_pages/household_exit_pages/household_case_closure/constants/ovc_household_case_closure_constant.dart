@@ -1,4 +1,4 @@
 class OvcHouseholdCaseClosureConstant {
-  static final String program = 'BNsDaCclOiu';
-  static final String programStage = 'FMjrtxV9w82';
+  static const String program = 'BNsDaCclOiu';
+  static const String programStage = 'FMjrtxV9w82';
 }

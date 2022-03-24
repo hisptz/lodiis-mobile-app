@@ -13,14 +13,14 @@ class EducationLbseReferralForm {
       FormSection(
         id: 'lbse_referral',
         name: 'LBSE Referral',
-        color: Color(0xFF009688),
+        color: const Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'CoUEvTpNjvO',
             name: 'Case type',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: 'Economic',
@@ -44,8 +44,8 @@ class EducationLbseReferralForm {
             id: 'hpuu3TCZkKx',
             name: 'Referred to',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: 'Health faccility',
@@ -81,8 +81,8 @@ class EducationLbseReferralForm {
             id: 'OT97N8oZhpF',
             name: 'Description',
             valueType: 'LONG_TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
         ],
       ),

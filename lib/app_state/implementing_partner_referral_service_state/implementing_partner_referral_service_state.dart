@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/core/constants/default_implementing_partner_referr
 import 'package:kb_mobile_app/core/offline_db/implementing_partner_referral_services_offline/implementing_partner_referral_services_offline_provider.dart';
 
 class ImplementingPartnerReferralServiceState with ChangeNotifier {
-  Map<String, dynamic> _implementingPartnerReferralServices = {};
+  final Map<String, dynamic> _implementingPartnerReferralServices = {};
 
   Map<String, dynamic> get implementingPartnerServices =>
       _implementingPartnerReferralServices;

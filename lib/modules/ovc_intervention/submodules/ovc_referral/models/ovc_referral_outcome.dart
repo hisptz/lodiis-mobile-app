@@ -11,7 +11,7 @@ class OvcReferralOutCome {
     return [
       FormSection(
           name: 'Referral Outcome',
-          color: Color(0xFF1B3519),
+          color: const Color(0xFF1B3519),
           inputFields: [
             InputField(
               id: 'p7saxV2libq',
@@ -19,22 +19,22 @@ class OvcReferralOutCome {
               translatedName:
                   'Letsatsi, khoeli le selemo se mosebeletsuoa a fumanang ts’ebeletso',
               valueType: 'DATE',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
               valueType: 'DATE',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'Ep3atnNQGTY',
               name: 'Follow up required',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'DPf5mUDoZMy',
@@ -42,29 +42,29 @@ class OvcReferralOutCome {
               disablePastPeriod: true,
               name: 'Follow-up date',
               valueType: 'DATE',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'JyEhKJXJiTp',
               name: 'Referring Organisation/Officer contacted for Feedback',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'yGf4w48y1Jt',
               name: 'Date Contacted for Feedback',
               valueType: 'DATE',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
               valueType: 'LONG_TEXT',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
           ])
     ];

@@ -22,7 +22,7 @@ class ReservedAttributeValueService {
         expireReserveValueObjectIds.length -
         allReservedValues.length;
     if (numberToReserve > 0) {
-      expireReserveValueObjectIds.length > 0
+      expireReserveValueObjectIds.isNotEmpty
           ? await deleteExpireReservedAttributeValues(
               expireReserveValueObjectIds)
           : await null;
@@ -33,7 +33,7 @@ class ReservedAttributeValueService {
   }
 
   Future getReservedAttributeValuesFromTheServer(int numberToReserve) async {
-    final String attribute = BeneficiaryIdentification.beneficiaryIndex;
+    const String attribute = BeneficiaryIdentification.beneficiaryIndex;
     String url = 'api/trackedEntityAttributes/$attribute/generateAndReserve';
     var queryParameters = {
       "numberToReserve": "$numberToReserve",
@@ -51,7 +51,9 @@ class ReservedAttributeValueService {
           reservedValues.add(ReservedAttributeValue.fromJson(reserveValue));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return reservedValues;
   }
 
@@ -65,7 +67,7 @@ class ReservedAttributeValueService {
     List<ReservedAttributeValue> reservedAttributeValues =
         await ReserveAttributeValueOfflineProvider()
             .getReserveAttributeValues();
-    return reservedAttributeValues.length > 0
+    return reservedAttributeValues.isNotEmpty
         ? reservedAttributeValues[0].value
         : null;
   }

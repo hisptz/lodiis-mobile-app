@@ -5,9 +5,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class EducationBursaryAttendanceSKipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -39,7 +39,7 @@ class EducationBursaryAttendanceSKipLogic {
 
       // for referred services
       if (inputFieldId == 'EokvDGvXkOk') {
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         if (value == 'self health ' ||
             value == 'Caregiver health' ||
             value == 'sibling health') {
@@ -109,9 +109,8 @@ class EducationBursaryAttendanceSKipLogic {
 
       // for referred organisation
       if (inputFieldId == 'hpuu3TCZkKx') {
-        String reason = '${dataObject['EokvDGvXkOk']}';
         String referral = '${dataObject['KzIw7RMGZ9c']}';
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         if (referral == 'health services') {
           hiddenOptions['WLSA'] = true;
           hiddenOptions['Police'] = true;

@@ -22,7 +22,7 @@ class EducationLbseReferralBody extends StatelessWidget {
     String? value,
   }) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
       ),
       child: Row(
@@ -31,7 +31,7 @@ class EducationLbseReferralBody extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: labelColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
@@ -41,7 +41,7 @@ class EducationLbseReferralBody extends StatelessWidget {
           Expanded(
             child: Text(
               value!,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: valueColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
@@ -55,64 +55,60 @@ class EducationLbseReferralBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-          builder: (context, languageTranslationState, child) {
-        String? currentLanguage = languageTranslationState.currentLanguage;
-        return Column(
-          children: [
-            Container(
-              child: LineSeparator(
-                color: Color(0xFF009688).withOpacity(0.2),
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String? currentLanguage = languageTranslationState.currentLanguage;
+      return Column(
+        children: [
+          LineSeparator(
+            color: const Color(0xFF009688).withOpacity(0.2),
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+              top: 10.0,
+            ),
+            child: Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+              ),
+              child: Column(
+                children: [
+                  _getReferralDetailData(
+                    labelColor: labelColor,
+                    valueColor: valueColor,
+                    label: currentLanguage == 'lesotho' ? 'Date' : 'Date',
+                    value: lbseReferral.date,
+                  ),
+                  _getReferralDetailData(
+                    labelColor: labelColor,
+                    valueColor: valueColor,
+                    label: currentLanguage == 'lesotho'
+                        ? 'Case Type'
+                        : 'Case Type',
+                    value: lbseReferral.casetType,
+                  ),
+                  _getReferralDetailData(
+                    labelColor: labelColor,
+                    valueColor: valueColor,
+                    label: currentLanguage == 'lesotho'
+                        ? 'Referred To'
+                        : 'Referred To',
+                    value: lbseReferral.referralTo,
+                  ),
+                  _getReferralDetailData(
+                    labelColor: labelColor,
+                    valueColor: valueColor,
+                    label: currentLanguage == 'lesotho'
+                        ? 'Description'
+                        : 'Description',
+                    value: lbseReferral.description,
+                  ),
+                ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(
-                top: 10.0,
-              ),
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                ),
-                child: Column(
-                  children: [
-                    _getReferralDetailData(
-                      labelColor: labelColor,
-                      valueColor: valueColor,
-                      label: currentLanguage == 'lesotho' ? 'Date' : 'Date',
-                      value: lbseReferral.date,
-                    ),
-                    _getReferralDetailData(
-                      labelColor: labelColor,
-                      valueColor: valueColor,
-                      label: currentLanguage == 'lesotho'
-                          ? 'Case Type'
-                          : 'Case Type',
-                      value: lbseReferral.casetType,
-                    ),
-                    _getReferralDetailData(
-                      labelColor: labelColor,
-                      valueColor: valueColor,
-                      label: currentLanguage == 'lesotho'
-                          ? 'Referred To'
-                          : 'Referred To',
-                      value: lbseReferral.referralTo,
-                    ),
-                    _getReferralDetailData(
-                      labelColor: labelColor,
-                      valueColor: valueColor,
-                      label: currentLanguage == 'lesotho'
-                          ? 'Description'
-                          : 'Description',
-                      value: lbseReferral.description,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      }),
-    );
+          ),
+        ],
+      );
+    });
   }
 }

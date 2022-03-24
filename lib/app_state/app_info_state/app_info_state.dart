@@ -21,7 +21,7 @@ class AppInfoState with ChangeNotifier {
   String get currentAppVersion => _currentAppVersion ?? '';
   String get currentAppId => _currentAppId ?? '';
   NewVersion get newVersion => _newVersion;
-  VersionStatus? get versionStatus => _versionStatus ?? null;
+  VersionStatus? get versionStatus => _versionStatus;
 
   Future<void> setCurrentAppInfo() async {
     _currentAppId = AppInfoReference.androidId;
@@ -40,11 +40,13 @@ class AppInfoState with ChangeNotifier {
         storeVersion: status.storeVersion,
         localVersion: status.localVersion,
       );
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
     notifyListeners();
   }
 
-  void updateAppUpdateState({storeVersion: String, localVersion: String}) {
+  void updateAppUpdateState({storeVersion, localVersion}) {
     AppSemanticVersion storeSemanticVersion =
         AppUtil.getSemanticVersionValue(version: storeVersion);
     AppSemanticVersion localSemanticVersion =

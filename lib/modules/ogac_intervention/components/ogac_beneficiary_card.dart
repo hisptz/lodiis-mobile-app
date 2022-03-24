@@ -21,30 +21,26 @@ class OgacBeneficiaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 20.0;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 15.0,
       ),
       child: MaterialCard(
-        body: Container(
-          child: Column(
-            children: [
-              OgacBeneficiaryCardTop(
-                ogacBeneficiary: ogacBeneficiary,
-                onViewBeneficiary: onViewBeneficiary,
-                iconHeight: iconHeight,
-                onEditBeneficiary: onEditBeneficiary,
-              ),
-              Container(
-                child: LineSeparator(
-                  color: Color(0xFFF05A2A).withOpacity(0.4),
-                ),
-              ),
-              OgacBeneficiaryCardBody(
-                ogacBeneficiary: ogacBeneficiary,
-              )
-            ],
-          ),
+        body: Column(
+          children: [
+            OgacBeneficiaryCardTop(
+              ogacBeneficiary: ogacBeneficiary,
+              onViewBeneficiary: onViewBeneficiary,
+              iconHeight: iconHeight,
+              onEditBeneficiary: onEditBeneficiary,
+            ),
+            LineSeparator(
+              color: const Color(0xFFF05A2A).withOpacity(0.4),
+            ),
+            OgacBeneficiaryCardBody(
+              ogacBeneficiary: ogacBeneficiary,
+            )
+          ],
         ),
       ),
     );

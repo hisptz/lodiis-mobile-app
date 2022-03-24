@@ -39,7 +39,7 @@ class ReferralOutcomeModal extends StatefulWidget {
 class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   bool isFormReady = false;
   bool isSaving = false;
-  Map referralOutcomeMandatoryFieldsObject = Map();
+  Map referralOutcomeMandatoryFieldsObject = {};
   List unFilledMandatoryFields = [];
 
   @override
@@ -50,14 +50,14 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
       referralOutcomeMandatoryFieldsObject[id] = true;
     }
     evaluateSkipLogics();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {});
     });
   }
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -113,7 +113,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
               skippedFields: ['phoneNumber', 'village']);
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(eventData.trackedEntityInstance);
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             setState(() {
               isSaving = false;
               String? currentLanguage =
@@ -129,7 +129,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
             });
           });
         } catch (e) {
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             setState(() {
               isSaving = false;
               AppUtil.showToastMessage(
@@ -170,60 +170,58 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       child: Consumer<ServiceFormState>(
         builder: (context, serviceFormState, child) {
-          return Container(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(
-                    top: 10.0,
-                    left: 13.0,
-                    right: 13.0,
-                  ),
-                  child: EntryFormContainer(
-                    hiddenSections: serviceFormState.hiddenSections,
-                    hiddenFields: serviceFormState.hiddenFields,
-                    elevation: 0.0,
-                    formSections: widget.referralOutcomeFormSections,
-                    mandatoryFieldObject: referralOutcomeMandatoryFieldsObject,
-                    unFilledMandatoryFields: unFilledMandatoryFields,
-                    dataObject: serviceFormState.formState,
-                    isEditableMode: serviceFormState.isEditableMode,
-                    onInputValueChange: onInputValueChange,
-                  ),
+          return Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 10.0,
+                  left: 13.0,
+                  right: 13.0,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: widget.themeColor,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextButton(
-                          onPressed: () => isSaving
-                              ? null
-                              : this.onSaveForm(
-                                  context,
-                                  serviceFormState.formState,
-                                  widget.eventData,
-                                ),
-                          child: Text(
-                            isSaving ? 'SAVING OUTCOME ...' : 'SAVE OUTCOME',
-                            style: TextStyle().copyWith(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFFFAFAFA),
-                            ),
+                child: EntryFormContainer(
+                  hiddenSections: serviceFormState.hiddenSections,
+                  hiddenFields: serviceFormState.hiddenFields,
+                  elevation: 0.0,
+                  formSections: widget.referralOutcomeFormSections,
+                  mandatoryFieldObject: referralOutcomeMandatoryFieldsObject,
+                  unFilledMandatoryFields: unFilledMandatoryFields,
+                  dataObject: serviceFormState.formState,
+                  isEditableMode: serviceFormState.isEditableMode,
+                  onInputValueChange: onInputValueChange,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.themeColor,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => isSaving
+                            ? null
+                            : onSaveForm(
+                                context,
+                                serviceFormState.formState,
+                                widget.eventData,
+                              ),
+                        child: Text(
+                          isSaving ? 'SAVING OUTCOME ...' : 'SAVE OUTCOME',
+                          style: const TextStyle().copyWith(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFFFAFAFA),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
           );
         },
       ),

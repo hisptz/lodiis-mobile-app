@@ -27,7 +27,7 @@ class TrackedEntityInstanceUtil {
       formSections,
     );
     inputFieldIds.addAll(hiddenFields ?? []);
-    inputFieldIds.removeWhere((field) => skippedFields!.indexOf(field) > -1);
+    inputFieldIds.removeWhere((field) => skippedFields!.contains(field));
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
@@ -47,8 +47,7 @@ class TrackedEntityInstanceUtil {
       }
     }
 
-    eventId =
-        eventId == null ? dataObject!['eventId'] ?? AppUtil.getUid() : eventId;
+    eventId = eventId ?? dataObject!['eventId'] ?? AppUtil.getUid();
     dataObject!.remove('eventId');
     dataObject.remove('eventDate');
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
@@ -69,7 +68,9 @@ class TrackedEntityInstanceUtil {
         trackedEntityInstanceIds,
         accessibleOrgUnits: accessibleOrgUnits,
       );
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return events.reversed.toList();
   }
 
@@ -84,7 +85,9 @@ class TrackedEntityInstanceUtil {
       try {
         var data = eventListByProgramStage[programStageId] ?? [];
         events.addAll(data);
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
     }
     return shouldSortByDate ? events.reversed.toList() : events.toList();
   }
@@ -98,13 +101,15 @@ class TrackedEntityInstanceUtil {
       try {
         var data = eventListByProgramStage[programStageId] ?? [];
         events.addAll(data);
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
     }
     return events.reversed.toList();
   }
 
   static Map getGroupedEventByDates(List<Events> events) {
-    Map groupedEvents = Map();
+    Map groupedEvents = {};
     List<String?> eventDates = events
         .map((event) => event.eventDate)
         .toSet()
@@ -138,7 +143,9 @@ class TrackedEntityInstanceUtil {
           .where((value) => value.trim() != '')
           .toList();
       searchableValue = searchableAttributes.join(' ');
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     return searchableValue.toLowerCase();
   }

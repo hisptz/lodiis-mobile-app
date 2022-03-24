@@ -43,7 +43,7 @@ class _PpPrevInterventionServiceProvisionFormState
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
-  Map mandatoryFieldObject = Map();
+  Map mandatoryFieldObject = {};
   List<String> mandatoryFields = [];
   List unFilledMandatoryFields = [];
 
@@ -51,7 +51,7 @@ class _PpPrevInterventionServiceProvisionFormState
   void initState() {
     super.initState();
     setFormSections();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -95,7 +95,7 @@ class _PpPrevInterventionServiceProvisionFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -146,7 +146,7 @@ class _PpPrevInterventionServiceProvisionFormState
           );
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(ppPrevBeneficiary.id);
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             setState(() {
               String? currentLanguage =
                   Provider.of<LanguageTranslationState>(context, listen: false)
@@ -166,7 +166,7 @@ class _PpPrevInterventionServiceProvisionFormState
             });
           });
         } catch (e) {
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             setState(() {
               AppUtil.showToastMessage(
                   message: e.toString(), position: ToastGravity.BOTTOM);
@@ -228,7 +228,7 @@ class _PpPrevInterventionServiceProvisionFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -241,91 +241,81 @@ class _PpPrevInterventionServiceProvisionFormState
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-                builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<PpPrevInterventionCurrentSelectionState>(
-                builder:
-                    (context, ppPrevInterventionCurrentSelectionState, child) {
-                  return Consumer<ServiceFormState>(
-                    builder: (context, serviceFormState, child) {
-                      PpPrevBeneficiary? ppPrevBeneficiary =
-                          ppPrevInterventionCurrentSelectionState.currentPpPrev;
-                      return Container(
-                        child: Column(
-                          children: [
-                            PpPrevBeneficiaryTopHeader(
-                              ppPrevBeneficiary: ppPrevBeneficiary!,
-                            ),
-                            Container(
-                              child: !isFormReady
-                                  ? Container(
-                                      child: CircularProcessLoader(
-                                        color: Colors.blueGrey,
+          body: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<PpPrevInterventionCurrentSelectionState>(
+              builder:
+                  (context, ppPrevInterventionCurrentSelectionState, child) {
+                return Consumer<ServiceFormState>(
+                  builder: (context, serviceFormState, child) {
+                    PpPrevBeneficiary? ppPrevBeneficiary =
+                        ppPrevInterventionCurrentSelectionState.currentPpPrev;
+                    return Column(
+                      children: [
+                        PpPrevBeneficiaryTopHeader(
+                          ppPrevBeneficiary: ppPrevBeneficiary!,
+                        ),
+                        Container(
+                          child: !isFormReady
+                              ? const CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        top: 10.0,
+                                        left: 13.0,
+                                        right: 13.0,
+                                      ),
+                                      child: EntryFormContainer(
+                                        hiddenFields:
+                                            serviceFormState.hiddenFields,
+                                        hiddenInputFieldOptions:
+                                            serviceFormState
+                                                .hiddenInputFieldOptions,
+                                        hiddenSections:
+                                            serviceFormState.hiddenSections,
+                                        formSections: formSections,
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
+                                        isEditableMode:
+                                            serviceFormState.isEditableMode,
+                                        dataObject: serviceFormState.formState,
+                                        onInputValueChange: onInputValueChange,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: serviceFormState.isEditableMode,
+                                      child: EntryFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: const Color(0xFF9B2BAE),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          ppPrevBeneficiary,
+                                        ),
                                       ),
                                     )
-                                  : Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            top: 10.0,
-                                            left: 13.0,
-                                            right: 13.0,
-                                          ),
-                                          child: EntryFormContainer(
-                                            hiddenFields:
-                                                serviceFormState.hiddenFields,
-                                            hiddenInputFieldOptions:
-                                                serviceFormState
-                                                    .hiddenInputFieldOptions,
-                                            hiddenSections:
-                                                serviceFormState.hiddenSections,
-                                            formSections: formSections,
-                                            mandatoryFieldObject:
-                                                mandatoryFieldObject,
-                                            unFilledMandatoryFields:
-                                                unFilledMandatoryFields,
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            dataObject:
-                                                serviceFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              serviceFormState.isEditableMode,
-                                          child: EntryFormSaveButton(
-                                            label: isSaving
-                                                ? 'Saving ...'
-                                                : currentLanguage == 'lesotho'
-                                                    ? 'Boloka'
-                                                    : 'Save',
-                                            labelColor: Colors.white,
-                                            buttonColor: Color(0xFF9B2BAE),
-                                            fontSize: 15.0,
-                                            onPressButton: () => onSaveForm(
-                                              context,
-                                              serviceFormState.formState,
-                                              ppPrevBeneficiary,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                            ),
-                          ],
+                                  ],
+                                ),
                         ),
-                      );
-                    },
-                  );
-                },
-              );
-            }),
-          ),
+                      ],
+                    );
+                  },
+                );
+              },
+            );
+          }),
         ),
       ),
     );

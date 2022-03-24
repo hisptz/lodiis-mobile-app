@@ -32,7 +32,7 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 25;
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 16.0,
         right: 13.0,
         left: 13.0,
@@ -44,193 +44,188 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
 
           final Color labelColor = currentIntervention.countColor!;
           final Color lineSeparatorColor = currentIntervention.countLabelColor!;
-          final Color valueColor = const Color(0xFF444E54);
+          const Color valueColor = Color(0xFF444E54);
 
-          return Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Visibility(
-                        visible: true,
-                        child: Expanded(
-                          flex: 1,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Visibility(
+                      visible: true,
+                      child: Expanded(
+                        flex: 1,
+                        child: SizedBox(
+                          height: 20.0,
+                          width: 20.0,
+                          child: SvgPicture.asset(
+                            beneficiary.isMaleBeneficiary!
+                                ? maleSvgIcon
+                                : femaleSvgIcon,
+                            color: currentIntervention.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: true,
+                      child: Expanded(
+                        flex: 10,
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Text(
+                            '${beneficiary.firstname} ${beneficiary.surname}',
+                            style: const TextStyle().copyWith(
+                                color: const Color(0xFF05131B),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Consumer<SynchronizationStatusState>(
+                        builder: (context, synchronizationStatusState, child) {
+                      List<String> unsyncedTeiReferences =
+                          synchronizationStatusState.unsyncedTeiReferences;
+                      bool isUnsynced =
+                          unsyncedTeiReferences.contains(beneficiary.event);
+                      return BeneficiarySyncStatusIndicator(
+                        isSynced: !isUnsynced,
+                      );
+                    }),
+                    Visibility(
+                      visible: canView,
+                      child: Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () => onViewBeneficiary?.call(),
                           child: Container(
-                            child: Container(
-                              height: 20.0,
-                              width: 20.0,
-                              child: SvgPicture.asset(
-                                beneficiary.isMaleBeneficiary!
-                                    ? maleSvgIcon
-                                    : femaleSvgIcon,
-                                color: currentIntervention.primaryColor,
-                              ),
+                            height: iconHeight,
+                            width: iconHeight,
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                              horizontal: 5.0,
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/icons/expand_icon.svg',
+                              color: currentIntervention.primaryColor,
                             ),
                           ),
                         ),
                       ),
-                      Visibility(
-                        visible: true,
-                        child: Expanded(
-                          flex: 10,
+                    ),
+                    Visibility(
+                      visible: canEdit && beneficiary.enrollmentOuAccessible!,
+                      child: Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () => onEditBeneficiary?.call(),
                           child: Container(
-                            padding: EdgeInsets.only(left: 5.0),
-                            child: Text(
-                              '${beneficiary.firstname} ${beneficiary.surname}',
-                              style: TextStyle().copyWith(
-                                  color: Color(0xFF05131B),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold),
+                            height: iconHeight,
+                            width: iconHeight,
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                              horizontal: 5.0,
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/icons/edit-icon.svg',
+                              color: currentIntervention.primaryColor,
                             ),
                           ),
                         ),
                       ),
-                      Consumer<SynchronizationStatusState>(builder:
-                          (context, synchronizationStatusState, child) {
-                        List<String> unsyncedTeiReferences =
-                            synchronizationStatusState.unsyncedTeiReferences;
-                        bool isUnsynced =
-                            unsyncedTeiReferences.contains(beneficiary.event);
-                        return BeneficiarySyncStatusIndicator(
-                          isSynced: !isUnsynced,
-                        );
-                      }),
-                      Visibility(
-                        visible: canView,
-                        child: Expanded(
-                          flex: 1,
-                          child: InkWell(
-                            onTap: () => onViewBeneficiary?.call(),
-                            child: Container(
-                              height: iconHeight,
-                              width: iconHeight,
-                              margin: EdgeInsets.symmetric(
-                                vertical: 5.0,
-                                horizontal: 5.0,
-                              ),
-                              child: SvgPicture.asset(
-                                'assets/icons/expand_icon.svg',
-                                color: currentIntervention.primaryColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: canEdit && beneficiary.enrollmentOuAccessible!,
-                        child: Expanded(
-                          flex: 1,
-                          child: InkWell(
-                            onTap: () => onEditBeneficiary?.call(),
-                            child: Container(
-                              height: iconHeight,
-                              width: iconHeight,
-                              margin: EdgeInsets.symmetric(
-                                vertical: 5.0,
-                                horizontal: 5.0,
-                              ),
-                              child: SvgPicture.asset(
-                                'assets/icons/edit-icon.svg',
-                                color: currentIntervention.primaryColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                LineSeparator(
-                  color: lineSeparatorColor,
-                ),
-                Consumer<LanguageTranslationState>(
-                  builder: (context, languageTranslationState, child) {
-                    String? currentLanguage =
-                        languageTranslationState.currentLanguage;
-                    return Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 13.0,
-                        vertical: 20.0,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Wrap(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Table(
-                                      children: [
-                                        TableRow(
-                                          children: [
-                                            TableCell(
-                                              child: Row(
-                                                children: [
-                                                  _getRowCardData(
-                                                    labelColor: labelColor,
-                                                    valueColor: valueColor,
-                                                    label: currentLanguage ==
-                                                            'lesotho'
-                                                        ? 'Lilemo'
-                                                        : 'Age',
-                                                    value: beneficiary.age
-                                                        .toString(),
-                                                  ),
-                                                ],
-                                              ),
+              ),
+              LineSeparator(
+                color: lineSeparatorColor,
+              ),
+              Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+                  String? currentLanguage =
+                      languageTranslationState.currentLanguage;
+                  return Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 13.0,
+                      vertical: 20.0,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Table(
+                                    children: [
+                                      TableRow(
+                                        children: [
+                                          TableCell(
+                                            child: Row(
+                                              children: [
+                                                _getRowCardData(
+                                                  labelColor: labelColor,
+                                                  valueColor: valueColor,
+                                                  label: currentLanguage ==
+                                                          'lesotho'
+                                                      ? 'Lilemo'
+                                                      : 'Age',
+                                                  value: beneficiary.age
+                                                      .toString(),
+                                                ),
+                                              ],
                                             ),
-                                            TableCell(
-                                              child: Row(
-                                                children: [
-                                                  _getRowCardData(
-                                                    labelColor: labelColor,
-                                                    valueColor: valueColor,
-                                                    label: currentLanguage ==
-                                                            'lesotho'
-                                                        ? 'Boleng'
-                                                        : 'Sex',
-                                                    value: beneficiary.sex,
-                                                  ),
-                                                ],
-                                              ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              children: [
+                                                _getRowCardData(
+                                                  labelColor: labelColor,
+                                                  valueColor: valueColor,
+                                                  label: currentLanguage ==
+                                                          'lesotho'
+                                                      ? 'Boleng'
+                                                      : 'Sex',
+                                                  value: beneficiary.sex,
+                                                ),
+                                              ],
                                             ),
-                                            TableCell(
-                                              child: Row(
-                                                children: [
-                                                  _getRowCardData(
-                                                    labelColor: labelColor,
-                                                    valueColor: valueColor,
-                                                    label: 'Phone #',
-                                                    value:
-                                                        beneficiary.phoneNumber,
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              children: [
+                                                _getRowCardData(
+                                                  labelColor: labelColor,
+                                                  valueColor: valueColor,
+                                                  label: 'Phone #',
+                                                  value:
+                                                      beneficiary.phoneNumber,
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              )
+            ],
           );
         },
       )),
@@ -244,26 +239,24 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
     required String? value,
   }) {
     return Expanded(
-      child: Container(
-        child: RichText(
-          text: TextSpan(
-            text: '$label: ',
-            style: TextStyle().copyWith(
-              color: labelColor,
-              fontSize: 14.0,
-              fontWeight: FontWeight.w500,
-            ),
-            children: [
-              TextSpan(
-                text: value,
-                style: TextStyle().copyWith(
-                  color: valueColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
+      child: RichText(
+        text: TextSpan(
+          text: '$label: ',
+          style: const TextStyle().copyWith(
+            color: labelColor,
+            fontSize: 14.0,
+            fontWeight: FontWeight.w500,
           ),
+          children: [
+            TextSpan(
+              text: value,
+              style: const TextStyle().copyWith(
+                color: valueColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
         ),
       ),
     );

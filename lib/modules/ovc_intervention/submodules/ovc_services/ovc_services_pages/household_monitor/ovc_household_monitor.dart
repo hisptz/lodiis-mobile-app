@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -20,7 +20,14 @@ import 'package:provider/provider.dart';
 import 'components/monitor_list_container.dart';
 import 'constants/ovc_household_monitor_constant.dart';
 
-class OvcHouseholdMonitor extends StatelessWidget {
+class OvcHouseholdMonitor extends StatefulWidget {
+  const OvcHouseholdMonitor({Key? key}) : super(key: key);
+
+  @override
+  State<OvcHouseholdMonitor> createState() => _OvcHouseholdMonitorState();
+}
+
+class _OvcHouseholdMonitorState extends State<OvcHouseholdMonitor> {
   final String label = 'Household Monitor';
   final List<String> programStageIds = [
     OvcHouseholdMonitorConstant.programStage
@@ -29,7 +36,6 @@ class OvcHouseholdMonitor extends StatelessWidget {
   final List<String> casePlanProgramStageIds = [
     OvcHouseholdCasePlanConstant.casePlanProgramStage
   ];
-
   updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -40,24 +46,20 @@ class OvcHouseholdMonitor extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     Map? sanitizedDataObject;
-    if (casePlanEvents != null) {
-      List<Events> casePlanGapsEvents = eventListByProgramStage[
-              OvcHouseholdCasePlanConstant.casePlanGapProgramStage] ??
-          [];
-      sanitizedDataObject =
-          OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
-        casePlanEvents,
-        casePlanGapsEvents,
-      );
-    }
+    List<Events> casePlanGapsEvents = eventListByProgramStage[
+            OvcHouseholdCasePlanConstant.casePlanGapProgramStage] ??
+        [];
+    sanitizedDataObject = OvcCasePlanConstant.getMappedCasePlanWithGapsByDomain(
+      casePlanEvents,
+      casePlanGapsEvents,
+    );
     for (FormSection formSection
         in HouseholdServicesOngoingMonitoring.getFormSections()) {
       String? formSectionId = formSection.id;
       String casePlanToGapLinkage = AppUtil.getUid();
-      Map map = sanitizedDataObject != null &&
-              sanitizedDataObject.containsKey(formSectionId)
+      Map map = sanitizedDataObject.containsKey(formSectionId)
           ? sanitizedDataObject[formSectionId]
-          : Map();
+          : {};
       map['gaps'] = map['gaps'] ?? [];
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
@@ -96,7 +98,7 @@ class OvcHouseholdMonitor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -109,57 +111,46 @@ class OvcHouseholdMonitor extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<OvcHouseholdCurrentSelectionState>(
-              builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                var currentOvcHousehold =
-                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                return Container(
-                  child: Column(
-                    children: [
-                      OvcHouseholdInfoTopHeader(
-                        currentOvcHousehold: currentOvcHousehold,
-                      ),
-                      Container(
-                        child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                            bool isLoading = serviceEventDataState.isLoading;
-                            Map<String?, List<Events>> eventListByProgramStage =
-                                serviceEventDataState.eventListByProgramStage;
-                            return isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        MonitoringHomeListContainer(
-                                          programStageIds:
-                                              casePlanProgramStageIds,
-                                          onViewCasePlan: (casePlanEvents) =>
-                                              onViewCasePlan(
-                                            context,
-                                            casePlanEvents,
-                                            eventListByProgramStage,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                          },
-                        ),
-                      )
-                    ],
+          body: Consumer<OvcHouseholdCurrentSelectionState>(
+            builder: (context, ovcHouseholdCurrentSelectionState, child) {
+              var currentOvcHousehold =
+                  ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+              return Column(
+                children: [
+                  OvcHouseholdInfoTopHeader(
+                    currentOvcHousehold: currentOvcHousehold,
                   ),
-                );
-              },
-            ),
+                  Consumer<ServiceEventDataState>(
+                    builder: (context, serviceEventDataState, child) {
+                      bool isLoading = serviceEventDataState.isLoading;
+                      Map<String?, List<Events>> eventListByProgramStage =
+                          serviceEventDataState.eventListByProgramStage;
+                      return isLoading
+                          ? const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                MonitoringHomeListContainer(
+                                  programStageIds: casePlanProgramStageIds,
+                                  onViewCasePlan: (casePlanEvents) =>
+                                      onViewCasePlan(
+                                    context,
+                                    casePlanEvents,
+                                    eventListByProgramStage,
+                                  ),
+                                ),
+                              ],
+                            );
+                    },
+                  )
+                ],
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
   }
 }

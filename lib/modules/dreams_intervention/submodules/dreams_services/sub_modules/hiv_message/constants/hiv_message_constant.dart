@@ -1,4 +1,4 @@
 class HIVMessageConstant {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'PGFt6IwdZLM';
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'PGFt6IwdZLM';
 }

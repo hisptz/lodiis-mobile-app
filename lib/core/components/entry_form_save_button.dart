@@ -44,7 +44,7 @@ class EntryFormSaveButton extends StatelessWidget {
         left: marginLeft,
         right: marginRight,
       ),
-      child: Container(
+      child: SizedBox(
         width: width,
         child: TextButton(
           style: TextButton.styleFrom(
@@ -58,7 +58,7 @@ class EntryFormSaveButton extends StatelessWidget {
           ),
           onPressed: onPressButton as void Function()?,
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(20.0),
               ),
@@ -77,7 +77,7 @@ class EntryFormSaveButton extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(label,
-                                  style: TextStyle().copyWith(
+                                  style: const TextStyle().copyWith(
                                     color: labelColor,
                                     fontSize: fontSize,
                                     fontWeight: FontWeight.w700,
@@ -85,7 +85,7 @@ class EntryFormSaveButton extends StatelessWidget {
                               Container(
                                 height: svgIconHeight,
                                 width: svgIconWidth,
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                   horizontal: 5.0,
                                 ),
                                 child: SvgPicture.asset(
@@ -97,7 +97,7 @@ class EntryFormSaveButton extends StatelessWidget {
                           )
                         : Text(
                             label,
-                            style: TextStyle().copyWith(
+                            style: const TextStyle().copyWith(
                               color: labelColor,
                               fontSize: fontSize,
                               fontWeight: FontWeight.w700,

@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'dart:convert';
 
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_config.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -120,21 +120,19 @@ class BeneficiaryFilter {
                       interventionBottomNavigation,
                       implementingPartnerInput.id);
 
-                  return Container(
-                    child: SelectInputField(
-                      hiddenInputFieldOptions: Map(),
-                      selectedOption: implementingPartner,
-                      isReadOnly: false,
-                      currentLanguage: languageTranslationState.currentLanguage,
-                      color: currentInterventionProgram.primaryColor,
-                      renderAsRadio: implementingPartnerInput.renderAsRadio,
-                      onInputValueChange: (dynamic value) => onUpdateFilter(
-                          context,
-                          currentInterventionProgram,
-                          implementingPartnerInput.id,
-                          value),
-                      options: implementingPartnerInput.options,
-                    ),
+                  return SelectInputField(
+                    hiddenInputFieldOptions: const {},
+                    selectedOption: implementingPartner,
+                    isReadOnly: false,
+                    currentLanguage: languageTranslationState.currentLanguage,
+                    color: currentInterventionProgram.primaryColor,
+                    renderAsRadio: implementingPartnerInput.renderAsRadio,
+                    onInputValueChange: (dynamic value) => onUpdateFilter(
+                        context,
+                        currentInterventionProgram,
+                        implementingPartnerInput.id,
+                        value),
+                    options: implementingPartnerInput.options,
                   );
                 }),
                 LineSeparator(
@@ -232,21 +230,19 @@ class BeneficiaryFilter {
                             fontSize: 13.0,
                             fontWeight: FontWeight.normal,
                           ))),
-                  Container(
-                    child: SelectInputField(
-                      hiddenInputFieldOptions: Map(),
-                      selectedOption: grade,
-                      isReadOnly: false,
-                      currentLanguage: languageTranslationState.currentLanguage,
-                      color: currentInterventionProgram.primaryColor,
-                      renderAsRadio: gradeInput.renderAsRadio,
-                      onInputValueChange: (dynamic value) => onUpdateFilter(
-                          context,
-                          currentInterventionProgram,
-                          gradeInput.id,
-                          value),
-                      options: gradeInput.options,
-                    ),
+                  SelectInputField(
+                    hiddenInputFieldOptions: const {},
+                    selectedOption: grade,
+                    isReadOnly: false,
+                    currentLanguage: languageTranslationState.currentLanguage,
+                    color: currentInterventionProgram.primaryColor,
+                    renderAsRadio: gradeInput.renderAsRadio,
+                    onInputValueChange: (dynamic value) => onUpdateFilter(
+                        context,
+                        currentInterventionProgram,
+                        gradeInput.id,
+                        value),
+                    options: gradeInput.options,
                   ),
                   LineSeparator(
                       color: currentInterventionProgram.primaryColor!
@@ -302,18 +298,16 @@ class BeneficiaryFilter {
                     currentIntervention);
             String sex = getFilterValue(context, currentIntervention,
                 interventionBottomNavigation, sexInput.id);
-            return Container(
-              child: SelectInputField(
-                hiddenInputFieldOptions: Map(),
-                selectedOption: sex,
-                isReadOnly: false,
-                currentLanguage: languageTranslationState.currentLanguage,
-                color: currentInterventionProgram.primaryColor,
-                renderAsRadio: sexInput.renderAsRadio,
-                onInputValueChange: (dynamic value) => onUpdateFilter(
-                    context, currentInterventionProgram, sexInput.id, value),
-                options: sexInput.options,
-              ),
+            return SelectInputField(
+              hiddenInputFieldOptions: const {},
+              selectedOption: sex,
+              isReadOnly: false,
+              currentLanguage: languageTranslationState.currentLanguage,
+              color: currentInterventionProgram.primaryColor,
+              renderAsRadio: sexInput.renderAsRadio,
+              onInputValueChange: (dynamic value) => onUpdateFilter(
+                  context, currentInterventionProgram, sexInput.id, value),
+              options: sexInput.options,
             );
           }),
           LineSeparator(
@@ -342,22 +336,19 @@ class BeneficiaryFilter {
                     currentIntervention);
             String school = getFilterValue(context, currentIntervention,
                 interventionBottomNavigation, schoolInput.id);
-            Map dataObject = {"${schoolInput.id}": school};
-            return Container(
-              child: InputFieldContainer(
-                currentUserCountryLevelReferences: [],
-                hiddenFields: Map(),
-                inputField: schoolInput,
-                hiddenInputFieldOptions: Map(),
-                currentLanguage: languageTranslationState.currentLanguage,
-                isEditableMode: true,
-                showClearIcon: false,
-                mandatoryFieldObject: Map(),
-                dataObject: dataObject,
-                onInputValueChange: (String id, dynamic value) =>
-                    onUpdateFilter(
-                        context, currentIntervention, schoolInput.id, value),
-              ),
+            Map dataObject = {schoolInput.id: school};
+            return InputFieldContainer(
+              currentUserCountryLevelReferences: const [],
+              hiddenFields: const {},
+              inputField: schoolInput,
+              hiddenInputFieldOptions: const {},
+              currentLanguage: languageTranslationState.currentLanguage,
+              isEditableMode: true,
+              showClearIcon: false,
+              mandatoryFieldObject: const {},
+              dataObject: dataObject,
+              onInputValueChange: (String id, dynamic value) => onUpdateFilter(
+                  context, currentIntervention, schoolInput.id, value),
             );
           }),
         ]);
@@ -384,17 +375,18 @@ class BeneficiaryFilter {
                     currentIntervention);
             String age = getFilterValue(context, currentIntervention,
                 interventionBottomNavigation, ageInput.id);
-            Map dataObject = {"${ageInput.id}": age};
+            Map dataObject = {ageInput.id: age};
+            // ignore: avoid_unnecessary_containers
             return Container(
               child: InputFieldContainer(
-                currentUserCountryLevelReferences: [],
-                hiddenFields: Map(),
+                currentUserCountryLevelReferences: const [],
+                hiddenFields: const {},
                 inputField: ageInput,
-                hiddenInputFieldOptions: Map(),
+                hiddenInputFieldOptions: const {},
                 currentLanguage: languageTranslationState.currentLanguage,
                 isEditableMode: true,
                 showClearIcon: false,
-                mandatoryFieldObject: Map(),
+                mandatoryFieldObject: const {},
                 dataObject: dataObject,
                 onInputValueChange: (String id, dynamic value) =>
                     onUpdateFilter(

@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class TrueOnlyInputFieldContainer extends StatefulWidget {
@@ -27,7 +24,7 @@ class _TrueOnlyInputFieldContainerState
     extends State<TrueOnlyInputFieldContainer> {
   late bool _value;
   String? _swithLabel;
-  Color inActiveColor = Color(0xFF737373);
+  Color inActiveColor = const Color(0xFF737373);
   String yesLabel = 'Yes';
   String noLabel = 'Yes';
 
@@ -66,35 +63,33 @@ class _TrueOnlyInputFieldContainerState
       children: [
         Container(
           width: 30.0,
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             left: 5.0,
           ),
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 1.0,
           ),
           child: Text(
             '$_swithLabel',
-            style: TextStyle().copyWith(
+            style: const TextStyle().copyWith(
               fontSize: 12.0,
               color: _value ? widget.inputField.inputColor : inActiveColor,
             ),
           ),
         ),
-        Container(
-          child: CupertinoSwitch(
-            activeColor: widget.inputField.inputColor,
-            trackColor: inActiveColor,
-            value: _value,
-            onChanged: widget.inputField.isReadOnly!
-                ? null
-                : (bool value) {
-                    onSetValue(value);
-                    widget.onInputValueChange(
-                      value ? value : '',
-                    );
-                  },
-          ),
+        CupertinoSwitch(
+          activeColor: widget.inputField.inputColor,
+          trackColor: inActiveColor,
+          value: _value,
+          onChanged: widget.inputField.isReadOnly!
+              ? null
+              : (bool value) {
+                  onSetValue(value);
+                  widget.onInputValueChange(
+                    value ? value : '',
+                  );
+                },
         ),
       ],
     );

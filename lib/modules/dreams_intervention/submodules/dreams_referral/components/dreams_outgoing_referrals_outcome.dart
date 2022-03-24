@@ -10,10 +10,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:provider/provider.dart';
 
 class DreamsOutgoingReferralsOutcome extends StatefulWidget {
-  DreamsOutgoingReferralsOutcome({
+  const DreamsOutgoingReferralsOutcome({
+    Key? key,
     required this.agywList,
     required this.isIncomingReferral,
-  });
+  }) : super(key: key);
   final List<AgywDream> agywList;
   final bool isIncomingReferral;
 
@@ -52,96 +53,90 @@ class _DreamsOutgoingReferralsOutcomeState
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Center(
           child: Column(children: [
             SearchInput(
               onSearch: (value) => onSearchBeneficiary(value),
             ),
-            LineSeparator(
+            const LineSeparator(
               color: Color(0xFFE9F4FA),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Visibility(
-              child: Text('Searched Beneficiary not found!'),
+              child: const Text('Searched Beneficiary not found!'),
               visible: searchedValue != '' &&
                   widget.agywList
-                          .where((agyw) =>
-                              '${agyw.toString()} ${agyw.primaryUIC}'
-                                  .toLowerCase()
-                                  .indexOf(searchedValue) !=
-                              -1)
-                          .length ==
-                      0,
+                      .where((agyw) => '${agyw.toString()} ${agyw.primaryUIC}'
+                          .toLowerCase()
+                          .contains(searchedValue))
+                      .isEmpty,
             ),
             ...(widget.agywList.where((agyw) =>
                     '${agyw.toString()} ${agyw.primaryUIC}'
                         .toLowerCase()
-                        .indexOf(searchedValue) !=
-                    -1))
+                        .contains(searchedValue)))
                 .map((agyw) => Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 10.0),
                       child: MaterialCard(
                         body: GestureDetector(
                           onTap: () => onView(agyw),
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          child: Container(
-                                              padding:
-                                                  EdgeInsets.only(right: 5.0),
-                                              height: 20.0,
-                                              width: 20.0,
-                                              child: SvgPicture.asset(
-                                                svgIcon,
-                                              )),
-                                        ),
-                                      ),
-                                      Expanded(
-                                          flex: 10,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Wrap(children: [
-                                                Text(agyw.toString(),
-                                                    style: TextStyle().copyWith(
-                                                        color:
-                                                            Color(0xFF05131B),
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ]),
-                                              Wrap(children: [
-                                                Text(agyw.primaryUIC!)
-                                              ])
-                                            ],
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 5.0),
+                                          height: 20.0,
+                                          width: 20.0,
+                                          child: SvgPicture.asset(
+                                            svgIcon,
                                           )),
-                                    ],
-                                  ),
+                                    ),
+                                    Expanded(
+                                        flex: 10,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Wrap(children: [
+                                              Text(agyw.toString(),
+                                                  style: const TextStyle()
+                                                      .copyWith(
+                                                          color:
+                                                              const Color(
+                                                                  0xFF05131B),
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                            ]),
+                                            Wrap(children: [
+                                              Text(agyw.primaryUIC!)
+                                            ])
+                                          ],
+                                        )),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                )
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              )
+                            ],
                           ),
                         ),
                       ),

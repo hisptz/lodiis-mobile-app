@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -52,7 +52,9 @@ class OvcHouseholdEnrollmentSkipLogic {
           hiddenFields['NqoQ5BNNoob'] = true;
           hiddenFields['NAMKqy2KVKk'] = true;
         }
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
     }
 
     //Economic Strengthening

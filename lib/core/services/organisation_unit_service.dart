@@ -46,7 +46,9 @@ class OrganisationUnitService {
             .getAccessableOrganisationUnits("$userOrgUnitId");
         accessibleOrgUnits.addAll(ouIds);
       }
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return accessibleOrgUnits.toSet().toList();
   }
 

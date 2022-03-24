@@ -14,7 +14,7 @@ class ImplementingPartnerConfigService {
     String currentImplementingPartnerConfig = '';
 
     try {
-      HttpService http = new HttpService(
+      HttpService http = HttpService(
         username: username,
         password: password,
       );
@@ -23,7 +23,7 @@ class ImplementingPartnerConfigService {
           ? response.body
           : defaultImplementingPartnerConfig;
     } catch (error) {
-      throw error;
+      rethrow;
     }
     return json.decode(currentImplementingPartnerConfig);
   }

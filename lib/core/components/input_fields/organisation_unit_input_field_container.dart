@@ -46,7 +46,7 @@ class _OrganisationUnitInputFieldContainerState
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       () => getUserOrganisationunits(),
     );
   }
@@ -69,16 +69,14 @@ class _OrganisationUnitInputFieldContainerState
   }
 
   void discoveringSelectedOrganisationUnit() async {
-    if (widget.inputField != null) {
-      List<OrganisationUnit> ous = await OrganisationUnitService()
-          .getOrganisationUnits([widget.inputValue]);
-      String? value = ous.length > 0
-          ? ous[0].name
-          : !widget.isEditableMode
-              ? widget.inputValue
-              : null;
-      setOrganisationunit(value);
-    }
+    List<OrganisationUnit> ous = await OrganisationUnitService()
+        .getOrganisationUnits([widget.inputValue]);
+    String? value = ous.isNotEmpty
+        ? ous[0].name
+        : !widget.isEditableMode
+            ? widget.inputValue
+            : null;
+    setOrganisationunit(value);
   }
 
   void setOrganisationunit(String? value) {
@@ -87,7 +85,9 @@ class _OrganisationUnitInputFieldContainerState
     isLoading = false;
     try {
       setState(() {});
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   void openOrganisationUnit(BuildContext context) async {
@@ -95,13 +95,13 @@ class _OrganisationUnitInputFieldContainerState
     double height = size.height * 0.6;
     Widget modal = Container(
       height: height,
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      margin: const EdgeInsets.symmetric(horizontal: 5.0),
       decoration:
           BoxDecoration(color: widget.inputField.labelColor!.withOpacity(0.05)),
       child: SingleChildScrollView(
         child: OrganisationUnitTreeList(
           organisationUnitIds:
-              widget.currentUserCountryLevelReferences.length > 0 &&
+              widget.currentUserCountryLevelReferences.isNotEmpty &&
                       widget.inputField.showCountryLevelTree!
                   ? widget.currentUserCountryLevelReferences
                   : userOrganisationUnits,
@@ -121,41 +121,39 @@ class _OrganisationUnitInputFieldContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: isLoading
-                ? Container(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    child: CircularProcessLoader(
-                      color: widget.inputField.labelColor,
-                    ),
-                  )
-                : TextFormField(
-                    controller: organisationUnitController,
-                    style: TextStyle().copyWith(
-                      color: widget.inputField.inputColor,
-                    ),
-                    onTap: () =>
-                        widget.inputField.isReadOnly! || !widget.isEditableMode
-                            ? null
-                            : openOrganisationUnit(context),
-                    readOnly: true,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      errorText: null,
-                    ),
+    return Row(
+      children: [
+        Expanded(
+          child: isLoading
+              ? Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: CircularProcessLoader(
+                    color: widget.inputField.labelColor,
                   ),
-          ),
-          InputCheckedIcon(
-            showTickedIcon:
-                _value != null && _value != '' && widget.isEditableMode,
-            color: widget.inputField.inputColor,
-          )
-        ],
-      ),
+                )
+              : TextFormField(
+                  controller: organisationUnitController,
+                  style: const TextStyle().copyWith(
+                    color: widget.inputField.inputColor,
+                  ),
+                  onTap: () =>
+                      widget.inputField.isReadOnly! || !widget.isEditableMode
+                          ? null
+                          : openOrganisationUnit(context),
+                  readOnly: true,
+                  textInputAction: TextInputAction.done,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    errorText: null,
+                  ),
+                ),
+        ),
+        InputCheckedIcon(
+          showTickedIcon:
+              _value != null && _value != '' && widget.isEditableMode,
+          color: widget.inputField.inputColor,
+        )
+      ],
     );
   }
 }

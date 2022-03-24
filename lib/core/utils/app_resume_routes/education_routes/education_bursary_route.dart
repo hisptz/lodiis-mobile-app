@@ -17,7 +17,7 @@ class EducationBursaryRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EducationBursaryAssessmentFormPage(),
+        builder: (context) => const EducationBursaryAssessmentFormPage(),
       ),
     );
   }
@@ -30,7 +30,7 @@ class EducationBursaryRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EducationBursaryEnrollmentFormPage(),
+        builder: (context) => const EducationBursaryEnrollmentFormPage(),
       ),
     );
   }
@@ -44,7 +44,7 @@ class EducationBursaryRoute {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            EducationBursaryWithoutVulnerabilityCriteriaFormPage(),
+            const EducationBursaryWithoutVulnerabilityCriteriaFormPage(),
       ),
     );
   }
@@ -57,7 +57,7 @@ class EducationBursaryRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EducationBursaryEnrollmentEditFormPage(),
+        builder: (context) => const EducationBursaryEnrollmentEditFormPage(),
       ),
     );
   }
@@ -70,7 +70,7 @@ class EducationBursaryRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EducationBursaryAttendanceFormPage(),
+        builder: (context) => const EducationBursaryAttendanceFormPage(),
       ),
     );
   }
@@ -83,7 +83,7 @@ class EducationBursaryRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EducationBursaryAttendanceFormPage(
+        builder: (context) => const EducationBursaryAttendanceFormPage(
           isSchoolAttendance: true,
         ),
       ),
@@ -98,7 +98,7 @@ class EducationBursaryRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EducationBursarySchoolPerformanceFormPage(),
+        builder: (context) => const EducationBursarySchoolPerformanceFormPage(),
       ),
     );
   }

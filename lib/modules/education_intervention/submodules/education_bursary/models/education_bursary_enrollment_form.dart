@@ -20,7 +20,7 @@ class EducationBursaryEnrollmentForm {
     return [
       FormSection(
         name: "Student Information",
-        color: Color(0xFF009688),
+        color: const Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'location',
@@ -30,32 +30,32 @@ class EducationBursaryEnrollmentForm {
             allowedSelectedLevels:
                 BursaryInterventionConstant.allowedSelectedLevels,
             filteredPrograms: [BursaryInterventionConstant.program],
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
             translatedName: 'Lebitso la pele',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 's1HaiT6OllL',
             name: 'Middle Name',
             translatedName: 'Lebitso le mahareng',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'rSP9c21JsfC',
             name: 'Surname',
             translatedName: 'Le Fane',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'qZP982qpSPS',
@@ -63,8 +63,8 @@ class EducationBursaryEnrollmentForm {
             translatedName: 'Letsatsi la tsoalo',
             isReadOnly: true,
             valueType: 'DATE',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'ls9hlz2tyol',
@@ -72,16 +72,16 @@ class EducationBursaryEnrollmentForm {
             translatedName: 'Lilemo',
             isReadOnly: true,
             valueType: 'NUMBER',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'vIX4GTSCX4P',
             name: 'Sex',
             translatedName: 'Boleng',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             renderAsRadio: true,
             options: [
               InputFieldOption(
@@ -101,23 +101,23 @@ class EducationBursaryEnrollmentForm {
             name: 'Village',
             isReadOnly: true,
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           // Nearby School
           InputField(
             id: 'EwZil0AnlYo',
             name: 'School',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'tbzi0t27D8l',
             name: 'Grade to be attended',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: "Grade 8",

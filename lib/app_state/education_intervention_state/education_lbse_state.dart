@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
@@ -14,7 +13,7 @@ class EducationLbseInterventionState with ChangeNotifier {
       <EducationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationLbse = 0;
-  Map _numberOfEducationLbseBySex = Map();
+  Map _numberOfEducationLbseBySex = {};
   int _numberOfLbsePages = 0;
   int _numberOfLbseSearchablePages = 0;
   int? _nextLbsePage = 0;

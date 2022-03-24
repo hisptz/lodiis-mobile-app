@@ -25,19 +25,17 @@ class SubPageAppBar extends StatelessWidget {
     return AppBar(
       title: Text(
         label,
-        style:
-            TextStyle().copyWith(fontSize: 19.0, fontWeight: FontWeight.bold),
+        style: const TextStyle()
+            .copyWith(fontSize: 19.0, fontWeight: FontWeight.bold),
       ),
       backgroundColor: activeInterventionProgram.primaryColor,
       actions: [
         Visibility(
           visible: disableSelectionOfActiveIntervention,
-          child: Container(
-            child: IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () =>
-                    onOpenMoreMenu(context, activeInterventionProgram)),
-          ),
+          child: IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () =>
+                  onOpenMoreMenu(context, activeInterventionProgram)),
         )
       ],
     );

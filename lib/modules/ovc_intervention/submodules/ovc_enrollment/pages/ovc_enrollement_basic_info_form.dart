@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -38,7 +38,7 @@ class _OvcEnrollmentBasicInfoFormState
   final String label = 'Basic caregiver information';
   final List<String> mandatoryFields =
       OvcEnrollmentBasicInfo.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   bool isFormReady = false;
   List unFilledMandatoryFields = [];
   @override
@@ -55,7 +55,7 @@ class _OvcEnrollmentBasicInfoFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -74,7 +74,7 @@ class _OvcEnrollmentBasicInfoFormState
     int careGiverAge = int.parse(dataObject['ls9hlz2tyol']);
     if (hadAllMandatoryFilled) {
       if (careGiverAge < 18) {
-        Widget modal = CaregiverAgeConfirmation();
+        Widget modal = const CaregiverAgeConfirmation();
         bool response = await AppUtil.showPopUpModal(context, modal, false);
         if (response) {
           Navigator.canPop(context);
@@ -87,7 +87,7 @@ class _OvcEnrollmentBasicInfoFormState
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OvcEnrollmentChildForm(),
+            builder: (context) => const OvcEnrollmentChildForm(),
           ),
         );
       }
@@ -145,7 +145,7 @@ class _OvcEnrollmentBasicInfoFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -159,10 +159,11 @@ class _OvcEnrollmentBasicInfoFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -170,54 +171,48 @@ class _OvcEnrollmentBasicInfoFormState
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: Consumer<EnrollmentFormState>(
-                                  builder:
-                                      (context, enrollmentFormState, child) =>
-                                          EntryFormContainer(
-                                    hiddenSections:
-                                        enrollmentFormState.hiddenSections,
-                                    hiddenFields:
-                                        enrollmentFormState.hiddenFields,
-                                    formSections: formSections,
-                                    mandatoryFieldObject: mandatoryFieldObject,
-                                    dataObject: enrollmentFormState.formState,
-                                    onInputValueChange: onInputValueChange,
-                                    unFilledMandatoryFields:
-                                        unFilledMandatoryFields,
-                                  ),
-                                ),
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            Consumer<EnrollmentFormState>(
+                              builder: (context, enrollmentFormState, child) =>
+                                  EntryFormContainer(
+                                hiddenSections:
+                                    enrollmentFormState.hiddenSections,
+                                hiddenFields: enrollmentFormState.hiddenFields,
+                                formSections: formSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                dataObject: enrollmentFormState.formState,
+                                onInputValueChange: onInputValueChange,
+                                unFilledMandatoryFields:
+                                    unFilledMandatoryFields,
                               ),
-                              EntryFormSaveButton(
-                                label: currentLanguage == 'lesotho'
-                                    ? 'Boloka ebe u fetela pele'
-                                    : 'Save and Continue',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF4B9F46),
-                                fontSize: 15.0,
-                                onPressButton: () => onSaveAndContinue(
-                                  context,
-                                  enrollmentFormState.formState,
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            ),
+                            EntryFormSaveButton(
+                              label: currentLanguage == 'lesotho'
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
+                              labelColor: Colors.white,
+                              buttonColor: const Color(0xFF4B9F46),
+                              fontSize: 15.0,
+                              onPressButton: () => onSaveAndContinue(
+                                context,
+                                enrollmentFormState.formState,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

@@ -13,7 +13,7 @@ class OvcServiceProvisionUtil {
   }) {
     Map serviceToSessionMapping =
         OvcServiceFormSessionNumber.serviceToSessionMapping;
-    Map<String, List<String>> previousSessionMapping = Map();
+    Map<String, List<String>> previousSessionMapping = {};
     Map<String?, List<Events>> eventListByProgramStage =
         Provider.of<ServiceEventDataState>(context, listen: false)
             .eventListByProgramStage;
@@ -36,7 +36,7 @@ class OvcServiceProvisionUtil {
                 ? selectedDataValues.first["value"] as String
                 : "";
           })
-          .where((sessionNumber) => "$sessionNumber".isNotEmpty)
+          .where((sessionNumber) => sessionNumber.isNotEmpty)
           .toSet()
           .toList();
     }
@@ -44,7 +44,7 @@ class OvcServiceProvisionUtil {
   }
 
   static Map<String, dynamic> getSessionNumberValidation(Map dataObject) {
-    Map<String, dynamic> sessionNumnberValidation = Map();
+    Map<String, dynamic> sessionNumnberValidation = {};
     Map serviceToSessionMapping =
         OvcServiceFormSessionNumber.serviceToSessionMapping;
     Map<String, List<String>> sessionMapping =
@@ -61,19 +61,19 @@ class OvcServiceProvisionUtil {
           sessionMapping[serviceDataElement] ?? [];
       String sessionNumberDataElement =
           serviceToSessionMapping[serviceDataElement];
-      if (dataObject.keys.toList().indexOf(serviceDataElement) > -1 &&
-          dataObject.keys.toList().indexOf(serviceDataElement) > -1) {
+      if (dataObject.keys.toList().contains(serviceDataElement) &&
+          dataObject.keys.toList().contains(serviceDataElement)) {
         String currentSessionNumber =
             dataObject[sessionNumberDataElement] ?? "";
         if (currentSessionNumber.isNotEmpty) {
           currentSessionNumber = currentSessionNumber.toLowerCase();
           List<String> previousSessionNumbers =
               previousSessionMapping[serviceDataElement] ?? [];
-          if (possibleSessionNumbers.indexOf(currentSessionNumber) == -1) {
+          if (!possibleSessionNumbers.contains(currentSessionNumber)) {
             isSessionNumberInValid = true;
             sessionWithInvalidSessionNumber.add(serviceDataElement);
           }
-          if (previousSessionNumbers.indexOf(currentSessionNumber) > -1) {
+          if (previousSessionNumbers.contains(currentSessionNumber)) {
             isSessionNumberExit = true;
             sessionWithExistingSessionNumber.add(serviceDataElement);
           }

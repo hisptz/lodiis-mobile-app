@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -60,7 +60,7 @@ class _AgywDreamsEnrollmentViewFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -78,7 +78,7 @@ class _AgywDreamsEnrollmentViewFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -92,11 +92,12 @@ class _AgywDreamsEnrollmentViewFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
+            margin:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: Container(
               child: !isFormReady
                   ? Column(
-                      children: [
+                      children: const [
                         Center(
                           child: CircularProcessLoader(
                             color: Colors.blueGrey,
@@ -104,31 +105,24 @@ class _AgywDreamsEnrollmentViewFormState
                         )
                       ],
                     )
-                  : Container(
-                      child: Consumer<EnrollmentFormState>(
-                        builder: (context, enrollmentFormState, child) =>
-                            Column(
-                          children: [
-                            Container(
-                              child: EntryFormContainer(
-                                hiddenFields: enrollmentFormState.hiddenFields,
-                                hiddenSections:
-                                    enrollmentFormState.hiddenSections,
-                                formSections: formSections,
-                                mandatoryFieldObject: Map(),
-                                isEditableMode:
-                                    enrollmentFormState.isEditableMode,
-                                dataObject: enrollmentFormState.formState,
-                              ),
-                            ),
-                          ],
-                        ),
+                  : Consumer<EnrollmentFormState>(
+                      builder: (context, enrollmentFormState, child) => Column(
+                        children: [
+                          EntryFormContainer(
+                            hiddenFields: enrollmentFormState.hiddenFields,
+                            hiddenSections: enrollmentFormState.hiddenSections,
+                            formSections: formSections,
+                            mandatoryFieldObject: const {},
+                            isEditableMode: enrollmentFormState.isEditableMode,
+                            dataObject: enrollmentFormState.formState,
+                          ),
+                        ],
                       ),
                     ),
             ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

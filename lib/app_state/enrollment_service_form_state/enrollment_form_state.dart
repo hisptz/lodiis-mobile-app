@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 
 class EnrollmentFormState with ChangeNotifier {
   // initial state
-  Map _formState = Map();
-  Map _hiddenFields = Map();
-  Map _hiddenInputFieldOptions = Map();
-  Map _hiddenSections = Map();
+  final Map _formState = {};
+  Map _hiddenFields = {};
+  Map _hiddenInputFieldOptions = {};
+  Map _hiddenSections = {};
   bool _isEditableMode = true;
 
   // selector

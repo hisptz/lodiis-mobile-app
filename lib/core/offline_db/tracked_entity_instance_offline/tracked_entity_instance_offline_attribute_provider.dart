@@ -24,7 +24,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
         if ('${attributeObj[value]}'.isNotEmpty &&
             '${attributeObj[value]}' != 'null') {
           String? attribute = attributeObj['attribute'];
-          Map data = Map<String, dynamic>();
+          Map data = <String, dynamic>{};
           data['id'] = '$trackedEntityInstance-$attribute';
           data['trackedEntityInstance'] = trackedEntityInstance;
           data['attribute'] = attribute;
@@ -33,7 +33,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
               conflictAlgorithm: ConflictAlgorithm.replace);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   addOrUpdateMultipleTrackedEntityInstanceAttributes(List attributes) async {
@@ -47,7 +49,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       await attributesBatch.commit(
           exclusive: true, noResult: true, continueOnError: true);
     } catch (e) {
-      print(e);
+      //
     }
   }
 
@@ -59,14 +61,16 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           trackedEntityInstance.trackedEntityInstance;
       for (Map attributeObj in attributes) {
         String? attribute = attributeObj['attribute'];
-        Map data = Map<String, dynamic>();
+        Map data = <String, dynamic>{};
         data['id'] = '$trackedEntityInstanceId-$attribute';
         data['trackedEntityInstance'] = trackedEntityInstanceId;
         data['attribute'] = attribute;
         data['value'] = attributeObj['value'] ?? '';
         attributesObjects.add(data);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     return attributesObjects;
   }
@@ -90,7 +94,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return attributes;
   }
 
@@ -121,7 +127,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           searchableValue = searchableValue + '${map[value]} ';
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return searchableValue.toLowerCase().trim();
   }
 
@@ -143,7 +151,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           attributes.add(map);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return attributes;
   }
 
@@ -156,6 +166,8 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       }
       await batch.commit(
           exclusive: true, noResult: true, continueOnError: true);
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 }

@@ -9,6 +9,8 @@ import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
 import 'package:kb_mobile_app/modules/synchronization/synchronization.dart';
 
 class DataDownloadMessage extends StatefulWidget {
+  const DataDownloadMessage({Key? key}) : super(key: key);
+
   @override
   _DataDownloadMessageState createState() => _DataDownloadMessageState();
 }
@@ -17,7 +19,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   @override
   void initState() {
     super.initState();
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         checkForAvailableBeneficiaryDataFromServer();
       });
@@ -43,7 +45,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
   }
 
   void checkForAvailableBeneficiaryDataFromServer() async {
-    Timer(Duration(milliseconds: 100), () async {
+    Timer(const Duration(milliseconds: 100), () async {
       bool connected =
           Provider.of<DeviceConnectivityState>(context, listen: false)
               .connectivityStatus!;
@@ -68,41 +70,39 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
     return Consumer<SynchronizationState>(
       builder: (context, synchronizationState, child) {
         return Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
             child:
                 synchronizationState.statusMessageForAvailableDataFromServer !=
                         ''
-                    ? Container(
-                        child: GestureDetector(
-                          onTap: () => onOpenSyncModule(
-                              context,
+                    ? GestureDetector(
+                        onTap: () => onOpenSyncModule(
+                            context,
+                            synchronizationState
+                                .isCheckingForAvailableDataFromServer),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
                               synchronizationState
-                                  .isCheckingForAvailableDataFromServer),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                synchronizationState
-                                    .statusMessageForAvailableDataFromServer,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Visibility(
-                                visible: !synchronizationState
-                                    .isCheckingForAvailableDataFromServer,
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 5.0),
-                                  child: Icon(
-                                    Icons.download_sharp,
-                                    color: Colors.white,
-                                    size: 18.0,
-                                  ),
+                                  .statusMessageForAvailableDataFromServer,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            Visibility(
+                              visible: !synchronizationState
+                                  .isCheckingForAvailableDataFromServer,
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 5.0),
+                                child: const Icon(
+                                  Icons.download_sharp,
+                                  color: Colors.white,
+                                  size: 18.0,
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
                       )
-                    : Text(''));
+                    : const Text(''));
       },
     );
   }

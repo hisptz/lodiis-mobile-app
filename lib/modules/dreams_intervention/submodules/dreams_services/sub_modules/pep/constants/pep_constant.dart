@@ -1,4 +1,4 @@
-class PepConstant  {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'CEyIqiOZOwx';
+class PepConstant {
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'CEyIqiOZOwx';
 }

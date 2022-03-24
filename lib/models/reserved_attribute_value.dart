@@ -23,7 +23,7 @@ class ReservedAttributeValue {
   }
 
   Map toOffline(ReservedAttributeValue reservedAttributeValue) {
-    var map = Map<String, dynamic>();
+    var map = <String, dynamic>{};
     map['id'] = reservedAttributeValue.id;
     map['attribute'] = reservedAttributeValue.attribute;
     map['value'] = reservedAttributeValue.value;
@@ -32,10 +32,10 @@ class ReservedAttributeValue {
   }
 
   ReservedAttributeValue.fromOffline(Map<String, dynamic> map) {
-    this.id = map['id'];
-    this.attribute = map['attribute'];
-    this.value = map['value'];
-    this.expireDate = map['expireDate'];
+    id = map['id'];
+    attribute = map['attribute'];
+    value = map['value'];
+    expireDate = map['expireDate'];
   }
 
   @override

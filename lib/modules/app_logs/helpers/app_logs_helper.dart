@@ -18,7 +18,7 @@ class AppLogsHelper {
           var createdDir = await directory.create(recursive: true);
           return createdDir.path;
         } catch (e) {
-          throw e;
+          rethrow;
         }
       }
       return directory.path;
@@ -43,11 +43,11 @@ class AppLogsHelper {
     try {
       final file = await _localFile;
       if (file != null && fileBytes != null) {
-        file..writeAsBytes(fileBytes, mode: FileMode.write);
+        file.writeAsBytes(fileBytes, mode: FileMode.write);
         AppUtil.showToastMessage(message: 'Saved the logs successfully');
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 

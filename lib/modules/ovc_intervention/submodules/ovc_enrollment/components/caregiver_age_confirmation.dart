@@ -13,10 +13,10 @@ class CaregiverAgeConfirmation extends StatelessWidget {
         builder: (context, languageTranslationState, child) {
       String? currentLanguage = languageTranslationState.currentLanguage;
       return Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 30.0,
         ),
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: 20.0,
         ),
         child: Column(
@@ -24,13 +24,13 @@ class CaregiverAgeConfirmation extends StatelessWidget {
             Visibility(
               visible: true,
               child: Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 15.0,
                 ),
                 child: Text(
                   'You cannot enroll child headed Household',
-                  style: TextStyle().copyWith(
-                    color: Color(0XFF1A3518),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0XFF1A3518),
                     fontSize: 13.0,
                     fontWeight: FontWeight.w400,
                   ),
@@ -40,31 +40,25 @@ class CaregiverAgeConfirmation extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context, false),
-                    child: Text(
-                      currentLanguage != 'lesotho' ? 'Exit' : 'Koala',
-                      style: TextStyle().copyWith(
-                        color: Color(0xFF1A3518),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text(
+                    currentLanguage != 'lesotho' ? 'Exit' : 'Koala',
+                    style: const TextStyle().copyWith(
+                      color: const Color(0xFF1A3518),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  child: TextButton(
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Text(
-                      currentLanguage != 'lesotho'
-                          ? 'Go Back'
-                          : 'Khutlela morao',
-                      style: TextStyle().copyWith(
-                        color: Color(0xFF4B9F46),
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                      ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text(
+                    currentLanguage != 'lesotho' ? 'Go Back' : 'Khutlela morao',
+                    style: const TextStyle().copyWith(
+                      color: const Color(0xFF4B9F46),
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),

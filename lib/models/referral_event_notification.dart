@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ReferralEventNotification {
   String id;
   String tei;
@@ -16,8 +14,8 @@ class ReferralEventNotification {
     this.isCompleted,
     this.isViewed,
   }) {
-    this.isCompleted = this.isCompleted ?? false;
-    this.isViewed = this.isViewed ?? false;
+    isCompleted = isCompleted ?? false;
+    isViewed = isViewed ?? false;
   }
 
   factory ReferralEventNotification.fromJson(Map json) {
@@ -40,7 +38,7 @@ class ReferralEventNotification {
   Map toOffline({
     bool shouldTransformBooleanValues = false,
   }) {
-    var data = Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data["id"] = id;
     data["nameSpaceKey"] = nameSpaceKey;
     data["fromImplementingPartner"] = fromImplementingPartner;

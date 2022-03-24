@@ -44,7 +44,7 @@ class AppBarUtil {
     var response = await AppUtil.showPopUpModal(context, modal, false);
     if (response != null) {
       List<String> interventionIds = InterventionCard.getInterventionIds();
-      if (interventionIds.indexOf(response.id) > -1) {
+      if (interventionIds.contains(response.id)) {
         await _onSwitchToIntervention(context, response.id);
       } else if (response.id == 'logout') {
         onLogOut(context);
@@ -64,7 +64,7 @@ class AppBarUtil {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AboutApp(),
+        builder: (context) => const AboutApp(),
       ),
     );
   }
@@ -73,7 +73,7 @@ class AppBarUtil {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LanguageSelection(
+        builder: (context) => const LanguageSelection(
           showLanguageSettingAppBar: true,
         ),
       ),
@@ -128,7 +128,7 @@ class AppBarUtil {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => Login(),
+        builder: (context) => const Login(),
       ),
     );
   }
@@ -139,7 +139,7 @@ class AppBarUtil {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AppLogsPage(),
+        builder: (context) => const AppLogsPage(),
       ),
     );
   }
@@ -180,21 +180,21 @@ class AppBarUtil {
         .setCurrentInterventionProgramId(id);
     Provider.of<InterventionBottomNavigationState>(context, listen: false)
         .setCurrentInterventionBottomNavigationStatus(0, null);
-    Timer(Duration(milliseconds: 10), () {
+    Timer(const Duration(milliseconds: 10), () {
       Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) {
             return id == 'ovc'
-                ? OvcIntervention()
+                ? const OvcIntervention()
                 : id == 'ogac'
-                    ? OgacIntervention()
+                    ? const OgacIntervention()
                     : id == 'pp_prev'
-                        ? PpPrevIntervention()
+                        ? const PpPrevIntervention()
                         : id == 'education'
-                            ? EducationIntervention()
-                            : DreamsIntervention();
+                            ? const EducationIntervention()
+                            : const DreamsIntervention();
           },
         ),
       );

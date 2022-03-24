@@ -6,9 +6,9 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:provider/provider.dart';
 
 class EducationLbseLearningOutcomeSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static String beneficairyGradeReference = "beneficiary_grade";
   static String themeReference = "kuMzFGnDULh";
@@ -22,8 +22,8 @@ class EducationLbseLearningOutcomeSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
-    Map hiddenLeaningOutcomes = Map();
-    Map hiddenThemes = Map();
+    Map hiddenLeaningOutcomes = {};
+    Map hiddenThemes = {};
     Map<String, List<String>> hiddenLearningOutcomeOptionsMap =
         EducationLbseLearningOutcomeUtil
             .getHiddenLearningOutcomeOptionsMapByGradeAndTheme();
@@ -34,7 +34,7 @@ class EducationLbseLearningOutcomeSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'CQ3GZFbzv5N' && '$value' != 'true') {
+      if (inputFieldId == 'CQ3GZFbzv5N' && value != 'true') {
         hiddenSections['lbse_referral'] = true;
       }
     }
@@ -59,7 +59,7 @@ class EducationLbseLearningOutcomeSkipLogic {
       hiddenThemes['Theme 6'] = true;
       hiddenInputFieldOptions[themeReference] = hiddenThemes;
     }
-    if ("$selectedTheme" == "null" || selectedTheme == "") {
+    if (selectedTheme == "null" || selectedTheme == "") {
       assignInputFieldValue(context, learningOutcomeReference, null);
       for (String key in hiddenLearningOutcomeOptionsMap.keys) {
         for (String id in hiddenLearningOutcomeOptionsMap[key] ?? []) {

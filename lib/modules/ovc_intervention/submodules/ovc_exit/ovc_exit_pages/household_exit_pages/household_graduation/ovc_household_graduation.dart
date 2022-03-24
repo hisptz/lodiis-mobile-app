@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -22,8 +22,16 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/household_graduation/pages/ovc_household_graduation_form.dart';
 import 'package:provider/provider.dart';
 
-class OvcHouseholdGraduation extends StatelessWidget {
+class OvcHouseholdGraduation extends StatefulWidget {
+  const OvcHouseholdGraduation({Key? key}) : super(key: key);
+
+  @override
+  State<OvcHouseholdGraduation> createState() => _OvcHouseholdGraduationState();
+}
+
+class _OvcHouseholdGraduationState extends State<OvcHouseholdGraduation> {
   final String label = 'Household Case Plan Graduation Readiness';
+
   final List<String> programStageIds = [
     OvcHouseholdGraduationConstant.programStage
   ];
@@ -62,7 +70,7 @@ class OvcHouseholdGraduation extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OvcHouseholdGraduationForm(),
+            builder: (context) => const OvcHouseholdGraduationForm(),
           ),
         );
       }
@@ -70,7 +78,7 @@ class OvcHouseholdGraduation extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OvcHouseholdGraduationForm(),
+          builder: (context) => const OvcHouseholdGraduationForm(),
         ),
       );
     }
@@ -97,7 +105,7 @@ class OvcHouseholdGraduation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -110,115 +118,94 @@ class OvcHouseholdGraduation extends StatelessWidget {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<LanguageTranslationState>(
-            builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<OvcHouseholdCurrentSelectionState>(
-                builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                  var currentOvcHousehold =
-                      ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                  return Container(
-                    child: Column(
-                      children: [
-                        OvcHouseholdInfoTopHeader(
-                          currentOvcHousehold: currentOvcHousehold,
-                        ),
-                        Container(
-                          child: Consumer<OvcHouseholdCurrentSelectionState>(
-                            builder: (context,
-                                ovcHouseholdCurrentSelectionState, child) {
-                              OvcHousehold? currentOvcHousehold =
-                                  ovcHouseholdCurrentSelectionState
-                                      .currentOvcHousehold;
-                              return Container(
-                                child: Consumer<ServiceEventDataState>(
-                                  builder:
-                                      (context, serviceEventDataState, child) {
-                                    bool isLoading =
-                                        serviceEventDataState.isLoading;
-                                    return isLoading
-                                        ? Container(
-                                            child: CircularProcessLoader(
-                                              color: Colors.blueGrey,
-                                            ),
-                                          )
-                                        : Container(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                    top: 10.0,
-                                                    right: 13.0,
-                                                    left: 13.0,
-                                                  ),
-                                                  child:
-                                                      OvcHouseholdGraduationListContainer(
-                                                    programStageIds:
-                                                        programStageIds,
-                                                    onEditHouseholdAchievement:
-                                                        (Events graduation) =>
-                                                            onEditHouseholdAchievement(
-                                                      context,
-                                                      currentOvcHousehold,
-                                                      graduation,
-                                                    ),
-                                                    onViewHouseholdAchievement:
-                                                        (Events graduation) =>
-                                                            onViewHouseholdAchievement(
-                                                      context,
-                                                      currentOvcHousehold,
-                                                      graduation,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  child: Visibility(
-                                                    visible: !isLoading &&
-                                                        currentOvcHousehold!
-                                                            .enrollmentOuAccessible!,
-                                                    child: EntryFormSaveButton(
-                                                      label: currentLanguage ==
-                                                              'lesotho'
-                                                          ? 'Graduation e ncha'
-                                                              .toUpperCase()
-                                                          : "NEW GRADUATION",
-                                                      labelColor: Colors.white,
-                                                      fontSize: 10,
-                                                      buttonColor:
-                                                          Color(0xFF4B9F46),
-                                                      onPressButton: () =>
-                                                          onAddNewHouseholdAchievement(
-                                                        context,
-                                                        currentOvcHousehold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      ],
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<OvcHouseholdCurrentSelectionState>(
+              builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                var currentOvcHousehold =
+                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+                return Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
                     ),
-                  );
-                },
-              );
-            },
-          ),
+                    Consumer<OvcHouseholdCurrentSelectionState>(
+                      builder:
+                          (context, ovcHouseholdCurrentSelectionState, child) {
+                        OvcHousehold? currentOvcHousehold =
+                            ovcHouseholdCurrentSelectionState
+                                .currentOvcHousehold;
+                        return Consumer<ServiceEventDataState>(
+                          builder: (context, serviceEventDataState, child) {
+                            bool isLoading = serviceEventDataState.isLoading;
+                            return isLoading
+                                ? const CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                          top: 10.0,
+                                          right: 13.0,
+                                          left: 13.0,
+                                        ),
+                                        child:
+                                            OvcHouseholdGraduationListContainer(
+                                          programStageIds: programStageIds,
+                                          onEditHouseholdAchievement:
+                                              (Events graduation) =>
+                                                  onEditHouseholdAchievement(
+                                            context,
+                                            currentOvcHousehold,
+                                            graduation,
+                                          ),
+                                          onViewHouseholdAchievement:
+                                              (Events graduation) =>
+                                                  onViewHouseholdAchievement(
+                                            context,
+                                            currentOvcHousehold,
+                                            graduation,
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: !isLoading &&
+                                            currentOvcHousehold!
+                                                .enrollmentOuAccessible!,
+                                        child: EntryFormSaveButton(
+                                          label: currentLanguage == 'lesotho'
+                                              ? 'Graduation e ncha'
+                                                  .toUpperCase()
+                                              : "NEW GRADUATION",
+                                          labelColor: Colors.white,
+                                          fontSize: 10,
+                                          buttonColor: const Color(0xFF4B9F46),
+                                          onPressButton: () =>
+                                              onAddNewHouseholdAchievement(
+                                            context,
+                                            currentOvcHousehold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                          },
+                        );
+                      },
+                    )
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

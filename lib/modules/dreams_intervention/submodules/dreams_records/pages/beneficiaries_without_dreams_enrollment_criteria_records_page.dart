@@ -50,7 +50,7 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsWithoutEnrollmentCriteriaForm(),
+        builder: (context) => const AgywDreamsWithoutEnrollmentCriteriaForm(),
       ),
     );
   }
@@ -61,30 +61,28 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsWithoutEnrollmentCriteriaForm(),
+        builder: (context) => const AgywDreamsWithoutEnrollmentCriteriaForm(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<DreamsInterventionListState>(
-            builder: (context, dreamsInterventionListState, child) {
-              String header = 'Beneficiaries without Enrollment criteria'
-                      .toUpperCase() +
-                  ': ${dreamsInterventionListState.numberOfBeneficiariesWithoutAgywDreamsCriteria}';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<DreamsInterventionListState>(
+          builder: (context, dreamsInterventionListState, child) {
+            String header = 'Beneficiaries without Enrollment criteria'
+                    .toUpperCase() +
+                ': ${dreamsInterventionListState.numberOfBeneficiariesWithoutAgywDreamsCriteria}';
+            return SubModuleHomeContainer(
+              header: header,
+              bodyContents: _buildBody(currentLanguage),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -92,12 +90,12 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
     return Consumer<DreamsInterventionListState>(
       builder: (context, ovcState, child) => CustomPaginatedListView(
         errorWidget: Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             bottom: 16.0,
             right: 13.0,
             left: 13.0,
           ),
-          child: Text(
+          child: const Text(
             'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
             textAlign: TextAlign.center,
           ),
@@ -117,12 +115,12 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   bottom: 16.0,
                   right: 13.0,
                   left: 13.0,
                 ),
-                child: Text(
+                child: const Text(
                   'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
                   textAlign: TextAlign.center,
                 ),

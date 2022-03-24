@@ -6,9 +6,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class PpPrevEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -30,7 +30,7 @@ class PpPrevEnrollmentSkipLogic {
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
       } else if (inputFieldId == 'vIX4GTSCX4P') {
         String gender = '${dataObject[inputFieldId]}';
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         hiddenOptions['F'] = true;
         hiddenOptions['CF'] = true;
         if (gender == 'Female') {

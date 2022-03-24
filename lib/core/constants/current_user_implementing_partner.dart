@@ -1,6 +1,6 @@
 class CurrentUserImplementingPartner {
-  static final String implementPartnerAttribute = "wpiLo7DTwKF";
-  static final String subImplementingPartnerAttribute = "P7YnaTZTSKl";
+  static const String implementPartnerAttribute = "wpiLo7DTwKF";
+  static const String subImplementingPartnerAttribute = "P7YnaTZTSKl";
 
   static String getCurrentUserImplementingPartner(String? attributeValue) {
     Map implementingPartnerMapping = getImplementingPartnerMapping();

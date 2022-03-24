@@ -48,10 +48,10 @@ class OvcHouseholdChild {
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
-    Map data = Map();
+    Map data = {};
     for (Map attributeObject in tei.attributes) {
       String? attribute = attributeObject['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
     }

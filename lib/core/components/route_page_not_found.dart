@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RoutePageNotFound extends StatelessWidget {
-  RoutePageNotFound({Key? key, this.pageTitle, this.color}) : super(key: key);
+  const RoutePageNotFound({Key? key, this.pageTitle, this.color})
+      : super(key: key);
 
   final String? pageTitle;
   final Color? color;
@@ -12,7 +13,7 @@ class RoutePageNotFound extends StatelessWidget {
       child: Center(
         child: Text(
           pageTitle!,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
     );

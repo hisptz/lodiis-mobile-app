@@ -5,8 +5,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 mixin OvcCaseExitSkipLogic {
-  Map hiddenFields = Map();
-  Map hiddenSections = Map();
+  Map hiddenFields = {};
+  Map hiddenSections = {};
 
   Future evaluateCaseExitSkipLogics(
     BuildContext context,

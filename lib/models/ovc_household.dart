@@ -69,10 +69,10 @@ class OvcHousehold {
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     for (Map attributeObject in tei.attributes) {
       String? attribute = attributeObject['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
     }

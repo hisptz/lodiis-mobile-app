@@ -176,7 +176,6 @@ class EducationBursaryEnrollmentService {
     String program = BursaryWithoutEnrollmentCriteriaConstant.program;
     String programStage = BursaryWithoutEnrollmentCriteriaConstant.programStage;
 
-    // assign implementing partner
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);

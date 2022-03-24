@@ -21,14 +21,14 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
   }) {
     return Expanded(
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 10.0,
           vertical: 5.0,
         ),
         child: RichText(
           text: TextSpan(
             text: key != '' ? '$key: ' : "",
-            style: TextStyle().copyWith(
+            style: const TextStyle().copyWith(
               fontSize: fontSize,
               fontWeight: FontWeight.w500,
               color: keyColor,
@@ -36,7 +36,7 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
             children: [
               TextSpan(
                 text: value,
-                style: TextStyle().copyWith(
+                style: const TextStyle().copyWith(
                   fontSize: fontSize,
                   fontWeight: FontWeight.w500,
                   color: valueColor,
@@ -51,97 +51,93 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Material(
-            type: MaterialType.card,
-            elevation: 1.0,
-            child: Container(
-              margin: EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 10.0,
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _getDreamBeneficiaryDetailsWidget(
-                          key: '',
-                          value: agywDream.toString(),
-                          keyColor: Color(0xFF05131B),
-                          valueColor: Color(0xFF05131B),
-                          fontSize: 14.0,
-                        ),
-                        _getDreamBeneficiaryDetailsWidget(
-                          key: '',
-                          value: agywDream!.primaryUIC!,
-                          keyColor: Color(0xFF05131B),
-                          valueColor: Color(0xFF05131B),
-                          fontSize: 14.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: LineSeparator(color: Color(0XFFE9F4FA)),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                      vertical: 5.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _getDreamBeneficiaryDetailsWidget(
-                          key: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
-                          value: agywDream!.sex!,
-                          keyColor: Color(0xFF82898D),
-                          valueColor: Color(0xFF1F8ECE),
-                          fontSize: 12.0,
-                        ),
-                        _getDreamBeneficiaryDetailsWidget(
-                          key: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
-                          value: agywDream!.age!,
-                          keyColor: Color(0xFF82898D),
-                          valueColor: Color(0xFF1F8ECE),
-                          fontSize: 12.0,
-                        ),
-                        _getDreamBeneficiaryDetailsWidget(
-                          key: currentLanguage == 'lesotho'
-                              ? 'Nomoro ea mohala'
-                              : 'Phone #',
-                          value: agywDream!.phoneNumber!,
-                          keyColor: Color(0xFF82898D),
-                          valueColor: Color(0xFF1F8ECE),
-                          fontSize: 12.0,
-                        ),
-                        _getDreamBeneficiaryDetailsWidget(
-                          key: currentLanguage == 'lesotho'
-                              ? 'Motse'
-                              : 'Village',
-                          value: agywDream!.village!,
-                          keyColor: Color(0xFF82898D),
-                          valueColor: Color(0xFF1F8ECE),
-                          fontSize: 12.0,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Material(
+          type: MaterialType.card,
+          elevation: 1.0,
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 10.0,
             ),
-          );
-        },
-      ),
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: '',
+                        value: agywDream.toString(),
+                        keyColor: const Color(0xFF05131B),
+                        valueColor: const Color(0xFF05131B),
+                        fontSize: 14.0,
+                      ),
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: '',
+                        value: agywDream!.primaryUIC!,
+                        keyColor: const Color(0xFF05131B),
+                        valueColor: const Color(0xFF05131B),
+                        fontSize: 14.0,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 5.0),
+                  child: const LineSeparator(color: Color(0XFFE9F4FA)),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 5.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
+                        value: agywDream!.sex!,
+                        keyColor: const Color(0xFF82898D),
+                        valueColor: const Color(0xFF1F8ECE),
+                        fontSize: 12.0,
+                      ),
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
+                        value: agywDream!.age!,
+                        keyColor: const Color(0xFF82898D),
+                        valueColor: const Color(0xFF1F8ECE),
+                        fontSize: 12.0,
+                      ),
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: currentLanguage == 'lesotho'
+                            ? 'Nomoro ea mohala'
+                            : 'Phone #',
+                        value: agywDream!.phoneNumber!,
+                        keyColor: const Color(0xFF82898D),
+                        valueColor: const Color(0xFF1F8ECE),
+                        fontSize: 12.0,
+                      ),
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
+                        value: agywDream!.village!,
+                        keyColor: const Color(0xFF82898D),
+                        valueColor: const Color(0xFF1F8ECE),
+                        fontSize: 12.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

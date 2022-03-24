@@ -16,35 +16,35 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 20.0,
       ),
       child: TextButton(
         onPressed: isLoginProcessActive ? null : onLogin,
         style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 15.0,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
-          backgroundColor: Color(0xFF4B9F46),
+          backgroundColor: const Color(0xFF4B9F46),
         ),
         child: isLoginProcessActive
-            ? Container(
+            ? const SizedBox(
                 height: 21.0,
                 width: 21.0,
                 child: CircularProgressIndicator(
-                  valueColor: new AlwaysStoppedAnimation(Colors.white),
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
                   strokeWidth: 2.0,
                 ),
               )
-            : Text(
+            : const Text(
                 'Login',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFFFAFAFA),
+                  color: Color(0xFFFAFAFA),
                 ),
               ),
       ),

@@ -14,7 +14,7 @@ class InputSearchClearIcon extends StatelessWidget {
           interventionCardState.currentInterventionProgram;
       return Container(
         height: 20.0,
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           left: 10,
         ),
         child: Icon(
