@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_card.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_card.dart';
 
 class InterventionSelectionList extends StatefulWidget {
-  InterventionSelectionList({
+  const InterventionSelectionList({
     Key? key,
     required this.interventionPrograms,
     this.onInterventionSelection,
@@ -46,30 +46,28 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: widget.interventionPrograms
-            .map(
-              (InterventionCard interventionProgram) => GestureDetector(
-                onTap: () => setSelectedCard(interventionProgram),
-                child: InterventionSelectionCard(
-                  interventionProgram: interventionProgram,
-                  interventionProgramId: interventionProgramId,
-                  numberOfAgywDreamsBeneficiaries:
-                      widget.numberOfAgywDreamsBeneficiaries,
-                  numberOfNoneAgywDreamsBeneficiaries:
-                      widget.numberOfNoneAgywDreamsBeneficiaries,
-                  numberOfHouseholds: widget.numberOfHouseholds,
-                  numberOfOvcs: widget.numberOfOvcs,
-                  numberOfOgac: widget.numberOfOgac,
-                  numberPpPrev: widget.numberPpPrev,
-                  numberEducationLbse: widget.numberEducationLbse,
-                  numberEducationBursary: widget.numberEducationBursary,
-                ),
+    return Column(
+      children: widget.interventionPrograms
+          .map(
+            (InterventionCard interventionProgram) => GestureDetector(
+              onTap: () => setSelectedCard(interventionProgram),
+              child: InterventionSelectionCard(
+                interventionProgram: interventionProgram,
+                interventionProgramId: interventionProgramId,
+                numberOfAgywDreamsBeneficiaries:
+                    widget.numberOfAgywDreamsBeneficiaries,
+                numberOfNoneAgywDreamsBeneficiaries:
+                    widget.numberOfNoneAgywDreamsBeneficiaries,
+                numberOfHouseholds: widget.numberOfHouseholds,
+                numberOfOvcs: widget.numberOfOvcs,
+                numberOfOgac: widget.numberOfOgac,
+                numberPpPrev: widget.numberPpPrev,
+                numberEducationLbse: widget.numberEducationLbse,
+                numberEducationBursary: widget.numberEducationBursary,
               ),
-            )
-            .toList(),
-      ),
+            ),
+          )
+          .toList(),
     );
   }
 }

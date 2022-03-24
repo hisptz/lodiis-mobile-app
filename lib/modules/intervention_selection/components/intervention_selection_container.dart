@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
@@ -12,7 +11,7 @@ import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/education_intervention/education_intervention.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_list.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
 import 'package:kb_mobile_app/core/utils/intervention_selection_helper.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';
@@ -66,7 +65,7 @@ class _InterventionSelectionContainerState
     interventionCardState =
         Provider.of<InterventionCardState>(context, listen: false);
     currentUserState = Provider.of<CurrentUserState>(context, listen: false);
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       checkingForAutoSelectionOfIntervention(currentUserState);
     });
   }
@@ -114,15 +113,15 @@ class _InterventionSelectionContainerState
         context,
         MaterialPageRoute(
           builder: (context) => activeInterventionProgram!.id == 'ovc'
-              ? OvcIntervention()
+              ? const OvcIntervention()
               : activeInterventionProgram!.id == 'dreams'
-                  ? DreamsIntervention()
+                  ? const DreamsIntervention()
                   : activeInterventionProgram!.id == 'ogac'
-                      ? OgacIntervention()
+                      ? const OgacIntervention()
                       : activeInterventionProgram!.id == 'pp_prev'
-                          ? PpPrevIntervention()
+                          ? const PpPrevIntervention()
                           : activeInterventionProgram!.id == 'education'
-                              ? EducationIntervention()
+                              ? const EducationIntervention()
                               : RoutePageNotFound(
                                   pageTitle:
                                       '${activeInterventionProgram!.name} is not found',
@@ -137,11 +136,10 @@ class _InterventionSelectionContainerState
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-          child: Column(
+      child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 40, bottom: 50),
+            margin: const EdgeInsets.only(top: 40, bottom: 50),
             child: Consumer<CurrentUserState>(
               builder: (context, currentUserState, child) {
                 String locations = currentUserState.currentUserLocations;
@@ -150,31 +148,29 @@ class _InterventionSelectionContainerState
                     String? currentLanguage =
                         languageTranslationState.currentLanguage;
                     return Center(
-                      child: Container(
-                        child: Visibility(
-                          visible: locations != '',
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text: currentLanguage == 'lesotho'
-                                  ? 'Sebaka : '
-                                  : 'Location : ',
-                              style: TextStyle().copyWith(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFFFAFAFA),
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: locations,
-                                  style: TextStyle().copyWith(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.normal,
-                                    color: Color(0xFFFAFAFA),
-                                  ),
-                                ),
-                              ],
+                      child: Visibility(
+                        visible: locations != '',
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            text: currentLanguage == 'lesotho'
+                                ? 'Sebaka : '
+                                : 'Location : ',
+                            style: const TextStyle().copyWith(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFFFAFAFA),
                             ),
+                            children: [
+                              TextSpan(
+                                text: locations,
+                                style: const TextStyle().copyWith(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color(0xFFFAFAFA),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -186,32 +182,26 @@ class _InterventionSelectionContainerState
           ),
           Container(
             child: isLoading
-                ? Container(
-                    child: Center(
-                      child: CircularProcessLoader(
-                        color: Colors.white,
-                      ),
+                ? const Center(
+                    child: CircularProcessLoader(
+                      color: Colors.white,
                     ),
                   )
-                : Container(
-                    child: Column(
+                : Column(
                     children: [
-                      Container(
-                        child: InterventionSelectionList(
-                          interventionPrograms: interventionPrograms,
-                          onInterventionSelection:
-                              onSelectingInterventionProgram,
-                          numberOfAgywDreamsBeneficiaries:
-                              widget.numberOfAgywDreamsBeneficiaries,
-                          numberOfNoneAgywDreamsBeneficiaries:
-                              widget.numberOfNoneAgywDreamsBeneficiaries,
-                          numberOfHouseholds: widget.numberOfHouseholds,
-                          numberOfOvcs: widget.numberOfOvcs,
-                          numberOfOgac: widget.numberOfOgac,
-                          numberPpPrev: widget.numberPpPrev,
-                          numberEducationLbse: widget.numberEducationLbse,
-                          numberEducationBursary: widget.numberEducationBursary,
-                        ),
+                      InterventionSelectionList(
+                        interventionPrograms: interventionPrograms,
+                        onInterventionSelection: onSelectingInterventionProgram,
+                        numberOfAgywDreamsBeneficiaries:
+                            widget.numberOfAgywDreamsBeneficiaries,
+                        numberOfNoneAgywDreamsBeneficiaries:
+                            widget.numberOfNoneAgywDreamsBeneficiaries,
+                        numberOfHouseholds: widget.numberOfHouseholds,
+                        numberOfOvcs: widget.numberOfOvcs,
+                        numberOfOgac: widget.numberOfOgac,
+                        numberPpPrev: widget.numberPpPrev,
+                        numberEducationLbse: widget.numberEducationLbse,
+                        numberEducationBursary: widget.numberEducationBursary,
                       ),
                       InterventionSelectionButton(
                           isInterventionSelected: isInterventionSelected,
@@ -219,10 +209,10 @@ class _InterventionSelectionContainerState
                             onInterventionButtonClick();
                           })
                     ],
-                  )),
+                  ),
           ),
         ],
-      )),
+      ),
     ); //;
   }
 }
