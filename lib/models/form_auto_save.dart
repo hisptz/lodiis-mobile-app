@@ -14,6 +14,7 @@ class FormAutoSave {
     this.pageModule,
     this.nextPageModule,
   }) {
+    // ignore: unnecessary_this
     this.data = this.data ?? "";
   }
 
@@ -22,7 +23,7 @@ class FormAutoSave {
   }
 
   Map toOffline(FormAutoSave formAutoSave) {
-    Map mapData = Map<String, dynamic>();
+    Map mapData = <String, dynamic>{};
     mapData['id'] = formAutoSave.id;
     mapData['beneficiaryId'] = formAutoSave.beneficiaryId;
     mapData['pageModule'] = formAutoSave.pageModule;
@@ -38,11 +39,11 @@ class FormAutoSave {
   }
 
   FormAutoSave.fromOffline(Map<String, dynamic> mapData) {
-    this.id = mapData['id'];
-    this.beneficiaryId = mapData['beneficiaryId'];
-    this.pageModule = mapData['pageModule'];
-    this.nextPageModule = mapData['nextPageModule'];
-    this.data = mapData['data'];
+    id = mapData['id'];
+    beneficiaryId = mapData['beneficiaryId'];
+    pageModule = mapData['pageModule'];
+    nextPageModule = mapData['nextPageModule'];
+    data = mapData['data'];
   }
 
   @override

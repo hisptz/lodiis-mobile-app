@@ -34,10 +34,10 @@ class OnlineBeneficiarySearchResult {
     List attributes = json['attributes'];
     Map<String, dynamic> enrollmentDetails = json['enrollments'][0] ?? {};
 
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in attributes) {
       String? attribute = detailObj['attribute'];
-      if (attribute != null && attributeKeys.indexOf(attribute) > -1) {
+      if (attribute != null && attributeKeys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }

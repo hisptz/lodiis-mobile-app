@@ -60,21 +60,21 @@ class InputField {
       this.shouldUserCustomAgeLimit,
       this.showCountryLevelTree,
       this.hasLabelOnly}) {
-    this.showCountryLevelTree = this.showCountryLevelTree ?? false;
-    this.hasLabelOnly = this.hasLabelOnly ?? false;
-    this.allowedSelectedLevels = this.allowedSelectedLevels ?? [];
-    this.allowFuturePeriod = this.allowFuturePeriod ?? false;
-    this.disablePastPeriod = this.disablePastPeriod ?? false;
-    this.isReadOnly = this.isReadOnly ?? false;
-    this.description = this.description ?? '';
-    this.hasSubInputField = this.hasSubInputField ?? false;
-    this.renderAsRadio = this.renderAsRadio ?? false;
-    this.options = this.options ?? [];
-    this.filteredPrograms = this.filteredPrograms ?? [];
-    this.inputColor = this.inputColor ?? Colors.black;
-    this.labelColor = this.labelColor ?? Color(0xFF1A3518);
-    this.background = this.background ?? Colors.transparent;
-    this.suffixLabel = this.suffixLabel ?? '';
+    showCountryLevelTree = showCountryLevelTree ?? false;
+    hasLabelOnly = hasLabelOnly ?? false;
+    allowedSelectedLevels = allowedSelectedLevels ?? [];
+    allowFuturePeriod = allowFuturePeriod ?? false;
+    disablePastPeriod = disablePastPeriod ?? false;
+    isReadOnly = isReadOnly ?? false;
+    description = description ?? '';
+    hasSubInputField = hasSubInputField ?? false;
+    renderAsRadio = renderAsRadio ?? false;
+    options = options ?? [];
+    filteredPrograms = filteredPrograms ?? [];
+    inputColor = inputColor ?? Colors.black;
+    labelColor = labelColor ?? const Color(0xFF1A3518);
+    background = background ?? Colors.transparent;
+    suffixLabel = suffixLabel ?? '';
   }
 
   @override

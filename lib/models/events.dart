@@ -29,7 +29,7 @@ class Events {
     return 'event <$event> eventDate <$eventDate> enrollmentOuAccessible <$enrollmentOuAccessible>';
   }
 
-  bool get isSynced => this.syncStatus == "synced";
+  bool get isSynced => syncStatus == "synced";
 
   Events fromJson(dynamic json) {
     return Events(
@@ -50,7 +50,7 @@ class Events {
   }
 
   Map toOffline(Events eventData) {
-    Map mapData = Map<String, dynamic>();
+    Map mapData = <String, dynamic>{};
     mapData['event'] = eventData.event;
     mapData['eventDate'] = eventData.eventDate;
     mapData['program'] = eventData.program;
@@ -65,14 +65,14 @@ class Events {
   }
 
   Events.fromOffline(Map<String, dynamic> mapData) {
-    this.event = mapData['event'];
-    this.eventDate = mapData['eventDate'];
-    this.program = mapData['program'];
-    this.programStage = mapData['programStage'];
-    this.trackedEntityInstance = mapData['trackedEntityInstance'];
-    this.status = mapData['status'];
-    this.orgUnit = mapData['orgUnit'];
-    this.syncStatus = mapData['syncStatus'];
-    this.dataValues = mapData['dataValues'];
+    event = mapData['event'];
+    eventDate = mapData['eventDate'];
+    program = mapData['program'];
+    programStage = mapData['programStage'];
+    trackedEntityInstance = mapData['trackedEntityInstance'];
+    status = mapData['status'];
+    orgUnit = mapData['orgUnit'];
+    syncStatus = mapData['syncStatus'];
+    dataValues = mapData['dataValues'];
   }
 }

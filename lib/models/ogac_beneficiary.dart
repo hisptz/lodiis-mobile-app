@@ -64,10 +64,10 @@ class OgacBeneficiary {
       'qZP982qpSPS',
       BeneficiaryIdentification.beneficiaryId
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in trackedEntityInstance.attributes) {
       String? attribute = detailObj['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }

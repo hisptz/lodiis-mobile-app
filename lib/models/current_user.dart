@@ -15,9 +15,9 @@ class CurrentUser {
   List? userOrgUnitIds;
   List? programs;
 
-  static final String userTable = 'current_user';
-  static final String userProgramTable = 'current_user_program';
-  static final String userOrganisationUnitTable = 'current_user_ou';
+  static const String userTable = 'current_user';
+  static const String userProgramTable = 'current_user_program';
+  static const String userOrganisationUnitTable = 'current_user_ou';
 
   CurrentUser({
     this.id,
@@ -34,12 +34,12 @@ class CurrentUser {
     this.userRoles,
     this.userGroups,
   }) {
-    this.email = this.email ?? "";
-    this.phoneNumber = this.phoneNumber ?? "";
-    this.userOrgUnitIds = this.userOrgUnitIds ?? [];
-    this.programs = this.programs ?? [];
-    this.userRoles = this.userRoles ?? "";
-    this.userGroups = this.userGroups ?? "";
+    email = email ?? "";
+    phoneNumber = phoneNumber ?? "";
+    userOrgUnitIds = userOrgUnitIds ?? [];
+    programs = programs ?? [];
+    userRoles = userRoles ?? "";
+    userGroups = userGroups ?? "";
   }
 
   bool isCurrentUserSet() {
@@ -154,7 +154,7 @@ class CurrentUser {
   }
 
   Map toOffline(CurrentUser user) {
-    var data = Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data['id'] = user.id;
     data['name'] = user.name;
     data['username'] = user.username;
@@ -170,18 +170,18 @@ class CurrentUser {
   }
 
   CurrentUser.fromOffline(Map<String, dynamic> mapData) {
-    this.id = mapData['id'];
-    this.name = mapData['name'];
-    this.username = mapData['username'];
-    this.password = mapData['password'];
-    this.email = mapData['email'];
-    this.phoneNumber = mapData['phoneNumber'];
-    this.userGroups = mapData['userGroups'];
-    this.userRoles = mapData['userRoles'];
-    this.isLogin = '${mapData['isLogin']}' == '1';
-    this.implementingPartner = mapData['implementingPartner'];
-    this.subImplementingPartner = mapData['subImplementingPartner'];
-    this.userOrgUnitIds = [];
-    this.programs = [];
+    id = mapData['id'];
+    name = mapData['name'];
+    username = mapData['username'];
+    password = mapData['password'];
+    email = mapData['email'];
+    phoneNumber = mapData['phoneNumber'];
+    userGroups = mapData['userGroups'];
+    userRoles = mapData['userRoles'];
+    isLogin = '${mapData['isLogin']}' == '1';
+    implementingPartner = mapData['implementingPartner'];
+    subImplementingPartner = mapData['subImplementingPartner'];
+    userOrgUnitIds = [];
+    programs = [];
   }
 }

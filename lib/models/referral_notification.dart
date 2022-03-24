@@ -7,9 +7,9 @@ class ReferralNotification {
   String tei;
   List<ReferralEventNotification>? referrals;
 
-  static final String implementingPartnerFormVariable = "y0bvausyTyh";
-  static final String facility = "jOXN2iPhkxj";
-  static final String communityCouncil = "ubB83OWNWsv";
+  static const String implementingPartnerFormVariable = "y0bvausyTyh";
+  static const String facility = "jOXN2iPhkxj";
+  static const String communityCouncil = "ubB83OWNWsv";
 
   ReferralNotification({
     required this.id,
@@ -18,7 +18,7 @@ class ReferralNotification {
     required this.tei,
     this.referrals,
   }) {
-    this.referrals = this.referrals ?? [];
+    referrals = referrals ?? [];
   }
 
   factory ReferralNotification.fromJson(Map data) {
@@ -39,7 +39,7 @@ class ReferralNotification {
   }
 
   Map toOffline({bool shouldTransformBooleanValues = false}) {
-    var data = Map<String, dynamic>();
+    var data = <String, dynamic>{};
     data["id"] = id;
     data["implementingPartner"] = implementingPartner;
     data["nameSpaceKey"] = nameSpaceKey;

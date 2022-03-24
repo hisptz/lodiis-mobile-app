@@ -44,11 +44,11 @@ class NoneParticipationBeneficiary {
       'FHn0nJPumhO'
     ];
 
-    Map data = Map();
+    Map data = {};
 
     for (Map detailObj in eventData.dataValues) {
       String? dataElements = detailObj['dataElement'];
-      if (dataElements != null && keys.indexOf(dataElements) > -1) {
+      if (dataElements != null && keys.contains(dataElements)) {
         data[dataElements] = '${detailObj['value']}'.trim();
       }
     }
@@ -56,7 +56,7 @@ class NoneParticipationBeneficiary {
     int age = AppUtil.getAgeInYear(data['jVSwC6Ln95H']);
     String phoneNumber = data["ox6mydZjgC3"] ?? '';
     String sex = data['an7w8LYPZ7y'] ?? '';
-    bool isMaleBeneficiary = '$sex'.trim().toLowerCase() == "male";
+    bool isMaleBeneficiary = sex.trim().toLowerCase() == "male";
     NoneParticipationBeneficiary beneficiary = NoneParticipationBeneficiary(
       event: eventData.event,
       eventDate: eventData.eventDate,

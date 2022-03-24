@@ -12,7 +12,7 @@ class ImplementingPartnerReferralService {
   }
 
   Map toOffline(ImplementingPartnerReferralService referralService) {
-    Map offlineData = Map<String, dynamic>();
+    Map offlineData = <String, dynamic>{};
     offlineData['id'] =
         DefaultImplementingPartnerReferralServices.referralServicesId;
     offlineData['services'] = referralService.services;
@@ -22,7 +22,7 @@ class ImplementingPartnerReferralService {
 
   ImplementingPartnerReferralService.fromOffline(
       Map<String, dynamic> offlineData) {
-    this.id = offlineData['id'];
-    this.services = offlineData['services'];
+    id = offlineData['id'];
+    services = offlineData['services'];
   }
 }

@@ -32,10 +32,10 @@ class ReferralOutcomeFollowUpEvent {
       'BzkeBAxdEVT',
       referralToFollowUpLinkage
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in eventData.dataValues) {
       String? dataElement = detailObj['dataElement'];
-      if (dataElement != null && keys.indexOf(dataElement) > -1) {
+      if (dataElement != null && keys.contains(dataElement)) {
         data[dataElement] = '${detailObj['value']}'.trim();
       }
     }
