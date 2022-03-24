@@ -19,7 +19,7 @@ class EducationBeneficiaryButton extends StatelessWidget {
     return Visibility(
       visible: isVisible,
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           vertical: 5.0,
         ),
         child: Row(
@@ -27,7 +27,7 @@ class EducationBeneficiaryButton extends StatelessWidget {
             InkWell(
               onTap: onTap,
               child: Container(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 5.0,
                   horizontal: 20.0,
                 ),
@@ -35,27 +35,25 @@ class EducationBeneficiaryButton extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '$label',
-                      style: TextStyle().copyWith(
+                      label,
+                      style: const TextStyle().copyWith(
                         fontSize: 12.0,
                         fontWeight: FontWeight.normal,
-                        color: Color(0xFF009688),
+                        color: const Color(0xFF009688),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-            Container(
-              child: Visibility(
-                visible: hasSplitBorder,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                        width: 1.0,
-                        color: Color(0xFF009688),
-                      ),
+            Visibility(
+              visible: hasSplitBorder,
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      width: 1.0,
+                      color: Color(0xFF009688),
                     ),
                   ),
                 ),

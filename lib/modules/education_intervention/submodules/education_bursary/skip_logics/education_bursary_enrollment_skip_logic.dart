@@ -6,9 +6,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class EducationBursaryEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -130,7 +130,7 @@ class EducationBursaryEnrollmentSkipLogic {
         hiddenFields['H5glFCPsa9n'] = true;
       }
       if (inputFieldId == 'vIX4GTSCX4P') {
-        Map hiddenRelationshipsWithChild = Map();
+        Map hiddenRelationshipsWithChild = {};
         if (value == 'Male') {
           hiddenFields['oIGWbCQTZ8w'] = true;
           hiddenRelationshipsWithChild['Daughter'] = true;

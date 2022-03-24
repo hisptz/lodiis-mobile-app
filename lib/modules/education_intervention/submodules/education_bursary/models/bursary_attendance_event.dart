@@ -21,10 +21,10 @@ class BursaryAttendanceEvent {
     List keys = [
       'WvYI4dliZyk',
     ];
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
@@ -39,6 +39,6 @@ class BursaryAttendanceEvent {
 
   @override
   String toString() {
-    return '${this.date} ${this.attended ? "Attended" : "Not Attended"}';
+    return '$date ${attended ? "Attended" : "Not Attended"}';
   }
 }

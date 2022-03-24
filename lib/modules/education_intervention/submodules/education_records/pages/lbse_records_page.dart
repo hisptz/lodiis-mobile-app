@@ -34,7 +34,7 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationLbseEnrollmentFormPage();
+          return const EducationLbseEnrollmentFormPage();
         },
       ),
     );
@@ -85,10 +85,10 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: 10.0,
             ),
-            child: Text(
+            child: const Text(
               'There is no LBSE beneficiaries enrolled at moment',
             ),
           ),
@@ -97,35 +97,29 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
     );
   }
 
-  Container _buildBody() {
-    return Container(
-      child: Container(
-        child: Consumer<EducationLbseInterventionState>(
-          builder: (context, educationLbseInterventionState, child) {
-            return CustomPaginatedListView(
-              childBuilder: (context, lbseBeneficiary, child) => Container(
-                child: EducationBeneficiaryCard(
-                  canEdit: canEdit,
-                  canView: canView,
-                  canExpand: canExpand,
-                  isExpanded: toggleCardId == lbseBeneficiary.id,
-                  isLbseLearningOutcomeVisible: false,
-                  isLbseReferralVisible: false,
-                  isBursarySchoolVisible: false,
-                  isBursaryClubVisible: false,
-                  educationBeneficiary: lbseBeneficiary,
-                  onView: () => onViewBeneficiary(context, lbseBeneficiary),
-                  onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
-                ),
-              ),
-              pagingController:
-                  educationLbseInterventionState.pagingController!,
-              emptyListWidget: _getEmptyListContainer(context),
-              errorWidget: _getEmptyListContainer(context),
-            );
-          },
-        ),
-      ),
+  Consumer<EducationLbseInterventionState> _buildBody() {
+    return Consumer<EducationLbseInterventionState>(
+      builder: (context, educationLbseInterventionState, child) {
+        return CustomPaginatedListView(
+          childBuilder: (context, lbseBeneficiary, child) =>
+              EducationBeneficiaryCard(
+            canEdit: canEdit,
+            canView: canView,
+            canExpand: canExpand,
+            isExpanded: toggleCardId == lbseBeneficiary.id,
+            isLbseLearningOutcomeVisible: false,
+            isLbseReferralVisible: false,
+            isBursarySchoolVisible: false,
+            isBursaryClubVisible: false,
+            educationBeneficiary: lbseBeneficiary,
+            onView: () => onViewBeneficiary(context, lbseBeneficiary),
+            onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
+          ),
+          pagingController: educationLbseInterventionState.pagingController!,
+          emptyListWidget: _getEmptyListContainer(context),
+          errorWidget: _getEmptyListContainer(context),
+        );
+      },
     );
   }
 

@@ -6,9 +6,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class EducationLbseEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static String schoolGradeReference = "BUPSEpJySPR";
   static String schoolLevelReference = "UhZhN6s0SNg";
@@ -35,7 +35,7 @@ class EducationLbseEnrollmentSkipLogic {
         assignInputFieldValue(context, ageReference, age.toString());
       } else if (inputFieldId == schoolLevelReference) {
         String schoolLevel = '${dataObject[inputFieldId]}';
-        Map hiddenGrades = Map();
+        Map hiddenGrades = {};
         if (schoolLevel == 'Primary') {
           hiddenGrades["Grade 8"] = true;
           hiddenGrades["Grade 9"] = true;

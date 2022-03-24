@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:provider/provider.dart';
 
 class EducationLbse extends StatefulWidget {
-  EducationLbse({Key? key}) : super(key: key);
+  const EducationLbse({Key? key}) : super(key: key);
 
   @override
   _EducationLbseState createState() => _EducationLbseState();
@@ -90,7 +90,7 @@ class _EducationLbseState extends State<EducationLbse> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationLbseEnrollmentFormPage();
+          return const EducationLbseEnrollmentFormPage();
         },
       ),
     );
@@ -142,7 +142,7 @@ class _EducationLbseState extends State<EducationLbse> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationLbseLearningOutcomeHome();
+          return const EducationLbseLearningOutcomeHome();
         },
       ),
     );
@@ -161,7 +161,7 @@ class _EducationLbseState extends State<EducationLbse> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationLbseReferralHome();
+          return const EducationLbseReferralHome();
         },
       ),
     );
@@ -172,62 +172,53 @@ class _EducationLbseState extends State<EducationLbse> {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: 10.0,
             ),
-            child: Text(
+            child: const Text(
               'There is no LBSE beneficiaries enrolled at moment',
             ),
           ),
-          Container(
-            child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/add-beneficiary.svg',
-                color: Colors.blueGrey,
-              ),
-              onPressed: () => onAddLbseBeneficiary(context),
+          IconButton(
+            icon: SvgPicture.asset(
+              'assets/icons/add-beneficiary.svg',
+              color: Colors.blueGrey,
             ),
+            onPressed: () => onAddLbseBeneficiary(context),
           )
         ],
       ),
     );
   }
 
-  Container _buildBody() {
-    return Container(
-      child: Container(
-        child: Consumer<EducationLbseInterventionState>(
-          builder: (context, educationLbseInterventionState, child) {
-            return CustomPaginatedListView(
-              childBuilder: (context, lbseBeneficiary, child) => Container(
-                child: EducationBeneficiaryCard(
-                  canEdit: canEdit,
-                  canView: canView,
-                  canExpand: canExpand,
-                  isExpanded: toggleCardId == lbseBeneficiary.id,
-                  isLbseLearningOutcomeVisible: true,
-                  isLbseReferralVisible: true,
-                  isBursarySchoolVisible: false,
-                  isBursaryClubVisible: false,
-                  educationBeneficiary: lbseBeneficiary,
-                  onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
-                  onView: () => onViewBeneficiary(context, lbseBeneficiary),
-                  onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
-                  onOpenLbseLearningOutcome: () =>
-                      onOpenBeneficiaryLearningOutcome(
-                          context, lbseBeneficiary),
-                  onOpenLbseReferral: () =>
-                      onOpenBeneficiaryReferrals(context, lbseBeneficiary),
-                ),
-              ),
-              pagingController:
-                  educationLbseInterventionState.pagingController!,
-              emptyListWidget: _getEmptyListContainer(context),
-              errorWidget: _getEmptyListContainer(context),
-            );
-          },
-        ),
-      ),
+  Consumer<EducationLbseInterventionState> _buildBody() {
+    return Consumer<EducationLbseInterventionState>(
+      builder: (context, educationLbseInterventionState, child) {
+        return CustomPaginatedListView(
+          childBuilder: (context, lbseBeneficiary, child) =>
+              EducationBeneficiaryCard(
+            canEdit: canEdit,
+            canView: canView,
+            canExpand: canExpand,
+            isExpanded: toggleCardId == lbseBeneficiary.id,
+            isLbseLearningOutcomeVisible: true,
+            isLbseReferralVisible: true,
+            isBursarySchoolVisible: false,
+            isBursaryClubVisible: false,
+            educationBeneficiary: lbseBeneficiary,
+            onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
+            onView: () => onViewBeneficiary(context, lbseBeneficiary),
+            onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
+            onOpenLbseLearningOutcome: () =>
+                onOpenBeneficiaryLearningOutcome(context, lbseBeneficiary),
+            onOpenLbseReferral: () =>
+                onOpenBeneficiaryReferrals(context, lbseBeneficiary),
+          ),
+          pagingController: educationLbseInterventionState.pagingController!,
+          emptyListWidget: _getEmptyListContainer(context),
+          errorWidget: _getEmptyListContainer(context),
+        );
+      },
     );
   }
 

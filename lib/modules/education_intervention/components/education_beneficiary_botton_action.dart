@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_button.dart';
 
 class EducationBeneficiaryBottonAction extends StatelessWidget {
@@ -29,46 +28,44 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(12.0),
-          bottomRight: Radius.circular(12.0),
-        ),
-        child: Container(
-          height: height,
-          color: Color(0xFF009688).withOpacity(0.08),
-          child: Center(
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                EducationBeneficiaryButton(
-                  label: 'LEARNING OUTCOME',
-                  isVisible: isLbseLearningOutcomeVisible,
-                  hasSplitBorder: isLbseReferralVisible,
-                  onTap: onOpenLbseLearningOutcome,
-                ),
-                EducationBeneficiaryButton(
-                  label: 'REFERRAL',
-                  isVisible: isLbseReferralVisible,
-                  hasSplitBorder: isBursarySchoolVisible,
-                  onTap: onOpenLbseReferral,
-                ),
-                EducationBeneficiaryButton(
-                  label: 'SCHOOL',
-                  isVisible: isBursarySchoolVisible,
-                  hasSplitBorder: isBursaryClubVisible,
-                  onTap: onOpenBursarySchool,
-                ),
-                EducationBeneficiaryButton(
-                  label: 'CLUB',
-                  isVisible: isBursaryClubVisible,
-                  hasSplitBorder: false,
-                  onTap: onOpenBursaryClub,
-                ),
-              ],
-            ),
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(12.0),
+        bottomRight: Radius.circular(12.0),
+      ),
+      child: Container(
+        height: height,
+        color: const Color(0xFF009688).withOpacity(0.08),
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            children: [
+              EducationBeneficiaryButton(
+                label: 'LEARNING OUTCOME',
+                isVisible: isLbseLearningOutcomeVisible,
+                hasSplitBorder: isLbseReferralVisible,
+                onTap: onOpenLbseLearningOutcome,
+              ),
+              EducationBeneficiaryButton(
+                label: 'REFERRAL',
+                isVisible: isLbseReferralVisible,
+                hasSplitBorder: isBursarySchoolVisible,
+                onTap: onOpenLbseReferral,
+              ),
+              EducationBeneficiaryButton(
+                label: 'SCHOOL',
+                isVisible: isBursarySchoolVisible,
+                hasSplitBorder: isBursaryClubVisible,
+                onTap: onOpenBursarySchool,
+              ),
+              EducationBeneficiaryButton(
+                label: 'CLUB',
+                isVisible: isBursaryClubVisible,
+                hasSplitBorder: false,
+                onTap: onOpenBursaryClub,
+              ),
+            ],
           ),
         ),
       ),

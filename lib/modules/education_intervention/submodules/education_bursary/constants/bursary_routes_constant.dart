@@ -1,21 +1,21 @@
 class BursaryRoutesConstant {
-  static final String assessmentPageModule = "Bursary Assessment Form";
-  static final String assessmentNextPageModule = "Bursary Enrollment Form";
-  static final String enrollmentPageModule = "Bursary Enrollment Form";
-  static final String enrollmentNextPageModule = "Bursary Enrollment Form";
-  static final String bursaryWithoutVulnerabilityCriteriaPageModule =
+  static const String assessmentPageModule = "Bursary Assessment Form";
+  static const String assessmentNextPageModule = "Bursary Enrollment Form";
+  static const String enrollmentPageModule = "Bursary Enrollment Form";
+  static const String enrollmentNextPageModule = "Bursary Enrollment Form";
+  static const String bursaryWithoutVulnerabilityCriteriaPageModule =
       "Bursary without vulnerability criteria";
-  static final String bursaryWithoutVulnerabilityCriteriaNextPageModule =
+  static const String bursaryWithoutVulnerabilityCriteriaNextPageModule =
       "Bursary without vulnerability criteria";
-  static final String enrollmentEditPageModule = "Bursary Enrollment";
-  static final String enrollmentEditNextPageModule = "Bursary Enrollment";
-  static final String clubsAttendancePageModule = "Clubs Attendance Form";
-  static final String clubsAttendanceNextPageModule = "Clubs Attendance Form";
-  static final String schoolsAttendancePageModule = "School Attendance Form";
-  static final String schoolsAttendanceNextPageModule =
+  static const String enrollmentEditPageModule = "Bursary Enrollment";
+  static const String enrollmentEditNextPageModule = "Bursary Enrollment";
+  static const String clubsAttendancePageModule = "Clubs Attendance Form";
+  static const String clubsAttendanceNextPageModule = "Clubs Attendance Form";
+  static const String schoolsAttendancePageModule = "School Attendance Form";
+  static const String schoolsAttendanceNextPageModule =
       "School Attendance Form";
-  static final String schoolsPerformancePageModule =
+  static const String schoolsPerformancePageModule =
       "Student Performance Tracking Form";
-  static final String schoolsPerformanceNextPageModule =
+  static const String schoolsPerformanceNextPageModule =
       "Student Performance Tracking Form";
 }

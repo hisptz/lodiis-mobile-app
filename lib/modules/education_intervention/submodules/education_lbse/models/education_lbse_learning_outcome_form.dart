@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationLbseLearningOutcomeForm {
-  static final String learningOutComeToReferralCheck = 'CQ3GZFbzv5N';
+  static const String learningOutComeToReferralCheck = 'CQ3GZFbzv5N';
   static List<String> getMandatoryField() {
     return ['kuMzFGnDULh', 'mm5ZvlsZ6Sx', 'pKF9sVeUuuE'];
   }
@@ -13,14 +13,14 @@ class EducationLbseLearningOutcomeForm {
     return [
       FormSection(
         name: "",
-        color: Color(0xFF009688),
+        color: const Color(0xFF009688),
         inputFields: [
           InputField(
             id: learningOutComeToReferralCheck,
             name: 'Referral offered?',
             valueType: 'BOOLEAN',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
         ],
       ),
@@ -31,14 +31,14 @@ class EducationLbseLearningOutcomeForm {
     return [
       FormSection(
         name: "Learning Outcome",
-        color: Color(0xFF009688),
+        color: const Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'kuMzFGnDULh',
             name: 'Theme',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: 'Theme 1',
@@ -70,8 +70,8 @@ class EducationLbseLearningOutcomeForm {
             id: 'mm5ZvlsZ6Sx',
             name: 'Learning outcome',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: 'LO1',
@@ -167,8 +167,8 @@ class EducationLbseLearningOutcomeForm {
             id: 'pKF9sVeUuuE',
             name: 'Mode',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: 'Face to face',
@@ -184,8 +184,8 @@ class EducationLbseLearningOutcomeForm {
             id: 'WJOfRtIYU2p',
             name: 'Comment',
             valueType: 'LONG_TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
         ],
       ),

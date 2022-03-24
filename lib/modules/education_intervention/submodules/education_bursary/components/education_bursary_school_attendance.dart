@@ -34,7 +34,8 @@ class _EducationBursarySchoolAttendanceState
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationBursaryAttendanceFormPage(isSchoolAttendance: true);
+          return const EducationBursaryAttendanceFormPage(
+              isSchoolAttendance: true);
         },
       ),
     );
@@ -67,8 +68,7 @@ class _EducationBursarySchoolAttendanceState
     } else {
       FormUtil.updateServiceFormState(context, isEditableMode, null);
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-          'eventDate',
-          '${AppUtil.formattedDateTimeIntoString(DateTime.now())}');
+          'eventDate', AppUtil.formattedDateTimeIntoString(DateTime.now()));
       redirectToAttendanceForm(context);
     }
   }
@@ -102,91 +102,86 @@ class _EducationBursarySchoolAttendanceState
       BursaryInterventionConstant.schoolAttendanceProgramStage
     ];
 
-    return Container(
-      child: Consumer<EducationInterventionCurrentSelectionState>(
-        builder: (context, educationInterventionCurrentSelectionState, child) {
-          return Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, child) {
-              EducationBeneficiary? bursaryBeneficiary =
-                  educationInterventionCurrentSelectionState
-                      .currentBeneficiciary;
-              bool isLoading = serviceEventDataState.isLoading;
-              Map<String?, List<Events>> eventListByProgramStage =
-                  serviceEventDataState.eventListByProgramStage;
-              List<Events> events = TrackedEntityInstanceUtil
-                  .getAllEventListFromServiceDataStateByProgramStages(
-                      eventListByProgramStage, programStageIds)
-                ..sort((a, b) => b.eventDate!.compareTo(a.eventDate!));
-              List<BursaryAttendanceEvent> attendances = events
-                  .map((Events event) =>
-                      BursaryAttendanceEvent().fromTeiModel(event))
-                  .toList();
-              return Container(
-                child: Column(
-                  children: [
-                    Container(
-                      child: isLoading
-                          ? CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            )
-                          : Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                  ),
-                                  child: events.length == 0
-                                      ? Text(
-                                          'There is no school attendance at a moment',
-                                        )
-                                      : Container(
-                                          margin: EdgeInsets.symmetric(
-                                            vertical: 5.0,
-                                            horizontal: 13.0,
-                                          ),
-                                          child: Column(
-                                            children: attendances.map(
-                                                (BursaryAttendanceEvent
-                                                    attendance) {
-                                              return EducationListCard(
-                                                date: attendance.date!,
-                                                title: attendance.attended
-                                                    ? 'Attended'
-                                                    : 'Not Attended',
-                                                canEdit: attendance
-                                                    .enrollmentOuAccessible!,
-                                                onEdit: () => onEditAttendance(
-                                                  context,
-                                                  bursaryBeneficiary!,
-                                                  attendance.eventData!,
-                                                ),
-                                                onView: () => onViewAttendance(
-                                                  context,
-                                                  attendance.eventData!,
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                ),
-                                EntryFormSaveButton(
-                                  label: 'ADD SCHOOL ATTENDANCE',
-                                  labelColor: Colors.white,
-                                  buttonColor: Color(0xFF009688),
-                                  fontSize: 15.0,
-                                  onPressButton: () => onAddAttendance(
-                                      context, bursaryBeneficiary!),
-                                ),
-                              ],
+    return Consumer<EducationInterventionCurrentSelectionState>(
+      builder: (context, educationInterventionCurrentSelectionState, child) {
+        return Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, child) {
+            EducationBeneficiary? bursaryBeneficiary =
+                educationInterventionCurrentSelectionState.currentBeneficiciary;
+            bool isLoading = serviceEventDataState.isLoading;
+            Map<String?, List<Events>> eventListByProgramStage =
+                serviceEventDataState.eventListByProgramStage;
+            List<Events> events = TrackedEntityInstanceUtil
+                .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage, programStageIds)
+              ..sort((a, b) => b.eventDate!.compareTo(a.eventDate!));
+            List<BursaryAttendanceEvent> attendances = events
+                .map((Events event) =>
+                    BursaryAttendanceEvent().fromTeiModel(event))
+                .toList();
+            return Column(
+              children: [
+                Container(
+                  child: isLoading
+                      ? const CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 10.0,
+                              ),
+                              child: events.isEmpty
+                                  ? const Text(
+                                      'There is no school attendance at a moment',
+                                    )
+                                  : Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 5.0,
+                                        horizontal: 13.0,
+                                      ),
+                                      child: Column(
+                                        children: attendances.map(
+                                            (BursaryAttendanceEvent
+                                                attendance) {
+                                          return EducationListCard(
+                                            date: attendance.date!,
+                                            title: attendance.attended
+                                                ? 'Attended'
+                                                : 'Not Attended',
+                                            canEdit: attendance
+                                                .enrollmentOuAccessible!,
+                                            onEdit: () => onEditAttendance(
+                                              context,
+                                              bursaryBeneficiary!,
+                                              attendance.eventData!,
+                                            ),
+                                            onView: () => onViewAttendance(
+                                              context,
+                                              attendance.eventData!,
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
                             ),
-                    ),
-                  ],
+                            EntryFormSaveButton(
+                              label: 'ADD SCHOOL ATTENDANCE',
+                              labelColor: Colors.white,
+                              buttonColor: const Color(0xFF009688),
+                              fontSize: 15.0,
+                              onPressButton: () =>
+                                  onAddAttendance(context, bursaryBeneficiary!),
+                            ),
+                          ],
+                        ),
                 ),
-              );
-            },
-          );
-        },
-      ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

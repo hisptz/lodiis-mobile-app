@@ -134,7 +134,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -147,101 +147,97 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<EducationInterventionCurrentSelectionState>(
-              builder:
-                  (context, educationInterventionCurrentSelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    EducationBeneficiary? lbseBeneficiary =
-                        educationInterventionCurrentSelectionState
-                            .currentBeneficiciary;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
-                    List<LbseLearningOutcomeEvent> lbseLearningOutcomes = events
-                        .map((Events eventData) =>
-                            LbseLearningOutcomeEvent().fromTeiModel(eventData))
-                        .toList()
-                      ..sort((b, a) => a.date!.compareTo(b.date!));
-                    return Container(
-                      child: Column(
-                        children: [
-                          EducationBeneficiaryTopHeader(
-                            educationBeneficiary: lbseBeneficiary!,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: lbseLearningOutcomes.length == 0
-                                            ? Text(
-                                                'There is no learning outcome at a moment',
-                                              )
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: lbseLearningOutcomes
-                                                      .map((LbseLearningOutcomeEvent
-                                                          lbseLearningOutcome) {
-                                                    return EducationListCard(
-                                                      date: lbseLearningOutcome
-                                                          .date!,
-                                                      title: lbseLearningOutcome
-                                                          .toString(),
-                                                      canEdit: lbseLearningOutcome
-                                                          .enrollmentOuAccessible!,
-                                                      onEdit: () =>
-                                                          onEditLearningOutcome(
-                                                        context,
-                                                        lbseBeneficiary,
-                                                        lbseLearningOutcome
-                                                            .eventData!,
-                                                      ),
-                                                      onView: () =>
-                                                          onViewLearningOutcome(
-                                                        context,
-                                                        lbseBeneficiary,
-                                                        lbseLearningOutcome
-                                                            .eventData!,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                      ),
-                                      EntryFormSaveButton(
-                                        label: 'ADD LEARNING OUTCOME',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF009688),
-                                        fontSize: 15.0,
-                                        onPressButton: () =>
-                                            onAddNewLearningOutcome(
-                                                context, lbseBeneficiary),
-                                      ),
-                                    ],
-                                  ),
-                          ),
-                        ],
+          body: Consumer<EducationInterventionCurrentSelectionState>(
+            builder:
+                (context, educationInterventionCurrentSelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  EducationBeneficiary? lbseBeneficiary =
+                      educationInterventionCurrentSelectionState
+                          .currentBeneficiciary;
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                          eventListByProgramStage, programStageIds);
+                  List<LbseLearningOutcomeEvent> lbseLearningOutcomes = events
+                      .map((Events eventData) =>
+                          LbseLearningOutcomeEvent().fromTeiModel(eventData))
+                      .toList()
+                    ..sort((b, a) => a.date!.compareTo(b.date!));
+                  return Column(
+                    children: [
+                      EducationBeneficiaryTopHeader(
+                        educationBeneficiary: lbseBeneficiary!,
                       ),
-                    );
-                  },
-                );
-              },
-            ),
+                      Container(
+                        child: isLoading
+                            ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: lbseLearningOutcomes.isEmpty
+                                        ? const Text(
+                                            'There is no learning outcome at a moment',
+                                          )
+                                        : Container(
+                                            margin: const EdgeInsets.symmetric(
+                                              vertical: 5.0,
+                                              horizontal: 13.0,
+                                            ),
+                                            child: Column(
+                                              children: lbseLearningOutcomes
+                                                  .map((LbseLearningOutcomeEvent
+                                                      lbseLearningOutcome) {
+                                                return EducationListCard(
+                                                  date:
+                                                      lbseLearningOutcome.date!,
+                                                  title: lbseLearningOutcome
+                                                      .toString(),
+                                                  canEdit: lbseLearningOutcome
+                                                      .enrollmentOuAccessible!,
+                                                  onEdit: () =>
+                                                      onEditLearningOutcome(
+                                                    context,
+                                                    lbseBeneficiary,
+                                                    lbseLearningOutcome
+                                                        .eventData!,
+                                                  ),
+                                                  onView: () =>
+                                                      onViewLearningOutcome(
+                                                    context,
+                                                    lbseBeneficiary,
+                                                    lbseLearningOutcome
+                                                        .eventData!,
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                  ),
+                                  EntryFormSaveButton(
+                                    label: 'ADD LEARNING OUTCOME',
+                                    labelColor: Colors.white,
+                                    buttonColor: const Color(0xFF009688),
+                                    fontSize: 15.0,
+                                    onPressButton: () =>
+                                        onAddNewLearningOutcome(
+                                            context, lbseBeneficiary),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
       ),
