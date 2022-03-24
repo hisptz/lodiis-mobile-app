@@ -45,7 +45,7 @@ class DataQualityService {
               .getTrackedEntityAttributesValuesById(fieldsToBeMigrated);
 
       for (dynamic attributeData in attributesToMigrate) {
-        Map resolvedAttribute = Map<String, dynamic>();
+        Map resolvedAttribute = <String, dynamic>{};
         String attribute = attributeData['attribute'] ?? '';
         String trackedEntityInstance =
             attributeData['trackedEntityInstance'] ?? '';
@@ -106,7 +106,9 @@ class DataQualityService {
         await TrackedEntityInstanceOfflineAttributeProvider()
             .deleteTrackedEntityAttributesByIds(fieldsToBeMigrated);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   static void runDataQualityCheckResolution() async {
@@ -122,7 +124,7 @@ class DataQualityService {
     List attributes = await TrackedEntityInstanceOfflineAttributeProvider()
         .getTrackedEntityAttributesValuesById(attributeIds);
     for (Map attributeObject in attributes) {
-      Map resolvedAttribute = Map<String, dynamic>();
+      Map resolvedAttribute = <String, dynamic>{};
       resolvedAttribute["id"] = attributeObject["id"];
       resolvedAttribute["trackedEntityInstance"] =
           attributeObject["trackedEntityInstance"];
@@ -180,8 +182,7 @@ class DataQualityService {
   ) {
     return inputFields
         .where((InputField inputField) =>
-            "${inputField.valueType}".toLowerCase() ==
-            "$valueType".toLowerCase())
+            inputField.valueType.toLowerCase() == valueType.toLowerCase())
         .toList();
   }
 

@@ -46,9 +46,9 @@ class TrackedEntityInstanceService {
           }
           String searchableValue =
               TrackedEntityInstanceUtil.getEnrollmentSearchableValue(teiJson);
-          teiEnrollmentsJson.forEach((enrollment) {
+          for (var enrollment in teiEnrollmentsJson) {
             enrollment["searchableValue"] = searchableValue;
-          });
+          }
           await saveTrackedEntityInstanceProfile(teiJson);
           await saveTrackedEntityInstanceEnrollment(teiEnrollmentsJson);
           await saveTrackedEntityInstanceEvents(teiEventsJson);
@@ -56,7 +56,7 @@ class TrackedEntityInstanceService {
         }
       }
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -182,7 +182,9 @@ class TrackedEntityInstanceService {
           programs.add(enrollment["program"] ?? "");
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      //
+    }
     return programs
         .toSet()
         .toList()

@@ -16,7 +16,7 @@ class ImplementingPartnerReferralConfigService {
         DefaultImplementingPartnerReferralServices.getDefaultService();
     String currentReferralServices = "";
     try {
-      HttpService http = new HttpService(
+      HttpService http = HttpService(
         username: username,
         password: password,
       );
@@ -25,8 +25,6 @@ class ImplementingPartnerReferralConfigService {
           response.statusCode == 200 ? response.body : defaultReferralServices;
     } catch (error) {
       currentReferralServices = defaultReferralServices;
-      print(
-          'getImplementingPartnerReferralServicesFromTheServer: ${error.toString()}');
     }
     return currentReferralServices;
   }
@@ -37,7 +35,7 @@ class ImplementingPartnerReferralConfigService {
             .checkIfImplementingPartnerReferralServicesExist();
     if (!referralJsonData) {
       ImplementingPartnerReferralService implementingPartnerReferralService =
-          new ImplementingPartnerReferralService(
+          ImplementingPartnerReferralService(
               id: DefaultImplementingPartnerReferralServices.referralServicesId,
               services: DefaultImplementingPartnerReferralServices
                   .getDefaultService());
@@ -55,14 +53,14 @@ class ImplementingPartnerReferralConfigService {
           await (getImplementingPartnerReferralServicesFromTheServer(
               username, password));
       ImplementingPartnerReferralService implementingPartnerReferralService =
-          new ImplementingPartnerReferralService(
+          ImplementingPartnerReferralService(
         id: DefaultImplementingPartnerReferralServices.referralServicesId,
         services: referralServices,
       );
       await ImplementingPartnerReferralServicesOfflineProvider()
           .addOrUpdateReferralServices(implementingPartnerReferralService);
     } catch (e) {
-      print('addImplementingPartnerReferralServices: ${e.toString()}');
+      //
     }
   }
 }

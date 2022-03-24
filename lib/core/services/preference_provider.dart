@@ -10,6 +10,6 @@ class PreferenceProvider {
     String preferenceKey,
   ) async {
     SharedPreferences _preferences = await SharedPreferences.getInstance();
-    return _preferences.getString(preferenceKey) ?? null;
+    return _preferences.getString(preferenceKey);
   }
 }
