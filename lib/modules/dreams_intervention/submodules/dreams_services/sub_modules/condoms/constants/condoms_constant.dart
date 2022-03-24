@@ -1,4 +1,4 @@
 class CondomsConstant  {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'NXsIkG9Q1BA';
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'NXsIkG9Q1BA';
 }

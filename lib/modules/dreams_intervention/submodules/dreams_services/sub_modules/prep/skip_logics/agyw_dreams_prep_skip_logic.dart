@@ -9,8 +9,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
 // fields to not be cleared when hidden
   static List skippedFields = ['WeaVsrFcWne', 'RqWMrqUcDqv', 'gCvMVscBNfk'];
 
@@ -115,15 +115,9 @@ class AgywDreamsPrepSkipLogic {
           dataObject['Syuc71VFOuO'] != '1') {
         hiddenFields['zs5TJVoHg9j'] = true;
       }
-      //Assign Site name to Facility name
-      // if (inputFieldId == 'BrcTtRhrxXp') {
-      //   dataObject['BrcTtRhrxXp'] = dataObject['lQ8XDsy6M6y'];
-      // }
-      //Substantial Risk and Eligibility
       if (inputFieldId == 'pQaAQdJnE1w' && value != 'Yes') {
         hiddenFields['DobfAIMBOvy'] = true;
       }
-      // Assign HIV results
       if (inputFieldId == 'veoA322323t') {
         if (dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
             'Negative') {
@@ -132,21 +126,13 @@ class AgywDreamsPrepSkipLogic {
           dataObject[inputFieldId] = 'false';
         }
       }
-      // Assign type of test used
-      // if (inputFieldId == '') {}
-      // Assign date tested
       if (inputFieldId == 'vMR9VtzuH3R') {
-        String date = '${AppUtil.formattedDateTimeIntoString(DateTime.now())}';
+        String date = AppUtil.formattedDateTimeIntoString(DateTime.now());
         dataObject[inputFieldId] = date;
       }
       if (inputFieldId == 'O8Fz5EWOOzU' && value != 'true') {
         hiddenFields['KLxWrSRAXfY'] = true;
       }
-
-      // if (inputFieldId == 'rDV6sBIwivl' && value != 'true') {
-      //   hiddenSections['PeSfSRaE'] = true;
-      //   hiddenSections['BsLnIfmtn'] = true;
-      // }
 
       if (inputFieldId == 'li1EJgHzWtV' && value != 'Other') {
         hiddenFields['GrChAWBTqTc'] = true;

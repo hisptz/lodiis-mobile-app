@@ -8,14 +8,14 @@ class BioDataIndexContacts {
     return [
       FormSection(
           name: 'BIO DATA: Index contacts',
-          color: Color(0xFF737373),
+          color: const Color(0xFF737373),
           inputFields: [
             InputField(
                 id: 'CEKq8l9b8DG',
                 name: 'Type of partner',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code:
@@ -33,27 +33,27 @@ class BioDataIndexContacts {
                 id: 'p9AA21uFn2n',
                 name: "Partner's name",
                 valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'Y0QGNDBCEbz',
                 name: "Partner's date of birth",
                 valueType: 'DATE',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'cYoXGqzLXLr',
                 name: "Partner's age",
                 valueType: 'NUMBER',
                 isReadOnly: true,
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'mUN2hEf7R57',
                 name: "Partner's sex",
                 valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Male', name: 'Male'),
                   InputFieldOption(code: 'Female', name: 'Female')
@@ -62,15 +62,15 @@ class BioDataIndexContacts {
               id: 'mkyHnxwr6QL',
               name: "Partner's contact",
               valueType: 'PHONE_NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
                 id: 'xTD6pePFLIW',
                 name: "Partner's Status",
                 valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Positive', name: 'Positive'),
                   InputFieldOption(code: 'Negative', name: 'Negative'),

@@ -47,53 +47,51 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
   }
 
   Widget _buildBody() {
-    return Container(
-      child: Consumer<DreamsInterventionListState>(
-        builder: (context, dreamInterventionListState, child) {
-          return CustomPaginatedListView(
-            childBuilder: (context, agywBeneficiary, child) =>
-                DreamsBeneficiaryCard(
-              isAgywEnrollment: true,
-              agywDream: agywBeneficiary,
-              canEdit: canEdit,
-              canExpand: canExpand,
-              beneficiaryName: agywBeneficiary.toString(),
-              canView: canView,
-              isExpanded: agywBeneficiary.id == toggleCardId,
-              onCardToggle: () {
-                onCardToggle(
-                  context,
-                  agywBeneficiary.id,
-                );
-              },
-              cardBody: DreamsBeneficiaryCardBody(
-                agywBeneficiary: agywBeneficiary,
-                canViewServiceCategory: false,
-                isVerticalLayout: agywBeneficiary.id == toggleCardId,
-              ),
-              cardButtonActions: Container(),
-              cardButtonContent: Container(),
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return CustomPaginatedListView(
+          childBuilder: (context, agywBeneficiary, child) =>
+              DreamsBeneficiaryCard(
+            isAgywEnrollment: true,
+            agywDream: agywBeneficiary,
+            canEdit: canEdit,
+            canExpand: canExpand,
+            beneficiaryName: agywBeneficiary.toString(),
+            canView: canView,
+            isExpanded: agywBeneficiary.id == toggleCardId,
+            onCardToggle: () {
+              onCardToggle(
+                context,
+                agywBeneficiary.id,
+              );
+            },
+            cardBody: DreamsBeneficiaryCardBody(
+              agywBeneficiary: agywBeneficiary,
+              canViewServiceCategory: false,
+              isVerticalLayout: agywBeneficiary.id == toggleCardId,
             ),
-            pagingController: dreamInterventionListState.agywPagingController,
-            emptyListWidget: Column(
-              children: [
-                Center(
-                  child: Text(
-                    'There is no beneficiary list at a moment',
-                    textAlign: TextAlign.center,
-                  ),
+            cardButtonActions: Container(),
+            cardButtonContent: Container(),
+          ),
+          pagingController: dreamInterventionListState.agywPagingController,
+          emptyListWidget: Column(
+            children: const [
+              Center(
+                child: Text(
+                  'There is no beneficiary list at a moment',
+                  textAlign: TextAlign.center,
                 ),
-              ],
-            ),
-            errorWidget: Center(
-              child: Text(
-                'Error in loading beneficiary list ',
-                textAlign: TextAlign.center,
               ),
+            ],
+          ),
+          errorWidget: const Center(
+            child: Text(
+              'Error in loading beneficiary list ',
+              textAlign: TextAlign.center,
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -50,7 +50,7 @@ class AgywEnrollmentFormSection {
     return [
       FormSection(
         name: 'Enrollment Instructions',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'cifBFSTHgv5',
@@ -59,16 +59,16 @@ class AgywEnrollmentFormSection {
                   'Na moroetsana/mosali ea mocha lilemong o lipakeng tsa lilemo tse 9 le 24?',
               valueType: 'BOOLEAN',
               isReadOnly: true,
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'oEbOkfQY3NP',
             name: 'What was used for verification',
             translatedName:
                 'Ha karabo e le “E”, ho sebelisitsoe eng ho e netefatsa?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Birth Certificate',
@@ -91,8 +91,8 @@ class AgywEnrollmentFormSection {
               name: 'Other age verification document used',
               translatedName: 'E meng (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'fEHah8SvP35',
               name:
@@ -100,8 +100,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   'Na nakong ea joale o lula k’hanseleng/seterekeng seo le kentseng lenane la DREAMS?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'uSxDP43mFEG',
               name: 'Which community council and district?',
@@ -110,8 +110,8 @@ class AgywEnrollmentFormSection {
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [3],
               showCountryLevelTree: true,
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'x6VFmJLsqgx',
               name:
@@ -122,28 +122,28 @@ class AgywEnrollmentFormSection {
               description: 'Ensure you have documented consent in AGYW file.',
               translatedDescription:
                   'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'OmOU8n78dg7',
               name: 'Has the AGYW agreed to be enrolled in DREAMS?',
               translatedName:
                   'Na moroetsana/mosali ea mocha lilemong o lumetse ho kena lenaneng la DREAMS?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'L1Z7gkuKtbs',
               name: 'Comments/Notes',
               translatedName: 'Tlhakiso',
               valueType: 'LONG_TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
         name: 'Enrolled Profile Information',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
             id: 'VJiWumvINR6',
@@ -151,8 +151,8 @@ class AgywEnrollmentFormSection {
             translatedName: 'Boleng',
             valueType: 'TEXT',
             isReadOnly: true,
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Male', name: 'Male'),
               InputFieldOption(code: 'Female', name: 'Female'),
@@ -169,15 +169,15 @@ class AgywEnrollmentFormSection {
               name: 'Land mark near residence',
               translatedName: 'Sebaka se tsejoang haufi',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'iS9mAp3jDaU',
             name: 'Relationship to Caregiver',
             translatedName: 'Kamano le mohlokomeli',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Biological mother', name: 'Biological mother'),
@@ -206,8 +206,8 @@ class AgywEnrollmentFormSection {
               name: 'Other relationship to caregiver',
               translatedName: 'Tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -217,15 +217,15 @@ class AgywEnrollmentFormSection {
             'INTERVIEWER SAY:  This section of the enrolment form asks for details about your household in general.  After this we will move on to other topics.',
         translatedDescription:
             'MOTHO EA BOTSANG LIPOTSO A RE: Karolo ena, e botsa ka lelapa leno. Kamora mona re tla fetela lintlheng tse ling.',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
             id: 'O7FZEfXR1Ge',
             name: '101. Who is the head of your household?',
             translatedName: '101. Hloho ea lelapa leno/la hao ke mang?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Self', name: 'Self', translatedName: 'Ke ’na'),
@@ -258,15 +258,15 @@ class AgywEnrollmentFormSection {
               name: '102. How old is the head of the household?',
               translatedName: '102. Hloho ea lelapa o lilemo li kae?',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'cJl00w5DjIL',
             name: '103. Is your father alive?',
             translatedName: '103. Na ntate oa hao o ntse a phela?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -281,8 +281,8 @@ class AgywEnrollmentFormSection {
             name: '104. Is your mother alive?',
             translatedName: '104. Na ’m’e oa hao o ntse a phela?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -299,8 +299,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '105. Na batsoali/bahlokomeli ba hao ke batho ba kulang (ho kenyeletsa le tšoaetso ea HIV)?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -315,8 +315,8 @@ class AgywEnrollmentFormSection {
             name: '106. What is the main material on the floor of your house?',
             translatedName: '106. Ka lapeng ka heno, ho aliloe eng fatše?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Earth or Mud or Dung or Sand',
@@ -341,15 +341,15 @@ class AgywEnrollmentFormSection {
               name: 'Specify other type of floor material',
               translatedName: 'Tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'VWtI5ROqFzd',
             name: '107. What is the main material on the roof of your house?',
             translatedName: '107. Ntlo eno e ruletsoe ka eng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Grass', name: 'Grass', translatedName: 'Joang'),
@@ -374,15 +374,15 @@ class AgywEnrollmentFormSection {
               name: 'Specify other type of roof material',
               translatedName: 'Tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'xNx00hrCdWj',
             name: '108. What is the main material on the walls of your house?',
             translatedName: '108. Mabota a ntlo eno a entsoe ka eng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'No Walls',
@@ -419,16 +419,16 @@ class AgywEnrollmentFormSection {
               name: 'Specify other walls materials of your house',
               translatedName: 'Tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'ghkM8TrpEHr',
             name:
                 '109. What is the main source of drinking water for members of your household?',
             translatedName: '109. Le sebelisa metsi a tsoang kae?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Piped water',
@@ -460,8 +460,8 @@ class AgywEnrollmentFormSection {
               name: 'Specify other source of drinking water',
               translatedName: 'Tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'iIdrEpTkpsk',
               name:
@@ -469,16 +469,16 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '110. Libekeng tse 4 tse fetileng, na u kile oa robala ka tlala hobane ho se na mokhoa oa ho reka lijo?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'ovd3lF6epue',
             name: '111. For how many days did this happen in the last 4 weeks?',
             translatedName:
                 '111. See se etsahetse makhetlo a makae libekeng tse 4 tse fetileng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Rarely',
@@ -500,15 +500,15 @@ class AgywEnrollmentFormSection {
               name: '112. Do you have any form of disability?',
               translatedName: '112. Na u phela le bokooa?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'gyQS55npBZ8',
             name: '113. State disability type',
             translatedName: '113. Hlalosa mofuta oa bokooa ba hao',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Hearing impairment',
@@ -541,8 +541,8 @@ class AgywEnrollmentFormSection {
               name: 'Specify other type of disabilities',
               translatedName: 'Bokooa bo bong (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'BXUNH6LXeGA',
               name:
@@ -550,8 +550,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114a. Palo ea banana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'kQehaqmaygZ',
               name:
@@ -559,8 +559,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114b. Palo ea bashanyana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'rGAQnszNGVN',
               name:
@@ -568,8 +568,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114c. Palo ea basali ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'l9tcZ2TNgx6',
               name:
@@ -577,16 +577,16 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114d. Palo ea banna ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'eraVEI3PUF1',
             name: '115. Have you ever been enrolled in a cash transfer program',
             translatedName:
                 '115. Na u kile oa kena lenaneng la batho ba thusoang/phalleloang ka lichelete?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -603,8 +603,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '116. Na nakong ea joale u lenaneng la batho ba thusoang/phalleloang ka lichelete?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -621,8 +621,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '117. Nakong ea joale u lenaneng lefe la batho ba thusoang/phalleloang ka lichelete?',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -632,7 +632,7 @@ class AgywEnrollmentFormSection {
             'INTERVIEWER SAY:  This section of the enrolment asks about education and employment information of the AGYW.',
         translatedDescription:
             'MOTHO EA BOTSANG LIPOTSO A RE: Karolo ena e botsa ka thuto le khiro tsa moroetsana/mosali ea mocha lilemong.',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'JTNxMQPT134',
@@ -640,14 +640,14 @@ class AgywEnrollmentFormSection {
               isReadOnly: true,
               translatedName: '201. Na nakong ea joale u kena sekolo?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'iQdwzVfZdml',
             name: 'Type of school',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Formal',
@@ -664,15 +664,15 @@ class AgywEnrollmentFormSection {
               name: '202. What is the name of the school?',
               translatedName: '202. Lebitso la sekolo seo ke mang?',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'aPNGd6RCsY9',
             name: '203. What level of school are you currently in?',
             translatedName: '203. Nakong ea joale, u boemong bofe ba sekolo?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Primary level',
@@ -705,22 +705,22 @@ class AgywEnrollmentFormSection {
               name: 'Specify other school level',
               translatedName: 'Sekolo se seng (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'h1HeZ2eEkGn',
               name: 'Which class are you currently enrolled in?',
               translatedName: 'Sehlopha',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'NGVFqUVSHiU',
               name: 'Which form are you currently enrolled in?',
               translatedName: 'Sehlopha',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'JTNxMQPT134_checkboxes_2',
             name:
@@ -728,8 +728,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '204. Ntle le batsoali/bahlokomeli ba hao, na ho na le lithuso tseo u li fumanang mehloling e meng bakeng sa thuto? (Tšoaea tsohle tseo a li boletseng)',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'omcO1NZi372',
@@ -765,8 +765,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '205. Lebaka la mantlha le etsang hore u se kene sekolo ke lefe?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Completed secondary School',
@@ -805,15 +805,15 @@ class AgywEnrollmentFormSection {
               name: 'Specify other reasons not going to school',
               translatedName: 'Mabaka a mang (a hlalose)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'nhI53DrKB7u',
             name: '206. When was the last time you went to school?',
             translatedName: '206. U qetetse ho kena sekolo neng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Less than 6 Months ago',
@@ -843,8 +843,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '207. U khaolitse ho kena sekolo ha u le sehlopheng sefe?',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'JTNxMQPT134_checkboxes',
             name:
@@ -852,8 +852,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '208. Ha u ka fuoa monyetla, u ka lakatsa ho etsa eng ka bophelo ba hao?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'aJuhtxvbLUn',
@@ -878,15 +878,15 @@ class AgywEnrollmentFormSection {
               name: 'Other things you would do?',
               translatedName: 'Tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'IH4Ly0VPRtL',
             name: '209. What is your current main source of income?',
             translatedName: '209. U fumana chelete ea hao mehloling efe?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Formally employed',
@@ -918,22 +918,22 @@ class AgywEnrollmentFormSection {
               name: 'Other source of income',
               translatedName: 'E meng (hlalosa)',
               valueType: 'LONG_TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'TK4WYUEG5UK',
               name: '210. Do you have any savings?',
               translatedName: '210. Na u na le chelete e polokelong?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'RiSceJCKIzH',
             name: '211. Where do you keep your savings?',
             translatedName: '211. U boloka chelete ea hao kae?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'At home', name: 'At home', translatedName: 'Lapeng'),
@@ -956,29 +956,29 @@ class AgywEnrollmentFormSection {
               name: 'Specify where you keep your savings',
               translatedName: 'Libakeng tse ling (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
         name: 'Enrollment Module 3:  HIV Testing',
         translatedName: 'KAROLO EA 3: Tlhahlobo ea HIV',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'agg0eUd8Wwo',
               name: '301. Have you ever been tested for HIV?',
               translatedName: '301. Na u kile oa hlahloba HIV?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'jT72rsATBtu',
             name: '302. When/how long ago was your last HIV test?',
             translatedName: '302. Ke neng ha u qetela ho hlahloba HIVt?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Less than 3 months ago',
@@ -1006,8 +1006,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '303. Haeba ha u na bothata ba ho mpolella, sephetho sa hao sa tlhahlobo ea ho qetela se ne se reng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Positive',
@@ -1034,8 +1034,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '304. Haeba u na le tšoaetso ea HIV, na u ntse u etela tleleniking ho fumana litšebeletso tsa HIV?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'hmtIvw2mKGc',
               name:
@@ -1045,8 +1045,8 @@ class AgywEnrollmentFormSection {
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [4],
               showCountryLevelTree: true,
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'aQdK3NzB4Xq',
             name:
@@ -1054,8 +1054,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '306. Lebaka la hao la mantlha ke lefe le etsang hore u se ke oa batla litšebeletso tsa HIV?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Facility is too far away',
@@ -1109,15 +1109,15 @@ class AgywEnrollmentFormSection {
               name: 'Specify other reasons not going to clinic',
               translatedName: 'Mabaka a mang (a hlalose)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'agg0eUd8Wwo_checkbox',
             name: '307. Never been tested for HIV because',
             translatedName: '307. Ke hobaneng u e-so etse tlhahlobo ea HIV?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'ErH33FSpFcQ',
@@ -1165,8 +1165,8 @@ class AgywEnrollmentFormSection {
               name: 'Other reason',
               translatedName: 'Mabaka a mang (a hlalose)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'sTbepI08QYq',
               name:
@@ -1174,8 +1174,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '308. Na u tseba sebaka kapa libaka tseo batho ba ka hlahlobang HIV ho tsona?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -1186,7 +1186,7 @@ class AgywEnrollmentFormSection {
             'INTERVIEWER SAY: Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues.  Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer.',
         translatedDescription:
             'MOTHO EA BOTSANG LIPOTSO A RE: Joale ke tla u botsa lipotso ka litaba tsa hao tsa thobalano, e le ho fumana kutloisiso e batsi ka lintlha tsa bohlokoa bophelong ba hao. Ke u tiisetsa hore likarabo tsa hao li tla boloka e le lekunutu. Haeba lipotso tsa ka li u beha tsietsing, mpolelle. Hopola hore ha ho karabo e nepahetseng kapa a fosahetseng.',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
             id: 'lASgoPYJFDc',
@@ -1195,8 +1195,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Motho oa ho qetela eo u bileng le likamano tsa thobalano le ena u ne a le moholo, a le monyane kapa le ne lele lithaka?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Same Age',
@@ -1216,8 +1216,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Na motho oa ho qetela eo u bileng le likamano tsa thobalano le eena o ne a rotse katiba (circumcised)?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -1233,16 +1233,16 @@ class AgywEnrollmentFormSection {
               translatedName:
                   'Na u tseba boemo ba tsoaetso ba motho oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'jnO7z2XOLKv',
             name: 'How often did/do you use a condom with last partner?',
             translatedName:
                 'Ke hangata ha kae u neng u sebelisa likhohlopo le motho oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Always',
@@ -1265,8 +1265,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Motho oa bobeli oa ho qetela eo u bileng le likamano tsa thobalano le ena u ne a le moholo, a le monyane kapa le ne lele lithaka?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Same Age',
@@ -1286,8 +1286,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Na motho oa bobeli oa ho qetela eo u bileng le likamano tsa thobalano le eena o ne a rotse katiba (circumcised)?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -1304,8 +1304,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   'Na u tseba boemo ba tsoaetso ba motho oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'Ec5OLY5STtW',
             name:
@@ -1313,8 +1313,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Ke hangata ha kae u neng u sebelisa likhohlopo le motho oa  bobeli oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Always',
@@ -1337,8 +1337,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Motho oa boraro oa ho qetela eo u bileng le likamano tsa thobalano le ena u ne a le moholo, a le monyane kapa le ne lele lithaka?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Same Age',
@@ -1358,8 +1358,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Na motho oa boraro oa ho qetela eo u bileng le likamano tsa thobalano le eena o ne a rotse katiba (circumcised)?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -1375,8 +1375,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   'Na u tseba boemo ba tsoaetso ba motho oa boraro oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'bhH17wShRcN',
             name:
@@ -1384,8 +1384,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Ke hangata ha kae u neng u sebelisa likhohlopo le motho oa  boraro oa ho qetela eo u bileng le likamano tsa thobalano le eena?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Always',
@@ -1408,8 +1408,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   'Likhoeling tse 12 tse fetileng, na u kile oa fuoa chelete kapa limpho ho etsa thobalano?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -1419,29 +1419,29 @@ class AgywEnrollmentFormSection {
             'INTERVIEWER SAY: Now I would like us to move on to some questions on your reproductive health. ',
         translatedDescription:
             'MOTHO EA BOTSANG LIPOTSO A RE: Joale ke kopa ho u botsa lipotso mabapi le bophelo bo botle litabeng tsa thari.',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'AHbtSNH0i7C',
               name: '501. Do you have biological children?',
               translatedName: '501. Na u na le bana ba tsoetsoeng ke uena?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'RW9VeyKDvjj',
               name: '502. How many biological children do you have?',
               translatedName: '502. U tsoetse bana ba bakae ka palo?',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'XYPRtYgQUF8',
             name: '503. Are you currently pregnant?',
             translatedName: '503. Na u mokhachane nakong ea joale?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
@@ -1457,8 +1457,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '504. Na u tsamaea tleleniking ea bakhachane nakong ea joale?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'GDrEW22l54i',
               name:
@@ -1467,25 +1467,25 @@ class AgywEnrollmentFormSection {
                   '505. U tsamaea tleleniking efe ho fumana litšebeletso tsa bokhachane?',
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [4],
-              inputColor: Color(0xFF258DCC),
+              inputColor: const Color(0xFF258DCC),
               showCountryLevelTree: true,
-              labelColor: Color(0xFF737373)),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'Gs4ArB4ToX5',
               name: '506. Are you aware of any family planning methods?',
               translatedName:
                   '506. Na u tseba letho ka mefuta ea lithibela-pelehi?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'Gs4ArB4ToX5_checkbox',
             name: '507. What family planning methods do you know?',
             translatedName:
                 '507. Ke mefuta efe ea lithibela-pelehi eo u e tsebang?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'jIlNVicSnqS',
@@ -1518,23 +1518,23 @@ class AgywEnrollmentFormSection {
               name: 'Other family planning method you know',
               translatedName: 'Tse ling (li hlalose)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'sNLZwEeOdZe',
               name:
                   '508. Are you currently using any modern family planning method?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'FamilyPlanningOptions',
               name: '509. Which family planning methods do you use?',
               translatedName:
                   '509. Na nakong ea joale u sebelisa lithibela-pelehi?',
               valueType: 'CHECK_BOX',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(
                     code: 'NjAdtVA5MCl',
@@ -1566,8 +1566,8 @@ class AgywEnrollmentFormSection {
               name: 'Other family planning methods currently using',
               translatedName: 'Tse ling (li hlalose)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'HyT7FrFWRyH',
               name:
@@ -1575,8 +1575,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '510. Lebaka la hao la mantlha la ho se sebelise lithibela-pelehi ke lefe?',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(
                     code: 'Not sexually active',
@@ -1607,8 +1607,8 @@ class AgywEnrollmentFormSection {
                   'Specify other reasons for not using family planning methods',
               translatedName: 'A mang (hlalosa)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -1618,7 +1618,7 @@ class AgywEnrollmentFormSection {
             'INTERVIEWER SAY:  The next section goes over a few questions about your experiences with violence.  Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues. Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer. \nHas the following happend to you with any man (e.g boyfriend/spouse/family member/neighbour etc?) \nEver and if Yes, has it happend in the past 3 months?',
         translatedDescription:
             'MOTHO EA BOTSANG LIPOTSO A RE:  Karolo ena e latelang ea lipotso e holima seo u se tsebang ka tlhekefetso. Ke tla u botsa lipotso ka litaba tsa hao tse amanang le thobalano e le ho utloisisa lintlha tse ling tse amanang le bophelo. Ke batla ho u tiisetsa hore likarabo tsa hao li tla bolokoa e le lekunutu. Haeba u utloa lipotso tsa ka li u beha tsietsing, u mpolelle. Hopola hore ha ho karabo e nepahetseng kapa a fosahetseng. \nNa liketsahalo tse latelang li kile tsa etsoa ho uena ke motho oa monna (mohlala: mohlankana/monna/ oa hao, setho sa lelapa, kapa mohaisane joalo-joalo?)',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'i32OwNqUYRn',
@@ -1627,8 +1627,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '601. Na o kile a bua kapa a etsa ntho e u nyenyefatsang mahlong a batho ba bang?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'ClDEtAAqDPI',
             name:
@@ -1636,8 +1636,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a bua kapa a etsa ntho e u nyenyefatsang mahlong a batho ba bang?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1658,8 +1658,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '602. Na o kile a u tšosa ka hore o tla u ntša kotsi kapa a ntše motho e mong eo u mo ratang kotsi?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'gY0nOLnR3eh',
             name:
@@ -1667,8 +1667,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u tšosa ka hore o tla u ntša kotsi kapa a ntše motho e mong eo u mo ratang kotsi?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1689,8 +1689,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '603. Na o kile a u rohaka kapa ho etsa hore u ikutloe u le motho ea mobe?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'OZqIvrzGBFK',
             name:
@@ -1698,8 +1698,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u rohaka kapa ho etsa hore u ikutloe u le motho ea mobe?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1720,8 +1720,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '604. Na o kile a u tšosa ka hore o tla u amoha mokhoa oa ho iphelisa?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'iLX2uQ4ZXM0',
             name:
@@ -1729,8 +1729,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u tšosa ka hore o tla u amoha mokhoa oa ho iphelisa?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1751,8 +1751,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '605. Na o kile a u suthumetsa, a u tlelapa, a u otla ka feisi, a u otla ka ntho e ’ngoe, a leka ho u khama, kapa a u betsa ka ntho e ka u ntšang kotsi?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'GdsRvY5lHCU',
             name:
@@ -1760,8 +1760,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u suthumetsa, a u tlelapa, a u otla ka feisi, a u otla ka ntho e ’ngoe, a leka ho u khama, kapa a u betsa ka ntho e ka u ntšang kotsi?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1782,8 +1782,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '606. Na o kile a u qobella ho etsa thobalano le eena ha uena u ne u sa batle ho etsa joalo?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'RO2RIidPOqK',
             name:
@@ -1791,8 +1791,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u qobella ho etsa thobalano le eena ha uena u ne u sa batle ho etsa joalo?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1813,8 +1813,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '607. Na o kile a u qobella ho etsa liketso tse ling tsa thobalano tseo u sa li batleng?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'CU4HyDp6XO0',
             name:
@@ -1822,8 +1822,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u qobella ho etsa liketso tse ling tsa thobalano tseo u sa li batleng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1844,8 +1844,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '608. Na o kile a u qobella le ho u tšosa hore u etse liketso kapa mefuta e meng ea thobalano eo u sa e batleng?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'NP7LbypO3li',
             name:
@@ -1853,8 +1853,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 'Likhoeling tse 3 tse fetileng na o kile a u qobella le ho u tšosa hore u etse liketso kapa mefuta e meng ea thobalano eo u sa e batleng?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Often', name: 'Often', translatedName: 'Hangata'),
@@ -1875,15 +1875,15 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '609. Na u kile oa kopa thuso kamora liketsahalo tseo u li hlalositseng?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'ZcfLYz7JlVo_checkbox',
             name: '610. Where did you seek help from?',
             translatedName: '610. U ile oa kopa thuso ho mang kapa kae?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'prTJovIPAKu',
@@ -1935,8 +1935,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '611. Na u tseba moo u ka batlang thuso ha u kopana le mathata ao re qetang ho buisana ka ona?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'H2Az2c3MeAy_checkbox',
             name:
@@ -1944,8 +1944,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '612. U ka batla thuso kae ha u kopana le mathata ao re qetang ho buisana ka ona?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'GUOZrOkgtxO',
@@ -1995,8 +1995,8 @@ class AgywEnrollmentFormSection {
               name: 'Specify other you will seek help from',
               translatedName: 'Ba bang (ba hlalose)',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -2007,7 +2007,7 @@ class AgywEnrollmentFormSection {
             'INTERVIEWER SAY: I would like to ask you some questions about drugs or substances that you may have taken that were not prescribed by your doctor.  Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues.  Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer.',
         translatedDescription:
             'MOTHO EA BOTSANG LIPOTSO A RE:  Ke tla u botsa lipotso ka litaba tsa hao tse amanang le lithethefatsi tseo u kileng oa li sebelisa empa u sa li fuoa ke ngaka. Ke tla u botsa lipotso ka litaba tsa hao tse amanang le thobalano e le ho utloisisa lintlha tse ling tse amanang le bophelo. Ke batla ho u tiisetsa hore likarabo tsa hao li tla bolokoa e le lekunutu. Haeba u utloa lipotso tsa ka li u beha tsietsing, u mpolelle. Hopola hore ha ho karabo e nepahetseng kapa a fosahetseng.',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'QaIUtFdgdIa',
@@ -2015,8 +2015,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '701. Likhoeling tse 12 tse fetileng, na u kile oa noa joala?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'JSBixuSLIC5',
             name:
@@ -2024,8 +2024,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '702. Likhoeling tse 12 tse fetileng, u noele joala ka makhetlo a makae?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Everyday',
@@ -2068,8 +2068,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '703. Na likhoeling tse 12 tse fetileng u kile oa sebelisa lithethefatsi?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'ypeOfDrugUsed',
             name:
@@ -2077,8 +2077,8 @@ class AgywEnrollmentFormSection {
             translatedName:
                 '704. Likhoeling tse 12 tse fetileng, u kile oa sebelisa mefuta efe ea lithethefatsi?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'LUfX3TMLmvl',
@@ -2115,8 +2115,8 @@ class AgywEnrollmentFormSection {
             name: 'Specify other type of drugs abuse/addiction used 12 months',
             translatedName: 'Tse ling (li hlalose)',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
               id: 'YSAyCyGWCaK',
@@ -2125,8 +2125,8 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '705. Likhoeling tse 12 tse fetileng na u kile oa ritela kapa oa rekisa joala le lithethefatsi?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
         ],
       ),
       FormSection(
@@ -2138,7 +2138,7 @@ class AgywEnrollmentFormSection {
               'INTERVIEWER SAY: I would like to ask you a final question about your participation in any of the below programs or interventions.',
           translatedDescription:
               'MOTHO EA BOTSANG LIPOTSO A RE: Ke kopa ho u botsa potso ea ho qetela. Na u kile oa kena mananehong a latelang:',
-          color: Color(0xFF258DCC),
+          color: const Color(0xFF258DCC),
           inputFields: [
             InputField(
                 id: '',
@@ -2147,8 +2147,8 @@ class AgywEnrollmentFormSection {
                 translatedName:
                     '801. Na u kile oa kena lithupelong kapa mananehong a latelang?',
                 valueType: 'CHECK_BOX',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                     code: 'Hn0P1sGIKe1',
@@ -2191,8 +2191,8 @@ class AgywEnrollmentFormSection {
                 name: 'Comments',
                 translatedName: 'Maikutlo',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
           ]),
     ];
   }

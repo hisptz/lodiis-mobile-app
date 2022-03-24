@@ -9,9 +9,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/c
 import 'package:kb_mobile_app/core/utils/date_conversion_util.dart';
 
 class NoneAgywEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -22,7 +22,7 @@ class NoneAgywEnrollmentSkipLogic {
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    Map hiddenOptions = Map();
+    Map hiddenOptions = {};
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }

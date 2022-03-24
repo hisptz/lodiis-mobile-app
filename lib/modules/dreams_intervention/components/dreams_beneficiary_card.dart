@@ -65,8 +65,8 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => isAgywEnrollment
-              ? AgywDreamsEnrollmentEditForm()
-              : NoneAgywEnrollmentEditForm(),
+              ? const AgywDreamsEnrollmentEditForm()
+              : const NoneAgywEnrollmentEditForm(),
         ),
       );
     }
@@ -107,8 +107,8 @@ class DreamsBeneficiaryCard extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => isAgywEnrollment
-            ? AgywDreamsEnrollmentViewForm()
-            : NoneAgywEnrollmentViewForm(),
+            ? const AgywDreamsEnrollmentViewForm()
+            : const NoneAgywEnrollmentViewForm(),
       ),
     );
   }
@@ -124,45 +124,40 @@ class DreamsBeneficiaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 16.0,
         right: 13.0,
         left: 13.0,
       ),
       child: MaterialCard(
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                child: Consumer<SynchronizationStatusState>(
-                    builder: (context, synchronizationStatusState, child) {
-                  List<String> unsyncedTeiReferences =
-                      synchronizationStatusState.unsyncedTeiReferences;
-                  return DreamsBeneficiaryCardHeader(
-                    svgIcon: svgIcon,
-                    isSynced:
-                        _syncStatusOfAgyw(agywDream, unsyncedTeiReferences),
-                    beneficiaryName: beneficiaryName,
-                    canEdit: canEdit && agywDream.enrollmentOuAccessible!,
-                    canExpand: canExpand,
-                    canView: canView,
-                    isExpanded: isExpanded,
-                    onToggleCard: onCardToggle,
-                    onEdit: () => onEdit(context),
-                    onView: () => onView(context),
-                  );
-                }),
+        body: Column(
+          children: [
+            Consumer<SynchronizationStatusState>(
+                builder: (context, synchronizationStatusState, child) {
+              List<String> unsyncedTeiReferences =
+                  synchronizationStatusState.unsyncedTeiReferences;
+              return DreamsBeneficiaryCardHeader(
+                svgIcon: svgIcon,
+                isSynced: _syncStatusOfAgyw(agywDream, unsyncedTeiReferences),
+                beneficiaryName: beneficiaryName,
+                canEdit: canEdit && agywDream.enrollmentOuAccessible!,
+                canExpand: canExpand,
+                canView: canView,
+                isExpanded: isExpanded,
+                onToggleCard: onCardToggle,
+                onEdit: () => onEdit(context),
+                onView: () => onView(context),
+              );
+            }),
+            cardBody,
+            cardButtonActions,
+            Visibility(
+              visible: isExpanded,
+              child: Container(
+                child: cardButtonContent,
               ),
-              cardBody,
-              cardButtonActions,
-              Visibility(
-                visible: isExpanded,
-                child: Container(
-                  child: cardButtonContent,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

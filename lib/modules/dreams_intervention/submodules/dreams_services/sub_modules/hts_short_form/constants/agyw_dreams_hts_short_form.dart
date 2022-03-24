@@ -1,4 +1,4 @@
 class AgywDreamsHTSShortFormConstant {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'vAMc8n0YB6m';
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'vAMc8n0YB6m';
 }

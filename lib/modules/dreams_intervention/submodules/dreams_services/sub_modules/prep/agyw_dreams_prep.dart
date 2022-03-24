@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -27,7 +27,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrep extends StatefulWidget {
-  AgywDreamsPrep({Key? key}) : super(key: key);
+  const AgywDreamsPrep({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPrepState createState() => _AgywDreamsPrepState();
@@ -47,11 +47,11 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   Container _getIneligibleMessage() {
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 10.0,
         horizontal: 13.0,
       ),
-      child: Text(
+      child: const Text(
         'PrEP is restricted to beneficiaries from 15-24 years only',
       ),
     );
@@ -66,7 +66,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPrepFormPage(),
+        builder: (context) => const AgywDreamsPrepFormPage(),
       ),
     );
   }
@@ -80,7 +80,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPrepFormPage(),
+        builder: (context) => const AgywDreamsPrepFormPage(),
       ),
     );
   }
@@ -102,7 +102,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AgywPrepVisitForm(),
+            builder: (context) => const AgywPrepVisitForm(),
           ),
         );
       }
@@ -119,7 +119,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywPrepVisitForm(),
+        builder: (context) => const AgywPrepVisitForm(),
       ),
     );
   }
@@ -141,7 +141,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgywPrepVisitForm(),
+          builder: (context) => const AgywPrepVisitForm(),
         ),
       );
     }
@@ -149,11 +149,9 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
 
   List getStoppedPrepEvent(List<Events> events) {
     List stoppedEventDates = [];
-    if (events != null && events.length > 0) {
+    if (events.isNotEmpty) {
       for (var event in events) {
-        if (event != null &&
-            event.dataValues != null &&
-            event.dataValues.length > 0) {
+        if (event.dataValues != null && event.dataValues.length > 0) {
           for (var dataValue in event.dataValues) {
             if (dataValue['dataElement'] ==
                     PrepIntakeConstant.prepStoppedDate &&
@@ -170,7 +168,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   bool isPrepProgramStopped(List<Events> events, List<Events> visits) {
     List stoppedPrepEvents = getStoppedPrepEvent(events);
     List stoppedPrepVisits = getStoppedPrepEvent(visits);
-    return stoppedPrepEvents.length > 0 || stoppedPrepVisits.length > 0
+    return stoppedPrepEvents.isNotEmpty || stoppedPrepVisits.isNotEmpty
         ? true
         : false;
   }
@@ -179,7 +177,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -213,189 +211,182 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                       visitProgramStageIds,
                     );
                     int visitprepVisitIndex = visits.length;
-                    return Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            child: events.length > 0
-                                ? DreamsBeneficiaryTopHeader(
-                                    agywDream: agywDream,
-                                  )
-                                : null,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical:
-                                              isEligibleForPrep(agywDream!)
-                                                  ? 5.0
-                                                  : 0,
-                                        ),
-                                        child: events.length == 0
-                                            ? isEligibleForPrep(agywDream)
-                                                ? Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 5.0,
-                                                      horizontal: 13.0,
-                                                    ),
-                                                    child:
-                                                        AgywDreamsHTSConsentFormSubpart(
-                                                      isComingFromPrep: true,
-                                                    ),
-                                                  )
-                                                : Column(
-                                                    children: [
-                                                      DreamsBeneficiaryTopHeader(
-                                                        agywDream: agywDream,
-                                                      ),
-                                                      _getIneligibleMessage()
-                                                    ],
-                                                  )
-                                            : isEligibleForPrep(
-                                                agywDream,
-                                              )
-                                                ? Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 5.0,
-                                                      horizontal: 13.0,
-                                                    ),
-                                                    child: Column(
-                                                      children: events.map(
-                                                          (Events eventData) {
-                                                        return Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                            bottom: 15.0,
-                                                          ),
-                                                          child:
-                                                              DreamsServiceVisitCard(
-                                                            visitName:
-                                                                "PrEP Screening",
-                                                            onEdit: () =>
-                                                                onEditPrep(
-                                                                    context,
-                                                                    eventData,
-                                                                    agywDream),
-                                                            onView: () =>
-                                                                onViewPrep(
-                                                                    context,
-                                                                    eventData),
-                                                            eventData:
-                                                                eventData,
-                                                            editDisabled:
-                                                                visits.length >
-                                                                        0
-                                                                    ? true
-                                                                    : false,
-                                                          ),
-                                                        );
-                                                      }).toList(),
-                                                    ),
-                                                  )
-                                                : _getIneligibleMessage(),
+                    return Column(
+                      children: [
+                        Container(
+                          child: events.isNotEmpty
+                              ? DreamsBeneficiaryTopHeader(
+                                  agywDream: agywDream,
+                                )
+                              : null,
+                        ),
+                        Container(
+                          child: isLoading
+                              ? const CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                        vertical: isEligibleForPrep(agywDream!)
+                                            ? 5.0
+                                            : 0,
                                       ),
-                                      Column(
-                                        children: events.length > 0 &&
-                                                isEligibleForPrep(agywDream)
-                                            ? [
-                                                Text(
-                                                  "VISITS",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
+                                      child: events.isEmpty
+                                          ? isEligibleForPrep(agywDream)
+                                              ? Container(
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
+                                                    vertical: 5.0,
+                                                    horizontal: 13.0,
                                                   ),
-                                                ),
-                                                Container(
-                                                  child: visits.length == 0
-                                                      ? Container(
-                                                          margin: EdgeInsets
-                                                              .symmetric(
-                                                            vertical: 5.0,
-                                                            horizontal: 13.0,
-                                                          ),
-                                                          child: Text(
-                                                            'There is no PrEP Visit at a moment',
-                                                          ),
-                                                        )
-                                                      : Container(
-                                                          margin: EdgeInsets
-                                                              .symmetric(
-                                                            vertical: 1.0,
-                                                            horizontal: 13.0,
-                                                          ),
-                                                          child: Column(
-                                                            children: visits
-                                                                .map((Events
-                                                                    eventData) {
-                                                              int count =
-                                                                  visitprepVisitIndex--;
-                                                              return Container(
-                                                                margin:
-                                                                    EdgeInsets
-                                                                        .only(
-                                                                  bottom: 15.0,
-                                                                ),
-                                                                child:
-                                                                    DreamsServiceVisitCard(
-                                                                  visitName:
-                                                                      "PrEP Visit",
-                                                                  onEdit: () => onEditVisit(
-                                                                      context,
-                                                                      eventData,
-                                                                      agywDream),
-                                                                  onView: () =>
-                                                                      onViewVisit(
-                                                                          context,
-                                                                          eventData),
-                                                                  eventData:
-                                                                      eventData,
-                                                                  visitCount:
-                                                                      count,
-                                                                  editDisabled:
-                                                                      !(visits.first ==
-                                                                          eventData),
-                                                                ),
-                                                              );
-                                                            }).toList(),
-                                                          ),
+                                                  child:
+                                                      const AgywDreamsHTSConsentFormSubpart(
+                                                    isComingFromPrep: true,
+                                                  ),
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    DreamsBeneficiaryTopHeader(
+                                                      agywDream: agywDream,
+                                                    ),
+                                                    _getIneligibleMessage()
+                                                  ],
+                                                )
+                                          : isEligibleForPrep(
+                                              agywDream,
+                                            )
+                                              ? Container(
+                                                  margin: const EdgeInsets
+                                                      .symmetric(
+                                                    vertical: 5.0,
+                                                    horizontal: 13.0,
+                                                  ),
+                                                  child: Column(
+                                                    children: events.map(
+                                                        (Events eventData) {
+                                                      return Container(
+                                                        margin: const EdgeInsets
+                                                            .only(
+                                                          bottom: 15.0,
                                                         ),
+                                                        child:
+                                                            DreamsServiceVisitCard(
+                                                          visitName:
+                                                              "PrEP Screening",
+                                                          onEdit: () =>
+                                                              onEditPrep(
+                                                                  context,
+                                                                  eventData,
+                                                                  agywDream),
+                                                          onView: () =>
+                                                              onViewPrep(
+                                                                  context,
+                                                                  eventData),
+                                                          eventData: eventData,
+                                                          editDisabled:
+                                                              visits.isNotEmpty
+                                                                  ? true
+                                                                  : false,
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                )
+                                              : _getIneligibleMessage(),
+                                    ),
+                                    Column(
+                                      children: events.isNotEmpty &&
+                                              isEligibleForPrep(agywDream)
+                                          ? [
+                                              const Text(
+                                                "VISITS",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
                                                 ),
-                                                events != null &&
-                                                        events.length > 0 &&
-                                                        isPrepProgramStopped(
-                                                                events,
-                                                                visits) ==
-                                                            false
-                                                    ? EntryFormSaveButton(
-                                                        label: 'ADD VISIT',
-                                                        labelColor:
-                                                            Colors.white,
-                                                        buttonColor:
-                                                            Color(0xFF1F8ECE),
-                                                        fontSize: 15.0,
-                                                        onPressButton: () =>
-                                                            onAddVisit(context,
-                                                                agywDream),
+                                              ),
+                                              Container(
+                                                child: visits.isEmpty
+                                                    ? Container(
+                                                        margin: const EdgeInsets
+                                                            .symmetric(
+                                                          vertical: 5.0,
+                                                          horizontal: 13.0,
+                                                        ),
+                                                        child: const Text(
+                                                          'There is no PrEP Visit at a moment',
+                                                        ),
                                                       )
-                                                    : Text(
-                                                        'PrEP program was stopped',
-                                                      )
-                                              ]
-                                            : [],
-                                      ),
-                                    ],
-                                  ),
-                          ),
-                        ],
-                      ),
+                                                    : Container(
+                                                        margin: const EdgeInsets
+                                                            .symmetric(
+                                                          vertical: 1.0,
+                                                          horizontal: 13.0,
+                                                        ),
+                                                        child: Column(
+                                                          children: visits.map(
+                                                              (Events
+                                                                  eventData) {
+                                                            int count =
+                                                                visitprepVisitIndex--;
+                                                            return Container(
+                                                              margin:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                bottom: 15.0,
+                                                              ),
+                                                              child:
+                                                                  DreamsServiceVisitCard(
+                                                                visitName:
+                                                                    "PrEP Visit",
+                                                                onEdit: () =>
+                                                                    onEditVisit(
+                                                                        context,
+                                                                        eventData,
+                                                                        agywDream),
+                                                                onView: () =>
+                                                                    onViewVisit(
+                                                                        context,
+                                                                        eventData),
+                                                                eventData:
+                                                                    eventData,
+                                                                visitCount:
+                                                                    count,
+                                                                editDisabled: !(visits
+                                                                        .first ==
+                                                                    eventData),
+                                                              ),
+                                                            );
+                                                          }).toList(),
+                                                        ),
+                                                      ),
+                                              ),
+                                              events.isNotEmpty &&
+                                                      isPrepProgramStopped(
+                                                              events, visits) ==
+                                                          false
+                                                  ? EntryFormSaveButton(
+                                                      label: 'ADD VISIT',
+                                                      labelColor: Colors.white,
+                                                      buttonColor: const Color(
+                                                          0xFF1F8ECE),
+                                                      fontSize: 15.0,
+                                                      onPressButton: () =>
+                                                          onAddVisit(context,
+                                                              agywDream),
+                                                    )
+                                                  : const Text(
+                                                      'PrEP program was stopped',
+                                                    )
+                                            ]
+                                          : [],
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ],
                     );
                   },
                 );
@@ -404,7 +395,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
           ],
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

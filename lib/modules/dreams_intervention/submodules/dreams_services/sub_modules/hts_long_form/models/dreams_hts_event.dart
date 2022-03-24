@@ -21,10 +21,10 @@ class DreamsHTSEvent {
 
   DreamsHTSEvent fromTeiModel(Events eventData) {
     List keys = ['vbnWGqIQoAN', 'A4Fl5p0ZBhX', 'icla65Bvljz'];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }

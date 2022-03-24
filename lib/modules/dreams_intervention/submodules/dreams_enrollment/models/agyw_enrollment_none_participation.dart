@@ -18,31 +18,31 @@ class AgywEnrollmentNoneParticipation {
     return [
       FormSection(
         name: 'AGYW/DREAMS None Participation',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
             id: 'JhOvli80Qbx',
             name: 'First Name',
             translatedName: 'Lebitso la pele',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'UUsPnBtuItN',
             name: 'Middle Name',
             translatedName: 'Lebitso le mahareng',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'jjZWuJfVStp',
             name: 'Surname',
             translatedName: 'Le Fane',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'xEfuZ53tYsA',
@@ -50,24 +50,24 @@ class AgywEnrollmentNoneParticipation {
             translatedName:
                 'Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
             valueType: 'PHONE_NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'ox6mydZjgC3',
             name: 'Phone Number',
             translatedName: 'Nomoro ea mohala',
             valueType: 'PHONE_NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'jVSwC6Ln95H',
             name: 'Date of Birth',
             translatedName: 'Letsatsi la tsoalo ',
             valueType: 'DATE',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             maxAgeInYear: 24,
             numberOfMonth: 11,
             minAgeInYear: 9,
@@ -78,16 +78,16 @@ class AgywEnrollmentNoneParticipation {
             name: 'Age',
             isReadOnly: true,
             valueType: 'NUMBER',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
               id: 'an7w8LYPZ7y',
               name: 'Sex',
               translatedName: 'Boleng',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               renderAsRadio: true,
               options: [
                 InputFieldOption(
@@ -99,8 +99,8 @@ class AgywEnrollmentNoneParticipation {
               ]),
           InputField(
               id: 'FHn0nJPumhO',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               name:
                   'Reason why the participant can not be part of the programme',
               translatedName:

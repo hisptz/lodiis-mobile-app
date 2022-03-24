@@ -6,9 +6,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceFormSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
       BuildContext context, List<FormSection> formSections, Map dataObject,
@@ -16,7 +16,7 @@ class AgywDreamsServiceFormSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
-    Map hiddenOptions = Map();
+    Map hiddenOptions = {};
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -81,13 +81,12 @@ class AgywDreamsServiceFormSkipLogic {
 
       if (inputFieldId == 'Eug4BXDFLym') {
         if ([
-              'FINANCIAL EDUCATION',
-              'SILC',
-              'SAVING GROUP',
-              'PTS 4 NON-GRADS',
-              'PTS 4-GRADS'
-            ].indexOf(value) !=
-            -1) {
+          'FINANCIAL EDUCATION',
+          'SILC',
+          'SAVING GROUP',
+          'PTS 4 NON-GRADS',
+          'PTS 4-GRADS'
+        ].contains(value)) {
           hiddenFields['FoLeDcnocv4'] = true;
           hiddenFields['JjX25d72ume'] = true;
           hiddenFields['qxO13pu8vAk'] = true;
@@ -124,7 +123,9 @@ class AgywDreamsServiceFormSkipLogic {
       currentSession = '${dataObject['vL6NpUA0rIU']}' != 'null'
           ? '${dataObject['vL6NpUA0rIU']}'
           : currentSession;
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     List interventionSessions =
         sessionsPerInterventions[interventionType] ?? [];
@@ -135,8 +136,8 @@ class AgywDreamsServiceFormSkipLogic {
   }
 
   static bool evaluateSkipLogicsBySession(Map dataObject) {
-    final String sessionNumberInputField = 'vL6NpUA0rIU';
-    final String typeOfIntervention = 'Eug4BXDFLym';
+    const String sessionNumberInputField = 'vL6NpUA0rIU';
+    const String typeOfIntervention = 'Eug4BXDFLym';
 
     String interventionType = dataObject[typeOfIntervention] ?? '';
     String sessionNumber = dataObject[sessionNumberInputField] ?? '';

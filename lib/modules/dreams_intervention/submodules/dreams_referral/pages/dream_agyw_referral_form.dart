@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_st
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -38,7 +38,8 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class DreamsAgywAddReferralForm extends StatefulWidget {
-  DreamsAgywAddReferralForm({Key? key, this.currentUser}) : super(key: key);
+  const DreamsAgywAddReferralForm({Key? key, this.currentUser})
+      : super(key: key);
 
   final CurrentUser? currentUser;
 
@@ -49,7 +50,7 @@ class DreamsAgywAddReferralForm extends StatefulWidget {
 
 class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   final String label = 'Dream Referral Form';
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   List<String> mandatoryFields = DreamsReferral.getMandatoryFields();
   List unFilledMandatoryFields = [];
   List<FormSection>? formSections;
@@ -61,7 +62,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   void initState() {
     super.initState();
     setFormSections();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -105,7 +106,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -194,7 +195,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentAgywDream.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
@@ -210,7 +211,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
           });
         });
       } catch (error) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
               message: error.toString(),
@@ -299,7 +300,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -312,88 +313,76 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<LanguageTranslationState>(
-            builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<DreamsBeneficiarySelectionState>(
-                builder:
-                    (context, dreamBeneficiaryCurrentSelectionState, child) {
-                  AgywDream? currentAgywDream =
-                      dreamBeneficiaryCurrentSelectionState.currentAgywDream;
-                  return Consumer<ServiceFormState>(
-                    builder: (context, serviceFormState, child) {
-                      return Container(
-                        child: Column(
-                          children: [
-                            DreamsBeneficiaryTopHeader(
-                                agywDream: currentAgywDream),
-                            !isFormReady
-                                ? Container(
-                                    child: CircularProcessLoader(
-                                      color: Colors.blueGrey,
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<DreamsBeneficiarySelectionState>(
+              builder: (context, dreamBeneficiaryCurrentSelectionState, child) {
+                AgywDream? currentAgywDream =
+                    dreamBeneficiaryCurrentSelectionState.currentAgywDream;
+                return Consumer<ServiceFormState>(
+                  builder: (context, serviceFormState, child) {
+                    return Column(
+                      children: [
+                        DreamsBeneficiaryTopHeader(agywDream: currentAgywDream),
+                        !isFormReady
+                            ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      top: 10.0,
+                                      left: 13.0,
+                                      right: 13.0,
                                     ),
+                                    child: EntryFormContainer(
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
+                                      hiddenInputFieldOptions: serviceFormState
+                                          .hiddenInputFieldOptions,
+                                      formSections: formSections,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
+                                      dataObject: serviceFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
+                                    ),
+                                  ),
+                                  EntryFormSaveButton(
+                                    label: isSaving
+                                        ? 'Saving ...'
+                                        : currentLanguage == 'lesotho'
+                                            ? 'Boloka'
+                                            : 'Save',
+                                    labelColor: Colors.white,
+                                    buttonColor: const Color(0xFF1F8ECE),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onSaveForm(
+                                        context,
+                                        serviceFormState.formState,
+                                        currentAgywDream,
+                                        hiddenFieldsObject:
+                                            serviceFormState.hiddenFields),
                                   )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          top: 10.0,
-                                          left: 13.0,
-                                          right: 13.0,
-                                        ),
-                                        child: EntryFormContainer(
-                                          hiddenFields:
-                                              serviceFormState.hiddenFields,
-                                          hiddenSections:
-                                              serviceFormState.hiddenSections,
-                                          hiddenInputFieldOptions:
-                                              serviceFormState
-                                                  .hiddenInputFieldOptions,
-                                          formSections: formSections,
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          dataObject:
-                                              serviceFormState.formState,
-                                          onInputValueChange:
-                                              onInputValueChange,
-                                          unFilledMandatoryFields:
-                                              unFilledMandatoryFields,
-                                        ),
-                                      ),
-                                      EntryFormSaveButton(
-                                        label: isSaving
-                                            ? 'Saving ...'
-                                            : currentLanguage == 'lesotho'
-                                                ? 'Boloka'
-                                                : 'Save',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF1F8ECE),
-                                        fontSize: 15.0,
-                                        onPressButton: () => onSaveForm(
-                                            context,
-                                            serviceFormState.formState,
-                                            currentAgywDream,
-                                            hiddenFieldsObject:
-                                                serviceFormState.hiddenFields),
-                                      )
-                                    ],
-                                  )
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                                ],
+                              )
+                      ],
+                    );
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

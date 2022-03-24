@@ -5,9 +5,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class DreamsAgywReferralSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
       BuildContext context,
@@ -28,8 +28,8 @@ class DreamsAgywReferralSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qAed23reDPP') {
-        if ("$implementingPartnerValue" == 'null' ||
-            "$implementingPartnerValue" == '') {
+        if (implementingPartnerValue == 'null' ||
+            implementingPartnerValue == '') {
           hiddenSections['SeRefoCo'] = true;
           hiddenSections['SeRefoFa'] = true;
         } else {
@@ -44,13 +44,13 @@ class DreamsAgywReferralSkipLogic {
         }
       }
       if (inputFieldId == 'y0bvausyTyh') {
-        Map implementingPartnerHiddenOptions = Map();
+        Map implementingPartnerHiddenOptions = {};
         implementingPartnerHiddenOptions[currentImplementingPartner] = true;
         hiddenInputFieldOptions[inputFieldId] =
             implementingPartnerHiddenOptions;
       }
       if (inputFieldId == 'LLWTHwhnch0' && value != 'null') {
-        Map referralServiceHiddenOptions = Map();
+        Map referralServiceHiddenOptions = {};
         if (value == 'Clinical Services') {
           referralServiceHiddenOptions['Youth friendly services'] = true;
           referralServiceHiddenOptions['Gender Based Violence'] = true;
@@ -168,7 +168,7 @@ class DreamsAgywReferralSkipLogic {
         hiddenInputFieldOptions['rsh5Kvx6qAU'] = referralServiceHiddenOptions;
       }
       if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
-        Map referralServiceHiddenOptions = Map();
+        Map referralServiceHiddenOptions = {};
         if (value == 'Clinical Services') {
           referralServiceHiddenOptions['Youth friendly services'] = true;
           referralServiceHiddenOptions['Gender Based Violence'] = true;
@@ -311,11 +311,14 @@ class DreamsAgywReferralSkipLogic {
         getReferralServicesByIP(
             data: referralServicesByImplementingPartners,
             ip: implementingPartnerValue);
-    Map hiddenReferralServices = Map();
-    referralServices.forEach((service) => {
-          if (allImplementingPartnerReferralServices.indexOf(service) == -1)
-            {hiddenReferralServices[service] = true}
-        });
+    Map hiddenReferralServices = {};
+    for (var service in referralServices) {
+      {
+        if (!allImplementingPartnerReferralServices.contains(service)) {
+          hiddenReferralServices[service] = true;
+        }
+      }
+    }
 
     return hiddenReferralServices;
   }

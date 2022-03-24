@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -41,7 +41,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
   List<FormSection>? formSections;
   final String label = 'PrEP Screening for Substantial Risk and Eligibility';
 
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   final String trackedEntityInstance = AppUtil.getUid();
   bool isFormReady = false;
   bool isSaving = false;
@@ -62,7 +62,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -150,7 +150,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .onNonAgywBeneficiaryAdd();
       Timer(
-        Duration(seconds: 1),
+        const Duration(seconds: 1),
         () {
           clearFormAutoSaveState(context);
           if (Navigator.canPop(context)) {
@@ -187,7 +187,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -202,7 +202,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         body: SubPageBody(
           body: !isFormReady
               ? Column(
-                  children: [
+                  children: const [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,
@@ -211,7 +211,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                   ],
                 )
               : Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 16.0,
                     horizontal: 13.0,
                   ),
@@ -223,18 +223,15 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                         builder: (context, enrollmentFormState, child) =>
                             Column(
                           children: [
-                            Container(
-                              child: EntryFormContainer(
-                                hiddenFields: enrollmentFormState.hiddenFields,
-                                hiddenSections:
-                                    enrollmentFormState.hiddenSections,
-                                formSections: formSections,
-                                dataObject: enrollmentFormState.formState,
-                                mandatoryFieldObject: mandatoryFieldObject,
-                                onInputValueChange: onInputValueChange,
-                                unFilledMandatoryFields:
-                                    unFilledMandatoryFields,
-                              ),
+                            EntryFormContainer(
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              dataObject: enrollmentFormState.formState,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
                             ),
                             EntryFormSaveButton(
                               label: isSaving
@@ -243,7 +240,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                                       ? 'Boloka ebe u fetela pele'
                                       : 'Save and Continue',
                               labelColor: Colors.white,
-                              buttonColor: Color(0xFF258DCC),
+                              buttonColor: const Color(0xFF258DCC),
                               fontSize: 15.0,
                               onPressButton: () => onSaveAndContinue(
                                   context, enrollmentFormState.formState,
@@ -257,7 +254,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                   ),
                 ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

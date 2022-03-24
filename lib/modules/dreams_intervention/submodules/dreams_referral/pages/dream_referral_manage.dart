@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_detailed_card.dart';
 import 'package:kb_mobile_app/core/components/referrals/referral_outcome_card_container.dart';
@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:provider/provider.dart';
 
 class DreamsReferralManage extends StatefulWidget {
-  DreamsReferralManage({
+  const DreamsReferralManage({
     Key? key,
     required this.eventData,
     required this.referralIndex,
@@ -51,7 +51,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -64,67 +64,57 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<DreamsBeneficiarySelectionState>(
-            builder: (context, dreamCurrentSelectionState, child) {
-              var currentDreamsAgywBeneficiary =
-                  dreamCurrentSelectionState.currentAgywDream!;
-              return Container(
-                child: Column(
-                  children: [
-                    DreamsBeneficiaryTopHeader(
-                        agywDream: currentDreamsAgywBeneficiary),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 13.0),
-                      child: Container(
-                        child: MaterialCard(
-                          body: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ReferralDetailedCard(
-                                borderColor: Color(0xFFE9F4FA),
-                                titleColor: Color(0xFF05131B),
-                                labelColor: Color(0XFF82898D),
-                                valueColor: Color(0XFF444E54),
-                                isOvcIntervention: false,
-                                referralIndex: widget.referralIndex,
-                                eventData: widget.eventData,
-                                isEditable: shouldEditReferral(
-                                  widget.eventData.dataValues ?? [],
-                                ),
-                                isIncomingReferral: widget.isIncomingReferral,
-                              ),
-                              ReferralOutComeCardContainer(
-                                isOvcIntervention: false,
-                                isIncomingReferral: widget.isIncomingReferral,
-                                currentEventId: widget.eventData.event,
-                                currentProgramStage:
-                                    widget.eventData.programStage,
-                                beneficiary: currentDreamsAgywBeneficiary
-                                    .trackedEntityInstanceData,
-                                referralProgram:
-                                    DreamsAgywReferralConstant.program,
-                                referralFollowUpStage:
-                                    DreamsAgywReferralConstant
-                                        .referralFollowUpStage,
-                                referralToFollowUpLinkage:
-                                    DreamsAgywReferralConstant
-                                        .referralToFollowUpLinkage,
-                              )
-                            ],
+        body: Consumer<DreamsBeneficiarySelectionState>(
+          builder: (context, dreamCurrentSelectionState, child) {
+            var currentDreamsAgywBeneficiary =
+                dreamCurrentSelectionState.currentAgywDream!;
+            return Column(
+              children: [
+                DreamsBeneficiaryTopHeader(
+                    agywDream: currentDreamsAgywBeneficiary),
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 13.0),
+                  child: MaterialCard(
+                    body: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ReferralDetailedCard(
+                          borderColor: const Color(0xFFE9F4FA),
+                          titleColor: const Color(0xFF05131B),
+                          labelColor: const Color(0XFF82898D),
+                          valueColor: const Color(0XFF444E54),
+                          isOvcIntervention: false,
+                          referralIndex: widget.referralIndex,
+                          eventData: widget.eventData,
+                          isEditable: shouldEditReferral(
+                            widget.eventData.dataValues ?? [],
                           ),
+                          isIncomingReferral: widget.isIncomingReferral,
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                        ReferralOutComeCardContainer(
+                          isOvcIntervention: false,
+                          isIncomingReferral: widget.isIncomingReferral,
+                          currentEventId: widget.eventData.event,
+                          currentProgramStage: widget.eventData.programStage,
+                          beneficiary: currentDreamsAgywBeneficiary
+                              .trackedEntityInstanceData,
+                          referralProgram: DreamsAgywReferralConstant.program,
+                          referralFollowUpStage:
+                              DreamsAgywReferralConstant.referralFollowUpStage,
+                          referralToFollowUpLinkage: DreamsAgywReferralConstant
+                              .referralToFollowUpLinkage,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

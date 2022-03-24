@@ -6,8 +6,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:provider/provider.dart';
 
 class AgywDreamsHTCSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -125,7 +125,9 @@ class AgywDreamsHTCSkipLogic {
     try {
       bmi =
           double.parse(weight) / (double.parse(height) * double.parse(height));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return bmi != null ? bmi.toStringAsPrecision(3) : '';
   }
 }

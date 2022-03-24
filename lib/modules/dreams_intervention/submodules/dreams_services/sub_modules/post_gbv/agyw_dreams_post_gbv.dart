@@ -1,10 +1,8 @@
-//  final String label = 'HIV Register';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -25,7 +23,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPostGBV extends StatefulWidget {
-  AgywDreamsPostGBV({Key? key}) : super(key: key);
+  const AgywDreamsPostGBV({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPostGBVState createState() => _AgywDreamsPostGBVState();
@@ -58,7 +56,7 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgywDreamsPostGBVForm(),
+          builder: (context) => const AgywDreamsPostGBVForm(),
         ),
       );
     }
@@ -69,7 +67,7 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPostGBVForm(),
+        builder: (context) => const AgywDreamsPostGBVForm(),
       ),
     );
   }
@@ -92,7 +90,7 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgywDreamsPostGBVForm(),
+          builder: (context) => const AgywDreamsPostGBVForm(),
         ),
       );
     }
@@ -102,7 +100,7 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -115,95 +113,89 @@ class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<DreamsBeneficiarySelectionState>(
-            builder: (context, dreamBeneficiarySelectionState, child) {
-              return Consumer<ServiceEventDataState>(
-                builder: (context, serviceEventDataState, child) {
-                  AgywDream? agywDream =
-                      dreamBeneficiarySelectionState.currentAgywDream;
-                  bool isLoading = serviceEventDataState.isLoading;
-                  Map<String?, List<Events>> eventListByProgramStage =
-                      serviceEventDataState.eventListByProgramStage;
-                  List<Events> events = TrackedEntityInstanceUtil
-                      .getAllEventListFromServiceDataStateByProgramStages(
-                    eventListByProgramStage,
-                    programStageIds,
-                    shouldSortByDate: true,
-                  );
-                  int postGbvVisitIndex = events.length + 1;
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamsBeneficiaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        Container(
-                          child: isLoading
-                              ? CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                )
-                              : Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                        vertical: 10.0,
-                                      ),
-                                      child: events.length == 0
-                                          ? Text(
-                                              'There is no POST GBV at a moment')
-                                          : Container(
-                                              margin: EdgeInsets.symmetric(
-                                                vertical: 5.0,
-                                                horizontal: 13.0,
-                                              ),
-                                              child: Column(
-                                                children: events
-                                                    .map((Events eventData) {
-                                                  postGbvVisitIndex--;
-                                                  return Container(
-                                                    margin: EdgeInsets.only(
-                                                      bottom: 15.0,
-                                                    ),
-                                                    child:
-                                                        DreamsServiceVisitCard(
-                                                      visitName: "POST GBV",
-                                                      onEdit: () => onEditPrep(
-                                                          context,
-                                                          eventData,
-                                                          agywDream!),
-                                                      onView: () => onViewPrep(
-                                                          context, eventData),
-                                                      eventData: eventData,
-                                                      visitCount:
-                                                          postGbvVisitIndex,
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                    ),
-                                    EntryFormSaveButton(
-                                      label: 'ADD POST GBV VISIT',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF1F8ECE),
-                                      fontSize: 15.0,
-                                      onPressButton: () =>
-                                          onAddPrep(context, agywDream!),
-                                    )
-                                  ],
-                                ),
-                        ),
-                      ],
+        body: Consumer<DreamsBeneficiarySelectionState>(
+          builder: (context, dreamBeneficiarySelectionState, child) {
+            return Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                AgywDream? agywDream =
+                    dreamBeneficiarySelectionState.currentAgywDream;
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String?, List<Events>> eventListByProgramStage =
+                    serviceEventDataState.eventListByProgramStage;
+                List<Events> events = TrackedEntityInstanceUtil
+                    .getAllEventListFromServiceDataStateByProgramStages(
+                  eventListByProgramStage,
+                  programStageIds,
+                  shouldSortByDate: true,
+                );
+                int postGbvVisitIndex = events.length + 1;
+                return Column(
+                  children: [
+                    DreamsBeneficiaryTopHeader(
+                      agywDream: agywDream,
                     ),
-                  );
-                },
-              );
-            },
-          ),
+                    Container(
+                      child: isLoading
+                          ? const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                  ),
+                                  child: events.isEmpty
+                                      ? const Text(
+                                          'There is no POST GBV at a moment')
+                                      : Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            vertical: 5.0,
+                                            horizontal: 13.0,
+                                          ),
+                                          child: Column(
+                                            children:
+                                                events.map((Events eventData) {
+                                              postGbvVisitIndex--;
+                                              return Container(
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 15.0,
+                                                ),
+                                                child: DreamsServiceVisitCard(
+                                                  visitName: "POST GBV",
+                                                  onEdit: () => onEditPrep(
+                                                      context,
+                                                      eventData,
+                                                      agywDream!),
+                                                  onView: () => onViewPrep(
+                                                      context, eventData),
+                                                  eventData: eventData,
+                                                  visitCount: postGbvVisitIndex,
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                ),
+                                EntryFormSaveButton(
+                                  label: 'ADD POST GBV VISIT',
+                                  labelColor: Colors.white,
+                                  buttonColor: const Color(0xFF1F8ECE),
+                                  fontSize: 15.0,
+                                  onPressButton: () =>
+                                      onAddPrep(context, agywDream!),
+                                )
+                              ],
+                            ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

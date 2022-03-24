@@ -1,8 +1,8 @@
 class DreamsAgywReferralConstant {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'MkyTrLeBG8I';
-  static final String referralOutComeStage = 'MkyTrLeBG8I';
-  static final String referralFollowUpStage = 'a7b8GrXEaQy';
-  static final String referralToFollowUpLinkage = 'Ntee9tw45ja';
-  static final String referralImplementingPartner = 'y0bvausyTyh';
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'MkyTrLeBG8I';
+  static const String referralOutComeStage = 'MkyTrLeBG8I';
+  static const String referralFollowUpStage = 'a7b8GrXEaQy';
+  static const String referralToFollowUpLinkage = 'Ntee9tw45ja';
+  static const String referralImplementingPartner = 'y0bvausyTyh';
 }

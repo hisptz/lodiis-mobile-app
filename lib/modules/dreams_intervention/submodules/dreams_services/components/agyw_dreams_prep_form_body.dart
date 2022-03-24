@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsPrepFormPageBody extends StatefulWidget {
-  AgywDreamsPrepFormPageBody({Key? key}) : super(key: key);
+  const AgywDreamsPrepFormPageBody({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsPrepFormPageBodyState createState() =>
@@ -37,7 +37,7 @@ class _AgywDreamsPrepFormPageBodyState
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       formSections = DreamsServicePrepIntakeInfo.getFormSections();
       setState(() {
         isFormReady = true;
@@ -48,7 +48,7 @@ class _AgywDreamsPrepFormPageBodyState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -89,7 +89,7 @@ class _AgywDreamsPrepFormPageBodyState
             hiddenFields);
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             String? currentLanguage =
                 Provider.of<LanguageTranslationState>(context, listen: false)
@@ -104,7 +104,7 @@ class _AgywDreamsPrepFormPageBodyState
           });
         });
       } catch (e) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
                 message: e.toString(), position: ToastGravity.BOTTOM);
@@ -121,77 +121,70 @@ class _AgywDreamsPrepFormPageBodyState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<DreamsBeneficiarySelectionState>(
-            builder: (context, nonAgywState, child) {
-              AgywDream? agywDream = nonAgywState.currentAgywDream;
-              return Consumer<ServiceFormState>(
-                builder: (context, serviceFormState, child) {
-                  return Container(
-                    child: Column(
-                      children: [
-                        DreamsBeneficiaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        !isFormReady
-                            ? Container(
-                                child: CircularProcessLoader(
-                                  color: Colors.blueGrey,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<DreamsBeneficiarySelectionState>(
+          builder: (context, nonAgywState, child) {
+            AgywDream? agywDream = nonAgywState.currentAgywDream;
+            return Consumer<ServiceFormState>(
+              builder: (context, serviceFormState, child) {
+                return Column(
+                  children: [
+                    DreamsBeneficiaryTopHeader(
+                      agywDream: agywDream,
+                    ),
+                    !isFormReady
+                        ? const CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          )
+                        : Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                  top: 13.0,
+                                  left: 13.0,
+                                  right: 13.0,
+                                ),
+                                child: EntryFormContainer(
+                                  hiddenFields: serviceFormState.hiddenFields,
+                                  hiddenSections:
+                                      serviceFormState.hiddenSections,
+                                  formSections: formSections,
+                                  mandatoryFieldObject: const {},
+                                  isEditableMode:
+                                      serviceFormState.isEditableMode,
+                                  dataObject: serviceFormState.formState,
+                                  onInputValueChange: onInputValueChange,
+                                ),
+                              ),
+                              Visibility(
+                                visible: serviceFormState.isEditableMode,
+                                child: EntryFormSaveButton(
+                                  label: isSaving
+                                      ? 'Saving ...'
+                                      : currentLanguage == 'lesotho'
+                                          ? 'Boloka'
+                                          : 'Save',
+                                  labelColor: Colors.white,
+                                  buttonColor: const Color(0xFF258DCC),
+                                  fontSize: 15.0,
+                                  onPressButton: () => onSaveForm(
+                                    context,
+                                    serviceFormState.formState,
+                                    agywDream,
+                                  ),
                                 ),
                               )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      top: 13.0,
-                                      left: 13.0,
-                                      right: 13.0,
-                                    ),
-                                    child: EntryFormContainer(
-                                      hiddenFields:
-                                          serviceFormState.hiddenFields,
-                                      hiddenSections:
-                                          serviceFormState.hiddenSections,
-                                      formSections: formSections,
-                                      mandatoryFieldObject: Map(),
-                                      isEditableMode:
-                                          serviceFormState.isEditableMode,
-                                      dataObject: serviceFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: serviceFormState.isEditableMode,
-                                    child: EntryFormSaveButton(
-                                      label: isSaving
-                                          ? 'Saving ...'
-                                          : currentLanguage == 'lesotho'
-                                              ? 'Boloka'
-                                              : 'Save',
-                                      labelColor: Colors.white,
-                                      buttonColor: Color(0xFF258DCC),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onSaveForm(
-                                        context,
-                                        serviceFormState.formState,
-                                        agywDream,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
-                      ],
-                    ),
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+                            ],
+                          )
+                  ],
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

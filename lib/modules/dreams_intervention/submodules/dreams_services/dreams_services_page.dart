@@ -60,7 +60,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HTSLongFormHomePage(),
+        builder: (context) => const HTSLongFormHomePage(),
       ),
     );
   }
@@ -73,7 +73,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HTSShortFormHomePage(),
+        builder: (context) => const HTSShortFormHomePage(),
       ),
     );
   }
@@ -97,7 +97,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => AgywDreamsPrep(),
+          builder: (context) => const AgywDreamsPrep(),
         ),
       );
     }
@@ -111,7 +111,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPrepShortFormHomePage(),
+        builder: (context) => const AgywDreamsPrepShortFormHomePage(),
       ),
     );
   }
@@ -124,7 +124,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsCondoms(),
+        builder: (context) => const AgywDreamsCondoms(),
       ),
     );
   }
@@ -137,7 +137,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamContraceptives(),
+        builder: (context) => const AgywDreamContraceptives(),
       ),
     );
   }
@@ -150,7 +150,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamHIVMessage(),
+        builder: (context) => const AgywDreamHIVMessage(),
       ),
     );
   }
@@ -163,7 +163,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsANC(),
+        builder: (context) => const AgywDreamsANC(),
       ),
     );
   }
@@ -176,7 +176,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPostGBV(),
+        builder: (context) => const AgywDreamsPostGBV(),
       ),
     );
   }
@@ -189,7 +189,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsArtRefill(),
+        builder: (context) => const AgywDreamsArtRefill(),
       ),
     );
   }
@@ -202,7 +202,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsPEP(),
+        builder: (context) => const AgywDreamsPEP(),
       ),
     );
   }
@@ -215,7 +215,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsServiceFormPage(),
+        builder: (context) => const AgywDreamsServiceFormPage(),
       ),
     );
   }
@@ -248,99 +248,95 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   }
 
   Widget _buildBody() {
-    return Container(
-      child: Container(
-        child: Consumer<DreamsInterventionListState>(
-          builder: (context, dreamInterventionListState, child) {
-            return CustomPaginatedListView(
-              childBuilder: (context, agywBeneficiary, child) =>
-                  DreamsBeneficiaryCard(
-                isAgywEnrollment: true,
-                agywDream: agywBeneficiary,
-                canEdit: canEdit,
-                canExpand: canExpand,
-                beneficiaryName: agywBeneficiary.toString(),
-                canView: canView,
-                isExpanded: agywBeneficiary.id == toggleCardId,
-                onCardToggle: () {
-                  onCardToggle(
-                    context,
-                    agywBeneficiary.id,
-                  );
-                },
-                cardBody: DreamsBeneficiaryCardBody(
-                  agywBeneficiary: agywBeneficiary,
-                  canViewServiceCategory: true,
-                  isVerticalLayout: agywBeneficiary.id == toggleCardId,
-                ),
-                cardButtonActions: ServiceCardButtonAction(
-                  agywBeneficiary: agywBeneficiary,
-                  onOpenPrepLongForm: () => onOpenPrepLongForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenPrepShortForm: () => onOpenPrepShortForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenHTSShortForm: () => onOpenHTSShortForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenHTSLongForm: () => onOpenHTSLongForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenCondomForm: () => onOpenCondomForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenContraceptivesForm: () => onOpenContraceptivesForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenANCForm: () => onOpenANCForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenArtRefillForm: () => onOpenArtRefillForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenPEPForm: () => onOpenPEPForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenPostGBVForm: () => onOpenPostGBVForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                  onOpenServiceForm: () => onOpenServiceForm(
-                    context,
-                    agywBeneficiary,
-                  ),
-                ),
-                cardButtonContent: Container(),
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return CustomPaginatedListView(
+          childBuilder: (context, agywBeneficiary, child) =>
+              DreamsBeneficiaryCard(
+            isAgywEnrollment: true,
+            agywDream: agywBeneficiary,
+            canEdit: canEdit,
+            canExpand: canExpand,
+            beneficiaryName: agywBeneficiary.toString(),
+            canView: canView,
+            isExpanded: agywBeneficiary.id == toggleCardId,
+            onCardToggle: () {
+              onCardToggle(
+                context,
+                agywBeneficiary.id,
+              );
+            },
+            cardBody: DreamsBeneficiaryCardBody(
+              agywBeneficiary: agywBeneficiary,
+              canViewServiceCategory: true,
+              isVerticalLayout: agywBeneficiary.id == toggleCardId,
+            ),
+            cardButtonActions: ServiceCardButtonAction(
+              agywBeneficiary: agywBeneficiary,
+              onOpenPrepLongForm: () => onOpenPrepLongForm(
+                context,
+                agywBeneficiary,
               ),
-              pagingController: dreamInterventionListState.agywPagingController,
-              emptyListWidget: Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
+              onOpenPrepShortForm: () => onOpenPrepShortForm(
+                context,
+                agywBeneficiary,
               ),
-              errorWidget: Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
+              onOpenHTSShortForm: () => onOpenHTSShortForm(
+                context,
+                agywBeneficiary,
               ),
-            );
-          },
-        ),
-      ),
+              onOpenHTSLongForm: () => onOpenHTSLongForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenCondomForm: () => onOpenCondomForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenContraceptivesForm: () => onOpenContraceptivesForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenANCForm: () => onOpenANCForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenMSGHIVForm: () => onOpenMSGHIVForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenArtRefillForm: () => onOpenArtRefillForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenPEPForm: () => onOpenPEPForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenPostGBVForm: () => onOpenPostGBVForm(
+                context,
+                agywBeneficiary,
+              ),
+              onOpenServiceForm: () => onOpenServiceForm(
+                context,
+                agywBeneficiary,
+              ),
+            ),
+            cardButtonContent: Container(),
+          ),
+          pagingController: dreamInterventionListState.agywPagingController,
+          emptyListWidget: const Center(
+            child: Text(
+              'There is no beneficiary list at a moment',
+            ),
+          ),
+          errorWidget: const Center(
+            child: Text(
+              'There is no beneficiary list at a moment',
+            ),
+          ),
+        );
+      },
     );
   }
 }

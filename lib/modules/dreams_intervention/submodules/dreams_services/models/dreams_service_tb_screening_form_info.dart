@@ -9,22 +9,22 @@ class DreamsServiceTBScreeningInfo {
       FormSection(name: '', color: Colors.transparent, inputFields: [
         InputField(
             id: 'YlP3TG4JYKR',
-            inputColor: Color(0xFF1F8ECE),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF1F8ECE),
+            labelColor: const Color(0xFF737373),
             name: 'Pregnant',
             valueType: 'BOOLEAN'),
         InputField(
             id: 'yIZY0baE8JP',
             name: 'Gestational age',
-            inputColor: Color(0xFF1F8ECE),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF1F8ECE),
+            labelColor: const Color(0xFF737373),
             valueType: 'NUMBER'),
         InputField(
           id: 'uRsImCXXDXe',
           name: 'HIV Status',
           valueType: 'TEXT',
-          inputColor: Color(0xFF1F8ECE),
-          labelColor: Color(0xFF737373),
+          inputColor: const Color(0xFF1F8ECE),
+          labelColor: const Color(0xFF737373),
           isReadOnly: true,
           options: [
             InputFieldOption(code: 'Positive', name: 'Positive'),
@@ -34,26 +34,26 @@ class DreamsServiceTBScreeningInfo {
         ),
         InputField(
             id: 'tMvluCbiiUm',
-            inputColor: Color(0xFF1F8ECE),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF1F8ECE),
+            labelColor: const Color(0xFF737373),
             name: 'Are you coughing',
             valueType: 'BOOLEAN'),
         InputField(
             id: 'P9hiqrTjAdg',
-            inputColor: Color(0xFF1F8ECE),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF1F8ECE),
+            labelColor: const Color(0xFF737373),
             name: 'Have you lost weight (without trying)',
             valueType: 'BOOLEAN'),
         InputField(
             id: 'Y8Xzy7bEWsi',
-            inputColor: Color(0xFF1F8ECE),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF1F8ECE),
+            labelColor: const Color(0xFF737373),
             name: 'Do you have drenching or soaking sweats at night',
             valueType: 'BOOLEAN'),
         InputField(
             id: 'VETgonq6tFr',
-            inputColor: Color(0xFF1F8ECE),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF1F8ECE),
+            labelColor: const Color(0xFF737373),
             name: 'Do you have fever',
             valueType: 'BOOLEAN'),
       ])

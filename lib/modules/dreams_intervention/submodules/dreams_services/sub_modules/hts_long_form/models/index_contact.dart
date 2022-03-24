@@ -25,10 +25,10 @@ class IndexContact {
       AgywDreamsHTSIndexConstant.indexInfoToIndexContactLinkage,
       AgywDreamsHTSIndexConstant.indexContactToElicitedSexualPartnerLinkage
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
