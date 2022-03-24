@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -8,7 +7,7 @@ import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:provider/provider.dart';
 
 class ReferralCardBodySummary extends StatefulWidget {
-  ReferralCardBodySummary({
+  const ReferralCardBodySummary({
     Key? key,
     required this.referralEvent,
     required this.labelColor,
@@ -46,36 +45,32 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
   Widget build(BuildContext context) {
     return Container(
       child: isLoading
-          ? Container(
-              child: Center(
-                child: CircularProcessLoader(
-                  color: Colors.blueGrey,
-                ),
+          ? const Center(
+              child: CircularProcessLoader(
+                color: Colors.blueGrey,
               ),
             )
-          : Container(
-              child: Consumer<LanguageTranslationState>(
-                builder: (context, languageTranslationState, child) {
-                  String? currentLanguage =
-                      languageTranslationState.currentLanguage;
-                  return Visibility(
-                    visible: referralDataCard != null,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 13.0,
-                        vertical: 10.0,
-                      ),
-                      child: ReferralCardData(
-                        currentLanguage: currentLanguage!,
-                        labelColor: widget.labelColor,
-                        valueColor: widget.valueColor,
-                        referralDataCard: referralDataCard!,
-                        isIncomingReferral: widget.isIncomingReferral,
-                      ),
+          : Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+                String? currentLanguage =
+                    languageTranslationState.currentLanguage;
+                return Visibility(
+                  visible: referralDataCard != null,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 13.0,
+                      vertical: 10.0,
                     ),
-                  );
-                },
-              ),
+                    child: ReferralCardData(
+                      currentLanguage: currentLanguage!,
+                      labelColor: widget.labelColor,
+                      valueColor: widget.valueColor,
+                      referralDataCard: referralDataCard!,
+                      isIncomingReferral: widget.isIncomingReferral,
+                    ),
+                  ),
+                );
+              },
             ),
     );
   }

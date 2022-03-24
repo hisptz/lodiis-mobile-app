@@ -22,31 +22,25 @@ class LanguageSelectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialCard(
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CircleAvatar(
-              radius: size.width * 0.06,
-              backgroundColor: Color(0xFFF3F3F3),
-              backgroundImage: AssetImage(appLanguage.image!),
-            ),
-            Container(
-              child: Text(currentLanguage == 'lesotho' &&
-                      appLanguage.translatedName != null
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          CircleAvatar(
+            radius: size.width * 0.06,
+            backgroundColor: const Color(0xFFF3F3F3),
+            backgroundImage: AssetImage(appLanguage.image!),
+          ),
+          Text(
+              currentLanguage == 'lesotho' && appLanguage.translatedName != null
                   ? appLanguage.translatedName!
                   : appLanguage.name!),
-            ),
-            Container(
-              child: SvgPicture.asset(
-                'assets/icons/tick-icon.svg',
-                color: appLanguage.id == selectionLanguage
-                    ? color
-                    : Colors.transparent,
-              ),
-            )
-          ],
-        ),
+          SvgPicture.asset(
+            'assets/icons/tick-icon.svg',
+            color: appLanguage.id == selectionLanguage
+                ? color
+                : Colors.transparent,
+          )
+        ],
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CircularProcessLoader extends StatelessWidget {
-  CircularProcessLoader(
+  const CircularProcessLoader(
       {Key? key, this.color, this.size, this.height, this.width})
       : super(key: key);
   final Color? color;
@@ -14,7 +14,7 @@ class CircularProcessLoader extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -24,7 +24,7 @@ class CircularProcessLoader extends StatelessWidget {
                 width: width ?? 30.0,
                 child: CircularProgressIndicator(
                   strokeWidth: size ?? 4,
-                  valueColor: new AlwaysStoppedAnimation(color ?? Colors.white),
+                  valueColor: AlwaysStoppedAnimation(color ?? Colors.white),
                 ),
               )
             ],

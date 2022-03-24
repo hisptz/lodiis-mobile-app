@@ -54,36 +54,32 @@ class _RadioInputFieldContainerState extends State<RadioInputFieldContainer> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Wrap(
         children: widget.options!
             .map(
-              (InputFieldOption option) => Container(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Radio(
-                      activeColor: widget.activeColor,
-                      value: option.code,
-                      groupValue: _currentValue,
-                      onChanged: widget.isReadOnly! ? null : setSelectedOption,
+              (InputFieldOption option) => Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Radio(
+                    activeColor: widget.activeColor,
+                    value: option.code,
+                    groupValue: _currentValue,
+                    onChanged: widget.isReadOnly! ? null : setSelectedOption,
+                  ),
+                  Text(
+                    widget.currentLanguage == 'lesotho' &&
+                            option.translatedName != null
+                        ? option.translatedName!
+                        : option.name,
+                    style: const TextStyle().copyWith(
+                      color: _currentValue == option.code
+                          ? widget.activeColor
+                          : null,
                     ),
-                    Container(
-                      child: Text(
-                        widget.currentLanguage == 'lesotho' &&
-                                option.translatedName != null
-                            ? option.translatedName!
-                            : option.name,
-                        style: TextStyle().copyWith(
-                          color: _currentValue == option.code
-                              ? widget.activeColor
-                              : null,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             )
             .toList(),

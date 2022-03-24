@@ -17,44 +17,42 @@ class ReferralCardData extends StatelessWidget {
   final ReferralEvent referralDataCard;
   final bool isIncomingReferral;
 
-  Container _getReferralCardDataWidget({
+  Visibility _getReferralCardDataWidget({
     required String key,
     required String value,
     bool isVisible = true,
   }) {
-    return Container(
-      child: Visibility(
-        visible: isVisible,
-        child: Container(
-          margin: EdgeInsets.symmetric(
-            vertical: 2.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  key,
-                  style: TextStyle().copyWith(
-                    fontSize: 14.0,
-                    color: labelColor,
-                    fontWeight: FontWeight.w500,
-                  ),
+    return Visibility(
+      visible: isVisible,
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+          vertical: 2.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                key,
+                style: const TextStyle().copyWith(
+                  fontSize: 14.0,
+                  color: labelColor,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  value != "" ? value : 'N/A',
-                  style: TextStyle().copyWith(
-                    fontSize: 14.0,
-                    color: valueColor,
-                    fontWeight: FontWeight.w500,
-                  ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                value != "" ? value : 'N/A',
+                style: const TextStyle().copyWith(
+                  fontSize: 14.0,
+                  color: valueColor,
+                  fontWeight: FontWeight.w500,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -62,46 +60,44 @@ class ReferralCardData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          _getReferralCardDataWidget(
-            key: currentLanguage == 'lesotho' ? 'Letsatsi' : 'Date',
-            value: referralDataCard.date!,
-          ),
-          _getReferralCardDataWidget(
-            key: currentLanguage == 'lesotho'
-                ? 'Tsela ea tsebetso'
-                : 'Service mode',
-            value: referralDataCard.serviceMode!,
-          ),
-          _getReferralCardDataWidget(
-            key: 'Category',
-            value: referralDataCard.category!,
-          ),
-          _getReferralCardDataWidget(
-            key: 'Referred to',
-            value: referralDataCard.location!,
-          ),
-          _getReferralCardDataWidget(
-            isVisible: referralDataCard.referredToIp!.isNotEmpty,
-            key: isIncomingReferral
-                ? 'Referred issued from '
-                : 'Referred issued to ',
-            value: isIncomingReferral
-                ? referralDataCard.referredFromIp!
-                : referralDataCard.referredToIp!,
-          ),
-          _getReferralCardDataWidget(
-            key: currentLanguage == 'lesotho' ? 'Mofuta' : 'Type',
-            value: referralDataCard.type!,
-          ),
-          _getReferralCardDataWidget(
-            key: 'Status',
-            value: referralDataCard.status!,
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        _getReferralCardDataWidget(
+          key: currentLanguage == 'lesotho' ? 'Letsatsi' : 'Date',
+          value: referralDataCard.date!,
+        ),
+        _getReferralCardDataWidget(
+          key: currentLanguage == 'lesotho'
+              ? 'Tsela ea tsebetso'
+              : 'Service mode',
+          value: referralDataCard.serviceMode!,
+        ),
+        _getReferralCardDataWidget(
+          key: 'Category',
+          value: referralDataCard.category!,
+        ),
+        _getReferralCardDataWidget(
+          key: 'Referred to',
+          value: referralDataCard.location!,
+        ),
+        _getReferralCardDataWidget(
+          isVisible: referralDataCard.referredToIp!.isNotEmpty,
+          key: isIncomingReferral
+              ? 'Referred issued from '
+              : 'Referred issued to ',
+          value: isIncomingReferral
+              ? referralDataCard.referredFromIp!
+              : referralDataCard.referredToIp!,
+        ),
+        _getReferralCardDataWidget(
+          key: currentLanguage == 'lesotho' ? 'Mofuta' : 'Type',
+          value: referralDataCard.type!,
+        ),
+        _getReferralCardDataWidget(
+          key: 'Status',
+          value: referralDataCard.status!,
+        ),
+      ],
     );
   }
 }

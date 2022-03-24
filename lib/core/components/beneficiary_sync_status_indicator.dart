@@ -15,20 +15,18 @@ class BeneficiarySyncStatusIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        onTap: () => {},
-        child: Container(
-          height: iconHeight,
-          width: iconHeight,
-          margin: EdgeInsets.symmetric(
-            vertical: 5.0,
-            horizontal: 5.0,
-          ),
-          child: SvgPicture.asset(
-            'assets/icons/sync.svg',
-            color: isSynced == true ? Colors.green : Colors.red,
-          ),
+    return InkWell(
+      onTap: () => {},
+      child: Container(
+        height: iconHeight,
+        width: iconHeight,
+        margin: const EdgeInsets.symmetric(
+          vertical: 5.0,
+          horizontal: 5.0,
+        ),
+        child: SvgPicture.asset(
+          'assets/icons/sync.svg',
+          color: isSynced == true ? Colors.green : Colors.red,
         ),
       ),
     );

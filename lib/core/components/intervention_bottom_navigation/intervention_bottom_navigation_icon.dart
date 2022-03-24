@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:provider/provider.dart';
 
 class InterventionBottomNavigationIcon extends StatelessWidget {
@@ -20,13 +20,13 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Stack(
         children: [
           Container(
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 9.0,
             ),
             child: SvgPicture.asset(
@@ -34,59 +34,52 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
               color: currentInterventionBottomNavigation.id ==
                       interventionBottomNavigation.id
                   ? Colors.white
-                  : Color(0xFF737373),
+                  : const Color(0xFF737373),
             ),
           ),
-          Container(
-            child: Positioned(
-              right: 0,
-              top: 0,
-              child: Visibility(
-                visible: hasIndicatorValue &&
-                    (interventionBottomNavigation.id == "outGoingReferral" ||
-                        interventionBottomNavigation.id == "incomingReferral"),
-                child: Container(
-                  child: Consumer<ReferralNotificationState>(
-                    builder: (context, referralNotificationState, child) {
-                      String incomingReferralsResolved =
-                          referralNotificationState
-                              .incomingReferralsResolvedIndicator;
-                      String incomingReferralToResolve =
-                          referralNotificationState
-                              .incomingReferralToResolveIndicator;
-                      return ClipOval(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 3.0,
-                            horizontal: 5.0,
-                          ),
-                          color: (interventionBottomNavigation.id ==
-                                          "outGoingReferral" &&
-                                      incomingReferralsResolved != "") ||
-                                  (interventionBottomNavigation.id ==
-                                          "incomingReferral" &&
-                                      incomingReferralToResolve != "")
-                              ? inactiveColor!.withOpacity(0.5)
-                              : inactiveColor!.withOpacity(0.0),
-                          child: Text(
-                            interventionBottomNavigation.id ==
-                                    "outGoingReferral"
-                                ? incomingReferralsResolved
-                                : incomingReferralToResolve,
-                            style: TextStyle().copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: currentInterventionBottomNavigation.id ==
-                                      interventionBottomNavigation.id
-                                  ? Colors.white
-                                  : inactiveColor,
-                            ),
-                          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: Visibility(
+              visible: hasIndicatorValue &&
+                  (interventionBottomNavigation.id == "outGoingReferral" ||
+                      interventionBottomNavigation.id == "incomingReferral"),
+              child: Consumer<ReferralNotificationState>(
+                builder: (context, referralNotificationState, child) {
+                  String incomingReferralsResolved = referralNotificationState
+                      .incomingReferralsResolvedIndicator;
+                  String incomingReferralToResolve = referralNotificationState
+                      .incomingReferralToResolveIndicator;
+                  return ClipOval(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 3.0,
+                        horizontal: 5.0,
+                      ),
+                      color: (interventionBottomNavigation.id ==
+                                      "outGoingReferral" &&
+                                  incomingReferralsResolved != "") ||
+                              (interventionBottomNavigation.id ==
+                                      "incomingReferral" &&
+                                  incomingReferralToResolve != "")
+                          ? inactiveColor!.withOpacity(0.5)
+                          : inactiveColor!.withOpacity(0.0),
+                      child: Text(
+                        interventionBottomNavigation.id == "outGoingReferral"
+                            ? incomingReferralsResolved
+                            : incomingReferralToResolve,
+                        style: const TextStyle().copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: currentInterventionBottomNavigation.id ==
+                                  interventionBottomNavigation.id
+                              ? Colors.white
+                              : inactiveColor,
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_clear_icon.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -117,18 +117,19 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
     bool isFilterSelected = isFilterApplied(filter.id, currentIntervention);
     Color filterColor = currentIntervention.primaryColor ?? Colors.blue;
     return Container(
-        padding: EdgeInsets.only(bottom: 8.0),
+        padding: const EdgeInsets.only(bottom: 8.0),
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
           child: ExpansionTile(
             childrenPadding:
-                EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
+                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
             title: Row(
               children: [
                 Expanded(
                     child: Text(
                   filter.name,
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.w500),
                 )),
                 Visibility(
                   visible: isFilterSelected,
@@ -179,9 +180,10 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
           var backgroundColor =
               interventionCardState.currentInterventionProgram.background;
           return Container(
-              padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+              padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(20)),
                   color: Color.alphaBlend(
                       backgroundColor ?? Colors.white, Colors.white)),
               child: Consumer<BeneficiaryFilterState>(
@@ -189,13 +191,14 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                   return Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.0),
+                        margin: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Row(
                           children: [
                             Expanded(
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: const Text(
                                   'Filters',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
@@ -204,7 +207,8 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: InkWell(
                                 onTap: () => onClearFilters(
                                     context,
@@ -227,7 +231,7 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                               .currentInterventionProgram.countLabelColor!),
                       Flexible(
                           child: ListView(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         children: filters
                             .map((BeneficiaryFilter filter) =>
                                 _buildFilterWidget(
@@ -237,26 +241,28 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                             .toList(),
                       )),
                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.0),
+                        margin: const EdgeInsets.symmetric(vertical: 10.0),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12.0)),
                           color: interventionCardState
                               .currentInterventionProgram.primaryColor,
                         ),
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           right: 5.0,
                         ),
                         child: TextButton(
                           onPressed: () => onApplyFilters(
                               interventionCardState.currentInterventionProgram),
                           style: TextButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 15,
                             ),
                           ),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 25.0),
-                            child: Text(
+                            margin:
+                                const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: const Text(
                               "Apply filters",
                               style: TextStyle(
                                 color: Color(0xFFFAFAFA),

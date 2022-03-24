@@ -22,7 +22,7 @@ class OnlineBeneficiarySearch extends StatefulWidget {
 }
 
 class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
-  Map<String, String> onlineSearchDataObject = Map();
+  Map<String, String> onlineSearchDataObject = {};
   List<OnlineBeneficiarySearchResult> searchResults = [];
   String searchResultMessage = '';
   bool isSearching = false;
@@ -139,8 +139,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
           .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
           .toList();
     } catch (error) {
-      print(error);
-      // TODO add error messages
+      //
     }
     updateSearchResults(results: searchedTeis);
   }
@@ -192,24 +191,25 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                   .contains(currentIntervention))
                           .toList();
                   return Container(
-                    padding: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+                    padding:
+                        const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
                     decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20)),
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(20)),
                         color: Color.alphaBlend(
                             backgroundColor ?? Colors.white, Colors.white)),
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10.0),
+                          margin: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Row(
                             children: [
                               Expanded(
                                 flex: 8,
                                 child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Text(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: const Text(
                                     'Online Beneficiary Search',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
@@ -221,8 +221,8 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                 flex: 2,
                                 child: Container(
                                   alignment: Alignment.center,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: isSearching
 
                                       // Add a cross button to stop the search
@@ -264,12 +264,12 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                 InputField inputField = input.inputField;
                                 inputField.inputColor = primaryColor;
                                 return Container(
-                                    padding: EdgeInsets.only(bottom: 8.0),
+                                    padding: const EdgeInsets.only(bottom: 8.0),
                                     child: Theme(
                                       data: Theme.of(context).copyWith(
                                           dividerColor: Colors.transparent),
                                       child: ExpansionTile(
-                                        childrenPadding: EdgeInsets.only(
+                                        childrenPadding: const EdgeInsets.only(
                                           left: 16.0,
                                           right: 16.0,
                                         ),
@@ -289,16 +289,16 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                         ),
                                         children: [
                                           InputFieldContainer(
-                                              currentUserCountryLevelReferences: [],
-                                              hiddenFields: Map(),
+                                              currentUserCountryLevelReferences: const [],
+                                              hiddenFields: const {},
                                               inputField: inputField,
-                                              hiddenInputFieldOptions: Map(),
+                                              hiddenInputFieldOptions: const {},
                                               currentLanguage:
                                                   languageTranslationState
                                                       .currentLanguage,
                                               isEditableMode: true,
                                               showClearIcon: true,
-                                              mandatoryFieldObject: Map(),
+                                              mandatoryFieldObject: const {},
                                               dataObject:
                                                   onlineSearchDataObject,
                                               onInputValueChange: (String id,
@@ -314,18 +314,18 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                   visible: searchResults.isNotEmpty ||
                                       searchResultMessage.isNotEmpty,
                                   child: Container(
-                                    margin: EdgeInsets.only(top: 10.0),
+                                    margin: const EdgeInsets.only(top: 10.0),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
                                         Container(
                                             alignment: Alignment.centerLeft,
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
-                                            margin:
-                                                EdgeInsets.only(bottom: 10.0),
-                                            child: Text(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 10.0),
+                                            child: const Text(
                                               'Search Results',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600,
@@ -337,8 +337,9 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                               Visibility(
                                   child: Container(
                                       alignment: Alignment.center,
-                                      margin: EdgeInsets.only(bottom: 15.0),
-                                      padding: EdgeInsets.only(top: 10.0),
+                                      margin:
+                                          const EdgeInsets.only(bottom: 15.0),
+                                      padding: const EdgeInsets.only(top: 10.0),
                                       child: Text(searchResultMessage)),
                                   visible: searchResultMessage.isNotEmpty),
                               ...searchResults.map((result) {

@@ -26,7 +26,7 @@ class CheckBoxListInputField extends StatefulWidget {
 }
 
 class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
-  Map _inputValue = Map();
+  final Map _inputValue = {};
 
   @override
   void initState() {
@@ -50,25 +50,23 @@ class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: widget.inputField.options!
-            .where((option) =>
-                widget.hiddenFields[option.code] == null ||
-                widget.hiddenFields[option.code] != true)
-            .map((InputFieldOption option) => CheckBoxInputField(
-                  isReadOnly: widget.isReadOnly,
-                  label: widget.currentLanguage == 'lesotho' &&
-                          option.translatedName != null
-                      ? option.translatedName
-                      : option.name,
-                  value: widget.dataObject![option.code],
-                  color: widget.inputField.inputColor,
-                  onInputValueChange: (dynamic value) =>
-                      widget.onInputValueChange!(option.code, '$value'),
-                ))
-            .toList(),
-      ),
+    return Column(
+      children: widget.inputField.options!
+          .where((option) =>
+              widget.hiddenFields[option.code] == null ||
+              widget.hiddenFields[option.code] != true)
+          .map((InputFieldOption option) => CheckBoxInputField(
+                isReadOnly: widget.isReadOnly,
+                label: widget.currentLanguage == 'lesotho' &&
+                        option.translatedName != null
+                    ? option.translatedName
+                    : option.name,
+                value: widget.dataObject![option.code],
+                color: widget.inputField.inputColor,
+                onInputValueChange: (dynamic value) =>
+                    widget.onInputValueChange!(option.code, '$value'),
+              ))
+          .toList(),
     );
   }
 }

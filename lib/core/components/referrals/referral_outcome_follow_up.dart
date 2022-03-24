@@ -17,7 +17,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
 
   final List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUpEvents;
   final Color? themeColor;
-  final isEditableMode;
+  final bool isEditableMode;
   final Function onEditFollowUp;
   final double editIconHeight = 20;
 
@@ -42,183 +42,170 @@ class ReferralOutComeFollowUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children:
-            referralOutComeFollowUpEvents.map((referralOutComeFollowUpEvent) {
-          int index = referralOutComeFollowUpEvents
-                  .indexOf(referralOutComeFollowUpEvent) +
-              1;
-          return Container(
-            margin: EdgeInsets.only(bottom: 10.0),
-            child: Column(
-              children: [
-                Container(
-                  child: LineSeparator(color: themeColor!.withOpacity(0.2)),
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'FOLLOW UP $index',
-                          style: TextStyle().copyWith(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:
+          referralOutComeFollowUpEvents.map((referralOutComeFollowUpEvent) {
+        int index = referralOutComeFollowUpEvents
+                .indexOf(referralOutComeFollowUpEvent) +
+            1;
+        return Container(
+          margin: const EdgeInsets.only(bottom: 10.0),
+          child: Column(
+            children: [
+              LineSeparator(color: themeColor!.withOpacity(0.2)),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'FOLLOW UP $index',
+                        style: const TextStyle().copyWith(
+                          color: themeColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.0,
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: isEditableMode &&
+                          referralOutComeFollowUpEvent.enrollmentOuAccessible!,
+                      child: InkWell(
+                        onTap: () => {
+                          editOutComeFollowUp(
+                            context,
+                            referralOutComeFollowUpEvent.eventData,
+                          )
+                        },
+                        child: Container(
+                          height: editIconHeight,
+                          width: editIconHeight,
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 10.0,
+                          ),
+                          child: SvgPicture.asset(
+                            'assets/icons/edit-icon.svg',
                             color: themeColor,
-                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              LineSeparator(
+                color: themeColor!.withOpacity(0.2),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  left: 15.0,
+                  top: 5.0,
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Follow-up date',
+                              style: const TextStyle().copyWith(
+                                fontSize: 14.0,
+                                color: themeColor!.withOpacity(0.8),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            referralOutComeFollowUpEvent.followUpDate!,
+                            style: const TextStyle().copyWith(
+                              fontSize: 14.0,
+                              color: const Color(0xFF1A3518),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            'Follow-up Status',
+                            style: const TextStyle().copyWith(
+                              fontSize: 14.0,
+                              color: themeColor!.withOpacity(0.8),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                          referralOutComeFollowUpEvent.followUpStatus!,
+                          style: const TextStyle().copyWith(
                             fontSize: 14.0,
+                            color: const Color(0xFF1A3518),
+                            fontWeight: FontWeight.w500,
                           ),
-                        ),
+                        ))
+                      ],
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            'Comments or next steps',
+                            style: const TextStyle().copyWith(
+                              fontSize: 14.0,
+                              color: themeColor!.withOpacity(0.8),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ))
+                        ],
                       ),
-                      Visibility(
-                        visible: isEditableMode &&
-                            referralOutComeFollowUpEvent
-                                .enrollmentOuAccessible!,
-                        child: InkWell(
-                          onTap: () => {
-                            editOutComeFollowUp(
-                              context,
-                              referralOutComeFollowUpEvent.eventData,
-                            )
-                          },
-                          child: Container(
-                            height: editIconHeight,
-                            width: editIconHeight,
-                            margin: EdgeInsets.symmetric(
-                              vertical: 10.0,
-                              horizontal: 10.0,
-                            ),
-                            child: SvgPicture.asset(
-                              'assets/icons/edit-icon.svg',
-                              color: themeColor,
-                            ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Text(
+                          referralOutComeFollowUpEvent.comments!,
+                          style: const TextStyle().copyWith(
+                            fontSize: 14.0,
+                            color: const Color(0xFF1A3518),
+                            fontWeight: FontWeight.w500,
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                        ))
+                      ],
+                    )
+                  ],
                 ),
-                Container(
-                  child: LineSeparator(
-                    color: themeColor!.withOpacity(0.2),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 15.0,
-                    top: 5.0,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 5.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'Follow-up date',
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                  color: themeColor!.withOpacity(0.8),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                referralOutComeFollowUpEvent.followUpDate!,
-                                style: TextStyle().copyWith(
-                                  fontSize: 14.0,
-                                  color: Color(0xFF1A3518),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 5.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                              'Follow-up Status',
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: themeColor!.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ))
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                              referralOutComeFollowUpEvent.followUpStatus!,
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: Color(0xFF1A3518),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ))
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 5.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                              'Comments or next steps',
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: themeColor!.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ))
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                              referralOutComeFollowUpEvent.comments!,
-                              style: TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: Color(0xFF1A3518),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ))
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        }).toList(),
-      ),
+              )
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }

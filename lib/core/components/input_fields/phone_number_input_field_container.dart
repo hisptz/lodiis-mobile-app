@@ -42,31 +42,29 @@ class _PhoneNumberInputFieldContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              readOnly: widget.inputField.isReadOnly!,
-              controller: phoneNumberController,
-              keyboardType: TextInputType.phone,
-              onChanged: onValueChange,
-              style: TextStyle().copyWith(
-                color: widget.inputField.inputColor,
-              ),
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                errorText: null,
-              ),
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            readOnly: widget.inputField.isReadOnly!,
+            controller: phoneNumberController,
+            keyboardType: TextInputType.phone,
+            onChanged: onValueChange,
+            style: const TextStyle().copyWith(
+              color: widget.inputField.inputColor,
+            ),
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              errorText: null,
             ),
           ),
-          InputCheckedIcon(
-            showTickedIcon: _value != null && '$_value'.trim() != '',
-            color: widget.inputField.inputColor,
-          )
-        ],
-      ),
+        ),
+        InputCheckedIcon(
+          showTickedIcon: _value != null && '$_value'.trim() != '',
+          color: widget.inputField.inputColor,
+        )
+      ],
     );
   }
 }

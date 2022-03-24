@@ -15,7 +15,7 @@ class InputCheckedIcon extends StatelessWidget {
           ? Container()
           : Container(
               height: 20.0,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 left: 10,
               ),
               child: SvgPicture.asset(

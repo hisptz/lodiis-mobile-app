@@ -33,37 +33,33 @@ class ReferralOutComeCardContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<ServiceEventDataState>(
-        builder: (context, serviceEventDataState, child) {
-          bool isLoading = serviceEventDataState.isLoading;
-          Map<String?, List<Events>> eventListByProgramStage =
-              serviceEventDataState.eventListByProgramStage;
-          List<Events> events = TrackedEntityInstanceUtil
-              .getAllEventListFromServiceDataStateByProgramStages(
-            eventListByProgramStage,
-            [currentProgramStage],
-          ).where((Events event) => event.event == currentEventId).toList();
-          Events? eventData = events.length > 0 ? events[0] : null;
-          return isLoading
-              ? Container(
-                  child: CircularProcessLoader(
-                    color: Colors.blueGrey,
-                  ),
-                )
-              : eventData != null
-                  ? ReferralOutComeCard(
-                      isIncomingReferral: isIncomingReferral,
-                      isOvcIntervention: isOvcIntervention,
-                      beneficiary: beneficiary,
-                      eventData: eventData,
-                      referralProgram: referralProgram,
-                      referralFollowUpStage: referralFollowUpStage,
-                      referralToFollowUpLinkage: referralToFollowUpLinkage,
-                    )
-                  : Container();
-        },
-      ),
+    return Consumer<ServiceEventDataState>(
+      builder: (context, serviceEventDataState, child) {
+        bool isLoading = serviceEventDataState.isLoading;
+        Map<String?, List<Events>> eventListByProgramStage =
+            serviceEventDataState.eventListByProgramStage;
+        List<Events> events = TrackedEntityInstanceUtil
+            .getAllEventListFromServiceDataStateByProgramStages(
+          eventListByProgramStage,
+          [currentProgramStage],
+        ).where((Events event) => event.event == currentEventId).toList();
+        Events? eventData = events.isNotEmpty ? events[0] : null;
+        return isLoading
+            ? const CircularProcessLoader(
+                color: Colors.blueGrey,
+              )
+            : eventData != null
+                ? ReferralOutComeCard(
+                    isIncomingReferral: isIncomingReferral,
+                    isOvcIntervention: isOvcIntervention,
+                    beneficiary: beneficiary,
+                    eventData: eventData,
+                    referralProgram: referralProgram,
+                    referralFollowUpStage: referralFollowUpStage,
+                    referralToFollowUpLinkage: referralToFollowUpLinkage,
+                  )
+                : Container();
+      },
     );
   }
 }

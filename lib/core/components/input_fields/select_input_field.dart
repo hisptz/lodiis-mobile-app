@@ -32,7 +32,7 @@ class SelectInputField extends StatefulWidget {
 
 class _SelectInputFieldState extends State<SelectInputField> {
   dynamic _selectedOption;
-  Map _hiddenInputFieldOptions = Map();
+  Map _hiddenInputFieldOptions = {};
   List<InputFieldOption>? _options;
 
   @override
@@ -53,8 +53,7 @@ class _SelectInputFieldState extends State<SelectInputField> {
         .toList()
         .toSet()
         .toList();
-    value =
-        value != null && validOptionCodes.indexOf(value) > -1 ? value : null;
+    value = value != null && validOptionCodes.contains(value) ? value : null;
     setState(() {
       _selectedOption = value == '' ? null : value;
     });
@@ -64,8 +63,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
   void didUpdateWidget(covariant SelectInputField oldWidget) {
     super.didUpdateWidget(widget);
     if (oldWidget.selectedOption != widget.selectedOption ||
-        oldWidget.hiddenInputFieldOptions != widget.hiddenInputFieldOptions)
+        oldWidget.hiddenInputFieldOptions != widget.hiddenInputFieldOptions) {
       updateInputValueState(widget.selectedOption);
+    }
   }
 
   void onValueChange(dynamic value) {
@@ -76,25 +76,21 @@ class _SelectInputFieldState extends State<SelectInputField> {
   @override
   Widget build(BuildContext context) {
     return widget.renderAsRadio!
-        ? Container(
-            child: RadioInputFieldContainer(
-              options: _options,
-              currentLanguage: widget.currentLanguage,
-              isReadOnly: widget.isReadOnly,
-              currentValue: _selectedOption,
-              activeColor: widget.color,
-              onInputValueChange: widget.onInputValueChange,
-            ),
+        ? RadioInputFieldContainer(
+            options: _options,
+            currentLanguage: widget.currentLanguage,
+            isReadOnly: widget.isReadOnly,
+            currentValue: _selectedOption,
+            activeColor: widget.color,
+            onInputValueChange: widget.onInputValueChange,
           )
-        : Container(
-            child: SelectionOptionContainer(
-              selectedOption: _selectedOption,
-              options: _options,
-              onValueChange: onValueChange,
-              color: widget.color,
-              isReadOnly: widget.isReadOnly,
-              currentLanguage: widget.currentLanguage,
-            ),
+        : SelectionOptionContainer(
+            selectedOption: _selectedOption,
+            options: _options,
+            onValueChange: onValueChange,
+            color: widget.color,
+            isReadOnly: widget.isReadOnly,
+            currentLanguage: widget.currentLanguage,
           );
   }
 }
@@ -121,7 +117,7 @@ class SelectionOptionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onChange(value) {
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
       onValueChange!(value);
     }
 
@@ -131,7 +127,7 @@ class SelectionOptionContainer extends StatelessWidget {
           child: DropdownButton<dynamic>(
             value: _selectedOption,
             isExpanded: true,
-            icon: Container(
+            icon: SizedBox(
               height: 20.0,
               child: SvgPicture.asset(
                 'assets/icons/chevron_down.svg',

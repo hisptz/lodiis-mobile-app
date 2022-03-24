@@ -10,7 +10,7 @@ class AppUpdateActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         top: 40.0,
         left: 10.0,
         right: 10.0,
@@ -19,25 +19,25 @@ class AppUpdateActionButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               right: 5.0,
             ),
             child: TextButton(
               onPressed: onUpdateApp,
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Color(0xFFFAFAFA),
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 15,
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text(
+                margin: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: const Text(
                   "Update App",
                   style: TextStyle(
                     color: Color(0xFFFAFAFA),
@@ -47,25 +47,25 @@ class AppUpdateActionButtons extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: 5.0,
             ),
             child: TextButton(
               onPressed: onCloseApp,
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Color(0xFFFAFAFA),
                   ),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 15,
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Text(
+                margin: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: const Text(
                   "Close App",
                   style: TextStyle(
                     color: Color(0xFFFAFAFA),

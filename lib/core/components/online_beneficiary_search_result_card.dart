@@ -60,7 +60,7 @@ class _OnlineBeneficiarySearchResultCardState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 10.0,
         horizontal: 15.0,
       ),
@@ -68,7 +68,7 @@ class _OnlineBeneficiarySearchResultCardState
           body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 5.0,
               horizontal: 15.0,
             ),
@@ -117,7 +117,7 @@ class _OnlineBeneficiarySearchResultCardState
             ),
           ),
           Container(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10.0,
                 horizontal: 15.0,
               ),
@@ -180,13 +180,13 @@ class SearchResultDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0),
+      margin: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
           Expanded(
             child: Text(
               label,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: primaryColor.withOpacity(0.6),
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
@@ -197,7 +197,7 @@ class SearchResultDetails extends StatelessWidget {
             flex: 2,
             child: Text(
               value,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: primaryColor.withOpacity(0.9),
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
