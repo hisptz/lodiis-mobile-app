@@ -14,7 +14,7 @@ class PpPrevRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return PpPrevInterventionEnrollmentForm();
+          return const PpPrevInterventionEnrollmentForm();
         },
       ),
     );
@@ -29,7 +29,7 @@ class PpPrevRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return PpPrevInterventionServiceProvisionForm();
+          return const PpPrevInterventionServiceProvisionForm();
         },
       ),
     );

@@ -22,7 +22,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NonAgywDreamsHTSConsentForm(),
+        builder: (context) => const NonAgywDreamsHTSConsentForm(),
       ),
     );
   }
@@ -35,7 +35,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NonAgywDreamsHTSClientInformation(),
+        builder: (context) => const NonAgywDreamsHTSClientInformation(),
       ),
     );
   }
@@ -48,7 +48,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NonAgywDreamsHTSRegisterForm(),
+        builder: (context) => const NonAgywDreamsHTSRegisterForm(),
       ),
     );
   }
@@ -61,7 +61,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NoneAgywEnrollmentPrepScreeningForm(),
+        builder: (context) => const NoneAgywEnrollmentPrepScreeningForm(),
       ),
     );
   }
@@ -74,7 +74,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NoneAgywEnrollmentEditForm(),
+        builder: (context) => const NoneAgywEnrollmentEditForm(),
       ),
     );
   }
@@ -87,7 +87,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => NoneAgywPrepForm(),
+        builder: (context) => const NoneAgywPrepForm(),
       ),
     );
   }
@@ -100,7 +100,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsConsentForm(),
+        builder: (context) => const AgywDreamsConsentForm(),
       ),
     );
   }
@@ -113,7 +113,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsRiskAssessment(),
+        builder: (context) => const AgywDreamsRiskAssessment(),
       ),
     );
   }
@@ -126,7 +126,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsEnrollmentForm(),
+        builder: (context) => const AgywDreamsEnrollmentForm(),
       ),
     );
   }
@@ -139,7 +139,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywEnrollmentNoneParticipationForm(),
+        builder: (context) => const AgywEnrollmentNoneParticipationForm(),
       ),
     );
   }
@@ -152,7 +152,7 @@ class DreamsEnrollmentRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsEnrollmentEditForm(),
+        builder: (context) => const AgywDreamsEnrollmentEditForm(),
       ),
     );
   }

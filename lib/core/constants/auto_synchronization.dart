@@ -1,3 +1,3 @@
 class AutoSynchronization {
-  static final int syncTimeout = 2;
+  static const int syncTimeout = 2;
 }

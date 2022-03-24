@@ -16,7 +16,7 @@ class EducationLbseRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationLbseEnrollmentFormPage();
+          return const EducationLbseEnrollmentFormPage();
         },
       ),
     );

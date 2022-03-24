@@ -25,7 +25,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdAssessmentForm();
+          return const OvcHouseholdAssessmentForm();
         },
       ),
     );
@@ -38,7 +38,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdCasePlanForm();
+          return const OvcHouseholdCasePlanForm();
         },
       ),
     );
@@ -51,7 +51,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdAddReferralForm();
+          return const OvcHouseholdAddReferralForm();
         },
       ),
     );
@@ -59,15 +59,19 @@ class OvcServicesRoute {
 
   redirectToOvcReferralForm(BuildContext context, FormAutoSave formAutoSave) {
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildReferralAddForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const OvcChildReferralAddForm()));
   }
 
   redirectToOvcCloReferralForm(
       BuildContext context, FormAutoSave formAutoSave) {
     AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OvcChildCLOReferralAddForm()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const OvcChildCLOReferralAddForm()));
   }
 
   redirectToOvcHouseholdClosureForm(
@@ -77,7 +81,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdCaseClosure();
+          return const OvcHouseholdCaseClosure();
         },
       ),
     );
@@ -90,7 +94,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdGraduationForm();
+          return const OvcHouseholdGraduationForm();
         },
       ),
     );
@@ -103,7 +107,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdCaseTransfer();
+          return const OvcHouseholdCaseTransfer();
         },
       ),
     );
@@ -116,7 +120,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcHouseholdExit();
+          return const OvcHouseholdExit();
         },
       ),
     );
@@ -128,7 +132,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcExitCaseClosureForm();
+          return const OvcExitCaseClosureForm();
         },
       ),
     );
@@ -140,7 +144,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcExitCasePlanGraduationReadinessForm();
+          return const OvcExitCasePlanGraduationReadinessForm();
         },
       ),
     );
@@ -152,7 +156,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcExitCaseTransferForm();
+          return const OvcExitCaseTransferForm();
         },
       ),
     );
@@ -164,7 +168,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcExitInformationForm();
+          return const OvcExitInformationForm();
         },
       ),
     );

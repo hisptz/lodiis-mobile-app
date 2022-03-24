@@ -33,56 +33,55 @@ class AppResumeRouteUtil {
     }
   }
 
-  static Widget getConfirmationWidget(BuildContext context, String? pageModule) {
+  static Widget getConfirmationWidget(
+      BuildContext context, String? pageModule) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
       ),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 10.0,
             ),
             child: Text(
               "You have unsaved data on $pageModule module, Do want to continue?",
-              style: TextStyle().copyWith(
-                color: Color(0xFF82898D),
+              style: const TextStyle().copyWith(
+                color: const Color(0xFF82898D),
                 fontSize: 14.0,
               ),
             ),
           ),
           Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 10.0,
             ),
             child: Row(
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       right: 5.0,
                     ),
                     child: TextButton(
                       onPressed: () => Navigator.pop(context, true),
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: Color(0xFF7FBA7C),
                           ),
                           borderRadius: BorderRadius.circular(12.0),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 15,
                         ),
                       ),
-                      child: Container(
-                        child: Text(
-                          "Continue",
-                          style: TextStyle(
-                            color: Color(0xFF7FBA7C),
-                          ),
+                      child: const Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: Color(0xFF7FBA7C),
                         ),
                       ),
                     ),
@@ -90,28 +89,26 @@ class AppResumeRouteUtil {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 5.0,
                     ),
                     child: TextButton(
                       onPressed: () => Navigator.pop(context, false),
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: Colors.redAccent,
                           ),
                           borderRadius: BorderRadius.circular(12.0),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 15,
                         ),
                       ),
-                      child: Container(
-                        child: Text(
-                          "Discard changes",
-                          style: TextStyle(
-                            color: Colors.redAccent,
-                          ),
+                      child: const Text(
+                        "Discard changes",
+                        style: TextStyle(
+                          color: Colors.redAccent,
                         ),
                       ),
                     ),

@@ -66,7 +66,7 @@ class FormUtil {
     List<String> skippedInputs,
   ) {
     return inputFields.map((InputField inputField) {
-      if (inputField.id != '' && skippedInputs.indexOf(inputField.id) == -1) {
+      if (inputField.id != '' && !skippedInputs.contains(inputField.id)) {
         inputField.isReadOnly = isReadOnly;
       }
       return inputField;
@@ -77,7 +77,7 @@ class FormUtil {
       List<FormSection> formSections) {
     List<FormSection> sections = [];
     for (FormSection formSection in formSections) {
-      if (formSection.subSections!.length > 0) {
+      if (formSection.subSections!.isNotEmpty) {
         sections.addAll(getFlattenFormSections(formSection.subSections!));
       }
       // formSection.subSections = [];
@@ -114,7 +114,7 @@ class FormUtil {
   static bool geFormFilledStatus(
       Map dataObject, List<FormSection>? formSections) {
     bool isFormFilled = false;
-    if (dataObject.keys.length > 0) {
+    if (dataObject.keys.isNotEmpty) {
       List<String> inputFields = getFormFieldIds(formSections!);
       for (String id in inputFields) {
         if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
@@ -151,7 +151,7 @@ class FormUtil {
     List<OrganisationUnit> organisationUnits =
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
     OrganisationUnit? organisationUnit =
-        organisationUnits.length > 0 ? organisationUnits[0] : null;
+        organisationUnits.isNotEmpty ? organisationUnits[0] : null;
     if (hasBeneficiaryId) {
       dataObject[BeneficiaryIdentification.beneficiaryId] =
           dataObject[BeneficiaryIdentification.beneficiaryId] =
@@ -166,7 +166,7 @@ class FormUtil {
         .toSet()
         .toList()
         .map((String attribute) {
-          String value = dataObject.keys.toList().indexOf(attribute) > -1
+          String value = dataObject.keys.toList().contains(attribute)
               ? '${dataObject[attribute]}'.trim()
               : '';
           return attribute != ''
@@ -254,7 +254,7 @@ class FormUtil {
         .toSet()
         .toList()
         .map((String dataElement) {
-          String value = dataObject!.keys.toList().indexOf(dataElement) > -1
+          String value = dataObject!.keys.toList().contains(dataElement)
               ? '${dataObject[dataElement]}'.trim()
               : '';
           return dataElement != ''

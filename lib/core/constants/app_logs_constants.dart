@@ -1,6 +1,6 @@
 class AppLogsConstants {
-  static final int logsPagnationLimit = 20;
-  static final String errorLogType = 'error';
-  static final String warningLogType = 'warning';
-  static final String infoLogType = 'info';
+  static const int logsPagnationLimit = 20;
+  static const String errorLogType = 'error';
+  static const String warningLogType = 'warning';
+  static const String infoLogType = 'info';
 }

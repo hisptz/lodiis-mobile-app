@@ -19,7 +19,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentConsentForm();
+          return const OvcEnrollmentConsentForm();
         },
       ),
     );
@@ -34,7 +34,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentNoneParticipationForm();
+          return const OvcEnrollmentNoneParticipationForm();
         },
       ),
     );
@@ -49,7 +49,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentBasicInfoForm();
+          return const OvcEnrollmentBasicInfoForm();
         },
       ),
     );
@@ -64,7 +64,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentChildForm();
+          return const OvcEnrollmentChildForm();
         },
       ),
     );
@@ -79,7 +79,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentHouseholdForm();
+          return const OvcEnrollmentHouseholdForm();
         },
       ),
     );
@@ -94,7 +94,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentHouseholdEditForm();
+          return const OvcEnrollmentHouseholdEditForm();
         },
       ),
     );
@@ -109,7 +109,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentChildEditViewForm();
+          return const OvcEnrollmentChildEditViewForm();
         },
       ),
     );
