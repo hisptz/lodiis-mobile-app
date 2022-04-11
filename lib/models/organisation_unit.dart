@@ -50,9 +50,10 @@ class OrganisationUnit {
         name: json["name"],
         level: json["level"],
         path: json["path"],
-        code: json['code'] ?? parentObj != null && parentObj['code'] != null
-            ? parentObj['code']
-            : '',
+        code: json['code'] ??
+            (parentObj != null && parentObj['code'] != null
+                ? parentObj['code']
+                : ''),
         program: programs,
         children: children);
   }
