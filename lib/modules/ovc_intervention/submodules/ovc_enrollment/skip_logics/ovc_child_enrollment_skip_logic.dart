@@ -36,6 +36,13 @@ class OvcChildEnrollmentSkipLogic {
           hiddenSections['domainschooltsasekolo'] = true;
         }
       }
+      if (inputFieldId == 'iS9mAp3jDaU') {
+        print('value: $value');
+        if (value == 'Biological mother' || value == 'Biological father') {
+          assignInputFieldValue(context, 'UeF4OvjIIEK', 'false');
+          hiddenFields['nOgf8LKXS4k'] = true;
+        }
+      }
       if (inputFieldId == 'nOgf8LKXS4k') {
         Map hiddenOptions = {};
         String relationShipToCaregiver = '${dataObject['iS9mAp3jDaU']}';
@@ -52,6 +59,10 @@ class OvcChildEnrollmentSkipLogic {
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
+      }
+      if (inputFieldId == 'wmKqYZML8GA' &&
+          (value.isEmpty || value.trim() == 'true')) {
+        hiddenFields['GMcljM7jbNG'] = true;
       }
       if (inputFieldId == 'wmKqYZML8GA' &&
           (value.isEmpty || value.trim() == 'true')) {

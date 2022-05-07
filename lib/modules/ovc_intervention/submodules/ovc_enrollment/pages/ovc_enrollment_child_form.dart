@@ -88,6 +88,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     });
   }
 
+  // TODO see how to re-use existing skip logic
   evaluateSkipLogics() async {
     hiddenFields.clear();
     hiddenSections.clear();
@@ -99,6 +100,13 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         assignInputFieldValue('ls9hlz2tyol', age.toString());
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
+        }
+      }
+      if (inputFieldId == 'iS9mAp3jDaU') {
+        print('value: $value');
+        if (value == 'Biological mother' || value == 'Biological father') {
+          assignInputFieldValue('UeF4OvjIIEK', 'false');
+          hiddenFields['nOgf8LKXS4k'] = true;
         }
       }
       if (inputFieldId == 'nOgf8LKXS4k') {
@@ -116,6 +124,10 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
+      }
+      if (inputFieldId == 'wmKqYZML8GA' &&
+          (value.isEmpty || value.trim() == 'true')) {
+        hiddenFields['GMcljM7jbNG'] = true;
       }
       if (inputFieldId == 'Gkjp5XZD70V' &&
           (value.isEmpty || value.trim() != 'true')) {

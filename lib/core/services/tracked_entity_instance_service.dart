@@ -19,7 +19,26 @@ import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class TrackedEntityInstanceService {
-  Future discoverTrackedEntityInstanceById(String teiId) async {
+  List<String> _getTeiIdsFromRelationship(
+      {List teiRelationships = const [], trackedEntityInstance = ''}) {
+    List<String> teiIds = [];
+    for (Map relationship in teiRelationships) {
+      Map from = (relationship['from'] ?? {})['trackedEntityInstance'] ?? {};
+      String fromTei = from['trackedEntityInstance'] ?? '';
+      teiIds.add(fromTei);
+
+      Map to = (relationship['to'] ?? {})['trackedEntityInstance'] ?? {};
+      String toTei = to['trackedEntityInstance'] ?? '';
+      teiIds.add(toTei);
+    }
+    return teiIds
+        .toSet()
+        .where((String tei) => tei != trackedEntityInstance)
+        .toList();
+  }
+
+  Future discoverTrackedEntityInstanceById(String teiId,
+      {bool shouldDownloadRelatedTei = false}) async {
     try {
       CurrentUser? currentUser = await (UserService().getCurrentUser());
       HttpService httpService = HttpService(
@@ -49,10 +68,20 @@ class TrackedEntityInstanceService {
           for (var enrollment in teiEnrollmentsJson) {
             enrollment["searchableValue"] = searchableValue;
           }
+
           await saveTrackedEntityInstanceProfile(teiJson);
           await saveTrackedEntityInstanceEnrollment(teiEnrollmentsJson);
           await saveTrackedEntityInstanceEvents(teiEventsJson);
           await saveTrackedEntityInstanceRelationShips(teiRelationshipsJson);
+
+          if (teiRelationshipsJson.isNotEmpty && shouldDownloadRelatedTei) {
+            List<String> teiIds = _getTeiIdsFromRelationship(
+                teiRelationships: teiRelationshipsJson,
+                trackedEntityInstance: teiId);
+            for (String teiId in teiIds) {
+              await discoverTrackedEntityInstanceById(teiId);
+            }
+          }
         }
       }
     } catch (error) {
@@ -82,10 +111,12 @@ class TrackedEntityInstanceService {
   Future saveTrackedEntityInstanceRelationShips(
     List teiRelationshipsJson,
   ) async {
-    for (dynamic json in teiRelationshipsJson) {
-      await TeiRelationshipOfflineProvider()
-          .addOrUpdateTeiRelationship(TeiRelationship().fromJson(json));
-    }
+    List<TeiRelationship> relationships =
+        teiRelationshipsJson.map((relationship) {
+      return TeiRelationship().fromOnline(relationship);
+    }).toList();
+    TeiRelationshipOfflineProvider()
+        .addOrUpdateMultipleTeiRelationships(relationships);
   }
 
   Future<List<dynamic>> discoveringBeneficiaryByFilters(
