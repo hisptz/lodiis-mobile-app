@@ -843,7 +843,7 @@ class OvcHouseholdServiceAdultWellbeing {
             InputField(
                 id: '',
                 name: '23. Why did you choose this health facility?',
-                translatedDescription: '23. Hobaneng u khethile setsi seo?',
+                translatedName: '23. Hobaneng u khethile setsi seo?',
                 valueType: 'CHECK_BOX',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518),
