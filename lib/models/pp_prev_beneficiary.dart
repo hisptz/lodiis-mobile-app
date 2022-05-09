@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -50,7 +51,7 @@ class PpPrevBeneficiary {
       'rSP9c21JsfC',
       'vIX4GTSCX4P',
       'qZP982qpSPS',
-      'klLkGxy328c'
+      UserAccountReference.implementingPartnerAttribute
     ];
     Map data = {};
     for (Map detailObj in trackedEntityInstance.attributes) {
@@ -78,7 +79,8 @@ class PpPrevBeneficiary {
       createdDate: createdDate,
       enrollment: enrollment,
       enrollmentOuAccessible: enrollmentOuAccessible,
-      implementingPartner: data['klLkGxy328c'] ?? '',
+      implementingPartner:
+          data[UserAccountReference.implementingPartnerAttribute] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }

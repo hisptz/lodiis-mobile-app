@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -292,13 +293,17 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     bool isDupliocateChild = !isADuplicateChildObject(childMapObject);
     if (isDupliocateChild) {
       childMapObject!['PN92g65TkVI'] = 'Active';
-      childMapObject!['klLkGxy328c'] =
-          childMapObject!['klLkGxy328c'] ?? user!.implementingPartner;
-      childMapObject!['DdnlE8kmIkT'] =
-          childMapObject!['DdnlE8kmIkT'] ?? user!.username;
+      childMapObject![UserAccountReference.implementingPartnerAttribute] =
+          childMapObject![UserAccountReference.implementingPartnerAttribute] ??
+              user!.implementingPartner;
+      childMapObject![UserAccountReference.serviceProviderAtttribute] =
+          childMapObject![UserAccountReference.serviceProviderAtttribute] ??
+              user!.username;
       if (user!.subImplementingPartner != '') {
-        childMapObject!['fQInK8s2RNR'] =
-            childMapObject!['fQInK8s2RNR'] ?? user.subImplementingPartner;
+        childMapObject![UserAccountReference.subImplementingPartnerAttribute] =
+            childMapObject![
+                    UserAccountReference.subImplementingPartnerAttribute] ??
+                user.subImplementingPartner;
       }
       childMapObject!['fullName'] =
           '${childMapObject!['WTZ7GLTrE8Q']} ${childMapObject!['rSP9c21JsfC']}';

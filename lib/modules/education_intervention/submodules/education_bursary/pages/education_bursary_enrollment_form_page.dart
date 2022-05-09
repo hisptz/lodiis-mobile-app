@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -114,12 +115,16 @@ class _EducationBursaryEnrollmentFormPageState
         isSaving = true;
       });
       CurrentUser? user = await (UserService().getCurrentUser());
-      dataObject['klLkGxy328c'] =
-          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
-      dataObject['DdnlE8kmIkT'] = dataObject['DdnlE8kmIkT'] ?? user!.username;
+      dataObject[UserAccountReference.implementingPartnerAttribute] =
+          dataObject[UserAccountReference.implementingPartnerAttribute] ??
+              user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderAtttribute] =
+          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+              user!.username;
       if (user!.subImplementingPartner != '') {
-        dataObject['fQInK8s2RNR'] =
-            dataObject['fQInK8s2RNR'] ?? user.subImplementingPartner;
+        dataObject[UserAccountReference.subImplementingPartnerAttribute] =
+            dataObject[UserAccountReference.subImplementingPartnerAttribute] ??
+                user.subImplementingPartner;
       }
       String trackedEntityInstance =
           dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
@@ -128,9 +133,9 @@ class _EducationBursaryEnrollmentFormPageState
       String? enrollmentDate = dataObject['enrollmentDate'];
       String? incidentDate = dataObject['incidentDate'];
       List<String> hiddenFields = [
-        'klLkGxy328c',
-        'DdnlE8kmIkT',
-        'fQInK8s2RNR',
+        UserAccountReference.implementingPartnerAttribute,
+        UserAccountReference.serviceProviderAtttribute,
+        UserAccountReference.subImplementingPartnerAttribute,
       ];
       try {
         await EducationBursaryEnrollmentService().savingBeneficiaryEnrollment(

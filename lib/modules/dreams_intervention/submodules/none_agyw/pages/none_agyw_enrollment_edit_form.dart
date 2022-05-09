@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -162,13 +163,24 @@ class _NoneAgywEnrollmentEditFormState
       String? enrollmentDate = dataObject['enrollmentDate'];
       String? incidentDate = dataObject['incidentDate'];
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
-      dataObject['klLkGxy328c'] =
-          dataObject['klLkGxy328c'] ?? user!.implementingPartner;
+      dataObject[UserAccountReference.implementingPartnerAttribute] =
+          dataObject[UserAccountReference.implementingPartnerAttribute] ??
+              user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderAtttribute] =
+          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+              user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject[UserAccountReference.subImplementingPartnerAttribute] =
+            dataObject[UserAccountReference.subImplementingPartnerAttribute] ??
+                user.subImplementingPartner;
+      }
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
-        'klLkGxy328c'
+        UserAccountReference.implementingPartnerAttribute,
+        UserAccountReference.subImplementingPartnerAttribute,
+        UserAccountReference.serviceProviderAtttribute
       ];
       await NoneAgywDreamsEnrollmentService().savingNonAgywBeneficiary(
         dataObject,

@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/reserved_attribute_value_service.dart';
+import 'package:kb_mobile_app/core/utils/app_info_util.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -145,6 +147,8 @@ class FormUtil {
       Map dataObject,
       {bool hasBeneficiaryId = true}) async {
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
+    String appAndDeviceTrackingAttribute =
+        await AppInfoUtil.getAppAndDeviceTrackingInfo();
     String? beneficiaryIndex =
         dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
             await ReservedAttributeValueService().getReservedAttributeValue();
@@ -152,6 +156,10 @@ class FormUtil {
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
     OrganisationUnit? organisationUnit =
         organisationUnits.isNotEmpty ? organisationUnits[0] : null;
+    dataObject[UserAccountReference.appAndDeviceTrackingAttribute] =
+        dataObject[UserAccountReference.appAndDeviceTrackingAttribute] ??
+            appAndDeviceTrackingAttribute;
+    inputFieldIds.add(UserAccountReference.appAndDeviceTrackingAttribute);
     if (hasBeneficiaryId) {
       dataObject[BeneficiaryIdentification.beneficiaryId] =
           dataObject[BeneficiaryIdentification.beneficiaryId] =
@@ -211,7 +219,7 @@ class FormUtil {
       's1HaiT6OllL',
       'rSP9c21JsfC',
       'VJiWumvINR6',
-      'klLkGxy328c',
+      UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.beneficiaryId,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC,

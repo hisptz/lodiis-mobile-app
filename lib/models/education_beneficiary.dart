@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -55,7 +56,7 @@ class EducationBeneficiary {
       'EwZil0AnlYo',
       'BUPSEpJySPR',
       'tbzi0t27D8l',
-      'klLkGxy328c',
+      UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.beneficiaryId
     ];
     Map data = {};
@@ -84,7 +85,8 @@ class EducationBeneficiary {
       enrollment: enrollment,
       grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] ?? '',
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
-      implementingPartner: data['klLkGxy328c'] ?? '',
+      implementingPartner:
+          data[UserAccountReference.implementingPartnerAttribute] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,
       trackedEntityInstanceData: trackedEntityInstance,

@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
@@ -60,7 +61,7 @@ class OgacBeneficiary {
       'rSP9c21JsfC',
       'ls9hlz2tyol',
       'vIX4GTSCX4P',
-      'klLkGxy328c',
+      UserAccountReference.implementingPartnerAttribute,
       'qZP982qpSPS',
       BeneficiaryIdentification.beneficiaryId
     ];
@@ -92,7 +93,8 @@ class OgacBeneficiary {
       createdDate: createdDate,
       enrollment: enrollment,
       enrollmentOuAccessible: enrollmentOuAccessible,
-      implementingPartner: data['klLkGxy328c'] ?? '',
+      implementingPartner:
+          data[UserAccountReference.implementingPartnerAttribute] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
       eventData: eventData,
     );
