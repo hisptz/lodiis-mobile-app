@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -65,7 +66,7 @@ class OvcHousehold {
       'BXUNH6LXeGA',
       'PN92g65TkVI',
       'RB8Wx75hGa4',
-      'klLkGxy328c',
+      UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
@@ -95,7 +96,8 @@ class OvcHousehold {
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
-      implementingPartner: data['klLkGxy328c'] ?? '',
+      implementingPartner:
+          data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"

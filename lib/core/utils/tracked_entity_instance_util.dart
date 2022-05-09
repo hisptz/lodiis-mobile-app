@@ -26,6 +26,7 @@ class TrackedEntityInstanceUtil {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
+    //TODO add tracking info user
     inputFieldIds.addAll(hiddenFields ?? []);
     inputFieldIds.removeWhere((field) => skippedFields!.contains(field));
     if (eventId == null) {
@@ -132,7 +133,7 @@ class TrackedEntityInstanceUtil {
               's1HaiT6OllL',
               'rSP9c21JsfC',
               'VJiWumvINR6',
-              'klLkGxy328c',
+              UserAccountReference.implementingPartnerAttribute,
               BeneficiaryIdentification.beneficiaryId,
               BeneficiaryIdentification.primaryUIC,
               BeneficiaryIdentification.secondaryUIC,
