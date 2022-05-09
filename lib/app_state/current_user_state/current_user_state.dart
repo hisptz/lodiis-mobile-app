@@ -174,8 +174,8 @@ class CurrentUserState with ChangeNotifier {
       bool status =
           await UserService().getCurrentUserDataEntryAuthorityStatus();
       bool canCurrentUserDoDataEntry = status &&
-          _currentUser?.implementingPartner !=
-              UserAccountReference.superUserIpName;
+          !UserAccountReference.superUserIpNames
+              .contains(_currentUser?.implementingPartner);
       await UserService()
           .setDataEntryAuthorityStatus(canCurrentUserDoDataEntry);
       _canCurrentUserDoDataEntry = canCurrentUserDoDataEntry;
