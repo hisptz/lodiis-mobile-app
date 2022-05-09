@@ -4,9 +4,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 
 mixin OvcCasePlanGapSkipLogic {
-  Map hiddenFields = Map();
-  Map hiddenSections = Map();
-  Map childMapObject = Map();
+  Map hiddenFields = {};
+  Map hiddenSections = {};
+  Map childMapObject = {};
 
   Future evaluateSkipLogics(
       BuildContext context, List<FormSection> formSections, Map dataObject,
@@ -403,6 +403,8 @@ mixin OvcCasePlanGapSkipLogic {
       if (age < 5 || age > 8) {
         hiddenFields['neF08iYV9Os'] = true;
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 }

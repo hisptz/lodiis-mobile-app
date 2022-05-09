@@ -53,7 +53,7 @@ class _ReferralOutComeViewContainerState
   void initState() {
     super.initState();
     Timer(
-      Duration(
+      const Duration(
         seconds: 1,
       ),
       () {
@@ -95,94 +95,90 @@ class _ReferralOutComeViewContainerState
   @override
   Widget build(BuildContext context) {
     return !isViewReady
-        ? Container(
-            child: CircularProcessLoader(
-              color: Colors.blueGrey,
-            ),
+        ? const CircularProcessLoader(
+            color: Colors.blueGrey,
           )
         : Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               horizontal: 15.0,
               vertical: 10.0,
             ),
             decoration: BoxDecoration(
               border: Border.all(
-                color: Color(0xFFB2B7B9),
+                color: const Color(0xFFB2B7B9),
               ),
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: 10.0,
-                            horizontal: 20.0,
-                          ),
-                          child: Text(
-                            'OUTCOME',
-                            style: TextStyle().copyWith(
-                              color: Color(0xFF1A3518),
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 20.0,
+                        ),
+                        child: Text(
+                          'OUTCOME',
+                          style: const TextStyle().copyWith(
+                            color: const Color(0xFF1A3518),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                      Container(child: Consumer<ServiceEventDataState>(
-                          builder: (context, serviceEventDataState, child) {
-                        Map<String?, List<Events>> eventListByProgramStage =
-                            serviceEventDataState.eventListByProgramStage;
-                        List<ReferralOutcomeFollowUpEvent>
-                            referralOutComeFollowUpEvents =
-                            getReferralOutComeFollowUps(
-                                eventListByProgramStage);
-                        return Visibility(
-                            visible: widget.isEditableMode &&
-                                referralOutComeEvent != null &&
-                                referralOutComeFollowUpEvents.length == 0,
-                            child: InkWell(
-                                onTap: widget.onEditReferralOutCome as void Function()?,
-                                child: Container(
-                                  height: editIconHeight,
-                                  width: editIconHeight,
-                                  margin: EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 20.0,
-                                  ),
-                                  child: SvgPicture.asset(
-                                    'assets/icons/edit-icon.svg',
-                                    color: widget.themeColor,
-                                  ),
-                                )));
-                      }))
-                    ],
-                  ),
-                  LineSeparator(
-                    color: Color(0xFFB2B7B9),
-                    height: 1.0,
-                  ),
-                  Container(
-                    child: ReferralOutComeView(
-                      isEditableMode: widget.isEditableMode,
-                      referralOutComeEvent: referralOutComeEvent,
-                      beneficiary: widget.beneficiary,
-                      referralOutcomeFollowUpFormSections:
-                          widget.referralOutcomeFollowUpFormSections,
-                      themeColor: widget.themeColor,
-                      referralFollowUpStage: widget.referralFollowUpStage,
-                      referralProgram: widget.referralProgram,
-                      referralToFollowUpLinkage:
-                          widget.referralToFollowUpLinkage,
                     ),
-                  ),
-                ],
-              ),
+                    Consumer<ServiceEventDataState>(
+                        builder: (context, serviceEventDataState, child) {
+                      Map<String?, List<Events>> eventListByProgramStage =
+                          serviceEventDataState.eventListByProgramStage;
+                      List<ReferralOutcomeFollowUpEvent>
+                          referralOutComeFollowUpEvents =
+                          getReferralOutComeFollowUps(eventListByProgramStage);
+                      return Visibility(
+                        visible: widget.isEditableMode &&
+                            referralOutComeEvent != null &&
+                            referralOutComeFollowUpEvents.isEmpty &&
+                            widget.eventData.enrollmentOuAccessible!,
+                        child: InkWell(
+                          onTap:
+                              widget.onEditReferralOutCome as void Function()?,
+                          child: Container(
+                            height: editIconHeight,
+                            width: editIconHeight,
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 20.0,
+                            ),
+                            child: SvgPicture.asset(
+                              'assets/icons/edit-icon.svg',
+                              color: widget.themeColor,
+                            ),
+                          ),
+                        ),
+                      );
+                    })
+                  ],
+                ),
+                const LineSeparator(
+                  color: Color(0xFFB2B7B9),
+                  height: 1.0,
+                ),
+                ReferralOutComeView(
+                  isEditableMode: widget.isEditableMode,
+                  referralOutComeEvent: referralOutComeEvent,
+                  beneficiary: widget.beneficiary,
+                  referralOutcomeFollowUpFormSections:
+                      widget.referralOutcomeFollowUpFormSections,
+                  themeColor: widget.themeColor,
+                  referralFollowUpStage: widget.referralFollowUpStage,
+                  referralProgram: widget.referralProgram,
+                  referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
+                ),
+              ],
             ),
           );
   }

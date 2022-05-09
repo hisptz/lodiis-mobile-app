@@ -14,7 +14,7 @@ class CasePlanGapServiceMonitoring {
 
   CasePlanGapServiceMonitoring fromTeiModel(
       Events eventData, String casePlanGapToServiceMonitoringLinkage) {
-    Map data = Map();
+    Map data = {};
 
     for (Map dataValues in eventData.dataValues) {
       String? dataElement = dataValues['dataElement'];

@@ -55,7 +55,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return AgywDreamsConsentForm();
+            return const AgywDreamsConsentForm();
           },
         ),
       );
@@ -69,6 +69,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
         return SubModuleHomeContainer(
           header:
               '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+          showFilter: true,
           bodyContents: _buildBody(),
         );
       },
@@ -76,62 +77,58 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   }
 
   Widget _buildBody() {
-    return Container(
-      child: Consumer<DreamsInterventionListState>(
-        builder: (context, dreamInterventionListState, child) {
-          return CustomPaginatedListView(
-            childBuilder: (context, agywBeneficiary, child) =>
-                DreamsBeneficiaryCard(
-              isAgywEnrollment: true,
-              agywDream: agywBeneficiary,
-              canEdit: canEdit,
-              canExpand: canExpand,
-              beneficiaryName: agywBeneficiary.toString(),
-              canView: canView,
-              isExpanded: agywBeneficiary.id == toggleCardId,
-              onCardToggle: () {
-                onCardToggle(
-                  context,
-                  agywBeneficiary.id,
-                );
-              },
-              cardBody: DreamsBeneficiaryCardBody(
-                agywBeneficiary: agywBeneficiary,
-                canViewServiceCategory: false,
-                isVerticalLayout: agywBeneficiary.id == toggleCardId,
-              ),
-              cardButtonActions: Container(),
-              cardButtonContent: Container(),
+    return Consumer<DreamsInterventionListState>(
+      builder: (context, dreamInterventionListState, child) {
+        return CustomPaginatedListView(
+          childBuilder: (context, agywBeneficiary, child) =>
+              DreamsBeneficiaryCard(
+            isAgywEnrollment: true,
+            agywDream: agywBeneficiary,
+            canEdit: canEdit,
+            canExpand: canExpand,
+            beneficiaryName: agywBeneficiary.toString(),
+            canView: canView,
+            isExpanded: agywBeneficiary.id == toggleCardId,
+            onCardToggle: () {
+              onCardToggle(
+                context,
+                agywBeneficiary.id,
+              );
+            },
+            cardBody: DreamsBeneficiaryCardBody(
+              agywBeneficiary: agywBeneficiary,
+              canViewServiceCategory: false,
+              isVerticalLayout: agywBeneficiary.id == toggleCardId,
             ),
-            pagingController: dreamInterventionListState.agywPagingController,
-            emptyListWidget: Column(
-              children: [
-                Center(
-                  child: Text(
-                    'There is no beneficiary list at a moment',
-                  ),
+            cardButtonActions: Container(),
+            cardButtonContent: Container(),
+          ),
+          pagingController: dreamInterventionListState.agywPagingController,
+          emptyListWidget: Column(
+            children: [
+              const Center(
+                child: Text(
+                  'There is no beneficiary list at a moment',
                 ),
-                Center(
-                  child: Container(
-                    child: IconButton(
-                      icon: SvgPicture.asset(
-                        'assets/icons/add-beneficiary.svg',
-                        color: Colors.blueGrey,
-                      ),
-                      onPressed: () => onAddAgywBeneficiary(context),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            errorWidget: Center(
-              child: Text(
-                'Error in loading beneficiary list ',
               ),
+              Center(
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/icons/add-beneficiary.svg',
+                    color: Colors.blueGrey,
+                  ),
+                  onPressed: () => onAddAgywBeneficiary(context),
+                ),
+              )
+            ],
+          ),
+          errorWidget: const Center(
+            child: Text(
+              'Error in loading beneficiary list ',
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

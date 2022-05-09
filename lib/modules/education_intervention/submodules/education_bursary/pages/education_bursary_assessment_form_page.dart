@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_without_enrollment_criteria.dart';
@@ -40,7 +40,7 @@ class _EducationBursaryAssessmentFormPageState
 
   final List<String> mandatoryFields =
       EducationBursaryAssessment.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   List<FormSection>? formSections;
   bool isSaving = false;
   bool isFormReady = false;
@@ -61,7 +61,7 @@ class _EducationBursaryAssessmentFormPageState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -130,7 +130,7 @@ class _EducationBursaryAssessmentFormPageState
             in beneficiaryWithoutEnrollmentConstants) {
           String dataElement = beneficiaryConstant.dataElement;
           String attribute = beneficiaryConstant.attribute;
-          if (dataObject.keys.toList().indexOf(attribute) != -1) {
+          if (dataObject.keys.toList().contains(attribute)) {
             Provider.of<EnrollmentFormState>(context, listen: false)
                 .setFormFieldState(dataElement, dataObject[attribute]);
           }
@@ -141,8 +141,8 @@ class _EducationBursaryAssessmentFormPageState
         MaterialPageRoute(
           builder: (context) {
             return beneficiaryMetVulnerabilityCriteria
-                ? EducationBursaryEnrollmentFormPage()
-                : EducationBursaryWithoutVulnerabilityCriteriaFormPage();
+                ? const EducationBursaryEnrollmentFormPage()
+                : const EducationBursaryWithoutVulnerabilityCriteriaFormPage();
           },
         ),
       );
@@ -162,7 +162,7 @@ class _EducationBursaryAssessmentFormPageState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -176,13 +176,13 @@ class _EducationBursaryAssessmentFormPageState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 13.0,
             ),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -190,63 +190,55 @@ class _EducationBursaryAssessmentFormPageState
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  isEditableMode:
-                                      enrollmentFormState.isEditableMode,
-                                  hiddenFields:
-                                      enrollmentFormState.hiddenFields,
-                                  hiddenSections:
-                                      enrollmentFormState.hiddenSections,
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  hiddenInputFieldOptions: enrollmentFormState
-                                      .hiddenInputFieldOptions,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
-                                ),
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              isEditableMode:
+                                  enrollmentFormState.isEditableMode,
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              hiddenInputFieldOptions:
+                                  enrollmentFormState.hiddenInputFieldOptions,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save and Continue',
+                                labelColor: Colors.white,
+                                buttonColor: const Color(0xFF009688),
+                                fontSize: 15.0,
+                                onPressButton: () => !isSaving
+                                    ? onSaveAndContinue(
+                                        context,
+                                        enrollmentFormState.formState,
+                                      )
+                                    : null,
                               ),
-                              Container(
-                                child: Visibility(
-                                  visible: enrollmentFormState.isEditableMode,
-                                  child: EntryFormSaveButton(
-                                    label: isSaving
-                                        ? 'Saving ...'
-                                        : currentLanguage == 'lesotho'
-                                            ? 'Boloka'
-                                            : 'Save and Continue',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF009688),
-                                    fontSize: 15.0,
-                                    onPressButton: () => !isSaving
-                                        ? onSaveAndContinue(
-                                            context,
-                                            enrollmentFormState.formState,
-                                          )
-                                        : null,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

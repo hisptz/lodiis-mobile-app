@@ -7,44 +7,44 @@ class NonAgywHTSConsentForReleaseOfStatus {
     return [
       FormSection(
           name: 'Consent for release of status',
-          color: Color(0xFF737373),
+          color: const Color(0xFF737373),
           inputFields: [
             InputField(
               id: 'bRotK0FNVms',
               name:
                   'Do you freely, soundly and voluntarily approached newstart Voluntary Counselling and Testing Centre (VCT) to have an HIV test and you have requested and authorise the Centre to draw your blood and to test it accordingly?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
                 id: 'hmoRJDkJKx8',
                 name:
                     'Do you verify that the number on the blood samples matches that on the client card and that you are the person you claim to be?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'ckELlL7Zi8Q',
                 name:
                     'Do you authorize the nurse counsellor or referral coordinator or site manager to release your HIV status in writing to your medical provider for the purpose of obtaining a referral for medical care?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'JdCOHxsoGeR',
                 name:
                     'Do you understand that your HIV results will be kept in a confidential manner in the VCT site, but that your name is now associated with your HIV status, your client file will be released by your medical provider in a signed and s?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'bvLUZWwq6GM',
                 name:
                     'I accept that I will not have any claims against the testing centre, its employees or agents, and all other persons involved in the Voluntary and Counselling Testing (VCT) results or my HIV status to my medical provider, including',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
           ]),
     ];
   }

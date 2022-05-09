@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tr
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -116,10 +117,10 @@ class SynchronizationService {
         }
       }
     } catch (e) {
-      AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      AppLogs log =
+          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
       await AppLogsOfflineProvider().addLogs(log);
-      throw e;
+      rethrow;
     }
   }
 
@@ -167,10 +168,10 @@ class SynchronizationService {
         }
       }
     } catch (e) {
-      AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      AppLogs log =
+          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
       await AppLogsOfflineProvider().addLogs(log);
-      throw e;
+      rethrow;
     }
     return teiRelationshipsFromServer;
   }
@@ -179,7 +180,7 @@ class SynchronizationService {
     try {
       await EventOfflineProvider().addOrUpdateMultipleEvents(events);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -212,9 +213,12 @@ class SynchronizationService {
     List<Enrollment> enrollments = [];
     List<TeiRelationship> relationships = [];
     for (var tei in responseData['trackedEntityInstances']) {
-      enrollments.addAll(tei['enrollments']
-          ?.map<Enrollment>((t) => Enrollment().fromJson(t))
-          ?.toList());
+      String searchableValue =
+          TrackedEntityInstanceUtil.getEnrollmentSearchableValue(tei);
+      enrollments.addAll(tei['enrollments']?.map<Enrollment>((enrollment) {
+        enrollment['searchableValue'] = searchableValue;
+        return Enrollment().fromJson(enrollment);
+      })?.toList());
       relationships.addAll(tei['relationships']
           ?.map<TeiRelationship>((t) => TeiRelationship().fromOnline(t))
           ?.toList());
@@ -234,7 +238,7 @@ class SynchronizationService {
       TeiRelationshipOfflineProvider().addOrUpdateMultipleTeiRelationships(
           enrollmentsAndRelationships['relationships']);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -273,13 +277,13 @@ class SynchronizationService {
                 type: AppLogsConstants.errorLogType, message: errorMessage);
             await AppLogsOfflineProvider().addLogs(log);
           }
-          return null;
+          return;
         }
       } catch (e) {
-        AppLogs log = AppLogs(
-            type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+        AppLogs log =
+            AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
         await AppLogsOfflineProvider().addLogs(log);
-        throw e;
+        rethrow;
       }
     }
   }
@@ -376,7 +380,7 @@ class SynchronizationService {
         }
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return enrollmentsCount;
   }
@@ -403,7 +407,7 @@ class SynchronizationService {
         }
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return eventsCount;
   }
@@ -431,7 +435,7 @@ class SynchronizationService {
                 enrollment.trackedEntityInstance) ==
             -1)
         .toList();
-    Map body = Map();
+    Map body = {};
     body['enrollments'] = enrollments
         .map((enrollment) => enrollment.toOffline(enrollment))
         .toList();
@@ -460,11 +464,11 @@ class SynchronizationService {
           type: AppLogsConstants.errorLogType,
           message: 'uploadEnrollmentsToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      throw e;
+      rethrow;
     }
-    if (syncedIds!.length > 0) {
+    if (syncedIds!.isNotEmpty) {
       for (Enrollment teiEnrollment in teiEnrollments) {
-        if (syncedIds.indexOf(teiEnrollment.enrollment) > -1) {
+        if (syncedIds.contains(teiEnrollment.enrollment)) {
           teiEnrollment.syncStatus = 'synced';
           await FormUtil.savingEnrollment(teiEnrollment);
         }
@@ -479,7 +483,7 @@ class SynchronizationService {
     List<String?>? syncedIds = [];
     String url = 'api/trackedEntityInstances';
     bool conflictOnImport = false;
-    Map body = Map();
+    Map body = {};
     body['trackedEntityInstances'] = teis.map((tei) {
       var data = tei.toOffline(tei);
       data['attributes'] =
@@ -514,11 +518,11 @@ class SynchronizationService {
           type: AppLogsConstants.errorLogType,
           message: 'uploadTeisToTheServer: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      throw e;
+      rethrow;
     }
-    if (syncedIds!.length > 0) {
+    if (syncedIds!.isNotEmpty) {
       for (TrackedEntityInstance tei in teis) {
-        if (syncedIds.indexOf(tei.trackedEntityInstance) > -1) {
+        if (syncedIds.contains(tei.trackedEntityInstance)) {
           tei.syncStatus = 'synced';
           await FormUtil.savingTrackedEntityInstance(tei);
         }
@@ -534,7 +538,7 @@ class SynchronizationService {
     List<String?>? syncedIds = [];
     String url = 'api/events';
     bool conflictOnImport = false;
-    Map body = Map();
+    Map body = {};
     body['events'] = teiEvents.map((Events event) {
       var data = event.toOffline(event);
       if (data['trackedEntityInstance'] == null ||
@@ -576,11 +580,11 @@ class SynchronizationService {
           type: AppLogsConstants.errorLogType,
           message: 'uploadTeiEventsToTheServer: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      throw error;
+      rethrow;
     }
-    if (syncedIds!.length > 0) {
+    if (syncedIds!.isNotEmpty) {
       for (Events event in teiEvents) {
-        if (syncedIds.indexOf(event.event) > -1) {
+        if (syncedIds.contains(event.event)) {
           event.syncStatus = 'synced';
           await FormUtil.savingEvent(event);
         }
@@ -613,7 +617,7 @@ class SynchronizationService {
               .getTrackedEntityInstanceByIds(teiIds);
       List<Events> unsyncedTeiEvents = teiEvents
           .where((Events eventData) =>
-              unsyncedEventIds.indexOf(eventData.event ?? "") > -1)
+              unsyncedEventIds.contains(eventData.event ?? ""))
           .toList();
       if (unsyncedTeis.isNotEmpty) {
         await uploadTeisToTheServer(unsyncedTeis, isAutoUpload);
@@ -631,7 +635,7 @@ class SynchronizationService {
 
   Future<bool> uploadTeiRelationToTheServer(
       List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
-    Map body = Map<String, dynamic>();
+    Map body = <String, dynamic>{};
     List<String?>? syncedIds = [];
     String url = 'api/relationships';
     bool conflictOnImport = false;
@@ -653,10 +657,12 @@ class SynchronizationService {
       );
       syncedIds = referenceIds['syncedIds'];
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
-    } catch (e) {}
-    if (syncedIds!.length > 0) {
+    } catch (e) {
+      //
+    }
+    if (syncedIds!.isNotEmpty) {
       for (TeiRelationship teiRelationship in teiRelationShips) {
-        if (syncedIds.indexOf(teiRelationship.id) > -1) {
+        if (syncedIds.contains(teiRelationship.id)) {
           teiRelationship.syncStatus = 'synced';
           await FormUtil.savingTeiRelationship(teiRelationship);
         }
@@ -674,11 +680,11 @@ class SynchronizationService {
       if (errorMessageStart != -1 && errorMessageEnd != -1) {
         errorMessage = responseBody
             .substring(errorMessageStart, errorMessageEnd)
-            .replaceAll(new RegExp('<h1>'), '')
+            .replaceAll(RegExp('<h1>'), '')
             .trim();
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return errorMessage;
   }
@@ -688,7 +694,7 @@ class SynchronizationService {
     try {
       String status = '';
       String description = '';
-      if ("$responseBody".toLowerCase().contains("<body")) {
+      if (responseBody.toLowerCase().contains("<body")) {
         int descriptionStart = responseBody.lastIndexOf('<b>Description</b> ');
         int descriptionEnd = responseBody.lastIndexOf('</p>');
         int httpStatusStart = responseBody.lastIndexOf('<h1>HTTP');
@@ -699,29 +705,29 @@ class SynchronizationService {
             httpStatusEnd != -1) {
           description = responseBody
               .substring(descriptionStart, descriptionEnd)
-              .replaceAll(new RegExp('<b>Description</b>'), '')
+              .replaceAll(RegExp('<b>Description</b>'), '')
               .trim();
           status = responseBody
               .substring(httpStatusStart, httpStatusEnd)
-              .replaceAll(new RegExp('<h1>'), '')
+              .replaceAll(RegExp('<h1>'), '')
               .trim();
         } else {
-          errorMessage = "$responseBody";
+          errorMessage = responseBody;
         }
       } else {
         Map body = json.decode(responseBody);
         status = body["httpStatus"] ?? "Error";
-        description = body["message"] ?? "$responseBody";
+        description = body["message"] ?? responseBody;
       }
       errorMessage = '$status : $description';
     } catch (e) {
-      throw e;
+      rethrow;
     }
     return errorMessage;
   }
 
   Future<String> _getHttpResponseAppLogs(String responseBody) async {
-    String logMessage = '$responseBody';
+    String logMessage = responseBody;
     try {
       if (responseBody.toLowerCase().contains('nginx')) {
         logMessage = getNginxErrorMessage(responseBody);
@@ -745,7 +751,7 @@ class SynchronizationService {
     bool conflictOnImport = false;
 
     try {
-      var bodyResponse = body['response'] ?? Map();
+      var bodyResponse = body['response'] ?? {};
       var importSummaries = bodyResponse['importSummaries'] ?? [];
       for (var importSummary in importSummaries) {
         if (importSummary['status'] == 'SUCCESS' &&
@@ -785,7 +791,7 @@ class SynchronizationService {
       await AppLogsOfflineProvider().addLogs(log);
     }
 
-    Map<String, dynamic> referenceIds = Map();
+    Map<String, dynamic> referenceIds = {};
     referenceIds['syncedIds'] = syncedIds;
     referenceIds['unsyncedDueToEnrollment'] = unsyncedDueToEnrollment;
     referenceIds['unsyncedDueMissingBeneficiary'] =

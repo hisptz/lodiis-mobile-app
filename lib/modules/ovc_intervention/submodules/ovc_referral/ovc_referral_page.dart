@@ -65,25 +65,24 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = currentLanguage == 'lesotho'
-                  ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                  : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} households';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = currentLanguage == 'lesotho'
+                ? 'Lethathamo la malapa'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : 'Household list'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+            return SubModuleHomeContainer(
+              header: header,
+              bodyContents: _buildBody(currentLanguage),
+              showFilter: true,
+            );
+          },
+        );
+      },
     );
   }
 
@@ -120,30 +119,28 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
           cardButtonActions: ClipRRect(
             borderRadius: ovcHousehold.id == toggleCardId
                 ? BorderRadius.zero
-                : BorderRadius.only(
+                : const BorderRadius.only(
                     bottomLeft: Radius.circular(12.0),
                     bottomRight: Radius.circular(12.0),
                   ),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0XFFF6FAF6),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: TextButton(
-                      onPressed: () => onViewRerral(
-                        context,
-                        ovcHousehold,
-                      ),
-                      child: Text(
-                        'REFERRAL',
-                        style: TextStyle().copyWith(
-                          fontSize: 12.0,
-                          color: Color(0xFF4B9F46),
-                          fontWeight: FontWeight.w500,
-                        ),
+                  TextButton(
+                    onPressed: () => onViewRerral(
+                      context,
+                      ovcHousehold,
+                    ),
+                    child: Text(
+                      'REFERRAL',
+                      style: const TextStyle().copyWith(
+                        fontSize: 12.0,
+                        color: const Color(0xFF4B9F46),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),

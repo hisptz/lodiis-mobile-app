@@ -1,4 +1,4 @@
 class OvcHouseholdGraduationConstant {
-  static final String program = 'BNsDaCclOiu';
-  static final String programStage = 'gtERzyY2f49';
+  static const String program = 'BNsDaCclOiu';
+  static const String programStage = 'gtERzyY2f49';
 }

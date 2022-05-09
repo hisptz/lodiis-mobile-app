@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -23,7 +23,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsArtRefill extends StatefulWidget {
-  AgywDreamsArtRefill({Key? key}) : super(key: key);
+  const AgywDreamsArtRefill({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsArtRefillState createState() => _AgywDreamsArtRefillState();
@@ -37,30 +37,8 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
     super.initState();
   }
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events? eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   void onAddArtRefill(BuildContext context, AgywDream agywDream) async {
-    updateFormState(context, true, null);
+    FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
     String eventId = '';
     String formAutoSaveId =
@@ -74,20 +52,28 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
     } else {
       Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
           .setCurrentAgywDream(agywDream);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AgywDreamsARTRefillForm(),
+        ),
+      );
     }
   }
 
   void onViewArtRefill(BuildContext context, Events eventData) {
-    updateFormState(context, false, eventData);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+    FormUtil.updateServiceFormState(context, false, eventData);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AgywDreamsARTRefillForm(),
+      ),
+    );
   }
 
   void onEditArtRefill(
       BuildContext context, Events eventData, AgywDream agywDream) async {
-    updateFormState(context, true, eventData);
+    FormUtil.updateServiceFormState(context, true, eventData);
     String eventId = '';
     String beneficiaryId = agywDream.id!;
     String formAutoSaveId =
@@ -99,117 +85,114 @@ class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AgywDreamsARTRefillForm()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AgywDreamsARTRefillForm(),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<DreamsBeneficiarySelectionState>(
-              builder: (context, dreamBeneficiarySelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    AgywDream? agywDream =
-                        dreamBeneficiarySelectionState.currentAgywDream;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
-                    int referralIndex = events.length + 1;
-                    return Container(
-                      child: Column(
-                        children: [
-                          DreamsBeneficiaryTopHeader(
-                            agywDream: agywDream,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no ART Re-fill at a moment')
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
-                                                    referralIndex--;
-
-                                                    return Container(
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          DreamsServiceVisitCard(
-                                                        visitName:
-                                                            "ART Re-fill",
-                                                        onEdit: () =>
-                                                            onEditArtRefill(
-                                                                context,
-                                                                eventData,
-                                                                agywDream!),
-                                                        onView: () =>
-                                                            onViewArtRefill(
-                                                                context,
-                                                                eventData),
-                                                        eventData: eventData,
-                                                        visitCount:
-                                                            referralIndex,
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                      ),
-                                      EntryFormSaveButton(
-                                          label: 'ADD ART Re-fill',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF1F8ECE),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onAddArtRefill(
-                                              context, agywDream!))
-                                    ],
+      ),
+      body: SubPageBody(
+        body: Consumer<DreamsBeneficiarySelectionState>(
+          builder: (context, dreamBeneficiarySelectionState, child) {
+            return Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                AgywDream? agywDream =
+                    dreamBeneficiarySelectionState.currentAgywDream;
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String?, List<Events>> eventListByProgramStage =
+                    serviceEventDataState.eventListByProgramStage;
+                List<Events> events = TrackedEntityInstanceUtil
+                    .getAllEventListFromServiceDataStateByProgramStages(
+                  eventListByProgramStage,
+                  programStageIds,
+                  shouldSortByDate: true,
+                );
+                int artReFillndex = events.length + 1;
+                return Column(
+                  children: [
+                    DreamsBeneficiaryTopHeader(
+                      agywDream: agywDream,
+                    ),
+                    Container(
+                      child: isLoading
+                          ? const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            )
+                          : Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 10.0,
                                   ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                                  child: events.isEmpty
+                                      ? const Text(
+                                          'There is no ART Re-fill at a moment')
+                                      : Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            vertical: 5.0,
+                                            horizontal: 13.0,
+                                          ),
+                                          child: Column(
+                                            children:
+                                                events.map((Events eventData) {
+                                              artReFillndex--;
+                                              return Container(
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 15.0,
+                                                ),
+                                                child: DreamsServiceVisitCard(
+                                                  visitName: "ART Re-fill",
+                                                  onEdit: () => onEditArtRefill(
+                                                      context,
+                                                      eventData,
+                                                      agywDream!),
+                                                  onView: () => onViewArtRefill(
+                                                      context, eventData),
+                                                  eventData: eventData,
+                                                  visitCount: artReFillndex,
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                ),
+                                EntryFormSaveButton(
+                                    label: 'ADD ART Re-fill',
+                                    labelColor: Colors.white,
+                                    buttonColor: const Color(0xFF1F8ECE),
+                                    fontSize: 15.0,
+                                    onPressButton: () =>
+                                        onAddArtRefill(context, agywDream!))
+                              ],
+                            ),
+                    ),
+                  ],
                 );
               },
-            ),
-          ),
+            );
+          },
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
+    );
   }
 }

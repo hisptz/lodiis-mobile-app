@@ -2,7 +2,6 @@ import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offl
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -38,18 +37,17 @@ class OgacEnrollmentService {
             orgUnit,
             inputFieldIds,
             dataObject);
+
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         OgacInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
     await savingOgacBeneficiaryEvent(
       orgUnit,
       dataObject,
@@ -58,15 +56,19 @@ class OgacEnrollmentService {
   }
 
   Future<List<OgacBeneficiary>> getOgacBeneficiaries(
-      {int? page, String searchableValue = ''}) async {
+      {int? page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(OgacInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+        .getEnrollmentsByProgram(OgacInterventionConstant.program,
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
-      String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+      String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
@@ -74,10 +76,11 @@ class OgacEnrollmentService {
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
                   [enrollment.trackedEntityInstance]);
+      bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
       for (TrackedEntityInstance tei in ogacBeneficiaryList) {
         List<Events> eventList = await EventOfflineProvider()
             .getTrackedEntityInstanceEvents([tei.trackedEntityInstance]);
-        Events? eventData = eventList.length > 0 ? eventList[0] : null;
+        Events? eventData = eventList.isNotEmpty ? eventList[0] : null;
         ogacBeneficiaries.add(OgacBeneficiary().fromTeiModel(
           tei,
           orgUnit,
@@ -85,17 +88,35 @@ class OgacEnrollmentService {
           createdDate,
           enrollmentId,
           eventData,
+          enrollmentOuAccessible,
         ));
       }
     }
-    return searchableValue == ''
-        ? ogacBeneficiaries
-        : ogacBeneficiaries.where((OgacBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+        String? sex = filter['sex'];
+        String? age = filter['age'];
+
+        ogacBeneficiaries = sex == null
+            ? ogacBeneficiaries
+            : ogacBeneficiaries.where((ogac) => ogac.sex == sex).toList();
+
+        ogacBeneficiaries = age == null
+            ? ogacBeneficiaries
+            : ogacBeneficiaries.where((ogac) => ogac.age == age).toList();
+
+        ogacBeneficiaries = implementingPartner == null
+            ? ogacBeneficiaries
+            : ogacBeneficiaries
+                .where(
+                    (ogac) => ogac.implementingPartner == implementingPartner)
+                .toList();
+      }
+    }
+
+    return ogacBeneficiaries;
   }
 
   Future<int> getOgacBeneficiariesCount() async {

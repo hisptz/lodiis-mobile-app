@@ -17,6 +17,8 @@ class EducationBeneficiary {
   String? schoolName;
   String? grade;
   bool? isMaleBeneficiary;
+  String? implementingPartner;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   EducationBeneficiary({
@@ -34,15 +36,17 @@ class EducationBeneficiary {
     this.grade,
     this.isMaleBeneficiary,
     this.searchableValue,
+    this.implementingPartner,
+    this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
   });
   EducationBeneficiary fromTeiModel(
-    TrackedEntityInstance trackedEntityInstance,
-    String? orgUnit,
-    String? location,
-    String? createdDate,
-    String? enrollment,
-  ) {
+      TrackedEntityInstance trackedEntityInstance,
+      String? orgUnit,
+      String? location,
+      String? createdDate,
+      String? enrollment,
+      bool? enrollmentOuAccessible) {
     List keys = [
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
@@ -51,18 +55,19 @@ class EducationBeneficiary {
       'EwZil0AnlYo',
       'BUPSEpJySPR',
       'tbzi0t27D8l',
+      'klLkGxy328c',
       BeneficiaryIdentification.beneficiaryId
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in trackedEntityInstance.attributes) {
       String? attribute = detailObj['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
     String sex = data['vIX4GTSCX4P'] ?? '';
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
-    bool isMaleBeneficiary = '$sex'.trim().toLowerCase() == "male";
+    bool isMaleBeneficiary = sex.trim().toLowerCase() == "male";
     return EducationBeneficiary(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
@@ -79,7 +84,9 @@ class EducationBeneficiary {
       enrollment: enrollment,
       grade: data['BUPSEpJySPR'] ?? data['tbzi0t27D8l'] ?? '',
       beneficiaryId: data[BeneficiaryIdentification.beneficiaryId] ?? '',
+      implementingPartner: data['klLkGxy328c'] ?? '',
       schoolName: data['EwZil0AnlYo'] ?? '',
+      enrollmentOuAccessible: enrollmentOuAccessible,
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }

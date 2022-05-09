@@ -12,32 +12,30 @@ class SubPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<CurrentUserState>(
-          builder: (context, currentUserState, child) {
-        bool hasAccessToDataEntry = currentUserState.canCurrentUserDoDataEntry;
-        return Consumer<InterventionCardState>(
-          builder: (context, interventionCardState, child) {
-            InterventionCard activeInterventionProgram =
-                interventionCardState.currentInterventionProgram;
-            return !hasAccessToDataEntry
-                ? AccessToDataEntryWarning()
-                : Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: activeInterventionProgram.background,
-                        ),
+    return Consumer<CurrentUserState>(
+        builder: (context, currentUserState, child) {
+      bool hasAccessToDataEntry = currentUserState.canCurrentUserDoDataEntry;
+      return Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
+          InterventionCard activeInterventionProgram =
+              interventionCardState.currentInterventionProgram;
+          return !hasAccessToDataEntry
+              ? const AccessToDataEntryWarning()
+              : Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: activeInterventionProgram.background,
                       ),
-                      SingleChildScrollView(
-                        child: body,
-                      )
-                    ],
-                  );
-          },
-        );
-      }),
-    );
+                    ),
+                    SingleChildScrollView(
+                      child: body,
+                    )
+                  ],
+                );
+        },
+      );
+    });
   }
 }

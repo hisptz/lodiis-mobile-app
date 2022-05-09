@@ -38,7 +38,10 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 10.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -46,13 +49,11 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                 visible: true,
                 child: Expanded(
                   flex: 1,
-                  child: Container(
-                    child: Container(
-                      height: 20.0,
-                      width: 20.0,
-                      child: SvgPicture.asset(
-                        svgIcon,
-                      ),
+                  child: SizedBox(
+                    height: 20.0,
+                    width: 20.0,
+                    child: SvgPicture.asset(
+                      svgIcon,
                     ),
                   ),
                 ),
@@ -60,13 +61,19 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
               Visibility(
                 visible: true,
                 child: Expanded(
-                  flex: canEdit && canView ? 7 : 10,
+                  flex: canEdit && canView
+                      ? 7
+                      : canView
+                          ? 8
+                          : 10,
                   child: Container(
-                    padding: EdgeInsets.only(left: 5.0),
+                    padding: const EdgeInsets.only(
+                      left: 5.0,
+                    ),
                     child: Text(
                       beneficiaryName,
-                      style: TextStyle().copyWith(
-                          color: Color(0xFF05131B),
+                      style: const TextStyle().copyWith(
+                          color: const Color(0xFF05131B),
                           fontSize: 14.0,
                           fontWeight: FontWeight.bold),
                     ),
@@ -78,25 +85,31 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
               ),
               Visibility(
                 child: Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 5.0,
                     horizontal: 5.0,
                   ),
                   decoration: BoxDecoration(
-                    color: isActive ? Color(0xFFF0F8FE) : Color(0xFFFFF5F5),
+                    color: isActive
+                        ? const Color(0xFFF0F8FE)
+                        : const Color(0xFFFFF5F5),
                     border: Border.all(
-                      color: isActive ? Color(0xFF1F8DCE) : Color(0xFFC81314),
+                      color: isActive
+                          ? const Color(0xFF1F8DCE)
+                          : const Color(0xFFC81314),
                     ),
                     borderRadius: BorderRadius.circular(35.0),
                   ),
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 8.0,
                     vertical: 2.0,
                   ),
                   child: Text(
                     isActive ? 'Active' : 'Inactive',
-                    style: TextStyle().copyWith(
-                      color: isActive ? Color(0xFF1F8DCE) : Color(0xFFC81314),
+                    style: const TextStyle().copyWith(
+                      color: isActive
+                          ? const Color(0xFF1F8DCE)
+                          : const Color(0xFFC81314),
                       fontSize: 12.0,
                     ),
                   ),
@@ -111,13 +124,13 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                     child: Container(
                       height: iconHeight,
                       width: iconHeight,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 5.0,
                       ),
                       child: SvgPicture.asset(
                         'assets/icons/expand_icon.svg',
-                        color: Color(0xFF1F8ECE),
+                        color: const Color(0xFF1F8ECE),
                       ),
                     ),
                   ),
@@ -132,13 +145,13 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                     child: Container(
                       height: iconHeight,
                       width: iconHeight,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 5.0,
                       ),
                       child: SvgPicture.asset(
                         'assets/icons/edit-icon.svg',
-                        color: Color(0xFF1F8ECE),
+                        color: const Color(0xFF1F8ECE),
                       ),
                     ),
                   ),
@@ -151,9 +164,9 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                   child: InkWell(
                     onTap: onToggleCard,
                     child: Container(
-                      height: iconHeight * 0.8,
+                      height: iconHeight,
                       width: iconHeight,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 5.0,
                       ),
@@ -161,7 +174,7 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                         isExpanded
                             ? 'assets/icons/chevron_up.svg'
                             : 'assets/icons/chevron_down.svg',
-                        color: Color(0xFF05131B),
+                        color: const Color(0xFF05131B),
                       ),
                     ),
                   ),
@@ -170,7 +183,7 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        LineSeparator(
+        const LineSeparator(
           color: Color(0xFFE9F4FA),
         ),
       ],

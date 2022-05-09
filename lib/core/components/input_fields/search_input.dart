@@ -20,7 +20,7 @@ class SearchInput extends StatelessWidget {
 
   onSearchInputValueChange(String value) {
     _searchedValued
-        .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
+        .debounce((_) => TimerStream(true, const Duration(milliseconds: 500)))
         .listen((searchedValue) async {
       onSearch!(searchedValue);
     });
@@ -31,10 +31,10 @@ class SearchInput extends StatelessWidget {
     return Container(
       alignment: Alignment.topLeft,
       height: 65.0,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      decoration: const BoxDecoration(color: Color(0xFFFFFFFF)),
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 10.0,
         ),
         decoration: BoxDecoration(

@@ -11,19 +11,20 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
-  CasePlanFormContainer(
-      {Key? key,
-      required this.formSectionColor,
-      required this.formSection,
-      required this.isEditableMode,
-      required this.dataObject,
-      this.isCasePlanForHousehold = false,
-      this.onInputValueChange,
-      required this.shouldEditCaseGapServiceProvision,
-      required this.shouldViewCaseGapServiceProvision,
-      required this.shouldAddCasePlanGap,
-      this.currentHouseholdChild})
-      : super(key: key);
+  const CasePlanFormContainer({
+    Key? key,
+    required this.formSectionColor,
+    required this.formSection,
+    required this.isEditableMode,
+    required this.dataObject,
+    required this.hasEditAccess,
+    this.isCasePlanForHousehold = false,
+    this.onInputValueChange,
+    required this.shouldEditCaseGapServiceProvision,
+    required this.shouldViewCaseGapServiceProvision,
+    required this.shouldAddCasePlanGap,
+    this.currentHouseholdChild,
+  }) : super(key: key);
 
   final Color? formSectionColor;
   final FormSection formSection;
@@ -33,6 +34,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
+  final bool hasEditAccess;
   final bool shouldViewCaseGapServiceProvision;
   final OvcHouseholdChild? currentHouseholdChild;
 
@@ -43,7 +45,7 @@ class CasePlanFormContainer extends StatelessWidget {
       OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
   void onAddNewGap(BuildContext context) async {
-    Map gapDataObject = Map();
+    Map gapDataObject = {};
     gapDataObject[casePlanGapToServiceProvisionLinkage] =
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
     gapDataObject[casePlanGapToServiceMonitoringLinkage] =
@@ -85,15 +87,15 @@ class CasePlanFormContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(12.0),
           topLeft: Radius.circular(12.0),
         ),
         child: MaterialCard(
           body: Container(
-            padding: EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 10.0),
             decoration: BoxDecoration(
                 border: Border(
               left: BorderSide(
@@ -106,12 +108,13 @@ class CasePlanFormContainer extends StatelessWidget {
                 EntryFormContainer(
                   elevation: 0.0,
                   formSections: [formSection],
-                  mandatoryFieldObject: Map(),
+                  mandatoryFieldObject: const {},
                   dataObject: dataObject,
                   isEditableMode: isEditableMode,
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanGapViewContainer(
+                  hasEditAccess: hasEditAccess,
                   casePlanGaps: dataObject!['gaps'] ?? [],
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
@@ -124,7 +127,7 @@ class CasePlanFormContainer extends StatelessWidget {
                 Visibility(
                   visible: (isEditableMode || shouldAddCasePlanGap),
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 10.0),
+                    margin: const EdgeInsets.only(bottom: 10.0),
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -136,13 +139,13 @@ class CasePlanFormContainer extends StatelessWidget {
                       ),
                       onPressed: () => onAddNewGap(context),
                       child: Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           vertical: 15.0,
                           horizontal: 40.0,
                         ),
                         child: Text(
                           'Add Gap',
-                          style: TextStyle().copyWith(
+                          style: const TextStyle().copyWith(
                             color: formSectionColor,
                             fontSize: 14.0,
                             fontWeight: FontWeight.w700,

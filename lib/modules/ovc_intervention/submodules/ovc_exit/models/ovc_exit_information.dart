@@ -19,14 +19,14 @@ class OvcExitInformation {
     return [
       FormSection(
           name: 'Exit information',
-          color: Color(0xFF0D3A16),
+          color: const Color(0xFF0D3A16),
           inputFields: [
             InputField(
                 id: 'iaVO2v6TsWa',
                 name: 'What is a reason for exit?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF07AD40),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF07AD40),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Was Referred', name: 'Was Referred'),
                   InputFieldOption(
@@ -44,14 +44,14 @@ class OvcExitInformation {
                 id: 'zUU33n41Soa',
                 name: 'Specify other reason for exit',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF07AD40),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF07AD40),
+                labelColor: const Color(0xFF737373)),
             InputField(
               id: 'vey0snuAsLj',
               name: 'Is referral required?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF07AD40),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF07AD40),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
                 id: 'jOXN2iPhkxj',
@@ -60,14 +60,14 @@ class OvcExitInformation {
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
                 allowedSelectedLevels: [3, 4],
-                inputColor: Color(0xFF07AD40),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF07AD40),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'RtAQJcTqUGF',
                 name: 'What is a reason for disengaged?',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF07AD40),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF07AD40),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Family Reintegration/Separation',
@@ -92,8 +92,8 @@ class OvcExitInformation {
                 id: 'q3mJ2FfV3oR',
                 name: 'Specify other reason for disengaged',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF07AD40),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF07AD40),
+                labelColor: const Color(0xFF737373)),
           ])
     ];
   }

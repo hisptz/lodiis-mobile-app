@@ -1,4 +1,4 @@
 class AgywDreamsIndexConstantConstant {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'ulaeRwJNuk7';
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'ulaeRwJNuk7';
 }

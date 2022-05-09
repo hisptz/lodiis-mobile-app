@@ -33,7 +33,7 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
   }) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
       ),
       child: Column(
@@ -41,26 +41,24 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               bottom: 5.0,
             ),
             child: Text(
               label,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: labelColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          Container(
-            child: Text(
-              value!,
-              style: TextStyle().copyWith(
-                color: valueColor,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
-              ),
+          Text(
+            value!,
+            style: const TextStyle().copyWith(
+              color: valueColor,
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500,
             ),
           )
         ],
@@ -91,43 +89,47 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
                   referralOutcomeEvent
                       .referralOutcomeToReferralOutComeFollowingUpLinkage)
           .toList();
-      bool hasOutccomeHasFollowUps = referralOutcomeFollowUps.length > 0;
+      bool hasOutccomeHasFollowUps = referralOutcomeFollowUps.isNotEmpty;
       return Consumer<LanguageTranslationState>(
           builder: (context, languageTranslationState, child) {
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 15.0,
               ),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      currentLanguage == 'lesotho' ? 'Outcome' : 'Outcome',
-                      style: TextStyle().copyWith(
-                        color: Color(0xFFB2B7B9),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 7.0,
+                      ),
+                      child: Text(
+                        currentLanguage == 'lesotho' ? 'Outcome' : 'Outcome',
+                        style: const TextStyle().copyWith(
+                          color: const Color(0xFFB2B7B9),
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    child: Visibility(
-                      visible: !hasOutccomeHasFollowUps,
-                      child: InkWell(
-                        onTap: onEditReferralOutcome,
-                        child: Container(
-                          height: iconHeight,
-                          width: iconHeight,
-                          margin: EdgeInsets.symmetric(
-                            vertical: 5.0,
-                            horizontal: 5.0,
-                          ),
-                          child: SvgPicture.asset(
-                            svgIcon,
-                            color: Color(0xFF009688),
-                          ),
+                  Visibility(
+                    visible: !hasOutccomeHasFollowUps &&
+                        referralOutcomeEvent.enrollmentOuAccessible!,
+                    child: InkWell(
+                      onTap: onEditReferralOutcome,
+                      child: Container(
+                        height: iconHeight,
+                        width: iconHeight,
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 5.0,
+                          horizontal: 5.0,
+                        ),
+                        child: SvgPicture.asset(
+                          svgIcon,
+                          color: const Color(0xFF009688),
                         ),
                       ),
                     ),
@@ -135,12 +137,12 @@ class EducationLbseReferralOutcomeCard extends StatelessWidget {
                 ],
               ),
             ),
-            LineSeparator(
+            const LineSeparator(
               color: Color(0xFFB2B7B9),
               height: 1.0,
             ),
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 10.0,
                 left: 15.0,
                 right: 15.0,

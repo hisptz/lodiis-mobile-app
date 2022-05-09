@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
@@ -18,7 +19,8 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/core/utils/app_version_update.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -29,6 +31,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_records/ovc_records_page.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_page.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_page.dart';
+import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
 class OvcIntervention extends StatefulWidget {
@@ -52,7 +55,7 @@ class _OvcInterventionState extends State<OvcIntervention>
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       isViewReady = true;
       setTabsController();
       setState(() {});
@@ -60,6 +63,7 @@ class _OvcInterventionState extends State<OvcIntervention>
     DataQualityService.runDataQualityCheckResolution();
     connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
+    checkAppVersion();
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
@@ -115,6 +119,19 @@ class _OvcInterventionState extends State<OvcIntervention>
     );
   }
 
+  void checkAppVersion() async {
+    bool shouldShowUpdateWarning =
+        Provider.of<AppInfoState>(context, listen: false)
+            .showWarningToAppUpdate;
+    VersionStatus? versionStatus =
+        Provider.of<AppInfoState>(context, listen: false).versionStatus;
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      if (shouldShowUpdateWarning && versionStatus != null) {
+        AppVersionUpdate.showAppUpdateWarning(context, versionStatus);
+      }
+    });
+  }
+
   void onClickHome() {
     // print('on onClickHome');
   }
@@ -134,7 +151,7 @@ class _OvcInterventionState extends State<OvcIntervention>
       Provider.of<EnrollmentFormState>(context, listen: false).resetFormState();
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return OvcEnrollmentConsentForm();
+          return const OvcEnrollmentConsentForm();
         },
       ));
     }
@@ -156,7 +173,7 @@ class _OvcInterventionState extends State<OvcIntervention>
                           activeInterventionProgram);
               return Scaffold(
                 appBar: PreferredSize(
-                    preferredSize: Size.fromHeight(105),
+                    preferredSize: const Size.fromHeight(105),
                     child: InterventionAppBar(
                       tabController: tabController,
                       tabs: tabsItems,
@@ -168,72 +185,69 @@ class _OvcInterventionState extends State<OvcIntervention>
                       onOpenMoreMenu: () =>
                           onOpenMoreMenu(context, activeInterventionProgram),
                     )),
-                body: Container(
-                  child: Consumer<CurrentUserState>(
-                      builder: (context, currentUserState, child) {
-                    bool hasAccessToDataEntry =
-                        currentUserState.canCurrentUserDoDataEntry;
-                    return Container(
-                      child: !isViewReady
-                          ? Container(
-                              margin: EdgeInsets.only(
-                                top: 20.0,
-                              ),
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          : !hasAccessToDataEntry
-                              ? AccessToDataEntryWarning()
-                              : Container(
-                                  child: Stack(
-                                    fit: StackFit.expand,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: activeInterventionProgram
-                                              .background,
-                                        ),
-                                      ),
-                                      Container(
-                                        child: currentInterventionBottomNavigation
+                body: Consumer<CurrentUserState>(
+                    builder: (context, currentUserState, child) {
+                  bool hasAccessToDataEntry =
+                      currentUserState.canCurrentUserDoDataEntry;
+                  return Container(
+                    child: !isViewReady
+                        ? Container(
+                            margin: const EdgeInsets.only(
+                              top: 20.0,
+                            ),
+                            child: const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            ),
+                          )
+                        : !hasAccessToDataEntry
+                            ? const AccessToDataEntryWarning()
+                            : Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          activeInterventionProgram.background,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: currentInterventionBottomNavigation
+                                                .id ==
+                                            'services'
+                                        ? const OvcServicesPage()
+                                        : currentInterventionBottomNavigation
                                                     .id ==
-                                                'services'
-                                            ? OvcServicesPage()
+                                                'referral'
+                                            ? const OvcReferralPage()
                                             : currentInterventionBottomNavigation
                                                         .id ==
-                                                    'referral'
-                                                ? OvcReferralPage()
+                                                    'enrollment'
+                                                ? const OvcEnrollmentPage()
                                                 : currentInterventionBottomNavigation
                                                             .id ==
-                                                        'enrollment'
-                                                    ? OvcEnrollmentPage()
+                                                        'exit'
+                                                    ? const OvcExitPage()
                                                     : currentInterventionBottomNavigation
                                                                 .id ==
-                                                            'exit'
-                                                        ? OvcExitPage()
-                                                        : currentInterventionBottomNavigation
-                                                                    .id ==
-                                                                'records'
-                                                            ? OvcRecordsPage(
-                                                                tabsController:
-                                                                    tabController!,
-                                                                tabsVieItems:
-                                                                    tabsViews,
-                                                              )
-                                                            : RoutePageNotFound(
-                                                                pageTitle:
-                                                                    currentInterventionBottomNavigation
-                                                                        .id,
-                                                              ),
-                                      ),
-                                    ],
+                                                            'records'
+                                                        ? OvcRecordsPage(
+                                                            tabsController:
+                                                                tabController!,
+                                                            tabsVieItems:
+                                                                tabsViews,
+                                                          )
+                                                        : RoutePageNotFound(
+                                                            pageTitle:
+                                                                currentInterventionBottomNavigation
+                                                                    .id,
+                                                          ),
                                   ),
-                                ),
-                    );
-                  }),
-                ),
-                bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+                                ],
+                              ),
+                  );
+                }),
+                bottomNavigationBar:
+                    const InterventionBottomNavigationBarContainer(),
               );
             });
           },

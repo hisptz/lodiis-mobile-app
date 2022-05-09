@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -39,9 +40,9 @@ class _EducationLbseReferralFormPageState
     extends State<EducationLbseReferralFormPage> {
   final String label = "Referral Form";
   List<FormSection>? formSections;
-  final List<String> mandatoryFields =
-      EducationLbseReferralForm.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  List<FormSection>? defaultFormSections;
+  List<String> mandatoryFields = EducationLbseReferralForm.getMandatoryField();
+  final Map mandatoryFieldObject = {};
   List unFilledMandatoryFields = [];
   bool isFormReady = false;
   bool isSaving = false;
@@ -49,15 +50,45 @@ class _EducationLbseReferralFormPageState
   @override
   void initState() {
     super.initState();
-    formSections = EducationLbseReferralForm.getFormSections();
-
-    for (String id in mandatoryFields) {
-      mandatoryFieldObject[id] = true;
-    }
-    Timer(Duration(seconds: 1), () {
+    setFormSections();
+    Timer(const Duration(seconds: 1), () {
       isFormReady = true;
       setState(() {});
     });
+  }
+
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    EducationBeneficiary lbseBeneficiary =
+        Provider.of<EducationInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentBeneficiciary!;
+    defaultFormSections = EducationLbseReferralForm.getFormSections();
+    if (lbseBeneficiary.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: LbseInterventionConstant.inputColor,
+        labelColor: LbseInterventionConstant.labelColor,
+        sectionLabelColor: LbseInterventionConstant.inputColor,
+        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
+        program: LbseInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -91,12 +122,12 @@ class _EducationLbseReferralFormPageState
         learningOutcomeToReferralLinkage,
         referralToReferralOutcomeLinkage
       ];
-
+      String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,
           LbseInterventionConstant.referralProgamStage,
-          lbseBeneficiary.orgUnit,
+          orgUnit,
           formSections!,
           dataObject,
           eventDate,
@@ -106,7 +137,7 @@ class _EducationLbseReferralFormPageState
         );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(lbseBeneficiary.id);
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
@@ -124,7 +155,7 @@ class _EducationLbseReferralFormPageState
           Navigator.pop(context);
         });
       } catch (e) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
               message: e.toString(),
@@ -185,7 +216,7 @@ class _EducationLbseReferralFormPageState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -198,94 +229,84 @@ class _EducationLbseReferralFormPageState
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-                builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<EducationInterventionCurrentSelectionState>(
-                builder: (context, educationInterventionCurrentSelectionState,
-                    child) {
-                  return Consumer<ServiceFormState>(
-                    builder: (context, serviceFormState, child) {
-                      EducationBeneficiary? lbseBeneficiary =
-                          educationInterventionCurrentSelectionState
-                              .currentBeneficiciary;
-                      return Container(
-                        child: Column(
-                          children: [
-                            EducationBeneficiaryTopHeader(
-                              educationBeneficiary: lbseBeneficiary!,
-                            ),
-                            Container(
-                              child: !isFormReady
-                                  ? Container(
-                                      child: CircularProcessLoader(
-                                        color: Colors.blueGrey,
+          body: Consumer<LanguageTranslationState>(
+              builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<EducationInterventionCurrentSelectionState>(
+              builder:
+                  (context, educationInterventionCurrentSelectionState, child) {
+                return Consumer<ServiceFormState>(
+                  builder: (context, serviceFormState, child) {
+                    EducationBeneficiary? lbseBeneficiary =
+                        educationInterventionCurrentSelectionState
+                            .currentBeneficiciary;
+                    return Column(
+                      children: [
+                        EducationBeneficiaryTopHeader(
+                          educationBeneficiary: lbseBeneficiary!,
+                        ),
+                        Container(
+                          child: !isFormReady
+                              ? const CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        top: 10.0,
+                                        left: 13.0,
+                                        right: 13.0,
+                                      ),
+                                      child: EntryFormContainer(
+                                        hiddenFields:
+                                            serviceFormState.hiddenFields,
+                                        hiddenSections:
+                                            serviceFormState.hiddenSections,
+                                        formSections: formSections,
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        hiddenInputFieldOptions:
+                                            serviceFormState
+                                                .hiddenInputFieldOptions,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
+                                        isEditableMode:
+                                            serviceFormState.isEditableMode,
+                                        dataObject: serviceFormState.formState,
+                                        onInputValueChange: onInputValueChange,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: serviceFormState.isEditableMode,
+                                      child: EntryFormSaveButton(
+                                        label: isSaving
+                                            ? 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: const Color(0xFF009688),
+                                        fontSize: 15.0,
+                                        onPressButton: () => !isSaving
+                                            ? onSaveForm(
+                                                context,
+                                                serviceFormState.formState,
+                                                lbseBeneficiary,
+                                              )
+                                            : null,
                                       ),
                                     )
-                                  : Column(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            top: 10.0,
-                                            left: 13.0,
-                                            right: 13.0,
-                                          ),
-                                          child: EntryFormContainer(
-                                            hiddenFields:
-                                                serviceFormState.hiddenFields,
-                                            hiddenSections:
-                                                serviceFormState.hiddenSections,
-                                            formSections: formSections,
-                                            mandatoryFieldObject:
-                                                mandatoryFieldObject,
-                                            hiddenInputFieldOptions:
-                                                serviceFormState
-                                                    .hiddenInputFieldOptions,
-                                            unFilledMandatoryFields:
-                                                unFilledMandatoryFields,
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            dataObject:
-                                                serviceFormState.formState,
-                                            onInputValueChange:
-                                                onInputValueChange,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible:
-                                              serviceFormState.isEditableMode,
-                                          child: EntryFormSaveButton(
-                                            label: isSaving
-                                                ? 'Saving ...'
-                                                : currentLanguage == 'lesotho'
-                                                    ? 'Boloka'
-                                                    : 'Save',
-                                            labelColor: Colors.white,
-                                            buttonColor: Color(0xFF009688),
-                                            fontSize: 15.0,
-                                            onPressButton: () => !isSaving
-                                                ? onSaveForm(
-                                                    context,
-                                                    serviceFormState.formState,
-                                                    lbseBeneficiary,
-                                                  )
-                                                : null,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                            ),
-                          ],
+                                  ],
+                                ),
                         ),
-                      );
-                    },
-                  );
-                },
-              );
-            }),
-          ),
+                      ],
+                    );
+                  },
+                );
+              },
+            );
+          }),
         ),
       ),
     );

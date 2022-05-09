@@ -12,21 +12,21 @@ class EducationLbseReferralOutcomeFollowUpForm {
     return [
       FormSection(
         name: 'LBSE Referral Follow-up',
-        color: Color(0xFF009688),
+        color: const Color(0xFF009688),
         inputFields: [
           InputField(
             id: 'DPf5mUDoZMy',
             name: 'Follow-up date',
             valueType: 'DATE',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'VHe4ctA0bqU',
             name: 'Follow-up Status',
             valueType: 'TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                 code: 'Complete',
@@ -42,8 +42,8 @@ class EducationLbseReferralOutcomeFollowUpForm {
             id: 'BzkeBAxdEVT',
             name: 'Additional follow up required',
             valueType: 'BOOLEAN',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'Yp3zlQ779fk',
@@ -51,15 +51,15 @@ class EducationLbseReferralOutcomeFollowUpForm {
             allowFuturePeriod: true,
             disablePastPeriod: true,
             valueType: 'DATE',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'LcG4J82PM4Z',
             name: 'Comments or next steps',
             valueType: 'LONG_TEXT',
-            inputColor: Color(0xFF009688),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
           ),
         ],
       ),

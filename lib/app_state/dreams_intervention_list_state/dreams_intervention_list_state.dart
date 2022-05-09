@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
@@ -47,6 +46,7 @@ class DreamsInterventionListState with ChangeNotifier {
   String _searchableValue = '';
   bool? _isIncomingReferral = false;
   List<String> _teiWithIncomingReferral = [];
+  List<Map<String, dynamic>> _agywFilters = [];
   PagingController? _agywPagingController;
   PagingController? _agywIncomingReferralPagingController;
   PagingController? _nonAgywPagingController;
@@ -84,6 +84,9 @@ class DreamsInterventionListState with ChangeNotifier {
           ? _beneficiariesWithoutAgywDreamsCriteriaNumberOfPages
           : _beneficiariesWithoutAgywDreamsCriteriaNumberOfSearchablePages;
   bool? get isIncomingReferral => _isIncomingReferral;
+  List<Map<String, dynamic>> get agywFilters => _agywFilters
+      .where((Map<String, dynamic> filter) => filter.isNotEmpty)
+      .toList();
   PagingController? get agywPagingController => _agywPagingController;
   PagingController? get agywIncomingReferralPagingController =>
       _agywIncomingReferralPagingController;
@@ -105,11 +108,29 @@ class DreamsInterventionListState with ChangeNotifier {
     _isIncomingReferral = isIncomingReferral;
   }
 
+  void setAgywFilters(List<Map<String, dynamic>> agywFilters) {
+    _agywFilters = agywFilters;
+    refreshAllDreamsLists();
+    notifyListeners();
+  }
+
+  int getAgywFiltersCount() {
+    return _agywFilters.length;
+  }
+
+  void clearAllDreamsFilters() {
+    _agywFilters = [];
+    refreshAllDreamsLists();
+    notifyListeners();
+  }
+
   Future<void> _fetchAgywPage(int pageKey) async {
     String searchableValue = _agywSearchableValue;
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
         .getAgywBeneficiaryList(
-            page: pageKey, searchableValue: searchableValue);
+            page: pageKey,
+            searchableValue: searchableValue,
+            filters: _agywFilters);
     if (agywList.isEmpty && pageKey < agywNumberOfPages) {
       _fetchAgywPage(pageKey + 1);
     } else {

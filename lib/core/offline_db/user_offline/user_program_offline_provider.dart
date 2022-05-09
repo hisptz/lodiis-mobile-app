@@ -10,7 +10,7 @@ class UserProgramOfflineProvider extends OfflineDbProvider {
   addOrUpdateUserPrograms(CurrentUser user) async {
     var dbClient = await db;
     for (id in user.programs ?? []) {
-      var data = Map<String, dynamic>();
+      var data = <String, dynamic>{};
       data['id'] = id;
       data['userId'] = user.id;
       await dbClient!.insert(CurrentUser.userProgramTable, data,
@@ -37,7 +37,9 @@ class UserProgramOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return userProgramIds;
   }
 }

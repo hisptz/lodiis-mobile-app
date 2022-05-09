@@ -20,7 +20,7 @@ class OvcEnrollmentConsent {
 
   static List<FormSection> getFormSections() {
     return [
-      FormSection(name: '', color: Color(0xFF737373), inputFields: [
+      FormSection(name: '', color: const Color(0xFF737373), inputFields: [
         InputField(
             id: 'location',
             name: 'Location',
@@ -28,8 +28,8 @@ class OvcEnrollmentConsent {
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [3, 4],
             filteredPrograms: [OvcInterventionConstant.program],
-            inputColor: Color(0xFF4B9F46),
-            labelColor: Color(0xFF737373)),
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373)),
         InputField(
             id: 'OVaqHW5kimy',
             name:
@@ -37,8 +37,8 @@ class OvcEnrollmentConsent {
             translatedName:
                 'Ke utloisisa sepheo sa morero oa bana ba tlokotsing ba Karabo ea Bophelo le melemo ea eona ho lelapa laka',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
         InputField(
             id: 'JCI4nxcE4N6',
             name:
@@ -46,8 +46,8 @@ class OvcEnrollmentConsent {
             translatedName:
                 'Lelapa leso le lumela ho kopana khafetsa le Case Management Worker ho buisana ka mathata ao re tobaneng le ona, ho ipehela lipheo tsa bokamoso ba rona, le hore na re ka fihlela sepheo seo joang, re sebetsa \'moho ho fihlela re fihlela sepheo sa rona?',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
         InputField(
             id: 'XVRQaLDDSpx',
             name:
@@ -55,8 +55,8 @@ class OvcEnrollmentConsent {
             translatedName:
                 'Ke lumela hore litaba tsa rona li bolokoe ke morero oa Karabo ea Bophelo sebakeng se bolokehileng. Sena se bolela hore Mokhatlo o sebetsang le uena o tla boloka litaba tsa hau tsohle tsa ts’ebetso, ‘mmoho le methati eohle e tla lateloa sebakeng se bolokehileng. Litaba tsa hau li ka arolelanoa feela le mekhatlo eo o faneng ka tumello.',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
         InputField(
             id: 'gCdkCgKJhng',
             name:
@@ -64,8 +64,8 @@ class OvcEnrollmentConsent {
             translatedName:
                 'Ke fana ka tumello ea hore litaba tse tobileng lelapa laka le bana baka li ka arolelanoa le ho buisanoa le mekhatlo e meng ho fana ka litsebeletso molemong oa ho ntlafatsa bophelo ba lelapa la ka le bana ba ka.',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
         InputField(
             id: 'fxqfSmoLBvT',
             name:
@@ -73,8 +73,8 @@ class OvcEnrollmentConsent {
             translatedName:
                 'ke lumetse hore ke fetisetsoe lits’ebeletsong tse ling ho thusa nna le lelapa laka ho fihlela sepheo sa rona. Kea utloisisa hore litaba tse arolelanoeng litla bolokoa ele lekunutu ka tlhompho \'me li arolelanoe feela ka mokhoa o hlokahalang ho fana ka thuso eo ke e kopang kapa eo ke e hlokang        ',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
         InputField(
             id: 'R026OBBkvLi',
             name:
@@ -82,8 +82,8 @@ class OvcEnrollmentConsent {
             translatedName:
                 'Kea utloisisa hore nka fetola maikutlo a ka mme ka etsa qeto ea ho se arolelane litaba',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
         InputField(
             id: 'MP7ROUSWfT9',
             name:
@@ -91,18 +91,18 @@ class OvcEnrollmentConsent {
             translatedName:
                 'Kea utloisisa hore maemong a tlokotsi kapa a tšohanyetso, litaba tsa rona litla arolelanoa le ba boholong hore na ke fane ka tumello kapa che. (Maemo a ts’osang a bophelo kapa maemo a tšohanyetso a akaretsa empa ha felle feela maemong a tlhekefetso ea bana, ho loants’ana, ho ………… kapa ho hlekefetsoa.) ',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46)),
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46)),
       ]),
-      FormSection(name: '', color: Color(0xFF737373), inputFields: [
+      FormSection(name: '', color: const Color(0xFF737373), inputFields: [
         InputField(
             id: 'sCGr0RTmvJ7',
             name: 'Are you willing to be among beneficiaries of this program?',
             translatedName:
                 'Na u ikemiselitse ho ba e mong oa bajalefa ba lenaneo lee?',
             valueType: 'BOOLEAN',
-            labelColor: Color(0xFF1A3518),
-            inputColor: Color(0xFF4B9F46))
+            labelColor: const Color(0xFF1A3518),
+            inputColor: const Color(0xFF4B9F46))
       ])
     ];
   }

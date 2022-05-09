@@ -1,8 +1,8 @@
 class AppInfoReference {
-  static final String androidId = 'org.hisptanzania.kb_mobile_app';
-  static final String currentAppName = 'Lesotho OVC-DREAMS';
-  static final String currentAppVersion = '1.3.1';
-  static final int minmunAllowedMajorVersion = 0;
-  static final int minmunAllowedMinorVersion = 0;
-  static final int minmunAllowedPatchVersion = 2;
+  static const String androidId = 'org.hisptanzania.kb_mobile_app';
+  static const String currentAppName = 'Lesotho OVC-DREAMS';
+  static const String currentAppVersion = '1.4.0';
+  static const int minimumAllowedMajorVersion = 0;
+  static const int minimumAllowedMinorVersion = 0;
+  static const int minimumAllowedPatchVersion = 2;
 }

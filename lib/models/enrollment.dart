@@ -9,6 +9,7 @@ class Enrollment {
   String? trackedEntityInstance;
   String? status;
   String? syncStatus;
+  String? searchableValue;
 
   Enrollment(
       {this.enrollment,
@@ -18,6 +19,7 @@ class Enrollment {
       this.orgUnit,
       this.trackedEntityInstance,
       this.status,
+      this.searchableValue,
       this.syncStatus});
 
   @override
@@ -34,6 +36,7 @@ class Enrollment {
         orgUnit: json['orgUnit'],
         trackedEntityInstance: json['trackedEntityInstance'],
         status: json['status'],
+        searchableValue: json['searchableValue'] ?? '',
         syncStatus: json['syncStatus'] ?? 'synced');
   }
 
@@ -42,7 +45,7 @@ class Enrollment {
   }
 
   Map toOffline(Enrollment enrollmentData) {
-    var mapData = Map<String, dynamic>();
+    var mapData = <String, dynamic>{};
     mapData['enrollment'] = enrollmentData.enrollment;
     mapData['enrollmentDate'] = enrollmentData.enrollmentDate;
     mapData['incidentDate'] = enrollmentData.incidentDate;
@@ -51,17 +54,19 @@ class Enrollment {
     mapData['trackedEntityInstance'] = enrollmentData.trackedEntityInstance;
     mapData['status'] = enrollmentData.status;
     mapData['syncStatus'] = enrollmentData.syncStatus;
+    mapData['searchableValue'] = enrollmentData.searchableValue;
     return mapData;
   }
 
   Enrollment.fromOffline(Map<String, dynamic> mapData) {
-    this.enrollment = mapData['enrollment'];
-    this.enrollmentDate = mapData['enrollmentDate'];
-    this.incidentDate = mapData['incidentDate'];
-    this.program = mapData['program'];
-    this.orgUnit = mapData['orgUnit'];
-    this.trackedEntityInstance = mapData['trackedEntityInstance'];
-    this.status = mapData['status'];
-    this.syncStatus = mapData['syncStatus'];
+    enrollment = mapData['enrollment'];
+    enrollmentDate = mapData['enrollmentDate'];
+    incidentDate = mapData['incidentDate'];
+    program = mapData['program'];
+    orgUnit = mapData['orgUnit'];
+    trackedEntityInstance = mapData['trackedEntityInstance'];
+    status = mapData['status'];
+    syncStatus = mapData['syncStatus'];
+    searchableValue = mapData['searchableValue'];
   }
 }

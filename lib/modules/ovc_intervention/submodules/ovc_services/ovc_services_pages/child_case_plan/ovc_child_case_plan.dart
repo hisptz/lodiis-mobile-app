@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -21,7 +21,14 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildCasePlan extends StatelessWidget {
+class OvcChildCasePlan extends StatefulWidget {
+  const OvcChildCasePlan({Key? key}) : super(key: key);
+
+  @override
+  State<OvcChildCasePlan> createState() => _OvcChildCasePlanState();
+}
+
+class _OvcChildCasePlanState extends State<OvcChildCasePlan> {
   final String label = 'Child Case Plan';
   final List<String> casePlanProgramStageIds = [
     OvcChildCasePlanConstant.casePlanProgramStage
@@ -30,7 +37,6 @@ class OvcChildCasePlan extends StatelessWidget {
   final List<String> casePlanGapProgramStageIds = [
     OvcChildCasePlanConstant.casePlanGapProgramStage
   ];
-
   updateformState(
     BuildContext context,
     bool isEditableMode,
@@ -44,7 +50,7 @@ class OvcChildCasePlan extends StatelessWidget {
     String? eventDate;
     if (casePlanEvents != null) {
       eventDate =
-          casePlanEvents.length > 0 ? casePlanEvents[0].eventDate : eventDate;
+          casePlanEvents.isNotEmpty ? casePlanEvents[0].eventDate : eventDate;
       List<Events> casePlanGapsEvents = eventListByProgramStage[
               OvcChildCasePlanConstant.casePlanGapProgramStage] ??
           [];
@@ -60,7 +66,7 @@ class OvcChildCasePlan extends StatelessWidget {
       Map map = sanitizedDataObject != null &&
               sanitizedDataObject.containsKey(formSectionId)
           ? sanitizedDataObject[formSectionId]
-          : Map();
+          : {};
 
       map['gaps'] = map['gaps'] ?? [];
       map['eventDate'] = map['eventDate'] ?? eventDate;
@@ -82,7 +88,7 @@ class OvcChildCasePlan extends StatelessWidget {
     Map groupedEventByDates =
         TrackedEntityInstanceUtil.getGroupedEventByDates(events);
     String today = AppUtil.formattedDateTimeIntoString(DateTime.now());
-    return groupedEventByDates.keys.toList().indexOf(today) > -1;
+    return groupedEventByDates.keys.toList().contains(today);
   }
 
   void onAddNewAssessment(
@@ -99,7 +105,7 @@ class OvcChildCasePlan extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OcvChildCasePlanForm(),
+          builder: (context) => const OcvChildCasePlanForm(),
         ),
       );
     }
@@ -117,6 +123,8 @@ class OvcChildCasePlan extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OcvChildCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldAddCasePlanGap: true,
         ),
       ),
@@ -135,6 +143,8 @@ class OvcChildCasePlan extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OcvChildCasePlanForm(
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
           shouldViewCaseGapServiceProvision: true,
         ),
       ),
@@ -145,7 +155,7 @@ class OvcChildCasePlan extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -158,60 +168,52 @@ class OvcChildCasePlan extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Column(children: [
-              OvcChildInfoTopHeader(),
-              Container(
-                child: Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    return isLoading
-                        ? CircularProcessLoader(
-                            color: Colors.blueGrey,
-                          )
-                        : Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                CasePlanHomeListContainer(
-                                    programStageIds: casePlanProgramStageIds,
-                                    onEditCasePlan: (casePlanEvents) =>
-                                        onEditCasePlan(
-                                          context,
-                                          casePlanEvents,
-                                          eventListByProgramStage,
-                                        ),
-                                    onViewCasePlan: (casePlanEvents) =>
-                                        onViewCasePlan(
-                                          context,
-                                          casePlanEvents,
-                                          eventListByProgramStage,
-                                        )),
-                                Container(
-                                  child: Visibility(
-                                    visible: !isLoading,
-                                    child: EntryFormSaveButton(
-                                      label: 'NEW CASE PLAN',
-                                      labelColor: Colors.white,
-                                      fontSize: 10,
-                                      buttonColor: Color(0xFF4B9F46),
-                                      onPressButton: () => onAddNewAssessment(
-                                          context, eventListByProgramStage),
-                                    ),
+          body: Column(children: [
+            const OvcChildInfoTopHeader(),
+            Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String?, List<Events>> eventListByProgramStage =
+                    serviceEventDataState.eventListByProgramStage;
+                return isLoading
+                    ? const CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CasePlanHomeListContainer(
+                              programStageIds: casePlanProgramStageIds,
+                              onEditCasePlan: (casePlanEvents) =>
+                                  onEditCasePlan(
+                                    context,
+                                    casePlanEvents,
+                                    eventListByProgramStage,
                                   ),
-                                ),
-                              ],
+                              onViewCasePlan: (casePlanEvents) =>
+                                  onViewCasePlan(
+                                    context,
+                                    casePlanEvents,
+                                    eventListByProgramStage,
+                                  )),
+                          Visibility(
+                            visible: !isLoading,
+                            child: EntryFormSaveButton(
+                              label: 'NEW CASE PLAN',
+                              labelColor: Colors.white,
+                              fontSize: 10,
+                              buttonColor: const Color(0xFF4B9F46),
+                              onPressButton: () => onAddNewAssessment(
+                                  context, eventListByProgramStage),
                             ),
-                          );
-                  },
-                ),
-              )
-            ]),
-          ),
+                          ),
+                        ],
+                      );
+              },
+            )
+          ]),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
   }
 }

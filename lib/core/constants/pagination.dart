@@ -1,4 +1,4 @@
 class PaginationConstants {
-  static final int paginationLimit = 10;
-  static final int searchingPaginationLimit = 200;
+  static const int paginationLimit = 10;
+  static const int searchingPaginationLimit = 200;
 }

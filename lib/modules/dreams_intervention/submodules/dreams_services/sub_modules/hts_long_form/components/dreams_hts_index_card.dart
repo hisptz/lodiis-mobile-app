@@ -61,7 +61,7 @@ class DreamsHTSIndexCard extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsIndexInfoAboutPosClient()));
+            builder: (context) => const AgywDreamsIndexInfoAboutPosClient()));
   }
 
   void onViewIndexInfo(
@@ -70,36 +70,31 @@ class DreamsHTSIndexCard extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => AgywDreamsIndexInfoAboutPosClient()));
+            builder: (context) => const AgywDreamsIndexInfoAboutPosClient()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 16.0),
-        child: MaterialCard(
-          body: Container(
-            child: Column(
-              children: [
-                Container(
-                    child: DreamsHTSIndexCardHeader(
-                  event: event,
-                  canEdit: canEdit,
-                  canView: canView,
-                  svgIcon: svgIcon,
-                  canExpand: canExpand,
-                  isExpanded: isExpanded,
-                  onToggleCard: onCardToggle,
-                  onEdit: () => onEditIndexInfo(context, event),
-                  onView: () => onViewIndexInfo(context, event),
-                )),
-                cardBody,
-                cardButtonActions,
-                Visibility(visible: isExpanded, child: cardButtonContent),
-              ],
+      margin: const EdgeInsets.only(bottom: 16.0),
+      child: MaterialCard(
+        body: Column(
+          children: [
+            DreamsHTSIndexCardHeader(
+              event: event,
+              canEdit: canEdit,
+              canView: canView,
+              svgIcon: svgIcon,
+              canExpand: canExpand,
+              isExpanded: isExpanded,
+              onToggleCard: onCardToggle,
+              onEdit: () => onEditIndexInfo(context, event),
+              onView: () => onViewIndexInfo(context, event),
             ),
-          ),
+            cardBody,
+            cardButtonActions,
+            Visibility(visible: isExpanded, child: cardButtonContent),
+          ],
         ),
       ),
     );

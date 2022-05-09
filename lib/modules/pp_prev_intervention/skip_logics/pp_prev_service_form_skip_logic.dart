@@ -5,8 +5,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class PpPrevServiceFormSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
   static List<String> referralReferences = [
     "iHExrhttHRG",
     'FrrHVBvLfq5',
@@ -31,8 +31,8 @@ class PpPrevServiceFormSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (referralReferences.indexOf(inputFieldId) > -1 &&
-          '$value'.toLowerCase() == 'true') {
+      if (referralReferences.contains(inputFieldId) &&
+          value.toLowerCase() == 'true') {
         hiddenFields['OIUDljKyNgy'] = false;
         hiddenFields['h4PRnqfEOCL'] = false;
         hiddenFields['LIDzWRHXgIt'] = false;

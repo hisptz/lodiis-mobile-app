@@ -44,7 +44,7 @@ class _ReferralOutComeFollowUpModalState
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       isFormReady = true;
       setState(() {});
     });
@@ -77,7 +77,7 @@ class _ReferralOutComeFollowUpModalState
           null,
           [widget.referralToFollowUpLinkage],
         );
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
             Provider.of<ServiceEventDataState>(context, listen: false)
@@ -96,7 +96,7 @@ class _ReferralOutComeFollowUpModalState
           });
         });
       } catch (e) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
@@ -129,63 +129,57 @@ class _ReferralOutComeFollowUpModalState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        child: Consumer<ServiceFormState>(
-          builder: (context, serviceFormState, child) {
-            return Container(
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 10.0,
-                      left: 13.0,
-                      right: 13.0,
-                    ),
-                    child: EntryFormContainer(
-                      elevation: 0.0,
-                      formSections: widget.referralOutcomeFollowUpFormSections,
-                      mandatoryFieldObject: Map(),
-                      dataObject: serviceFormState.formState,
-                      isEditableMode: serviceFormState.isEditableMode,
-                      onInputValueChange: onInputValueChange,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: widget.themeColor,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () => isSaving
-                                ? null
-                                : this.onSaveForm(
-                                    context,
-                                    serviceFormState.formState,
-                                  ),
-                            child: Text(
-                              isSaving
-                                  ? 'SAVING FOLLOW UP ...'
-                                  : 'SAVE FOLLOW UP',
-                              style: TextStyle().copyWith(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFFAFAFA),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+      child: Consumer<ServiceFormState>(
+        builder: (context, serviceFormState, child) {
+          return Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 10.0,
+                  left: 13.0,
+                  right: 13.0,
+                ),
+                child: EntryFormContainer(
+                  elevation: 0.0,
+                  formSections: widget.referralOutcomeFollowUpFormSections,
+                  mandatoryFieldObject: const {},
+                  dataObject: serviceFormState.formState,
+                  isEditableMode: serviceFormState.isEditableMode,
+                  onInputValueChange: onInputValueChange,
+                ),
               ),
-            );
-          },
-        ),
+              Container(
+                decoration: BoxDecoration(
+                  color: widget.themeColor,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () => isSaving
+                            ? null
+                            : onSaveForm(
+                                context,
+                                serviceFormState.formState,
+                              ),
+                        child: Text(
+                          isSaving ? 'SAVING FOLLOW UP ...' : 'SAVE FOLLOW UP',
+                          style: const TextStyle().copyWith(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFFFAFAFA),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

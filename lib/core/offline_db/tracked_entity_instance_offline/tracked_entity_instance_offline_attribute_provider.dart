@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:sqflite/sqflite.dart';
@@ -23,7 +24,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
         if ('${attributeObj[value]}'.isNotEmpty &&
             '${attributeObj[value]}' != 'null') {
           String? attribute = attributeObj['attribute'];
-          Map data = Map<String, dynamic>();
+          Map data = <String, dynamic>{};
           data['id'] = '$trackedEntityInstance-$attribute';
           data['trackedEntityInstance'] = trackedEntityInstance;
           data['attribute'] = attribute;
@@ -32,7 +33,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
               conflictAlgorithm: ConflictAlgorithm.replace);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   addOrUpdateMultipleTrackedEntityInstanceAttributes(List attributes) async {
@@ -46,7 +49,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       await attributesBatch.commit(
           exclusive: true, noResult: true, continueOnError: true);
     } catch (e) {
-      print(e);
+      //
     }
   }
 
@@ -58,14 +61,16 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           trackedEntityInstance.trackedEntityInstance;
       for (Map attributeObj in attributes) {
         String? attribute = attributeObj['attribute'];
-        Map data = Map<String, dynamic>();
+        Map data = <String, dynamic>{};
         data['id'] = '$trackedEntityInstanceId-$attribute';
         data['trackedEntityInstance'] = trackedEntityInstanceId;
         data['attribute'] = attribute;
         data['value'] = attributeObj['value'] ?? '';
         attributesObjects.add(data);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     return attributesObjects;
   }
@@ -89,8 +94,43 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return attributes;
+  }
+
+  Future<String> getSearchableFieldFromTrackedEntityAttributes(
+      String tei) async {
+    List<String> searchableFields = [
+      'WTZ7GLTrE8Q',
+      's1HaiT6OllL',
+      'rSP9c21JsfC',
+      'VJiWumvINR6',
+      'klLkGxy328c',
+      BeneficiaryIdentification.beneficiaryId,
+      BeneficiaryIdentification.primaryUIC,
+      BeneficiaryIdentification.secondaryUIC,
+    ];
+    String searchableValue = '';
+    String questionMarks = searchableFields.map((e) => '?').toList().join(',');
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [id, trackedEntityInstance, attribute, value],
+        where: '$trackedEntityInstance = ? AND $attribute IN ($questionMarks)',
+        whereArgs: [tei, ...searchableFields],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          searchableValue = searchableValue + '${map[value]} ';
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return searchableValue.toLowerCase().trim();
   }
 
   Future<List> getTrackedEntityAttributesValuesById(
@@ -111,7 +151,9 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
           attributes.add(map);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return attributes;
   }
 
@@ -124,6 +166,8 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       }
       await batch.commit(
           exclusive: true, noResult: true, continueOnError: true);
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 }

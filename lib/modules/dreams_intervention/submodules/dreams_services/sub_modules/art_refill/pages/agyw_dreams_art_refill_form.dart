@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -21,6 +21,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_art_refill_form_info.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/constants/art_refill_constant.dart';
@@ -29,7 +30,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsARTRefillForm extends StatefulWidget {
-  AgywDreamsARTRefillForm({Key? key}) : super(key: key);
+  const AgywDreamsARTRefillForm({Key? key}) : super(key: key);
 
   @override
   _AgywDreamsARTRefillFormState createState() =>
@@ -39,14 +40,18 @@ class AgywDreamsARTRefillForm extends StatefulWidget {
 class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   final String label = 'ART Re-fill form';
   List<FormSection>? formSections;
+  List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
-    formSections = DreamsARTRefillInfo.getFormSections();
-    Timer(Duration(seconds: 1), () {
+    setFormSections();
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -54,9 +59,43 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
     });
   }
 
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    var agyw =
+        Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+            .currentAgywDream!;
+    defaultFormSections = DreamsARTRefillInfo.getFormSections();
+    if (agyw.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: AgywDreamsEnrollmentConstant.inputColor,
+        labelColor: AgywDreamsEnrollmentConstant.labelColor,
+        sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
+        allowedSelectedLevels:
+            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        program: AgywDreamsEnrollmentConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields = FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      );
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
+    }
+  }
+
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -77,54 +116,72 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream? agywDream) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream,
+  ) async {
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+        setState(() {
+          isSaving = true;
+        });
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             ARTRefillConstant.program,
             ARTRefillConstant.programStage,
-            agywDream!.orgUnit,
-            formSections!,
+            orgUnit,
+            defaultFormSections!,
             dataObject,
             eventDate,
-            agywDream.id,
+            agywDream!.id,
             eventId,
-            hiddenFields);
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(agywDream.id);
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            String? currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
-            Navigator.pop(context);
+            hiddenFields,
+          );
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(agywDream.id);
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              String? currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              clearFormAutoSaveState(context, agywDream.id, eventId ?? '');
+              Navigator.pop(context);
+            });
           });
-        });
-      } catch (e) {
-        Timer(Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+        } catch (e) {
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
+            });
           });
-        });
+        }
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -167,7 +224,7 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -180,83 +237,76 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<LanguageTranslationState>(
-            builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<DreamsBeneficiarySelectionState>(
-                builder: (context, nonAgywState, child) {
-                  AgywDream? agywDream = nonAgywState.currentAgywDream;
-                  return Consumer<ServiceFormState>(
-                    builder: (context, serviceFormState, child) {
-                      return Container(
-                        child: Column(
-                          children: [
-                            DreamsBeneficiaryTopHeader(
-                              agywDream: agywDream,
-                            ),
-                            !isFormReady
-                                ? Container(
-                                    child: CircularProcessLoader(
-                                      color: Colors.blueGrey,
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<DreamsBeneficiarySelectionState>(
+              builder: (context, nonAgywState, child) {
+                AgywDream? agywDream = nonAgywState.currentAgywDream;
+                return Consumer<ServiceFormState>(
+                  builder: (context, serviceFormState, child) {
+                    return Column(
+                      children: [
+                        DreamsBeneficiaryTopHeader(
+                          agywDream: agywDream,
+                        ),
+                        !isFormReady
+                            ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      top: 10.0,
+                                      left: 13.0,
+                                      right: 13.0,
+                                    ),
+                                    child: EntryFormContainer(
+                                      hiddenFields:
+                                          serviceFormState.hiddenFields,
+                                      hiddenSections:
+                                          serviceFormState.hiddenSections,
+                                      formSections: formSections,
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
+                                      isEditableMode:
+                                          serviceFormState.isEditableMode,
+                                      dataObject: serviceFormState.formState,
+                                      onInputValueChange: onInputValueChange,
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: serviceFormState.isEditableMode,
+                                    child: EntryFormSaveButton(
+                                      label: isSaving
+                                          ? 'Saving ...'
+                                          : currentLanguage == 'lesotho'
+                                              ? 'Boloka'
+                                              : 'Save',
+                                      labelColor: Colors.white,
+                                      buttonColor: const Color(0xFF258DCC),
+                                      fontSize: 15.0,
+                                      onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          agywDream),
                                     ),
                                   )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                          top: 10.0,
-                                          left: 13.0,
-                                          right: 13.0,
-                                        ),
-                                        child: EntryFormContainer(
-                                          hiddenFields:
-                                              serviceFormState.hiddenFields,
-                                          hiddenSections:
-                                              serviceFormState.hiddenSections,
-                                          formSections: formSections,
-                                          mandatoryFieldObject: Map(),
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          dataObject:
-                                              serviceFormState.formState,
-                                          onInputValueChange:
-                                              onInputValueChange,
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible:
-                                            serviceFormState.isEditableMode,
-                                        child: EntryFormSaveButton(
-                                          label: isSaving
-                                              ? 'Saving ...'
-                                              : currentLanguage == 'lesotho'
-                                                  ? 'Boloka'
-                                                  : 'Save',
-                                          labelColor: Colors.white,
-                                          buttonColor: Color(0xFF258DCC),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onSaveForm(
-                                              context,
-                                              serviceFormState.formState,
-                                              agywDream),
-                                        ),
-                                      )
-                                    ],
-                                  )
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                                ],
+                              )
+                      ],
+                    );
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

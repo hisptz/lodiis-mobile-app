@@ -36,6 +36,22 @@ class OrganisationUnitService {
     }
   }
 
+  Future<List<String>> getOrganisationUnitAccessedByCurrentUser() async {
+    List<String> accessibleOrgUnits = [];
+    try {
+      CurrentUser? user = await (UserService().getCurrentUser());
+      List<dynamic> userOrgUnitIds = user!.userOrgUnitIds ?? [];
+      for (dynamic userOrgUnitId in userOrgUnitIds) {
+        List<String> ouIds = await OrganisationUnitPathOfflineProvider()
+            .getAccessableOrganisationUnits("$userOrgUnitId");
+        accessibleOrgUnits.addAll(ouIds);
+      }
+    } catch (e) {
+      //
+    }
+    return accessibleOrgUnits.toSet().toList();
+  }
+
   setOrganisationUnits(List<OrganisationUnit> organisationUnit) async {
     await OrganisationUnitOfflineProvider()
         .addOrUpdateOrganisationUnits(organisationUnit);

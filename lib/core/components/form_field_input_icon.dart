@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FormFieldInputIcon extends StatelessWidget {
-  FormFieldInputIcon({
+  const FormFieldInputIcon({
     Key? key,
     this.svgIcon,
     this.backGroundColor,
@@ -14,13 +14,13 @@ class FormFieldInputIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(right: 5, top: 5),
+        padding: const EdgeInsets.only(right: 5, top: 5),
         child: Container(
           decoration: BoxDecoration(
               color: backGroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(7))),
+              borderRadius: const BorderRadius.all(Radius.circular(7))),
           child: Container(
-            margin: EdgeInsets.all(9),
+            margin: const EdgeInsets.all(9),
             child: SvgPicture.asset(
               svgIcon!,
             ),

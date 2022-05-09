@@ -1,7 +1,6 @@
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -36,34 +35,35 @@ class EducationLbseEnrollmentService {
             inputFieldIds,
             dataObject);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         LbseInterventionConstant.program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
-  Future<List<dynamic>> getBeneficiaries({
-    int? page,
-    String searchableValue = '',
-  }) async {
+  Future<List<dynamic>> getBeneficiaries(
+      {int? page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
+    List<String> accessibleOrgUnits = await OrganisationUnitService()
+        .getOrganisationUnitAccessedByCurrentUser();
     List<EducationBeneficiary> educationLbseBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-        .getEnrollments(LbseInterventionConstant.program,
-            page: page, isSearching: searchableValue != '');
+        .getEnrollmentsByProgram(LbseInterventionConstant.program,
+            page: page, searchedValue: searchableValue);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
-      String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+      String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
+      bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
       List<TrackedEntityInstance> lbseBeneficiaryList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(
@@ -75,17 +75,56 @@ class EducationLbseEnrollmentService {
           location,
           createdDate,
           enrollmentId,
+          enrollmentOuAccessible,
         ));
       }
     }
-    return searchableValue == ''
-        ? educationLbseBeneficiaries
-        : educationLbseBeneficiaries.where((EducationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+        String? school = filter['schoolName'];
+        String? grade = filter['grade'];
+        String? age = filter['age'];
+        String? sex = filter['sex'];
+
+        educationLbseBeneficiaries = sex == null
+            ? educationLbseBeneficiaries
+            : educationLbseBeneficiaries
+                .where((EducationBeneficiary beneficiary) =>
+                    beneficiary.sex == sex)
+                .toList();
+
+        educationLbseBeneficiaries = age == null
+            ? educationLbseBeneficiaries
+            : educationLbseBeneficiaries
+                .where((EducationBeneficiary beneficiary) =>
+                    beneficiary.age == age)
+                .toList();
+
+        educationLbseBeneficiaries = school == null
+            ? educationLbseBeneficiaries
+            : educationLbseBeneficiaries
+                .where((EducationBeneficiary beneficiary) =>
+                    beneficiary.schoolName == school)
+                .toList();
+
+        educationLbseBeneficiaries = grade == null
+            ? educationLbseBeneficiaries
+            : educationLbseBeneficiaries
+                .where((EducationBeneficiary beneficiary) =>
+                    beneficiary.grade == grade)
+                .toList();
+
+        educationLbseBeneficiaries = implementingPartner == null
+            ? educationLbseBeneficiaries
+            : educationLbseBeneficiaries
+                .where((EducationBeneficiary beneficiary) =>
+                    beneficiary.implementingPartner == implementingPartner)
+                .toList();
+      }
+    }
+    return educationLbseBeneficiaries;
   }
 
   Future<int> getBeneficiariesCount() async {

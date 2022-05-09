@@ -17,7 +17,7 @@ class AppLogsState with ChangeNotifier {
   PagingController? _pagingController;
 
   // selectors
-  bool get isLoading => _isLoading != null ? _isLoading : false;
+  bool get isLoading => _isLoading;
   int get numberOfPages => _numberOfPages;
   int? get nextPage => _nextPage;
   PagingController? get pagingController => _pagingController;

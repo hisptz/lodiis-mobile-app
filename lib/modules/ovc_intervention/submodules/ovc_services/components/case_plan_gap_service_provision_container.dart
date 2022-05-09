@@ -12,6 +12,7 @@ class CasePlanGapServiceProvisionContainer extends StatefulWidget {
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
     required this.domainId,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final Map casePlanGap;
@@ -20,6 +21,7 @@ class CasePlanGapServiceProvisionContainer extends StatefulWidget {
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final String? domainId;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapServiceProvisionContainerState createState() =>
@@ -45,28 +47,23 @@ class _CasePlanGapServiceProvisionContainerState
 // handling state management on adding following ups
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Visibility(
-        visible: widget.shouldEditCaseGapServiceProvision ||
-            widget.shouldViewCaseGapServiceProvision,
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                child: CasePlanGapServiceViewContainer(
-                  casePlanGap: widget.casePlanGap,
-                  domainId: widget.domainId,
-                  themeColor: widget.formSectionColor,
-                  casePlanGapToServiceProvisionLinkageValue:
-                      casePlanGapToServiceProvisionLinkageValue,
-                  shouldEditCaseGapServiceProvision:
-                      widget.shouldEditCaseGapServiceProvision,
-                  isCasePlanForHousehold: widget.isCasePlanForHousehold,
-                ),
-              ),
-            ],
+    return Visibility(
+      visible: widget.shouldEditCaseGapServiceProvision ||
+          widget.shouldViewCaseGapServiceProvision,
+      child: Column(
+        children: [
+          CasePlanGapServiceViewContainer(
+            casePlanGap: widget.casePlanGap,
+            hasEditAccess: widget.hasEditAccess,
+            domainId: widget.domainId,
+            themeColor: widget.formSectionColor,
+            casePlanGapToServiceProvisionLinkageValue:
+                casePlanGapToServiceProvisionLinkageValue,
+            shouldEditCaseGapServiceProvision:
+                widget.shouldEditCaseGapServiceProvision,
+            isCasePlanForHousehold: widget.isCasePlanForHousehold,
           ),
-        ),
+        ],
       ),
     );
   }

@@ -11,7 +11,7 @@ class OrganisationUnitChildrenOfflineProvider extends OfflineDbProvider {
       OrganisationUnit organisationUnit) async {
     var dbClient = await db;
     for (id in organisationUnit.children ?? []) {
-      var map = Map<String, dynamic>();
+      var map = <String, dynamic>{};
       map['id'] = id;
       map['organisationId'] = organisationUnit.id;
       await dbClient!.insert(

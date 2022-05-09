@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -29,6 +27,7 @@ class ReferralOutComeCard extends StatefulWidget {
     required this.referralToFollowUpLinkage,
     required this.referralProgram,
     required this.isOvcIntervention,
+    required this.isIncomingReferral,
     this.isEditableMode = true,
     this.isHouseholdReferral = false,
   }) : super(key: key);
@@ -41,6 +40,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final bool isEditableMode;
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
+  final bool isIncomingReferral;
 
   @override
   _ReferralOutComeCardState createState() => _ReferralOutComeCardState();
@@ -79,7 +79,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
           DreamsReferralFollowUp.getFormSections();
     }
 
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       isReferralOutComeFilled = getReferralOutComeStatus();
       isFormReady = true;
       setState(() {});
@@ -119,7 +119,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       String? dataElement = dataValue['dataElement'];
       String? value = dataValue['value'];
       if (dataElement != null &&
-          inputFields.indexOf(dataElement) > -1 &&
+          inputFields.contains(dataElement) &&
           value != null) {
         isReferralOutComeFilled = true;
       }
@@ -130,75 +130,71 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   @override
   Widget build(BuildContext context) {
     return !isFormReady
-        ? Container(
-            child: CircularProcessLoader(
-              color: Colors.blueGrey,
-            ),
+        ? const CircularProcessLoader(
+            color: Colors.blueGrey,
           )
-        : Container(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 10.0),
-                  child: Visibility(
-                    visible: isReferralOutComeFilled,
-                    child: ReferralOutComeViewContainer(
-                      isEditableMode: widget.isEditableMode,
-                      themeColor: themeColor,
-                      eventData: widget.eventData,
-                      beneficiary: widget.beneficiary,
-                      referralOutcomeFollowUpFormSections:
-                          referralOutcomeFollowUpFormSections,
-                      referralFollowUpStage: widget.referralFollowUpStage,
-                      referralToFollowUpLinkage:
-                          widget.referralToFollowUpLinkage,
-                      referralProgram: widget.referralProgram,
-                      onEditReferralOutCome: () =>
-                          this.onAddReferralOutCome(context),
+        : Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(bottom: 10.0),
+                child: Visibility(
+                  visible: isReferralOutComeFilled,
+                  child: ReferralOutComeViewContainer(
+                    isEditableMode: widget.isEditableMode,
+                    themeColor: themeColor,
+                    eventData: widget.eventData,
+                    beneficiary: widget.beneficiary,
+                    referralOutcomeFollowUpFormSections:
+                        referralOutcomeFollowUpFormSections,
+                    referralFollowUpStage: widget.referralFollowUpStage,
+                    referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
+                    referralProgram: widget.referralProgram,
+                    onEditReferralOutCome: () => onAddReferralOutCome(context),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: widget.isEditableMode &&
+                    widget.isIncomingReferral &&
+                    !isReferralOutComeFilled &&
+                    widget.eventData.enrollmentOuAccessible!,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(12.0),
+                    bottomRight: Radius.circular(12.0),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: themeColor!.withOpacity(0.03),
+                    ),
+                    child: Column(
+                      children: [
+                        LineSeparator(
+                          color: themeColor!.withOpacity(0.2),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () => onAddReferralOutCome(context),
+                                child: Text(
+                                  'ADD OUTCOME',
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: themeColor,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
-                Visibility(
-                  visible: widget.isEditableMode && !isReferralOutComeFilled,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(12.0),
-                      bottomRight: Radius.circular(12.0),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: themeColor!.withOpacity(0.03),
-                      ),
-                      child: Column(
-                        children: [
-                          LineSeparator(
-                            color: themeColor!.withOpacity(0.2),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextButton(
-                                  onPressed: () =>
-                                      this.onAddReferralOutCome(context),
-                                  child: Text(
-                                    'ADD OUTCOME',
-                                    style: TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: themeColor,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           );
   }
 }

@@ -21,45 +21,46 @@ class OvcChildAssessmentListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 17.0,
       ),
       child: MaterialCard(
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 20.0,
+          ),
           child: Column(
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    child: Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          text: '${eventData.eventDate}   ',
-                          style: TextStyle().copyWith(
-                            color: Color(0xFF92A791),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: programStageMap[eventData.programStage] ??
-                                  'Assessment',
-                              style: TextStyle().copyWith(
-                                color: Color(0xFF1A3518),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            )
-                          ],
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        text: '${eventData.eventDate}   ',
+                        style: const TextStyle().copyWith(
+                          color: const Color(0xFF92A791),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
                         ),
+                        children: [
+                          TextSpan(
+                            text: programStageMap[eventData.programStage] ??
+                                'Assessment',
+                            style: const TextStyle().copyWith(
+                              color: const Color(0xFF1A3518),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.symmetric(
                       horizontal: 5.0,
                     ),
                     child: InkWell(
@@ -67,31 +68,39 @@ class OvcChildAssessmentListCard extends StatelessWidget {
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 5.0,
+                          ),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
-                            color: Color(0xFF4B9F46),
+                            color: const Color(0xFF4B9F46),
                           ),
                         )),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 5.0,
-                    ),
-                    child: InkWell(
+                  Visibility(
+                    visible: eventData.enrollmentOuAccessible!,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                      ),
+                      child: InkWell(
                         onTap: onEditAssessment as void Function()?,
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 5.0,
+                            horizontal: 5.0,
+                          ),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: Color(0xFF4B9F46),
+                            color: const Color(0xFF4B9F46),
                           ),
-                        )),
-                  ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               )
             ],

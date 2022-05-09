@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -48,7 +47,7 @@ class SynchronizationState with ChangeNotifier {
   bool _dataDownloadStopped = true;
   int? _beneficiaryCount;
   int? _beneficiaryServiceCount;
-  int _conflictLCount = 0;
+  final int _conflictLCount = 0;
   String? _statusMessageForAvailableDataFromServer;
   String _currentSyncAction = '';
   double _notificationProgress = 0.0;
@@ -177,7 +176,7 @@ class SynchronizationState with ChangeNotifier {
     String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
         lastDataDownloadDatePreferenceKey);
     lastSyncDate =
-        lastSyncDate ?? AppUtil.formattedDateTimeIntoString(new DateTime(2020));
+        lastSyncDate ?? AppUtil.formattedDateTimeIntoString(DateTime(2020));
     _synchronizationService = SynchronizationService(currentUser!.username,
         currentUser.password, currentUser.programs, currentUser.userOrgUnitIds);
     try {
@@ -198,15 +197,14 @@ class SynchronizationState with ChangeNotifier {
           ? 'New beneficiary data are available, try to sync!'
           : '');
     } catch (e) {
-      AppLogs log = AppLogs(
-          type: AppLogsConstants.errorLogType, message: '${e.toString()}');
+      AppLogs log =
+          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
       await AppLogsOfflineProvider().addLogs(log);
       setStatusMessageForAvailableDataFromServer('');
     }
     updateStatusForAvailableDataFromServer(status: false);
   }
 
-// TODO updated the sync status
   Future<void> startCheckingStatusOfUnsyncedData({
     bool isAutoUpload = false,
   }) async {
@@ -290,8 +288,8 @@ class SynchronizationState with ChangeNotifier {
     try {
       String? lastSyncDate = await PreferenceProvider.getPreferenceValue(
           lastDataDownloadDatePreferenceKey);
-      lastSyncDate = lastSyncDate ??
-          AppUtil.formattedDateTimeIntoString(new DateTime(2020));
+      lastSyncDate =
+          lastSyncDate ?? AppUtil.formattedDateTimeIntoString(DateTime(2020));
       CurrentUser? currentUser = await (UserService().getCurrentUser());
       var implementingPartnerConfig = await ImplementingPartnerConfigService()
           .getImplementingPartnerConfigFromTheServer(
@@ -302,7 +300,7 @@ class SynchronizationState with ChangeNotifier {
           currentUserPrograms.length;
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
-            .where((program) => currentUserPrograms.indexOf(program) != -1)) {
+            .where((program) => currentUserPrograms.contains(program))) {
           if (_dataDownloadStopped) {
             return;
           }
@@ -319,7 +317,7 @@ class SynchronizationState with ChangeNotifier {
       count = 0;
       for (String? orgUnitId in _synchronizationService.orgUnitIds ?? []) {
         for (String? program in _synchronizationService.programs!
-            .where((program) => currentUserPrograms.indexOf(program) != -1)) {
+            .where((program) => currentUserPrograms.contains(program))) {
           if (_dataDownloadStopped) {
             return;
           }
@@ -336,7 +334,7 @@ class SynchronizationState with ChangeNotifier {
       AppUtil.showToastMessage(
           message: 'Data has been successfully downloaded');
       setStatusMessageForAvailableDataFromServer('');
-      lastSyncDate = AppUtil.formattedDateTimeIntoString(new DateTime.now());
+      lastSyncDate = AppUtil.formattedDateTimeIntoString(DateTime.now());
       await PreferenceProvider.setPreferenceValue(
           lastDataDownloadDatePreferenceKey, lastSyncDate);
     } catch (e) {
@@ -366,7 +364,7 @@ class SynchronizationState with ChangeNotifier {
       bool conflictOnEventsImport = false;
 
       var teis = await _synchronizationService.getTeisFromOfflineDb();
-      if (teis.length > 0) {
+      if (teis.isNotEmpty) {
         List<List<dynamic>> chunkedTeis =
             AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
         int batch = 1;
@@ -395,7 +393,7 @@ class SynchronizationState with ChangeNotifier {
 
       var teiEnrollments =
           await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-      if (teiEnrollments.length > 0) {
+      if (teiEnrollments.isNotEmpty) {
         int batch = 1;
         List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
             items: teiEnrollments, size: dataUploadBatchSize * 2);
@@ -425,7 +423,7 @@ class SynchronizationState with ChangeNotifier {
 
       var teiRelationships =
           await _synchronizationService.getTeiRelationShipFromOfflineDb();
-      if (teiRelationships.length > 0) {
+      if (teiRelationships.isNotEmpty) {
         List<List<dynamic>> chunkedTeiRelationships = AppUtil.chunkItems(
             items: teiRelationships, size: dataUploadBatchSize * 2);
 
@@ -455,7 +453,7 @@ class SynchronizationState with ChangeNotifier {
         notifyListeners();
       }
       var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-      if (teiEvents.length > 0) {
+      if (teiEvents.isNotEmpty) {
         List<List<dynamic>> chunkedTeiEvents =
             AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
 
@@ -503,7 +501,7 @@ class SynchronizationState with ChangeNotifier {
     await Provider.of<ReferralNotificationState>(context!, listen: false)
         .reloadReferralNotifications();
     String lastDataUploadDate =
-        AppUtil.formattedDateTimeIntoString(new DateTime.now());
+        AppUtil.formattedDateTimeIntoString(DateTime.now());
     await PreferenceProvider.setPreferenceValue(
         lastDataUploadDatePreferenceKey, lastDataUploadDate);
     Provider.of<SynchronizationStatusState>(context!, listen: false)
@@ -551,7 +549,7 @@ class SynchronizationState with ChangeNotifier {
       _notificationProgress = count / totalCount;
       notifyListeners();
     } catch (error) {
-      print("syncReferralNotifications : ${error.toString()}");
+      //
     }
   }
 

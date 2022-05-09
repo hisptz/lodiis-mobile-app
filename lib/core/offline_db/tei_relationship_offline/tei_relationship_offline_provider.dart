@@ -30,7 +30,7 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
             noResult: true, continueOnError: true, exclusive: true);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -59,7 +59,9 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
               .add(TeiRelationship.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return teiRelationships;
   }
 
@@ -80,7 +82,9 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
               .add(TeiRelationship.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return teiRelationships;
   }
 }

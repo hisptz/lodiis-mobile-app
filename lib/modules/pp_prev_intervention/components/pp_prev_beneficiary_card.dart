@@ -33,63 +33,55 @@ class PpPrevBeneficiaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 20.0;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 15.0,
       ),
       child: MaterialCard(
-        body: Container(
-          child: Consumer<SynchronizationStatusState>(
-              builder: (context, synchronizationStatusState, child) {
-            List<String> unsyncedTeiReferences =
-                synchronizationStatusState.unsyncedTeiReferences;
+        body: Consumer<SynchronizationStatusState>(
+            builder: (context, synchronizationStatusState, child) {
+          List<String> unsyncedTeiReferences =
+              synchronizationStatusState.unsyncedTeiReferences;
 
-            return Column(
-              children: [
-                PpPrevBeneficiaryCardTop(
-                  ppPrevBeneficiary: ppPrevBeneficiary,
-                  onViewBeneficiary: onViewBeneficiary,
-                  iconHeight: iconHeight,
-                  isSynced: _syncStatusOfPpPrev(
-                    ppPrevBeneficiary,
-                    unsyncedTeiReferences,
+          return Column(
+            children: [
+              PpPrevBeneficiaryCardTop(
+                ppPrevBeneficiary: ppPrevBeneficiary,
+                onViewBeneficiary: onViewBeneficiary,
+                iconHeight: iconHeight,
+                isSynced: _syncStatusOfPpPrev(
+                  ppPrevBeneficiary,
+                  unsyncedTeiReferences,
+                ),
+                onEditBeneficiary: onEditBeneficiary,
+              ),
+              LineSeparator(
+                color: const Color(0xFF9B2BAE).withOpacity(0.4),
+              ),
+              PpPrevBeneficiaryCardBody(
+                ppPrevBeneficiary: ppPrevBeneficiary,
+              ),
+              Column(
+                children: [
+                  LineSeparator(
+                    color: const Color(0xFF9B2BAE).withOpacity(0.4),
                   ),
-                  onEditBeneficiary: onEditBeneficiary,
-                ),
-                Container(
-                  child: LineSeparator(
-                    color: Color(0xFF9B2BAE).withOpacity(0.4),
-                  ),
-                ),
-                PpPrevBeneficiaryCardBody(
-                  ppPrevBeneficiary: ppPrevBeneficiary,
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      LineSeparator(
-                        color: Color(0xFF9B2BAE).withOpacity(0.4),
+                  MaterialButton(
+                    onPressed: onOpenBeneficiaryServices,
+                    child: Text(
+                      'Services',
+                      style: const TextStyle().copyWith(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.normal,
+                        color: const Color(0xFF9B2BAE),
                       ),
-                      Container(
-                        child: MaterialButton(
-                          onPressed: onOpenBeneficiaryServices,
-                          child: Text(
-                            'Services',
-                            style: TextStyle().copyWith(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.normal,
-                              color: Color(0xFF9B2BAE),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            );
-          }),
-        ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          );
+        }),
       ),
     );
   }

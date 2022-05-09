@@ -5,9 +5,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildReferralSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -31,7 +31,7 @@ class OvcChildReferralSkipLogic {
         hiddenSections['SeRefoFa'] = true;
       }
       if (inputFieldId == 'LLWTHwhnch0' && value != 'null') {
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         if (value == 'Clinical Services') {
           hiddenOptions['Youth friendly services'] = true;
           hiddenOptions['Gender Based Violence'] = true;
@@ -101,7 +101,7 @@ class OvcChildReferralSkipLogic {
         hiddenInputFieldOptions['rsh5Kvx6qAU'] = hiddenOptions;
       }
       if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         if (value == 'Clinical Services') {
           hiddenOptions['Youth friendly services'] = true;
           hiddenOptions['Gender Based Violence'] = true;

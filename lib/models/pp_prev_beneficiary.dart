@@ -14,6 +14,8 @@ class PpPrevBeneficiary {
   String? createdDate;
   String? searchableValue;
   String? enrollment;
+  String? implementingPartner;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
   PpPrevBeneficiary({
@@ -28,7 +30,9 @@ class PpPrevBeneficiary {
     this.orgUnit,
     this.createdDate,
     this.enrollment,
+    this.implementingPartner,
     this.searchableValue,
+    this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
   });
   PpPrevBeneficiary fromTeiModel(
@@ -37,6 +41,7 @@ class PpPrevBeneficiary {
     String? location,
     String? createdDate,
     String? enrollment,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'RB8Wx75hGa4',
@@ -45,11 +50,12 @@ class PpPrevBeneficiary {
       'rSP9c21JsfC',
       'vIX4GTSCX4P',
       'qZP982qpSPS',
+      'klLkGxy328c'
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in trackedEntityInstance.attributes) {
       String? attribute = detailObj['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
@@ -71,6 +77,8 @@ class PpPrevBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      enrollmentOuAccessible: enrollmentOuAccessible,
+      implementingPartner: data['klLkGxy328c'] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
     );
   }

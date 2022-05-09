@@ -50,18 +50,16 @@ class _CheckBoxInputFieldState extends State<CheckBoxInputField> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          child: Checkbox(
-            value: _inputValue,
-            activeColor: _inputValue! ? widget.color : null,
-            checkColor: _inputValue! ? Colors.white : null,
-            onChanged: widget.isReadOnly ? null : onInputValueChange,
-          ),
+        Checkbox(
+          value: _inputValue,
+          activeColor: _inputValue! ? widget.color : null,
+          checkColor: _inputValue! ? Colors.white : null,
+          onChanged: widget.isReadOnly ? null : onInputValueChange,
         ),
         Expanded(
           child: Text(
             widget.label!,
-            style: TextStyle().copyWith(
+            style: const TextStyle().copyWith(
               color: _inputValue! ? widget.color : null,
             ),
           ),

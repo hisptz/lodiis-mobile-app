@@ -22,6 +22,7 @@ class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
     required this.themeColor,
     required this.domainId,
     required this.casePlanGap,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final String? casePlanGapToServiceMonitoringLinkageValue;
@@ -30,6 +31,7 @@ class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
   final String? domainId;
   final Color? themeColor;
   final Map casePlanGap;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapServiceMonitoringViewContainerState createState() =>
@@ -68,8 +70,8 @@ class _CasePlanGapServiceMonitoringViewContainerState
               TableCell(
                 child: Text(
                   currentLanguage == 'lesotho' ? 'Letsatsi' : 'Date',
-                  style: TextStyle().copyWith(
-                    color: Color(
+                  style: const TextStyle().copyWith(
+                    color: const Color(
                       0xFF8A9589,
                     ),
                     fontSize: 12.0,
@@ -80,8 +82,8 @@ class _CasePlanGapServiceMonitoringViewContainerState
               TableCell(
                 child: Text(
                   '',
-                  style: TextStyle().copyWith(
-                    color: Color(
+                  style: const TextStyle().copyWith(
+                    color: const Color(
                       0xFF8A9589,
                     ),
                     fontSize: 12.0,
@@ -96,8 +98,8 @@ class _CasePlanGapServiceMonitoringViewContainerState
               TableCell(
                 child: Text(
                   casePlanGapServiceMonitoring.date!,
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF1A3518),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF1A3518),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -106,8 +108,8 @@ class _CasePlanGapServiceMonitoringViewContainerState
               TableCell(
                 child: Text(
                   'Monitoring $index',
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF1A3518),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF1A3518),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -123,12 +125,13 @@ class _CasePlanGapServiceMonitoringViewContainerState
   onEditCasePlanServiceMonitoring(
       context, CasePlanGapServiceMonitoring casePlanGapServiceMonitoring,
       {bool isEditable = true}) async {
-    Map dataObject = Map();
+    Map dataObject = {};
     dataObject['eventDate'] = casePlanGapServiceMonitoring.date;
     dataObject['eventId'] = casePlanGapServiceMonitoring.id;
     for (Map dataValue in casePlanGapServiceMonitoring.eventData!.dataValues) {
-      if ('${dataValue['value']}'.isNotEmpty)
+      if ('${dataValue['value']}'.isNotEmpty) {
         dataObject[dataValue['dataElement']] = dataValue['value'];
+      }
     }
 
     Map casePlanGap = widget.casePlanGap;
@@ -148,137 +151,127 @@ class _CasePlanGapServiceMonitoringViewContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, child) {
-              bool isLoading = serviceEventDataState.isLoading;
-              Map<String?, List<Events>> eventListByProgramStage =
-                  serviceEventDataState.eventListByProgramStage;
-              List<Events> events = TrackedEntityInstanceUtil
-                  .getAllEventListFromServiceDataStateByProgramStages(
-                      eventListByProgramStage, [programStage]);
-              List<CasePlanGapServiceMonitoring> casePlanMonitoringEvents =
-                  events
-                      .map((Events eventData) => CasePlanGapServiceMonitoring()
-                          .fromTeiModel(
-                              eventData, casePlanGapToServiceMonitoringLinkage))
-                      .toList()
-                      .where((CasePlanGapServiceMonitoring
-                              casePlanGapServiceMonitoring) =>
-                          casePlanGapServiceMonitoring
-                              .casePlanGapToServiceMonitoringLinkage ==
-                          widget.casePlanGapToServiceMonitoringLinkageValue)
-                      .toList();
-              int index = casePlanMonitoringEvents.length;
-              return Container(
-                child: isLoading || !isViewReady
-                    ? Container(
-                        margin: EdgeInsets.only(top: 20.0),
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    : Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Visibility(
-                              visible: casePlanMonitoringEvents.length > 0,
-                              child: Container(
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, child) {
+            bool isLoading = serviceEventDataState.isLoading;
+            Map<String?, List<Events>> eventListByProgramStage =
+                serviceEventDataState.eventListByProgramStage;
+            List<Events> events = TrackedEntityInstanceUtil
+                .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage, [programStage]);
+            List<CasePlanGapServiceMonitoring> casePlanMonitoringEvents = events
+                .map((Events eventData) => CasePlanGapServiceMonitoring()
+                    .fromTeiModel(
+                        eventData, casePlanGapToServiceMonitoringLinkage))
+                .toList()
+                .where((CasePlanGapServiceMonitoring
+                        casePlanGapServiceMonitoring) =>
+                    casePlanGapServiceMonitoring
+                        .casePlanGapToServiceMonitoringLinkage ==
+                    widget.casePlanGapToServiceMonitoringLinkageValue)
+                .toList();
+            int index = casePlanMonitoringEvents.length;
+            return Container(
+              child: isLoading || !isViewReady
+                  ? Container(
+                      margin: const EdgeInsets.only(top: 20.0),
+                      child: const CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      ),
+                    )
+                  : Container(
+                      margin: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Visibility(
+                            visible: casePlanMonitoringEvents.isNotEmpty,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Monitoring',
+                                    style: const TextStyle().copyWith(
+                                      color: widget.themeColor,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Column(
+                            children: casePlanMonitoringEvents.reversed.map(
+                                (CasePlanGapServiceMonitoring
+                                    casePlanGapServiceMonitoring) {
+                              return Container(
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 10.0,
+                                ),
                                 child: Row(
                                   children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Monitoring',
-                                        style: TextStyle().copyWith(
+                                    _getTableViewWidget(
+                                      currentLanguage,
+                                      casePlanGapServiceMonitoring,
+                                      index--,
+                                    ),
+                                    InkWell(
+                                      onTap: () =>
+                                          onEditCasePlanServiceMonitoring(
+                                              context,
+                                              casePlanGapServiceMonitoring,
+                                              isEditable: false),
+                                      child: Container(
+                                        height: iconHeight,
+                                        width: iconHeight,
+                                        margin: const EdgeInsets.symmetric(
+                                          vertical: 5,
+                                          horizontal: 5,
+                                        ),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/expand_icon.svg',
                                           color: widget.themeColor,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: widget.hasEditAccess,
+                                      child: InkWell(
+                                        onTap: () =>
+                                            onEditCasePlanServiceMonitoring(
+                                          context,
+                                          casePlanGapServiceMonitoring,
+                                        ),
+                                        child: Container(
+                                          height: iconHeight,
+                                          width: iconHeight,
+                                          margin: const EdgeInsets.symmetric(
+                                            vertical: 5,
+                                            horizontal: 5,
+                                          ),
+                                          child: SvgPicture.asset(
+                                            'assets/icons/edit-icon.svg',
+                                            color: widget.themeColor,
+                                          ),
                                         ),
                                       ),
                                     )
                                   ],
                                 ),
-                              ),
-                            ),
-                            Container(
-                              child: Column(
-                                children: casePlanMonitoringEvents.reversed.map(
-                                    (CasePlanGapServiceMonitoring
-                                        casePlanGapServiceMonitoring) {
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        _getTableViewWidget(
-                                          currentLanguage,
-                                          casePlanGapServiceMonitoring,
-                                          index--,
-                                        ),
-                                        Container(
-                                          child: InkWell(
-                                            onTap: () =>
-                                                onEditCasePlanServiceMonitoring(
-                                                    context,
-                                                    casePlanGapServiceMonitoring,
-                                                    isEditable: false),
-                                            child: Container(
-                                              height: iconHeight,
-                                              width: iconHeight,
-                                              margin: EdgeInsets.symmetric(
-                                                vertical: 5,
-                                                horizontal: 5,
-                                              ),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/expand_icon.svg',
-                                                color: widget.themeColor,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Container(
-                                            child: InkWell(
-                                              onTap: () =>
-                                                  onEditCasePlanServiceMonitoring(
-                                                context,
-                                                casePlanGapServiceMonitoring,
-                                              ),
-                                              child: Container(
-                                                height: iconHeight,
-                                                width: iconHeight,
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5,
-                                                  horizontal: 5,
-                                                ),
-                                                child: SvgPicture.asset(
-                                                  'assets/icons/edit-icon.svg',
-                                                  color: widget.themeColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ],
-                        ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
                       ),
-              );
-            },
-          );
-        },
-      ),
+                    ),
+            );
+          },
+        );
+      },
     );
   }
 }

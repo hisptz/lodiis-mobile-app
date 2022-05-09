@@ -6,7 +6,6 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_ongoing_monitoring.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/pages/ovc_service_case_plan_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_monitor/components/monitor_list_container.dart';
@@ -48,7 +47,7 @@ class _OvcServiceMonitoringState extends State<OvcServiceMonitoring> {
       String casePlanToGapLinkage = AppUtil.getUid();
       Map map = sanitizedDataObject.containsKey(formSectionId)
           ? sanitizedDataObject[formSectionId]
-          : Map();
+          : {};
       map['gaps'] = map['gaps'] ?? [];
       map[OvcCasePlanConstant.casePlanToGapLinkage] =
           map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
@@ -73,9 +72,12 @@ class _OvcServiceMonitoringState extends State<OvcServiceMonitoring> {
       context,
       MaterialPageRoute(
         builder: (context) => OcvServiceCasePlanForm(
-            shouldEditCaseGapServiceProvision: true,
-            shouldViewCaseGapServiceProvision: true,
-            isServiceMonitoring: true),
+          hasEditAccess:
+              AppUtil.hasAccessToEditCasePlanServiceData(casePlanEvents),
+          shouldEditCaseGapServiceProvision: true,
+          shouldViewCaseGapServiceProvision: true,
+          isServiceMonitoring: true,
+        ),
       ),
     );
   }
@@ -83,33 +85,29 @@ class _OvcServiceMonitoringState extends State<OvcServiceMonitoring> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, _) {
-          bool isLoading = serviceEventDataState.isLoading;
-          Map<String?, List<Events>> eventListByProgramStage =
-              serviceEventDataState.eventListByProgramStage;
+      child: Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, _) {
+        bool isLoading = serviceEventDataState.isLoading;
+        Map<String?, List<Events>> eventListByProgramStage =
+            serviceEventDataState.eventListByProgramStage;
 
-          return isLoading
-              ? CircularProgressIndicator()
-              : Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      MonitoringHomeListContainer(
-                        programStageIds: casePlanProgramStageIds,
-                        onViewCasePlan: (casePlanEvents) => onViewCasePlan(
-                          context,
-                          casePlanEvents,
-                          eventListByProgramStage,
-                        ),
-                      ),
-                    ],
+        return isLoading
+            ? const CircularProgressIndicator()
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  MonitoringHomeListContainer(
+                    programStageIds: casePlanProgramStageIds,
+                    onViewCasePlan: (casePlanEvents) => onViewCasePlan(
+                      context,
+                      casePlanEvents,
+                      eventListByProgramStage,
+                    ),
                   ),
-                );
-        }),
-      ),
+                ],
+              );
+      }),
     );
   }
 }

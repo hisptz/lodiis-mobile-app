@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -12,6 +11,7 @@ import 'package:kb_mobile_app/core/components/referrals/referral_card_data.dart'
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -65,8 +65,9 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   @override
   void initState() {
     super.initState();
-    buttonLabelColor =
-        widget.isOvcIntervention ? Color(0xFF4B9F46) : Color(0xFF1F8ECE);
+    buttonLabelColor = widget.isOvcIntervention
+        ? const Color(0xFF4B9F46)
+        : const Color(0xFF1F8ECE);
     setState(() {});
   }
 
@@ -79,34 +80,12 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
     }
   }
 
-  void updateFormState(
-    BuildContext context,
-    bool isEditableMode,
-    Events eventData,
-  ) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
-  }
-
   onEditReferral(BuildContext context) async {
     CurrentUser? user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)
         .setImplementingPartnerServices();
-    updateFormState(context, true, widget.eventData);
+    FormUtil.updateServiceFormState(context, true, widget.eventData);
     dynamic beneficiary = widget.isOvcIntervention
         ? widget.isHouseholdReferral
             ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
@@ -136,8 +115,8 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
         MaterialPageRoute(
           builder: (context) => widget.isOvcIntervention
               ? widget.isHouseholdReferral
-                  ? OvcHouseholdAddReferralForm()
-                  : OvcChildReferralAddForm()
+                  ? const OvcHouseholdAddReferralForm()
+                  : const OvcChildReferralAddForm()
               : DreamsAgywAddReferralForm(
                   currentUser: user,
                 ),
@@ -148,105 +127,99 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, child) {
-              Map<String?, List<Events>> eventListByProgramStage =
-                  serviceEventDataState.eventListByProgramStage;
-              List<Events> eventList =
-                  TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
-                      eventListByProgramStage);
-              if (eventList.isNotEmpty) {
-                Events currentReferralEvent = eventList.firstWhere(
-                    (Events eventData) =>
-                        eventData.event == widget.eventData.event);
-                if (currentReferralEvent != null) {
-                  onUpdateEventData(currentReferralEvent);
-                }
-              }
-              return isLoading || referralDataCard == null
-                  ? Container(
-                      child: CircularProcessLoader(
-                        color: Colors.grey,
-                      ),
-                    )
-                  : Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 15.0,
-                              horizontal: 15.0,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Referral ${widget.referralIndex.toString()}',
-                                    style: TextStyle().copyWith(
-                                      color: widget.titleColor,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14.0,
-                                    ),
-                                  ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, child) {
+            Map<String?, List<Events>> eventListByProgramStage =
+                serviceEventDataState.eventListByProgramStage;
+            List<Events> eventList =
+                TrackedEntityInstanceUtil.getAllEventListFromServiceDataState(
+                    eventListByProgramStage);
+            if (eventList.isNotEmpty) {
+              Events currentReferralEvent = eventList.firstWhere(
+                  (Events eventData) =>
+                      eventData.event == widget.eventData.event);
+              onUpdateEventData(currentReferralEvent);
+            }
+            return isLoading || referralDataCard == null
+                ? const CircularProcessLoader(
+                    color: Colors.grey,
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal: 15.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Referral ${widget.referralIndex.toString()}',
+                                style: const TextStyle().copyWith(
+                                  color: widget.titleColor,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.0,
                                 ),
-                                Visibility(
-                                  visible: widget.isEditable &&
+                              ),
+                            ),
+                            Visibility(
+                              visible:
+                                  widget.eventData.enrollmentOuAccessible! &&
+                                      widget.isEditable &&
                                       referralOutComeEvent != null &&
                                       referralOutComeEvent!
                                               .dateClientReachStation ==
                                           '',
-                                  child: InkWell(
-                                    onTap: () => onEditReferral(context),
-                                    child: Container(
-                                      height: editIconHeight,
-                                      width: editIconHeight,
-                                      margin: EdgeInsets.symmetric(
-                                        vertical: 5.0,
-                                        horizontal: 5.0,
-                                      ),
-                                      child: SvgPicture.asset(
-                                        'assets/icons/edit-icon.svg',
-                                        color: buttonLabelColor,
-                                      ),
-                                    ),
+                              child: InkWell(
+                                onTap: () => onEditReferral(context),
+                                child: Container(
+                                  height: editIconHeight,
+                                  width: editIconHeight,
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 5.0,
+                                    horizontal: 5.0,
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                          LineSeparator(
-                            color: widget.borderColor,
-                            height: 2,
-                          ),
-                          Visibility(
-                            visible: referralDataCard != null,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal: 13.0,
-                                vertical: 10.0,
+                                  child: SvgPicture.asset(
+                                    'assets/icons/edit-icon.svg',
+                                    color: buttonLabelColor,
+                                  ),
+                                ),
                               ),
-                              child: ReferralCardData(
-                                currentLanguage: currentLanguage!,
-                                labelColor: widget.labelColor,
-                                valueColor: widget.valueColor,
-                                referralDataCard: referralDataCard!,
-                                isIncomingReferral: widget.isIncomingReferral,
-                              ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    );
-            },
-          );
-        },
-      ),
+                      LineSeparator(
+                        color: widget.borderColor,
+                        height: 2,
+                      ),
+                      Visibility(
+                        visible: referralDataCard != null,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 13.0,
+                            vertical: 10.0,
+                          ),
+                          child: ReferralCardData(
+                            currentLanguage: currentLanguage!,
+                            labelColor: widget.labelColor,
+                            valueColor: widget.valueColor,
+                            referralDataCard: referralDataCard!,
+                            isIncomingReferral: widget.isIncomingReferral,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+          },
+        );
+      },
     );
   }
 }

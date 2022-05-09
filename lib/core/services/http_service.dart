@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class HttpService {
-  static final String baseUrl = 'lsis-ovc-dreams.org';
+  static const String baseUrl = 'lsis-ovc-dreams.org';
   final String? username;
   final String? password;
   String? basicAuth;
 
   HttpService({required this.username, required this.password}) {
-    this.basicAuth = base64Encode(utf8.encode('$username:$password'));
+    basicAuth = base64Encode(utf8.encode('$username:$password'));
   }
 
   Uri getApiUrl(String url, {Map<String, dynamic>? queryParameters}) {
@@ -64,9 +64,16 @@ class HttpService {
     Map<String, dynamic>? queryParameters,
   }) async {
     Uri apiUrl = getApiUrl(url, queryParameters: queryParameters);
-    return await http.get(apiUrl, headers: {
+    apiUrl = sanitizeUrl(apiUrl);
+    return await http.get((apiUrl), headers: {
       HttpHeaders.authorizationHeader: "Basic $basicAuth",
     });
+  }
+
+  // A hack around having query parameters in the url that are having the same key
+  Uri sanitizeUrl(Uri url) {
+    String urlToParse = Uri.decodeFull(url.toString());
+    return Uri.parse(urlToParse);
   }
 
   Future<http.Response> httpGetPagination(
@@ -79,7 +86,7 @@ class HttpService {
       "fields": "none",
     };
     dataQueryParameters.addAll(queryParameters as Map<String, String?>);
-    return await this.httpGet(url, queryParameters: dataQueryParameters);
+    return await httpGet(url, queryParameters: dataQueryParameters);
   }
 
   @override

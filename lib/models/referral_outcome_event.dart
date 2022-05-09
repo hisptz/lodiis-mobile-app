@@ -7,6 +7,7 @@ class ReferralOutcomeEvent {
   String? referralReference;
   bool? requiredFollowUp;
   String? comments;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   ReferralOutcomeEvent({
@@ -16,6 +17,7 @@ class ReferralOutcomeEvent {
     this.requiredFollowUp,
     this.referralReference,
     this.comments,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -30,10 +32,10 @@ class ReferralOutcomeEvent {
       'Ep3atnNQGTY',
       referralToFollowUpLinkage
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in eventData.dataValues) {
       String? dataElement = detailObj['dataElement'];
-      if (dataElement != null && keys.indexOf(dataElement) > -1) {
+      if (dataElement != null && keys.contains(dataElement)) {
         data[dataElement] = '${detailObj['value']}'.trim();
       }
     }
@@ -46,6 +48,7 @@ class ReferralOutcomeEvent {
       requiredFollowUp: data.containsKey('Ep3atnNQGTY')
           ? '${data['Ep3atnNQGTY']}'.trim() == 'true'
           : false,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

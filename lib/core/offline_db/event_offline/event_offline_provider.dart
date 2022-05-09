@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
@@ -51,7 +52,7 @@ class EventOfflineProvider extends OfflineDbProvider {
             exclusive: true, noResult: true, continueOnError: true);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -64,14 +65,15 @@ class EventOfflineProvider extends OfflineDbProvider {
         offlineEventIds.addAll(maps.map((map) => map[id] as String?).toList());
       }
     } catch (error) {
-      print("getAllOfflineTrackedEntitiyInstanceIds : ${error.toString()}");
+      //
     }
     return offlineEventIds.toSet().toList();
   }
 
   Future<List<Events>> getTrackedEntityInstanceEvents(
-    List<String?> trackedEntityInstanceIds,
-  ) async {
+    List<String?> trackedEntityInstanceIds, {
+    List<String>? accessibleOrgUnits,
+  }) async {
     List<Events> events = [];
     try {
       var dbClient = await db;
@@ -97,12 +99,16 @@ class EventOfflineProvider extends OfflineDbProvider {
             List dataValues = await EventOfflineDataValueProvider()
                 .getEventDataValuesByEventId(map['id']);
             Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+            eventData.enrollmentOuAccessible =
+                accessibleOrgUnits?.contains(eventData.orgUnit);
             eventData.dataValues = dataValues;
             events.add(eventData);
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return events..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
 
@@ -135,7 +141,9 @@ class EventOfflineProvider extends OfflineDbProvider {
                 ? map[trackedEntityInstance]
                 : map[event]));
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return references.toSet().toList();
   }
 
@@ -143,6 +151,8 @@ class EventOfflineProvider extends OfflineDbProvider {
       {String programId = '', String programStageId = '', int? page}) async {
     List<NoneParticipationBeneficiary> eventsProgramBeneficiaries = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       var dbClient = await db;
       List<Map> maps = await dbClient!.query(table,
           columns: [
@@ -168,11 +178,15 @@ class EventOfflineProvider extends OfflineDbProvider {
               .getEventDataValuesByEventId(map['id']);
           Events eventData = Events.fromOffline(map as Map<String, dynamic>);
           eventData.dataValues = dataValues;
+          eventData.enrollmentOuAccessible =
+              accessibleOrgUnits.contains(eventData.orgUnit);
           eventsProgramBeneficiaries
               .add(NoneParticipationBeneficiary().fromEventsModel(eventData));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return eventsProgramBeneficiaries
       ..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
@@ -184,8 +198,11 @@ class EventOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       offlineEventsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $programStage = ?',
+          // ignore: unnecessary_string_interpolations
           ['$programId', '$programStageId']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return offlineEventsCount ?? 0;
   }
 
@@ -259,7 +276,9 @@ class EventOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return events..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
 
@@ -286,7 +305,9 @@ class EventOfflineProvider extends OfflineDbProvider {
               .addAll(maps.map((Map map) => map[trackedEntityInstance] ?? ""));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return teiIds;
   }
 
@@ -296,9 +317,11 @@ class EventOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       eventsCounts = Sqflite.firstIntValue(await dbClient!
           .rawQuery('SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', [
-        '$status',
+        status,
       ]));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return eventsCounts ?? 0;
   }
 
@@ -309,7 +332,9 @@ class EventOfflineProvider extends OfflineDbProvider {
       offlineEventsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
           ['$programId', '$orgUnitId']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return offlineEventsCount ?? 0;
   }
 }

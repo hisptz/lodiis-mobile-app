@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
@@ -18,6 +17,7 @@ class OgacInterventionListState with ChangeNotifier {
   int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   String _searchableValue = '';
+  List<Map<String, dynamic>> _ogacFilters = [];
   PagingController? _ogacPagingController;
 
   OgacInterventionListState(this.context);
@@ -26,7 +26,26 @@ class OgacInterventionListState with ChangeNotifier {
   int get numberOfOgac => _numberOfOgac;
   int get numberOfPages =>
       _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
+  List<Map<String, dynamic>> get ogacFilters => _ogacFilters
+      .where((Map<String, dynamic> filter) => filter.isNotEmpty)
+      .toList();
   PagingController? get pagingController => _ogacPagingController;
+
+  void setOgacFilter(List<Map<String, dynamic>> ogacFilters) {
+    _ogacFilters = ogacFilters;
+    notifyListeners();
+    refreshOgacList();
+  }
+
+  void clearOgacFilter() {
+    _ogacFilters.clear();
+    notifyListeners();
+    refreshOgacList();
+  }
+
+  int getOgacFilterCount() {
+    return _ogacFilters.length;
+  }
 
   void initializePagination() {
     _ogacPagingController =
@@ -39,8 +58,8 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> _fetchOgacPage(int pageKey) async {
     String searchableValue = _searchableValue;
-    List ogacList = await OgacEnrollmentService()
-        .getOgacBeneficiaries(page: pageKey, searchableValue: searchableValue);
+    List ogacList = await OgacEnrollmentService().getOgacBeneficiaries(
+        page: pageKey, searchableValue: searchableValue, filters: _ogacFilters);
     if (ogacList.isEmpty && pageKey < numberOfPages) {
       _fetchOgacPage(pageKey + 1);
     } else {

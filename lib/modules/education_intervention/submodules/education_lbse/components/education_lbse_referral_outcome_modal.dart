@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -33,29 +34,63 @@ class EducationLbseRefferalOutcomeModal extends StatefulWidget {
 
 class _EducationLbseRefferalOutcomeModalState
     extends State<EducationLbseRefferalOutcomeModal> {
-  Map mandatoryFieldObject = Map();
+  Map mandatoryFieldObject = {};
+  List<FormSection>? defaultFormSections;
+  List<FormSection>? formSections;
   List unFilledMandatoryFields = [];
+  List mandatoryFields = [];
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in widget.mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-    });
-    evaluateSkipLogics();
-    isFormReady = true;
-    Timer(Duration(seconds: 1), () {
+    setFormSections();
+    Timer(const Duration(seconds: 1), () {
+      evaluateSkipLogics();
+      isFormReady = true;
       setState(() {});
     });
   }
 
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    setState(() {});
+  }
+
+  setFormSections() {
+    EducationBeneficiary lbseBeneficiary =
+        Provider.of<EducationInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentBeneficiciary!;
+    defaultFormSections = widget.formSections;
+    mandatoryFields.addAll(widget.mandatoryFields);
+    if (lbseBeneficiary.enrollmentOuAccessible!) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: LbseInterventionConstant.inputColor,
+        labelColor: LbseInterventionConstant.labelColor,
+        sectionLabelColor: LbseInterventionConstant.inputColor,
+        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
+        program: LbseInterventionConstant.program,
+      );
+      formSections = [serviceProvisionForm, ...defaultFormSections!];
+      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      ));
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
+  }
+
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -78,6 +113,7 @@ class _EducationLbseRefferalOutcomeModalState
     BuildContext context,
     Map dataObject,
   ) async {
+    setMandatoryFields(dataObject);
     EducationBeneficiary? lbseBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
@@ -104,19 +140,20 @@ class _EducationLbseRefferalOutcomeModalState
         referralToReferralOutcomeLinkage,
         referralOutcomeToReferralOutComeFollowingUpLinkage
       ];
+      String orgUnit = dataObject['location'] ?? lbseBeneficiary?.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,
           LbseInterventionConstant.referralOutcomeProgamStage,
-          lbseBeneficiary?.orgUnit,
-          widget.formSections,
+          orgUnit,
+          defaultFormSections!,
           dataObject,
           eventDate,
           lbseBeneficiary?.id,
           eventId,
           hiddenFields,
         );
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
                   .currentLanguage;
@@ -131,7 +168,7 @@ class _EducationLbseRefferalOutcomeModalState
           Navigator.pop(context);
         });
       } catch (e) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
               message: e.toString(),
@@ -153,90 +190,86 @@ class _EducationLbseRefferalOutcomeModalState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-          builder: (context, languageTranslationState, child) {
-        String? currentLanguage = languageTranslationState.currentLanguage;
-        return Consumer<ServiceFormState>(
-            builder: (context, serviceFormState, child) {
-          return Container(
-            child: !isFormReady
-                ? Container(
-                    child: CircularProcessLoader(
-                      color: Colors.blueGrey,
-                    ),
-                  )
-                : Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: 10.0,
-                          left: 13.0,
-                          right: 13.0,
-                        ),
-                        child: EntryFormContainer(
-                          elevation: 0.0,
-                          hiddenFields: serviceFormState.hiddenFields,
-                          hiddenSections: serviceFormState.hiddenSections,
-                          formSections: widget.formSections,
-                          mandatoryFieldObject: mandatoryFieldObject,
-                          hiddenInputFieldOptions:
-                              serviceFormState.hiddenInputFieldOptions,
-                          unFilledMandatoryFields: unFilledMandatoryFields,
-                          isEditableMode: serviceFormState.isEditableMode,
-                          dataObject: serviceFormState.formState,
-                          onInputValueChange: onInputValueChange,
-                        ),
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String? currentLanguage = languageTranslationState.currentLanguage;
+      return Consumer<ServiceFormState>(
+          builder: (context, serviceFormState, child) {
+        return Container(
+          child: !isFormReady
+              ? const CircularProcessLoader(
+                  color: Colors.blueGrey,
+                )
+              : Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 10.0,
+                        left: 13.0,
+                        right: 13.0,
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
-                        ),
-                        child: Visibility(
-                          visible: serviceFormState.isEditableMode,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Color(0xFF009688),
+                      child: EntryFormContainer(
+                        elevation: 0.0,
+                        hiddenFields: serviceFormState.hiddenFields,
+                        hiddenSections: serviceFormState.hiddenSections,
+                        formSections: formSections,
+                        mandatoryFieldObject: mandatoryFieldObject,
+                        hiddenInputFieldOptions:
+                            serviceFormState.hiddenInputFieldOptions,
+                        unFilledMandatoryFields: unFilledMandatoryFields,
+                        isEditableMode: serviceFormState.isEditableMode,
+                        dataObject: serviceFormState.formState,
+                        onInputValueChange: onInputValueChange,
+                      ),
+                    ),
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(12.0),
+                        bottomRight: Radius.circular(12.0),
+                      ),
+                      child: Visibility(
+                        visible: serviceFormState.isEditableMode,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: const Color(0xFF009688),
+                                ),
+                                onPressed: () => !isSaving
+                                    ? onSaveForm(
+                                        context,
+                                        serviceFormState.formState,
+                                      )
+                                    : null,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 22.0,
                                   ),
-                                  onPressed: () => !isSaving
-                                      ? onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                        )
-                                      : null,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 22.0,
-                                    ),
-                                    child: Text(
-                                      isSaving
-                                          ? 'SAVING OUTCOME ...'
-                                          : currentLanguage == 'lesotho'
-                                              ? 'SAVE OUTCOME'
-                                              : 'SAVE OUTCOME',
-                                      style: TextStyle().copyWith(
-                                        color: Color(0xFFFAFAFA),
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                  child: Text(
+                                    isSaving
+                                        ? 'SAVING OUTCOME ...'
+                                        : currentLanguage == 'lesotho'
+                                            ? 'SAVE OUTCOME'
+                                            : 'SAVE OUTCOME',
+                                    style: const TextStyle().copyWith(
+                                      color: const Color(0xFFFAFAFA),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-          );
-        });
-      }),
-    );
+                    ),
+                  ],
+                ),
+        );
+      });
+    });
   }
 }

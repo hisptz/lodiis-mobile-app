@@ -71,7 +71,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
     return MaterialCard(body: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
       return Container(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             RichText(
@@ -82,21 +82,18 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                       fontSize: 13.0,
                       fontWeight: FontWeight.normal,
                     ))),
-            Container(
-              child: SelectInputField(
-                hiddenInputFieldOptions: Map(),
-                currentLanguage: languageTranslationState.currentLanguage,
-                color:
-                    Provider.of<InterventionCardState>(context, listen: false)
-                        .currentInterventionProgram
-                        .primaryColor,
-                isReadOnly: widget.isSyncActive,
-                renderAsRadio: syncActionInput.renderAsRadio,
-                onInputValueChange: (dynamic value) =>
-                    onSyncActionSelection(context, value),
-                options: syncActionInput.options,
-                selectedOption: selectedSyncAction ?? widget.selectedSyncAction,
-              ),
+            SelectInputField(
+              hiddenInputFieldOptions: const {},
+              currentLanguage: languageTranslationState.currentLanguage,
+              color: Provider.of<InterventionCardState>(context, listen: false)
+                  .currentInterventionProgram
+                  .primaryColor,
+              isReadOnly: widget.isSyncActive,
+              renderAsRadio: syncActionInput.renderAsRadio,
+              onInputValueChange: (dynamic value) =>
+                  onSyncActionSelection(context, value),
+              options: syncActionInput.options,
+              selectedOption: selectedSyncAction ?? widget.selectedSyncAction,
             ),
             LineSeparator(
                 color:
@@ -106,7 +103,7 @@ class _SynchronizationActionFormState extends State<SynchronizationActionForm> {
                         .withOpacity(0.3)),
             Center(
               child: Container(
-                margin: EdgeInsets.only(top: 15.0),
+                margin: const EdgeInsets.only(top: 15.0),
                 child: EntryFormSaveButton(
                   marginLeft: 80.0,
                   marginRight: 80.0,

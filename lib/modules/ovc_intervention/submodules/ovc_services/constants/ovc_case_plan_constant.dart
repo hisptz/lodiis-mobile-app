@@ -1,17 +1,17 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class OvcCasePlanConstant {
-  static final String casePlanToGapLinkage = 'ajqTV28fydL';
-  static final String casePlanGapToMonitoringLinkage = 'H7BMnqZEqGN';
-  static final String casePlanGapToServiceProvisionLinkage = 'tDWIRBsuwsB';
-  static final String casePlanDomainType = 'vexrPNgPBYg';
-  static final String casePlanFirstGoal = 'ADc3clrQRl4';
+  static const String casePlanToGapLinkage = 'ajqTV28fydL';
+  static const String casePlanGapToMonitoringLinkage = 'H7BMnqZEqGN';
+  static const String casePlanGapToServiceProvisionLinkage = 'tDWIRBsuwsB';
+  static const String casePlanDomainType = 'vexrPNgPBYg';
+  static const String casePlanFirstGoal = 'ADc3clrQRl4';
 
   static Map getMappedCasePlanWithGapsByDomain(
     List<Events> casePlanEvents,
     List<Events> casePlanGapsEvents,
   ) {
-    Map sanitizedDataObject = Map();
+    Map sanitizedDataObject = {};
     List<Map> mappedCasePlanGaps =
         OvcCasePlanConstant.getMappedCasePlanGaps(casePlanGapsEvents)
             as List<Map<dynamic, dynamic>>;
@@ -22,12 +22,13 @@ class OvcCasePlanConstant {
               'casePlanToGapLinkage';
       data['gaps'] = mappedCasePlanGaps
           .where((Map data) =>
-              '$casePlanToGapLinkageValue'.trim() != '' &&
+              casePlanToGapLinkageValue.trim() != '' &&
               data.containsValue(casePlanToGapLinkageValue))
           .toList();
-      if (data.containsKey(OvcCasePlanConstant.casePlanDomainType))
+      if (data.containsKey(OvcCasePlanConstant.casePlanDomainType)) {
         sanitizedDataObject[data[OvcCasePlanConstant.casePlanDomainType]] =
             data;
+      }
     }
     return sanitizedDataObject;
   }
@@ -41,7 +42,7 @@ class OvcCasePlanConstant {
   }
 
   static Map getMappedEventObject(Events eventData) {
-    Map map = Map();
+    Map map = {};
     map['eventDate'] = eventData.eventDate;
     map['eventId'] = eventData.event;
     for (Map dataValue in eventData.dataValues) {

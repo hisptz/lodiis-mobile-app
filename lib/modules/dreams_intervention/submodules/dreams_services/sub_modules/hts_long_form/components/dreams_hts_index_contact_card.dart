@@ -25,16 +25,14 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.date);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.id);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventDate', eventData.date);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('eventId', eventData.id);
+    for (Map dataValue in eventData.dataValues) {
+      if (dataValue['value'] != '') {
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
       }
     }
   }
@@ -45,7 +43,7 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsIndexInfoAboutPosClient(),
+        builder: (context) => const AgywDreamsIndexInfoAboutPosClient(),
       ),
     );
   }
@@ -56,7 +54,7 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsIndexInfoAboutPosClient(),
+        builder: (context) => const AgywDreamsIndexInfoAboutPosClient(),
       ),
     );
   }
@@ -64,22 +62,17 @@ class DreamsHTSIndexContactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
-        margin: EdgeInsets.only(bottom: 16.0),
-        child: MaterialCard(
-          body: Container(
-            child: Column(
-              children: [
-                Container(
-                    child: DreamsHTSIndexContactCardHeader(
-                  event: event,
-                )),
-                DreamsHTSIndexContactCardBody(
-                  event: event,
-                )
-              ],
+      margin: const EdgeInsets.only(bottom: 16.0),
+      child: MaterialCard(
+        body: Column(
+          children: [
+            DreamsHTSIndexContactCardHeader(
+              event: event,
             ),
-          ),
+            DreamsHTSIndexContactCardBody(
+              event: event,
+            )
+          ],
         ),
       ),
     );

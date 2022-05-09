@@ -8,15 +8,15 @@ class OvcServicesHivScreening {
     return [
       FormSection(
           name: 'HIV Risk Assessment',
-          color: Color(0xFF4B9F46),
+          color: const Color(0xFF4B9F46),
           inputFields: [
             InputField(
                 id: 'kL4IhnhdKZv',
                 name: 'Assessment enrollment criteria',
                 translatedName: 'Lebaka la tlhahlobo ea boemo ba kotsi ea HIV',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       translatedName: 'Boemo ba HIV bo sa tsebahaleng',
@@ -43,8 +43,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '01. Na Ntate kapa ‘M’e oa ngoana o phela kapa o ne a phela le tsoaetso ea HIV?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -62,8 +62,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '02.Na e mong oa bana  ba bo ngoana eo o phela kapa o ne a phela le tsoaetso HIV?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -81,8 +81,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '03. Na ho na le emong oa batsoali ba ngoana eo ea hlokahetseng ka lebaka la bokuli bo sa phekoleheng kapa bo sa boleloang?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -100,8 +100,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '04. Na e mong oa bana  ba bo ngoana eo o hlokahetse ka lebaka la bokuli bo sa phekoleheng kapa bo sa boleloang?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -119,8 +119,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '05.Na ngoana o kile a kena sepetlele kapa a bontsa mats’oao a phepo e sa nepahalang likhoeling tse 12 tse fetileng?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -138,8 +138,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '06. Na ngoana eo o na le bothata ba letlalo kapa liso tsa lehano kapa ho khohlela ho sa eng meriting?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -157,8 +157,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '07. Na ngoana eo o kile a khathatsoa ke bokuli likhoeling tse tharo tse fetileng?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -176,8 +176,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '08.Na ho na le e mong oa lelapa ea bileng le lefuba (TB) likhoeling tse 6 tse fetileng?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -195,8 +195,8 @@ class OvcServicesHivScreening {
                 valueType: 'TEXT',
                 translatedName:
                     '09. Na ngoana eo o kile a ba maemong a mmehang tlokotsing ea tlhekefetso ea motabo?',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
                       code: 'Yes', name: 'Yes', translatedName: 'E'),
@@ -213,16 +213,16 @@ class OvcServicesHivScreening {
                     '10. Na ngoana o sa bonahala e ka o sa kene litabeng tsa  thobalanong?',
                 name: '10. Is the adolescent sexually active?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'VJh6KDlBkfb',
                 translatedName:
                     '11. Ho latela likarabo tse fanoeng na ngoana eo o lokela ho hlahlobela HIV?',
                 name: '11. Is this child/adolescent eligible for an HIV test?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'SDPCwdDB9yX',
                 translatedName:
@@ -230,16 +230,16 @@ class OvcServicesHivScreening {
                 name:
                     '12. Has the caregiver/OVC >12 years accepted to have the child tested?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'v0ArPi4Rk4o',
                 translatedName:
                     '13. Bao boemo ba HIV bo sa boleloang, mme ba le kotsing ea HIV, ba fetisetsoe ho Social Worker ea morero.',
                 name: '13. Refer to Social Worker?',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'hivriskres',
                 name: 'HIV RISK ASSESSMENT RESULTS',
@@ -250,8 +250,8 @@ class OvcServicesHivScreening {
                   InputFieldOption(code: 'Low risk', name: 'Low risk')
                 ],
                 isReadOnly: true,
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373))
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373))
           ])
     ];
   }

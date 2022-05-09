@@ -1,5 +1,8 @@
+import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
+import 'package:kb_mobile_app/core/utils/data_quality_util.dart';
+import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
@@ -42,7 +45,7 @@ class DataQualityService {
               .getTrackedEntityAttributesValuesById(fieldsToBeMigrated);
 
       for (dynamic attributeData in attributesToMigrate) {
-        Map resolvedAttribute = Map<String, dynamic>();
+        Map resolvedAttribute = <String, dynamic>{};
         String attribute = attributeData['attribute'] ?? '';
         String trackedEntityInstance =
             attributeData['trackedEntityInstance'] ?? '';
@@ -103,7 +106,9 @@ class DataQualityService {
         await TrackedEntityInstanceOfflineAttributeProvider()
             .deleteTrackedEntityAttributesByIds(fieldsToBeMigrated);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   static void runDataQualityCheckResolution() async {
@@ -116,11 +121,10 @@ class DataQualityService {
         .toList()
         .toSet()
         .toList();
-    // @TODO filtering list with those who fail to sync
     List attributes = await TrackedEntityInstanceOfflineAttributeProvider()
         .getTrackedEntityAttributesValuesById(attributeIds);
     for (Map attributeObject in attributes) {
-      Map resolvedAttribute = Map<String, dynamic>();
+      Map resolvedAttribute = <String, dynamic>{};
       resolvedAttribute["id"] = attributeObject["id"];
       resolvedAttribute["trackedEntityInstance"] =
           attributeObject["trackedEntityInstance"];
@@ -132,6 +136,28 @@ class DataQualityService {
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateMultipleTrackedEntityInstanceAttributes(resolvedAttributes);
     await migrateOptionSetsToCheckBox();
+    await enrollmentSearchableValueMigration();
+  }
+
+  static Future<void> enrollmentSearchableValueMigration() async {
+    int enrollmentWithoutSearchableValue = await EnrollmentOfflineProvider()
+        .getOfflineEnrollmentsWithoutSearchableValueCount();
+
+    List<int> pages =
+        DataQualityUtil().getPagination(enrollmentWithoutSearchableValue);
+    for (var page in pages) {
+      List<Enrollment> enrollments =
+          await EnrollmentOfflineProvider().getAllEnrollments(page);
+
+      for (Enrollment enrollment in enrollments) {
+        String searchableValue =
+            await TrackedEntityInstanceOfflineAttributeProvider()
+                .getSearchableFieldFromTrackedEntityAttributes(
+                    enrollment.trackedEntityInstance ?? '');
+        enrollment.searchableValue = searchableValue;
+        await EnrollmentOfflineProvider().addOrUpdateEnrollment(enrollment);
+      }
+    }
   }
 
   static List<InputField> getNumericalInputFields(
@@ -156,8 +182,7 @@ class DataQualityService {
   ) {
     return inputFields
         .where((InputField inputField) =>
-            "${inputField.valueType}".toLowerCase() ==
-            "$valueType".toLowerCase())
+            inputField.valueType.toLowerCase() == valueType.toLowerCase())
         .toList();
   }
 

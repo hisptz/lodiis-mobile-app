@@ -8,10 +8,10 @@ class DreamsHTSAddFollowUpConfirmation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: 30.0,
       ),
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 20.0,
       ),
       child: Column(
@@ -19,13 +19,13 @@ class DreamsHTSAddFollowUpConfirmation extends StatelessWidget {
           Visibility(
             visible: name != '',
             child: Container(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 15.0,
               ),
               child: Text(
                 'Follow up added successfully',
-                style: TextStyle().copyWith(
-                  color: Color(0XFF1A3518),
+                style: const TextStyle().copyWith(
+                  color: const Color(0XFF1A3518),
                   fontSize: 14.0,
                   fontWeight: FontWeight.w400,
                 ),
@@ -33,13 +33,13 @@ class DreamsHTSAddFollowUpConfirmation extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 10.0,
             ),
             child: Text(
               'Add Another Follow up?',
-              style: TextStyle().copyWith(
-                color: Color(0XFF1A3518),
+              style: const TextStyle().copyWith(
+                color: const Color(0XFF1A3518),
                 fontSize: 14.0,
                 fontWeight: FontWeight.w400,
               ),
@@ -48,29 +48,25 @@ class DreamsHTSAddFollowUpConfirmation extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Text(
-                    'Not Now',
-                    style: TextStyle().copyWith(
-                      color: Color(0xFF1A3518),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: Text(
+                  'Not Now',
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF1A3518),
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
-              Container(
-                child: TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: Text(
-                    'Yes',
-                    style: TextStyle().copyWith(
-                      color: Color(0xFF258DCC),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
-                    ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: Text(
+                  'Yes',
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF258DCC),
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),

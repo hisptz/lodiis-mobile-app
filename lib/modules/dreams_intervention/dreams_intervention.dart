@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
@@ -8,7 +9,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/intervention_app_bar.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/constants/interventions_records_page_tabs.dart';
@@ -19,7 +20,8 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/core/utils/app_version_update.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -32,6 +34,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/dreams_services_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/none_agyw.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/none_agyw/pages/non_agyw_dreams_hts_consent_form.dart';
+import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
 class DreamsIntervention extends StatefulWidget {
@@ -55,7 +58,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         isViewReady = true;
         setTabsController();
@@ -64,6 +67,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
     DataQualityService.runDataQualityCheckResolution();
     connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
+    checkAppVersion();
     periodicTimer =
         Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
@@ -121,6 +125,19 @@ class _DreamsInterventionState extends State<DreamsIntervention>
 
   void onClickHome() {}
 
+  void checkAppVersion() async {
+    bool shouldShowUpdateWarning =
+        Provider.of<AppInfoState>(context, listen: false)
+            .showWarningToAppUpdate;
+    VersionStatus? versionStatus =
+        Provider.of<AppInfoState>(context, listen: false).versionStatus;
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      if (shouldShowUpdateWarning && versionStatus != null) {
+        AppVersionUpdate.showAppUpdateWarning(context, versionStatus);
+      }
+    });
+  }
+
   void onAddNoneAgywBeneficiary(BuildContext context) async {
     String beneficiaryId = "";
     String formAutoSaveId =
@@ -137,7 +154,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
         context,
         MaterialPageRoute(
           builder: (context) {
-            return NonAgywDreamsHTSConsentForm();
+            return const NonAgywDreamsHTSConsentForm();
           },
         ),
       );
@@ -160,7 +177,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
         context,
         MaterialPageRoute(
           builder: (context) {
-            return AgywDreamsConsentForm();
+            return const AgywDreamsConsentForm();
           },
         ),
       );
@@ -182,7 +199,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
                         activeInterventionProgram);
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: Size.fromHeight(105),
+                preferredSize: const Size.fromHeight(105),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   tabController: tabController,
@@ -196,87 +213,83 @@ class _DreamsInterventionState extends State<DreamsIntervention>
                       onOpenMoreMenu(context, activeInterventionProgram),
                 ),
               ),
-              body: Container(
-                child: Consumer<CurrentUserState>(
-                    builder: (context, currentUserState, child) {
-                  bool hasAccessToDataEntry =
-                      currentUserState.canCurrentUserDoDataEntry;
-                  return Container(
-                    child: !isViewReady
-                        ? Container(
-                            margin: EdgeInsets.only(
-                              top: 20.0,
-                            ),
-                            child: CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        : !hasAccessToDataEntry
-                            ? AccessToDataEntryWarning()
-                            : Container(
-                                child: Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: activeInterventionProgram
-                                            .background,
-                                      ),
-                                    ),
-                                    Consumer<InterventionBottomNavigationState>(
-                                      builder: (context,
-                                          interventionBottomNavigationState,
-                                          child) {
-                                        InterventionBottomNavigation
-                                            currentInterventionBottomNavigation =
-                                            interventionBottomNavigationState
-                                                .getCurrentInterventionBottomNavigation(
-                                                    activeInterventionProgram);
-                                        return Container(
-                                          child: currentInterventionBottomNavigation
+              body: Consumer<CurrentUserState>(
+                  builder: (context, currentUserState, child) {
+                bool hasAccessToDataEntry =
+                    currentUserState.canCurrentUserDoDataEntry;
+                return Container(
+                  child: !isViewReady
+                      ? Container(
+                          margin: const EdgeInsets.only(
+                            top: 20.0,
+                          ),
+                          child: const CircularProcessLoader(
+                            color: Colors.blueGrey,
+                          ),
+                        )
+                      : !hasAccessToDataEntry
+                          ? const AccessToDataEntryWarning()
+                          : Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: activeInterventionProgram.background,
+                                  ),
+                                ),
+                                Consumer<InterventionBottomNavigationState>(
+                                  builder: (context,
+                                      interventionBottomNavigationState,
+                                      child) {
+                                    InterventionBottomNavigation
+                                        currentInterventionBottomNavigation =
+                                        interventionBottomNavigationState
+                                            .getCurrentInterventionBottomNavigation(
+                                                activeInterventionProgram);
+                                    return Container(
+                                      child: currentInterventionBottomNavigation
+                                                  .id ==
+                                              'services'
+                                          ? const DreamsServicesPage()
+                                          : currentInterventionBottomNavigation
                                                       .id ==
-                                                  'services'
-                                              ? DreamsServicesPage()
+                                                  'outGoingReferral'
+                                              ? const DreamsReferralPage()
                                               : currentInterventionBottomNavigation
                                                           .id ==
-                                                      'outGoingReferral'
-                                                  ? DreamsReferralPage()
+                                                      'enrollment'
+                                                  ? const DreamsEnrollmentPage()
                                                   : currentInterventionBottomNavigation
                                                               .id ==
-                                                          'enrollment'
-                                                      ? DreamsEnrollmentPage()
+                                                          'noneAgyw'
+                                                      ? const NoneAgyw()
                                                       : currentInterventionBottomNavigation
                                                                   .id ==
-                                                              'noneAgyw'
-                                                          ? NoneAgyw()
+                                                              'incomingReferral'
+                                                          ? const DreamsIncomingReferralPage()
                                                           : currentInterventionBottomNavigation
                                                                       .id ==
-                                                                  'incomingReferral'
-                                                              ? DreamsIncomingReferralPage()
-                                                              : currentInterventionBottomNavigation
-                                                                          .id ==
-                                                                      'records'
-                                                                  ? DreamsRecordsPage(
-                                                                      tabsController:
-                                                                          tabController!,
-                                                                      tabsVieItems:
-                                                                          tabsViews,
-                                                                    )
-                                                                  : RoutePageNotFound(
-                                                                      pageTitle:
-                                                                          currentInterventionBottomNavigation
-                                                                              .id,
-                                                                    ),
-                                        );
-                                      },
-                                    ),
-                                  ],
+                                                                  'records'
+                                                              ? DreamsRecordsPage(
+                                                                  tabsController:
+                                                                      tabController!,
+                                                                  tabsVieItems:
+                                                                      tabsViews,
+                                                                )
+                                                              : RoutePageNotFound(
+                                                                  pageTitle:
+                                                                      currentInterventionBottomNavigation
+                                                                          .id,
+                                                                ),
+                                    );
+                                  },
                                 ),
-                              ),
-                  );
-                }),
-              ),
-              bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+                              ],
+                            ),
+                );
+              }),
+              bottomNavigationBar:
+                  const InterventionBottomNavigationBarContainer(),
             );
           });
         },

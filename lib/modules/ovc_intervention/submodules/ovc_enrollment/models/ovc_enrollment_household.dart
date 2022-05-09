@@ -16,9 +16,9 @@ class OvcEnrollmentHousehold {
     return [
       FormSection(
         name: 'Household Information',
-        color: Color(0xFF1A3518),
+        color: const Color(0xFF1A3518),
         subSections: [
-          FormSection(name: '', color: Color(0xFF737373), inputFields: [
+          FormSection(name: '', color: const Color(0xFF737373), inputFields: [
             InputField(
               id: 'location',
               name: 'Location',
@@ -26,29 +26,29 @@ class OvcEnrollmentHousehold {
               isReadOnly: true,
               allowedSelectedLevels: [3, 4],
               valueType: 'ORGANISATION_UNIT',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'RB8Wx75hGa4',
               name: 'Village',
               translatedName: 'Motse',
               valueType: 'TEXT',
-              inputColor: Color(0xFF4B9F46),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
             ),
             InputField(
                 id: 'xiI8aC8RwjC',
                 name: 'Sub-village',
                 translatedName: 'Motsana',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373))
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373))
           ]),
           FormSection(
             name: 'Caregiver',
             translatedName: "Mohlokomeli",
-            color: Color(0xFF737373),
+            color: const Color(0xFF737373),
             inputFields: [
               InputField(
                 id: 'WTZ7GLTrE8Q',
@@ -56,16 +56,16 @@ class OvcEnrollmentHousehold {
                 translatedName: 'Lebitso la pele',
                 valueType: 'TEXT',
                 isReadOnly: true,
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 's1HaiT6OllL',
                 name: 'Middle Name',
                 translatedName: 'Lebitso le mahareng',
                 valueType: 'TEXT',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 'rSP9c21JsfC',
@@ -73,24 +73,24 @@ class OvcEnrollmentHousehold {
                 translatedName: 'Le Fane',
                 valueType: 'TEXT',
                 isReadOnly: true,
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 'tNdoR0jYr7R',
                 name: 'Phone Number',
                 translatedName: 'Nomoro ea mohala',
                 valueType: 'PHONE_NUMBER',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 'qZP982qpSPS',
                 name: 'Date of Birth',
                 translatedName: 'Letsatsi la tsoalo ',
                 valueType: 'DATE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
                 minAgeInYear: 18,
                 hint: "Beneficiary's age should be 18 years and above",
                 translatedHint: "Lilemo tsa setho li be 18+",
@@ -101,8 +101,8 @@ class OvcEnrollmentHousehold {
                 translatedName: 'Lilemo',
                 isReadOnly: true,
                 valueType: 'NUMBER',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                   id: 'vIX4GTSCX4P',
@@ -110,8 +110,8 @@ class OvcEnrollmentHousehold {
                   translatedName: 'Boleng',
                   isReadOnly: true,
                   valueType: 'TEXT',
-                  inputColor: Color(0xFF4B9F46),
-                  labelColor: Color(0xFF737373),
+                  inputColor: const Color(0xFF4B9F46),
+                  labelColor: const Color(0xFF737373),
                   renderAsRadio: true,
                   options: [
                     InputFieldOption(
@@ -126,8 +126,8 @@ class OvcEnrollmentHousehold {
                   name: 'Marital Status',
                   translatedName: 'Maemo a lenyalo',
                   valueType: 'TEXT',
-                  inputColor: Color(0xFF4B9F46),
-                  labelColor: Color(0xFF737373),
+                  inputColor: const Color(0xFF4B9F46),
+                  labelColor: const Color(0xFF737373),
                   options: [
                     InputFieldOption(code: 'Married', name: 'Married'),
                     InputFieldOption(code: 'Single', name: 'Single'),
@@ -142,8 +142,8 @@ class OvcEnrollmentHousehold {
                 translatedName:
                     'Palo ea banna ba fetang lilemo tse 18 ba phelang kahare ho lelapa',
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 'rGAQnszNGVN',
@@ -152,8 +152,8 @@ class OvcEnrollmentHousehold {
                 translatedName:
                     'Palo ea basali ba ka holimo ho lilemo tse 18 ba phelang kahare ho lelapa',
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 'kQehaqmaygZ',
@@ -162,8 +162,8 @@ class OvcEnrollmentHousehold {
                 translatedName:
                     'Kakaretso ea bashanyana ba ka tlase ho lilemo tse 18 ba lula kahare ho lelapa',
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
               InputField(
                 id: 'BXUNH6LXeGA',
@@ -173,8 +173,8 @@ class OvcEnrollmentHousehold {
                 translatedName:
                     'Kakaretso ea banana ba ka tlase ho lilemo tse 18 ba lula kahare ho lelapa',
                 valueType: 'INTEGER_ZERO_OR_POSITIVE',
-                inputColor: Color(0xFF4B9F46),
-                labelColor: Color(0xFF737373),
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
               ),
             ],
           ),

@@ -1,3 +1,3 @@
 class OvcEnrollmentChildConstant {
-    static final String primaryVulnerabilityKey = 'mTv9eZZq0Nz';
+  static const String primaryVulnerabilityKey = 'mTv9eZZq0Nz';
 }

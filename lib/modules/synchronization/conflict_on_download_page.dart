@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
@@ -11,7 +10,7 @@ import 'package:kb_mobile_app/modules/synchronization/components/data_download_c
 import 'package:provider/provider.dart';
 
 class ConflictOnDownloadPage extends StatefulWidget {
-  ConflictOnDownloadPage({Key? key}) : super(key: key);
+  const ConflictOnDownloadPage({Key? key}) : super(key: key);
   @override
   _ConflictOnDownloadPageState createState() => _ConflictOnDownloadPageState();
 }
@@ -31,7 +30,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -55,19 +54,20 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
             children: conflictPageNames.map((conflictPage) {
               return ExpansionTile(
                   title: Text(
-                    "$conflictPage",
-                    style: TextStyle(color: Colors.black),
+                    conflictPage,
+                    style: const TextStyle(color: Colors.black),
                   ),
                   children: [
-                    DataDownloadConflictPageHeader(),
+                    const DataDownloadConflictPageHeader(),
                     Column(
                       children: conflictPage == "Service Data Conflicts"
                           ? synchronizationState
                               .trackedEntityInstancesWithConflicts
                               .map((trackedInstance) {
                               return Container(
-                                margin: EdgeInsets.symmetric(vertical: 5.0),
-                                padding: EdgeInsets.symmetric(
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 2.0, horizontal: 10.0),
                                 child: Row(
                                   mainAxisAlignment:
@@ -77,7 +77,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                       flex: 4,
                                       child: Text(
                                         trackedInstance['label'],
-                                        style: TextStyle().copyWith(
+                                        style: const TextStyle().copyWith(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
@@ -87,7 +87,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                       flex: 2,
                                       child: Text(
                                         trackedInstance['offline'],
-                                        style: TextStyle().copyWith(
+                                        style: const TextStyle().copyWith(
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.normal,
                                         ),
@@ -97,7 +97,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                       flex: 4,
                                       child: Text(
                                         trackedInstance['online'],
-                                        style: TextStyle().copyWith(
+                                        style: const TextStyle().copyWith(
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -119,9 +119,9 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                                     color: Colors.grey,
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.all(
+                                                      const BorderRadius.all(
                                                           Radius.circular(20))),
-                                              child: Center(
+                                              child: const Center(
                                                 child: Text("accept",
                                                     style: TextStyle(
                                                         fontSize: 11)),
@@ -131,21 +131,26 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                                           GestureDetector(
                                             onTap: () => onDiscardConflict(),
                                             child: Container(
-                                              margin: EdgeInsets.symmetric(
-                                                  vertical: 10),
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10),
                                               height: 25,
                                               width: 320,
                                               decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: Colors.grey,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              child: Center(
-                                                child: Text("discard",
-                                                    style: TextStyle(
-                                                        fontSize: 11)),
+                                                border: Border.all(
+                                                  color: Colors.grey,
+                                                ),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(20),
+                                                ),
+                                              ),
+                                              child: const Center(
+                                                child: Text(
+                                                  "discard",
+                                                  style:
+                                                      TextStyle(fontSize: 11),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -158,7 +163,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
                             }).toList()
                           : synchronizationState.eventsWithConflicts
                               .map((trackedInstance) {
-                              return Text("events ");
+                              return const Text("events ");
                             }).toList(),
                     )
                   ]);

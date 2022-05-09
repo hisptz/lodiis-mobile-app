@@ -15,26 +15,26 @@ class InterventionRecordsPageTabs {
   List<String>? implementingPartners;
 
   static final Map<String, InterventionRecordsPageTabs> dreamsModule = {
-    'AGYW/DREAMS': InterventionRecordsPageTabs(page: DreamsEnrollmentRecords()),
+    'AGYW/DREAMS': InterventionRecordsPageTabs(page: const DreamsEnrollmentRecords()),
     'None Participation':
-        InterventionRecordsPageTabs(page: DreamsNoneParticipationRecordsPage()),
+        InterventionRecordsPageTabs(page: const DreamsNoneParticipationRecordsPage()),
     'No Enrollment Criteria': InterventionRecordsPageTabs(
-        page: BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage(),
+        page: const BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage(),
         implementingPartners: []),
     'Kb PrEP': InterventionRecordsPageTabs(
-        page: NonAgywRecords(),
+        page: const NonAgywRecords(),
         implementingPartners: ['KB-AGYW/DREAMS', 'Super user'])
   };
   static final Map<String, InterventionRecordsPageTabs> ovcModule = {
-    'Households': InterventionRecordsPageTabs(page: OvcEnrollmentRecords()),
+    'Households': InterventionRecordsPageTabs(page: const OvcEnrollmentRecords()),
     'None Participation':
-        InterventionRecordsPageTabs(page: OvcNoneParticipationRecords()),
+        InterventionRecordsPageTabs(page: const OvcNoneParticipationRecords()),
   };
 
   static final Map<String, InterventionRecordsPageTabs> educationModule = {
-    'LBSE': InterventionRecordsPageTabs(page: LbseRecordsPage()),
-    'Bursary': InterventionRecordsPageTabs(page: BursaryRecordsPage()),
+    'LBSE': InterventionRecordsPageTabs(page: const LbseRecordsPage()),
+    'Bursary': InterventionRecordsPageTabs(page: const BursaryRecordsPage()),
     'No Vulnerability Criteria': InterventionRecordsPageTabs(
-        page: BursaryWithoutVulnerabilityRecordsPage()),
+        page: const BursaryWithoutVulnerabilityRecordsPage()),
   };
 }

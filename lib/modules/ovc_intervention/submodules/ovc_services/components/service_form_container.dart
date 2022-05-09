@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class ServiceFormContainer extends StatelessWidget {
-  ServiceFormContainer({
+  const ServiceFormContainer({
     Key? key,
     required this.formSectionColor,
     required this.formSection,
@@ -21,6 +21,7 @@ class ServiceFormContainer extends StatelessWidget {
     this.onInputValueChange,
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final Color formSectionColor;
@@ -29,6 +30,7 @@ class ServiceFormContainer extends StatelessWidget {
   final Map dataObject;
   final Function? onInputValueChange;
   final bool isCasePlanForHousehold;
+  final bool hasEditAccess;
   final bool isServiceMonitoring;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
@@ -40,7 +42,7 @@ class ServiceFormContainer extends StatelessWidget {
       OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
   void onAddNewGap(BuildContext context) async {
-    Map gapDataObject = Map();
+    Map gapDataObject = {};
     gapDataObject[casePlanGapToServiceProvisionLinkage] =
         gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
@@ -79,15 +81,15 @@ class ServiceFormContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20.0),
+      margin: const EdgeInsets.only(bottom: 20.0),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(12.0),
           topLeft: Radius.circular(12.0),
         ),
         child: MaterialCard(
           body: Container(
-            padding: EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 10.0),
             decoration: BoxDecoration(
                 border: Border(
               left: BorderSide(
@@ -100,13 +102,14 @@ class ServiceFormContainer extends StatelessWidget {
                 EntryFormContainer(
                   elevation: 0.0,
                   formSections: [formSection],
-                  mandatoryFieldObject: Map(),
+                  mandatoryFieldObject: const {},
                   dataObject: dataObject,
                   isEditableMode: isEditableMode,
                   onInputValueChange: onValueChange,
                 ),
                 CasePlanServiceProvisionViewContainer(
                   casePlanGaps: dataObject['gaps'] ?? [],
+                  hasEditAccess: hasEditAccess,
                   domainId: formSection.id,
                   isCasePlanForHousehold: isCasePlanForHousehold,
                   isServiceMonitoring: isServiceMonitoring,
@@ -121,7 +124,7 @@ class ServiceFormContainer extends StatelessWidget {
                       (isEditableMode || shouldEditCaseGapServiceProvision) &&
                           !shouldViewCaseGapServiceProvision,
                   child: Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       bottom: 10.0,
                     ),
                     child: TextButton(
@@ -135,13 +138,13 @@ class ServiceFormContainer extends StatelessWidget {
                       ),
                       onPressed: () => onAddNewGap(context),
                       child: Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           vertical: 15.0,
                           horizontal: 40.0,
                         ),
                         child: Text(
                           'Add Gap',
-                          style: TextStyle().copyWith(
+                          style: const TextStyle().copyWith(
                             color: formSectionColor,
                             fontSize: 14.0,
                             fontWeight: FontWeight.w700,

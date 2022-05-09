@@ -18,6 +18,8 @@ class OgacBeneficiary {
   String? createdDate;
   String? searchableValue;
   String? enrollment;
+  String? implementingPartner;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
   Events? eventData;
 
@@ -36,6 +38,8 @@ class OgacBeneficiary {
     this.createdDate,
     this.enrollment,
     this.searchableValue,
+    this.implementingPartner,
+    this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
     this.eventData,
   });
@@ -46,6 +50,7 @@ class OgacBeneficiary {
     String? createdDate,
     String? enrollment,
     Events? eventData,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'RB8Wx75hGa4',
@@ -55,13 +60,14 @@ class OgacBeneficiary {
       'rSP9c21JsfC',
       'ls9hlz2tyol',
       'vIX4GTSCX4P',
+      'klLkGxy328c',
       'qZP982qpSPS',
       BeneficiaryIdentification.beneficiaryId
     ];
-    Map data = Map();
+    Map data = {};
     for (Map detailObj in trackedEntityInstance.attributes) {
       String? attribute = detailObj['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
@@ -85,6 +91,8 @@ class OgacBeneficiary {
       village: village != "" ? village : 'N/A',
       createdDate: createdDate,
       enrollment: enrollment,
+      enrollmentOuAccessible: enrollmentOuAccessible,
+      implementingPartner: data['klLkGxy328c'] ?? '',
       trackedEntityInstanceData: trackedEntityInstance,
       eventData: eventData,
     );

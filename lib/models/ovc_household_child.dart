@@ -13,6 +13,7 @@ class OvcHouseholdChild {
   String? orgUnit;
   String? createdDate;
   String? hivStatus;
+  bool? enrollmentOuAccessible;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -27,6 +28,7 @@ class OvcHouseholdChild {
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
+    this.enrollmentOuAccessible,
     this.teiData,
   });
 
@@ -34,6 +36,7 @@ class OvcHouseholdChild {
     TrackedEntityInstance tei,
     String? orgUnit,
     String? createdDate,
+    bool? enrollmentOuAccessible,
   ) {
     List keys = [
       'WTZ7GLTrE8Q',
@@ -45,10 +48,10 @@ class OvcHouseholdChild {
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
-    Map data = Map();
+    Map data = {};
     for (Map attributeObject in tei.attributes) {
       String? attribute = attributeObject['attribute'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
     }
@@ -67,6 +70,7 @@ class OvcHouseholdChild {
                 ? 'Positive'
                 : 'Negative'
             : '',
+        enrollmentOuAccessible: enrollmentOuAccessible,
         orgUnit: orgUnit,
         teiData: tei);
   }

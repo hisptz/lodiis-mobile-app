@@ -43,7 +43,7 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
     setState(() {
       _value = value;
     });
-    this.textController = TextEditingController(text: value);
+    textController = TextEditingController(text: value);
   }
 
   onValueChange(String value) {
@@ -76,59 +76,57 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              readOnly: widget.inputField.isReadOnly!,
-              controller: widget.inputField.isReadOnly!
-                  ? TextEditingController(
-                      text: widget.inputValue,
-                    )
-                  : textController,
-              onChanged: onValueChange,
-              maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-              textCapitalization: TextCapitalization.sentences,
-              style: TextStyle().copyWith(
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            readOnly: widget.inputField.isReadOnly!,
+            controller: widget.inputField.isReadOnly!
+                ? TextEditingController(
+                    text: widget.inputValue,
+                  )
+                : textController,
+            onChanged: onValueChange,
+            maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            textCapitalization: TextCapitalization.sentences,
+            style: const TextStyle().copyWith(
+              color: widget.inputField.inputColor,
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              errorText: null,
+            ),
+          ),
+        ),
+        Visibility(
+          child: Text(widget.inputField.suffixLabel ?? '',
+              style: const TextStyle().copyWith(
                 color: widget.inputField.inputColor,
-              ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                errorText: null,
-              ),
-            ),
+              )),
+          visible: widget.inputField.suffixLabel != '' &&
+              _value != null &&
+              '$_value'.trim() != '',
+        ),
+        InputCheckedIcon(
+          showTickedIcon: widget.showInputCheckedIcon &&
+              _value != null &&
+              '$_value'.trim() != '',
+          color: widget.inputField.inputColor,
+        ),
+        Visibility(
+          child: const InputSearchIcon(),
+          visible: widget.showInputSearchIcon && _value == '',
+        ),
+        Visibility(
+          child: GestureDetector(
+            child: const InputSearchClearIcon(),
+            onTap: () => clearSearchValue(),
           ),
-          Visibility(
-            child: Text(widget.inputField.suffixLabel ?? '',
-                style: TextStyle().copyWith(
-                  color: widget.inputField.inputColor,
-                )),
-            visible: widget.inputField.suffixLabel != '' &&
-                _value != null &&
-                '$_value'.trim() != '',
-          ),
-          InputCheckedIcon(
-            showTickedIcon: widget.showInputCheckedIcon &&
-                _value != null &&
-                '$_value'.trim() != '',
-            color: widget.inputField.inputColor,
-          ),
-          Visibility(
-            child: InputSearchIcon(),
-            visible: widget.showInputSearchIcon && _value == '',
-          ),
-          Visibility(
-            child: GestureDetector(
-              child: InputSearchClearIcon(),
-              onTap: () => clearSearchValue(),
-            ),
-            visible: widget.showInputSearchIcon && _value != '',
-          )
-        ],
-      ),
+          visible: widget.showInputSearchIcon && _value != '',
+        )
+      ],
     );
   }
 }

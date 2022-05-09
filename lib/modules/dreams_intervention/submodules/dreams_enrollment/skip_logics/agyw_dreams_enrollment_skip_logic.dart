@@ -6,9 +6,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsEnrollmentSkipLogic {
-  static Map hiddenFields = Map();
-  static Map hiddenSections = Map();
-  static Map hiddenInputFieldOptions = Map();
+  static Map hiddenFields = {};
+  static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -20,7 +20,7 @@ class AgywDreamsEnrollmentSkipLogic {
     hiddenInputFieldOptions.clear();
 
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    Map hiddenOptions = Map();
+    Map hiddenOptions = {};
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
@@ -45,7 +45,7 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenSections['8_O_O_S'] = true;
           hiddenSections['9_O_H'] = true;
         }
-      
+
         if (age >= 15 && age <= 19) {
           hiddenFields['VsqV6prIfm9'] = true;
           hiddenFields['r0rKJA911ma'] = true;
@@ -449,7 +449,7 @@ class AgywDreamsEnrollmentSkipLogic {
       List<FormSection> filteredFormSections = allFormSections
           .where((formSection) =>
               formSection.subSections!.isEmpty &&
-              (hiddenSections.keys.toList()).indexOf(formSection.id) == -1)
+              !(hiddenSections.keys.toList()).contains(formSection.id))
           .toList();
       List<String> filteredFormSectionsInputFieldIds =
           FormUtil.getFormFieldIds(filteredFormSections);
@@ -459,7 +459,7 @@ class AgywDreamsEnrollmentSkipLogic {
               .toList());
 
       for (String inputFieldId in hiddenSectionInputFieldIds) {
-        if (filteredFormSectionsInputFieldIds.indexOf(inputFieldId) == -1) {
+        if (!filteredFormSectionsInputFieldIds.contains(inputFieldId)) {
           hiddenFields[inputFieldId] = true;
         }
       }

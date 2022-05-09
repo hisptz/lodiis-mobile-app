@@ -16,17 +16,15 @@ class InputClearIcon extends StatelessWidget {
         ? Container()
         : Container(
             height: 20.0,
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 8.0,
               bottom: 5.0,
             ),
             child: IconButton(
-              padding: EdgeInsets.only(bottom: 10),
-              icon: Container(
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.red.withOpacity(0.8),
-                ),
+              padding: const EdgeInsets.only(bottom: 10),
+              icon: Icon(
+                Icons.delete,
+                color: Colors.red.withOpacity(0.8),
               ),
               onPressed: onClearInput as void Function()?,
             ),

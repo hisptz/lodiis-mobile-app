@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/models/clo_referral_event.dart';
@@ -6,7 +5,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
 
 class CLOReferralCardBodySummary extends StatefulWidget {
-  CLOReferralCardBodySummary({
+  const CLOReferralCardBodySummary({
     Key? key,
     required this.referralEvent,
     required this.labelColor,
@@ -40,11 +39,11 @@ class _CLOReferralCardBodySummaryState
       return Visibility(
         visible: ovcCLOReferralCard != null,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 2.0),
+                margin: const EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -52,7 +51,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         currentLanguage == 'lesotho' ? 'Letsatsi' : 'Date',
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.labelColor,
                             fontWeight: FontWeight.w500),
@@ -62,7 +61,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         ovcCLOReferralCard!.referralDate!,
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,
                             fontWeight: FontWeight.w500),
@@ -72,7 +71,7 @@ class _CLOReferralCardBodySummaryState
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 2.0),
+                margin: const EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -80,7 +79,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         'Referral for',
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.labelColor,
                             fontWeight: FontWeight.w500),
@@ -90,7 +89,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         ovcCLOReferralCard!.referralFor!,
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,
                             fontWeight: FontWeight.w500),
@@ -100,7 +99,7 @@ class _CLOReferralCardBodySummaryState
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 2.0),
+                margin: const EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -108,7 +107,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         'Outcome Status ',
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.labelColor,
                             fontWeight: FontWeight.w500),
@@ -118,7 +117,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         ovcCLOReferralCard!.outComeStatus!,
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             color: widget.valueColor,
                             fontWeight: FontWeight.w500),
@@ -128,7 +127,7 @@ class _CLOReferralCardBodySummaryState
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 2.0),
+                margin: const EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -136,7 +135,7 @@ class _CLOReferralCardBodySummaryState
                         flex: 2,
                         child: Text(
                           'Community Partner',
-                          style: TextStyle().copyWith(
+                          style: const TextStyle().copyWith(
                               fontSize: 14.0,
                               color: widget.labelColor,
                               fontWeight: FontWeight.w500),
@@ -145,7 +144,7 @@ class _CLOReferralCardBodySummaryState
                       flex: 2,
                       child: Text(
                         ovcCLOReferralCard!.communityPartner!,
-                        style: TextStyle().copyWith(
+                        style: const TextStyle().copyWith(
                           fontSize: 14.0,
                           color: widget.valueColor,
                           fontWeight: FontWeight.w500,

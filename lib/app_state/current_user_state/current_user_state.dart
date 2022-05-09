@@ -68,7 +68,7 @@ class CurrentUserState with ChangeNotifier {
     String? implementingPartner,
     dynamic userAccessConfigurations,
   ) {
-    var userAccesses = userAccessConfigurations[implementingPartner] ?? Map();
+    var userAccesses = userAccessConfigurations[implementingPartner] ?? {};
     try {
       _canManageDreams = userAccesses.containsKey('canManageDreams') &&
           userAccesses['canManageDreams'] == true;
@@ -122,7 +122,7 @@ class CurrentUserState with ChangeNotifier {
       _canManagePOSTGBV = userAccesses.containsKey('canManagePOSTGBV') &&
           userAccesses['canManagePOSTGBV'] == true;
     } catch (error) {
-      print("updateUserAccessStatus : ${error.toString()}");
+      //
     }
     notifyListeners();
   }

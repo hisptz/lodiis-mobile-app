@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -45,7 +45,7 @@ class _AgywDreamsEnrollmentEditFormState
   List<FormSection>? consentFormSections;
   late List<FormSection> riskAssessmentFormSections;
   final String label = 'Agyw Enrolment Form';
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   final List<String> mandatoryFields =
       AgywEnrollmentFormSection.getMandatoryField();
   bool isFormReady = false;
@@ -102,9 +102,9 @@ class _AgywDreamsEnrollmentEditFormState
         demographicInformationFormSection,
         householdInformationFormSection,
       ];
-      enrollmentFormSections.forEach((enrollmentFormSection) {
+      for (var enrollmentFormSection in enrollmentFormSections) {
         formSections!.add(enrollmentFormSection);
-      });
+      }
       formSections = FormUtil.getFormSectionWithReadOnlyStatus(
         formSections!,
         false,
@@ -117,11 +117,10 @@ class _AgywDreamsEnrollmentEditFormState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
-        // TODO check why skip logic is not working
         await AgywDreamsEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
@@ -205,7 +204,7 @@ class _AgywDreamsEnrollmentEditFormState
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshAllDreamsLists();
       clearFormAutoSaveState(context);
-      Timer(Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;
@@ -239,7 +238,7 @@ class _AgywDreamsEnrollmentEditFormState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -253,71 +252,63 @@ class _AgywDreamsEnrollmentEditFormState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 13.0,
             ),
             child: Container(
               child: !isFormReady
-                  ? Container(
-                      child: Center(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
+                  ? const Center(
+                      child: CircularProcessLoader(
+                        color: Colors.blueGrey,
                       ),
                     )
-                  : Container(
-                      child: Consumer<LanguageTranslationState>(
-                          builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  hiddenFields:
-                                      enrollmentFormState.hiddenFields,
-                                  hiddenSections:
-                                      enrollmentFormState.hiddenSections,
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  isEditableMode:
-                                      enrollmentFormState.isEditableMode,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
-                                ),
-                              ),
-                              EntryFormSaveButton(
-                                label: isSaving
-                                    ? 'Saving ...'
-                                    : currentLanguage == 'lesotho'
-                                        ? 'Boloka'
-                                        : 'Save',
-                                labelColor: Colors.white,
-                                buttonColor: Color(0xFF258DCC),
-                                fontSize: 15.0,
-                                onPressButton: () => isSaving
-                                    ? null
-                                    : onSaveForm(
-                                        context,
-                                        enrollmentFormState.formState,
-                                        hiddenFields:
-                                            enrollmentFormState.hiddenFields,
-                                      ),
-                              )
-                            ],
-                          ),
-                        );
-                      }),
-                    ),
+                  : Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              isEditableMode:
+                                  enrollmentFormState.isEditableMode,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            EntryFormSaveButton(
+                              label: isSaving
+                                  ? 'Saving ...'
+                                  : currentLanguage == 'lesotho'
+                                      ? 'Boloka'
+                                      : 'Save',
+                              labelColor: Colors.white,
+                              buttonColor: const Color(0xFF258DCC),
+                              fontSize: 15.0,
+                              onPressButton: () => isSaving
+                                  ? null
+                                  : onSaveForm(
+                                      context,
+                                      enrollmentFormState.formState,
+                                      hiddenFields:
+                                          enrollmentFormState.hiddenFields,
+                                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
             ),
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

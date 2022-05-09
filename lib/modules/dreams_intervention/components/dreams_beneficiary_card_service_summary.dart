@@ -20,7 +20,7 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.0),
+      margin: const EdgeInsets.only(top: 10.0),
       child: Consumer<ServiceEventDataState>(
         builder: (context, serviceEventDataState, child) {
           bool eventsLoading = serviceEventDataState.isLoading;
@@ -28,73 +28,68 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
               serviceEventDataState.eventListByProgramStage;
           return eventsLoading
               ? Container(
-                  margin: EdgeInsets.only(top: 10.0),
-                  child: Center(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  child: const Center(
                     child: CircularProcessLoader(
                       color: Colors.blueGrey,
                     ),
                   ),
                 )
-              : Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Table(
-                                children: (services).map((List serviceRow) {
-                                  return TableRow(
-                                    children: (serviceRow).map((service) {
-                                      return TableCell(
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                            bottom: 5.0,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 10.0,
-                                                margin: EdgeInsets.only(
-                                                  right: 5.0,
-                                                ),
-                                                child: Visibility(
-                                                  visible:
-                                                      service['name'] != '' &&
-                                                          isServiceProvided(
-                                                            service,
-                                                            serviceEvents,
-                                                          ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/tick-icon.svg',
-                                                    color: labelColor,
-                                                    height: 10,
+              : Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Table(
+                            children: (services).map((List serviceRow) {
+                              return TableRow(
+                                children: (serviceRow).map((service) {
+                                  return TableCell(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 5.0,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 10.0,
+                                            margin: const EdgeInsets.only(
+                                              right: 5.0,
+                                            ),
+                                            child: Visibility(
+                                              visible: service['name'] != '' &&
+                                                  isServiceProvided(
+                                                    service,
+                                                    serviceEvents,
                                                   ),
-                                                ),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/tick-icon.svg',
+                                                color: labelColor,
+                                                height: 10,
                                               ),
-                                              Expanded(
-                                                child: Text(
-                                                  '${service['name']} ',
-                                                  style: TextStyle().copyWith(
-                                                    color: labelColor,
-                                                    fontSize: 10.0,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    }).toList(),
+                                          Expanded(
+                                            child: Text(
+                                              '${service['name']} ',
+                                              style: const TextStyle().copyWith(
+                                                color: labelColor,
+                                                fontSize: 10.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   );
                                 }).toList(),
-                              ),
-                            ),
-                          ],
+                              );
+                            }).toList(),
+                          ),
                         ),
-                      )
-                    ],
-                  ),
+                      ],
+                    )
+                  ],
                 );
         },
       ),
@@ -114,9 +109,9 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
       List<ServiceEvent> serviceEvents = [];
       events.removeWhere((Events event) =>
           !serviceProgramStageIds.contains(event.programStage));
-      events.forEach((event) {
+      for (var event in events) {
         serviceEvents.add(ServiceEvent().getServiceSessions(event));
-      });
+      }
       for (ServiceEvent element in serviceEvents) {
         if (element.interventionGroup == serviceProgramStage['name']) {
           return true;

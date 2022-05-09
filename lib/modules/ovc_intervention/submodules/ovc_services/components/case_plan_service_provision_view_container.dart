@@ -11,6 +11,7 @@ class CasePlanServiceProvisionViewContainer extends StatelessWidget {
     required this.isServiceMonitoring,
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final List<dynamic> casePlanGaps;
@@ -20,20 +21,22 @@ class CasePlanServiceProvisionViewContainer extends StatelessWidget {
   final bool isServiceMonitoring;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
+  final bool hasEditAccess;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: casePlanGaps.length > 0,
+      visible: casePlanGaps.isNotEmpty,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: casePlanGaps.map((casePlanGap) {
           int gapIndex = casePlanGaps.indexOf(casePlanGap);
           return Container(
-            margin: EdgeInsets.only(bottom: 10.0),
+            margin: const EdgeInsets.only(bottom: 10.0),
             child: ServiceGapView(
               gapIndex: gapIndex,
+              hasEditAccess: hasEditAccess,
               domainId: domainId,
               casePlanGap: casePlanGap,
               isCasePlanForHousehold: isCasePlanForHousehold,

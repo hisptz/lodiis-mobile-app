@@ -39,6 +39,8 @@ class EducationLbseReferralHome extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -53,7 +55,7 @@ class EducationLbseReferralHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationLbseReferralFormPage();
+          return const EducationLbseReferralFormPage();
         },
       ),
     );
@@ -99,7 +101,7 @@ class EducationLbseReferralHome extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -112,89 +114,79 @@ class EducationLbseReferralHome extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<EducationInterventionCurrentSelectionState>(
-              builder:
-                  (context, educationInterventionCurrentSelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    EducationBeneficiary? lbseBeneficiary =
-                        educationInterventionCurrentSelectionState
-                            .currentBeneficiciary;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                            eventListByProgramStage, programStageIds);
-                    List<LbseReferralEvent> lbseReferrals = events
-                        .map((Events eventData) =>
-                            LbseReferralEvent().fromTeiModel(eventData))
-                        .toList()
-                      ..sort((b, a) => a.date!.compareTo(b.date!));
-                    int referralIndex = lbseReferrals.length + 1;
-                    return Container(
-                      child: Column(
-                        children: [
-                          EducationBeneficiaryTopHeader(
-                            educationBeneficiary: lbseBeneficiary!,
-                          ),
-                          Container(
-                            child: isLoading
-                                ? CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: events.length == 0
-                                            ? Text(
-                                                'There is no referral at a moment',
-                                              )
-                                            : Container(
-                                                margin: EdgeInsets.symmetric(
-                                                  vertical: 5.0,
-                                                  horizontal: 13.0,
-                                                ),
-                                                child: Column(
-                                                  children: lbseReferrals.map(
-                                                      (LbseReferralEvent
-                                                          lbseReferral) {
-                                                    referralIndex--;
-                                                    return EducationLbseReferralContainer(
-                                                      lbseReferral:
-                                                          lbseReferral,
-                                                      referralIndex:
-                                                          referralIndex,
-                                                      onView: () =>
-                                                          onViewReferral(
-                                                              context,
-                                                              lbseReferral
-                                                                  .eventData!),
-                                                      onEdit: () =>
-                                                          onEditReferral(
-                                                              context,
-                                                              lbseBeneficiary,
-                                                              lbseReferral
-                                                                  .eventData!),
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                      ),
-                                    ],
-                                  ),
-                          ),
-                        ],
+          body: Consumer<EducationInterventionCurrentSelectionState>(
+            builder:
+                (context, educationInterventionCurrentSelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  EducationBeneficiary? lbseBeneficiary =
+                      educationInterventionCurrentSelectionState
+                          .currentBeneficiciary;
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                          eventListByProgramStage, programStageIds);
+                  List<LbseReferralEvent> lbseReferrals = events
+                      .map((Events eventData) =>
+                          LbseReferralEvent().fromTeiModel(eventData))
+                      .toList()
+                    ..sort((b, a) => a.date!.compareTo(b.date!));
+                  int referralIndex = lbseReferrals.length + 1;
+                  return Column(
+                    children: [
+                      EducationBeneficiaryTopHeader(
+                        educationBeneficiary: lbseBeneficiary!,
                       ),
-                    );
-                  },
-                );
-              },
-            ),
+                      Container(
+                        child: isLoading
+                            ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: events.isEmpty
+                                        ? const Text(
+                                            'There is no referral at a moment',
+                                          )
+                                        : Container(
+                                            margin: const EdgeInsets.symmetric(
+                                              vertical: 5.0,
+                                              horizontal: 13.0,
+                                            ),
+                                            child: Column(
+                                              children: lbseReferrals.map(
+                                                  (LbseReferralEvent
+                                                      lbseReferral) {
+                                                referralIndex--;
+                                                return EducationLbseReferralContainer(
+                                                  lbseReferral: lbseReferral,
+                                                  referralIndex: referralIndex,
+                                                  onView: () => onViewReferral(
+                                                      context,
+                                                      lbseReferral.eventData!),
+                                                  onEdit: () => onEditReferral(
+                                                      context,
+                                                      lbseBeneficiary,
+                                                      lbseReferral.eventData!),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                  ),
+                                ],
+                              ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
+import 'package:kb_mobile_app/core/components/app_update_redirect/app_update_redirect_page.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_referral_config_service.dart';
@@ -21,6 +22,8 @@ import 'package:kb_mobile_app/modules/splash/components/splash_implementing_part
 import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _SplashState();
@@ -40,12 +43,21 @@ class _SplashState extends State<Splash> {
     bool? isUserLoginIn = user != null ? user.isLogin : false;
     String? currentLanguage =
         await LanguageSelectionService.getCurrentLanguageSelection();
-    Provider.of<AppInfoState>(context, listen: false).setCurrentAppInfo();
+    await Provider.of<AppInfoState>(context, listen: false).setCurrentAppInfo();
     Provider.of<AppDeviceInfoState>(context, listen: false)
         .setCurrentDeviceInfo();
     Provider.of<DeviceConnectivityState>(context, listen: false)
         .initializeConnectionStatus();
-    if (currentLanguage != null) {
+    bool shouldForceUpdate =
+        Provider.of<AppInfoState>(context, listen: false).shouldUpdateTheApp;
+    if (shouldForceUpdate) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AppUpdateRedirectPage(),
+        ),
+      );
+    } else if (currentLanguage != null) {
       Provider.of<LanguageTranslationState>(context, listen: false)
           .setLanguageTranslation(currentLanguage);
       if (isUserLoginIn!) {
@@ -68,11 +80,11 @@ class _SplashState extends State<Splash> {
 
   void setLanguageSelectionPage() {
     Timer(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LanguageSelection(),
+          builder: (context) => const LanguageSelection(),
         ),
       ),
     );
@@ -80,12 +92,12 @@ class _SplashState extends State<Splash> {
 
   void setLandingPage(bool? isUserLoginIn) {
     Timer(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) =>
-              isUserLoginIn! ? InterventionSelection() : Login(),
+              isUserLoginIn! ? const InterventionSelection() : const Login(),
         ),
       ),
     );
@@ -108,7 +120,7 @@ class _SplashState extends State<Splash> {
                 size: 2.0,
               ),
             ),
-            SplashImplementingPartnerList(),
+            const SplashImplementingPartnerList(),
           ],
         ),
       ),

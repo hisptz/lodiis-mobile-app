@@ -39,7 +39,7 @@ class _EducationLbseEnrollmentFormPageState
   final String label = "LBSE Enrollment Form";
   final List<String> mandatoryFields =
       EducationLbseEnrollmentForm.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
   List<FormSection>? formSections;
   bool isSaving = false;
   bool isFormReady = false;
@@ -60,7 +60,7 @@ class _EducationLbseEnrollmentFormPageState
 
   evaluateSkipLogics() {
     Timer(
-      Duration(milliseconds: 200),
+      const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
@@ -144,7 +144,7 @@ class _EducationLbseEnrollmentFormPageState
         );
         Provider.of<EducationLbseInterventionState>(context, listen: false)
             .onBeneficiaryAdd();
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           if (Navigator.canPop(context)) {
             setState(() {
               isSaving = false;
@@ -185,7 +185,7 @@ class _EducationLbseEnrollmentFormPageState
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -199,13 +199,13 @@ class _EducationLbseEnrollmentFormPageState
         ),
         body: SubPageBody(
           body: Container(
-            margin: EdgeInsets.symmetric(
+            margin: const EdgeInsets.symmetric(
               vertical: 16.0,
               horizontal: 13.0,
             ),
             child: !isFormReady
                 ? Column(
-                    children: [
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -213,59 +213,51 @@ class _EducationLbseEnrollmentFormPageState
                       )
                     ],
                   )
-                : Container(
-                    child: Consumer<LanguageTranslationState>(
-                      builder: (context, languageTranslationState, child) {
-                        String? currentLanguage =
-                            languageTranslationState.currentLanguage;
-                        return Consumer<EnrollmentFormState>(
-                          builder: (context, enrollmentFormState, child) =>
-                              Column(
-                            children: [
-                              Container(
-                                child: EntryFormContainer(
-                                  isEditableMode:
-                                      enrollmentFormState.isEditableMode,
-                                  hiddenFields:
-                                      enrollmentFormState.hiddenFields,
-                                  hiddenSections:
-                                      enrollmentFormState.hiddenSections,
-                                  formSections: formSections,
-                                  mandatoryFieldObject: mandatoryFieldObject,
-                                  hiddenInputFieldOptions: enrollmentFormState
-                                      .hiddenInputFieldOptions,
-                                  dataObject: enrollmentFormState.formState,
-                                  onInputValueChange: onInputValueChange,
-                                  unFilledMandatoryFields:
-                                      unFilledMandatoryFields,
-                                ),
+                : Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) {
+                      String? currentLanguage =
+                          languageTranslationState.currentLanguage;
+                      return Consumer<EnrollmentFormState>(
+                        builder: (context, enrollmentFormState, child) =>
+                            Column(
+                          children: [
+                            EntryFormContainer(
+                              isEditableMode:
+                                  enrollmentFormState.isEditableMode,
+                              hiddenFields: enrollmentFormState.hiddenFields,
+                              hiddenSections:
+                                  enrollmentFormState.hiddenSections,
+                              formSections: formSections,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              hiddenInputFieldOptions:
+                                  enrollmentFormState.hiddenInputFieldOptions,
+                              dataObject: enrollmentFormState.formState,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? 'Saving ...'
+                                    : currentLanguage == 'lesotho'
+                                        ? 'Boloka'
+                                        : 'Save',
+                                labelColor: Colors.white,
+                                buttonColor: const Color(0xFF009688),
+                                fontSize: 15.0,
+                                onPressButton: () => !isSaving
+                                    ? onSaveAndContinue(
+                                        context,
+                                        enrollmentFormState.formState,
+                                      )
+                                    : null,
                               ),
-                              Container(
-                                child: Visibility(
-                                  visible: enrollmentFormState.isEditableMode,
-                                  child: EntryFormSaveButton(
-                                    label: isSaving
-                                        ? 'Saving ...'
-                                        : currentLanguage == 'lesotho'
-                                            ? 'Boloka'
-                                            : 'Save',
-                                    labelColor: Colors.white,
-                                    buttonColor: Color(0xFF009688),
-                                    fontSize: 15.0,
-                                    onPressButton: () => !isSaving
-                                        ? onSaveAndContinue(
-                                            context,
-                                            enrollmentFormState.formState,
-                                          )
-                                        : null,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
           ),
         ),

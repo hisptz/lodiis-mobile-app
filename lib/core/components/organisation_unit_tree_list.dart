@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/organisation_unit_list.dart';
@@ -39,7 +37,7 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
   void discoveringOrganisationUnits(List organisationUnitIds) async {
     var data = await OrganisationUnitService()
         .getOrganisationUnits(organisationUnitIds);
-    if (widget.filteredPrograms!.length > 0) {
+    if (widget.filteredPrograms!.isNotEmpty) {
       List<String?> programsOrganisationUnits = [];
       for (String program in widget.filteredPrograms!) {
         List<String?> organisationUnits =
@@ -60,24 +58,20 @@ class _OrganisationUnitTreeListState extends State<OrganisationUnitTreeList> {
   Widget build(BuildContext context) {
     return Container(
       child: isLoading
-          ? Container(
-              child: CircularProcessLoader(
-                color: widget.labelColor,
-              ),
+          ? CircularProcessLoader(
+              color: widget.labelColor,
             )
-          : Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: organisationUnits
-                    .map((OrganisationUnit organisationUnit) =>
-                        OrganisationUnitList(
-                          labelColor: widget.labelColor,
-                          organisationUnit: organisationUnit,
-                          filteredPrograms: widget.filteredPrograms,
-                          allowedSelectedLevels: widget.allowedSelectedLevels,
-                        ))
-                    .toList(),
-              ),
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: organisationUnits
+                  .map((OrganisationUnit organisationUnit) =>
+                      OrganisationUnitList(
+                        labelColor: widget.labelColor,
+                        organisationUnit: organisationUnit,
+                        filteredPrograms: widget.filteredPrograms,
+                        allowedSelectedLevels: widget.allowedSelectedLevels,
+                      ))
+                  .toList(),
             ),
     );
   }

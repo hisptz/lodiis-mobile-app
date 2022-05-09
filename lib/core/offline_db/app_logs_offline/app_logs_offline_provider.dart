@@ -22,7 +22,7 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
       await dbClient!.insert(table, data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
-      print(e.toString());
+      //
     }
   }
 
@@ -57,7 +57,9 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
           logs.add(log);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
     return logs..sort((b, a) => a.date!.compareTo(b.date!));
   }
@@ -68,7 +70,9 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
       var dbClient = await db;
       logsCount = Sqflite.firstIntValue(
           await dbClient!.rawQuery('SELECT COUNT(*) FROM $table'));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return logsCount ?? 0;
   }
 }

@@ -34,11 +34,11 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconHeight = 25;
+    double iconHeight = 20;
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(
+          margin: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 10,
           ),
@@ -49,13 +49,11 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                 visible: true,
                 child: Expanded(
                   flex: 1,
-                  child: Container(
-                    child: Container(
-                      height: 20.0,
-                      width: 20.0,
-                      child: SvgPicture.asset(
-                        svgIcon,
-                      ),
+                  child: SizedBox(
+                    height: 20.0,
+                    width: 20.0,
+                    child: SvgPicture.asset(
+                      svgIcon,
                     ),
                   ),
                 ),
@@ -63,13 +61,17 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
               Visibility(
                 visible: true,
                 child: Expanded(
-                  flex: canEdit && canView ? 7 : 10,
+                  flex: canEdit && canView
+                      ? 7
+                      : canView
+                          ? 8
+                          : 10,
                   child: Container(
-                    padding: EdgeInsets.only(left: 5.0),
+                    padding: const EdgeInsets.only(left: 5.0),
                     child: Text(
                       beneficiaryName,
-                      style: TextStyle().copyWith(
-                          color: Color(0xFF05131B),
+                      style: const TextStyle().copyWith(
+                          color: const Color(0xFF05131B),
                           fontSize: 14.0,
                           fontWeight: FontWeight.bold),
                     ),
@@ -88,13 +90,13 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                     child: Container(
                       height: iconHeight,
                       width: iconHeight,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 5.0,
                       ),
                       child: SvgPicture.asset(
                         'assets/icons/expand_icon.svg',
-                        color: Color(0xFF009688),
+                        color: const Color(0xFF009688),
                       ),
                     ),
                   ),
@@ -109,13 +111,13 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                     child: Container(
                       height: iconHeight,
                       width: iconHeight,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 5.0,
                       ),
                       child: SvgPicture.asset(
                         'assets/icons/edit-icon.svg',
-                        color: Color(0xFF009688),
+                        color: const Color(0xFF009688),
                       ),
                     ),
                   ),
@@ -130,7 +132,7 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                     child: Container(
                       height: iconHeight * 0.8,
                       width: iconHeight,
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 5.0,
                       ),
@@ -138,7 +140,7 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                         isExpanded
                             ? 'assets/icons/chevron_up.svg'
                             : 'assets/icons/chevron_down.svg',
-                        color: Color(0xFF05131B),
+                        color: const Color(0xFF05131B),
                       ),
                     ),
                   ),
@@ -148,7 +150,7 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
           ),
         ),
         LineSeparator(
-          color: Color(0xFF009688).withOpacity(0.1),
+          color: const Color(0xFF009688).withOpacity(0.1),
         ),
       ],
     );

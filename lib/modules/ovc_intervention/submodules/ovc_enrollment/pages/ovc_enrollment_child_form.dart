@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
@@ -41,11 +41,11 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
   bool isLoading = true;
   Map? childMapObject;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
-  final Map mandatoryFieldObject = Map();
+  final Map mandatoryFieldObject = {};
 
-  Map hiddenFields = Map();
-  Map hiddenSections = Map();
-  Map hiddenInputFieldOptions = Map();
+  Map hiddenFields = {};
+  Map hiddenSections = {};
+  Map hiddenInputFieldOptions = {};
   List unFilledMandatoryFields = [];
 
   @override
@@ -66,7 +66,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       for (Map childObj in dataObject["children"]) {
         childMapObjects.add(childObj);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   void resetMapObject(Map? map) {
@@ -80,12 +82,13 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           onUpdateFormAutoSaveState(context);
         }
       }
-      childMapObject = Map();
+      childMapObject = {};
       isLoading = false;
       evaluateSkipLogics();
     });
   }
 
+  // TODO see how to re-use existing skip logic
   evaluateSkipLogics() async {
     hiddenFields.clear();
     hiddenSections.clear();
@@ -99,8 +102,15 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           hiddenFields['GMcljM7jbNG'] = true;
         }
       }
+      if (inputFieldId == 'iS9mAp3jDaU') {
+        print('value: $value');
+        if (value == 'Biological mother' || value == 'Biological father') {
+          assignInputFieldValue('UeF4OvjIIEK', 'false');
+          hiddenFields['nOgf8LKXS4k'] = true;
+        }
+      }
       if (inputFieldId == 'nOgf8LKXS4k') {
-        Map hiddenOptions = Map();
+        Map hiddenOptions = {};
         String relationShipToCaregiver = '${childMapObject!['iS9mAp3jDaU']}';
         if (relationShipToCaregiver == 'Biological mother') {
           hiddenOptions['Single Orphan(Mother)'] = true;
@@ -112,11 +122,15 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
       }
       if (inputFieldId == 'UeF4OvjIIEK' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
+          (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
       }
+      if (inputFieldId == 'wmKqYZML8GA' &&
+          (value.isEmpty || value.trim() == 'true')) {
+        hiddenFields['GMcljM7jbNG'] = true;
+      }
       if (inputFieldId == 'Gkjp5XZD70V' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
+          (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['Sa0KVprHUr7'] = true;
         hiddenFields['XZh0Uew9Xk0'] = true;
         hiddenFields['wtrZQadTkOL'] = true;
@@ -125,12 +139,12 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         hiddenFields['GM2mJDlGZin'] = true;
       }
       if (inputFieldId == 'Mc3k3bSwXNe' &&
-          (value.isEmpty || '$value'.trim() != 'true')) {
+          (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['CePNVGSnj00'] = true;
         hiddenFields['GM2mJDlGZin'] = true;
       }
       if (inputFieldId == 'CePNVGSnj00' &&
-          (value.isEmpty || '$value'.trim() != 'Other')) {
+          (value.isEmpty || value.trim() != 'Other')) {
         hiddenFields['GM2mJDlGZin'] = true;
       }
       if (inputFieldId == 'Sa0KVprHUr7' && value != 'Date') {
@@ -200,8 +214,9 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
             primaryVulnerabilitiesOptions[
                 vulnerabilities.indexOf(vulnerabilityKey)]);
         break;
-      } else
+      } else {
         continue;
+      }
     }
     if (vulnerabilities.every((element) =>
         (dataObject![element] == false || dataObject[element] == null))) {
@@ -236,27 +251,25 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       String name = childMapObject!['WTZ7GLTrE8Q'] ?? '';
       Widget modal = AddChildConfirmation(name: name);
       bool response = await AppUtil.showPopUpModal(context, modal, false);
-      if (response != null) {
-        if (response) {
-          isLoading = true;
-          updateChildMapObjectsOnState(context);
-          setState(() {});
-          Timer(
-            Duration(milliseconds: 500),
-            () => resetMapObject(childMapObject),
-          );
-        } else {
-          updateChildMapObjectsOnState(
-            context,
-            isSaveForm: true,
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OvcEnrollmentHouseholdForm(),
-            ),
-          );
-        }
+      if (response) {
+        isLoading = true;
+        updateChildMapObjectsOnState(context);
+        setState(() {});
+        Timer(
+          const Duration(milliseconds: 500),
+          () => resetMapObject(childMapObject),
+        );
+      } else {
+        updateChildMapObjectsOnState(
+          context,
+          isSaveForm: true,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OvcEnrollmentHouseholdForm(),
+          ),
+        );
       }
     } else {
       setState(() {
@@ -344,18 +357,18 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcEnrollmentHouseholdForm(),
+        builder: (context) => const OvcEnrollmentHouseholdForm(),
       ),
     );
   }
 
   bool isADuplicateChildObject(Map? map) {
     bool isDuplicate = false;
-    childMapObjects.forEach((child) {
+    for (var child in childMapObjects) {
       if (child!['WTZ7GLTrE8Q'] == map!['WTZ7GLTrE8Q']) {
         isDuplicate = true;
       }
-    });
+    }
     return isDuplicate;
   }
 
@@ -364,7 +377,7 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
+          preferredSize: const Size.fromHeight(65.0),
           child: Consumer<InterventionCardState>(
             builder: (context, interventionCardState, child) {
               InterventionCard activeInterventionProgram =
@@ -377,88 +390,80 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
           ),
         ),
         body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 16.0,
-                    horizontal: 13.0,
-                  ),
-                  child: isLoading
-                      ? Column(
-                          children: [
-                            Center(
-                              child: CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            childMapObjects.isNotEmpty
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                      bottom: 12.0,
-                                    ),
-                                    child: EnrolledChildrenList(childMapObjects
+          body: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: 13.0,
+                ),
+                child: isLoading
+                    ? Column(
+                        children: const [
+                          Center(
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            ),
+                          )
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          childMapObjects.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 12.0,
+                                  ),
+                                  child: EnrolledChildrenList(
+                                    childrenList: childMapObjects
                                         .map<String?>(
                                             (child) => child!['fullName'])
-                                        .toList()),
-                                  )
-                                : Container(),
-                            Container(
-                              child: EntryFormContainer(
-                                formSections: formSections,
-                                hiddenFields: hiddenFields,
-                                hiddenSections: hiddenSections,
-                                hiddenInputFieldOptions:
-                                    hiddenInputFieldOptions,
-                                mandatoryFieldObject: mandatoryFieldObject,
-                                dataObject: childMapObject,
-                                onInputValueChange: onInputValueChange,
-                                unFilledMandatoryFields:
-                                    unFilledMandatoryFields,
-                              ),
-                            ),
-                            EntryFormSaveButton(
-                              label: currentLanguage == 'lesotho'
-                                  ? 'Boloka ebe u fetela pele'
-                                  : 'Save and Continue',
-                              labelColor: Colors.white,
-                              buttonColor: Color(0xFF4B9F46),
-                              fontSize: 15.0,
-                              onPressButton: () => onSaveAndContinue(context),
-                            ),
-                            Visibility(
-                              visible: childMapObjects.isNotEmpty,
-                              child: Container(
-                                child: TextButton(
-                                  onPressed: () => onSkip(childMapObject),
-                                  child: Text(
-                                    currentLanguage == 'lesotho'
-                                        ? 'Feta'
-                                        : 'Skip',
-                                    style: TextStyle().copyWith(
-                                      color: Color(0xFF4B9F46),
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                        .toList(),
                                   ),
+                                )
+                              : Container(),
+                          EntryFormContainer(
+                            formSections: formSections,
+                            hiddenFields: hiddenFields,
+                            hiddenSections: hiddenSections,
+                            hiddenInputFieldOptions: hiddenInputFieldOptions,
+                            mandatoryFieldObject: mandatoryFieldObject,
+                            dataObject: childMapObject,
+                            onInputValueChange: onInputValueChange,
+                            unFilledMandatoryFields: unFilledMandatoryFields,
+                          ),
+                          EntryFormSaveButton(
+                            label: currentLanguage == 'lesotho'
+                                ? 'Boloka ebe u fetela pele'
+                                : 'Save and Continue',
+                            labelColor: Colors.white,
+                            buttonColor: const Color(0xFF4B9F46),
+                            fontSize: 15.0,
+                            onPressButton: () => onSaveAndContinue(context),
+                          ),
+                          Visibility(
+                            visible: childMapObjects.isNotEmpty,
+                            child: TextButton(
+                              onPressed: () => onSkip(childMapObject),
+                              child: Text(
+                                currentLanguage == 'lesotho' ? 'Feta' : 'Skip',
+                                style: const TextStyle().copyWith(
+                                  color: const Color(0xFF4B9F46),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                );
-              },
-            ),
+                          ),
+                        ],
+                      ),
+              );
+            },
           ),
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

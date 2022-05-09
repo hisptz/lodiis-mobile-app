@@ -50,32 +50,30 @@ class _CoordinateInputFieldContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: isCoordinateSet
-                ? TextFormField(
-                    controller: coordinateController,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      errorText: null,
-                    ),
-                  )
-                : Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: CircularProcessLoader(
-                      color: widget.inputField.inputColor,
-                    ),
+    return Row(
+      children: [
+        Expanded(
+          child: isCoordinateSet
+              ? TextFormField(
+                  controller: coordinateController,
+                  readOnly: true,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    errorText: null,
                   ),
-          ),
-          InputCheckedIcon(
-            showTickedIcon: _longLatValue != null,
-            color: widget.inputField.inputColor,
-          )
-        ],
-      ),
+                )
+              : Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: CircularProcessLoader(
+                    color: widget.inputField.inputColor,
+                  ),
+                ),
+        ),
+        InputCheckedIcon(
+          showTickedIcon: _longLatValue != null,
+          color: widget.inputField.inputColor,
+        )
+      ],
     );
   }
 }

@@ -16,7 +16,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/components/dreams_hts_index_card_body.dart';
 
 class HTSIndexHomePage extends StatefulWidget {
-  HTSIndexHomePage({
+  const HTSIndexHomePage({
     Key? key,
     required this.htsIndexLinkage,
     this.people,
@@ -78,7 +78,7 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywDreamsIndexInfoAboutPosClient(),
+        builder: (context) => const AgywDreamsIndexInfoAboutPosClient(),
       ),
     );
   }
@@ -88,95 +88,85 @@ class _HTSIndexHomePageState extends State<HTSIndexHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-        child: Consumer<DreamsBeneficiarySelectionState>(
-          builder: (context, dreamBeneficiarySelectionState, child) {
-            return Consumer<ServiceEventDataState>(
-              builder: (context, serviceEventDataState, child) {
-                AgywDream? agywDream =
-                    dreamBeneficiarySelectionState.currentAgywDream;
-                Map<String?, List<Events>> eventListByProgramStage =
-                    serviceEventDataState.eventListByProgramStage;
-                List<Events> events = TrackedEntityInstanceUtil
-                    .getAllEventListFromServiceDataStateByProgramStages(
-                        eventListByProgramStage, programStageIds);
-                List<AgywDreamsIndexInfoEvent> indexEvents = events
-                    .map((Events eventData) =>
-                        AgywDreamsIndexInfoEvent().fromTeiModel(eventData))
-                    .toList()
-                    .where((element) =>
-                        element.htsIndexLinkage == widget.htsIndexLinkage)
-                    .toList();
-                AgywDreamsIndexInfoEvent? indexEvent =
-                    indexEvents.length > 0 ? indexEvents[0] : null;
-                return Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: DreamsHTSIndexCard(
-                          event: indexEvent,
-                          canExpand: canExpand &&
-                              indexEvent != null &&
-                              indexEvent.consent == 'true',
-                          canEdit: canEdit,
-                          canView: canView,
-                          isExpanded: indexEvent != null &&
-                              indexEvent.id == toggleCardId,
-                          onCardToggle: indexEvent == null
-                              ? null
-                              : () {
-                                  onCardToggle(indexEvent.id);
-                                },
-                          cardBody: DreamsHTSIndexCardBody(event: indexEvent),
-                          cardButtonActions: Visibility(
-                            visible: indexEvent == null,
-                            child: ClipRRect(
-                              borderRadius: indexEvent != null &&
-                                      indexEvent.id == toggleCardId
-                                  ? BorderRadius.zero
-                                  : BorderRadius.only(
-                                      bottomLeft: Radius.circular(12.0),
-                                      bottomRight: Radius.circular(12.0),
-                                    ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0XFFF1FAFF),
+    return Consumer<DreamsBeneficiarySelectionState>(
+      builder: (context, dreamBeneficiarySelectionState, child) {
+        return Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, child) {
+            AgywDream? agywDream =
+                dreamBeneficiarySelectionState.currentAgywDream;
+            Map<String?, List<Events>> eventListByProgramStage =
+                serviceEventDataState.eventListByProgramStage;
+            List<Events> events = TrackedEntityInstanceUtil
+                .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage, programStageIds);
+            List<AgywDreamsIndexInfoEvent> indexEvents = events
+                .map((Events eventData) =>
+                    AgywDreamsIndexInfoEvent().fromTeiModel(eventData))
+                .toList()
+                .where((element) =>
+                    element.htsIndexLinkage == widget.htsIndexLinkage)
+                .toList();
+            AgywDreamsIndexInfoEvent? indexEvent =
+                indexEvents.isNotEmpty ? indexEvents[0] : null;
+            return Column(
+              children: [
+                DreamsHTSIndexCard(
+                  event: indexEvent,
+                  canExpand: canExpand &&
+                      indexEvent != null &&
+                      indexEvent.consent == 'true',
+                  canEdit: canEdit,
+                  canView: canView,
+                  isExpanded:
+                      indexEvent != null && indexEvent.id == toggleCardId,
+                  onCardToggle: indexEvent == null
+                      ? null
+                      : () {
+                          onCardToggle(indexEvent.id);
+                        },
+                  cardBody: DreamsHTSIndexCardBody(event: indexEvent),
+                  cardButtonActions: Visibility(
+                    visible: indexEvent == null,
+                    child: ClipRRect(
+                      borderRadius:
+                          indexEvent != null && indexEvent.id == toggleCardId
+                              ? BorderRadius.zero
+                              : const BorderRadius.only(
+                                  bottomLeft: Radius.circular(12.0),
+                                  bottomRight: Radius.circular(12.0),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      child: TextButton(
-                                          onPressed: () => onAddIndexInfo(
-                                              context, agywDream),
-                                          child: Text(
-                                            'REGISTER INDEX',
-                                            style: TextStyle().copyWith(
-                                              fontSize: 12.0,
-                                              color: Color(0xFF258DCC),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          cardButtonContent: DreamsHTSIndexCardButtonContent(
-                            event: indexEvent,
-                          ),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color(0XFFF1FAFF),
                         ),
-                      )
-                    ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                                onPressed: () =>
+                                    onAddIndexInfo(context, agywDream),
+                                child: Text(
+                                  'REGISTER INDEX',
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    color: const Color(0xFF258DCC),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                );
-              },
+                  cardButtonContent: DreamsHTSIndexCardButtonContent(
+                    event: indexEvent,
+                  ),
+                )
+              ],
             );
           },
-        ),
-      ),
+        );
+      },
     );
   }
 }

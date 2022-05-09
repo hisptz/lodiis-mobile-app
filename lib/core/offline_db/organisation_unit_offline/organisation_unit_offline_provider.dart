@@ -62,7 +62,9 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
           organisationUnitList.add(organisationUnits);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     organisationUnitList.sort((a, b) => a.name!.compareTo(b.name!));
     return organisationUnitList;
   }
@@ -96,7 +98,9 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
           organisationUnitList.add(organisationUnits);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return organisationUnitList;
   }
 
@@ -131,7 +135,9 @@ class OrganisationUnitOfflineProvider extends OfflineDbProvider {
           organisationUnitList.add(organisationUnits);
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     organisationUnitList.sort((a, b) => a.name!.compareTo(b.name!));
     return organisationUnitList;
   }

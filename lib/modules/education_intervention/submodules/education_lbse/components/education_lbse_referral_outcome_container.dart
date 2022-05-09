@@ -40,6 +40,8 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', lbseReferral.eventData!.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -90,7 +92,9 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     List<FormSection> formSections =
         EducationLbseReferralOutcomeFollowUpForm.getFormSections();
     Widget modal = EducationLbseRefferalOutcomeFollowUpModal(
-        formSections: formSections, mandatoryFields: mandatoryFields);
+      formSections: formSections,
+      mandatoryFields: mandatoryFields,
+    );
     await AppUtil.showPopUpModal(
       context,
       modal,
@@ -139,36 +143,32 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     );
   }
 
-  Container _getActionButton({
+  ClipRRect _getActionButton({
     required Color backgroundColor,
     required String label,
     required Color labelColor,
     required VoidCallback onTap,
   }) {
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(12.0),
-          bottomRight: Radius.circular(12.0),
-        ),
-        child: Container(
-          width: double.infinity,
-          color: backgroundColor,
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(12.0),
+        bottomRight: Radius.circular(12.0),
+      ),
+      child: Container(
+        width: double.infinity,
+        color: backgroundColor,
+        child: InkWell(
+          onTap: onTap,
           child: Container(
-            child: InkWell(
-              onTap: onTap,
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 15.0,
-                ),
-                child: Center(
-                  child: Text(
-                    label,
-                    style: TextStyle().copyWith(
-                      color: labelColor,
-                    ),
-                  ),
+            margin: const EdgeInsets.symmetric(
+              vertical: 15.0,
+              horizontal: 15.0,
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: const TextStyle().copyWith(
+                  color: labelColor,
                 ),
               ),
             ),
@@ -184,109 +184,101 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
       LbseInterventionConstant.referralOutcomeProgamStage
     ];
 
-    return Container(
-      child: Consumer<ServiceEventDataState>(
-          builder: (context, serviceEventDataState, child) {
-        bool isLoading = serviceEventDataState.isLoading;
-        Map<String?, List<Events>> eventListByProgramStage =
-            serviceEventDataState.eventListByProgramStage;
-        List<Events> events = TrackedEntityInstanceUtil
-            .getAllEventListFromServiceDataStateByProgramStages(
-                eventListByProgramStage, programStageIds);
-        List<LbseReferralOutcomeEvent> referralOutcomeEvents = events
-            .map((Events eventData) =>
-                LbseReferralOutcomeEvent().fromTeiModel(eventData))
-            .toList()
-            .where((LbseReferralOutcomeEvent referralOutcomeEvent) =>
-                referralOutcomeEvent.referralToReferralOutcomeLinkage ==
-                lbseReferral.referralToReferralOutcomeLinkage)
-            .toList();
-        bool shouldAddOutcome = referralOutcomeEvents.length == 0;
-        return isLoading
-            ? Container(
-                child: CircularProcessLoader(
-                  color: Colors.blueGrey,
-                ),
-              )
-            : Column(
-                children: [
-                  Container(
-                    child: Visibility(
-                      visible: shouldAddOutcome,
-                      child: LineSeparator(
-                        color: Color(0xFF009688).withOpacity(0.3),
-                      ),
-                    ),
+    return Consumer<ServiceEventDataState>(
+        builder: (context, serviceEventDataState, child) {
+      bool isLoading = serviceEventDataState.isLoading;
+      Map<String?, List<Events>> eventListByProgramStage =
+          serviceEventDataState.eventListByProgramStage;
+      List<Events> events = TrackedEntityInstanceUtil
+          .getAllEventListFromServiceDataStateByProgramStages(
+              eventListByProgramStage, programStageIds);
+      List<LbseReferralOutcomeEvent> referralOutcomeEvents = events
+          .map((Events eventData) =>
+              LbseReferralOutcomeEvent().fromTeiModel(eventData))
+          .toList()
+          .where((LbseReferralOutcomeEvent referralOutcomeEvent) =>
+              referralOutcomeEvent.referralToReferralOutcomeLinkage ==
+              lbseReferral.referralToReferralOutcomeLinkage)
+          .toList();
+      bool shouldAddOutcome = referralOutcomeEvents.isEmpty;
+      return isLoading
+          ? const CircularProcessLoader(
+              color: Colors.blueGrey,
+            )
+          : Column(
+              children: [
+                Visibility(
+                  visible:
+                      shouldAddOutcome && lbseReferral.enrollmentOuAccessible!,
+                  child: LineSeparator(
+                    color: const Color(0xFF009688).withOpacity(0.3),
                   ),
-                  Container(
-                    child: shouldAddOutcome
-                        ? _getActionButton(
-                            backgroundColor: Color(0xFF009688).withOpacity(0.1),
+                ),
+                Container(
+                  child: shouldAddOutcome
+                      ? Visibility(
+                          visible: lbseReferral.enrollmentOuAccessible!,
+                          child: _getActionButton(
+                            backgroundColor:
+                                const Color(0xFF009688).withOpacity(0.1),
                             label: 'ADD OUTCOME',
-                            labelColor: Color(0xFF009688),
+                            labelColor: const Color(0xFF009688),
                             onTap: () => onAddingOutcome(context),
-                          )
-                        : Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 15.0,
-                              horizontal: 15.0,
+                          ))
+                      : Container(
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 15.0,
+                            horizontal: 15.0,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: const Color(0xFFB2B7B9),
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color(0xFFB2B7B9),
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Column(
-                                children: referralOutcomeEvents
-                                    .map(
-                                      (LbseReferralOutcomeEvent
-                                              referralOutcomeEvent) =>
-                                          Container(
-                                        child: Column(
-                                          children: [
-                                            EducationLbseReferralOutcomeCard(
-                                              referralOutcomeEvent:
-                                                  referralOutcomeEvent,
-                                              onEditReferralOutcome: () =>
-                                                  onEditOutcome(context,
-                                                      referralOutcomeEvent),
-                                            ),
-                                            Container(
-                                              child:
-                                                  EdcucationLbseReferralOutcomeFollowUpContainer(
-                                                referralOutcomeEvent:
-                                                    referralOutcomeEvent,
-                                                isFollowingUpNeeded:
-                                                    referralOutcomeEvent
-                                                        .isRequireFollowUp!,
-                                                onAddOutComeFollowingUp: () =>
-                                                    onAddOutComeFollowingUp(
-                                                        context,
-                                                        referralOutcomeEvent),
-                                                editAddOutComeFollowingUp:
-                                                    (LbseReferralOutcomeFollowUpEvent
-                                                            referralOutcomeFollowUpEvent) =>
-                                                        onEditOutComeFollowingUp(
-                                                            context,
-                                                            referralOutcomeEvent,
-                                                            referralOutcomeFollowUpEvent
-                                                                .eventData!),
-                                              ),
-                                            )
-                                          ],
+                            child: Column(
+                              children: referralOutcomeEvents
+                                  .map(
+                                    (LbseReferralOutcomeEvent
+                                            referralOutcomeEvent) =>
+                                        Column(
+                                      children: [
+                                        EducationLbseReferralOutcomeCard(
+                                          referralOutcomeEvent:
+                                              referralOutcomeEvent,
+                                          onEditReferralOutcome: () =>
+                                              onEditOutcome(context,
+                                                  referralOutcomeEvent),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
+                                        EdcucationLbseReferralOutcomeFollowUpContainer(
+                                          referralOutcomeEvent:
+                                              referralOutcomeEvent,
+                                          isFollowingUpNeeded:
+                                              referralOutcomeEvent
+                                                  .isRequireFollowUp!,
+                                          onAddOutComeFollowingUp: () =>
+                                              onAddOutComeFollowingUp(context,
+                                                  referralOutcomeEvent),
+                                          editAddOutComeFollowingUp:
+                                              (LbseReferralOutcomeFollowUpEvent
+                                                      referralOutcomeFollowUpEvent) =>
+                                                  onEditOutComeFollowingUp(
+                                                      context,
+                                                      referralOutcomeEvent,
+                                                      referralOutcomeFollowUpEvent
+                                                          .eventData!),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
-                  ),
-                ],
-              );
-      }),
-    );
+                        ),
+                ),
+              ],
+            );
+    });
   }
 }

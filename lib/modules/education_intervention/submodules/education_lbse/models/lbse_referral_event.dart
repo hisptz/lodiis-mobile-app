@@ -8,6 +8,7 @@ class LbseReferralEvent {
   String? referralTo;
   String? description;
   String? referralToReferralOutcomeLinkage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   LbseReferralEvent({
@@ -17,6 +18,7 @@ class LbseReferralEvent {
     this.referralTo,
     this.description,
     this.referralToReferralOutcomeLinkage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -29,10 +31,10 @@ class LbseReferralEvent {
       'OT97N8oZhpF',
       LbseInterventionConstant.referralToReferralOutcomeLinkage,
     ];
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
@@ -44,6 +46,7 @@ class LbseReferralEvent {
       referralToReferralOutcomeLinkage:
           data[LbseInterventionConstant.referralToReferralOutcomeLinkage] ?? '',
       date: eventData.eventDate,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

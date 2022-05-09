@@ -1,7 +1,6 @@
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -53,62 +52,60 @@ class NoneAgywDreamsEnrollmentService {
 
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
-            trackedEntityInstance,
-            trackedEntityType,
-            orgUnit,
-            inputFieldIds,
-            dataObject,
-            hasBeneficiaryId: false);
+      trackedEntityInstance,
+      trackedEntityType,
+      orgUnit,
+      inputFieldIds,
+      dataObject,
+      hasBeneficiaryId: false,
+    );
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<AgywDream>> getNonAgywBeneficiaryList(
       {int? page, String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollments(program,
-              page: page, isSearching: searchableValue != '');
+          .getEnrollmentsByProgram(program,
+              page: page, searchedValue: searchableValue);
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
         for (TrackedEntityInstance tei in dataHolds) {
           try {
-            agywDreamList.add(AgywDream().fromTeiModel(
-                tei, orgUnit, location, createdDate, enrollmentId));
-          } catch (e) {}
+            agywDreamList.add(AgywDream().fromTeiModel(tei, orgUnit, location,
+                createdDate, enrollmentId, enrollmentOuAccessible));
+          } catch (e) {
+            //
+          }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
 
-    return searchableValue == ''
-        ? agywDreamList
-        : agywDreamList.where((AgywDream beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return agywDreamList;
   }
 
   Future<int> getNonAgywBeneficiaryCount() async {

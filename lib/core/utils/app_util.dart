@@ -6,21 +6,59 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kb_mobile_app/models/app_semantic_version.dart';
+import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 
 class AppUtil {
-  static AppSemanticVersion getSemanticVersionValue({version: String}) {
+  static FormSection getServiceProvisionLocationSection({
+    required Color inputColor,
+    required Color labelColor,
+    required Color sectionLabelColor,
+    required List<int> allowedSelectedLevels,
+    required String program,
+    bool isReadOnly = false,
+  }) {
+    return FormSection(
+      name: "Service Provision Location",
+      color: sectionLabelColor,
+      inputFields: [
+        InputField(
+          id: 'location',
+          name: 'Location',
+          translatedName: 'Sebaka',
+          valueType: 'ORGANISATION_UNIT',
+          isReadOnly: isReadOnly,
+          allowedSelectedLevels: allowedSelectedLevels,
+          filteredPrograms: [program],
+          inputColor: inputColor,
+          labelColor: labelColor,
+        ),
+      ],
+    );
+  }
+
+  static bool hasAccessToEditCasePlanServiceData(List<Events> events) {
+    return events.length ==
+        events
+            .where((Events event) => event.enrollmentOuAccessible!)
+            .toList()
+            .length;
+  }
+
+  static AppSemanticVersion getSemanticVersionValue({version}) {
     List<String> versionList = version.split(".");
     int major = 0;
     int minor = 0;
     int patch = 0;
-    if (versionList.length > 0 && versionList[0] != "") {
-      major = versionList.length > 0 ? int.parse(versionList[0]) : major;
+    if (versionList.isNotEmpty && versionList[0] != "") {
+      major = versionList.isNotEmpty ? int.parse(versionList[0]) : major;
     }
     if (versionList.length > 1 && versionList[2] != "") {
-      minor = versionList.length > 0 ? int.parse(versionList[1]) : minor;
+      minor = versionList.isNotEmpty ? int.parse(versionList[1]) : minor;
     }
     if (versionList.length > 2 && versionList[2] != "") {
-      patch = versionList.length > 0 ? int.parse(versionList[2]) : patch;
+      patch = versionList.isNotEmpty ? int.parse(versionList[2]) : patch;
     }
     return AppSemanticVersion(major: major, minor: minor, patch: patch);
   }
@@ -31,10 +69,10 @@ class AppUtil {
     List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
     List filteredMandatoryFields = mandatoryFields
-        .where((field) => hiddenFieldsIds.indexOf(field) < 0)
+        .where((field) => !hiddenFieldsIds.contains(field))
         .toList();
     for (var mandatoryField in filteredMandatoryFields) {
-      if (fieldIds.indexOf(mandatoryField) == -1) {
+      if (!fieldIds.contains(mandatoryField)) {
         hasFilled = false;
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
@@ -52,10 +90,10 @@ class AppUtil {
     List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
     List filteredMandatoryFields = mandatoryFields
-        .where((field) => hiddenFieldsIds.indexOf(field) < 0)
+        .where((field) => !hiddenFieldsIds.contains(field))
         .toList();
     for (var mandatoryField in filteredMandatoryFields) {
-      if (fieldIds.indexOf(mandatoryField) == -1) {
+      if (!fieldIds.contains(mandatoryField)) {
         unFilledMandatoryFields.add(mandatoryField);
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
@@ -74,7 +112,7 @@ class AppUtil {
     List unFilledFields = [];
     List fieldIds = dataDynamic.keys.toList();
     for (var field in fields) {
-      if (fieldIds.indexOf(field) == -1) {
+      if (!fieldIds.contains(field)) {
         unFilledFields.add(field);
       } else {
         if ('${dataDynamic[field]}'.trim() == '' ||
@@ -96,16 +134,16 @@ class AppUtil {
   }
 
   static String getUid() {
-    Random rnd = new Random();
-    const letters = 'abcdefghijklmnopqrstuvwxyz' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    Random rnd = Random();
+    const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const allowedChars = '0123456789' + letters;
-    const NUMBER_OF_CODEPOINTS = allowedChars.length;
-    const CODESIZE = 11;
+    const numberOfCodePoints = allowedChars.length;
+    const codeSize = 11;
     String uid;
     int charIndex = (rnd.nextInt(10) / 10 * letters.length).round();
     uid = letters.substring(charIndex, charIndex + 1);
-    for (int i = 1; i < CODESIZE; ++i) {
-      charIndex = (rnd.nextInt(10) / 10 * NUMBER_OF_CODEPOINTS).round();
+    for (int i = 1; i < codeSize; ++i) {
+      charIndex = (rnd.nextInt(10) / 10 * numberOfCodePoints).round();
       uid += allowedChars.substring(charIndex, charIndex + 1);
     }
     return uid;
@@ -141,7 +179,9 @@ class AppUtil {
           age--;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return age;
   }
 
@@ -182,13 +222,14 @@ class AppUtil {
     required String message,
     ToastGravity? position = ToastGravity.BOTTOM,
   }) {
-    if (message.isNotEmpty)
+    if (message.isNotEmpty) {
       Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
         gravity: position,
-        backgroundColor: Color(0xFF656565),
+        backgroundColor: const Color(0xFF656565),
       );
+    }
   }
 
   static showPopUpModal(
@@ -205,73 +246,69 @@ class AppUtil {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(22.0),
           ),
-          child: Container(
-            child: Padding(
-              padding: diablePadding
-                  ? const EdgeInsets.all(0)
-                  : const EdgeInsets.only(
-                      bottom: 12.0,
-                      top: 5.0,
-                      right: 5.0,
-                      left: 5.0,
+          child: Padding(
+            padding: diablePadding
+                ? const EdgeInsets.all(0)
+                : const EdgeInsets.only(
+                    bottom: 12.0,
+                    top: 5.0,
+                    right: 5.0,
+                    left: 5.0,
+                  ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
                     ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 9,
-                            child: title == ''
-                                ? Container()
-                                : Container(
-                                    alignment: Alignment.center,
-                                    child: Wrap(
-                                      alignment: WrapAlignment.start,
-                                      children: [
-                                        Text(
-                                          title,
-                                          style: TextStyle().copyWith(
-                                            color: Color(0xFF82898D),
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 9,
+                          child: title == ''
+                              ? Container()
+                              : Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    alignment: WrapAlignment.start,
+                                    children: [
+                                      Text(
+                                        title,
+                                        style: const TextStyle().copyWith(
+                                          color: const Color(0xFF82898D),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    ],
                                   ),
+                                ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Container(
+                                  margin: const EdgeInsets.all(10),
+                                  height: 22,
+                                  width: 22,
+                                  child: SvgPicture.asset(
+                                    'assets/icons/close_icon.svg',
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                    onTap: () => Navigator.of(context).pop(),
-                                    child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      height: 22,
-                                      width: 22,
-                                      child: SvgPicture.asset(
-                                        'assets/icons/close_icon.svg',
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                    modal
-                  ],
-                ),
+                  ),
+                  modal
+                ],
               ),
             ),
           ),

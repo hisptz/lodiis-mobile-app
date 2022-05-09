@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -31,11 +31,13 @@ class OcvChildCasePlanForm extends StatefulWidget {
     this.shouldEditCaseGapServiceProvision = false,
     this.shouldViewCaseGapServiceProvision = false,
     this.shouldAddCasePlanGap = false,
+    this.hasEditAccess = false,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final bool shouldAddCasePlanGap;
+  final bool hasEditAccess;
 
   @override
   _OcvChildCasePlanFormState createState() => _OcvChildCasePlanFormState();
@@ -44,7 +46,7 @@ class OcvChildCasePlanForm extends StatefulWidget {
 class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   final String label = 'Child Case Plan Form';
   late List<FormSection> formSections;
-  Map borderColors = Map();
+  Map borderColors = {};
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -135,7 +137,9 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
               hiddenFields,
             );
           }
-        } catch (e) {}
+        } catch (e) {
+          //
+        }
       }
     }
   }
@@ -153,7 +157,7 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
       await savingDomainsAndGaps(dataObject, currentOvcHouseholdChild);
       Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(currentOvcHouseholdChild.id);
-      Timer(Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
             isSaving = false;
@@ -180,123 +184,120 @@ class _OcvChildCasePlanFormState extends State<OcvChildCasePlanForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Container(
-            child: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
-                    languageTranslationState.currentLanguage;
-                return Consumer<OvcHouseholdCurrentSelectionState>(
-                  builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHouseholdChild currentOvcHouseholdChild =
-                        ovcHouseholdCurrentSelectionState
-                            .currentOvcHouseholdChild!;
-                    int age = 5;
-                    try {
-                      age = int.parse(currentOvcHouseholdChild.age!);
-                    } catch (e) {
-                      print(e);
-                    }
-                    return Consumer<ServiceFormState>(
-                      builder: (context, serviceFormState, child) {
-                        Map dataObject = serviceFormState.formState;
-                        return Container(
-                          child: !isFormReady
-                              ? Container(
-                                  child: CircularProcessLoader(
-                                    color: Colors.blueGrey,
+      ),
+      body: SubPageBody(
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<OvcHouseholdCurrentSelectionState>(
+              builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                OvcHouseholdChild currentOvcHouseholdChild =
+                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild!;
+                int age = 5;
+                try {
+                  age = int.parse(currentOvcHouseholdChild.age!);
+                } catch (e) {
+                  //
+                }
+                return Consumer<ServiceFormState>(
+                  builder: (context, serviceFormState, child) {
+                    Map dataObject = serviceFormState.formState;
+                    return Container(
+                      child: !isFormReady
+                          ? const CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            )
+                          : Column(
+                              children: [
+                                const OvcChildInfoTopHeader(),
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 10.0,
+                                    left: 13.0,
+                                    right: 13.0,
+                                  ),
+                                  child: Column(
+                                    children: formSections
+                                        .map(
+                                          (FormSection formSection) => (age <
+                                                      5 &&
+                                                  formSection.id == 'Schooled')
+                                              ? Container()
+                                              : CasePlanFormContainer(
+                                                  hasEditAccess:
+                                                      widget.hasEditAccess,
+                                                  currentHouseholdChild:
+                                                      currentOvcHouseholdChild,
+                                                  shouldAddCasePlanGap: widget
+                                                      .shouldAddCasePlanGap,
+                                                  shouldEditCaseGapServiceProvision:
+                                                      widget
+                                                          .shouldEditCaseGapServiceProvision,
+                                                  shouldViewCaseGapServiceProvision:
+                                                      widget
+                                                          .shouldViewCaseGapServiceProvision,
+                                                  formSectionColor:
+                                                      borderColors[
+                                                          formSection.id],
+                                                  formSection: formSection,
+                                                  dataObject: dataObject[
+                                                      formSection.id],
+                                                  isEditableMode:
+                                                      serviceFormState
+                                                          .isEditableMode,
+                                                  onInputValueChange: (
+                                                    dynamic value,
+                                                  ) =>
+                                                      onInputValueChange(
+                                                    formSection.id,
+                                                    value,
+                                                  ),
+                                                ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: serviceFormState.isEditableMode,
+                                  child: EntryFormSaveButton(
+                                    label: isSaving
+                                        ? 'Saving ...'
+                                        : currentLanguage == 'lesotho'
+                                            ? 'Boloka'
+                                            : 'Save',
+                                    labelColor: Colors.white,
+                                    buttonColor: const Color(0xFF4B9F46),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onSaveForm(
+                                      context,
+                                      serviceFormState.formState,
+                                      currentOvcHouseholdChild,
+                                    ),
                                   ),
                                 )
-                              : Column(
-                                  children: [
-                                    OvcChildInfoTopHeader(),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                        top: 10.0,
-                                        left: 13.0,
-                                        right: 13.0,
-                                      ),
-                                      child: Column(
-                                        children: formSections
-                                            .map(
-                                              (FormSection formSection) => (age <
-                                                          5 &&
-                                                      formSection.id ==
-                                                          'Schooled')
-                                                  ? Container()
-                                                  : CasePlanFormContainer(
-                                                      currentHouseholdChild:
-                                                          currentOvcHouseholdChild,
-                                                      shouldAddCasePlanGap: widget
-                                                          .shouldAddCasePlanGap,
-                                                      shouldEditCaseGapServiceProvision:
-                                                          widget
-                                                              .shouldEditCaseGapServiceProvision,
-                                                      shouldViewCaseGapServiceProvision:
-                                                          widget
-                                                              .shouldViewCaseGapServiceProvision,
-                                                      formSectionColor:
-                                                          borderColors[
-                                                              formSection.id],
-                                                      formSection: formSection,
-                                                      dataObject: dataObject[
-                                                          formSection.id],
-                                                      isEditableMode:
-                                                          serviceFormState
-                                                              .isEditableMode,
-                                                      onInputValueChange: (
-                                                        dynamic value,
-                                                      ) =>
-                                                          onInputValueChange(
-                                                            formSection.id,
-                                                            value,
-                                                          )),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: serviceFormState.isEditableMode,
-                                      child: EntryFormSaveButton(
-                                        label: isSaving
-                                            ? 'Saving ...'
-                                            : currentLanguage == 'lesotho'
-                                                ? 'Boloka'
-                                                : 'Save',
-                                        labelColor: Colors.white,
-                                        buttonColor: Color(0xFF4B9F46),
-                                        fontSize: 15.0,
-                                        onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          currentOvcHouseholdChild,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                        );
-                      },
+                              ],
+                            ),
                     );
                   },
                 );
               },
-            ),
-          ),
+            );
+          },
         ),
-        bottomNavigationBar: InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
+    );
   }
 }

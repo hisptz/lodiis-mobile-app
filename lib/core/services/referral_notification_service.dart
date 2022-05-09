@@ -1,21 +1,29 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
+import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_notification/referral_event_notification_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/referral_notification/referral_notification_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
+import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_notification.dart';
+import 'package:provider/provider.dart';
 
 class ReferralNotificationService {
   final String apiUrlToDataStore = "api/dataStore/kb-referral-notification";
 
-  Future syncReferralNotifications() async {
+  Future syncReferralNotifications({
+    BuildContext? context,
+    bool shouldRefreshBeneficairyList = false,
+  }) async {
     try {
       List<ReferralNotification> onlineReferralNotifications =
           await discoveringReferralNotificationFromServer();
@@ -24,10 +32,46 @@ class ReferralNotificationService {
       List<ReferralNotification> referralNotifications =
           getMergedReferralNotifications(
               onlineReferralNotifications, offlineReferralNotifications);
+      List<String> beneficiaryIdsToBeSynced = referralNotifications
+          .map((ReferralNotification referralNotification) =>
+              referralNotification.tei)
+          .toList();
+      if (shouldRefreshBeneficairyList && context != null) {
+        List<String> offlineIds = await TrackedEntityInstanceOfflineProvider()
+            .getTrackedEntitiyInstanceReferencesBySyncStatus();
+        List<String> offlineSynced =
+            await TrackedEntityInstanceOfflineProvider()
+                .getTrackedEntitiyInstanceReferencesBySyncStatus(
+                    teiSyncStatus: "synced");
+        offlineIds.addAll(offlineSynced);
+        List<String> beneficiaryIds = beneficiaryIdsToBeSynced
+            .where((String id) => !offlineIds.contains(id))
+            .toList();
+        if (beneficiaryIds.isNotEmpty) {
+          await synchronizeUnsyncedBeneficiariesWithNotifications(
+            context,
+            beneficiaryIds,
+          );
+        }
+      }
       await savingReferralNotificationToOfflineDb(referralNotifications);
       await updateReferralNotificationToServer(referralNotifications);
     } catch (error) {
-      print("syncReferralNotifications : ${error.toString()}");
+      //
+    }
+  }
+
+  Future synchronizeUnsyncedBeneficiariesWithNotifications(
+      BuildContext context, List<String> beneficiaryIds) async {
+    try {
+      for (String teiId in beneficiaryIds) {
+        await TrackedEntityInstanceService()
+            .discoverTrackedEntityInstanceById(teiId);
+      }
+      await Provider.of<SynchronizationState>(context, listen: false)
+          .refreshBeneficiaryCounts();
+    } catch (error) {
+      //
     }
   }
 
@@ -43,7 +87,7 @@ class ReferralNotificationService {
           message:
               'savingReferralNotificationToOfflineDb: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      throw error;
+      rethrow;
     }
   }
 
@@ -68,7 +112,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("updateReferralNotificationEvent : ${error.toString()}");
+      //
     }
   }
 
@@ -106,7 +150,7 @@ class ReferralNotificationService {
         );
       }
     } catch (error) {
-      print("updateReferralNotificationToServer : ${error.toString()}");
+      //
     }
   }
 
@@ -117,7 +161,7 @@ class ReferralNotificationService {
       referralNotifications = await ReferralNotificationOfflineProvider()
           .getReferralNotifications();
     } catch (error) {
-      print("getReferralNotificationFromOffline : ${error.toString()}");
+      //
     }
     return referralNotifications;
   }
@@ -153,7 +197,7 @@ class ReferralNotificationService {
         httpService,
       );
     } catch (error) {
-      print("discoveringReferralNotificationFromServer : ${error.toString()}");
+      //
     }
     return referralNotifications;
   }
@@ -176,7 +220,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("getReferralNotificationFromServer : ${error.toString()}");
+      //
     }
     return referralNotifications;
   }
@@ -190,21 +234,21 @@ class ReferralNotificationService {
     try {
       if (locations.isEmpty) {
         for (String key in json.decode(response.body)) {
-          if (key.indexOf(implementingPartner) > -1) {
+          if (key.contains(implementingPartner)) {
             selectedKeys.add(key);
           }
         }
       } else {
         for (String key in json.decode(response.body)) {
           for (String? location in locations) {
-            if (key.indexOf(location!) > -1) {
+            if (key.contains(location!)) {
               selectedKeys.add(key);
             }
           }
         }
       }
     } catch (error) {
-      print("getKeysForReferralNotification : ${error.toString()}");
+      //
     }
     return selectedKeys;
   }
@@ -230,15 +274,13 @@ class ReferralNotificationService {
               .toList();
       referralNotifications.addAll(onlineReferralNotifications
           .where((ReferralNotification referralNotification) =>
-              conflictReferralNotificationIds
-                  .indexOf(referralNotification.id) ==
-              -1)
+              !conflictReferralNotificationIds
+                  .contains(referralNotification.id))
           .toList());
       referralNotifications.addAll(offlineReferralNotifications
           .where((ReferralNotification referralNotification) =>
-              conflictReferralNotificationIds
-                  .indexOf(referralNotification.id) ==
-              -1)
+              !conflictReferralNotificationIds
+                  .contains(referralNotification.id))
           .toList());
       for (String id in conflictReferralNotificationIds) {
         ReferralNotification onlineReferralNotification =
@@ -262,7 +304,7 @@ class ReferralNotificationService {
         ));
       }
     } catch (error) {
-      print("getMergedReferralNotifications : ${error.toString()}");
+      //
     }
     return referralNotifications;
   }
@@ -287,11 +329,11 @@ class ReferralNotificationService {
           .toList();
       referrals.addAll(onlineReferrals
           .where((ReferralEventNotification referralEventNotification) =>
-              conflictReferralIds.indexOf(referralEventNotification.id) == -1)
+              !conflictReferralIds.contains(referralEventNotification.id))
           .toList());
       referrals.addAll(offlineReferrals
           .where((ReferralEventNotification referralEventNotification) =>
-              conflictReferralIds.indexOf(referralEventNotification.id) == -1)
+              !conflictReferralIds.contains(referralEventNotification.id))
           .toList());
       for (String id in conflictReferralIds) {
         ReferralEventNotification onlineReferral = onlineReferrals.firstWhere(
@@ -311,7 +353,7 @@ class ReferralNotificationService {
         }
       }
     } catch (error) {
-      print("getMergedReferralEventNotifications : ${error.toString()}");
+      //
     }
     return referrals;
   }

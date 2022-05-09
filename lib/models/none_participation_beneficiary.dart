@@ -13,6 +13,8 @@ class NoneParticipationBeneficiary {
   String? phoneNumber;
   String? searchableValue;
   String? reason;
+  bool? isMaleBeneficiary;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   NoneParticipationBeneficiary({
@@ -26,6 +28,8 @@ class NoneParticipationBeneficiary {
     this.phoneNumber,
     this.sex,
     this.searchableValue,
+    this.enrollmentOuAccessible,
+    this.isMaleBeneficiary,
     this.reason,
     this.eventData,
   });
@@ -40,32 +44,36 @@ class NoneParticipationBeneficiary {
       'FHn0nJPumhO'
     ];
 
-    Map data = Map();
+    Map data = {};
 
     for (Map detailObj in eventData.dataValues) {
       String? dataElements = detailObj['dataElement'];
-      if (dataElements != null && keys.indexOf(dataElements) > -1) {
+      if (dataElements != null && keys.contains(dataElements)) {
         data[dataElements] = '${detailObj['value']}'.trim();
       }
     }
 
     int age = AppUtil.getAgeInYear(data['jVSwC6Ln95H']);
     String phoneNumber = data["ox6mydZjgC3"] ?? '';
-
+    String sex = data['an7w8LYPZ7y'] ?? '';
+    bool isMaleBeneficiary = sex.trim().toLowerCase() == "male";
     NoneParticipationBeneficiary beneficiary = NoneParticipationBeneficiary(
-        event: eventData.event,
-        eventDate: eventData.eventDate,
-        program: eventData.program,
-        programStage: eventData.programStage,
-        age: age.toString(),
-        phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
-        firstname: data['JhOvli80Qbx'] ?? '',
-        surname: data['jjZWuJfVStp'] ?? '',
-        sex: data['an7w8LYPZ7y'] ?? '',
-        searchableValue:
-            "${data['an7w8LYPZ7y']} ${data['JhOvli80Qbx']}, ${data['jjZWuJfVStp']}",
-        reason: data['FHn0nJPumhO'] ?? '',
-        eventData: eventData);
+      event: eventData.event,
+      eventDate: eventData.eventDate,
+      program: eventData.program,
+      programStage: eventData.programStage,
+      age: age.toString(),
+      phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
+      firstname: data['JhOvli80Qbx'] ?? '',
+      surname: data['jjZWuJfVStp'] ?? '',
+      sex: sex,
+      isMaleBeneficiary: isMaleBeneficiary,
+      searchableValue:
+          "${data['an7w8LYPZ7y']} ${data['JhOvli80Qbx']}, ${data['jjZWuJfVStp']}",
+      reason: data['FHn0nJPumhO'] ?? '',
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
+      eventData: eventData,
+    );
     return beneficiary;
   }
 

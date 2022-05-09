@@ -129,7 +129,7 @@ class CasePlanGapServiceProvision {
       'TSx4O9Tf5v2',
       'QDFZ03HbjGj'
     ];
-    Map data = Map();
+    Map data = {};
     String followupResults = '';
     String followUpReason = '';
     for (Map detailObj in eventData.dataValues) {
@@ -137,12 +137,12 @@ class CasePlanGapServiceProvision {
       if (dataElement != null &&
           dataElement == casePlanGapToServiceProvisionLinkage) {
         data[dataElement] = '${detailObj['value']}'.trim();
-      } else if (dataElement != null && resultIds.indexOf(dataElement) > -1) {
+      } else if (dataElement != null && resultIds.contains(dataElement)) {
         followupResults =
             detailObj['value'] != null && '${detailObj['value']}'.trim() != ''
                 ? '${detailObj['value']}'.trim()
                 : followupResults;
-      } else if (dataElement != null && reasonIds.indexOf(dataElement) > -1) {
+      } else if (dataElement != null && reasonIds.contains(dataElement)) {
         followUpReason =
             detailObj['value'] != null && '${detailObj['value']}'.trim() != ''
                 ? '${detailObj['value']}'.trim()
@@ -154,7 +154,7 @@ class CasePlanGapServiceProvision {
       casePlanGapToServiceProvisionLinkage:
           data[casePlanGapToServiceProvisionLinkage] ?? '',
       date: eventData.eventDate,
-      result: "$followupResults" == "true" ? "Yes" : "No",
+      result: followupResults == "true" ? "Yes" : "No",
       reason: followUpReason,
       eventData: eventData,
     );

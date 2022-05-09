@@ -31,6 +31,7 @@ class CasePlanGapView extends StatefulWidget {
     required this.shouldEditCaseGapServiceProvision,
     required this.shouldViewCaseGapServiceProvision,
     required this.formSectionColor,
+    required this.hasEditAccess,
   }) : super(key: key);
   final Map casePlanGap;
   final Color? formSectionColor;
@@ -39,6 +40,7 @@ class CasePlanGapView extends StatefulWidget {
   final bool isCasePlanForHousehold;
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapViewState createState() => _CasePlanGapViewState();
@@ -65,26 +67,23 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
               .toList();
       List keys = widget.casePlanGap.keys.toList();
       inputFields = FormUtil.getFormInputFields(formSections)
-          .where((InputField inputField) => keys.indexOf((inputField.id)) > -1)
+          .where((InputField inputField) => keys.contains((inputField.id)))
           .toList();
     });
   }
 
   _getInputValue(InputField inputField, Map dataObject) {
-    dynamic value =
-        inputField != null && '${dataObject[inputField.id]}' != 'null'
-            ? '${dataObject[inputField.id]}'
-            : '   ';
-    if (inputField != null) {
-      if (inputField.valueType == 'BOOLEAN') {
-        value = '$value' == 'true'
-            ? 'Yes'
-            : value == 'false'
-                ? 'No'
-                : value;
-      } else if (inputField.valueType == 'TRUE_ONLY') {
-        value = '$value' == 'true' ? 'Yes' : value;
-      }
+    dynamic value = '${dataObject[inputField.id]}' != 'null'
+        ? '${dataObject[inputField.id]}'
+        : '   ';
+    if (inputField.valueType == 'BOOLEAN') {
+      value = '$value' == 'true'
+          ? 'Yes'
+          : value == 'false'
+              ? 'No'
+              : value;
+    } else if (inputField.valueType == 'TRUE_ONLY') {
+      value = '$value' == 'true' ? 'Yes' : value;
     }
     return value.toString();
   }
@@ -113,187 +112,173 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
       dataObject: widget.casePlanGap,
     );
     Map response = await AppUtil.showPopUpModal(context, modal, true);
-    if (response != null) {
-      List<String> hiddenFields = [
-        OvcCasePlanConstant.casePlanToGapLinkage,
-        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
-      ];
-      String program = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.program
-          : OvcChildCasePlanConstant.program;
-      String programStage = widget.isCasePlanForHousehold
-          ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
-          : OvcChildCasePlanConstant.casePlanGapProgramStage;
-      String? orgUnit = widget.isCasePlanForHousehold
-          ? currentOvcHousehold!.orgUnit
-          : currentOvcHouseholdChild!.orgUnit;
-      String? beneficiaryId = widget.isCasePlanForHousehold
-          ? currentOvcHousehold!.id
-          : currentOvcHouseholdChild!.id;
-      Provider.of<ServiceEventDataState>(context, listen: false)
-          .resetServiceEventDataState(beneficiaryId);
-      await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-        program,
-        programStage,
-        orgUnit,
-        formSections,
-        response,
-        response['eventDate'],
-        beneficiaryId,
-        response['eventId'],
-        hiddenFields,
-      );
-      String? currentLanguage =
-          Provider.of<LanguageTranslationState>(context, listen: false)
-              .currentLanguage;
-      AppUtil.showToastMessage(
-        message: currentLanguage == 'lesotho'
-            ? 'Fomo e bolokeile'
-            : 'Form has been saved successfully',
-        position: ToastGravity.TOP,
-      );
-    }
+    List<String> hiddenFields = [
+      OvcCasePlanConstant.casePlanToGapLinkage,
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage
+    ];
+    String program = widget.isCasePlanForHousehold
+        ? OvcHouseholdCasePlanConstant.program
+        : OvcChildCasePlanConstant.program;
+    String programStage = widget.isCasePlanForHousehold
+        ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
+        : OvcChildCasePlanConstant.casePlanGapProgramStage;
+    String? orgUnit = widget.isCasePlanForHousehold
+        ? currentOvcHousehold!.orgUnit
+        : currentOvcHouseholdChild!.orgUnit;
+    String? beneficiaryId = widget.isCasePlanForHousehold
+        ? currentOvcHousehold!.id
+        : currentOvcHouseholdChild!.id;
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(beneficiaryId);
+    await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+      program,
+      programStage,
+      orgUnit,
+      formSections,
+      response,
+      response['eventDate'],
+      beneficiaryId,
+      response['eventId'],
+      hiddenFields,
+    );
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
+    AppUtil.showToastMessage(
+      message: currentLanguage == 'lesotho'
+          ? 'Fomo e bolokeile'
+          : 'Form has been saved successfully',
+      position: ToastGravity.TOP,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
         color: widget.formSectionColor!.withOpacity(0.2),
       ),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.0),
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: Text(
-                        label,
-                        style: TextStyle().copyWith(
-                          color: widget.formSectionColor,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    label,
+                    style: const TextStyle().copyWith(
+                      color: widget.formSectionColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Container(
-                    child: Visibility(
-                      visible: false,
-                      child: Consumer<OvcHouseholdCurrentSelectionState>(
-                        builder: (
+                ),
+                Visibility(
+                  visible: false,
+                  child: Consumer<OvcHouseholdCurrentSelectionState>(
+                    builder: (
+                      context,
+                      ovcHouseholdCurrentSelectionState,
+                      child,
+                    ) {
+                      OvcHousehold? currentOvcHousehold =
+                          ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+                      OvcHouseholdChild? currentOvcHouseholdChild =
+                          ovcHouseholdCurrentSelectionState
+                              .currentOvcHouseholdChild;
+                      return InkWell(
+                        onTap: () => onEditCasePlanGap(
                           context,
-                          ovcHouseholdCurrentSelectionState,
-                          child,
-                        ) {
-                          OvcHousehold? currentOvcHousehold =
-                              ovcHouseholdCurrentSelectionState
-                                  .currentOvcHousehold;
-                          OvcHouseholdChild? currentOvcHouseholdChild =
-                              ovcHouseholdCurrentSelectionState
-                                  .currentOvcHouseholdChild;
-                          return Container(
-                            child: InkWell(
-                              onTap: () => onEditCasePlanGap(
-                                context,
-                                currentOvcHousehold,
-                                currentOvcHouseholdChild,
-                              ),
-                              child: Container(
-                                height: iconHeight,
-                                width: iconHeight,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 5),
-                                child: SvgPicture.asset(
-                                  'assets/icons/edit-icon.svg',
-                                  color: widget.formSectionColor,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                          currentOvcHousehold,
+                          currentOvcHouseholdChild,
+                        ),
+                        child: Container(
+                          height: iconHeight,
+                          width: iconHeight,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
+                          child: SvgPicture.asset(
+                            'assets/icons/edit-icon.svg',
+                            color: widget.formSectionColor,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
             ),
-            Container(
-              child: Row(
-                children: [
-                  Container(
-                    child: Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: inputFields
-                            .map((InputField inputField) => Container(
-                                    child: Column(
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: inputFields
+                        .map((InputField inputField) => Container(
+                            margin: const EdgeInsets.all(0),
+                            child: Column(
+                              children: [
+                                Row(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            margin: EdgeInsets.symmetric(
-                                              vertical: 5.0,
-                                            ),
-                                            child: Text(inputField.name,
-                                                style: TextStyle().copyWith(
-                                                  color:
-                                                      widget.formSectionColor,
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
-                                                )),
-                                          ),
+                                    Expanded(
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                          vertical: 5.0,
                                         ),
-                                      ],
+                                        child: Text(inputField.name,
+                                            style: const TextStyle().copyWith(
+                                              color: widget.formSectionColor,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            )),
+                                      ),
                                     ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            margin:
-                                                EdgeInsets.only(bottom: 5.0),
-                                            child: Text(
-                                                _getInputValue(inputField,
-                                                    widget.casePlanGap),
-                                                style: TextStyle().copyWith(
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.normal,
-                                                )),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    LineSeparator(
-                                        color: widget.formSectionColor!
-                                            .withOpacity(0.5))
                                   ],
-                                )))
-                            .toList()
-                          ..add(Container(
-                            child: CasePlanGapServiceProvisionContainer(
-                              domainId: widget.domainId,
-                              formSectionColor: widget.formSectionColor,
-                              isCasePlanForHousehold:
-                                  widget.isCasePlanForHousehold,
-                              casePlanGap: widget.casePlanGap,
-                              shouldEditCaseGapServiceProvision:
-                                  widget.shouldEditCaseGapServiceProvision,
-                              shouldViewCaseGapServiceProvision:
-                                  widget.shouldViewCaseGapServiceProvision,
-                            ),
-                          )),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 5.0),
+                                        child: Text(
+                                            _getInputValue(
+                                                inputField, widget.casePlanGap),
+                                            style: const TextStyle().copyWith(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.normal,
+                                            )),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                LineSeparator(
+                                    color: widget.formSectionColor!
+                                        .withOpacity(0.5))
+                              ],
+                            )))
+                        .toList()
+                      ..add(Container(
+                        margin: const EdgeInsets.all(0),
+                        child: CasePlanGapServiceProvisionContainer(
+                          hasEditAccess: widget.hasEditAccess,
+                          domainId: widget.domainId,
+                          formSectionColor: widget.formSectionColor,
+                          isCasePlanForHousehold: widget.isCasePlanForHousehold,
+                          casePlanGap: widget.casePlanGap,
+                          shouldEditCaseGapServiceProvision:
+                              widget.shouldEditCaseGapServiceProvision,
+                          shouldViewCaseGapServiceProvision:
+                              widget.shouldViewCaseGapServiceProvision,
+                        ),
+                      )),
+                  ),
+                )
+              ],
             ),
           ],
         ),

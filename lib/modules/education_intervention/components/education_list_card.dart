@@ -7,12 +7,14 @@ class EducationListCard extends StatelessWidget {
     Key? key,
     required this.title,
     required this.date,
+    required this.canEdit,
     this.onView,
     this.onEdit,
   }) : super(key: key);
 
   final String title;
   final String date;
+  final bool canEdit;
   final VoidCallback? onView;
   final VoidCallback? onEdit;
 
@@ -25,7 +27,7 @@ class EducationListCard extends StatelessWidget {
   }) {
     double iconHeight = 20;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 5.0,
       ),
       child: InkWell(
@@ -33,13 +35,13 @@ class EducationListCard extends StatelessWidget {
         child: Container(
           height: iconHeight,
           width: iconHeight,
-          margin: EdgeInsets.symmetric(
+          margin: const EdgeInsets.symmetric(
             vertical: 5.0,
             horizontal: 5.0,
           ),
           child: SvgPicture.asset(
             svgIcon,
-            color: Color(0xFF009688),
+            color: const Color(0xFF009688),
           ),
         ),
       ),
@@ -49,12 +51,12 @@ class EducationListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
       ),
       child: MaterialCard(
         body: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 15.0,
             horizontal: 20.0,
           ),
@@ -63,32 +65,39 @@ class EducationListCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    child: Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          text: '$date   ',
-                          style: TextStyle().copyWith(
-                            color: Color(0xFF82898D),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: title,
-                              style: TextStyle().copyWith(
-                                color: Color(0xFF05131B),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            )
-                          ],
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        text: '$date   ',
+                        style: const TextStyle().copyWith(
+                          color: const Color(0xFF82898D),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
                         ),
+                        children: [
+                          TextSpan(
+                            text: title,
+                            style: const TextStyle().copyWith(
+                              color: const Color(0xFF05131B),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                  _getListActionButton(onTap: onView, svgIcon: viewSvgIcon),
-                  _getListActionButton(onTap: onEdit, svgIcon: editSvgIcon),
+                  _getListActionButton(
+                    onTap: onView,
+                    svgIcon: viewSvgIcon,
+                  ),
+                  Visibility(
+                    visible: canEdit,
+                    child: _getListActionButton(
+                      onTap: onEdit,
+                      svgIcon: editSvgIcon,
+                    ),
+                  ),
                 ],
               )
             ],

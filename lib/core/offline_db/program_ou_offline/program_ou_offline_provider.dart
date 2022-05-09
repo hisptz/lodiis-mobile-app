@@ -14,7 +14,7 @@ class ProgramOuOfflineProvider extends OfflineDbProvider {
   ) async {
     var dbClient = await db;
     for (String organisationUnit in organisationUnits) {
-      var data = Map<String, dynamic>();
+      var data = <String, dynamic>{};
       data['id'] = '$program-$organisationUnit';
       data['program'] = program;
       data['organisationUnit'] = organisationUnit;
@@ -47,7 +47,9 @@ class ProgramOuOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return organisationUnits;
   }
 }

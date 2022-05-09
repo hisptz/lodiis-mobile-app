@@ -5,31 +5,33 @@ class EducationBursarySchoolTopBarSelection extends StatelessWidget {
   final VoidCallback selectSchoolAttendance;
   final bool isSchoolPerformanceSelected;
 
-  EducationBursarySchoolTopBarSelection(
-      {required this.selectSchoolPerformance,
-      required this.selectSchoolAttendance,
-      required this.isSchoolPerformanceSelected});
+  const EducationBursarySchoolTopBarSelection({
+    Key? key,
+    required this.selectSchoolPerformance,
+    required this.selectSchoolAttendance,
+    required this.isSchoolPerformanceSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       clipBehavior: Clip.hardEdge,
-      borderRadius: BorderRadius.only(),
+      borderRadius: const BorderRadius.only(),
       child: Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 15.0,
         ),
         child: Container(
-          decoration: BoxDecoration(color: Colors.black12),
+          decoration: const BoxDecoration(color: Colors.black12),
           child: Row(
             children: [
               Expanded(
                 child: TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: !isSchoolPerformanceSelected
-                        ? Color(0xFF009688)
+                        ? const Color(0xFF009688)
                         : Colors.transparent,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 5.0,
                       horizontal: 5.0,
                     ),
@@ -37,11 +39,11 @@ class EducationBursarySchoolTopBarSelection extends StatelessWidget {
                   onPressed: selectSchoolAttendance,
                   child: Text(
                     'Attendance',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14.0,
                       color: !isSchoolPerformanceSelected
                           ? Colors.white
-                          : Color(0xFF737373),
+                          : const Color(0xFF737373),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -51,9 +53,9 @@ class EducationBursarySchoolTopBarSelection extends StatelessWidget {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: isSchoolPerformanceSelected
-                        ? Color(0xFF009688)
+                        ? const Color(0xFF009688)
                         : Colors.transparent,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 5.0,
                       horizontal: 5.0,
                     ),
@@ -61,11 +63,11 @@ class EducationBursarySchoolTopBarSelection extends StatelessWidget {
                   onPressed: selectSchoolPerformance,
                   child: Text(
                     'Performance',
-                    style: TextStyle().copyWith(
+                    style: const TextStyle().copyWith(
                       fontSize: 14.0,
                       color: isSchoolPerformanceSelected
                           ? Colors.white
-                          : Color(0xFF737373),
+                          : const Color(0xFF737373),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

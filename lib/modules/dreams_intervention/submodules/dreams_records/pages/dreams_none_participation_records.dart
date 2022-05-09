@@ -43,45 +43,47 @@ class _DreamsNoneParticipationRecordsPageState
   }
 
   void onViewBeneficiary(
-      BuildContext context, NoneParticipationBeneficiary beneficiary) {
+    BuildContext context,
+    NoneParticipationBeneficiary beneficiary,
+  ) {
     updateFormState(context, false, beneficiary.eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywEnrollmentNoneParticipationForm(),
+        builder: (context) => const AgywEnrollmentNoneParticipationForm(),
       ),
     );
   }
 
   void onEditBeneficiary(
-      BuildContext context, NoneParticipationBeneficiary beneficiary) {
+    BuildContext context,
+    NoneParticipationBeneficiary beneficiary,
+  ) {
     updateFormState(context, true, beneficiary.eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AgywEnrollmentNoneParticipationForm(),
+        builder: (context) => const AgywEnrollmentNoneParticipationForm(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<DreamsInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = 'AGYW/DREAMS none participants'.toUpperCase() +
-                  ': ${ovcInterventionListState.numberOfNoneParticipants}';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<DreamsInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = 'AGYW/DREAMS none participants'.toUpperCase() +
+                ': ${ovcInterventionListState.numberOfNoneParticipants}';
+            return SubModuleHomeContainer(
+              header: header,
+              bodyContents: _buildBody(currentLanguage),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -89,12 +91,12 @@ class _DreamsNoneParticipationRecordsPageState
     return Consumer<DreamsInterventionListState>(
       builder: (context, ovcState, child) => CustomPaginatedListView(
         errorWidget: Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             bottom: 16.0,
             right: 13.0,
             left: 13.0,
           ),
-          child: Center(
+          child: const Center(
             child: Text(
               'There is no AGYW/DREAMS none participants at moment',
               textAlign: TextAlign.center,
@@ -113,13 +115,13 @@ class _DreamsNoneParticipationRecordsPageState
         ),
         emptyListWidget: Center(
           child: Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               bottom: 16.0,
               right: 13.0,
               left: 13.0,
             ),
             child: Column(
-              children: [
+              children: const [
                 Text(
                   'There is no AGYW/DREAMS none participants at moment',
                   textAlign: TextAlign.center,

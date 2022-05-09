@@ -19,45 +19,42 @@ class DreamsHTSListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double iconHeight = 20;
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 17.0,
       ),
       child: MaterialCard(
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Column(
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    child: Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                           text:
-                                  "HTS " + sessionCount.toString(),
-                              style: TextStyle().copyWith(
-                                color: Color(0xFF05131B),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                            TextSpan(
-                            text: '   ${eventData.eventDate}   ',
-                            style: TextStyle().copyWith(
-                            color: Color(0xFF82898D),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
-                              ),
-                            )
-                          ],
+                  Expanded(
+                    child: RichText(
+                      text: TextSpan(
+                        text: "HTS " + sessionCount.toString(),
+                        style: const TextStyle().copyWith(
+                          color: const Color(0xFF05131B),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
                         ),
+                        children: [
+                          TextSpan(
+                            text: '   ${eventData.eventDate}   ',
+                            style: const TextStyle().copyWith(
+                              color: const Color(0xFF82898D),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.symmetric(
                       horizontal: 5.0,
                     ),
                     child: InkWell(
@@ -65,11 +62,11 @@ class DreamsHTSListCard extends StatelessWidget {
                         child: Container(
                           height: iconHeight,
                           width: iconHeight,
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
-                            color: Color(0xFF1F8ECE),
+                            color: const Color(0xFF1F8ECE),
                           ),
                         )),
                   ),

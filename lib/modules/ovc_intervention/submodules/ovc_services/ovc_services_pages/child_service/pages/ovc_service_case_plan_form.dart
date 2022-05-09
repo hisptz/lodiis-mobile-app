@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/Intervention_bottom_navigation_bar_container.dart';
+import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
@@ -26,11 +26,13 @@ class OcvServiceCasePlanForm extends StatefulWidget {
     this.shouldEditCaseGapServiceProvision = false,
     this.shouldViewCaseGapServiceProvision = false,
     this.isServiceMonitoring = false,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final bool shouldEditCaseGapServiceProvision;
   final bool shouldViewCaseGapServiceProvision;
   final bool isServiceMonitoring;
+  final bool hasEditAccess;
 
   @override
   _OcvServiceCasePlanFormState createState() => _OcvServiceCasePlanFormState();
@@ -41,7 +43,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
   final String translatedServiceProvisionLabel = 'Phano ea Litsebeletso';
   final String serviceMonitoringLabel = 'Service Monitoring';
   late List<FormSection> formSections;
-  Map borderColors = Map();
+  Map borderColors = {};
 
   bool isSaving = false;
   bool isFormReady = false;
@@ -131,7 +133,9 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
               hiddenFields,
             );
           }
-        } catch (e) {}
+        } catch (e) {
+          //
+        }
       }
     }
   }
@@ -140,7 +144,7 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(65.0),
+        preferredSize: const Size.fromHeight(65.0),
         child: Consumer<InterventionCardState>(
           builder: (context, interventionCardState, child) {
             InterventionCard activeInterventionProgram =
@@ -163,82 +167,75 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
         ),
       ),
       body: SubPageBody(
-        body: Container(
-          child: Consumer<ServiceFormState>(
-            builder: (context, serviceFormState, child) {
-              Map dataObject = serviceFormState.formState;
-              return Container(
-                child: !isFormReady
-                    ? Container(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    : Container(
-                        child: Consumer<OvcHouseholdCurrentSelectionState>(
-                            builder: (context,
-                                ovcHouseholdCurrentSelectionState, child) {
-                          OvcHouseholdChild currentOvcHouseholdChild =
-                              ovcHouseholdCurrentSelectionState
-                                  .currentOvcHouseholdChild!;
-                          int age = 5;
-                          try {
-                            age = int.parse(currentOvcHouseholdChild.age!);
-                          } catch (e) {
-                            print(e);
-                          }
+        body: Consumer<ServiceFormState>(
+          builder: (context, serviceFormState, child) {
+            Map dataObject = serviceFormState.formState;
+            return Container(
+              child: !isFormReady
+                  ? const CircularProcessLoader(
+                      color: Colors.blueGrey,
+                    )
+                  : Consumer<OvcHouseholdCurrentSelectionState>(builder:
+                      (context, ovcHouseholdCurrentSelectionState, child) {
+                      OvcHouseholdChild currentOvcHouseholdChild =
+                          ovcHouseholdCurrentSelectionState
+                              .currentOvcHouseholdChild!;
+                      int age = 5;
+                      try {
+                        age = int.parse(currentOvcHouseholdChild.age!);
+                      } catch (e) {
+                        //
+                      }
 
-                          return Column(
-                            children: [
-                              OvcChildInfoTopHeader(),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  top: 10.0,
-                                  left: 13.0,
-                                  right: 13.0,
-                                ),
-                                child: Column(
-                                  children: formSections
-                                      .map(
-                                        (FormSection formSection) => (age < 5 &&
-                                                formSection.id == 'Schooled')
-                                            ? Container()
-                                            : ServiceFormContainer(
-                                                shouldEditCaseGapServiceProvision:
-                                                    widget
-                                                        .shouldEditCaseGapServiceProvision,
-                                                shouldViewCaseGapServiceProvision:
-                                                    widget
-                                                        .shouldViewCaseGapServiceProvision,
-                                                formSectionColor: borderColors[
-                                                    formSection.id],
-                                                formSection: formSection,
-                                                dataObject:
-                                                    dataObject[formSection.id],
-                                                isEditableMode: serviceFormState
-                                                    .isEditableMode,
-                                                isServiceMonitoring:
-                                                    widget.isServiceMonitoring,
-                                                onInputValueChange:
-                                                    (dynamic value) =>
-                                                        onInputValueChange(
-                                                            formSection.id,
-                                                            value),
-                                              ),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
-              );
-            },
-          ),
+                      return Column(
+                        children: [
+                          const OvcChildInfoTopHeader(),
+                          Container(
+                            margin: const EdgeInsets.only(
+                              top: 10.0,
+                              left: 13.0,
+                              right: 13.0,
+                            ),
+                            child: Column(
+                              children: formSections
+                                  .map(
+                                    (FormSection formSection) => (age < 5 &&
+                                            formSection.id == 'Schooled')
+                                        ? Container()
+                                        : ServiceFormContainer(
+                                            hasEditAccess: widget.hasEditAccess,
+                                            shouldEditCaseGapServiceProvision:
+                                                widget
+                                                    .shouldEditCaseGapServiceProvision,
+                                            shouldViewCaseGapServiceProvision:
+                                                widget
+                                                    .shouldViewCaseGapServiceProvision,
+                                            formSectionColor:
+                                                borderColors[formSection.id],
+                                            formSection: formSection,
+                                            dataObject:
+                                                dataObject[formSection.id],
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            isServiceMonitoring:
+                                                widget.isServiceMonitoring,
+                                            onInputValueChange:
+                                                (dynamic value) =>
+                                                    onInputValueChange(
+                                                        formSection.id, value),
+                                          ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+            );
+          },
         ),
       ),
-      bottomNavigationBar: InterventionBottomNavigationBarContainer(),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

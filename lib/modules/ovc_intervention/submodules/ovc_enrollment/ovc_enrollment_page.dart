@@ -56,7 +56,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return OvcEnrollmentConsentForm();
+            return const OvcEnrollmentConsentForm();
           },
         ),
       );
@@ -65,25 +65,24 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<OvcInterventionListState>(
-            builder: (context, ovcInterventionListState, child) {
-              String header = currentLanguage == 'lesotho'
-                  ? 'Lethathamo la malapa'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                  : 'Household list'.toUpperCase() +
-                      ': ${ovcInterventionListState.numberOfHouseholds} households';
-              return SubModuleHomeContainer(
-                header: header,
-                bodyContents: _buildBody(currentLanguage),
-              );
-            },
-          );
-        },
-      ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<OvcInterventionListState>(
+          builder: (context, ovcInterventionListState, child) {
+            String header = currentLanguage == 'lesotho'
+                ? 'Lethathamo la malapa'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : 'Household list'.toUpperCase() +
+                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+            return SubModuleHomeContainer(
+              header: header,
+              showFilter: true,
+              bodyContents: _buildBody(currentLanguage),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -130,14 +129,12 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                     ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
                     : 'There is no household enrolled at moment',
               ),
-              Container(
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-house-hold.svg',
-                    color: Colors.blueGrey,
-                  ),
-                  onPressed: () => onAddHousehold(context),
+              IconButton(
+                icon: SvgPicture.asset(
+                  'assets/icons/add-house-hold.svg',
+                  color: Colors.blueGrey,
                 ),
+                onPressed: () => onAddHousehold(context),
               )
             ],
           ),

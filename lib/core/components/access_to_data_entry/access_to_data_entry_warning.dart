@@ -29,44 +29,42 @@ class AccessToDataEntryWarning extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<CurrentUserState>(
-        builder: (context, currentUserState, child) {
-          CurrentUser? currentUser = currentUserState.currentUser;
-          return Consumer<InterventionCardState>(
-              builder: (context, interventionCardState, child) {
-            InterventionCard activeInterventionProgram =
-                interventionCardState.currentInterventionProgram;
-            return Container(
-              decoration: BoxDecoration(
-                color: activeInterventionProgram.background,
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) {
+        CurrentUser? currentUser = currentUserState.currentUser;
+        return Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+          InterventionCard activeInterventionProgram =
+              interventionCardState.currentInterventionProgram;
+          return Container(
+            decoration: BoxDecoration(
+              color: activeInterventionProgram.background,
+            ),
+            child: Container(
+              margin: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AccessToDataEntryMessage(
+                    message: "Hello ${currentUser?.name},",
+                    color: const Color(0xFFFAFAFA),
+                  ),
+                  const AccessToDataEntryMessage(
+                    message:
+                        "Your account has some problems on enrolling or providing services to beneficiaries, kindly contact your supervisor or system administrator to correct the access",
+                    color: Colors.redAccent,
+                  ),
+                  AccessToDataEntryActionButton(
+                    activeInterventionProgram: activeInterventionProgram,
+                    onLogout: () => onLogout(context),
+                    onCloseApp: onCloseApp,
+                  ),
+                ],
               ),
-              child: Container(
-                margin: EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AccessToDataEntryMessage(
-                      message: "Hello ${currentUser?.name},",
-                      color: Color(0xFFFAFAFA),
-                    ),
-                    AccessToDataEntryMessage(
-                      message:
-                          "Your account has some problems on enrolling or providing services to beneficiaries, kindly contact your supervisor or system administartor to correct the access",
-                      color: Colors.redAccent,
-                    ),
-                    AccessToDataEntryActionButton(
-                      activeInterventionProgram: activeInterventionProgram,
-                      onLogout: () => onLogout(context),
-                      onCloseApp: onCloseApp,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-        },
-      ),
+            ),
+          );
+        });
+      },
     );
   }
 }

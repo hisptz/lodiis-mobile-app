@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
@@ -9,7 +10,8 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/core/components/online_beneficiary_search.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +63,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     inputColor: Colors.white,
   );
 
-//@TODO adding support of activate and deactivate based on changes on tabs [education module]
   void onActivateOrDeactivateSearch(
     BuildContext context,
   ) async {
@@ -74,6 +75,15 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         onSearchBeneficiary(context);
       }
     });
+  }
+
+  void onOpenOnlineSearchSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isDismissible: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) => const OnlineBeneficiarySearch());
   }
 
   String _getCurrentInterventionBottomNavigationId(
@@ -114,7 +124,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
 
   void onSearchBeneficiary(BuildContext context) {
     _searchedValued
-        .debounce((_) => TimerStream(true, Duration(milliseconds: 500)))
+        .debounce((_) => TimerStream(true, const Duration(milliseconds: 500)))
         .listen((searchedValue) async {
       String currentInterventionBottomNavigationId =
           _getCurrentInterventionBottomNavigationId(
@@ -181,56 +191,48 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       backgroundColor: widget.activeInterventionProgram.primaryColor,
       title: Row(
         children: [
-          Container(
-            child: GestureDetector(
-              onTap: this.widget.onClickHome,
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 9.0, horizontal: 13.5),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color:
-                                widget.activeInterventionProgram.svgIconColor!,
+          GestureDetector(
+            onTap: widget.onClickHome,
+            child: Material(
+              color: Colors.transparent,
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 9.0, horizontal: 13.5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: widget.activeInterventionProgram.svgIconColor!,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          widget.activeInterventionProgram.svgIcon!,
+                          color: widget.activeInterventionProgram.svgIconColor,
+                          height: 19.2,
+                          width: 19.2,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          height: 20,
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Text(
+                            widget.activeInterventionProgram.shortName!,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
                           ),
                         ),
-                        child: Row(
-                          children: [
-                            Container(
-                              child: SvgPicture.asset(
-                                widget.activeInterventionProgram.svgIcon!,
-                                color: widget
-                                    .activeInterventionProgram.svgIconColor,
-                                height: 19.2,
-                                width: 19.2,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Container(
-                              height: 20,
-                              padding: EdgeInsets.only(top: 2),
-                              child: Text(
-                                widget.activeInterventionProgram.shortName!,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
@@ -238,8 +240,8 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
             child: Visibility(
               visible: isSearchActive,
               child: Container(
-                margin: EdgeInsets.only(left: 5),
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                margin: const EdgeInsets.only(left: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
@@ -259,90 +261,81 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         ],
       ),
       actions: [
-        Container(
-          child: IconButton(
-            icon: Icon(isSearchActive ? Icons.search_off : Icons.search),
-            onPressed: () => onActivateOrDeactivateSearch(context),
-          ),
+        IconButton(
+          icon: Icon(isSearchActive ? Icons.search_off : Icons.search),
+          onPressed: () => onActivateOrDeactivateSearch(context),
         ),
-        Container(
-          child: Visibility(
-            visible: !isSearchActive,
-            child: Consumer<InterventionBottomNavigationState>(
-              builder: (context, interventionBottomNavigationState, child) {
-                InterventionBottomNavigation
-                    currentInterventionBottomNavigation =
-                    interventionBottomNavigationState
-                        .getCurrentInterventionBottomNavigation(
-                  widget.activeInterventionProgram,
-                );
-
-                // TODO update the value for search
-                return Visibility(
-                  visible: widget.activeInterventionProgram.id == 'pp_prev' ||
-                      widget.activeInterventionProgram.id == 'education' ||
-                      widget.activeInterventionProgram.id == 'ogac' ||
-                      currentInterventionBottomNavigation != null &&
-                          (currentInterventionBottomNavigation.id ==
-                                  'enrollment' ||
-                              currentInterventionBottomNavigation.id ==
-                                  'noneAgyw'),
-                  child: Container(
-                    child: IconButton(
-                      icon: SvgPicture.asset(
-                        widget.activeInterventionProgram.enrollmentIcon!,
-                      ),
-                      onPressed: currentInterventionBottomNavigation.id ==
-                              'noneAgyw'
-                          ? widget.onAddNoneAgywBeneficiary
-                          : currentInterventionBottomNavigation.id == 'lbse'
-                              ? widget.onAddLbseBeneficiary
-                              : currentInterventionBottomNavigation.id ==
-                                      'bursary'
-                                  ? widget.onAddBursaryBeneficiary
+        Consumer<DeviceConnectivityState>(
+            builder: (context, deviceConnectivityState, child) {
+          return Visibility(
+            visible: !isSearchActive &&
+                (deviceConnectivityState.connectivityStatus ?? false),
+            child: IconButton(
+              icon: const Icon(Icons.travel_explore),
+              onPressed: () => onOpenOnlineSearchSheet(context),
+            ),
+          );
+        }),
+        Visibility(
+          visible: !isSearchActive,
+          child: Consumer<InterventionBottomNavigationState>(
+            builder: (context, interventionBottomNavigationState, child) {
+              InterventionBottomNavigation currentInterventionBottomNavigation =
+                  interventionBottomNavigationState
+                      .getCurrentInterventionBottomNavigation(
+                widget.activeInterventionProgram,
+              );
+              return Visibility(
+                visible: widget.activeInterventionProgram.id == 'pp_prev' ||
+                    widget.activeInterventionProgram.id == 'education' ||
+                    widget.activeInterventionProgram.id == 'ogac' ||
+                    (currentInterventionBottomNavigation.id == 'enrollment' ||
+                        currentInterventionBottomNavigation.id == 'noneAgyw'),
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    widget.activeInterventionProgram.enrollmentIcon!,
+                  ),
+                  onPressed: currentInterventionBottomNavigation.id ==
+                          'noneAgyw'
+                      ? widget.onAddNoneAgywBeneficiary
+                      : currentInterventionBottomNavigation.id == 'lbse'
+                          ? widget.onAddLbseBeneficiary
+                          : currentInterventionBottomNavigation.id == 'bursary'
+                              ? widget.onAddBursaryBeneficiary
+                              : widget.activeInterventionProgram.id == 'dreams'
+                                  ? widget.onAddAgywBeneficiary
                                   : widget.activeInterventionProgram.id ==
-                                          'dreams'
-                                      ? widget.onAddAgywBeneficiary
+                                          'ogac'
+                                      ? widget.onAddOgacBeneficiary
                                       : widget.activeInterventionProgram.id ==
-                                              'ogac'
-                                          ? widget.onAddOgacBeneficiary
+                                              'pp_prev'
+                                          ? widget.onAddPpPrevBeneficiary
                                           : widget.activeInterventionProgram
                                                       .id ==
-                                                  'pp_prev'
-                                              ? widget.onAddPpPrevBeneficiary
-                                              : widget.activeInterventionProgram
-                                                          .id ==
-                                                      "ovc"
-                                                  ? widget.onAddHousehold
-                                                  : () => {
-                                                        print(
-                                                            "Not supported function")
-                                                      },
-                    ),
-                  ),
-                );
-              },
-            ),
+                                                  "ovc"
+                                              ? widget.onAddHousehold
+                                              : () => {},
+                ),
+              );
+            },
           ),
         ),
-        Container(
-          child: Visibility(
-            visible: !isSearchActive,
-            child: IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: widget.onOpenMoreMenu,
-            ),
+        Visibility(
+          visible: !isSearchActive,
+          child: IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: widget.onOpenMoreMenu,
           ),
         )
       ],
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: const Size.fromHeight(80.0),
         child: widget.hasTabs &&
                 widget.tabs.isNotEmpty &&
                 widget.tabController != null
             ? TabBar(
                 isScrollable: true,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 controller: widget.tabController,
                 unselectedLabelColor: Colors.white.withOpacity(0.3),
                 indicatorColor: Colors.white,
@@ -351,7 +344,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                           child: tab,
                         ))
                     .toList())
-            : DataDownloadMessage(),
+            : const DataDownloadMessage(),
       ),
     );
   }

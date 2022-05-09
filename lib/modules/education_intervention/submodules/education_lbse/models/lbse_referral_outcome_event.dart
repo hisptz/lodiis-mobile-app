@@ -8,6 +8,7 @@ class LbseReferralOutcomeEvent {
   bool? isRequireFollowUp;
   String? referralToReferralOutcomeLinkage;
   String? referralOutcomeToReferralOutComeFollowingUpLinkage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   LbseReferralOutcomeEvent({
@@ -17,6 +18,7 @@ class LbseReferralOutcomeEvent {
     this.isRequireFollowUp,
     this.referralOutcomeToReferralOutComeFollowingUpLinkage,
     this.referralToReferralOutcomeLinkage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -31,10 +33,10 @@ class LbseReferralOutcomeEvent {
       LbseInterventionConstant
           .referralOutcomeToReferralOutComeFollowingUpLinkage,
     ];
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
@@ -49,6 +51,7 @@ class LbseReferralOutcomeEvent {
               LbseInterventionConstant
                   .referralOutcomeToReferralOutComeFollowingUpLinkage] ??
           '',
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

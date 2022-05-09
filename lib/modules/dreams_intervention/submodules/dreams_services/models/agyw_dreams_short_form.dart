@@ -7,33 +7,34 @@ class AgywDreamsShortForm {
   static List<String> getMandatoryFields() {
     return ['lvT9gfpHIlT'];
   }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
           name: 'HTS Form',
-          color: Color(0xFF737373),
+          color: const Color(0xFF737373),
           inputFields: [
             InputField(
                 id: 'lvT9gfpHIlT',
                 name: 'Date service was provided',
                 translatedName: '',
                 valueType: 'DATE',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'zbHpXUjGv5H',
                 name: 'HIV test provided',
                 translatedName: '',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
               id: 'GHfoqXKlK6o',
               name: 'Type of Test',
               translatedName: '',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(
                     code: 'PDHTS', name: 'PDHTS', translatedName: 'PDHTS'),
@@ -46,8 +47,8 @@ class AgywDreamsShortForm {
               name: 'HIV test results',
               translatedName: '',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(
                     code: 'Negative', name: 'Negative', translatedName: ''),

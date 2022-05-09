@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kb_mobile_app/app_state/app_info_state/app_device_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
 import 'package:kb_mobile_app/app_state/app_logs_state/app_logs_state.dart';
+import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
@@ -31,6 +32,8 @@ import 'package:kb_mobile_app/modules/splash/splash.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -82,7 +85,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => AppLogsState()),
           ChangeNotifierProvider(create: (_) => DeviceConnectivityState()),
           ChangeNotifierProvider(
-              create: (_) => ImplementingPartnerReferralServiceState())
+              create: (_) => ImplementingPartnerReferralServiceState()),
+          ChangeNotifierProvider(create: (_) => BeneficiaryFilterState()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -93,7 +97,7 @@ class MyApp extends StatelessWidget {
               ),
               primaryColor: CustomColor.defaultPrimaryColor,
               visualDensity: VisualDensity.adaptivePlatformDensity),
-          home: SafeArea(child: Splash()),
+          home: const SafeArea(child: Splash()),
         ));
   }
 }

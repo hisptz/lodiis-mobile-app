@@ -15,14 +15,16 @@ class UserAccess {
     String defaultUserAccessConfigs = DefaultUserAccess.getDefaultUserAccess();
     dynamic currentUserAccessConfigs = "";
     try {
-      HttpService http = new HttpService(
+      HttpService http = HttpService(
         username: username,
         password: password,
       );
       var response = await http.httpGet(url);
       currentUserAccessConfigs =
           response.statusCode == 200 ? response.body : defaultUserAccessConfigs;
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
     return json.decode(currentUserAccessConfigs);
   }
 
@@ -31,7 +33,9 @@ class UserAccess {
       String userAccessData = json.encode(userAccessConfigs);
       await UserAccessOfflineProvider()
           .addOrUpdateUserAccess(userAccessId, userAccessData);
-    } catch (error) {}
+    } catch (e) {
+      //
+    }
   }
 
   Future getSavedUserAccessConfigurations() async {
@@ -40,11 +44,10 @@ class UserAccess {
     try {
       currentUserAccessConfigs = await UserAccessOfflineProvider()
           .getAllUserAccessConfigurationById(userAccessId);
-      currentUserAccessConfigs = currentUserAccessConfigs != null
-          ? currentUserAccessConfigs
-          : defaultUserAccessConfigs;
+      currentUserAccessConfigs =
+          currentUserAccessConfigs ?? defaultUserAccessConfigs;
     } catch (error) {
-      print("error : $error");
+      //
     }
     return json.decode(currentUserAccessConfigs);
   }

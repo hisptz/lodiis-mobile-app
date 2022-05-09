@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_icon.dart';
-import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
@@ -92,16 +92,16 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                         .indexOf(interventionBottomNavigation);
                     double tabsWidth = MediaQuery.of(context).size.width /
                         interventionBottomNavigations.length;
-                    return Container(
+                    return SizedBox(
                       width: tabsWidth > 90.0 ? 90.0 : tabsWidth,
                       child: InkWell(
                         onTap: () => onTap(
                             context, index, interventionBottomNavigation.id),
                         child: Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             top: 5.0,
                           ),
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             vertical: 5.0,
                             horizontal: 12.0,
                           ),
@@ -109,7 +109,7 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                             color: currentIndex == index
                                 ? activeInterventionProgram.primaryColor
                                 : Colors.transparent,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(12.0),
                               topRight: Radius.circular(12.0),
                             ),
@@ -120,40 +120,36 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Container(
-                                  child: InterventionBottomNavigationIcon(
-                                    currentInterventionBottomNavigation:
-                                        currentInterventionBottomNavigation,
-                                    interventionBottomNavigation:
-                                        interventionBottomNavigation,
-                                    inactiveColor:
-                                        activeInterventionProgram.primaryColor,
-                                    hasIndicatorValue: interventionCardState
-                                            .currentInterventionProgram.id ==
-                                        'dreams',
-                                  ),
+                                InterventionBottomNavigationIcon(
+                                  currentInterventionBottomNavigation:
+                                      currentInterventionBottomNavigation,
+                                  interventionBottomNavigation:
+                                      interventionBottomNavigation,
+                                  inactiveColor:
+                                      activeInterventionProgram.primaryColor,
+                                  hasIndicatorValue: interventionCardState
+                                          .currentInterventionProgram.id ==
+                                      'dreams',
                                 ),
-                                Container(
-                                  child: Text(
-                                    currentLanguage == 'lesotho' &&
-                                            interventionBottomNavigation
-                                                    .translatedName !=
-                                                null
-                                        ? interventionBottomNavigation
-                                            .translatedName!
-                                        : interventionBottomNavigation.name!,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: currentInterventionBottomNavigation
-                                                  .id ==
-                                              interventionBottomNavigation.id
-                                          ? Colors.white
-                                          : Color(0xFF737373),
-                                    ),
-                                    overflow: TextOverflow.clip,
-                                    textAlign: TextAlign.center,
+                                Text(
+                                  currentLanguage == 'lesotho' &&
+                                          interventionBottomNavigation
+                                                  .translatedName !=
+                                              null
+                                      ? interventionBottomNavigation
+                                          .translatedName!
+                                      : interventionBottomNavigation.name!,
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: currentInterventionBottomNavigation
+                                                .id ==
+                                            interventionBottomNavigation.id
+                                        ? Colors.white
+                                        : const Color(0xFF737373),
                                   ),
+                                  overflow: TextOverflow.clip,
+                                  textAlign: TextAlign.center,
                                 )
                               ],
                             ),

@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
 class InterventionSelectionCard extends StatelessWidget {
-  InterventionSelectionCard({
+  const InterventionSelectionCard({
     Key? key,
     this.interventionProgram,
     this.interventionProgramId,
@@ -98,11 +98,11 @@ class InterventionSelectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 10.0,
         horizontal: 30.0,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xFFFFFFFF),
         borderRadius: BorderRadius.all(
           Radius.circular(32),
@@ -110,74 +110,70 @@ class InterventionSelectionCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 120.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 22.0,
                   ),
                   decoration: BoxDecoration(
                     color: interventionProgram!.svgBackgroundColor,
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.circular(20.0),
                     ),
                   ),
                   width: 65.0,
                   height: 65.0,
                   child: Container(
-                    margin: EdgeInsets.all(15.0),
+                    margin: const EdgeInsets.all(15.0),
                     child: SvgPicture.asset(
                       interventionProgram!.svgIcon!,
                     ),
                   ),
                 ),
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: Text(
-                          interventionProgram!.name!,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                            color: interventionProgram!.nameColor,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      interventionProgram!.name!,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                        color: interventionProgram!.nameColor,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        getCardBeneficiaryLabelAndCount(
+                          label: getBeneficiaryCardLabel(
+                            interventionId: interventionProgram!.id!,
+                            isSubtitle: false,
+                          ),
+                          count: getBeneficiaryCardCount(
+                            interventionId: interventionProgram!.id!,
+                            isSubtitle: false,
                           ),
                         ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          getCardBeneficiaryLabelAndCount(
-                            label: getBeneficiaryCardLabel(
-                              interventionId: interventionProgram!.id!,
-                              isSubtitle: false,
-                            ),
-                            count: getBeneficiaryCardCount(
-                              interventionId: interventionProgram!.id!,
-                              isSubtitle: false,
-                            ),
+                        getCardBeneficiaryLabelAndCount(
+                          label: getBeneficiaryCardLabel(
+                            interventionId: interventionProgram!.id!,
+                            isSubtitle: true,
                           ),
-                          getCardBeneficiaryLabelAndCount(
-                            label: getBeneficiaryCardLabel(
-                              interventionId: interventionProgram!.id!,
-                              isSubtitle: true,
-                            ),
-                            count: getBeneficiaryCardCount(
-                              interventionId: interventionProgram!.id!,
-                              isSubtitle: true,
-                            ),
+                          count: getBeneficiaryCardCount(
+                            interventionId: interventionProgram!.id!,
+                            isSubtitle: true,
                           ),
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ],
             ),
@@ -188,8 +184,8 @@ class InterventionSelectionCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: interventionProgramId == interventionProgram!.id
                   ? interventionProgram!.secondaryColor
-                  : Color(0xFFFFFFFF),
-              borderRadius: BorderRadius.only(
+                  : const Color(0xFFFFFFFF),
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(32.0),
                 bottomRight: Radius.circular(32.0),
               ),
@@ -197,7 +193,7 @@ class InterventionSelectionCard extends StatelessWidget {
             child: Visibility(
               visible: interventionProgramId == interventionProgram!.id,
               child: Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 10.0,
                   bottom: 10.0,
                 ),

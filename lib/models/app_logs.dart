@@ -20,8 +20,8 @@ class AppLogs {
   }
 
   Map toOffline(AppLogs logs) {
-    DateTime currentDateTime = new DateTime.now();
-    Map mapData = Map<String, dynamic>();
+    DateTime currentDateTime = DateTime.now();
+    Map mapData = <String, dynamic>{};
     mapData['id'] = logs.id ?? AppUtil.getUid();
     mapData['type'] = logs.type ?? '';
     mapData['message'] = logs.message ?? '';
@@ -30,11 +30,10 @@ class AppLogs {
   }
 
   AppLogs.fromOffline(Map<String, dynamic> mapData) {
-    this.id = mapData['id'];
-    this.type = mapData['type'];
-    this.message = mapData['message'];
-    this.date = mapData['date'];
-    this.searchableValue =
-        '${type!.toLowerCase()} ${message!.toLowerCase()} $date';
+    id = mapData['id'];
+    type = mapData['type'];
+    message = mapData['message'];
+    date = mapData['date'];
+    searchableValue = '${type!.toLowerCase()} ${message!.toLowerCase()} $date';
   }
 }

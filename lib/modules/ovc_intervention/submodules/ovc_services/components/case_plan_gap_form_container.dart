@@ -31,7 +31,7 @@ class CasePlanGapFormContainer extends StatefulWidget {
 
 class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     with OvcCasePlanGapSkipLogic {
-  Map mandatoryFieldObject = Map();
+  Map mandatoryFieldObject = {};
   late List mandatoryFields;
   Map? dataObject;
   List unFilledMandatoryFields = [];
@@ -79,57 +79,55 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          EntryFormContainer(
-            elevation: 0.0,
-            formSections: widget.formSections,
-            hiddenFields: hiddenFields,
-            hiddenSections: hiddenSections,
-            mandatoryFieldObject: mandatoryFieldObject,
-            dataObject: dataObject,
-            isEditableMode: widget.isEditableMode,
-            onInputValueChange: onInputValueChange,
-            unFilledMandatoryFields: unFilledMandatoryFields,
+    return Column(
+      children: [
+        EntryFormContainer(
+          elevation: 0.0,
+          formSections: widget.formSections,
+          hiddenFields: hiddenFields,
+          hiddenSections: hiddenSections,
+          mandatoryFieldObject: mandatoryFieldObject,
+          dataObject: dataObject,
+          isEditableMode: widget.isEditableMode,
+          onInputValueChange: onInputValueChange,
+          unFilledMandatoryFields: unFilledMandatoryFields,
+        ),
+        ClipRRect(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(12.0),
+            bottomRight: Radius.circular(12.0),
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(12.0),
-              bottomRight: Radius.circular(12.0),
-            ),
-            child: Visibility(
-              visible: widget.isEditableMode,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: widget.formSectionColor,
+          child: Visibility(
+            visible: widget.isEditableMode,
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: widget.formSectionColor,
+                    ),
+                    onPressed: () => onSaveGapForm(context),
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 22.0,
                       ),
-                      onPressed: () => onSaveGapForm(context),
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(
-                          vertical: 22.0,
-                        ),
-                        child: Text(
-                          'ADD GAP',
-                          style: TextStyle().copyWith(
-                            color: Color(0xFFFAFAFA),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                          ),
+                      child: Text(
+                        'ADD GAP',
+                        style: const TextStyle().copyWith(
+                          color: const Color(0xFFFAFAFA),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }

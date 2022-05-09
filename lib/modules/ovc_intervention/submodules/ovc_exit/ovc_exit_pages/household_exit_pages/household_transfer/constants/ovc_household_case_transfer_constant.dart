@@ -1,4 +1,4 @@
 class OvcHouseholdCaseTransferConstant {
-  static final String program = 'BNsDaCclOiu';
-  static final String programStage = 'KGMk9faQkk6';
+  static const String program = 'BNsDaCclOiu';
+  static const String programStage = 'KGMk9faQkk6';
 }

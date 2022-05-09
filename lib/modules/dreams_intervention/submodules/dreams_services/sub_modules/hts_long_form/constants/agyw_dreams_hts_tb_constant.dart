@@ -1,5 +1,5 @@
 class AgywDreamsHTSTBConstant {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'bcwUphHTXrH';
-  static final String htsToTBLinkage = 'A4Fl5p0ZBhX';
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'bcwUphHTXrH';
+  static const String htsToTBLinkage = 'A4Fl5p0ZBhX';
 }

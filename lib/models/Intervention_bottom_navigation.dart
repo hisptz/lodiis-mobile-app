@@ -75,7 +75,7 @@ class InterventionBottomNavigation {
     List<String> supportedTabs = activeInterventionProgram.supportedTabs ?? [];
     return defaultInterventionNavigationButtons
         .where((InterventionBottomNavigation interventionBottomNavigation) {
-      return supportedTabs.indexOf(interventionBottomNavigation.id!) > -1;
+      return supportedTabs.contains(interventionBottomNavigation.id!);
     }).toList();
   }
 

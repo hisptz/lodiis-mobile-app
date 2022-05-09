@@ -8,18 +8,18 @@ class OvcReferral {
     return [
       FormSection(
           name: 'Service Referral',
-          color: Color(0xFF1B3519),
+          color: const Color(0xFF1B3519),
           subSections: [
             FormSection(
               name: 'Referral Service Delivery Mode',
-              color: Color(0xFF737373),
+              color: const Color(0xFF737373),
               inputFields: [
                 InputField(
                     id: 'qAed23reDPP',
                     name: 'Services Referred for at',
                     valueType: 'TEXT',
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                     options: [
                       InputFieldOption(code: 'Facility', name: 'Facility'),
                       InputFieldOption(code: 'Community', name: 'Community'),
@@ -29,14 +29,14 @@ class OvcReferral {
             FormSection(
                 id: 'SeRefoCo',
                 name: 'Service referred for at Community',
-                color: Color(0xFF1B3519),
+                color: const Color(0xFF1B3519),
                 inputFields: [
                   InputField(
                       id: 'LLWTHwhnch0',
                       name: 'Service Category at community',
                       valueType: 'TEXT',
-                      inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF737373),
+                      inputColor: const Color(0xFF4B9F46),
+                      labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'Clinical Services',
@@ -53,8 +53,8 @@ class OvcReferral {
                       translatedName:
                           'Litšebeletso tseo a fetisetsoang ho tsona',
                       valueType: 'TEXT',
-                      inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF737373),
+                      inputColor: const Color(0xFF4B9F46),
+                      labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'STI Screening',
@@ -176,8 +176,8 @@ class OvcReferral {
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
                     allowedSelectedLevels: [3, 4],
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                   ),
                   InputField(
                     id: 'WHktsYoFqat',
@@ -185,21 +185,21 @@ class OvcReferral {
                     translatedName:
                         'Lebitso la setsi seo a fetisetsoang ho sona',
                     valueType: 'LONG_TEXT',
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                   ),
                 ]),
             FormSection(
                 id: 'SeRefoFa',
                 name: 'Service referred for at Facility',
-                color: Color(0xFF1B3519),
+                color: const Color(0xFF1B3519),
                 inputFields: [
                   InputField(
                       id: 'AuCryxQYmrk',
                       name: 'Service Category at facility',
                       valueType: 'TEXT',
-                      inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF737373),
+                      inputColor: const Color(0xFF4B9F46),
+                      labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'Clinical Services',
@@ -216,8 +216,8 @@ class OvcReferral {
                       translatedName:
                           'Litšebeletso tseo a fetisetsoang ho tsona',
                       valueType: 'TEXT',
-                      inputColor: Color(0xFF4B9F46),
-                      labelColor: Color(0xFF737373),
+                      inputColor: const Color(0xFF4B9F46),
+                      labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
                             code: 'STI Screening',
@@ -341,21 +341,21 @@ class OvcReferral {
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
                     allowedSelectedLevels: [3, 4],
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                   ),
                   InputField(
                     id: 'iifSkIcBZz2',
                     name: 'Comments on referral at facility',
                     valueType: 'LONG_TEXT',
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                   ),
                 ]),
             FormSection(
                 id: 'CoReOr',
                 name: 'Completed by the Referring Organization',
-                color: Color(0xFF1B3519),
+                color: const Color(0xFF1B3519),
                 inputFields: [
                   InputField(
                     id: 'tRvDAZxam3P',
@@ -363,8 +363,8 @@ class OvcReferral {
                     translatedName:
                         'Lebitso la motho eo mosebeletsuoa a ikarabellang/fumanang tshehetso ho eena',
                     valueType: 'TEXT',
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                   ),
                   InputField(
                     id: 'qCu2f4kEfzW',
@@ -372,8 +372,8 @@ class OvcReferral {
                     translatedName:
                         'Fono ea motho eo mosebeletsuoa a ikarabellang/fumanang tshehetso ho eena',
                     valueType: 'PHONE_NUMBER',
-                    inputColor: Color(0xFF4B9F46),
-                    labelColor: Color(0xFF737373),
+                    inputColor: const Color(0xFF4B9F46),
+                    labelColor: const Color(0xFF737373),
                   ),
                 ])
           ])

@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -26,7 +27,7 @@ class TrackedEntityInstanceUtil {
       formSections,
     );
     inputFieldIds.addAll(hiddenFields ?? []);
-    inputFieldIds.removeWhere((field) => skippedFields!.indexOf(field) > -1);
+    inputFieldIds.removeWhere((field) => skippedFields!.contains(field));
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
@@ -46,8 +47,7 @@ class TrackedEntityInstanceUtil {
       }
     }
 
-    eventId =
-        eventId == null ? dataObject!['eventId'] ?? AppUtil.getUid() : eventId;
+    eventId = eventId ?? dataObject!['eventId'] ?? AppUtil.getUid();
     dataObject!.remove('eventId');
     dataObject.remove('eventDate');
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
@@ -56,31 +56,40 @@ class TrackedEntityInstanceUtil {
   }
 
   static Future<List<Events>> getSavedTrackedEntityInstanceEventData(
-    String? trackedEntityInstance,
-  ) async {
+    String? trackedEntityInstance, {
+    List<String>? accessibleOrgUnits,
+  }) async {
+    accessibleOrgUnits = accessibleOrgUnits ?? [];
     List<Events> events = [];
     List<String?> trackedEntityInstanceIds = [];
     try {
       trackedEntityInstanceIds.add(trackedEntityInstance);
-      events = await EventOfflineProvider()
-          .getTrackedEntityInstanceEvents(trackedEntityInstanceIds);
-    } catch (e) {}
+      events = await EventOfflineProvider().getTrackedEntityInstanceEvents(
+        trackedEntityInstanceIds,
+        accessibleOrgUnits: accessibleOrgUnits,
+      );
+    } catch (e) {
+      //
+    }
     return events.reversed.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataStateByProgramStages(
     Map<String?, List<Events>> eventListByProgramStage,
-    List<String?> programStageIds,
-  ) {
+    List<String?> programStageIds, {
+    bool shouldSortByDate = false,
+  }) {
     programStageIds = programStageIds.toSet().toList();
     List<Events> events = [];
     for (String? programStageId in programStageIds) {
       try {
         var data = eventListByProgramStage[programStageId] ?? [];
         events.addAll(data);
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
     }
-    return events.toList();
+    return shouldSortByDate ? events.reversed.toList() : events.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataState(
@@ -92,13 +101,15 @@ class TrackedEntityInstanceUtil {
       try {
         var data = eventListByProgramStage[programStageId] ?? [];
         events.addAll(data);
-      } catch (e) {}
+      } catch (e) {
+        //
+      }
     }
     return events.reversed.toList();
   }
 
   static Map getGroupedEventByDates(List<Events> events) {
-    Map groupedEvents = Map();
+    Map groupedEvents = {};
     List<String?> eventDates = events
         .map((event) => event.eventDate)
         .toSet()
@@ -109,5 +120,33 @@ class TrackedEntityInstanceUtil {
           events.where((event) => event.eventDate == eventDate).toList();
     }
     return groupedEvents;
+  }
+
+  static String getEnrollmentSearchableValue(dynamic tei) {
+    String searchableValue = "";
+    try {
+      var searchableAttributes = (tei['attributes'] ?? [])
+          .map((attribute) {
+            return [
+              'WTZ7GLTrE8Q',
+              's1HaiT6OllL',
+              'rSP9c21JsfC',
+              'VJiWumvINR6',
+              'klLkGxy328c',
+              BeneficiaryIdentification.beneficiaryId,
+              BeneficiaryIdentification.primaryUIC,
+              BeneficiaryIdentification.secondaryUIC,
+            ].contains(attribute['attribute'])
+                ? attribute['value']
+                : '';
+          })
+          .where((value) => value.trim() != '')
+          .toList();
+      searchableValue = searchableAttributes.join(' ');
+    } catch (e) {
+      //
+    }
+
+    return searchableValue.toLowerCase();
   }
 }

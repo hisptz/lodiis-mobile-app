@@ -23,6 +23,7 @@ class CasePlanGapServiceViewContainer extends StatefulWidget {
     required this.themeColor,
     required this.domainId,
     required this.casePlanGap,
+    required this.hasEditAccess,
   }) : super(key: key);
 
   final String? casePlanGapToServiceProvisionLinkageValue;
@@ -31,6 +32,7 @@ class CasePlanGapServiceViewContainer extends StatefulWidget {
   final String? domainId;
   final Color? themeColor;
   final Map casePlanGap;
+  final bool hasEditAccess;
 
   @override
   _CasePlanGapServiceViewContainerState createState() =>
@@ -48,12 +50,13 @@ class _CasePlanGapServiceViewContainerState
   void onEditCasePlanServiceProvision(BuildContext context,
       CasePlanGapServiceProvision casePlanGapServiceProvision,
       {bool isEditable = true}) async {
-    Map dataObject = Map();
+    Map dataObject = {};
     dataObject['eventDate'] = casePlanGapServiceProvision.date;
     dataObject['eventId'] = casePlanGapServiceProvision.id;
     for (Map dataValue in casePlanGapServiceProvision.eventData!.dataValues) {
-      if ('${dataValue['value']}'.isNotEmpty)
+      if ('${dataValue['value']}'.isNotEmpty) {
         dataObject[dataValue['dataElement']] = dataValue['value'];
+      }
     }
     Map<String, List<String>> previousSessionMapping =
         OvcServiceProvisionUtil.getPreviousSessionMapping(
@@ -85,8 +88,8 @@ class _CasePlanGapServiceViewContainerState
               TableCell(
                 child: Text(
                   currentLanguage == 'lesotho' ? 'Letsatsi' : 'Date',
-                  style: TextStyle().copyWith(
-                    color: Color(
+                  style: const TextStyle().copyWith(
+                    color: const Color(
                       0xFF8A9589,
                     ),
                     fontSize: 12.0,
@@ -97,8 +100,8 @@ class _CasePlanGapServiceViewContainerState
               TableCell(
                 child: Text(
                   'Service provided',
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF8A9589),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF8A9589),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -107,8 +110,8 @@ class _CasePlanGapServiceViewContainerState
               TableCell(
                 child: Text(
                   'Comment',
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF8A9589),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF8A9589),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -121,8 +124,8 @@ class _CasePlanGapServiceViewContainerState
               TableCell(
                 child: Text(
                   casePlanGapServiceProvision.date!,
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF1A3518),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF1A3518),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -131,8 +134,8 @@ class _CasePlanGapServiceViewContainerState
               TableCell(
                 child: Text(
                   casePlanGapServiceProvision.result!,
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF1A3518),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF1A3518),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -141,8 +144,8 @@ class _CasePlanGapServiceViewContainerState
               TableCell(
                 child: Text(
                   casePlanGapServiceProvision.reason!,
-                  style: TextStyle().copyWith(
-                    color: Color(0xFF1A3518),
+                  style: const TextStyle().copyWith(
+                    color: const Color(0xFF1A3518),
                     fontSize: 12.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -170,139 +173,130 @@ class _CasePlanGapServiceViewContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, child) {
-              bool isLoading = serviceEventDataState.isLoading;
-              Map<String?, List<Events>> eventListByProgramStage =
-                  serviceEventDataState.eventListByProgramStage;
-              List<Events> events = TrackedEntityInstanceUtil
-                  .getAllEventListFromServiceDataStateByProgramStages(
-                      eventListByProgramStage, [programStage]);
-              List<CasePlanGapServiceProvision> casePlanFollowups = events
-                  .map((Events eventData) => CasePlanGapServiceProvision()
-                      .fromTeiModel(
-                          eventData, casePlanGapToServiceProvisionLinkage))
-                  .toList()
-                  .where((CasePlanGapServiceProvision
-                          casePlanGapServiceProvision) =>
-                      casePlanGapServiceProvision
-                          .casePlanGapToServiceProvisionLinkage ==
-                      widget.casePlanGapToServiceProvisionLinkageValue)
-                  .toList();
-              return Container(
-                child: isLoading || !isViewReady
-                    ? Container(
-                        margin: EdgeInsets.only(top: 20.0),
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
-                      )
-                    : Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Visibility(
-                              visible: casePlanFollowups.length > 0,
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        currentLanguage != 'lesotho'
-                                            ? 'Services'
-                                            : 'Litsebeletso',
-                                        style: TextStyle().copyWith(
-                                          color: widget.themeColor,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, child) {
+            bool isLoading = serviceEventDataState.isLoading;
+            Map<String?, List<Events>> eventListByProgramStage =
+                serviceEventDataState.eventListByProgramStage;
+            List<Events> events = TrackedEntityInstanceUtil
+                .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage, [programStage]);
+            List<CasePlanGapServiceProvision> casePlanFollowups = events
+                .map((Events eventData) => CasePlanGapServiceProvision()
+                    .fromTeiModel(
+                        eventData, casePlanGapToServiceProvisionLinkage))
+                .toList()
+                .where(
+                    (CasePlanGapServiceProvision casePlanGapServiceProvision) =>
+                        casePlanGapServiceProvision
+                            .casePlanGapToServiceProvisionLinkage ==
+                        widget.casePlanGapToServiceProvisionLinkageValue)
+                .toList();
+            return Container(
+              child: isLoading || !isViewReady
+                  ? Container(
+                      margin: const EdgeInsets.only(top: 20.0),
+                      child: const CircularProcessLoader(
+                        color: Colors.blueGrey,
+                      ),
+                    )
+                  : Container(
+                      margin: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Visibility(
+                            visible: casePlanFollowups.isNotEmpty,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    currentLanguage != 'lesotho'
+                                        ? 'Services'
+                                        : 'Litsebeletso',
+                                    style: const TextStyle().copyWith(
+                                      color: widget.themeColor,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                            Container(
-                              child: Column(
-                                children: casePlanFollowups
-                                    .map(
-                                      (CasePlanGapServiceProvision
-                                              casePlanGapServiceProvision) =>
-                                          Container(
-                                        margin: EdgeInsets.symmetric(
-                                          vertical: 10.0,
+                          ),
+                          Column(
+                            children: casePlanFollowups
+                                .map(
+                                  (CasePlanGapServiceProvision
+                                          casePlanGapServiceProvision) =>
+                                      Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        _getTableViewWidget(
+                                          currentLanguage,
+                                          casePlanGapServiceProvision,
                                         ),
-                                        child: Row(
-                                          children: [
-                                            _getTableViewWidget(
-                                              currentLanguage,
+                                        InkWell(
+                                          onTap: () =>
+                                              onEditCasePlanServiceProvision(
+                                                  context,
+                                                  casePlanGapServiceProvision,
+                                                  isEditable: false),
+                                          child: Container(
+                                            height: iconHeight,
+                                            width: iconHeight,
+                                            margin: const EdgeInsets.symmetric(
+                                              vertical: 5,
+                                              horizontal: 5,
+                                            ),
+                                            child: SvgPicture.asset(
+                                              'assets/icons/expand_icon.svg',
+                                              color: widget.themeColor,
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: widget.hasEditAccess,
+                                          child: InkWell(
+                                            onTap: () =>
+                                                onEditCasePlanServiceProvision(
+                                              context,
                                               casePlanGapServiceProvision,
                                             ),
-                                            Container(
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    onEditCasePlanServiceProvision(
-                                                        context,
-                                                        casePlanGapServiceProvision,
-                                                        isEditable: false),
-                                                child: Container(
-                                                  height: iconHeight,
-                                                  width: iconHeight,
-                                                  margin: EdgeInsets.symmetric(
-                                                    vertical: 5,
-                                                    horizontal: 5,
-                                                  ),
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/expand_icon.svg',
-                                                    color: widget.themeColor,
-                                                  ),
-                                                ),
+                                            child: Container(
+                                              height: iconHeight,
+                                              width: iconHeight,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 5,
+                                                horizontal: 5,
+                                              ),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/edit-icon.svg',
+                                                color: widget.themeColor,
                                               ),
                                             ),
-                                            Container(
-                                              child: Container(
-                                                child: InkWell(
-                                                  onTap: () =>
-                                                      onEditCasePlanServiceProvision(
-                                                    context,
-                                                    casePlanGapServiceProvision,
-                                                  ),
-                                                  child: Container(
-                                                    height: iconHeight,
-                                                    width: iconHeight,
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 5,
-                                                      horizontal: 5,
-                                                    ),
-                                                    child: SvgPicture.asset(
-                                                      'assets/icons/edit-icon.svg',
-                                                      color: widget.themeColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                            )
-                          ],
-                        ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          )
+                        ],
                       ),
-              );
-            },
-          );
-        },
-      ),
+                    ),
+            );
+          },
+        );
+      },
     );
   }
 }

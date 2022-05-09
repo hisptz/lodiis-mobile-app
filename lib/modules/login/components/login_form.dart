@@ -40,18 +40,16 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
-    this.loginFormState = Provider.of<LoginFormState>(context, listen: false);
+    loginFormState = Provider.of<LoginFormState>(context, listen: false);
     UserService().getCurrentUser().then((CurrentUser? user) {
       currentUser = user ??
-          new CurrentUser(
+          CurrentUser(
             username: '',
             password: '',
           );
       currentUser!.password = "";
-      usernameController =
-          new TextEditingController(text: currentUser!.username);
-      passwordController =
-          new TextEditingController(text: currentUser!.password);
+      usernameController = TextEditingController(text: currentUser!.username);
+      passwordController = TextEditingController(text: currentUser!.password);
       setState(() {});
     });
   }
@@ -190,11 +188,11 @@ class _LoginFormState extends State<LoginForm> {
   void redirectToLoginPage() {
     Provider.of<CurrentUserState>(context, listen: false)
         .setCurrentUserCountryLevelReferences();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => InterventionSelection(),
+          builder: (context) => const InterventionSelection(),
         ),
       ).then(
         (value) => loginFormState.setIsLoginProcessActive(false),
@@ -204,8 +202,8 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    Color activeInputColor = Color(0xFF4B9F46);
-    Color inActiveInputColor = Color(0xFFD2E7D1);
+    Color activeInputColor = const Color(0xFF4B9F46);
+    Color inActiveInputColor = const Color(0xFFD2E7D1);
     return SingleChildScrollView(
       child: Consumer<LoginFormState>(
         builder: (context, loginFormState, child) {
@@ -214,50 +212,44 @@ class _LoginFormState extends State<LoginForm> {
           bool isLoginProcessActive = loginFormState.isLoginProcessActive;
           bool isPasswordVisible = loginFormState.isPasswordVisible;
           return currentUser == null
-              ? Container(
-                  child: CircularProcessLoader(
-                    color: CustomColor.defaultSecondaryColor,
-                    size: 2.0,
-                  ),
+              ? CircularProcessLoader(
+                  color: CustomColor.defaultSecondaryColor,
+                  size: 2.0,
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Row(
-                        children: [
-                          Text(
-                            'Username',
-                            style: !hasLoginFormError
-                                ? LoginPageStyles.formLabelStyle
-                                : LoginPageStyles.formLabelStyle.copyWith(
-                                    color: Colors.redAccent,
-                                  ),
-                          )
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          'Username',
+                          style: !hasLoginFormError
+                              ? LoginPageStyles.formLabelStyle
+                              : LoginPageStyles.formLabelStyle.copyWith(
+                                  color: Colors.redAccent,
+                                ),
+                        )
+                      ],
                     ),
-                    Container(
-                      child: TextFormField(
-                        controller: usernameController,
-                        onTap: () => updateInputActiveStatus('username'),
-                        onChanged: (value) =>
-                            onFieldValueChanges(value, 'username'),
-                        onFieldSubmitted: (value) =>
-                            onFieldSubmitted(value, 'username'),
-                        readOnly: isLoginProcessActive,
-                        autocorrect: false,
-                        style: LoginPageStyles.formInputValueStyle,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: FormFieldInputIcon(
-                            backGroundColor: Color(0xFFEDF5EC),
-                            svgIcon: 'assets/icons/login-user-input.svg',
-                          ),
-                          prefixIconConstraints:
-                              LoginPageStyles.loginBoxConstraints,
+                    TextFormField(
+                      controller: usernameController,
+                      onTap: () => updateInputActiveStatus('username'),
+                      onChanged: (value) =>
+                          onFieldValueChanges(value, 'username'),
+                      onFieldSubmitted: (value) =>
+                          onFieldSubmitted(value, 'username'),
+                      readOnly: isLoginProcessActive,
+                      autocorrect: false,
+                      style: LoginPageStyles.formInputValueStyle,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        prefixIcon: const FormFieldInputIcon(
+                          backGroundColor: Color(0xFFEDF5EC),
+                          svgIcon: 'assets/icons/login-user-input.svg',
                         ),
+                        prefixIconConstraints:
+                            LoginPageStyles.loginBoxConstraints,
                       ),
                     ),
                     LineSeparator(
@@ -266,7 +258,7 @@ class _LoginFormState extends State<LoginForm> {
                           : inActiveInputColor,
                     ),
                     Container(
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                         top: 10.0,
                       ),
                       child: Row(
@@ -282,44 +274,42 @@ class _LoginFormState extends State<LoginForm> {
                         ],
                       ),
                     ),
-                    Container(
-                      child: TextFormField(
-                        controller: passwordController,
-                        onTap: () => updateInputActiveStatus('password'),
-                        onChanged: (value) =>
-                            onFieldValueChanges(value, 'password'),
-                        onFieldSubmitted: (value) =>
-                            onFieldSubmitted(value, 'password'),
-                        obscureText: !isPasswordVisible,
-                        autocorrect: false,
-                        style: LoginPageStyles.formInputValueStyle,
-                        readOnly: isLoginProcessActive,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          hintStyle: TextStyle(
-                            fontSize: 15,
-                          ),
-                          border: InputBorder.none,
-                          prefixIcon: FormFieldInputIcon(
-                            backGroundColor: Color(0xFFEDF5EC),
-                            svgIcon: 'assets/icons/login-lock.svg',
-                          ),
-                          prefixIconConstraints:
-                              LoginPageStyles.loginBoxConstraints,
-                          suffixIcon: GestureDetector(
-                            onTap: () => updatePasswordVisibilityStatus(
-                              !isPasswordVisible,
-                            ),
-                            child: FormFieldInputIcon(
-                              backGroundColor: Color(0xFFFFFFFF),
-                              svgIcon: isPasswordVisible
-                                  ? 'assets/icons/login-close-eye.svg'
-                                  : 'assets/icons/login-open-eye.svg', // show and hide password icon
-                            ),
-                          ),
-                          suffixIconConstraints:
-                              LoginPageStyles.loginBoxConstraints,
+                    TextFormField(
+                      controller: passwordController,
+                      onTap: () => updateInputActiveStatus('password'),
+                      onChanged: (value) =>
+                          onFieldValueChanges(value, 'password'),
+                      onFieldSubmitted: (value) =>
+                          onFieldSubmitted(value, 'password'),
+                      obscureText: !isPasswordVisible,
+                      autocorrect: false,
+                      style: LoginPageStyles.formInputValueStyle,
+                      readOnly: isLoginProcessActive,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        hintStyle: const TextStyle(
+                          fontSize: 15,
                         ),
+                        border: InputBorder.none,
+                        prefixIcon: const FormFieldInputIcon(
+                          backGroundColor: Color(0xFFEDF5EC),
+                          svgIcon: 'assets/icons/login-lock.svg',
+                        ),
+                        prefixIconConstraints:
+                            LoginPageStyles.loginBoxConstraints,
+                        suffixIcon: GestureDetector(
+                          onTap: () => updatePasswordVisibilityStatus(
+                            !isPasswordVisible,
+                          ),
+                          child: FormFieldInputIcon(
+                            backGroundColor: const Color(0xFFFFFFFF),
+                            svgIcon: isPasswordVisible
+                                ? 'assets/icons/login-close-eye.svg'
+                                : 'assets/icons/login-open-eye.svg', // show and hide password icon
+                          ),
+                        ),
+                        suffixIconConstraints:
+                            LoginPageStyles.loginBoxConstraints,
                       ),
                     ),
                     LineSeparator(

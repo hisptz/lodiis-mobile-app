@@ -38,7 +38,6 @@ class AgywDreamsEnrollmentService {
     inputFieldIds.addAll(FormUtil.getFormFieldIds(riskAssessmentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(concentFormSections));
     inputFieldIds.addAll(FormUtil.getFormFieldIds(enrollmentFormSections));
-
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
             trackedEntityInstance,
@@ -48,45 +47,46 @@ class AgywDreamsEnrollmentService {
             dataObject,
             hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    if (dataObject['trackedEntityInstance'] == null) {
-      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,
         enrollmentDate,
         incidentDate,
         orgUnit,
         program,
         trackedEntityInstance,
-      );
-      await FormUtil.savingEnrollment(enrollmentData);
-    }
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<AgywDream>> getAgywBenficiariesWithIncomingReferralList(
       {int? page, List teiList = const [], String searchableValue = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getFilteredEnrollments(program,
               page: page, requiredTeiList: teiList as List<String>);
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
-
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
         for (TrackedEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream()
-              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+          agywDreamList.add(AgywDream().fromTeiModel(tei, orgUnit, location,
+              createdDate, enrollmentId, enrollmentOuAccessible));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return searchableValue == ''
         ? agywDreamList
         : agywDreamList.where((AgywDream beneficiary) {
@@ -98,39 +98,60 @@ class AgywDreamsEnrollmentService {
   }
 
   Future<List<AgywDream>> getAgywBeneficiaryList(
-      {page, String searchableValue = ''}) async {
+      {page,
+      String searchableValue = '',
+      List<Map<String, dynamic>> filters = const []}) async {
     List<AgywDream> agywDreamList = [];
     try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollments(program,
-              page: page, isSearching: searchableValue != '');
+          .getEnrollmentsByProgram(program,
+              page: page, searchedValue: searchableValue);
       for (Enrollment enrollment in enrollments) {
-        // get location
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
-        String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+        String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
         String? orgUnit = enrollment.orgUnit;
         String? createdDate = enrollment.enrollmentDate;
         String? enrollmentId = enrollment.enrollment;
-
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
         List<TrackedEntityInstance> dataHolds =
             await TrackedEntityInstanceOfflineProvider()
                 .getTrackedEntityInstanceByIds(
                     [enrollment.trackedEntityInstance]);
         for (TrackedEntityInstance tei in dataHolds) {
-          agywDreamList.add(AgywDream()
-              .fromTeiModel(tei, orgUnit, location, createdDate, enrollmentId));
+          agywDreamList.add(AgywDream().fromTeiModel(tei, orgUnit, location,
+              createdDate, enrollmentId, enrollmentOuAccessible));
         }
       }
-    } catch (e) {}
-    return searchableValue == ''
-        ? agywDreamList
-        : agywDreamList.where((AgywDream beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    } catch (e) {
+      //
+    }
+    if (filters.isNotEmpty) {
+      for (Map<String, dynamic> filter in filters) {
+        String? implementingPartner = filter['implementingPartner'];
+        String? age = filter['age'];
+        String? sex = filter['sex'];
+
+        agywDreamList = implementingPartner == null
+            ? agywDreamList
+            : agywDreamList
+                .where((AgywDream agyw) =>
+                    agyw.enrolledOrganisation == implementingPartner)
+                .toList();
+
+        agywDreamList = age == null
+            ? agywDreamList
+            : agywDreamList.where((AgywDream agyw) => agyw.age == age).toList();
+
+        agywDreamList = sex == null
+            ? agywDreamList
+            : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
+      }
+    }
+
+    return agywDreamList;
   }
 
   Future<List<NoneParticipationBeneficiary>>

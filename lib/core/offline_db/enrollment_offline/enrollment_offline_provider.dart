@@ -17,6 +17,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String trackedEntityInstance = 'trackedEntityInstance';
   final String status = 'status';
   final String syncStatus = 'syncStatus';
+  final String searchableValue = 'searchableValue';
 
   addOrUpdateEnrollment(Enrollment enrollment) async {
     var dbClient = await db;
@@ -43,12 +44,57 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             noResult: true, continueOnError: true);
       }
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
-  Future<List<Enrollment>> getEnrollments(String programId,
-      {int? page, bool isSearching = false}) async {
+  Future<List<Enrollment>> getEnrollmentsByProgram(String programId,
+      {int? page, String searchedValue = ''}) async {
+    List<Enrollment> enrollments = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(table,
+          columns: [
+            enrollment,
+            enrollmentDate,
+            incidentDate,
+            program,
+            orgUnit,
+            status,
+            syncStatus,
+            searchableValue,
+            trackedEntityInstance
+          ],
+          where: searchedValue.isNotEmpty
+              ? '$program = ? AND $searchableValue LIKE ?'
+              : '$program = ?',
+          orderBy: '$enrollmentDate DESC',
+          whereArgs: searchedValue.isNotEmpty
+              ? [programId, '%$searchedValue%']
+              : [programId],
+          limit: page != null
+              ? searchedValue.isNotEmpty
+                  ? PaginationConstants.searchingPaginationLimit
+                  : PaginationConstants.paginationLimit
+              : null,
+          offset: page != null
+              ? searchedValue.isNotEmpty
+                  ? page * PaginationConstants.searchingPaginationLimit
+                  : page * PaginationConstants.paginationLimit
+              : null);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
+  }
+
+  Future<List<Enrollment>> getAllEnrollments(int page) async {
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;
@@ -63,25 +109,17 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             syncStatus,
             trackedEntityInstance
           ],
-          where: '$program = ?',
           orderBy: '$enrollmentDate DESC',
-          whereArgs: [programId],
-          limit: page != null
-              ? isSearching
-                  ? PaginationConstants.searchingPaginationLimit
-                  : PaginationConstants.paginationLimit
-              : null,
-          offset: page != null
-              ? isSearching
-                  ? page * PaginationConstants.searchingPaginationLimit
-                  : page * PaginationConstants.paginationLimit
-              : null);
+          limit: PaginationConstants.searchingPaginationLimit,
+          offset: (page - 1) * PaginationConstants.searchingPaginationLimit);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
   }
@@ -91,13 +129,15 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     try {
       var dbClient = await db;
       enrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
-          'SELECT COUNT(*) FROM $table WHERE $program = ?', ['$programId']));
-    } catch (e) {}
+          'SELECT COUNT(*) FROM $table WHERE $program = ?', [programId]));
+    } catch (e) {
+      //
+    }
     return enrollmentsCount ?? 0;
   }
 
   Future<Map<String, int>> getEnrollmentsCountBySex(String programId) async {
-    Map<String, int> enrollmentsCountBySex = Map();
+    Map<String, int> enrollmentsCountBySex = {};
     String attributesTable = 'tracked_entity_instance_attribute';
     String attribute = 'attribute';
     String sexAttribute = 'vIX4GTSCX4P';
@@ -108,12 +148,13 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       for (String sexValue in sex) {
         int? enrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
             'SELECT COUNT($table.$trackedEntityInstance) FROM $table, $attributesTable WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $attributesTable.$attribute = ? AND $attributesTable.$value = ?',
-            ['$programId', '$sexAttribute', '$sexValue']));
+            [programId, sexAttribute, sexValue]));
 
-        enrollmentsCountBySex['$sexValue'.toLowerCase()] =
-            enrollmentsCount ?? 0;
+        enrollmentsCountBySex[sexValue.toLowerCase()] = enrollmentsCount ?? 0;
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollmentsCountBySex;
   }
 
@@ -149,7 +190,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           }
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments;
   }
 
@@ -217,7 +260,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {
-      print(e);
+      //
     }
     return enrollments
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
@@ -231,7 +274,21 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
           'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
           ['$programId', '$orgUnitId']));
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
+    return offlineEnrollmentsCount ?? 0;
+  }
+
+  Future<int> getOfflineEnrollmentsWithoutSearchableValueCount() async {
+    int? offlineEnrollmentsCount;
+    try {
+      var dbClient = await db;
+      offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $searchableValue = ?', ['']));
+    } catch (e) {
+      //
+    }
     return offlineEnrollmentsCount ?? 0;
   }
 
@@ -260,7 +317,9 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return enrollments;
   }
 }

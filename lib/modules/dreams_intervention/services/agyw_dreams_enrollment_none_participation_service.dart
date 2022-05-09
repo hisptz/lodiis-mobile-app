@@ -30,7 +30,7 @@ class AgywDreamsNoneParticipationService {
       String attribute = noneParticipationConstant.attribute;
 
       inputFieldIds.add(dataElement);
-      if (dataObject.keys.toList().indexOf(attribute) != -1) {
+      if (dataObject.keys.toList().contains(attribute)) {
         dataObject[dataElement] = dataObject[attribute];
       }
     }

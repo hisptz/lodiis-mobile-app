@@ -26,16 +26,16 @@ class FormSection {
     this.translatedName,
     this.inputFields,
   }) {
-    this.id = this.id ?? AppUtil.getUid();
-    this.backgroundColor = this.backgroundColor ?? Colors.transparent;
-    this.borderColor = this.borderColor ?? Colors.transparent;
-    this.subSections = this.subSections ?? [];
-    this.inputFields = this.inputFields ?? [];
-    this.description = this.description ?? "";
+    id = id ?? AppUtil.getUid();
+    backgroundColor = backgroundColor ?? Colors.transparent;
+    borderColor = borderColor ?? Colors.transparent;
+    subSections = subSections ?? [];
+    inputFields = inputFields ?? [];
+    description = description ?? "";
   }
 
   @override
   String toString() {
-    return '$name';
+    return name;
   }
 }

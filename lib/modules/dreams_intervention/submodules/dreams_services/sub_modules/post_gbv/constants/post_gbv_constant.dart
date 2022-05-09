@@ -1,4 +1,4 @@
-class PostGBVConstant  {
-  static final String program = 'hOEIHJDrrvz';
-  static final String programStage = 'yK0ENCuwPqh';
+class PostGBVConstant {
+  static const String program = 'hOEIHJDrrvz';
+  static const String programStage = 'yK0ENCuwPqh';
 }

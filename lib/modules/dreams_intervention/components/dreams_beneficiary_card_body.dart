@@ -26,26 +26,24 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
     required String? value,
   }) {
     return Expanded(
-      child: Container(
-        child: RichText(
-          text: TextSpan(
-            text: '$label: ',
-            style: TextStyle().copyWith(
-              color: labelColor,
-              fontSize: 14.0,
-              fontWeight: FontWeight.w500,
-            ),
-            children: [
-              TextSpan(
-                text: value,
-                style: TextStyle().copyWith(
-                  color: valueColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
+      child: RichText(
+        text: TextSpan(
+          text: '$label: ',
+          style: const TextStyle().copyWith(
+            color: labelColor,
+            fontSize: 14.0,
+            fontWeight: FontWeight.w500,
           ),
+          children: [
+            TextSpan(
+              text: value,
+              style: const TextStyle().copyWith(
+                color: valueColor,
+                fontSize: 14.0,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -58,7 +56,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
     String? value,
   }) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10.0,
       ),
       child: Row(
@@ -67,7 +65,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: labelColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
@@ -77,7 +75,7 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
           Expanded(
             child: Text(
               value!,
-              style: TextStyle().copyWith(
+              style: const TextStyle().copyWith(
                 color: valueColor,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w500,
@@ -91,169 +89,163 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-          String? currentLanguage = languageTranslationState.currentLanguage;
-          return Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 13.0,
-              vertical: 20.0,
-            ),
-            child: isVerticalLayout
-                ? Column(
-                    children: [
-                      _getVerticalRowCardData(
-                        label: 'Created',
-                        value: agywBeneficiary.createdDate,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String? currentLanguage = languageTranslationState.currentLanguage;
+        return Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 13.0,
+            vertical: 20.0,
+          ),
+          child: isVerticalLayout
+              ? Column(
+                  children: [
+                    _getVerticalRowCardData(
+                      label: 'Created',
+                      value: agywBeneficiary.createdDate,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: 'Primary UIC',
+                      value: agywBeneficiary.primaryUIC,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
+                      value: agywBeneficiary.age.toString(),
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: 'Age band',
+                      value: agywBeneficiary.ageBand,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
+                      value: agywBeneficiary.sex,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho'
+                          ? 'Nomoro ea mohala'
+                          : 'Phone #',
+                      value: agywBeneficiary.phoneNumber,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label:
+                          currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
+                      value: agywBeneficiary.location,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
+                      value: agywBeneficiary.village,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: 'Enrolled Organisation unit',
+                      value: agywBeneficiary.enrolledOrganisation,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    Visibility(
+                        visible: agywBeneficiary.beneficiaryType != '',
+                        child: _getVerticalRowCardData(
+                          label: 'PrEP beneficiary type',
+                          value: agywBeneficiary.beneficiaryType,
+                          labelColor: labelColor,
+                          valueColor: valueColor,
+                        )),
+                    Visibility(
+                      visible: canViewServiceCategory && isVerticalLayout,
+                      child: DreamsBeneficiaryCardServiceSummary(
+                        services: AgywDreamsServiceSummaryConstant
+                            .getServiceSummaryList(),
+                        labelColor: valueColor,
                       ),
-                      _getVerticalRowCardData(
-                        label: 'Primary UIC',
-                        value: agywBeneficiary.primaryUIC,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
-                        value: agywBeneficiary.age.toString(),
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label: 'Age band',
-                        value: agywBeneficiary.ageBand,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
-                        value: agywBeneficiary.sex,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label: currentLanguage == 'lesotho'
-                            ? 'Nomoro ea mohala'
-                            : 'Phone #',
-                        value: agywBeneficiary.phoneNumber,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label: currentLanguage == 'lesotho'
-                            ? 'Sebaka'
-                            : 'Location',
-                        value: agywBeneficiary.location,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label:
-                            currentLanguage == 'lesotho' ? 'Motse' : 'Village',
-                        value: agywBeneficiary.village,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      _getVerticalRowCardData(
-                        label: 'Enrolled Organisation unit',
-                        value: agywBeneficiary.enrolledOrganisation,
-                        labelColor: labelColor,
-                        valueColor: valueColor,
-                      ),
-                      Visibility(
-                          visible: agywBeneficiary.beneficiaryType != '',
-                          child: _getVerticalRowCardData(
-                            label: 'PrEP beneficiary type',
-                            value: agywBeneficiary.beneficiaryType,
-                            labelColor: labelColor,
-                            valueColor: valueColor,
-                          )),
-                      Visibility(
-                        visible: canViewServiceCategory && isVerticalLayout,
-                        child: Container(
-                          child: DreamsBeneficiaryCardServiceSummary(
-                            services: AgywDreamsServiceSummaryConstant
-                                .getServiceSummaryList(),
-                            labelColor: valueColor,
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Wrap(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Table(
-                                  children: [
-                                    TableRow(
-                                      children: [
-                                        TableCell(
-                                          child: Row(
-                                            children: [
-                                              _getHorizontalRowCardData(
-                                                labelColor: labelColor,
-                                                valueColor: valueColor,
-                                                label:
-                                                    currentLanguage == 'lesotho'
-                                                        ? 'Lilemo'
-                                                        : 'Age',
-                                                value: agywBeneficiary.age
-                                                    .toString(),
-                                              ),
-                                            ],
-                                          ),
+                    )
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Wrap(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Table(
+                                children: [
+                                  TableRow(
+                                    children: [
+                                      TableCell(
+                                        child: Row(
+                                          children: [
+                                            _getHorizontalRowCardData(
+                                              labelColor: labelColor,
+                                              valueColor: valueColor,
+                                              label:
+                                                  currentLanguage == 'lesotho'
+                                                      ? 'Lilemo'
+                                                      : 'Age',
+                                              value: agywBeneficiary.age
+                                                  .toString(),
+                                            ),
+                                          ],
                                         ),
-                                        TableCell(
-                                          child: Row(
-                                            children: [
-                                              _getHorizontalRowCardData(
-                                                labelColor: labelColor,
-                                                valueColor: valueColor,
-                                                label:
-                                                    currentLanguage == 'lesotho'
-                                                        ? 'Boleng'
-                                                        : 'Sex',
-                                                value: agywBeneficiary.sex,
-                                              ),
-                                            ],
-                                          ),
+                                      ),
+                                      TableCell(
+                                        child: Row(
+                                          children: [
+                                            _getHorizontalRowCardData(
+                                              labelColor: labelColor,
+                                              valueColor: valueColor,
+                                              label:
+                                                  currentLanguage == 'lesotho'
+                                                      ? 'Boleng'
+                                                      : 'Sex',
+                                              value: agywBeneficiary.sex,
+                                            ),
+                                          ],
                                         ),
-                                        TableCell(
-                                          child: Row(
-                                            children: [
-                                              _getHorizontalRowCardData(
-                                                labelColor: labelColor,
-                                                valueColor: valueColor,
-                                                label: 'En Org',
-                                                value: agywBeneficiary
-                                                    .enrolledOrganisation,
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                      TableCell(
+                                        child: Row(
+                                          children: [
+                                            _getHorizontalRowCardData(
+                                              labelColor: labelColor,
+                                              valueColor: valueColor,
+                                              label: 'En Org',
+                                              value: agywBeneficiary
+                                                  .enrolledOrganisation,
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-          );
-        },
-      ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+        );
+      },
     );
   }
 }

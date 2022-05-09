@@ -7,6 +7,7 @@ class LbseLearningOutcomeEvent {
   String? date;
   String? learningOutcome;
   String? referralLinkeage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
   LbseLearningOutcomeEvent({
@@ -15,6 +16,7 @@ class LbseLearningOutcomeEvent {
     this.learningOutcome,
     this.date,
     this.referralLinkeage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -26,10 +28,10 @@ class LbseLearningOutcomeEvent {
       'mm5ZvlsZ6Sx',
       LbseInterventionConstant.learningOutcomeToReferralLinkage
     ];
-    Map<String, dynamic> data = Map();
+    Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
       String? attribute = detailObj['dataElement'];
-      if (attribute != null && keys.indexOf(attribute) > -1) {
+      if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
@@ -40,6 +42,7 @@ class LbseLearningOutcomeEvent {
       referralLinkeage:
           data[LbseInterventionConstant.learningOutcomeToReferralLinkage] ?? '',
       date: eventData.eventDate,
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

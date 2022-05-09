@@ -25,36 +25,32 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
 
   final Color color = const Color(0xFF009688);
 
-  Container _getActionButton({
+  ClipRRect _getActionButton({
     required Color backgroundColor,
     required String label,
     required Color labelColor,
     required VoidCallback onTap,
   }) {
-    return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(12.0),
-          bottomRight: Radius.circular(12.0),
-        ),
-        child: Container(
-          width: double.infinity,
-          color: backgroundColor,
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(12.0),
+        bottomRight: Radius.circular(12.0),
+      ),
+      child: Container(
+        width: double.infinity,
+        color: backgroundColor,
+        child: InkWell(
+          onTap: onTap,
           child: Container(
-            child: InkWell(
-              onTap: onTap,
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 15.0,
-                ),
-                child: Center(
-                  child: Text(
-                    label,
-                    style: TextStyle().copyWith(
-                      color: labelColor,
-                    ),
-                  ),
+            margin: const EdgeInsets.symmetric(
+              vertical: 15.0,
+              horizontal: 15.0,
+            ),
+            child: Center(
+              child: Text(
+                label,
+                style: const TextStyle().copyWith(
+                  color: labelColor,
                 ),
               ),
             ),
@@ -74,7 +70,7 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
         hasOutcomeRequireFollowUp = true;
       }
     }
-    return hasOutcomeRequireFollowUp || referralOutcomeFollowUps.length == 0;
+    return hasOutcomeRequireFollowUp || referralOutcomeFollowUps.isEmpty;
   }
 
   @override
@@ -82,80 +78,76 @@ class EdcucationLbseReferralOutcomeFollowUpContainer extends StatelessWidget {
     List<String> programStageIds = [
       LbseInterventionConstant.referralOutcomeFollowUpProgamStage
     ];
-    return Container(
-      child: Visibility(
-        visible: isFollowingUpNeeded,
-        child: Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, child) {
-          bool isLoading = serviceEventDataState.isLoading;
-          Map<String?, List<Events>> eventListByProgramStage =
-              serviceEventDataState.eventListByProgramStage;
-          List<Events> events = TrackedEntityInstanceUtil
-              .getAllEventListFromServiceDataStateByProgramStages(
-                  eventListByProgramStage, programStageIds);
-          List<LbseReferralOutcomeFollowUpEvent> referralOutcomeFollowUps =
-              events
-                  .map((Events eventData) => LbseReferralOutcomeFollowUpEvent()
-                      .fromTeiModel(eventData))
-                  .toList()
-                  .where((LbseReferralOutcomeFollowUpEvent
-                          referralOutcomeFollowUpEvent) =>
-                      referralOutcomeFollowUpEvent
-                          .referralOutcomeToReferralOutComeFollowingUpLinkage ==
-                      referralOutcomeEvent
-                          .referralOutcomeToReferralOutComeFollowingUpLinkage)
-                  .toList();
-          int followUpIndex = 0;
-          return isLoading
-              ? Container(
-                  child: Center(
-                    child: CircularProcessLoader(
-                      color: Colors.blueGrey,
+    return Visibility(
+      visible: isFollowingUpNeeded,
+      child: Consumer<ServiceEventDataState>(
+          builder: (context, serviceEventDataState, child) {
+        bool isLoading = serviceEventDataState.isLoading;
+        Map<String?, List<Events>> eventListByProgramStage =
+            serviceEventDataState.eventListByProgramStage;
+        List<Events> events = TrackedEntityInstanceUtil
+            .getAllEventListFromServiceDataStateByProgramStages(
+                eventListByProgramStage, programStageIds);
+        List<LbseReferralOutcomeFollowUpEvent> referralOutcomeFollowUps = events
+            .map((Events eventData) =>
+                LbseReferralOutcomeFollowUpEvent().fromTeiModel(eventData))
+            .toList()
+            .where((LbseReferralOutcomeFollowUpEvent
+                    referralOutcomeFollowUpEvent) =>
+                referralOutcomeFollowUpEvent
+                    .referralOutcomeToReferralOutComeFollowingUpLinkage ==
+                referralOutcomeEvent
+                    .referralOutcomeToReferralOutComeFollowingUpLinkage)
+            .toList();
+        int followUpIndex = 0;
+        return isLoading
+            ? const Center(
+                child: CircularProcessLoader(
+                  color: Colors.blueGrey,
+                ),
+              )
+            : Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 15.0,
+                    ),
+                    child: Column(
+                      children: referralOutcomeFollowUps.map(
+                        (LbseReferralOutcomeFollowUpEvent
+                            referralOutcomeFollowUpEvent) {
+                          followUpIndex++;
+                          return EducationLbseReferralOutcomeFollowUpCard(
+                            color: color,
+                            shouldEditFollowingUp: followUpIndex ==
+                                    referralOutcomeFollowUps.length &&
+                                referralOutcomeFollowUpEvent
+                                    .enrollmentOuAccessible!,
+                            followUpIndex: followUpIndex,
+                            referralOutcomeFollowUpEvent:
+                                referralOutcomeFollowUpEvent,
+                            onAddOutComeFollowingUp: () =>
+                                editAddOutComeFollowingUp(
+                                    referralOutcomeFollowUpEvent),
+                          );
+                        },
+                      ).toList(),
                     ),
                   ),
-                )
-              : Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: 15.0,
-                      ),
-                      child: Column(
-                        children: referralOutcomeFollowUps.map(
-                          (LbseReferralOutcomeFollowUpEvent
-                              referralOutcomeFollowUpEvent) {
-                            followUpIndex++;
-                            return Container(
-                              child: EducationLbseReferralOutcomeFollowUpCard(
-                                color: color,
-                                shouldEditFollowingUp: followUpIndex ==
-                                    referralOutcomeFollowUps.length,
-                                followUpIndex: followUpIndex,
-                                referralOutcomeFollowUpEvent:
-                                    referralOutcomeFollowUpEvent,
-                                onAddOutComeFollowingUp: () =>
-                                    editAddOutComeFollowingUp(
-                                        referralOutcomeFollowUpEvent),
-                              ),
-                            );
-                          },
-                        ).toList(),
-                      ),
+                  Visibility(
+                    visible:
+                        _isOutcomeRequireFollowUp(referralOutcomeFollowUps) &&
+                            referralOutcomeEvent.enrollmentOuAccessible!,
+                    child: _getActionButton(
+                      backgroundColor: color,
+                      label: 'ADD FOLLOW UP',
+                      labelColor: Colors.white,
+                      onTap: onAddOutComeFollowingUp!,
                     ),
-                    Visibility(
-                      visible:
-                          _isOutcomeRequireFollowUp(referralOutcomeFollowUps),
-                      child: _getActionButton(
-                        backgroundColor: color,
-                        label: 'ADD FOLLOW UP',
-                        labelColor: Colors.white,
-                        onTap: onAddOutComeFollowingUp!,
-                      ),
-                    )
-                  ],
-                );
-        }),
-      ),
+                  )
+                ],
+              );
+      }),
     );
   }
 }

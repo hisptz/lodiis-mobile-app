@@ -28,9 +28,9 @@ class NoneAgywEnrollmentClientIntake {
     List<String> optionalFields =
         getCheckboxInputFieldOptions(getFormSections());
     inputFields = inputFields
-        .where((field) => optionalFields.indexOf(field) < 0)
+        .where((field) => !optionalFields.contains(field))
         .toList()
-        .where((field) => excludedFields.indexOf(field) < 0)
+        .where((field) => !excludedFields.contains(field))
         .toList();
     return inputFields;
   }
@@ -39,7 +39,7 @@ class NoneAgywEnrollmentClientIntake {
     return [
       FormSection(
         name: 'HTS Client Intake Record',
-        color: Color(0xFF258DCC),
+        color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
               id: 'location',
@@ -48,48 +48,48 @@ class NoneAgywEnrollmentClientIntake {
               valueType: 'ORGANISATION_UNIT',
               isReadOnly: true,
               allowedSelectedLevels: [3, 4],
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'atNbeYwzMq6',
               name: 'Site Name',
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [4],
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'CgvXK6ZmFb6',
               name: 'Counselor Name',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'WTZ7GLTrE8Q',
               name: 'First Name',
               valueType: 'TEXT',
               isReadOnly: true,
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 's1HaiT6OllL',
               name: 'Middle Name',
               isReadOnly: true,
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'rSP9c21JsfC',
               name: 'Surname',
               isReadOnly: true,
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'j5iIE2kifv4',
             name: 'Client Type',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'F', name: 'F'),
               InputFieldOption(code: 'M', name: 'M'),
@@ -102,20 +102,20 @@ class NoneAgywEnrollmentClientIntake {
               id: 'NDigy1JKTNV',
               name: 'Is it a couple?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'wRU2FLKUXer',
               name: 'Partner\'s name',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'z9hUdWsyBXB',
             name: 'Service Type',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'CounselingTesting', name: 'Counseling Testing'),
@@ -130,8 +130,8 @@ class NoneAgywEnrollmentClientIntake {
             translatedName: 'Boleng',
             valueType: 'TEXT',
             isReadOnly: true,
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Male', name: 'Male'),
               InputFieldOption(code: 'Female', name: 'Female')
@@ -142,8 +142,8 @@ class NoneAgywEnrollmentClientIntake {
             name: 'Date of Birth',
             isReadOnly: true,
             valueType: 'DATE',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
               id: 'ls9hlz2tyol',
@@ -151,14 +151,14 @@ class NoneAgywEnrollmentClientIntake {
               translatedName: 'Lilemo',
               isReadOnly: true,
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'RHPU8hatG4H',
             name: 'Marital Status',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Never married', name: 'Never married'),
               InputFieldOption(
@@ -179,26 +179,26 @@ class NoneAgywEnrollmentClientIntake {
               id: 'DuWh8Gqwmjf',
               name: 'Specify marital status',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'VCHs81FiJy0',
               name: 'Number of children under 16 years',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'rdTi0PhbJ2f',
               name: 'Are you or your partner currently pregnant?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'lIKV6FwuEAu',
               name: 'Are you or your partner currently breastfeeding?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'IzpeMJCYdY3',
               name:
@@ -209,14 +209,14 @@ class NoneAgywEnrollmentClientIntake {
                 InputFieldOption(code: 'No', name: 'No'),
                 InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know')
               ],
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: '',
             name: 'Occupation',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'TGyGM2W86lI', name: 'Unemployed'),
               InputFieldOption(code: 'P30CAgvi9aJ', name: 'Student'),
@@ -239,14 +239,14 @@ class NoneAgywEnrollmentClientIntake {
               id: 'yHAjVqDrXuk',
               name: 'Specify other occupation',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'CHGgb5j2Q9C',
             name: 'Highest Level of Education Attained:',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'None', name: 'None'),
               InputFieldOption(
@@ -268,8 +268,8 @@ class NoneAgywEnrollmentClientIntake {
             id: '',
             name: 'Reasons for visiting site',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'UHVI3qHmuE8', name: 'I Have multiple partners'),
@@ -324,14 +324,14 @@ class NoneAgywEnrollmentClientIntake {
               id: 'Lj7CDNvvtw5',
               name: 'Other reason for visiting the site',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: '',
             name: 'How did you learn of this center?',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'aKIQBIQhUIm', name: 'Friend'),
               InputFieldOption(code: 'owE8P4FKggZ', name: 'Partner/Spouse'),
@@ -352,26 +352,26 @@ class NoneAgywEnrollmentClientIntake {
               id: 'CcMOQFuS5Uy',
               name: 'Specify other ways you learnt of this center',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'WAlaenCYazT',
               name: 'Ever been tested for HIV?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'ZUhWRJSajUE',
               name: 'How many times?',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'K9y9eMHeSfa',
             name: 'What were the most recent results?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Positive', name: 'Positive'),
               InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -383,15 +383,15 @@ class NoneAgywEnrollmentClientIntake {
               id: 'T4jtufXMh73',
               name: 'How long ago was your most recent test?',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'MabTaKRVTk6',
             name:
                 'Has your most recent sex partner been tested in the last 3 months?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'Yes, and the result was negative',
@@ -411,8 +411,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'U90wPGZgftv',
             name: 'Ever received a blood transfusion?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -423,8 +423,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'uBaYzuSsNts',
             name: 'History of sexual abuse?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -435,8 +435,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'F3g7aYQNOwW',
             name: 'Ever had vaginal sexual intercourse?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -447,8 +447,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'a4cZRyZbgaP',
             name: 'Ever had anal intercourse?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -459,47 +459,47 @@ class NoneAgywEnrollmentClientIntake {
               id: 'zvGJ4XV5vaK',
               name: 'At what age did you have sex?',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'vltqaOOIChC',
               name: 'In last 12 months have you had sex while intoxicated?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'ABXLlTiHysm',
               name:
                   'In last 12 months have you exchanged money/material for sex?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'zkbozPIE3Zh',
               name:
                   'In last 12 month have you had unprotected sexual intercourse?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'hWBVFd8DTRj',
               name: 'In last 12 months have you had a blood transfusion?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'oDnqGLMuwgo',
               name: 'In last 12 months have you shared needles for injections?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'wI9gNztaVzD',
             name:
                 'Have you had genital sores or unusual leakage within the past 12 months?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -510,8 +510,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'BL8liR3gxy6',
             name: 'Currently have genital sores or unusual leakage?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -523,15 +523,15 @@ class NoneAgywEnrollmentClientIntake {
               name:
                   'How many sexual partners(including your spouse)have you had sex with in the last 12 months?',
               valueType: 'NUMBER',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'N505gDx35lK',
             name:
                 'Do you currently have more than one sexual partner(including your spouse)?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -543,8 +543,8 @@ class NoneAgywEnrollmentClientIntake {
             name:
                 'The last time you had sex with a non-regular partner,did you use a condom?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -556,8 +556,8 @@ class NoneAgywEnrollmentClientIntake {
             name:
                 'The last time you had sex with a regular partner, did you use a condom?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -568,8 +568,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'llhNCWTFjAL',
             name: 'Have you ever talked to anyone about HTS?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -580,8 +580,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'GnuckKsbxtk',
             name: 'Have you ever talked to your spouse about HTS?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -592,8 +592,8 @@ class NoneAgywEnrollmentClientIntake {
             id: 'pjdU6Cgwy5j',
             name: 'Have you ever talked to your regular partner about HTS?',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: '1', name: 'Yes'),
               InputFieldOption(code: '0', name: 'No'),
@@ -605,8 +605,8 @@ class NoneAgywEnrollmentClientIntake {
             name: 'Rapid test Result #1',
             isReadOnly: true,
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Positive', name: 'Positive'),
               InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -617,15 +617,15 @@ class NoneAgywEnrollmentClientIntake {
               id: 'Wrp7gvBvzUB',
               name: 'Date bled #1',
               valueType: 'DATE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'QSknntVjZYx',
             name: 'Rapid test Result #2',
             isReadOnly: true,
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Positive', name: 'Positive'),
               InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -636,15 +636,15 @@ class NoneAgywEnrollmentClientIntake {
               id: 'NTgKh8ETh01',
               name: 'Date bled #2',
               valueType: 'DATE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'PnFpOz95RuW',
             name: 'Rapid test Result #3',
             isReadOnly: true,
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Positive', name: 'Positive'),
               InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -655,20 +655,20 @@ class NoneAgywEnrollmentClientIntake {
               id: 'OY4b1YNhvJC',
               name: 'Date bled #3',
               valueType: 'DATE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'w4DBU1hJtxd',
               name: 'Confirmatory test necessary?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'IYD4dA4EBnX',
             name: 'Confirmatory test Result #3',
             valueType: 'TEXT',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(code: 'Positive', name: 'Positive'),
               InputFieldOption(code: 'Negative', name: 'Negative'),
@@ -679,29 +679,29 @@ class NoneAgywEnrollmentClientIntake {
               id: 'gDVLu47xsH8',
               name: 'Client refused to receive test results?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'cE1sgG2arw4',
               name: 'Client informed of Test results',
               valueType: 'DATE',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'fs00ZqYiq6h',
             name: 'Period between testing and Informed results?',
             valueType: 'TEXT',
             isReadOnly: true,
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
           ),
           InputField(
               id: 'EY4roPkQlDi',
               name:
                   'Type of period used to monitor duration between testing and informed results',
               valueType: 'TEXT',
-              inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF1F8ECE),
+              labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(code: 'minutes', name: 'minutes'),
                 InputFieldOption(code: 'hours', name: 'hours'),
@@ -712,38 +712,38 @@ class NoneAgywEnrollmentClientIntake {
               id: 'W8mAvBSM3Pg',
               name: 'Client received Post Test Counselling?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'fT7eqY4H5f4',
-              inputColor: Color(0xFF1F8ECE),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF1F8ECE),
+              labelColor: const Color(0xFF737373),
               name: 'Post Test Counselor Code',
               valueType: 'TEXT'),
           InputField(
               id: 'tB5Htsd5jlr',
               name: 'Disclosure of Status Planned?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'zXlncmz51aw',
               name: 'Disclosure of Status to whom?',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'MlgzbQNpeqj',
               name: 'Risk Reduction Plan Made?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
             id: 'MlgzbQNpeqj_checkbox',
             name: 'Plan',
             valueType: 'CHECK_BOX',
-            inputColor: Color(0xFF258DCC),
-            labelColor: Color(0xFF737373),
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
                   code: 'tTmeXXmDO4S',
@@ -764,14 +764,14 @@ class NoneAgywEnrollmentClientIntake {
               id: 'IJUy3A0IVpr',
               name: 'Referral made?',
               valueType: 'BOOLEAN',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373)),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
           InputField(
               id: 'Hr43Ub9GNyP',
               name: 'Referral made to',
               valueType: 'TEXT',
-              inputColor: Color(0xFF258DCC),
-              labelColor: Color(0xFF737373),
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(code: 'TB screening', name: 'TB screening'),
                 InputFieldOption(code: 'STI services', name: 'STI services'),
@@ -796,7 +796,7 @@ class NoneAgywEnrollmentClientIntake {
       ),
       FormSection(
           name: 'For HIV negative clients',
-          color: Color(0xFF258DCC),
+          color: const Color(0xFF258DCC),
           inputFields: [
             InputField(
                 id: 'cruxHKlynFI',
@@ -804,55 +804,55 @@ class NoneAgywEnrollmentClientIntake {
                 valueType: 'NUMBER',
                 isReadOnly: true,
                 suffixLabel: 'Kg',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'rSv8udBKoCv',
                 name: 'Sexual partner with HIV is not ART',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'ZYhkYueaOxC',
                 name:
                     'Sexual partner who has been on ART for less than 6 months',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'uvkZ4vHUzxv',
                 name:
                     'Sexual partner who has been on ART for more than 6 months but is not virally suppressed',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'Se87hpRzGGB',
                 name:
                     'Vaginal or anal sexual intercourse without condoms with more than one partner',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'NftUCxEqj1W',
                 name: 'A sexual partner with one or more HIV risk factors',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'q3JCqCyX4aI',
                 name:
                     'A history of a sexually transmitted infection(STI) by lab testing or self-report or syndromic STI treatment',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'rBktFvgfp52',
                 name:
                     'Client has requested PrEP and has received information on PrEP including which people would benefit from PrEP and client still feels they would benefit from PrEP',
                 valueType: 'BOOLEAN',
-                inputColor: Color(0xFF258DCC),
-                labelColor: Color(0xFF737373)),
+                inputColor: const Color(0xFF258DCC),
+                labelColor: const Color(0xFF737373)),
           ]),
     ];
   }
