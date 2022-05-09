@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -11,11 +12,14 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_enrollment_none_participation_form.dart';
@@ -44,14 +48,26 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-      formSections = AgywEnrollmentConcent.getFormSections();
-      isFormReady = true;
-      evaluateSkipLogics();
-    });
+    setFormSectionMetadata();
+  }
+
+  void setFormSectionMetadata() {
+    CurrentUser? user =
+        Provider.of<CurrentUserState>(context, listen: false).currentUser;
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
+    List<int> allowedSelectedLevels = UserAccountReference
+            .dreamsFacikityBasedIpNames
+            .contains(user?.implementingPartner)
+        ? [4]
+        : AgywDreamsEnrollmentConstant.allowedSelectedLevels;
+    formSections = AgywEnrollmentConcent.getFormSections(
+      allowedSelectedLevels: allowedSelectedLevels,
+    );
+    isFormReady = true;
+    evaluateSkipLogics();
+    setState(() {});
   }
 
   evaluateSkipLogics() {
