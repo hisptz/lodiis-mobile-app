@@ -2,6 +2,7 @@ class UserAccountReference {
   static const String implementingPartnerDataElement = 'lcyyWZnfQNJ';
   static const String subImplementingPartnerDataElement = 'k34JyGFpfT4';
   static const String serviceProviderDataElement = 'GsWaSx1t3Qs';
+  static const String superUserIpName = 'Super user';
   static final List<String> allowedGroupsForDataEntry = [
     "IglDe1pjI7z",
     "EMBwDfkD2G8",

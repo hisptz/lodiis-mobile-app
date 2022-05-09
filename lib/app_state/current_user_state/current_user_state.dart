@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -169,9 +170,16 @@ class CurrentUserState with ChangeNotifier {
   }
 
   Future getAndSetCurrentUserDataEntryAuthorityStatus() async {
-    bool status = await UserService().getCurrentUserDataEntryAuthorityStatus();
-    await UserService().setDataEntryAuthorityStatus(status);
-    _canCurrentUserDoDataEntry = status;
-    notifyListeners();
+    if (_currentUser != null) {
+      bool status =
+          await UserService().getCurrentUserDataEntryAuthorityStatus();
+      bool canCurrentUserDoDataEntry = status &&
+          _currentUser?.implementingPartner !=
+              UserAccountReference.superUserIpName;
+      await UserService()
+          .setDataEntryAuthorityStatus(canCurrentUserDoDataEntry);
+      _canCurrentUserDoDataEntry = canCurrentUserDoDataEntry;
+      notifyListeners();
+    }
   }
 }
