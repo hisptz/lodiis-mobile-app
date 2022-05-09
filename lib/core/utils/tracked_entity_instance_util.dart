@@ -2,6 +2,7 @@ import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_info_util.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -21,12 +22,14 @@ class TrackedEntityInstanceUtil {
     List<String>? hiddenFields, {
     List<String>? skippedFields,
   }) async {
+    dataObject = dataObject ?? const {};
     hiddenFields = hiddenFields;
     skippedFields = skippedFields ?? [];
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
-    //TODO add tracking info user
+    String appAndDeviceTrackingDataElement =
+        await AppInfoUtil.getAppAndDeviceTrackingInfo();
     inputFieldIds.addAll(hiddenFields ?? []);
     inputFieldIds.removeWhere((field) => skippedFields!.contains(field));
     if (eventId == null) {
@@ -34,7 +37,7 @@ class TrackedEntityInstanceUtil {
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
       CurrentUser? user = await (UserService().getCurrentUser());
-      dataObject![UserAccountReference.implementingPartnerDataElement] =
+      dataObject[UserAccountReference.implementingPartnerDataElement] =
           dataObject[UserAccountReference.implementingPartnerDataElement] ??
               user!.implementingPartner;
       dataObject[UserAccountReference.serviceProviderDataElement] =
@@ -47,9 +50,12 @@ class TrackedEntityInstanceUtil {
                 user.subImplementingPartner;
       }
     }
-
-    eventId = eventId ?? dataObject!['eventId'] ?? AppUtil.getUid();
-    dataObject!.remove('eventId');
+    dataObject[UserAccountReference.appAndDeviceTrackingDataElement] =
+        dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
+            appAndDeviceTrackingDataElement;
+    inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
+    eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
+    dataObject.remove('eventId');
     dataObject.remove('eventDate');
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
