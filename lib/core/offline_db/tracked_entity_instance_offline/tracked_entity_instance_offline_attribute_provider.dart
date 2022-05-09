@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:sqflite/sqflite.dart';
@@ -107,7 +108,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       's1HaiT6OllL',
       'rSP9c21JsfC',
       'VJiWumvINR6',
-      'klLkGxy328c',
+      UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.beneficiaryId,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC,

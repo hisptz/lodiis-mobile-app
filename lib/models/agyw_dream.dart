@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -63,7 +64,7 @@ class AgywDream {
       'VJiWumvINR6',
       'tNdoR0jYr7R',
       'RB8Wx75hGa4',
-      'klLkGxy328c',
+      UserAccountReference.implementingPartnerAttribute,
       'vIX4GTSCX4P',
       'vkd6o91n1IC',
       BeneficiaryIdentification.primaryUIC
@@ -95,10 +96,11 @@ class AgywDream {
       location: location,
       createdDate: createdDate,
       enrollment: enrollment,
-      enrolledOrganisation: data['klLkGxy328c'] ?? '',
+      enrolledOrganisation:
+          data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age)} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data['klLkGxy328c'] ?? ''} $location $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age)} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data[UserAccountReference.implementingPartnerAttribute] ?? ''} $location $createdDate"
               .toLowerCase(),
       trackedEntityInstanceData: trackedEntityInstance,
     );

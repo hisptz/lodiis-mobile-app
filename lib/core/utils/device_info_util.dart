@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 
@@ -108,5 +110,21 @@ class DeviceInfoUtil {
       'computerName': data.computerName,
       'systemMemoryInMegabytes': data.systemMemoryInMegabytes,
     };
+  }
+
+  static Future<Map<String, dynamic>> getDeviceInfo() async {
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    return Platform.isAndroid
+        ? readAndroidBuildData(await deviceInfoPlugin.androidInfo)
+        : Platform.isLinux
+            ? readLinuxDeviceInfo(await deviceInfoPlugin.linuxInfo)
+            : Platform.isIOS
+                ? readIosDeviceInfo(await deviceInfoPlugin.iosInfo)
+                : Platform.isMacOS
+                    ? readMacOsDeviceInfo(await deviceInfoPlugin.macOsInfo)
+                    : Platform.isWindows
+                        ? readWindowsDeviceInfo(
+                            await deviceInfoPlugin.windowsInfo)
+                        : {};
   }
 }
