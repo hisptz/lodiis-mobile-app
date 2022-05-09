@@ -16,7 +16,10 @@ class AgywEnrollmentConcent {
     ];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    List<int> allowedSelectedLevels =
+        AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+  }) {
     return [
       FormSection(
           name: 'Consent',
@@ -27,8 +30,7 @@ class AgywEnrollmentConcent {
                 name: 'Location',
                 translatedName: 'Sebaka',
                 valueType: 'ORGANISATION_UNIT',
-                allowedSelectedLevels:
-                    AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+                allowedSelectedLevels: allowedSelectedLevels,
                 filteredPrograms: [AgywDreamsEnrollmentConstant.program],
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
