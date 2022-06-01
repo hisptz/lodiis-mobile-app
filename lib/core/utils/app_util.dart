@@ -218,6 +218,82 @@ class AppUtil {
     return false;
   }
 
+  static showActionSheetModal({
+    required BuildContext context,
+    required Widget containerBody,
+    Widget? title,
+    double initialHeightRatio = 0.3,
+    double minHeightRatio = 0.1,
+    double maxHeightRatio = 0.85,
+  }) {
+    maxHeightRatio = maxHeightRatio > 0 ? maxHeightRatio : 0.85;
+    return showModalBottomSheet(
+      context: context,
+      elevation: 2.0,
+      isDismissible: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => Navigator.of(context).pop(),
+        child: GestureDetector(
+          onTap: () {},
+          child: DraggableScrollableSheet(
+            initialChildSize: initialHeightRatio,
+            maxChildSize: maxHeightRatio < initialHeightRatio
+                ? initialHeightRatio
+                : maxHeightRatio,
+            minChildSize: minHeightRatio < initialHeightRatio
+                ? minHeightRatio
+                : initialHeightRatio,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(8.0)),
+                      color: Colors.white),
+                  child: Column(
+                    children: [
+                      Visibility(
+                          visible: title != null,
+                          child: Container(
+                              margin:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: title)),
+                      Flexible(
+                        child: ListView(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 1.0,
+                              ),
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20.0),
+                                ),
+                              ),
+                              child: containerBody,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   static showToastMessage({
     required String message,
     ToastGravity? position = ToastGravity.BOTTOM,

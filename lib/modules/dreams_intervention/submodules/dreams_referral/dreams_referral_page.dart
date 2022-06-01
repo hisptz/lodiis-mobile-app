@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
@@ -65,12 +66,39 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
         .getAgywBenficiariesWithIncomingReferralList(
             teiList: incomingTeiWithOutcome);
-    Widget modal = DreamsOutgoingReferralsOutcome(
-      agywList: agywList,
-      isIncomingReferral: isIncomingReferral,
-    );
-    await AppUtil.showPopUpModal(context, modal, false,
-        title: 'Beneficiaries with referral outcome');
+
+    var primaryColor =
+        Provider.of<InterventionCardState>(context, listen: false)
+            .currentInterventionProgram
+            .primaryColor;
+
+    AppUtil.showActionSheetModal(
+        context: context,
+        containerBody: DreamsOutgoingReferralsOutcome(
+          agywList: agywList,
+          isIncomingReferral: isIncomingReferral,
+        ),
+        title: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                'Beneficiaries with referral outcome',
+                style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 14.0,
+                    color: primaryColor ?? Colors.black),
+              ),
+            ),
+            LineSeparator(
+              color: primaryColor ?? Colors.black,
+              height: 1.0,
+            ),
+          ],
+        ),
+        initialHeightRatio: 0.8,
+        minHeightRatio: 0.7,
+        maxHeightRatio: 0.85);
   }
 
   @override
