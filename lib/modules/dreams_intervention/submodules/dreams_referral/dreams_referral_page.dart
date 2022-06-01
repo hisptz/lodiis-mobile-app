@@ -97,7 +97,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
           ],
         ),
         initialHeightRatio: 0.8,
-        minHeightRatio: 0.8,
+        minHeightRatio: 0.7,
         maxHeightRatio: 0.85);
   }
 

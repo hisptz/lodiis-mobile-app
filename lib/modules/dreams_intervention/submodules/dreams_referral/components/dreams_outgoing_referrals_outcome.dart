@@ -52,94 +52,87 @@ class _DreamsOutgoingReferralsOutcomeState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(children: [
-          SearchInput(
-            onSearch: (value) => onSearchBeneficiary(value),
-          ),
-          const LineSeparator(
-            color: Color(0xFFE9F4FA),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Visibility(
-            child: const Text('Searched Beneficiary not found!'),
-            visible: searchedValue != '' &&
-                widget.agywList
-                    .where((agyw) => '${agyw.toString()} ${agyw.primaryUIC}'
-                        .toLowerCase()
-                        .contains(searchedValue))
-                    .isEmpty,
-          ),
-          ...(widget.agywList.where((agyw) =>
-                  '${agyw.toString()} ${agyw.primaryUIC}'
+    return Center(
+      child: Column(children: [
+        SearchInput(
+          onSearch: (value) => onSearchBeneficiary(value),
+        ),
+        const LineSeparator(
+          color: Color(0xFFE9F4FA),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Visibility(
+          child: const Text('Searched Beneficiary not found!'),
+          visible: searchedValue != '' &&
+              widget.agywList
+                  .where((agyw) => '${agyw.toString()} ${agyw.primaryUIC}'
                       .toLowerCase()
-                      .contains(searchedValue)))
-              .map((agyw) => Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 5.0, vertical: 10.0),
-                    child: MaterialCard(
-                      body: GestureDetector(
-                        onTap: () => onView(agyw),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                        padding:
-                                            const EdgeInsets.only(right: 5.0),
-                                        height: 20.0,
-                                        width: 20.0,
-                                        child: SvgPicture.asset(
-                                          svgIcon,
-                                        )),
-                                  ),
-                                  Expanded(
-                                      flex: 10,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Wrap(children: [
-                                            Text(agyw.toString(),
-                                                style: const TextStyle()
-                                                    .copyWith(
-                                                        color: const Color(
-                                                            0xFF05131B),
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                          ]),
-                                          Wrap(children: [
-                                            Text(agyw.primaryUIC!)
-                                          ])
-                                        ],
+                      .contains(searchedValue))
+                  .isEmpty,
+        ),
+        ...(widget.agywList.where((agyw) =>
+                '${agyw.toString()} ${agyw.primaryUIC}'
+                    .toLowerCase()
+                    .contains(searchedValue)))
+            .map((agyw) => Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 5.0, vertical: 10.0),
+                  child: MaterialCard(
+                    body: GestureDetector(
+                      onTap: () => onView(agyw),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      padding:
+                                          const EdgeInsets.only(right: 5.0),
+                                      height: 20.0,
+                                      width: 20.0,
+                                      child: SvgPicture.asset(
+                                        svgIcon,
                                       )),
-                                ],
-                              ),
+                                ),
+                                Expanded(
+                                    flex: 10,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Wrap(children: [
+                                          Text(agyw.toString(),
+                                              style: const TextStyle().copyWith(
+                                                  color:
+                                                      const Color(0xFF05131B),
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold)),
+                                        ]),
+                                        Wrap(children: [Text(agyw.primaryUIC!)])
+                                      ],
+                                    )),
+                              ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            )
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          )
+                        ],
                       ),
                     ),
-                  ))
-              .toList()
-        ]),
-      ),
+                  ),
+                ))
+            .toList()
+      ]),
     );
   }
 }
