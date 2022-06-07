@@ -19,13 +19,13 @@ class AppLogs {
     return 'logs <$message>';
   }
 
-  Map toOffline(AppLogs logs) {
+  Map toOffline() {
     DateTime currentDateTime = DateTime.now();
     Map mapData = <String, dynamic>{};
-    mapData['id'] = logs.id ?? AppUtil.getUid();
-    mapData['type'] = logs.type ?? '';
-    mapData['message'] = logs.message ?? '';
-    mapData['date'] = logs.date ?? currentDateTime.toString().split('.')[0];
+    mapData['id'] = id ?? AppUtil.getUid();
+    mapData['type'] = type ?? '';
+    mapData['message'] = message ?? '';
+    mapData['date'] = date ?? currentDateTime.toString().split('.')[0];
     return mapData;
   }
 
