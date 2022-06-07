@@ -17,7 +17,7 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
 
   Future<void> addLogs(AppLogs logData) async {
     var dbClient = await db;
-    Map data = AppLogs().toOffline(logData);
+    Map data = logData.toOffline();
     try {
       await dbClient!.insert(table, data as Map<String, Object?>,
           conflictAlgorithm: ConflictAlgorithm.replace);
