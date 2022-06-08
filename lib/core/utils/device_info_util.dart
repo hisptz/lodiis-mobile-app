@@ -14,7 +14,6 @@ class DeviceInfoUtil {
       'model': build.model,
       'product': build.product,
       'androidId': build.androidId,
-      'systemFeatures': build.systemFeatures,
     };
   }
 
