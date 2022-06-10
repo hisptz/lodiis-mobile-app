@@ -77,7 +77,10 @@ class SynchronizationService {
   }
 
   Future<void> getAndSaveEventsFromServer(
-      String? program, String? userOrgId, String lastSyncDate) async {
+    String? program,
+    String? userOrgId,
+    String lastSyncDate,
+  ) async {
     try {
       var queryParameters = {
         "program": program,
@@ -303,9 +306,14 @@ class SynchronizationService {
     return entityInstanceAttributes;
   }
 
-  Future<List<TrackedEntityInstance>> getTeisFromOfflineDb() async {
+  Future<List<TrackedEntityInstance>> getTeisFromOfflineDb({
+    int? page,
+  }) async {
     return await TrackedEntityInstanceOfflineProvider()
-        .getTrackedEntityInstanceByStatus(offlineSyncStatus);
+        .getTrackedEntityInstanceByStatus(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
   Future<int> getUnsyncedTeiCount() async {
@@ -313,14 +321,22 @@ class SynchronizationService {
         .getTeiCountBySyncStatus(offlineSyncStatus);
   }
 
-  Future<List<Enrollment>> getTeiEnrollmentFromOfflineDb() async {
-    return await EnrollmentOfflineProvider()
-        .getEnrollmentByStatus(offlineSyncStatus);
+  Future<List<Enrollment>> getTeiEnrollmentFromOfflineDb({
+    int? page,
+  }) async {
+    return await EnrollmentOfflineProvider().getEnrollmentByStatus(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
-  Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb() async {
-    return await TeiRelationshipOfflineProvider()
-        .getAllTeiRelationShips(offlineSyncStatus);
+  Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb({
+    int? page,
+  }) async {
+    return await TeiRelationshipOfflineProvider().getAllTeiRelationShips(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
   Future<int> getOfflineEventsCount(CurrentUser currentUser) async {
@@ -333,6 +349,16 @@ class SynchronizationService {
       }
     }
     return eventsCount;
+  }
+
+  Future<int> getOfflineTrackedEntityInstanceCount() async {
+    return await TrackedEntityInstanceOfflineProvider()
+        .getTeiCountBySyncStatus(offlineSyncStatus);
+  }
+
+  Future<int> getOfflineRelationshipCount() async {
+    return await TeiRelationshipOfflineProvider()
+        .getRelationshipCountBySyncStatus(offlineSyncStatus);
   }
 
   Future<int> getOfflineEnrollmentCount(CurrentUser currentUser) async {
@@ -412,9 +438,13 @@ class SynchronizationService {
     return eventsCount;
   }
 
-  Future<List<Events>> getTeiEventsFromOfflineDb() async {
-    return await EventOfflineProvider()
-        .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
+  Future<List<Events>> getTeiEventsFromOfflineDb({
+    int? page,
+  }) async {
+    return await EventOfflineProvider().getTrackedEntityInstanceEventsByStatus(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
   Future<int> getUnsyncedEventsCount() async {
@@ -422,8 +452,26 @@ class SynchronizationService {
         .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
+  Future<bool> initiateEventDataUpload() {
+    return Future.value(true);
+  }
+
+  Future<bool> initiateEnrollmentDataUpload() {
+    return Future.value(true);
+  }
+
+  Future<bool> initiateTrackedEntityInstanceDataUpload() {
+    return Future.value(true);
+  }
+
+  Future<bool> initiateTrackedEntityInstanceRelationshipDataUpload() {
+    return Future.value(true);
+  }
+
   Future<bool> uploadEnrollmentsToTheServer(
-      List<Enrollment> teiEnrollments, bool isAutoUpload) async {
+    List<Enrollment> teiEnrollments,
+    bool isAutoUpload,
+  ) async {
     List<String?>? syncedIds = [];
     String url = 'api/enrollments';
     bool conflictOnImport = false;
@@ -479,7 +527,9 @@ class SynchronizationService {
   }
 
   Future<bool> uploadTeisToTheServer(
-      List<TrackedEntityInstance> teis, bool isAutoUpload) async {
+    List<TrackedEntityInstance> teis,
+    bool isAutoUpload,
+  ) async {
     List<String?>? syncedIds = [];
     String url = 'api/trackedEntityInstances';
     bool conflictOnImport = false;
@@ -634,7 +684,9 @@ class SynchronizationService {
   }
 
   Future<bool> uploadTeiRelationToTheServer(
-      List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
+    List<TeiRelationship> teiRelationShips,
+    bool isAutoUpload,
+  ) async {
     Map body = <String, dynamic>{};
     List<String?>? syncedIds = [];
     String url = 'api/relationships';
