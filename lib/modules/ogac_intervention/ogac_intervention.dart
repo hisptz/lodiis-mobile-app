@@ -37,7 +37,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
   bool isViewReady = false;
   late Timer periodicTimer;
   late StreamSubscription connectionSubscription;
-  int syncTimeout = AutoSynchronization.syncTimeout;
+  int syncInterval = AutoSynchronization.syncInterval;
 
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _OgacInterventionState extends State<OgacIntervention> {
         .checkChangeOfDeviceConnectionStatus(context);
     checkAppVersion();
     periodicTimer =
-        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+        Timer.periodic(Duration(minutes: syncInterval), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
       AutoSynchronizationService().startAutoUpload(context);

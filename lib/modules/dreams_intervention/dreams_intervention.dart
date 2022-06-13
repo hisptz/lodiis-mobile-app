@@ -53,7 +53,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
   TabController? tabController;
   late List<Widget> tabsItems = [];
   late List<Widget> tabsViews = [];
-  int syncTimeout = AutoSynchronization.syncTimeout;
+  int syncInterval = AutoSynchronization.syncInterval;
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
         .checkChangeOfDeviceConnectionStatus(context);
     checkAppVersion();
     periodicTimer =
-        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+        Timer.periodic(Duration(minutes: syncInterval), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
       AutoSynchronizationService().startAutoUpload(context);

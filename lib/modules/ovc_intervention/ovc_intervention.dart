@@ -50,7 +50,7 @@ class _OvcInterventionState extends State<OvcIntervention>
   TabController? tabController;
   late List<Widget> tabsItems = [];
   late List<Widget> tabsViews = [];
-  int syncTimeout = AutoSynchronization.syncTimeout;
+  int syncInterval = AutoSynchronization.syncInterval;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _OvcInterventionState extends State<OvcIntervention>
         .checkChangeOfDeviceConnectionStatus(context);
     checkAppVersion();
     periodicTimer =
-        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+        Timer.periodic(Duration(minutes: syncInterval), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
       AutoSynchronizationService().startAutoUpload(context);
