@@ -1,7 +1,11 @@
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/utils/data_quality_util.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -136,6 +140,8 @@ class DataQualityService {
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateMultipleTrackedEntityInstanceAttributes(resolvedAttributes);
     await migrateOptionSetsToCheckBox();
+    await deviceInformationAttributesMigration();
+    await deviceInformationDataValuesMigration();
     await enrollmentSearchableValueMigration();
   }
 
@@ -157,6 +163,29 @@ class DataQualityService {
         enrollment.searchableValue = searchableValue;
         await EnrollmentOfflineProvider().addOrUpdateEnrollment(enrollment);
       }
+    }
+  }
+
+  static Future<void> deviceInformationDataValuesMigration() async {
+    try {
+      await EventOfflineDataValueProvider().reduceDeviceInformationDataValues();
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: '(deviceInformationDataValuesMigration) ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+  }
+
+  static Future<void> deviceInformationAttributesMigration() async {
+    try {
+      await TrackedEntityInstanceOfflineAttributeProvider()
+          .reduceDeviceInformationAttributes();
+    } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: '(deviceInformationAttributesMigrations) ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
     }
   }
 
