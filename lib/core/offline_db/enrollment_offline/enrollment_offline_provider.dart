@@ -98,20 +98,22 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient!.query(table,
-          columns: [
-            enrollment,
-            enrollmentDate,
-            incidentDate,
-            program,
-            orgUnit,
-            status,
-            syncStatus,
-            trackedEntityInstance
-          ],
-          orderBy: '$enrollmentDate DESC',
-          limit: PaginationConstants.searchingPaginationLimit,
-          offset: (page - 1) * PaginationConstants.searchingPaginationLimit);
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          program,
+          orgUnit,
+          status,
+          syncStatus,
+          trackedEntityInstance
+        ],
+        orderBy: '$enrollmentDate DESC',
+        limit: PaginationConstants.searchingPaginationLimit,
+        offset: page * PaginationConstants.searchingPaginationLimit,
+      );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));

@@ -339,18 +339,6 @@ class SynchronizationService {
     );
   }
 
-  Future<int> getOfflineEventsCount(CurrentUser currentUser) async {
-    int eventsCount = 0;
-    for (String? orgUnit in currentUser.userOrgUnitIds ?? []) {
-      for (String? program in currentUser.programs ?? []) {
-        int count =
-            await EventOfflineProvider().getOfflineEventCount(program, orgUnit);
-        eventsCount += count;
-      }
-    }
-    return eventsCount;
-  }
-
   Future<int> getOfflineTrackedEntityInstanceCount() async {
     return await TrackedEntityInstanceOfflineProvider()
         .getTeiCountBySyncStatus(offlineSyncStatus);

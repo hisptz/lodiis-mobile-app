@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_inter
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
@@ -363,25 +364,28 @@ class SynchronizationState with ChangeNotifier {
       bool conflictOnTeisImport = false;
       bool conflictOnEventsImport = false;
 
-      var teis = await _synchronizationService.getTeisFromOfflineDb();
-      if (teis.isNotEmpty) {
-        List<List<dynamic>> chunkedTeis =
-            AppUtil.chunkItems(items: teis, size: dataUploadBatchSize);
-        int batch = 1;
-        for (List<dynamic> teiChunk in chunkedTeis) {
+      CurrentUser? currentUser = await UserService().getCurrentUser();
+
+      // TODO: move the trackedEntityInstance upload to a function
+      var teiCount =
+          await _synchronizationService.getOfflineTrackedEntityInstanceCount();
+      if (teiCount > 0) {
+        int totalPages =
+            (teiCount / PaginationConstants.dataUploadPaginationLimit).ceil();
+        for (int page = 0; page <= totalPages; page++) {
           if (_dataUploadStopped) {
             return;
           }
-          bool conflictOnImport =
-              await _synchronizationService.uploadTeisToTheServer(
-                  teiChunk as List<TrackedEntityInstance>, isAutoUpload);
+          var teiChunk =
+              await _synchronizationService.getTeisFromOfflineDb(page: page);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeisToTheServer(teiChunk, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
-          profileCount = profileCount + (batch / chunkedTeis.length);
+          profileCount = profileCount + (page / totalPages);
           profileDataUploadProgress = profileCount / profileTotalCount;
           overallUploadProgress =
               (profileDataUploadProgress + eventsDataUploadProgress) / 2;
           notifyListeners();
-          ++batch;
         }
       } else {
         ++profileCount;
@@ -391,27 +395,29 @@ class SynchronizationState with ChangeNotifier {
         notifyListeners();
       }
 
-      var teiEnrollments =
-          await _synchronizationService.getTeiEnrollmentFromOfflineDb();
-      if (teiEnrollments.isNotEmpty) {
-        int batch = 1;
-        List<List<dynamic>> chunkedTeiEnrollments = AppUtil.chunkItems(
-            items: teiEnrollments, size: dataUploadBatchSize * 2);
-        for (List<dynamic> teiEnrollmentChunk in chunkedTeiEnrollments) {
+      // TODO: move the enrollments upload to a function
+      var enrollmentCount =
+          await _synchronizationService.getOfflineEnrollmentCount(currentUser!);
+      if (enrollmentCount > 0) {
+        int totalPages =
+            (enrollmentCount / PaginationConstants.dataUploadPaginationLimit)
+                .ceil();
+
+        for (int page = 0; page <= totalPages; page++) {
           if (_dataUploadStopped) {
             return;
           }
-          bool conflictOnImport =
-              await _synchronizationService.uploadEnrollmentsToTheServer(
-                  teiEnrollmentChunk as List<Enrollment>, isAutoUpload);
+          var enrollmentChunk = await _synchronizationService
+              .getTeiEnrollmentFromOfflineDb(page: page);
+          bool conflictOnImport = await _synchronizationService
+              .uploadEnrollmentsToTheServer(enrollmentChunk, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
-          profileCount = profileCount + (batch / chunkedTeiEnrollments.length);
+          profileCount = profileCount + (page / totalPages);
           profileDataUploadProgress = profileCount / profileTotalCount;
           overallUploadProgress =
               (profileDataUploadProgress + eventsDataUploadProgress) / 2;
           notifyListeners();
-          ++batch;
         }
       } else {
         ++profileCount;
@@ -421,29 +427,28 @@ class SynchronizationState with ChangeNotifier {
         notifyListeners();
       }
 
-      var teiRelationships =
-          await _synchronizationService.getTeiRelationShipFromOfflineDb();
-      if (teiRelationships.isNotEmpty) {
-        List<List<dynamic>> chunkedTeiRelationships = AppUtil.chunkItems(
-            items: teiRelationships, size: dataUploadBatchSize * 2);
-
-        int batch = 1;
-        for (List<dynamic> teiRelationshipChunk in chunkedTeiRelationships) {
+      // TODO: move the relatioships upload to a function
+      var teiRelationshipCount =
+          await _synchronizationService.getOfflineRelationshipCount();
+      if (teiRelationshipCount > 0) {
+        int totalPages = (teiRelationshipCount /
+                PaginationConstants.dataUploadPaginationLimit)
+            .ceil();
+        for (int page = 0; page <= totalPages; page++) {
           if (_dataUploadStopped) {
             return;
           }
-          bool conflictOnImport =
-              await _synchronizationService.uploadTeiRelationToTheServer(
-                  teiRelationshipChunk as List<TeiRelationship>, isAutoUpload);
+          var teiRelationshipChunk = await _synchronizationService
+              .getTeiRelationShipFromOfflineDb(page: page);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeiRelationToTheServer(teiRelationshipChunk, isAutoUpload);
           conflictOnTeisImport = conflictOnTeisImport || conflictOnImport;
 
-          profileCount =
-              profileCount + (batch / chunkedTeiRelationships.length);
+          profileCount = profileCount + (page / totalPages);
           profileDataUploadProgress = profileCount / profileTotalCount;
           overallUploadProgress =
               (profileDataUploadProgress + eventsDataUploadProgress) / 2;
           notifyListeners();
-          ++batch;
         }
       } else {
         ++profileCount;
@@ -452,26 +457,29 @@ class SynchronizationState with ChangeNotifier {
             (profileDataUploadProgress + eventsDataUploadProgress) / 2;
         notifyListeners();
       }
-      var teiEvents = await _synchronizationService.getTeiEventsFromOfflineDb();
-      if (teiEvents.isNotEmpty) {
-        List<List<dynamic>> chunkedTeiEvents =
-            AppUtil.chunkItems(items: teiEvents, size: dataUploadBatchSize * 2);
 
-        int batch = 1;
-        for (List<dynamic> teiEventsChunk in chunkedTeiEvents) {
+      // TODO : move the events upload to a function
+      var offlineEventCount =
+          await _synchronizationService.getUnsyncedEventsCount();
+      if (offlineEventCount > 0) {
+        int totalPages =
+            (offlineEventCount / PaginationConstants.dataUploadPaginationLimit)
+                .ceil();
+        for (int page = 0; page <= totalPages; page++) {
           if (_dataUploadStopped) {
             return;
           }
-          bool conflictOnImport =
-              await _synchronizationService.uploadTeiEventsToTheServer(
-                  teiEventsChunk as List<Events>, isAutoUpload);
+          var teiEventChunk = await _synchronizationService
+              .getTeiEventsFromOfflineDb(page: page);
+          bool conflictOnImport = await _synchronizationService
+              .uploadTeiEventsToTheServer(teiEventChunk, isAutoUpload);
           conflictOnEventsImport = conflictOnEventsImport || conflictOnImport;
-          eventsCount = eventsCount + (batch / chunkedTeiEvents.length);
+
+          eventsCount = eventsCount + (page / totalPages);
           eventsDataUploadProgress = eventsCount / eventsTotalCount;
           overallUploadProgress =
               (profileDataUploadProgress + eventsDataUploadProgress) / 2;
           notifyListeners();
-          ++batch;
         }
       } else {
         ++eventsCount;
@@ -491,6 +499,10 @@ class SynchronizationState with ChangeNotifier {
         }
       }
     } catch (e) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: 'startDataUploadActivity: ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
       if (!isAutoUpload) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       }
