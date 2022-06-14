@@ -1,14 +1,23 @@
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/constants/workmanager_constants.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
+import 'package:kb_mobile_app/core/services/synchronization_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:workmanager/workmanager.dart';
 
 callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    var taskName = WorkmanagerConstants.autoSync;
+    var autoSyncTaskName = WorkmanagerConstants.autoSync;
     try {
-      if (task == taskName) {
-        // auto sync method
+      if (task == autoSyncTaskName) {
+        CurrentUser? currentUser = await UserService().getCurrentUser();
+        if (currentUser != null) {
+          SynchronizationService synchronizationService =
+              SynchronizationService(currentUser.username, currentUser.password,
+                  currentUser.programs, currentUser.userOrgUnitIds);
+          synchronizationService.initiateBackgroundDataSync(currentUser);
+        }
       }
       return Future.value(true);
     } catch (err) {
@@ -18,13 +27,13 @@ callbackDispatcher() {
   });
 }
 
-class AutoSyncWorkmanagerService {
+class WorkmanagerService {
   static void init() {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
   }
 
   static start() async {
-    var taskName = WorkmanagerConstants.autoSync;
+    var autoSyncTaskName = WorkmanagerConstants.autoSync;
     var syncTimeOut = const Duration(seconds: AutoSynchronization.syncInterval);
     var autoSync = await PreferenceProvider.getPreferenceValue(
       WorkmanagerConstants.autoSync,
@@ -32,8 +41,8 @@ class AutoSyncWorkmanagerService {
 
     if (autoSync != "true") {
       Workmanager().registerPeriodicTask(
-        taskName,
-        taskName,
+        autoSyncTaskName,
+        autoSyncTaskName,
         frequency: syncTimeOut,
         initialDelay: syncTimeOut,
         existingWorkPolicy: ExistingWorkPolicy.replace,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
@@ -67,10 +68,10 @@ class SynchronizationService {
           await AppLogsOfflineProvider().addLogs(log);
         }
       }
-    } catch (e) {
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: '(getDataPaginationFilters) ${e.toString()}');
+          message: '(getDataPaginationFilters) ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
     }
     return paginationFilter;
@@ -119,9 +120,9 @@ class SynchronizationService {
           }
         }
       }
-    } catch (e) {
-      AppLogs log =
-          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: error.toString());
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -170,9 +171,9 @@ class SynchronizationService {
           return null;
         }
       }
-    } catch (e) {
-      AppLogs log =
-          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: error.toString());
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -182,7 +183,7 @@ class SynchronizationService {
   Future saveEventsToOffline(List<Events> events) async {
     try {
       await EventOfflineProvider().addOrUpdateMultipleEvents(events);
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
   }
@@ -240,7 +241,7 @@ class SynchronizationService {
           enrollmentsAndRelationships['enrollments']);
       TeiRelationshipOfflineProvider().addOrUpdateMultipleTeiRelationships(
           enrollmentsAndRelationships['relationships']);
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
   }
@@ -282,9 +283,9 @@ class SynchronizationService {
           }
           return;
         }
-      } catch (e) {
-        AppLogs log =
-            AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
+      } catch (error) {
+        AppLogs log = AppLogs(
+            type: AppLogsConstants.errorLogType, message: error.toString());
         await AppLogsOfflineProvider().addLogs(log);
         rethrow;
       }
@@ -393,7 +394,7 @@ class SynchronizationService {
           enrollmentsCount += count;
         }
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return enrollmentsCount;
@@ -420,7 +421,7 @@ class SynchronizationService {
           eventsCount += count;
         }
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return eventsCount;
@@ -440,24 +441,90 @@ class SynchronizationService {
         .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
-  Future<void> initiateBackgroundDataSync() async {
-    // add methods
+  Future<void> initiateBackgroundDataSync(CurrentUser currentUser) async {
+    try {
+      await initiateBackgroundTrackedEntityInstanceDataUpload();
+      await initiateBackgroundEnrollmentDataUpload(currentUser);
+      await initiateBackgroundTrackedEntityInstanceRelationshipDataUpload();
+      await initiateBackgroundEventDataUpload(currentUser);
+    } catch (error) {
+      AppLogs log = AppLogs(
+        type: AppLogsConstants.errorLogType,
+        message: '(initiateBackgroundDataSync): ${error.toString()}',
+      );
+      await AppLogsOfflineProvider().addLogs(log);
+    }
   }
 
-  Future<bool> initiateBackgroundEventDataUpload() {
-    return Future.value(true);
+  Future<void> initiateBackgroundTrackedEntityInstanceDataUpload() async {
+    try {
+      var teiCount = await getOfflineTrackedEntityInstanceCount();
+      if (teiCount > 0) {
+        int totalPages =
+            (teiCount / PaginationConstants.dataUploadPaginationLimit).ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          var teiChunk = await getTeisFromOfflineDb(page: page);
+          await uploadTeisToTheServer(teiChunk);
+        }
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 
-  Future<bool> initiateBackgroundEnrollmentDataUpload() {
-    return Future.value(true);
+  Future<void> initiateBackgroundEnrollmentDataUpload(
+      CurrentUser currentUser) async {
+    try {
+      var enrollmentCount = await getOfflineEnrollmentCount(currentUser);
+      if (enrollmentCount > 0) {
+        int totalPages =
+            (enrollmentCount / PaginationConstants.dataUploadPaginationLimit)
+                .ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          var enrollmentChunk = await getTeiEnrollmentFromOfflineDb(page: page);
+          await uploadEnrollmentsToTheServer(enrollmentChunk);
+        }
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 
-  Future<bool> initiateBackgroundTrackedEntityInstanceDataUpload() {
-    return Future.value(true);
+  Future<void>
+      initiateBackgroundTrackedEntityInstanceRelationshipDataUpload() async {
+    try {
+      var teiRelationshipCount = await getOfflineRelationshipCount();
+      if (teiRelationshipCount > 0) {
+        int totalPages = (teiRelationshipCount /
+                PaginationConstants.dataUploadPaginationLimit)
+            .ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          var teiRelationshipChunk =
+              await getTeiRelationShipFromOfflineDb(page: page);
+          await uploadTeiRelationToTheServer(teiRelationshipChunk);
+        }
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 
-  Future<bool> initiateBackgroundTrackedEntityInstanceRelationshipDataUpload() {
-    return Future.value(true);
+  Future<void> initiateBackgroundEventDataUpload(
+      CurrentUser currentUser) async {
+    try {
+      var offlineEventCount = await getUnsyncedEventsCount();
+      if (offlineEventCount > 0) {
+        int totalPages =
+            (offlineEventCount / PaginationConstants.dataUploadPaginationLimit)
+                .ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          var teiEventChunk = await getTeiEventsFromOfflineDb(page: page);
+          await uploadTeiEventsToTheServer(teiEventChunk);
+        }
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<bool> uploadEnrollmentsToTheServer(
@@ -498,10 +565,10 @@ class SynchronizationService {
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
       syncedIds = referenceIds['syncedIds'];
-    } catch (e) {
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: 'uploadEnrollmentsToTheServer: ${e.toString()}');
+          message: 'uploadEnrollmentsToTheServer: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -553,10 +620,10 @@ class SynchronizationService {
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
-    } catch (e) {
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: 'uploadTeisToTheServer: ${e.toString()}');
+          message: 'uploadTeisToTheServer: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -694,7 +761,7 @@ class SynchronizationService {
       );
       syncedIds = referenceIds['syncedIds'];
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
-    } catch (e) {
+    } catch (error) {
       //
     }
     if (syncedIds!.isNotEmpty) {
@@ -720,7 +787,7 @@ class SynchronizationService {
             .replaceAll(RegExp('<h1>'), '')
             .trim();
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return errorMessage;
@@ -757,7 +824,7 @@ class SynchronizationService {
         description = body["message"] ?? responseBody;
       }
       errorMessage = '$status : $description';
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return errorMessage;
