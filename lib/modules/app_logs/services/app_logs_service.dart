@@ -57,6 +57,7 @@ class AppLogsService {
         List<Map> body = appLogs.map((log) {
           return log.toOffline();
         }).toList();
+        await http.httpDelete('$url/$username');
         await http.httpPost('$url/$username', json.encode(body));
       }
     } catch (error) {
