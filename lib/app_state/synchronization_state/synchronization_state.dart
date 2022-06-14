@@ -204,9 +204,7 @@ class SynchronizationState with ChangeNotifier {
     updateStatusForAvailableDataFromServer(status: false);
   }
 
-  Future<void> startCheckingStatusOfUnsyncedData({
-    bool isAutoUpload = false,
-  }) async {
+  Future<void> startCheckingStatusOfUnsyncedData() async {
     CurrentUser? user = await (UserService().getCurrentUser());
     _synchronizationService = SynchronizationService(
         user!.username, user.password, user.programs, user.userOrgUnitIds);
@@ -216,12 +214,7 @@ class SynchronizationState with ChangeNotifier {
     _beneficiaryServiceCount = unsyncedEventsCount;
     _beneficiaryCount = unsyncedTeiCount;
     _hasUnsyncedData = unsyncedEventsCount > 0 || unsyncedTeiCount > 0;
-    if (!isAutoUpload) {
-      updateUnsyncedDataCheckingStatus(false);
-    } else {
-      Provider.of<SynchronizationStatusState>(context!, listen: false)
-          .resetSyncStatusReferences();
-    }
+    updateUnsyncedDataCheckingStatus(false);
   }
 
   stopSyncActivity() async {
@@ -352,7 +345,6 @@ class SynchronizationState with ChangeNotifier {
   }) async {
     double profileCount = 0;
     int profileTotalCount = 3;
-    var isAutoUpload = false;
     bool conflictsOnUploadProfileData = false;
 
     var teiCount =
@@ -366,8 +358,8 @@ class SynchronizationState with ChangeNotifier {
         }
         var teiChunk =
             await _synchronizationService.getTeisFromOfflineDb(page: page);
-        bool conflictOnImport = await _synchronizationService
-            .uploadTeisToTheServer(teiChunk, isAutoUpload);
+        bool conflictOnImport =
+            await _synchronizationService.uploadTeisToTheServer(teiChunk);
         conflictsOnUploadProfileData =
             conflictsOnUploadProfileData || conflictOnImport;
         profileCount = profileCount + (page / totalPages);
@@ -397,7 +389,7 @@ class SynchronizationState with ChangeNotifier {
         var enrollmentChunk = await _synchronizationService
             .getTeiEnrollmentFromOfflineDb(page: page);
         bool conflictOnImport = await _synchronizationService
-            .uploadEnrollmentsToTheServer(enrollmentChunk, isAutoUpload);
+            .uploadEnrollmentsToTheServer(enrollmentChunk);
         conflictsOnUploadProfileData =
             conflictsOnUploadProfileData || conflictOnImport;
 
@@ -428,7 +420,7 @@ class SynchronizationState with ChangeNotifier {
         var teiRelationshipChunk = await _synchronizationService
             .getTeiRelationShipFromOfflineDb(page: page);
         bool conflictOnImport = await _synchronizationService
-            .uploadTeiRelationToTheServer(teiRelationshipChunk, isAutoUpload);
+            .uploadTeiRelationToTheServer(teiRelationshipChunk);
         conflictsOnUploadProfileData =
             conflictsOnUploadProfileData || conflictOnImport;
 
@@ -451,7 +443,6 @@ class SynchronizationState with ChangeNotifier {
   Future<bool> uploadServiceData({
     required CurrentUser currentUser,
   }) async {
-    var isAutoUpload = false;
     double eventsCount = 0;
     int eventsTotalCount = 1;
 
@@ -470,7 +461,7 @@ class SynchronizationState with ChangeNotifier {
         var teiEventChunk =
             await _synchronizationService.getTeiEventsFromOfflineDb(page: page);
         bool conflictOnImport = await _synchronizationService
-            .uploadTeiEventsToTheServer(teiEventChunk, isAutoUpload);
+            .uploadTeiEventsToTheServer(teiEventChunk);
         conflictsOnUploadServiceData =
             conflictsOnUploadServiceData || conflictOnImport;
 
@@ -491,7 +482,7 @@ class SynchronizationState with ChangeNotifier {
     return conflictsOnUploadServiceData;
   }
 
-  Future startDataUploadActivity({bool isAutoUpload = false}) async {
+  Future startDataUploadActivity() async {
     _dataUploadProcess = [];
     profileDataUploadProgress = 0.0;
     eventsDataUploadProgress = 0.0;
@@ -511,27 +502,22 @@ class SynchronizationState with ChangeNotifier {
             await uploadServiceData(currentUser: currentUser);
       }
 
-      if (!isAutoUpload) {
-        if (conflictOnTeisImport && conflictOnEventsImport) {
-          AppUtil.showToastMessage(message: 'Error uploading data');
-        } else if (conflictOnTeisImport) {
-          AppUtil.showToastMessage(
-              message: 'Error uploading some Beneficiaries');
-        } else if (conflictOnEventsImport) {
-          AppUtil.showToastMessage(message: 'Error uploading some Services');
-        }
+      if (conflictOnTeisImport && conflictOnEventsImport) {
+        AppUtil.showToastMessage(message: 'Error uploading data');
+      } else if (conflictOnTeisImport) {
+        AppUtil.showToastMessage(message: 'Error uploading some Beneficiaries');
+      } else if (conflictOnEventsImport) {
+        AppUtil.showToastMessage(message: 'Error uploading some Services');
       }
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
           message: 'startDataUploadActivity: ${e.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
-      if (!isAutoUpload) {
-        AppUtil.showToastMessage(message: 'Error uploading data');
-      }
+      AppUtil.showToastMessage(message: 'Error uploading data');
     }
     notifyListeners();
-    await startCheckingStatusOfUnsyncedData(isAutoUpload: isAutoUpload);
+    await startCheckingStatusOfUnsyncedData();
     notifyListeners();
     await Provider.of<ReferralNotificationState>(context!, listen: false)
         .reloadReferralNotifications();

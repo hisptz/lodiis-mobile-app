@@ -440,25 +440,28 @@ class SynchronizationService {
         .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
-  Future<bool> initiateEventDataUpload() {
+  Future<void> initiateBackgroundDataSync() async {
+    // add methods
+  }
+
+  Future<bool> initiateBackgroundEventDataUpload() {
     return Future.value(true);
   }
 
-  Future<bool> initiateEnrollmentDataUpload() {
+  Future<bool> initiateBackgroundEnrollmentDataUpload() {
     return Future.value(true);
   }
 
-  Future<bool> initiateTrackedEntityInstanceDataUpload() {
+  Future<bool> initiateBackgroundTrackedEntityInstanceDataUpload() {
     return Future.value(true);
   }
 
-  Future<bool> initiateTrackedEntityInstanceRelationshipDataUpload() {
+  Future<bool> initiateBackgroundTrackedEntityInstanceRelationshipDataUpload() {
     return Future.value(true);
   }
 
   Future<bool> uploadEnrollmentsToTheServer(
     List<Enrollment> teiEnrollments,
-    bool isAutoUpload,
   ) async {
     List<String?>? syncedIds = [];
     String url = 'api/enrollments';
@@ -516,7 +519,6 @@ class SynchronizationService {
 
   Future<bool> uploadTeisToTheServer(
     List<TrackedEntityInstance> teis,
-    bool isAutoUpload,
   ) async {
     List<String?>? syncedIds = [];
     String url = 'api/trackedEntityInstances';
@@ -570,8 +572,7 @@ class SynchronizationService {
     return conflictOnImport;
   }
 
-  Future<bool> uploadTeiEventsToTheServer(
-      List<Events> teiEvents, bool isAutoUpload,
+  Future<bool> uploadTeiEventsToTheServer(List<Events> teiEvents,
       {bool checkEnrollments = true}) async {
     List<String?>? syncedIds = [];
     String url = 'api/events';
@@ -610,7 +611,6 @@ class SynchronizationService {
       await reUploadBeneficiariesWithUnsyncedServices(
         referenceIds,
         checkEnrollments,
-        isAutoUpload,
         teiEvents,
       );
     } catch (error) {
@@ -634,7 +634,6 @@ class SynchronizationService {
   Future<void> reUploadBeneficiariesWithUnsyncedServices(
     Map referenceIds,
     bool checkEnrollments,
-    bool isAutoUpload,
     List<Events> teiEvents,
   ) async {
     List<String?> unsyncedDueToEnrollment =
@@ -658,14 +657,13 @@ class SynchronizationService {
               unsyncedEventIds.contains(eventData.event ?? ""))
           .toList();
       if (unsyncedTeis.isNotEmpty) {
-        await uploadTeisToTheServer(unsyncedTeis, isAutoUpload);
+        await uploadTeisToTheServer(unsyncedTeis);
       }
       if (unsyncedTeiEnrollments.isNotEmpty) {
-        await uploadEnrollmentsToTheServer(
-            unsyncedTeiEnrollments, isAutoUpload);
+        await uploadEnrollmentsToTheServer(unsyncedTeiEnrollments);
       }
       if (unsyncedTeiEvents.isNotEmpty) {
-        await uploadTeiEventsToTheServer(unsyncedTeiEvents, isAutoUpload,
+        await uploadTeiEventsToTheServer(unsyncedTeiEvents,
             checkEnrollments: false);
       }
     }
@@ -673,7 +671,6 @@ class SynchronizationService {
 
   Future<bool> uploadTeiRelationToTheServer(
     List<TeiRelationship> teiRelationShips,
-    bool isAutoUpload,
   ) async {
     Map body = <String, dynamic>{};
     List<String?>? syncedIds = [];
