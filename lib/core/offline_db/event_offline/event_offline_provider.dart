@@ -207,30 +207,36 @@ class EventOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<Events>> getTrackedEntityInstanceEventsByStatus(
-      String eventSyncStatus,
-      {List<String> eventList = const []}) async {
+    String eventSyncStatus, {
+    List<String> eventList = const [],
+    int? page,
+  }) async {
     List<Events> events = [];
     try {
       var dbClient = await db;
       List<List<String?>> chunkedEventList =
           AppUtil.chunkItems(items: eventList, size: 50).cast<List<String?>>();
       if (chunkedEventList.isEmpty) {
-        List<Map> maps = await dbClient!.query(
-          table,
-          columns: [
-            id,
-            event,
-            eventDate,
-            program,
-            programStage,
-            trackedEntityInstance,
-            status,
-            orgUnit,
-            syncStatus,
-          ],
-          where: '$syncStatus = ?',
-          whereArgs: [eventSyncStatus],
-        );
+        List<Map> maps = await dbClient!.query(table,
+            columns: [
+              id,
+              event,
+              eventDate,
+              program,
+              programStage,
+              trackedEntityInstance,
+              status,
+              orgUnit,
+              syncStatus,
+            ],
+            where: '$syncStatus = ?',
+            whereArgs: [eventSyncStatus],
+            limit: page != null
+                ? PaginationConstants.dataUploadPaginationLimit
+                : null,
+            offset: page != null
+                ? page * PaginationConstants.dataUploadPaginationLimit
+                : null);
         if (maps.isNotEmpty) {
           for (Map map in maps) {
             List dataValues = await EventOfflineDataValueProvider()
