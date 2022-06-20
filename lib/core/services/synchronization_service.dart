@@ -446,30 +446,25 @@ class SynchronizationService {
   Future<void> initiateBackgroundDataSync(
     CurrentUser currentUser,
   ) async {
-    LocalNotificationService.show(
-      message:
-          "Failed to upload visits. Check the application logs for more information.",
-      title: "Automatic sync failed",
-    );
     try {
-      LocalNotificationService.show(
-        message: "Uploading Beneficiaries profile data.",
-        title: "Automatic sync in progress",
-      );
-      await initiateBackgroundTrackedEntityInstanceDataUpload();
-      await initiateBackgroundEnrollmentDataUpload(currentUser);
-      await initiateBackgroundTrackedEntityInstanceRelationshipDataUpload();
+      var hasUploadedTeiData =
+          await initiateBackgroundTrackedEntityInstanceDataUpload();
+      var hasUploadedEnrollmentData =
+          await initiateBackgroundEnrollmentDataUpload(currentUser);
+      var hasUploadedRelationshipData =
+          await initiateBackgroundTrackedEntityInstanceRelationshipDataUpload();
+      var hasUploadedEventsData =
+          await initiateBackgroundEventDataUpload(currentUser);
 
-      LocalNotificationService.show(
-        message: "Uploading Beneficiaries service data.",
-        title: "Automatic sync in progress",
-      );
-      await initiateBackgroundEventDataUpload(currentUser);
-
-      LocalNotificationService.show(
-        message: "Successfully uploaded the offline data.",
-        title: "Automatic sync finished",
-      );
+      if (hasUploadedTeiData ||
+          hasUploadedEnrollmentData ||
+          hasUploadedRelationshipData ||
+          hasUploadedEventsData) {
+        LocalNotificationService.show(
+          message: "Successfully uploaded the offline data.",
+          title: "Automatic sync finished",
+        );
+      }
     } catch (error) {
       LocalNotificationService.show(
         message:
@@ -484,72 +479,102 @@ class SynchronizationService {
     }
   }
 
-  Future<void> initiateBackgroundTrackedEntityInstanceDataUpload() async {
+  Future<bool> initiateBackgroundTrackedEntityInstanceDataUpload() async {
     try {
       var teiCount = await getUnsyncedTeiCount();
-      if (teiCount > 0) {
+      bool hasDataToUpload = teiCount > 0;
+      if (hasDataToUpload) {
         int totalPages =
             (teiCount / PaginationConstants.dataUploadPaginationLimit).ceil();
         for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries profile data ${((page / teiCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
           var teiChunk = await getTeisFromOfflineDb(page: page);
           await uploadTeisToTheServer(teiChunk);
         }
       }
+      return hasDataToUpload;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<void> initiateBackgroundEnrollmentDataUpload(
+  Future<bool> initiateBackgroundEnrollmentDataUpload(
       CurrentUser currentUser) async {
     try {
       var enrollmentCount = await getOfflineEnrollmentCount(currentUser);
-      if (enrollmentCount > 0) {
+      bool hasDataToUpload = enrollmentCount > 0;
+      if (hasDataToUpload) {
         int totalPages =
             (enrollmentCount / PaginationConstants.dataUploadPaginationLimit)
                 .ceil();
         for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries enrollment data ${((page / enrollmentCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
           var enrollmentChunk = await getTeiEnrollmentFromOfflineDb(page: page);
           await uploadEnrollmentsToTheServer(enrollmentChunk);
         }
       }
+
+      return hasDataToUpload;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<void>
+  Future<bool>
       initiateBackgroundTrackedEntityInstanceRelationshipDataUpload() async {
     try {
       var teiRelationshipCount = await getOfflineRelationshipCount();
-      if (teiRelationshipCount > 0) {
+      bool hasDataToUpload = teiRelationshipCount > 0;
+      if (hasDataToUpload) {
         int totalPages = (teiRelationshipCount /
                 PaginationConstants.dataUploadPaginationLimit)
             .ceil();
         for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries relationships data ${((page / teiRelationshipCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
           var teiRelationshipChunk =
               await getTeiRelationShipFromOfflineDb(page: page);
           await uploadTeiRelationToTheServer(teiRelationshipChunk);
         }
       }
+
+      return hasDataToUpload;
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<void> initiateBackgroundEventDataUpload(
+  Future<bool> initiateBackgroundEventDataUpload(
       CurrentUser currentUser) async {
     try {
       var offlineEventCount = await getUnsyncedEventsCount();
-      if (offlineEventCount > 0) {
+      var hasDataToUpload = offlineEventCount > 0;
+      if (hasDataToUpload) {
         int totalPages =
             (offlineEventCount / PaginationConstants.dataUploadPaginationLimit)
                 .ceil();
         for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries service data ${((page / offlineEventCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
           var teiEventChunk = await getTeiEventsFromOfflineDb(page: page);
           await uploadTeiEventsToTheServer(teiEventChunk);
         }
       }
+      return hasDataToUpload;
     } catch (error) {
       rethrow;
     }
