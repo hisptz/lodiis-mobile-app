@@ -16,7 +16,7 @@ callbackDispatcher() {
           SynchronizationService synchronizationService =
               SynchronizationService(currentUser.username, currentUser.password,
                   currentUser.programs, currentUser.userOrgUnitIds);
-          synchronizationService.initiateBackgroundDataSync(currentUser);
+          await synchronizationService.initiateBackgroundDataSync(currentUser);
         }
       }
       return Future.value(true);
@@ -32,7 +32,7 @@ class WorkmanagerService {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
   }
 
-  static start() async {
+  static startTasks() async {
     var autoSyncTaskName = WorkmanagerConstants.autoSync;
     var syncTimeOut = const Duration(seconds: AutoSynchronization.syncInterval);
     var autoSync = await PreferenceProvider.getPreferenceValue(
@@ -40,19 +40,19 @@ class WorkmanagerService {
     );
 
     if (autoSync != "true") {
-      Workmanager().registerPeriodicTask(
+      await Workmanager().registerPeriodicTask(
         autoSyncTaskName,
         autoSyncTaskName,
         frequency: syncTimeOut,
-        initialDelay: syncTimeOut,
-        existingWorkPolicy: ExistingWorkPolicy.replace,
+        initialDelay: const Duration(minutes: 1),
+        existingWorkPolicy: ExistingWorkPolicy.keep,
         constraints: Constraints(networkType: NetworkType.connected),
       );
       await PreferenceProvider.setPreferenceValue(
         WorkmanagerConstants.autoSync,
         "true",
       );
-    }
+    } else {}
   }
 
   static stop() async {

@@ -342,8 +342,9 @@ class SynchronizationService {
   }
 
   Future<int> getOfflineTrackedEntityInstanceCount() async {
-    return await TrackedEntityInstanceOfflineProvider()
+    var count = await TrackedEntityInstanceOfflineProvider()
         .getTeiCountBySyncStatus(offlineSyncStatus);
+    return count;
   }
 
   Future<int> getOfflineRelationshipCount() async {
@@ -442,7 +443,9 @@ class SynchronizationService {
         .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
-  Future<void> initiateBackgroundDataSync(CurrentUser currentUser) async {
+  Future<void> initiateBackgroundDataSync(
+    CurrentUser currentUser,
+  ) async {
     LocalNotificationService.show(
       message:
           "Failed to upload visits. Check the application logs for more information.",
@@ -462,6 +465,11 @@ class SynchronizationService {
         title: "Automatic sync in progress",
       );
       await initiateBackgroundEventDataUpload(currentUser);
+
+      LocalNotificationService.show(
+        message: "Successfully uploaded the offline data.",
+        title: "Automatic sync finished",
+      );
     } catch (error) {
       LocalNotificationService.show(
         message:
@@ -478,7 +486,7 @@ class SynchronizationService {
 
   Future<void> initiateBackgroundTrackedEntityInstanceDataUpload() async {
     try {
-      var teiCount = await getOfflineTrackedEntityInstanceCount();
+      var teiCount = await getUnsyncedTeiCount();
       if (teiCount > 0) {
         int totalPages =
             (teiCount / PaginationConstants.dataUploadPaginationLimit).ceil();
