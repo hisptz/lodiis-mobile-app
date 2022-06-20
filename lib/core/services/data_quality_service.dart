@@ -115,7 +115,8 @@ class DataQualityService {
     }
   }
 
-  static void runDataQualityCheckResolution() async {
+  static Future<void> runDataQualityCheckResolution() async {
+    print('Running data quality check resolution ${DateTime.now()}');
     List resolvedAttributes = [];
     List<FormSection> enrollmentFormSections = getEnrollmentFormSections();
     List<InputField> numericalInputFields =
@@ -137,6 +138,7 @@ class DataQualityService {
           getSanitizedNumericalValue(attributeObject["value"]);
       resolvedAttributes.add(resolvedAttribute);
     }
+
     await TrackedEntityInstanceOfflineAttributeProvider()
         .addOrUpdateMultipleTrackedEntityInstanceAttributes(resolvedAttributes);
     await migrateOptionSetsToCheckBox();
