@@ -12,7 +12,8 @@ class EducationBursaryEnrollmentForm {
       'rSP9c21JsfC',
       'qZP982qpSPS',
       'vIX4GTSCX4P',
-      'EwZil0AnlYo'
+      'EwZil0AnlYo',
+      'RB8Wx75hGa4'
     ];
   }
 
