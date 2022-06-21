@@ -4,7 +4,7 @@ class DataQualityUtil {
   List<int> getPagination(int total) {
     int pageSize = PaginationConstants.searchingPaginationLimit;
     List<int> pagination = [];
-    for (int page = 1; page <= (total / pageSize).ceil(); page++) {
+    for (int page = 0; page <= (total / pageSize).ceil(); page++) {
       pagination.add(page);
     }
     return pagination;

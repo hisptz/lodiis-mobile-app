@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/app_logs/constants/program_stages_constants.dart';
 import 'package:kb_mobile_app/modules/app_logs/constants/programs_constants.dart';
 
@@ -21,7 +26,10 @@ class AppLogsService {
       }).toList();
       appLogsList.addAll(refactoredAppLogs);
     } catch (e) {
-      //
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: 'getAppLogs: ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
     }
 
     return searchableValue == ''
@@ -33,16 +41,46 @@ class AppLogsService {
             .toList();
   }
 
+  void sendLogsToDataStore() async {
+    String url = "api/dataStore/kb-mobile-app-logs";
+    try {
+      CurrentUser? user = await UserService().getCurrentUser();
+      if (user != null) {
+        String password = user.password ?? '';
+        String username = user.username ?? '';
+
+        HttpService http = HttpService(
+          username: username,
+          password: password,
+        );
+        List<AppLogs> appLogs = await AppLogsOfflineProvider().getLogs();
+        List<Map> body = appLogs.map((log) {
+          return log.toOffline();
+        }).toList();
+        await http.httpDelete('$url/$username');
+        await http.httpPost('$url/$username', json.encode(body));
+      }
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: 'sendLogsToDataStore: ${error.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+  }
+
   Future<List<Map>> getAllAppLogs() async {
     List<Map> appLogsList = [];
     try {
       List<AppLogs> appLogs = await AppLogsOfflineProvider().getLogs();
       List<Map> refactoredAppLogs = appLogs.map((log) {
-        return AppLogs().toOffline(log);
+        return log.toOffline();
       }).toList();
       appLogsList.addAll(refactoredAppLogs);
     } catch (e) {
-      //
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType,
+          message: 'getAllAppLogs: ${e.toString()}');
+      await AppLogsOfflineProvider().addLogs(log);
     }
     return appLogsList;
   }
@@ -94,7 +132,6 @@ class AppLogsService {
   }
 
   String getProgramStageName(String message) {
-    // program list with their uids
     Map programStages = ProgramStagesConstants.programStages;
     String programStage = '';
     programStages.forEach((id, name) {
@@ -107,7 +144,6 @@ class AppLogsService {
   }
 
   String getProgramName(String message) {
-    // program list with their uids
     Map programs = ProgramsConstants.programs;
     String program = '';
     programs.forEach((id, name) {
