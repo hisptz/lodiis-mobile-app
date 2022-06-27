@@ -80,6 +80,11 @@ class _NoneAgywState extends State<NoneAgyw> {
     }
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamsInterventionListState) {
+    dreamsInterventionListState.refreshNonAgywDreamsList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
@@ -96,87 +101,91 @@ class _NoneAgywState extends State<NoneAgyw> {
   Widget _buildBody() {
     return Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
-      return CustomPaginatedListView(
-        emptyListWidget: Center(
-          child: Column(
-            children: [
-              const Text(
-                'There is no beneficiary list at a moment',
-              ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  'assets/icons/add-beneficiary.svg',
-                  color: Colors.blueGrey,
+      return RefreshIndicator(
+        onRefresh: () async =>
+            refreshBeneficiaryList(dreamInterventionListState),
+        child: CustomPaginatedListView(
+          emptyListWidget: Center(
+            child: Column(
+              children: [
+                const Text(
+                  'There is no beneficiary list at a moment',
                 ),
-                onPressed: () => onAddNoneAgywBeneficiary(context),
-              )
-            ],
-          ),
-        ),
-        errorWidget: const Center(
-          child: Text(
-            'There is no beneficiary list at a moment',
-          ),
-        ),
-        pagingController: dreamInterventionListState.nonAgywPagingController,
-        childBuilder: (context, agywBeneficiary, child) {
-          List dataObject =
-              agywBeneficiary.trackedEntityInstanceData.attributes;
-          List filteredDataObject = dataObject
-              .where((element) =>
-                  element['attribute'] ==
-                  NonAgywDreamsHTSConstant.hivResultStatus)
-              .toList();
-          bool isBeneficiaryHIVNegative = false;
-          if (filteredDataObject.isNotEmpty) {
-            isBeneficiaryHIVNegative =
-                filteredDataObject.first['value'] == 'Negative';
-          }
-          return DreamsBeneficiaryCard(
-            isAgywEnrollment: false,
-            agywDream: agywBeneficiary,
-            canEdit: canEdit,
-            canExpand: canExpand,
-            beneficiaryName: agywBeneficiary.toString(),
-            canView: canView,
-            isExpanded: agywBeneficiary.id == toggleCardId,
-            onCardToggle: () {
-              onCardToggle(
-                context,
-                agywBeneficiary.id,
-              );
-            },
-            cardBody: DreamsBeneficiaryCardBody(
-              agywBeneficiary: agywBeneficiary,
-              canViewServiceCategory: false,
-              isVerticalLayout: agywBeneficiary.id == toggleCardId,
+                IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/icons/add-beneficiary.svg',
+                    color: Colors.blueGrey,
+                  ),
+                  onPressed: () => onAddNoneAgywBeneficiary(context),
+                )
+              ],
             ),
-            cardButtonActions: isBeneficiaryHIVNegative
-                ? Column(
-                    children: [
-                      const LineSeparator(
-                        color: Color(0xFFE9F4FA),
-                      ),
-                      MaterialButton(
-                        onPressed: () => onOpenPrep(
-                          context,
-                          agywBeneficiary,
+          ),
+          errorWidget: const Center(
+            child: Text(
+              'There is no beneficiary list at a moment',
+            ),
+          ),
+          pagingController: dreamInterventionListState.nonAgywPagingController,
+          childBuilder: (context, agywBeneficiary, child) {
+            List dataObject =
+                agywBeneficiary.trackedEntityInstanceData.attributes;
+            List filteredDataObject = dataObject
+                .where((element) =>
+                    element['attribute'] ==
+                    NonAgywDreamsHTSConstant.hivResultStatus)
+                .toList();
+            bool isBeneficiaryHIVNegative = false;
+            if (filteredDataObject.isNotEmpty) {
+              isBeneficiaryHIVNegative =
+                  filteredDataObject.first['value'] == 'Negative';
+            }
+            return DreamsBeneficiaryCard(
+              isAgywEnrollment: false,
+              agywDream: agywBeneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: agywBeneficiary.toString(),
+              canView: canView,
+              isExpanded: agywBeneficiary.id == toggleCardId,
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
+              },
+              cardBody: DreamsBeneficiaryCardBody(
+                agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: false,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
+              ),
+              cardButtonActions: isBeneficiaryHIVNegative
+                  ? Column(
+                      children: [
+                        const LineSeparator(
+                          color: Color(0xFFE9F4FA),
                         ),
-                        child: Text(
-                          'PREP',
-                          style: const TextStyle().copyWith(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.normal,
-                            color: const Color(0xFF1F8ECE),
+                        MaterialButton(
+                          onPressed: () => onOpenPrep(
+                            context,
+                            agywBeneficiary,
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                : Container(),
-            cardButtonContent: Container(),
-          );
-        },
+                          child: Text(
+                            'PREP',
+                            style: const TextStyle().copyWith(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.normal,
+                              color: const Color(0xFF1F8ECE),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  : Container(),
+              cardButtonContent: Container(),
+            );
+          },
+        ),
       );
     });
   }
