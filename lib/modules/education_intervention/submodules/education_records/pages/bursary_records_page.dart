@@ -62,6 +62,11 @@ class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
     }
   }
 
+  void refreshBeneficiaryList(
+      EducationBursaryInterventionState educationBursaryInterventionState) {
+    educationBursaryInterventionState.refreshAllEducationBursaryLists();
+  }
+
   Center _getEmptyListContainer(BuildContext context) {
     return Center(
       child: Column(
@@ -82,24 +87,29 @@ class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
   Consumer<EducationBursaryInterventionState> _buildBody() {
     return Consumer<EducationBursaryInterventionState>(
       builder: (context, educationBursaryInterventionState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, bursaryBeneficiary, child) =>
-              EducationBeneficiaryCard(
-            canEdit: canEdit,
-            canView: canView,
-            canExpand: canExpand,
-            isExpanded: toggleCardId == bursaryBeneficiary.id,
-            isLbseLearningOutcomeVisible: false,
-            isLbseReferralVisible: false,
-            isBursarySchoolVisible: false,
-            isBursaryClubVisible: false,
-            educationBeneficiary: bursaryBeneficiary,
-            onView: () => onViewBeneficiary(context, bursaryBeneficiary),
-            onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),
+        return RefreshIndicator(
+          onRefresh: () async =>
+              refreshBeneficiaryList(educationBursaryInterventionState),
+          child: CustomPaginatedListView(
+            childBuilder: (context, bursaryBeneficiary, child) =>
+                EducationBeneficiaryCard(
+              canEdit: canEdit,
+              canView: canView,
+              canExpand: canExpand,
+              isExpanded: toggleCardId == bursaryBeneficiary.id,
+              isLbseLearningOutcomeVisible: false,
+              isLbseReferralVisible: false,
+              isBursarySchoolVisible: false,
+              isBursaryClubVisible: false,
+              educationBeneficiary: bursaryBeneficiary,
+              onView: () => onViewBeneficiary(context, bursaryBeneficiary),
+              onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),
+            ),
+            pagingController:
+                educationBursaryInterventionState.pagingController!,
+            emptyListWidget: _getEmptyListContainer(context),
+            errorWidget: _getEmptyListContainer(context),
           ),
-          pagingController: educationBursaryInterventionState.pagingController!,
-          emptyListWidget: _getEmptyListContainer(context),
-          errorWidget: _getEmptyListContainer(context),
         );
       },
     );
