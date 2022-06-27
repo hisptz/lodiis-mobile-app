@@ -133,6 +133,11 @@ class _OvcExitPageState extends State<OvcExitPage> {
     }
   }
 
+  void refreshBeneficiaryList(
+      OvcInterventionListState ovcInterventionListState) {
+    ovcInterventionListState.refreshHouseHoldsList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
@@ -159,139 +164,143 @@ class _OvcExitPageState extends State<OvcExitPage> {
   Widget _buildBody(String? currentLanguage) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Consumer<OvcInterventionListState>(
-        builder: (context, ovcListState, child) => CustomPaginatedListView(
-              pagingController: ovcListState.pagingController,
-              childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
-                ovcHousehold: ovcHousehold,
-                canEdit: canEdit,
-                canExpand: canExpand,
-                canView: canView,
-                isExpanded: ovcHousehold.id == toggleCardId,
-                onCardToggle: () {
-                  onCardToggle(ovcHousehold.id);
-                },
-                cardBody: OvcHouseholdCardBody(
+        builder: (context, ovcListState, child) => RefreshIndicator(
+              onRefresh: () async => refreshBeneficiaryList(ovcListState),
+              child: CustomPaginatedListView(
+                pagingController: ovcListState.pagingController,
+                childBuilder: (context, ovcHousehold, index) =>
+                    OvcHouseholdCard(
                   ovcHousehold: ovcHousehold,
-                ),
-                cardButtonActions: ClipRRect(
-                  borderRadius: ovcHousehold.id == toggleCardId
-                      ? BorderRadius.zero
-                      : const BorderRadius.only(
-                          bottomLeft: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
-                        ),
-                  child: Container(
-                    height: 50.0,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Color(0XFFF6FAF6),
-                    ),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      itemExtent:
-                          screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
-                      shrinkWrap: true,
-                      children: [
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                  canEdit: canEdit,
+                  canExpand: canExpand,
+                  canView: canView,
+                  isExpanded: ovcHousehold.id == toggleCardId,
+                  onCardToggle: () {
+                    onCardToggle(ovcHousehold.id);
+                  },
+                  cardBody: OvcHouseholdCardBody(
+                    ovcHousehold: ovcHousehold,
+                  ),
+                  cardButtonActions: ClipRRect(
+                    borderRadius: ovcHousehold.id == toggleCardId
+                        ? BorderRadius.zero
+                        : const BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                          ),
+                    child: Container(
+                      height: 50.0,
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Color(0XFFF6FAF6),
+                      ),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        itemExtent:
+                            screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
+                        shrinkWrap: true,
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
+                            ),
+                            onPressed: () =>
+                                onViewGraduation(context, ovcHousehold),
+                            child: Text(
+                              'GRADUATION',
+                              style: const TextStyle().copyWith(
+                                fontSize: 12.0,
+                                color: const Color(0xFF4B9F46),
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ),
-                          onPressed: () =>
-                              onViewGraduation(context, ovcHousehold),
-                          child: Text(
-                            'GRADUATION',
-                            style: const TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: const Color(0xFF4B9F46),
-                              fontWeight: FontWeight.normal,
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
+                            ),
+                            onPressed: () => onViewExit(context, ovcHousehold),
+                            child: Text(
+                              currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
+                              style: const TextStyle().copyWith(
+                                fontSize: 12.0,
+                                color: const Color(0xFF4B9F46),
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
+                            ),
+                            onPressed: () =>
+                                onViewTransfer(context, ovcHousehold),
+                            child: Text(
+                              'TRANSFER',
+                              style: const TextStyle().copyWith(
+                                fontSize: 12.0,
+                                color: const Color(0xFF4B9F46),
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
                           ),
-                          onPressed: () => onViewExit(context, ovcHousehold),
-                          child: Text(
-                            currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
-                            style: const TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: const Color(0xFF4B9F46),
-                              fontWeight: FontWeight.normal,
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5.0,
+                                horizontal: 0.0,
+                              ),
                             ),
-                          ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
+                            onPressed: () => onViewClosure(
+                              context,
+                              ovcHousehold,
                             ),
-                          ),
-                          onPressed: () =>
-                              onViewTransfer(context, ovcHousehold),
-                          child: Text(
-                            'TRANSFER',
-                            style: const TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: const Color(0xFF4B9F46),
-                              fontWeight: FontWeight.normal,
+                            child: Text(
+                              'CLOSURE',
+                              style: const TextStyle().copyWith(
+                                fontSize: 12.0,
+                                color: const Color(0xFF4B9F46),
+                                fontWeight: FontWeight.normal,
+                              ),
                             ),
-                          ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5.0,
-                              horizontal: 0.0,
-                            ),
-                          ),
-                          onPressed: () => onViewClosure(
-                            context,
-                            ovcHousehold,
-                          ),
-                          child: Text(
-                            'CLOSURE',
-                            style: const TextStyle().copyWith(
-                              fontSize: 12.0,
-                              color: const Color(0xFF4B9F46),
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
+                  cardButtonContent: OvcHouseholdCardButtonContent(
+                    currentLanguage: currentLanguage,
+                    ovcHousehold: ovcHousehold,
+                    canAddChild: canAddChild,
+                    canViewChildInfo: canViewChildInfo,
+                    canEditChildInfo: canEditChildInfo,
+                    canViewChildService: canViewChildService,
+                    canViewChildReferral: canViewChildReferral,
+                    canViewChildExit: canViewChildExit,
+                  ),
                 ),
-                cardButtonContent: OvcHouseholdCardButtonContent(
-                  currentLanguage: currentLanguage,
-                  ovcHousehold: ovcHousehold,
-                  canAddChild: canAddChild,
-                  canViewChildInfo: canViewChildInfo,
-                  canEditChildInfo: canEditChildInfo,
-                  canViewChildService: canViewChildService,
-                  canViewChildReferral: canViewChildReferral,
-                  canViewChildExit: canViewChildExit,
+                errorWidget: Center(
+                  child: Text(
+                    currentLanguage == 'lesotho'
+                        ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                        : 'There is no household enrolled at moment',
+                  ),
                 ),
-              ),
-              errorWidget: Center(
-                child: Text(
-                  currentLanguage == 'lesotho'
-                      ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                      : 'There is no household enrolled at moment',
-                ),
-              ),
-              emptyListWidget: Center(
-                child: Text(
-                  currentLanguage == 'lesotho'
-                      ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                      : 'There is no household enrolled at moment',
+                emptyListWidget: Center(
+                  child: Text(
+                    currentLanguage == 'lesotho'
+                        ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                        : 'There is no household enrolled at moment',
+                  ),
                 ),
               ),
             ));
