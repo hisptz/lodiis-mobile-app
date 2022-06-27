@@ -233,6 +233,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
         .updateFormEditabilityState(isEditableMode: true);
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamsInterventionListState) {
+    dreamsInterventionListState.refreshAgywDreamsList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
@@ -250,89 +255,94 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   Widget _buildBody() {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, agywBeneficiary, child) =>
-              DreamsBeneficiaryCard(
-            isAgywEnrollment: true,
-            agywDream: agywBeneficiary,
-            canEdit: canEdit,
-            canExpand: canExpand,
-            beneficiaryName: agywBeneficiary.toString(),
-            canView: canView,
-            isExpanded: agywBeneficiary.id == toggleCardId,
-            onCardToggle: () {
-              onCardToggle(
-                context,
-                agywBeneficiary.id,
-              );
-            },
-            cardBody: DreamsBeneficiaryCardBody(
-              agywBeneficiary: agywBeneficiary,
-              canViewServiceCategory: true,
-              isVerticalLayout: agywBeneficiary.id == toggleCardId,
+        return RefreshIndicator(
+          onRefresh: () async {
+            refreshBeneficiaryList(dreamInterventionListState);
+          },
+          child: CustomPaginatedListView(
+            childBuilder: (context, agywBeneficiary, child) =>
+                DreamsBeneficiaryCard(
+              isAgywEnrollment: true,
+              agywDream: agywBeneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: agywBeneficiary.toString(),
+              canView: canView,
+              isExpanded: agywBeneficiary.id == toggleCardId,
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
+              },
+              cardBody: DreamsBeneficiaryCardBody(
+                agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: true,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
+              ),
+              cardButtonActions: ServiceCardButtonAction(
+                agywBeneficiary: agywBeneficiary,
+                onOpenPrepLongForm: () => onOpenPrepLongForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenPrepShortForm: () => onOpenPrepShortForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenHTSShortForm: () => onOpenHTSShortForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenHTSLongForm: () => onOpenHTSLongForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenCondomForm: () => onOpenCondomForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenContraceptivesForm: () => onOpenContraceptivesForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenANCForm: () => onOpenANCForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenMSGHIVForm: () => onOpenMSGHIVForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenArtRefillForm: () => onOpenArtRefillForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenPEPForm: () => onOpenPEPForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenPostGBVForm: () => onOpenPostGBVForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenServiceForm: () => onOpenServiceForm(
+                  context,
+                  agywBeneficiary,
+                ),
+              ),
+              cardButtonContent: Container(),
             ),
-            cardButtonActions: ServiceCardButtonAction(
-              agywBeneficiary: agywBeneficiary,
-              onOpenPrepLongForm: () => onOpenPrepLongForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenPrepShortForm: () => onOpenPrepShortForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenHTSShortForm: () => onOpenHTSShortForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenHTSLongForm: () => onOpenHTSLongForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenCondomForm: () => onOpenCondomForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenContraceptivesForm: () => onOpenContraceptivesForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenANCForm: () => onOpenANCForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenMSGHIVForm: () => onOpenMSGHIVForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenArtRefillForm: () => onOpenArtRefillForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenPEPForm: () => onOpenPEPForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenPostGBVForm: () => onOpenPostGBVForm(
-                context,
-                agywBeneficiary,
-              ),
-              onOpenServiceForm: () => onOpenServiceForm(
-                context,
-                agywBeneficiary,
+            pagingController: dreamInterventionListState.agywPagingController,
+            emptyListWidget: const Center(
+              child: Text(
+                'There is no beneficiary list at a moment',
               ),
             ),
-            cardButtonContent: Container(),
-          ),
-          pagingController: dreamInterventionListState.agywPagingController,
-          emptyListWidget: const Center(
-            child: Text(
-              'There is no beneficiary list at a moment',
-            ),
-          ),
-          errorWidget: const Center(
-            child: Text(
-              'There is no beneficiary list at a moment',
+            errorWidget: const Center(
+              child: Text(
+                'There is no beneficiary list at a moment',
+              ),
             ),
           ),
         );
