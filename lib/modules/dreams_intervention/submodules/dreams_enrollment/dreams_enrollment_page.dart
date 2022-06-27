@@ -62,6 +62,11 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
     }
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamInterventionListState) {
+    dreamInterventionListState.refreshAgywDreamsList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
@@ -79,52 +84,57 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   Widget _buildBody() {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, agywBeneficiary, child) =>
-              DreamsBeneficiaryCard(
-            isAgywEnrollment: true,
-            agywDream: agywBeneficiary,
-            canEdit: canEdit,
-            canExpand: canExpand,
-            beneficiaryName: agywBeneficiary.toString(),
-            canView: canView,
-            isExpanded: agywBeneficiary.id == toggleCardId,
-            onCardToggle: () {
-              onCardToggle(
-                context,
-                agywBeneficiary.id,
-              );
-            },
-            cardBody: DreamsBeneficiaryCardBody(
-              agywBeneficiary: agywBeneficiary,
-              canViewServiceCategory: false,
-              isVerticalLayout: agywBeneficiary.id == toggleCardId,
-            ),
-            cardButtonActions: Container(),
-            cardButtonContent: Container(),
-          ),
-          pagingController: dreamInterventionListState.agywPagingController,
-          emptyListWidget: Column(
-            children: [
-              const Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
+        return RefreshIndicator(
+          onRefresh: () async {
+            refreshBeneficiaryList(dreamInterventionListState);
+          },
+          child: CustomPaginatedListView(
+            childBuilder: (context, agywBeneficiary, child) =>
+                DreamsBeneficiaryCard(
+              isAgywEnrollment: true,
+              agywDream: agywBeneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: agywBeneficiary.toString(),
+              canView: canView,
+              isExpanded: agywBeneficiary.id == toggleCardId,
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
+              },
+              cardBody: DreamsBeneficiaryCardBody(
+                agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: false,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),
-              Center(
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
+              cardButtonActions: Container(),
+              cardButtonContent: Container(),
+            ),
+            pagingController: dreamInterventionListState.agywPagingController,
+            emptyListWidget: Column(
+              children: [
+                const Center(
+                  child: Text(
+                    'There is no beneficiary list at a moment',
                   ),
-                  onPressed: () => onAddAgywBeneficiary(context),
                 ),
-              )
-            ],
-          ),
-          errorWidget: const Center(
-            child: Text(
-              'Error in loading beneficiary list ',
+                Center(
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/add-beneficiary.svg',
+                      color: Colors.blueGrey,
+                    ),
+                    onPressed: () => onAddAgywBeneficiary(context),
+                  ),
+                )
+              ],
+            ),
+            errorWidget: const Center(
+              child: Text(
+                'Error in loading beneficiary list ',
+              ),
             ),
           ),
         );

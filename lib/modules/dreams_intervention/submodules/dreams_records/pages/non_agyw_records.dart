@@ -32,49 +32,59 @@ class _NonAgywRecordsState extends State<NonAgywRecords> {
     });
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamInterventionListState) {
+    dreamInterventionListState.refreshNonAgywDreamsList();
+  }
+
   Widget _buildBody() {
     return Consumer<DreamsInterventionListState>(
         builder: (context, dreamInterventionListState, child) {
-      return CustomPaginatedListView(
-        emptyListWidget: Center(
-          child: Column(
-            children: const [
-              Text(
-                'There is no beneficiary list at a moment',
-              ),
-            ],
-          ),
-        ),
-        errorWidget: const Center(
-          child: Text(
-            'There is no beneficiary list at a moment',
-          ),
-        ),
-        pagingController: dreamInterventionListState.nonAgywPagingController,
-        childBuilder: (context, beneficiary, child) {
-          return DreamsBeneficiaryCard(
-            isAgywEnrollment: false,
-            agywDream: beneficiary,
-            canEdit: canEdit,
-            canExpand: canExpand,
-            beneficiaryName: beneficiary.toString(),
-            canView: canView,
-            isExpanded: beneficiary.id == toggleCardId,
-            onCardToggle: () {
-              onCardToggle(
-                context,
-                beneficiary.id,
-              );
-            },
-            cardBody: DreamsBeneficiaryCardBody(
-              agywBeneficiary: beneficiary,
-              canViewServiceCategory: false,
-              isVerticalLayout: beneficiary.id == toggleCardId,
-            ),
-            cardButtonActions: Container(),
-            cardButtonContent: Container(),
-          );
+      return RefreshIndicator(
+        onRefresh: () async {
+          refreshBeneficiaryList(dreamInterventionListState);
         },
+        child: CustomPaginatedListView(
+          emptyListWidget: Center(
+            child: Column(
+              children: const [
+                Text(
+                  'There is no beneficiary list at a moment',
+                ),
+              ],
+            ),
+          ),
+          errorWidget: const Center(
+            child: Text(
+              'There is no beneficiary list at a moment',
+            ),
+          ),
+          pagingController: dreamInterventionListState.nonAgywPagingController,
+          childBuilder: (context, beneficiary, child) {
+            return DreamsBeneficiaryCard(
+              isAgywEnrollment: false,
+              agywDream: beneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: beneficiary.toString(),
+              canView: canView,
+              isExpanded: beneficiary.id == toggleCardId,
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  beneficiary.id,
+                );
+              },
+              cardBody: DreamsBeneficiaryCardBody(
+                agywBeneficiary: beneficiary,
+                canViewServiceCategory: false,
+                isVerticalLayout: beneficiary.id == toggleCardId,
+              ),
+              cardButtonActions: Container(),
+              cardButtonContent: Container(),
+            );
+          },
+        ),
       );
     });
   }

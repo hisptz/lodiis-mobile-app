@@ -181,6 +181,11 @@ class _EducationBursaryState extends State<EducationBursary> {
     );
   }
 
+  void refreshBeneficiaryList(
+      EducationBursaryInterventionState educationBursaryInterventionState) {
+    educationBursaryInterventionState.refreshAllEducationBursaryLists();
+  }
+
   Center _getEmptyListContainer(BuildContext context) {
     return Center(
       child: Column(
@@ -208,29 +213,34 @@ class _EducationBursaryState extends State<EducationBursary> {
   Consumer<EducationBursaryInterventionState> _buildBody() {
     return Consumer<EducationBursaryInterventionState>(
       builder: (context, educationBursaryInterventionState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, bursaryBeneficiary, child) =>
-              EducationBeneficiaryCard(
-            canEdit: canEdit,
-            canView: canView,
-            canExpand: canExpand,
-            isExpanded: toggleCardId == bursaryBeneficiary.id,
-            isLbseLearningOutcomeVisible: false,
-            isLbseReferralVisible: false,
-            isBursarySchoolVisible: true,
-            isBursaryClubVisible: true,
-            educationBeneficiary: bursaryBeneficiary,
-            onEdit: () => onEditBeneficiary(context, bursaryBeneficiary),
-            onView: () => onViewBeneficiary(context, bursaryBeneficiary),
-            onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),
-            onOpenBursarySchool: () =>
-                onOpenBeneficiarySchool(context, bursaryBeneficiary),
-            onOpenBursaryClub: () =>
-                onOpenBeneficiaryClub(context, bursaryBeneficiary),
+        return RefreshIndicator(
+          onRefresh: () async =>
+              refreshBeneficiaryList(educationBursaryInterventionState),
+          child: CustomPaginatedListView(
+            childBuilder: (context, bursaryBeneficiary, child) =>
+                EducationBeneficiaryCard(
+              canEdit: canEdit,
+              canView: canView,
+              canExpand: canExpand,
+              isExpanded: toggleCardId == bursaryBeneficiary.id,
+              isLbseLearningOutcomeVisible: false,
+              isLbseReferralVisible: false,
+              isBursarySchoolVisible: true,
+              isBursaryClubVisible: true,
+              educationBeneficiary: bursaryBeneficiary,
+              onEdit: () => onEditBeneficiary(context, bursaryBeneficiary),
+              onView: () => onViewBeneficiary(context, bursaryBeneficiary),
+              onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),
+              onOpenBursarySchool: () =>
+                  onOpenBeneficiarySchool(context, bursaryBeneficiary),
+              onOpenBursaryClub: () =>
+                  onOpenBeneficiaryClub(context, bursaryBeneficiary),
+            ),
+            pagingController:
+                educationBursaryInterventionState.pagingController!,
+            emptyListWidget: _getEmptyListContainer(context),
+            errorWidget: _getEmptyListContainer(context),
           ),
-          pagingController: educationBursaryInterventionState.pagingController!,
-          emptyListWidget: _getEmptyListContainer(context),
-          errorWidget: _getEmptyListContainer(context),
         );
       },
     );
