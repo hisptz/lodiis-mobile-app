@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_info_util.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -34,10 +35,13 @@ class AgywDreamsNoneParticipationService {
         dataObject[dataElement] = dataObject[attribute];
       }
     }
+    String appAndDeviceTrackingDataElement =
+        await AppInfoUtil.getAppAndDeviceTrackingInfo();
 
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+      inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
       CurrentUser? user = await (UserService().getCurrentUser());
       dataObject[UserAccountReference.implementingPartnerDataElement] =
           dataObject[UserAccountReference.implementingPartnerDataElement] ??
@@ -52,7 +56,10 @@ class AgywDreamsNoneParticipationService {
                 user.subImplementingPartner;
       }
     }
-
+    dataObject[UserAccountReference.appAndDeviceTrackingDataElement] =
+        dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
+            appAndDeviceTrackingDataElement;
+    inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
     eventId =
         eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
