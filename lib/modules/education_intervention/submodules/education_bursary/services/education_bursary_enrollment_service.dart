@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provid
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_info_util.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -68,7 +69,7 @@ class EducationBursaryEnrollmentService {
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
-      String? location = ous.length > 0 ? ous[0].name : enrollment.orgUnit;
+      String? location = ous.isNotEmpty ? ous[0].name : enrollment.orgUnit;
       String? orgUnit = enrollment.orgUnit;
       String? createdDate = enrollment.enrollmentDate;
       String? enrollmentId = enrollment.enrollment;
@@ -175,7 +176,8 @@ class EducationBursaryEnrollmentService {
     );
     String program = BursaryWithoutEnrollmentCriteriaConstant.program;
     String programStage = BursaryWithoutEnrollmentCriteriaConstant.programStage;
-
+    String appAndDeviceTrackingDataElement =
+        await AppInfoUtil.getAppAndDeviceTrackingInfo();
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
@@ -193,9 +195,12 @@ class EducationBursaryEnrollmentService {
                 user.subImplementingPartner;
       }
     }
+    dataObject[UserAccountReference.appAndDeviceTrackingDataElement] =
+        dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
+            appAndDeviceTrackingDataElement;
+    inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
 
-    eventId =
-        eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
+    eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         dataObject['location'], inputFieldIds, dataObject, null, null);
     await FormUtil.savingEvent(eventData);
