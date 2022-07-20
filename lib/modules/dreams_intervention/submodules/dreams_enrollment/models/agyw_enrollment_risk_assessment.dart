@@ -180,6 +180,14 @@ class AgywEnrollmentRiskAssessment {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
+            id: 'dQPw7EzqJP6',
+            name: 'Land mark near residence',
+            translatedName: 'Sebaka se tsejoang haufi',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
               id: '',
               name: 'Have you been a member of',
               translatedName:
@@ -309,6 +317,44 @@ class AgywEnrollmentRiskAssessment {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),
+          InputField(
+            id: 'iS9mAp3jDaU',
+            name: 'Relationship to Caregiver',
+            translatedName: 'Kamano le mohlokomeli',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+            options: [
+              InputFieldOption(
+                  code: 'Biological mother', name: 'Biological mother'),
+              InputFieldOption(
+                  code: 'Biological father', name: 'Biological father'),
+              InputFieldOption(
+                  code: 'Aunt/Uncle',
+                  name: 'Aunt/Uncle',
+                  translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane'),
+              InputFieldOption(
+                  code: 'Sibling',
+                  name: 'Sibling',
+                  translatedName: 'Ke ngoaneso'),
+              InputFieldOption(
+                  code: 'Grandparent',
+                  name: 'Grandparent',
+                  translatedName: 'Ke Nkhono/Ntate-moholo'),
+              InputFieldOption(
+                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane'),
+              InputFieldOption(
+                  code: 'Other', name: 'Other', translatedName: 'Tse ling')
+            ],
+          ),
+          InputField(
+            id: 'nuka3TRVCnJ',
+            name: 'Other relationship to caregiver',
+            translatedName: 'Tse ling (hlalosa)',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
         ],
       ),
       FormSection(
@@ -371,14 +417,6 @@ class AgywEnrollmentRiskAssessment {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
               ),
-              // InputField(
-              //     id: 'ojCwZf1iHOE',
-              //     name: 'f. Do you have a current sexual partner?',
-              //     translatedName:
-              //         'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
-              //     valueType: 'BOOLEAN',
-              //     inputColor: Color(0xFF258DCC),
-              //     labelColor: Color(0xFF737373),),
             ],
           ),
           FormSection(
@@ -436,14 +474,6 @@ class AgywEnrollmentRiskAssessment {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
               ),
-              // InputField(
-              //     id: 'ojCwZf1iHOE',
-              //     name: 'f. Do you have a current sexual partner?',
-              //     translatedName:
-              //         'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
-              //     valueType: 'BOOLEAN',
-              //     inputColor: Color(0xFF258DCC),
-              //     labelColor: Color(0xFF737373),),
             ],
           ),
           FormSection(
