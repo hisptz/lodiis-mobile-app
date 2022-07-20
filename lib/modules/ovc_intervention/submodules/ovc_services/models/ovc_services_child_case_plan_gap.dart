@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class OvcServicesChildCasePlanGap {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'DOMAIN HEALTH',
@@ -46,6 +48,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(HIVSCREEN) Projected date for completion',
                 translatedName: 'Letsatsi la HIVSCREEN le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -75,6 +78,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(HTS) Projected date for completion',
                 translatedName: 'Letsatsi la HTS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -104,6 +108,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(HIVTREAT) Projected date for completion',
                 translatedName: 'Letsatsi la HIVTREAT le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -138,6 +143,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName:
                     'Letsatsi la HIVS&D/HIV Messaging le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -167,6 +173,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(HEALTH) Projected date for completion',
                 translatedName: 'Letsatsi la HEALTH le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -196,6 +203,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(PRG&L) Projected date for completion',
                 translatedName: 'Letsatsi la PRG&L le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -225,6 +233,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(SAIDS) Projected date for completion',
                 translatedName: 'Letsatsi la SAIDS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -254,6 +263,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(IMMUNIZE) Projected date for completion',
                 translatedName: 'Letsatsi la IMMUNIZE le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -283,6 +293,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(MALNU) Projected date for completion',
                 translatedName: 'Letsatsi la MALNU le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -312,6 +323,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(CCFLS) Projected date for completion',
                 translatedName: 'Letsatsi la CCFLS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -341,6 +353,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(STIMULATE) Projected date for completion',
                 translatedName: 'Letsatsi la STIMULATE le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -370,6 +383,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(TBSCREEN) Projected date for completion',
                 translatedName: 'Letsatsi la TBSCREEN le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -399,6 +413,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(TBREFER) Projected date for completion',
                 translatedName: 'Letsatsi la TBREFER le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -428,6 +443,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(FOODPREP) Projected date for completion',
                 translatedName: 'Letsatsi la FOODPREP le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -457,6 +473,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(FOODPREV) Projected date for completion',
                 translatedName: 'Letsatsi la FOODPREV le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -486,6 +503,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(FOODSUPP) Projected date for completion',
                 translatedName: 'Letsatsi la FOODSUPP le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -530,6 +548,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(OVCFUND) Projected date for completion',
                 translatedName: 'Letsatsi la OVCFUND le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -559,6 +578,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(Savings Group) Projected date for completion',
                 translatedName: 'Letsatsi la Savings Group le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -588,6 +608,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(EST COOPRTVS) Projected date for completion',
                 translatedName: 'Letsatsi la EST COOPRTVS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -618,6 +639,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(FUNCT COOPRTVS) Projected date for completion',
                 translatedName: 'Letsatsi la FUNCT COOPRTVS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -648,6 +670,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(MARKT COOPRTVS) Projected date for completion',
                 translatedName: 'Letsatsi la MARKT COOPRTVS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
           ]),
@@ -695,6 +718,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName:
                     'Letsatsi la Singing to the LION le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -724,6 +748,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(RTEEN/Parenting) Projected date for completion',
                 translatedName: 'Letsatsi la RTEEN/Parenting le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -753,6 +778,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(RKIDS) Projected date for completion',
                 translatedName: 'Letsatsi la RKIDS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -785,6 +811,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName:
                     'Letsatsi la VAC/VAC Messaging le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -819,6 +846,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName:
                     'Letsatsi la VAC Legal Messaging le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -850,6 +878,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(SURVIVORS) Projected date for completion',
                 translatedName: 'Letsatsi la SURVIVORS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -878,6 +907,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(COUNSEL) Projected date for completion',
                 translatedName: 'Letsatsi la COUNSEL le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -907,6 +937,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(FCARE) Projected date for completion',
                 translatedName: 'Letsatsi la FCARE le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -936,6 +967,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(SHELTER) Projected date for completion',
                 translatedName: 'Letsatsi la SHELTER le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -965,6 +997,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(ABUSE) Projected date for completion',
                 translatedName: 'Letsatsi la ABUSE le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -994,6 +1027,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(LEGALPROT) Projected date for completion',
                 translatedName: 'Letsatsi la LEGALPROT le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1023,6 +1057,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(BIRTHCERT) Projected date for completion',
                 translatedName: 'Letsatsi la BIRTHCERT le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -1069,6 +1104,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(Aflatoun/teen) Projected date for completion',
                 translatedName: 'Letsatsi la Aflatoun/teen le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1098,6 +1134,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(PTS4G) Projected date for completion',
                 translatedName: 'Letsatsi la PTS4G le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1127,6 +1164,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(PTS4NG) Projected date for completion',
                 translatedName: 'Letsatsi la PTS4NG le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1156,6 +1194,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(HWCLUB) Projected date for completion',
                 translatedName: 'Letsatsi la HWCLUB le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1185,6 +1224,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(BURSARY) Projected date for completion',
                 translatedName: 'Letsatsi la BURSARY le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1214,6 +1254,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(SFEES) Projected date for completion',
                 translatedName: 'Letsatsi la SFEES le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1243,6 +1284,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(SMATERIAL) Projected date for completion',
                 translatedName: 'Letsatsi la SMATERIAL le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1272,6 +1314,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(REENROL) Projected date for completion',
                 translatedName: 'Letsatsi la REENROL le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
           ]),
@@ -1316,6 +1359,7 @@ class OvcServicesChildCasePlanGap {
                 name: '(Other activities) Projected date for completion',
                 translatedName: 'Letsatsi la Mesebetsi e meng le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
           ])

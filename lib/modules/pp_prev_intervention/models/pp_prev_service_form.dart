@@ -8,7 +8,9 @@ class PpPrevServiceForm {
     return [];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
         name: "Service provision",
@@ -53,6 +55,7 @@ class PpPrevServiceForm {
             id: 'OIUDljKyNgy',
             name: 'Date of referral',
             valueType: 'DATE',
+            firstDate: firstDate,
             allowFuturePeriod: false,
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -87,6 +90,7 @@ class PpPrevServiceForm {
             id: 'Z4D3jEwXO1I',
             name: 'Referral Completion Date',
             valueType: 'DATE',
+            firstDate: firstDate,
             allowFuturePeriod: false,
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),

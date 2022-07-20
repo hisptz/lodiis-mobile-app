@@ -46,13 +46,22 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCaseTransfer.getFormSections();
+    setFormSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setFormSection() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections = OvcExitCaseTransfer.getFormSections(
+      firstDate: child!.createdDate!,
+    );
   }
 
   evaluateSkipLogics() {

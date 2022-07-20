@@ -69,7 +69,9 @@ class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsMsgHivInfo.getFormSections();
+    defaultFormSections = DreamsMsgHivInfo.getFormSections(
+      firstDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {

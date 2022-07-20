@@ -42,13 +42,21 @@ class _OvcServiceWellBeingAssessmentFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcServicesWellbeingAssessment.getFormSections();
+    setFormSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setFormSection() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections = OvcServicesWellbeingAssessment.getFormSections(
+        firstDate: child!.createdDate!);
   }
 
   evaluateSkipLogics() {

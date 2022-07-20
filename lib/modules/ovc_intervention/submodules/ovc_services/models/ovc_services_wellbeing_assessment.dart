@@ -4,7 +4,9 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcServicesWellbeingAssessment {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Role/Impact of a Child to the family',
@@ -742,6 +744,7 @@ class OvcServicesWellbeingAssessment {
                 name: 'When were you tested?',
                 translatedName: 'U ile oa lekoa neng?',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF2895F0),
                 labelColor: const Color(0xFF1A3518)),
             InputField(
@@ -1588,6 +1591,7 @@ class OvcServicesWellbeingAssessment {
                 allowFuturePeriod: true,
                 name: 'Timeline for goal 1',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1609,6 +1613,7 @@ class OvcServicesWellbeingAssessment {
                 allowFuturePeriod: true,
                 name: 'Timeline for goal 2',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373)),
             InputField(

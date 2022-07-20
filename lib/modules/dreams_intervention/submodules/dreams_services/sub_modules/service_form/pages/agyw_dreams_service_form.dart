@@ -76,7 +76,9 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsServiceForm.getFormSections();
+    defaultFormSections = DreamsServiceForm.getFormSections(
+      firstDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
