@@ -20,6 +20,8 @@ class InputField {
   int? minAgeInYear;
   int? maxAgeInYear;
   int? numberOfMonth;
+  String? lastDate;
+  String? firstDate;
   bool? shouldUserCustomAgeLimit;
   String? suffixLabel;
   String? hint;
@@ -31,35 +33,38 @@ class InputField {
   List<int>? allowedSelectedLevels;
   List<String>? filteredPrograms;
 
-  InputField(
-      {required this.id,
-      required this.name,
-      required this.valueType,
-      this.hasSubInputField,
-      this.description,
-      this.inputColor,
-      this.labelColor,
-      this.background,
-      this.renderAsRadio,
-      this.isReadOnly,
-      this.options,
-      this.subInputField,
-      this.allowedSelectedLevels,
-      this.allowFuturePeriod,
-      this.disablePastPeriod,
-      this.translatedName,
-      this.translatedDescription,
-      this.hint,
-      this.translatedHint,
-      this.maxAgeInYear,
-      this.minAgeInYear,
-      this.numberOfMonth,
-      this.suffixLabel,
-      this.filteredPrograms,
-      this.hasError,
-      this.shouldUserCustomAgeLimit,
-      this.showCountryLevelTree,
-      this.hasLabelOnly}) {
+  InputField({
+    required this.id,
+    required this.name,
+    required this.valueType,
+    this.hasSubInputField,
+    this.description,
+    this.inputColor,
+    this.labelColor,
+    this.background,
+    this.renderAsRadio,
+    this.isReadOnly,
+    this.options,
+    this.subInputField,
+    this.allowedSelectedLevels,
+    this.allowFuturePeriod,
+    this.disablePastPeriod,
+    this.translatedName,
+    this.translatedDescription,
+    this.hint,
+    this.translatedHint,
+    this.maxAgeInYear,
+    this.minAgeInYear,
+    this.numberOfMonth,
+    this.firstDate,
+    this.lastDate,
+    this.suffixLabel,
+    this.filteredPrograms,
+    this.hasError,
+    this.shouldUserCustomAgeLimit,
+    this.showCountryLevelTree,
+    this.hasLabelOnly,
+  }) {
     showCountryLevelTree = showCountryLevelTree ?? false;
     hasLabelOnly = hasLabelOnly ?? false;
     allowedSelectedLevels = allowedSelectedLevels ?? [];
@@ -67,6 +72,8 @@ class InputField {
     disablePastPeriod = disablePastPeriod ?? false;
     isReadOnly = isReadOnly ?? false;
     description = description ?? '';
+    firstDate = firstDate ?? '';
+    lastDate = lastDate ?? '';
     hasSubInputField = hasSubInputField ?? false;
     renderAsRadio = renderAsRadio ?? false;
     options = options ?? [];
