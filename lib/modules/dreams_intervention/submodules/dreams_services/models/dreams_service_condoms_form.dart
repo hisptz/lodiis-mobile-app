@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class DreamsCondomsForm {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String enrollementDate,
+  }) {
     return [
       FormSection(
           name: 'Condoms',
@@ -13,6 +15,7 @@ class DreamsCondomsForm {
                 id: 'lvT9gfpHIlT',
                 name: 'Date service was provided',
                 valueType: 'DATE',
+                firstDate: enrollementDate,
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(

@@ -69,7 +69,9 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = AgywDreamsShortForm.getFormSections();
+    defaultFormSections = AgywDreamsShortForm.getFormSections(
+      enrollementDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {

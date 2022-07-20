@@ -68,7 +68,9 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsCondomsForm.getFormSections();
+    defaultFormSections = DreamsCondomsForm.getFormSections(
+      enrollementDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {

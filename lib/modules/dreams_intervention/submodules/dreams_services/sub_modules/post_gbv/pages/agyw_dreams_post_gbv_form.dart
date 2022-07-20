@@ -68,7 +68,9 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsPostGBVInfo.getFormSections();
+    defaultFormSections = DreamsPostGBVInfo.getFormSections(
+      enrollementDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {

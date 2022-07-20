@@ -6,13 +6,17 @@ import 'package:kb_mobile_app/models/input_field.dart';
 class DreamsPrepIntakeShortForm {
   static List<String> getMandatoryField() {
     const excludedFields = ['XhMaVycZx8l', 'lvT9gfpHIlT'];
-    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections());
+    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections(
+      enrollementDate: '',
+    ));
     inputFields =
         inputFields.where((field) => !excludedFields.contains(field)).toList();
     return inputFields;
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String enrollementDate,
+  }) {
     return [
       FormSection(
           name: 'PrEP Intake',
@@ -32,6 +36,7 @@ class DreamsPrepIntakeShortForm {
               allowFuturePeriod: false,
               name: 'Date PrEP was Provided',
               valueType: 'DATE',
+              firstDate: enrollementDate,
             ),
             InputField(
               id: 'XhMaVycZx8l',
