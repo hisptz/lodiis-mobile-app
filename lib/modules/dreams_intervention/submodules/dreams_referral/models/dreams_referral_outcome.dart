@@ -7,7 +7,9 @@ class DreamsReferralOutCome {
     return ['p7saxV2libq'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Referral Outcome',
@@ -17,6 +19,7 @@ class DreamsReferralOutCome {
               id: 'p7saxV2libq',
               name: 'Date client reached the referral station',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
             ),
@@ -24,6 +27,7 @@ class DreamsReferralOutCome {
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
             ),
@@ -40,6 +44,7 @@ class DreamsReferralOutCome {
               allowFuturePeriod: true,
               disablePastPeriod: true,
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
             ),
@@ -54,6 +59,7 @@ class DreamsReferralOutCome {
               id: 'yGf4w48y1Jt',
               name: 'Date Contacted for Feedback',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
             ),

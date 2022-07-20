@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsReferralFollowUp {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({required String firstDate}) {
     return [
       FormSection(
           name: 'Referral Follow Up',
@@ -15,6 +15,7 @@ class DreamsReferralFollowUp {
               id: 'DPf5mUDoZMy',
               name: 'Follow-up date',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
             ),
