@@ -100,7 +100,8 @@ class _OcvServiceCasePlanFormState extends State<OcvServiceCasePlanForm> {
               .where((FormSection formSection) => formSection.id == domainType)
               .toList();
           List<FormSection> domainGapFormSections =
-              OvcServicesChildCasePlanGap.getFormSections()
+              OvcServicesChildCasePlanGap.getFormSections(
+                      firstDate: currentOvcHouseholdChild.createdDate!)
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();

@@ -48,10 +48,10 @@ class _ServiceGapViewState extends State<ServiceGapView> {
       int gapIndex = widget.gapIndex + 1;
       label = '$label $gapIndex';
       List<FormSection> formSections = widget.isCasePlanForHousehold
-          ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+          ? OvcHouseholdServicesCasePlanGaps.getFormSections(firstDate: '')
               .where((FormSection form) => form.id == widget.domainId)
               .toList()
-          : OvcServicesChildCasePlanGap.getFormSections()
+          : OvcServicesChildCasePlanGap.getFormSections(firstDate: '')
               .where((FormSection form) => form.id == widget.domainId)
               .toList();
       List keys = widget.casePlanGap.keys.toList();

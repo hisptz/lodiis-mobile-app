@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class OvcServicesChildServiceProvision {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           id: 'Health',
@@ -26,6 +28,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa HIVSCREEN',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -48,6 +51,7 @@ class OvcServicesChildServiceProvision {
                 name: 'HTS Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HTS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -70,6 +74,7 @@ class OvcServicesChildServiceProvision {
                 name: 'HIVTREAT Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -93,6 +98,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D/HIV Messaging',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -123,6 +129,7 @@ class OvcServicesChildServiceProvision {
                 name: 'HEALTH Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HEALTH',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -145,6 +152,7 @@ class OvcServicesChildServiceProvision {
                 name: 'PRG&L Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PRG&L',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -167,6 +175,7 @@ class OvcServicesChildServiceProvision {
                 name: 'SAIDS Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SAIDS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -189,6 +198,7 @@ class OvcServicesChildServiceProvision {
                 name: 'IMMUNIZE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa IMMUNIZE',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -211,6 +221,7 @@ class OvcServicesChildServiceProvision {
                 name: 'MALNU Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa MALNU',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -233,6 +244,7 @@ class OvcServicesChildServiceProvision {
                 name: 'CCFLS Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa CCFLS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -264,6 +276,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa STIMULATE',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -294,6 +307,7 @@ class OvcServicesChildServiceProvision {
                 name: 'TBSCREEN Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa TBSCREEN',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -316,6 +330,7 @@ class OvcServicesChildServiceProvision {
                 name: 'TBREFER Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa TBREFER',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -338,6 +353,7 @@ class OvcServicesChildServiceProvision {
                 name: 'FOODPREP Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa FOODPREP',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -368,6 +384,7 @@ class OvcServicesChildServiceProvision {
                 name: 'FOODPREV Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa FOODPREV',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -428,6 +445,7 @@ class OvcServicesChildServiceProvision {
                 name: 'OVCFUND Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa OVCFUND',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -482,6 +500,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa EST COOPRTVS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -506,6 +525,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa FUNCT COOPRTVS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -530,6 +550,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa MARKT COOPRTVS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -561,6 +582,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa Singing to the LION',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -591,6 +613,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa RTEEN/Parenting',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -620,6 +643,7 @@ class OvcServicesChildServiceProvision {
                 name: 'RKIDS Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa RKIDS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -650,6 +674,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa VAC/VAC Messaging',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -681,6 +706,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa VAC Legal Messaging',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -711,6 +737,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa Survivors of Abuse',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -740,6 +767,7 @@ class OvcServicesChildServiceProvision {
                 name: 'COUNSEL Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa COUNSEL',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -769,6 +797,7 @@ class OvcServicesChildServiceProvision {
                 name: 'FCARE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa FCARE',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -798,6 +827,7 @@ class OvcServicesChildServiceProvision {
                 name: 'SHELTER Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SHELTER',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -827,6 +857,7 @@ class OvcServicesChildServiceProvision {
                 name: 'ABUSE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa ABUSE',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -857,6 +888,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa LEGALPROT',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -887,6 +919,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa BIRTHCERT',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -925,6 +958,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa Aflatoun/teen',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -954,6 +988,7 @@ class OvcServicesChildServiceProvision {
                 name: 'PTS4G Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PTS4G',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -983,6 +1018,7 @@ class OvcServicesChildServiceProvision {
                 name: 'PTS4NG Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PTS4NG',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1012,6 +1048,7 @@ class OvcServicesChildServiceProvision {
                 name: 'HWCLUB Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HWCLUB',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1041,6 +1078,7 @@ class OvcServicesChildServiceProvision {
                 name: 'BURSARY Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa BURSARY',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1086,6 +1124,7 @@ class OvcServicesChildServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa SMATERIAL',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1108,6 +1147,7 @@ class OvcServicesChildServiceProvision {
                 name: 'REENROL Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa REENROL',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -1134,6 +1174,7 @@ class OvcServicesChildServiceProvision {
                 id: 'x5VlMVD2a4E',
                 name: 'OTHER ACTIVITIES Service Provision Date',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(

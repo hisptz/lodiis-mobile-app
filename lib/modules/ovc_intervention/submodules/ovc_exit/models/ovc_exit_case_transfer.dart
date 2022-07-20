@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class OvcExitCaseTransfer {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Case Transfer Plan',
@@ -14,6 +16,7 @@ class OvcExitCaseTransfer {
                 allowFuturePeriod: true,
                 name: 'Planned date of transfer',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -70,6 +73,7 @@ class OvcExitCaseTransfer {
                 allowFuturePeriod: true,
                 name: 'Date of next follow up',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373)),
           ])

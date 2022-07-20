@@ -104,14 +104,16 @@ class _OvcHouseholdCasePlanFormState extends State<OvcHouseholdCasePlanForm> {
               .where((FormSection formSection) => formSection.id == domainType)
               .toList();
           List<FormSection> domainGapFormSections =
-              OvcHouseholdServicesCasePlanGaps.getFormSections()
+              OvcHouseholdServicesCasePlanGaps.getFormSections(
+            firstDate: currentOvcHousehold!.createdDate!,
+          )
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcHouseholdCasePlanConstant.program,
             OvcHouseholdCasePlanConstant.casePlanProgramStage,
-            currentOvcHousehold!.orgUnit,
+            currentOvcHousehold.orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],

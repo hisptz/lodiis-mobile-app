@@ -45,13 +45,21 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCaseClosure.getFormSections();
+    setFormSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setFormSection() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections =
+        OvcExitCaseClosure.getFormSections(firstDate: child!.createdDate!);
   }
 
   evaluateSkipLogics() {

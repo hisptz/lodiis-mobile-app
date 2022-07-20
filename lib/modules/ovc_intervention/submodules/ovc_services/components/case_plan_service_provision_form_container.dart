@@ -58,8 +58,10 @@ class _CasePlanServiceProvisionFormModalContainerState
       setState(() {
         mandatoryFieldObject = {};
         formSections = widget.isCasePlanForHousehold
-            ? HouseholdServiceProvision.getFormSections()
-            : OvcServicesChildServiceProvision.getFormSections();
+            ? HouseholdServiceProvision.getFormSections(
+                firstDate: dataObject!['eventDate'])
+            : OvcServicesChildServiceProvision.getFormSections(
+                firstDate: dataObject!['eventDate']);
         formSections = formSections!
             .where((formSection) => formSection.id == widget.domainId)
             .toList();

@@ -46,13 +46,22 @@ class _OvcExitCasePlanGraduationReadinessFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCasePlanGraduationReadiness.getFormSections();
+    setFormSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setFormSection() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections = OvcExitCasePlanGraduationReadiness.getFormSections(
+      firstDate: child!.createdDate!,
+    );
   }
 
   evaluateSkipLogics() {

@@ -61,22 +61,28 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
     hiddenFields.add(widget.referralToFollowUpLinkage);
     if (widget.isOvcIntervention) {
       themeColor = const Color(0xFF4B9F46);
-      referralOutcomeFormSections = OvcReferralOutCome.getFormSections();
+      referralOutcomeFormSections = OvcReferralOutCome.getFormSections(
+        firstDate: widget.eventData.eventDate!,
+      );
       referralOutcomeMandatoryFields
           .addAll(OvcReferralOutCome.getMandatoryFields());
       hiddenFields
           .addAll(FormUtil.getFormFieldIds(OvcReferral.getFormSections()));
-      referralOutcomeFollowUpFormSections =
-          OvcReferralFollowUp.getFormSections();
+      referralOutcomeFollowUpFormSections = OvcReferralFollowUp.getFormSections(
+        firstDate: widget.eventData.eventDate!,
+      );
     } else {
       themeColor = const Color(0xFF1F8ECE);
-      referralOutcomeFormSections = DreamsReferralOutCome.getFormSections();
+      referralOutcomeFormSections = DreamsReferralOutCome.getFormSections(
+        firstDate: widget.eventData.eventDate!,
+      );
       referralOutcomeMandatoryFields
           .addAll(DreamsReferralOutCome.getMandatoryFields());
       hiddenFields
           .addAll(FormUtil.getFormFieldIds(DreamsReferral.getFormSections()));
       referralOutcomeFollowUpFormSections =
-          DreamsReferralFollowUp.getFormSections();
+          DreamsReferralFollowUp.getFormSections(
+              firstDate: widget.eventData.eventDate!);
     }
 
     Timer(const Duration(seconds: 1), () {
