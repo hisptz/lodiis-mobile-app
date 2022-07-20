@@ -516,6 +516,7 @@ class OvcExitCasePlanGraduationFormInfo {
               labelColor: const Color(0xFF1A3518),
               name: 'Estimated date for Safe actions or services completion',
               valueType: 'DATE',
+              firstDate: firstDate,
             ),
             InputField(
                 id: 'eK4frB0jbWZ',
