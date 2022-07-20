@@ -70,7 +70,7 @@ class _AgywDreamsContraceptivesFormState
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
     defaultFormSections = DreamsContraceptivesForm.getFormSections(
-      enrollementDate: agyw.createdDate!,
+      firstDate: agyw.createdDate!,
     );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;

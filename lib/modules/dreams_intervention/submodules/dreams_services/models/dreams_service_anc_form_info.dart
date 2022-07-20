@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsANCInfo {
   static List<FormSection> getFormSections({
-    required String enrollementDate,
+    required String firstDate,
   }) {
     return [
       FormSection(name: 'ANC', color: const Color(0xFF737373), inputFields: [
@@ -13,7 +13,7 @@ class DreamsANCInfo {
           id: 'lvT9gfpHIlT',
           name: 'Date service was provided',
           valueType: 'DATE',
-          firstDate: enrollementDate,
+          firstDate: firstDate,
           inputColor: const Color(0xFF258DCC),
           labelColor: const Color(0xFF737373),
         ),

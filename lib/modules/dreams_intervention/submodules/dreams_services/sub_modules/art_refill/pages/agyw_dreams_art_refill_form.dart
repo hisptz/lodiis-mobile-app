@@ -70,7 +70,7 @@ class _AgywDreamsARTRefillFormState extends State<AgywDreamsARTRefillForm> {
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
     defaultFormSections = DreamsARTRefillInfo.getFormSections(
-      enrollementDate: agyw.createdDate!,
+      firstDate: agyw.createdDate!,
     );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;

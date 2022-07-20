@@ -73,7 +73,7 @@ class _AgywDreamsPrepShortFormState extends State<AgywDreamsPrepShortForm> {
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
     defaultFormSections = DreamsPrepIntakeShortForm.getFormSections(
-      enrollementDate: agyw.createdDate!,
+      firstDate: agyw.createdDate!,
     );
     mandatoryFields = DreamsPrepIntakeShortForm.getMandatoryField();
     if (agyw.enrollmentOuAccessible!) {

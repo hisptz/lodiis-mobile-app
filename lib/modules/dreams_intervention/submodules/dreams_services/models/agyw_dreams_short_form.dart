@@ -9,7 +9,7 @@ class AgywDreamsShortForm {
   }
 
   static List<FormSection> getFormSections({
-    required String enrollementDate,
+    required String firstDate,
   }) {
     return [
       FormSection(
@@ -21,7 +21,7 @@ class AgywDreamsShortForm {
                 name: 'Date service was provided',
                 translatedName: '',
                 valueType: 'DATE',
-                firstDate: enrollementDate,
+                firstDate: firstDate,
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(

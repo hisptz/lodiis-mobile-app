@@ -7,7 +7,7 @@ class DreamsPrepIntakeShortForm {
   static List<String> getMandatoryField() {
     const excludedFields = ['XhMaVycZx8l', 'lvT9gfpHIlT'];
     List<String> inputFields = FormUtil.getFormFieldIds(getFormSections(
-      enrollementDate: '',
+      firstDate: '',
     ));
     inputFields =
         inputFields.where((field) => !excludedFields.contains(field)).toList();
@@ -15,7 +15,7 @@ class DreamsPrepIntakeShortForm {
   }
 
   static List<FormSection> getFormSections({
-    required String enrollementDate,
+    required String firstDate,
   }) {
     return [
       FormSection(
@@ -36,7 +36,7 @@ class DreamsPrepIntakeShortForm {
               allowFuturePeriod: false,
               name: 'Date PrEP was Provided',
               valueType: 'DATE',
-              firstDate: enrollementDate,
+              firstDate: firstDate,
             ),
             InputField(
               id: 'XhMaVycZx8l',

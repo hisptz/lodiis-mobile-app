@@ -9,7 +9,7 @@ class DreamsServiceForm {
   }
 
   static List<FormSection> getFormSections({
-    required String enrollementDate,
+    required String firstDate,
   }) {
     return [
       FormSection(
@@ -62,7 +62,7 @@ class DreamsServiceForm {
               name: 'Session date',
               translatedName: 'Letsatsi la Thupelo',
               valueType: 'DATE',
-              firstDate: enrollementDate,
+              firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),

@@ -8,7 +8,9 @@ class EducationLbseReferralOutcomeFollowUpForm {
     return ['DPf5mUDoZMy', 'VHe4ctA0bqU'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
         name: 'LBSE Referral Follow-up',
@@ -18,6 +20,7 @@ class EducationLbseReferralOutcomeFollowUpForm {
             id: 'DPf5mUDoZMy',
             name: 'Follow-up date',
             valueType: 'DATE',
+            firstDate: firstDate,
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
           ),

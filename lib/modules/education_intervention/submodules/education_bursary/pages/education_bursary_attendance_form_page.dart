@@ -75,7 +75,9 @@ class _EducationBursaryAttendanceFormPageState
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
             .currentBeneficiciary!;
-    defaultFormSections = EducationBursaryAttendanceForm.getFormSections();
+    defaultFormSections = EducationBursaryAttendanceForm.getFormSections(
+      firstDate: bursaryBeneficiary.createdDate!,
+    );
     if (bursaryBeneficiary.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
