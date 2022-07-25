@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_icon.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 

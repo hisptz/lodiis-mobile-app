@@ -10,7 +10,7 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_clear_icon.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/beneficiary_filter.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';

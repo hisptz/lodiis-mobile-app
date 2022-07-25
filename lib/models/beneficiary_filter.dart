@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'dart:convert';
 
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_config.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';

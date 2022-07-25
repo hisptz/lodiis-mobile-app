@@ -8,7 +8,7 @@ import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_interv
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_list_filter.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
