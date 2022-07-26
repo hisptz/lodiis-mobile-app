@@ -33,7 +33,7 @@ class AgywDreamsServiceFormSessions {
       '11',
       '12',
     ],
-    'FINANCIAL EDUCATION': ['1', '2', '3', '4'],
+    'FinancialLiteracyEducation': ['1', '2', '3', '4'],
     'PTS 4-GRADS': [
       '1',
       '2',

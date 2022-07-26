@@ -39,7 +39,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['LBSE'] = true;
     }
     if (agywDreamAge < 10) {
-      hiddenOptions['FINANCIAL EDUCATION'] = true;
+      hiddenOptions['FinancialLiteracyEducation'] = true;
     }
     if (agywDreamAge < 18) {
       hiddenOptions['Go Girls'] = true;
@@ -61,7 +61,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['GBV Legal Messaging'] = true;
     } else {
       hiddenOptions['LBSE'] = true;
-      hiddenOptions['FINANCIAL EDUCATION'] = true;
+      hiddenOptions['FinancialLiteracyEducation'] = true;
       hiddenOptions['STEPPING STONES'] = true;
       hiddenOptions['IPC'] = true;
       hiddenOptions['PTS 4 NON-GRADS'] = true;
@@ -81,7 +81,7 @@ class AgywDreamsServiceFormSkipLogic {
 
       if (inputFieldId == 'Eug4BXDFLym') {
         if ([
-          'FINANCIAL EDUCATION',
+          'FinancialLiteracyEducation',
           'SILC',
           'SAVING GROUP',
           'PTS 4 NON-GRADS',

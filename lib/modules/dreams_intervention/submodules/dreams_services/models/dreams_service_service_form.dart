@@ -43,7 +43,8 @@ class DreamsServiceForm {
                   InputFieldOption(code: 'SILC', name: 'SILC'),
                   InputFieldOption(code: 'SAVING GROUP', name: 'SAVING GROUP'),
                   InputFieldOption(
-                      code: 'FINANCIAL EDUCATION', name: 'FINANCIAL EDUCATION'),
+                      code: 'FinancialLiteracyEducation',
+                      name: 'Financial Literacy (Education)'),
                   InputFieldOption(
                       code: 'STEPPING STONES', name: 'STEPPING STONES'),
                   InputFieldOption(code: 'IPC', name: 'IPC'),
