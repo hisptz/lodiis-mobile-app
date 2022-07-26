@@ -59,10 +59,12 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
       int gapIndex = widget.gapIndex + 1;
       label = '$label $gapIndex';
       List<FormSection> formSections = widget.isCasePlanForHousehold
-          ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+          ? OvcHouseholdServicesCasePlanGaps.getFormSections(
+                  firstDate: widget.casePlanGap['eventDate'])
               .where((FormSection form) => form.id == widget.domainId)
               .toList()
-          : OvcServicesChildCasePlanGap.getFormSections()
+          : OvcServicesChildCasePlanGap.getFormSections(
+                  firstDate: widget.casePlanGap['eventDate'])
               .where((FormSection form) => form.id == widget.domainId)
               .toList();
       List keys = widget.casePlanGap.keys.toList();
@@ -94,10 +96,12 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     List<FormSection> formSections = widget.isCasePlanForHousehold
-        ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+        ? OvcHouseholdServicesCasePlanGaps.getFormSections(
+                firstDate: widget.casePlanGap['eventDate'])
             .where((FormSection form) => form.id == widget.domainId)
             .toList()
-        : OvcServicesChildCasePlanGap.getFormSections()
+        : OvcServicesChildCasePlanGap.getFormSections(
+                firstDate: widget.casePlanGap['eventDate'])
             .where((FormSection form) => form.id == widget.domainId)
             .toList();
     formSections = formSections.map((FormSection form) {

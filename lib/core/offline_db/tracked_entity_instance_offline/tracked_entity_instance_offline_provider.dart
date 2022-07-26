@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -151,29 +152,34 @@ class TrackedEntityInstanceOfflineProvider extends OfflineDbProvider {
         references.add(map[trackedEntityInstance] as String);
       }
     } catch (e) {
-      //
+      rethrow;
     }
 
     return references;
   }
 
   Future<List<TrackedEntityInstance>> getTrackedEntityInstanceByStatus(
-    String teiSyncStatus,
-  ) async {
+    String teiSyncStatus, {
+    int? page,
+  }) async {
     List<TrackedEntityInstance> trackedEntityInstances = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient!.query(
-        table,
-        columns: [
-          trackedEntityInstance,
-          trackedEntityType,
-          orgUnit,
-          syncStatus,
-        ],
-        where: '$syncStatus = ?',
-        whereArgs: [teiSyncStatus],
-      );
+      List<Map> maps = await dbClient!.query(table,
+          columns: [
+            trackedEntityInstance,
+            trackedEntityType,
+            orgUnit,
+            syncStatus,
+          ],
+          where: '$syncStatus = ?',
+          whereArgs: [teiSyncStatus],
+          limit: page != null
+              ? PaginationConstants.dataUploadPaginationLimit
+              : null,
+          offset: page != null
+              ? page * PaginationConstants.dataUploadPaginationLimit
+              : null);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           String? trackedEntityInstanceId = map['trackedEntityInstance'];

@@ -1,3 +1,4 @@
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
@@ -60,22 +61,28 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {
-      //
+      rethrow;
     }
     return teiRelationships;
   }
 
   Future<List<TeiRelationship>> getAllTeiRelationShips(
-      String teiRelationshipSyncStatus) async {
+    String teiRelationshipSyncStatus, {
+    int? page,
+  }) async {
     List<TeiRelationship> teiRelationships = [];
     try {
       var dbClient = await db;
-      List<Map> maps = await dbClient!.query(
-        table,
-        columns: [id, relationshipType, fromTei, toTei, syncStatus],
-        where: '$syncStatus = ?',
-        whereArgs: [teiRelationshipSyncStatus],
-      );
+      List<Map> maps = await dbClient!.query(table,
+          columns: [id, relationshipType, fromTei, toTei, syncStatus],
+          where: '$syncStatus = ?',
+          whereArgs: [teiRelationshipSyncStatus],
+          limit: page != null
+              ? PaginationConstants.dataUploadPaginationLimit
+              : null,
+          offset: page != null
+              ? page * PaginationConstants.dataUploadPaginationLimit
+              : null);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           teiRelationships
@@ -83,8 +90,22 @@ class TeiRelationshipOfflineProvider extends OfflineDbProvider {
         }
       }
     } catch (e) {
-      //
+      rethrow;
     }
     return teiRelationships;
+  }
+
+  Future<int> getRelationshipCountBySyncStatus(
+    String status,
+  ) async {
+    int? teiCount;
+    try {
+      var dbClient = await db;
+      teiCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $syncStatus = ?', [status]));
+    } catch (e) {
+      //
+    }
+    return teiCount ?? 0;
   }
 }

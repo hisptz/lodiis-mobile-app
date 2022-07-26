@@ -22,6 +22,7 @@ class AgywDream {
   String? beneficiaryType;
   String? phoneNumber;
   String? village;
+  String? landMark;
   bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
@@ -44,6 +45,7 @@ class AgywDream {
     this.beneficiaryType,
     this.phoneNumber,
     this.village,
+    this.landMark,
     this.enrollmentOuAccessible,
     this.trackedEntityInstanceData,
   });
@@ -64,6 +66,7 @@ class AgywDream {
       'VJiWumvINR6',
       'tNdoR0jYr7R',
       'RB8Wx75hGa4',
+      'dQPw7EzqJP6',
       UserAccountReference.implementingPartnerAttribute,
       'vIX4GTSCX4P',
       'vkd6o91n1IC',
@@ -79,6 +82,7 @@ class AgywDream {
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     String phoneNumber = data["tNdoR0jYr7R"] ?? '';
     String village = data["RB8Wx75hGa4"] ?? '';
+    String landMark = data['dQPw7EzqJP6'] ?? '';
     return AgywDream(
       id: trackedEntityInstance.trackedEntityInstance,
       firstname: data['WTZ7GLTrE8Q'] ?? '',
@@ -90,8 +94,9 @@ class AgywDream {
       sex: data['VJiWumvINR6'] ?? data['vIX4GTSCX4P'] ?? '',
       beneficiaryType: data['vkd6o91n1IC'] ?? '',
       programStatus: data['PN92g65TkVI'] ?? '',
-      phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
-      village: village != "" ? village : 'N/A',
+      phoneNumber: phoneNumber.isNotEmpty ? phoneNumber : 'N/A',
+      village: village.isNotEmpty ? village : 'N/A',
+      landMark: landMark.isNotEmpty ? landMark : 'N/A',
       orgUnit: orgUnit,
       location: location,
       createdDate: createdDate,

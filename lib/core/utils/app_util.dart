@@ -154,7 +154,7 @@ class AppUtil {
   }
 
   static DateTime getDateIntoDateTimeFormat(String date) {
-    return DateTime.parse(date);
+    return DateTime.tryParse(date) ?? DateTime.now();
   }
 
   static Future<Position> getCurrentLocation() async {

@@ -152,6 +152,14 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho'
+                          ? 'Sebaka se tsejoang haufi'
+                          : 'Land mark near residence',
+                      value: agywBeneficiary.landMark,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
                       label: 'Enrolled Organisation unit',
                       value: agywBeneficiary.enrolledOrganisation,
                       labelColor: labelColor,

@@ -79,7 +79,7 @@ class _OvcEnrollmentHouseholdFormState
         UserAccountReference.serviceProviderAtttribute,
         UserAccountReference.subImplementingPartnerAttribute
       ];
-      List<Map?> childMapObjects = [];
+      List<Map> childMapObjects = [];
       for (Map childObj in dataObject["children"]) {
         childMapObjects.add(childObj);
       }

@@ -61,7 +61,11 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
         LbseInterventionConstant.referralToReferralOutcomeLinkage,
         lbseReferral.referralToReferralOutcomeLinkage);
     List<FormSection> formSections =
-        EducationLbseReferralOutcomeForm.getFormSections();
+        EducationLbseReferralOutcomeForm.getFormSections(
+      firstDate: AppUtil.formattedDateTimeIntoString(
+        AppUtil.getDateIntoDateTimeFormat(''),
+      ),
+    );
     List mandatoryFields = EducationLbseReferralOutcomeForm.getMandatoryField();
     Widget modal = EducationLbseRefferalOutcomeModal(
       formSections: formSections,
@@ -90,7 +94,9 @@ class EducationLbseReferralOutComeContainer extends StatelessWidget {
     List mandatoryFields =
         EducationLbseReferralOutcomeFollowUpForm.getMandatoryField();
     List<FormSection> formSections =
-        EducationLbseReferralOutcomeFollowUpForm.getFormSections();
+        EducationLbseReferralOutcomeFollowUpForm.getFormSections(
+      firstDate: referralOutcomeEvent.eventDate!,
+    );
     Widget modal = EducationLbseRefferalOutcomeFollowUpModal(
       formSections: formSections,
       mandatoryFields: mandatoryFields,

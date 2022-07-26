@@ -8,7 +8,9 @@ class AgywDreamsShortForm {
     return ['lvT9gfpHIlT'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'HTS Form',
@@ -19,6 +21,7 @@ class AgywDreamsShortForm {
                 name: 'Date service was provided',
                 translatedName: '',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(

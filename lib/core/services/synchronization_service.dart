@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
@@ -9,6 +10,7 @@ import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relat
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_attribute_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/local_notification_service.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -67,17 +69,20 @@ class SynchronizationService {
           await AppLogsOfflineProvider().addLogs(log);
         }
       }
-    } catch (e) {
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: '(getDataPaginationFilters) ${e.toString()}');
+          message: '(getDataPaginationFilters) ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
     }
     return paginationFilter;
   }
 
   Future<void> getAndSaveEventsFromServer(
-      String? program, String? userOrgId, String lastSyncDate) async {
+    String? program,
+    String? userOrgId,
+    String lastSyncDate,
+  ) async {
     try {
       var queryParameters = {
         "program": program,
@@ -116,9 +121,9 @@ class SynchronizationService {
           }
         }
       }
-    } catch (e) {
-      AppLogs log =
-          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: error.toString());
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -167,9 +172,9 @@ class SynchronizationService {
           return null;
         }
       }
-    } catch (e) {
-      AppLogs log =
-          AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
+    } catch (error) {
+      AppLogs log = AppLogs(
+          type: AppLogsConstants.errorLogType, message: error.toString());
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -179,7 +184,7 @@ class SynchronizationService {
   Future saveEventsToOffline(List<Events> events) async {
     try {
       await EventOfflineProvider().addOrUpdateMultipleEvents(events);
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
   }
@@ -237,7 +242,7 @@ class SynchronizationService {
           enrollmentsAndRelationships['enrollments']);
       TeiRelationshipOfflineProvider().addOrUpdateMultipleTeiRelationships(
           enrollmentsAndRelationships['relationships']);
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
   }
@@ -279,9 +284,9 @@ class SynchronizationService {
           }
           return;
         }
-      } catch (e) {
-        AppLogs log =
-            AppLogs(type: AppLogsConstants.errorLogType, message: e.toString());
+      } catch (error) {
+        AppLogs log = AppLogs(
+            type: AppLogsConstants.errorLogType, message: error.toString());
         await AppLogsOfflineProvider().addLogs(log);
         rethrow;
       }
@@ -303,9 +308,14 @@ class SynchronizationService {
     return entityInstanceAttributes;
   }
 
-  Future<List<TrackedEntityInstance>> getTeisFromOfflineDb() async {
+  Future<List<TrackedEntityInstance>> getTeisFromOfflineDb({
+    int? page,
+  }) async {
     return await TrackedEntityInstanceOfflineProvider()
-        .getTrackedEntityInstanceByStatus(offlineSyncStatus);
+        .getTrackedEntityInstanceByStatus(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
   Future<int> getUnsyncedTeiCount() async {
@@ -313,26 +323,33 @@ class SynchronizationService {
         .getTeiCountBySyncStatus(offlineSyncStatus);
   }
 
-  Future<List<Enrollment>> getTeiEnrollmentFromOfflineDb() async {
-    return await EnrollmentOfflineProvider()
-        .getEnrollmentByStatus(offlineSyncStatus);
+  Future<List<Enrollment>> getTeiEnrollmentFromOfflineDb({
+    int? page,
+  }) async {
+    return await EnrollmentOfflineProvider().getEnrollmentByStatus(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
-  Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb() async {
+  Future<List<TeiRelationship>> getTeiRelationShipFromOfflineDb({
+    int? page,
+  }) async {
+    return await TeiRelationshipOfflineProvider().getAllTeiRelationShips(
+      offlineSyncStatus,
+      page: page,
+    );
+  }
+
+  Future<int> getOfflineTrackedEntityInstanceCount() async {
+    var count = await TrackedEntityInstanceOfflineProvider()
+        .getTeiCountBySyncStatus(offlineSyncStatus);
+    return count;
+  }
+
+  Future<int> getOfflineRelationshipCount() async {
     return await TeiRelationshipOfflineProvider()
-        .getAllTeiRelationShips(offlineSyncStatus);
-  }
-
-  Future<int> getOfflineEventsCount(CurrentUser currentUser) async {
-    int eventsCount = 0;
-    for (String? orgUnit in currentUser.userOrgUnitIds ?? []) {
-      for (String? program in currentUser.programs ?? []) {
-        int count =
-            await EventOfflineProvider().getOfflineEventCount(program, orgUnit);
-        eventsCount += count;
-      }
-    }
-    return eventsCount;
+        .getRelationshipCountBySyncStatus(offlineSyncStatus);
   }
 
   Future<int> getOfflineEnrollmentCount(CurrentUser currentUser) async {
@@ -379,7 +396,7 @@ class SynchronizationService {
           enrollmentsCount += count;
         }
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return enrollmentsCount;
@@ -406,15 +423,19 @@ class SynchronizationService {
           eventsCount += count;
         }
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return eventsCount;
   }
 
-  Future<List<Events>> getTeiEventsFromOfflineDb() async {
-    return await EventOfflineProvider()
-        .getTrackedEntityInstanceEventsByStatus(offlineSyncStatus);
+  Future<List<Events>> getTeiEventsFromOfflineDb({
+    int? page,
+  }) async {
+    return await EventOfflineProvider().getTrackedEntityInstanceEventsByStatus(
+      offlineSyncStatus,
+      page: page,
+    );
   }
 
   Future<int> getUnsyncedEventsCount() async {
@@ -422,8 +443,146 @@ class SynchronizationService {
         .getEventsCountBySyncStatus(offlineSyncStatus);
   }
 
+  Future<void> initiateBackgroundDataSync(
+    CurrentUser currentUser,
+  ) async {
+    try {
+      var hasUploadedTeiData =
+          await initiateBackgroundTrackedEntityInstanceDataUpload();
+      var hasUploadedEnrollmentData =
+          await initiateBackgroundEnrollmentDataUpload(currentUser);
+      var hasUploadedRelationshipData =
+          await initiateBackgroundTrackedEntityInstanceRelationshipDataUpload();
+      var hasUploadedEventsData =
+          await initiateBackgroundEventDataUpload(currentUser);
+
+      if (hasUploadedTeiData ||
+          hasUploadedEnrollmentData ||
+          hasUploadedRelationshipData ||
+          hasUploadedEventsData) {
+        LocalNotificationService.show(
+          message: "Successfully uploaded the offline data.",
+          title: "Automatic sync finished",
+        );
+      }
+    } catch (error) {
+      LocalNotificationService.show(
+        message:
+            "Failed to upload visits. Check the application logs for more information.",
+        title: "Automatic sync failed",
+      );
+      AppLogs log = AppLogs(
+        type: AppLogsConstants.errorLogType,
+        message: '(initiateBackgroundDataSync): ${error.toString()}',
+      );
+      await AppLogsOfflineProvider().addLogs(log);
+    }
+  }
+
+  Future<bool> initiateBackgroundTrackedEntityInstanceDataUpload() async {
+    try {
+      var teiCount = await getUnsyncedTeiCount();
+      bool hasDataToUpload = teiCount > 0;
+      if (hasDataToUpload) {
+        int totalPages =
+            (teiCount / PaginationConstants.dataUploadPaginationLimit).ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries profile data ${((page / teiCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
+          var teiChunk = await getTeisFromOfflineDb(page: page);
+          await uploadTeisToTheServer(teiChunk);
+        }
+      }
+      return hasDataToUpload;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<bool> initiateBackgroundEnrollmentDataUpload(
+      CurrentUser currentUser) async {
+    try {
+      var enrollmentCount = await getOfflineEnrollmentCount(currentUser);
+      bool hasDataToUpload = enrollmentCount > 0;
+      if (hasDataToUpload) {
+        int totalPages =
+            (enrollmentCount / PaginationConstants.dataUploadPaginationLimit)
+                .ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries enrollment data ${((page / enrollmentCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
+          var enrollmentChunk = await getTeiEnrollmentFromOfflineDb(page: page);
+          await uploadEnrollmentsToTheServer(enrollmentChunk);
+        }
+      }
+
+      return hasDataToUpload;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<bool>
+      initiateBackgroundTrackedEntityInstanceRelationshipDataUpload() async {
+    try {
+      var teiRelationshipCount = await getOfflineRelationshipCount();
+      bool hasDataToUpload = teiRelationshipCount > 0;
+      if (hasDataToUpload) {
+        int totalPages = (teiRelationshipCount /
+                PaginationConstants.dataUploadPaginationLimit)
+            .ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries relationships data ${((page / teiRelationshipCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
+          var teiRelationshipChunk =
+              await getTeiRelationShipFromOfflineDb(page: page);
+          await uploadTeiRelationToTheServer(teiRelationshipChunk);
+        }
+      }
+
+      return hasDataToUpload;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<bool> initiateBackgroundEventDataUpload(
+      CurrentUser currentUser) async {
+    try {
+      var offlineEventCount = await getUnsyncedEventsCount();
+      var hasDataToUpload = offlineEventCount > 0;
+      if (hasDataToUpload) {
+        int totalPages =
+            (offlineEventCount / PaginationConstants.dataUploadPaginationLimit)
+                .ceil();
+        for (int page = 0; page <= totalPages; page++) {
+          LocalNotificationService.show(
+            message:
+                "Uploading Beneficiaries service data ${((page / offlineEventCount) * 100).ceil()}%.",
+            title: "Automatic sync in progress",
+          );
+          var teiEventChunk = await getTeiEventsFromOfflineDb(page: page);
+          await uploadTeiEventsToTheServer(teiEventChunk);
+        }
+      }
+      return hasDataToUpload;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<bool> uploadEnrollmentsToTheServer(
-      List<Enrollment> teiEnrollments, bool isAutoUpload) async {
+    List<Enrollment> teiEnrollments,
+  ) async {
     List<String?>? syncedIds = [];
     String url = 'api/enrollments';
     bool conflictOnImport = false;
@@ -459,10 +618,10 @@ class SynchronizationService {
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
       syncedIds = referenceIds['syncedIds'];
-    } catch (e) {
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: 'uploadEnrollmentsToTheServer: ${e.toString()}');
+          message: 'uploadEnrollmentsToTheServer: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -479,7 +638,8 @@ class SynchronizationService {
   }
 
   Future<bool> uploadTeisToTheServer(
-      List<TrackedEntityInstance> teis, bool isAutoUpload) async {
+    List<TrackedEntityInstance> teis,
+  ) async {
     List<String?>? syncedIds = [];
     String url = 'api/trackedEntityInstances';
     bool conflictOnImport = false;
@@ -513,10 +673,10 @@ class SynchronizationService {
       var referenceIds = await _getReferenceIds(json.decode(response.body));
       syncedIds = referenceIds['syncedIds'];
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
-    } catch (e) {
+    } catch (error) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
-          message: 'uploadTeisToTheServer: ${e.toString()}');
+          message: 'uploadTeisToTheServer: ${error.toString()}');
       await AppLogsOfflineProvider().addLogs(log);
       rethrow;
     }
@@ -532,8 +692,7 @@ class SynchronizationService {
     return conflictOnImport;
   }
 
-  Future<bool> uploadTeiEventsToTheServer(
-      List<Events> teiEvents, bool isAutoUpload,
+  Future<bool> uploadTeiEventsToTheServer(List<Events> teiEvents,
       {bool checkEnrollments = true}) async {
     List<String?>? syncedIds = [];
     String url = 'api/events';
@@ -572,7 +731,6 @@ class SynchronizationService {
       await reUploadBeneficiariesWithUnsyncedServices(
         referenceIds,
         checkEnrollments,
-        isAutoUpload,
         teiEvents,
       );
     } catch (error) {
@@ -596,7 +754,6 @@ class SynchronizationService {
   Future<void> reUploadBeneficiariesWithUnsyncedServices(
     Map referenceIds,
     bool checkEnrollments,
-    bool isAutoUpload,
     List<Events> teiEvents,
   ) async {
     List<String?> unsyncedDueToEnrollment =
@@ -620,21 +777,21 @@ class SynchronizationService {
               unsyncedEventIds.contains(eventData.event ?? ""))
           .toList();
       if (unsyncedTeis.isNotEmpty) {
-        await uploadTeisToTheServer(unsyncedTeis, isAutoUpload);
+        await uploadTeisToTheServer(unsyncedTeis);
       }
       if (unsyncedTeiEnrollments.isNotEmpty) {
-        await uploadEnrollmentsToTheServer(
-            unsyncedTeiEnrollments, isAutoUpload);
+        await uploadEnrollmentsToTheServer(unsyncedTeiEnrollments);
       }
       if (unsyncedTeiEvents.isNotEmpty) {
-        await uploadTeiEventsToTheServer(unsyncedTeiEvents, isAutoUpload,
+        await uploadTeiEventsToTheServer(unsyncedTeiEvents,
             checkEnrollments: false);
       }
     }
   }
 
   Future<bool> uploadTeiRelationToTheServer(
-      List<TeiRelationship> teiRelationShips, bool isAutoUpload) async {
+    List<TeiRelationship> teiRelationShips,
+  ) async {
     Map body = <String, dynamic>{};
     List<String?>? syncedIds = [];
     String url = 'api/relationships';
@@ -657,7 +814,7 @@ class SynchronizationService {
       );
       syncedIds = referenceIds['syncedIds'];
       conflictOnImport = conflictOnImport || referenceIds['conflictOnImport'];
-    } catch (e) {
+    } catch (error) {
       //
     }
     if (syncedIds!.isNotEmpty) {
@@ -683,7 +840,7 @@ class SynchronizationService {
             .replaceAll(RegExp('<h1>'), '')
             .trim();
       }
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return errorMessage;
@@ -720,7 +877,7 @@ class SynchronizationService {
         description = body["message"] ?? responseBody;
       }
       errorMessage = '$status : $description';
-    } catch (e) {
+    } catch (error) {
       rethrow;
     }
     return errorMessage;

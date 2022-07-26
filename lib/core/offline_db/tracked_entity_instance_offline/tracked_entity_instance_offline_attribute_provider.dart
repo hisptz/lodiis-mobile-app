@@ -171,4 +171,17 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       //
     }
   }
+
+  Future<void> reduceDeviceInformationAttributes() async {
+    var deviceInfoId = UserAccountReference.appAndDeviceTrackingAttribute;
+    try {
+      var dbClient = await db;
+      await dbClient!.rawUpdate(
+        'UPDATE $table SET $value = SUBSTR($value, 0, 1190)  WHERE $attribute = ? AND LENGTH($value) > 1199',
+        ['$deviceInfoId'],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

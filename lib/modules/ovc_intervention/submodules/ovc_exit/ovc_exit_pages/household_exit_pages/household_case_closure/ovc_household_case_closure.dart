@@ -53,12 +53,21 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCaseClosure.getFormSections();
+    setFromSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
       });
     });
+  }
+
+  setFromSection() {
+    OvcHousehold? household =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
+    formSections = OvcExitCaseClosure.getFormSections(
+      firstDate: household!.createdDate!,
+    );
   }
 
   void clearFormAutoSaveState(

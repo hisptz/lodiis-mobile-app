@@ -13,8 +13,6 @@ import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/int
 import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/constants/interventions_records_page_tabs.dart';
-import 'package:kb_mobile_app/core/services/auto_synchronization_service.dart';
-import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/device_connectivity_provider.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -53,7 +51,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
   TabController? tabController;
   late List<Widget> tabsItems = [];
   late List<Widget> tabsViews = [];
-  int syncTimeout = AutoSynchronization.syncTimeout;
+  int syncInterval = AutoSynchronization.syncInterval;
 
   @override
   void initState() {
@@ -64,15 +62,13 @@ class _DreamsInterventionState extends State<DreamsIntervention>
         setTabsController();
       });
     });
-    DataQualityService.runDataQualityCheckResolution();
     connectionSubscription = DeviceConnectivityProvider()
         .checkChangeOfDeviceConnectionStatus(context);
     checkAppVersion();
     periodicTimer =
-        Timer.periodic(Duration(minutes: syncTimeout), (Timer timer) {
+        Timer.periodic(Duration(minutes: syncInterval), (Timer timer) {
       Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
-      AutoSynchronizationService().startAutoUpload(context);
     });
   }
 

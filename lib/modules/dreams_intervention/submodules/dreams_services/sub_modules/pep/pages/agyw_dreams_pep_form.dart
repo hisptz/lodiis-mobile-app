@@ -68,7 +68,9 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsPEPInfo.getFormSections();
+    defaultFormSections = DreamsPEPInfo.getFormSections(
+      firstDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {

@@ -42,7 +42,6 @@ class AgywEnrollmentFormSection {
       'NP7LbypO3li',
       'ZcfLYz7JlVo',
       'H2Az2c3MeAy',
-      'VJiWumvINR6'
     ];
   }
 
@@ -137,75 +136,6 @@ class AgywEnrollmentFormSection {
               name: 'Comments/Notes',
               translatedName: 'Tlhakiso',
               valueType: 'LONG_TEXT',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-        ],
-      ),
-      FormSection(
-        name: 'Enrolled Profile Information',
-        color: const Color(0xFF258DCC),
-        inputFields: [
-          InputField(
-            id: 'VJiWumvINR6',
-            name: 'Sex',
-            translatedName: 'Boleng',
-            valueType: 'TEXT',
-            isReadOnly: true,
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female'),
-              InputFieldOption(
-                  code: 'Transgender (male to female)',
-                  name: 'Transgender (male to female)'),
-              InputFieldOption(
-                  code: 'Transgender (female to male)',
-                  name: 'Transgender (female to male)'),
-            ],
-          ),
-          InputField(
-              id: 'dQPw7EzqJP6',
-              name: 'Land mark near residence',
-              translatedName: 'Sebaka se tsejoang haufi',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-            id: 'iS9mAp3jDaU',
-            name: 'Relationship to Caregiver',
-            translatedName: 'Kamano le mohlokomeli',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                  code: 'Biological mother', name: 'Biological mother'),
-              InputFieldOption(
-                  code: 'Biological father', name: 'Biological father'),
-              InputFieldOption(
-                  code: 'Aunt/Uncle',
-                  name: 'Aunt/Uncle',
-                  translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane'),
-              InputFieldOption(
-                  code: 'Sibling',
-                  name: 'Sibling',
-                  translatedName: 'Ke ngoaneso'),
-              InputFieldOption(
-                  code: 'Grandparent',
-                  name: 'Grandparent',
-                  translatedName: 'Ke Nkhono/Ntate-moholo'),
-              InputFieldOption(
-                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane'),
-              InputFieldOption(
-                  code: 'Other', name: 'Other', translatedName: 'Tse ling')
-            ],
-          ),
-          InputField(
-              id: 'nuka3TRVCnJ',
-              name: 'Other relationship to caregiver',
-              translatedName: 'Tse ling (hlalosa)',
-              valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
         ],

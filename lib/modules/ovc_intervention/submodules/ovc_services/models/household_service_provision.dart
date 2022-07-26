@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class HouseholdServiceProvision {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           id: 'Health',
@@ -25,6 +27,7 @@ class HouseholdServiceProvision {
                 name: 'HTS Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HTS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -47,6 +50,7 @@ class HouseholdServiceProvision {
                 name: 'HIVTREAT Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -70,6 +74,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D/HIV Messaging',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -100,6 +105,7 @@ class HouseholdServiceProvision {
                 name: 'HEALTH Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HEALTH',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -121,6 +127,7 @@ class HouseholdServiceProvision {
                 name: 'PRG&L Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PRG&L',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -143,6 +150,7 @@ class HouseholdServiceProvision {
                 name: 'SAIDS Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SAIDS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -165,6 +173,7 @@ class HouseholdServiceProvision {
                 name: 'WASHMES Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa WASHMES',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -187,6 +196,7 @@ class HouseholdServiceProvision {
                 name: 'SOACKAGE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SOACKAGE',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -209,6 +219,7 @@ class HouseholdServiceProvision {
                 name: 'TIPPY Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa TIPPY',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -247,6 +258,7 @@ class HouseholdServiceProvision {
                 name: 'SILC Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SILC',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -277,6 +289,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa Financial Education',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -308,6 +321,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa EST COOPRTVS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -332,6 +346,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa FUNCT COOPRTVS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -356,6 +371,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa MARKT COOPRTVS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -378,6 +394,7 @@ class HouseholdServiceProvision {
                 name: 'K/TPLOTS Service Provision Date',
                 // translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa K/TPLOTS',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -408,6 +425,7 @@ class HouseholdServiceProvision {
                 name: 'P&FC Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa P&FC',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -438,6 +456,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa VAC/VAC Messaging',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -469,6 +488,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa VAC Legal Messaging',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -499,6 +519,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa Survivors of Abuse',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -528,6 +549,7 @@ class HouseholdServiceProvision {
                 name: 'COUNSEL Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa COUNSEL',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -557,6 +579,7 @@ class HouseholdServiceProvision {
                 name: 'ABUSE Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa ABUSE',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -617,6 +640,7 @@ class HouseholdServiceProvision {
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa BIRTHCERT',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -654,6 +678,7 @@ class HouseholdServiceProvision {
                 name: 'PTS4G Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PTS4G',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -683,6 +708,7 @@ class HouseholdServiceProvision {
                 name: 'PTS4NG Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PTS4NG',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -712,6 +738,7 @@ class HouseholdServiceProvision {
                 name: 'HWCLUB Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HWCLUB',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -745,6 +772,7 @@ class HouseholdServiceProvision {
                 id: 'x5VlMVD2a4E',
                 name: 'OTHER ACTIVITIES Service Provision Date',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(

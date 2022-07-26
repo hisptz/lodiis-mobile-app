@@ -1,6 +1,9 @@
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
@@ -16,38 +19,57 @@ class OvcEnrollmentChildService {
   Future savingChildrenEnrollmentForms(
     String? parentTrackedEntityInstance,
     String? orgUnit,
-    List<Map?> childrenObjects,
+    List<Map> childrenObjects,
     String? enrollmentDate,
     String? incidentDate,
     bool shouldEnroll,
     List<String> hiddenFields,
   ) async {
+    CurrentUser? user = await UserService().getCurrentUser();
     hiddenFields = hiddenFields;
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     inputFieldIds.addAll(hiddenFields);
+    inputFieldIds.addAll([
+      UserAccountReference.implementingPartnerAttribute,
+      UserAccountReference.serviceProviderAtttribute,
+      UserAccountReference.subImplementingPartnerAttribute
+    ]);
     List childTeiReferences = [];
-    for (Map? dataObject in childrenObjects) {
+    for (Map dataObject in childrenObjects) {
+      dataObject[UserAccountReference.implementingPartnerAttribute] =
+          dataObject[UserAccountReference.implementingPartnerAttribute] ??
+              user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderAtttribute] =
+          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+              user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject[UserAccountReference.subImplementingPartnerAttribute] =
+            dataObject[UserAccountReference.subImplementingPartnerAttribute] ??
+                user.subImplementingPartner;
+      }
       String trackedEntityInstance =
-          dataObject!['trackedEntityInstance'] ?? AppUtil.getUid();
+          dataObject['trackedEntityInstance'] ?? AppUtil.getUid();
       String? enrollment = dataObject['enrollment'];
       childTeiReferences.add(trackedEntityInstance);
       TrackedEntityInstance trackedEntityInstanceData =
           await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
-              trackedEntityInstance,
-              trackedEntityType,
-              orgUnit,
-              inputFieldIds,
-              dataObject,
-              hasBeneficiaryId: false);
+        trackedEntityInstance,
+        trackedEntityType,
+        orgUnit,
+        inputFieldIds,
+        dataObject,
+        hasBeneficiaryId: false,
+      );
       await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
       Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-          enrollment,
-          enrollmentDate,
-          incidentDate,
-          orgUnit,
-          program,
-          trackedEntityInstance,
-          dataObject);
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+        orgUnit,
+        program,
+        trackedEntityInstance,
+        dataObject,
+      );
       await FormUtil.savingEnrollment(enrollmentData);
     }
     for (String childTeiReference in childTeiReferences) {

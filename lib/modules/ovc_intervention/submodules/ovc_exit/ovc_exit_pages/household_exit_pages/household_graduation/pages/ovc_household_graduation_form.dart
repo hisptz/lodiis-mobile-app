@@ -47,13 +47,22 @@ class _OvcHouseholdGraduationFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCasePlanGraduationFormInfo.getFormSections();
+    setFromSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  setFromSection() {
+    OvcHousehold? household =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
+    formSections = OvcExitCasePlanGraduationFormInfo.getFormSections(
+      firstDate: household!.createdDate!,
+    );
   }
 
   evaluateSkipLogics() {

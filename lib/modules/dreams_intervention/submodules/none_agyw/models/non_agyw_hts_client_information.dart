@@ -13,7 +13,8 @@ class NonAgywHTSClientInformation {
       'rSP9c21JsfC',
       'qZP982qpSPS',
       'vIX4GTSCX4P',
-      'vkd6o91n1IC'
+      'vkd6o91n1IC',
+      'RB8Wx75hGa4'
     ];
   }
 

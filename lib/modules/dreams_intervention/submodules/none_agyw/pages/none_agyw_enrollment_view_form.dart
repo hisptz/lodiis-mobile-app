@@ -30,11 +30,9 @@ class _NoneAgywEnrollmentViewFormState
     extends State<NoneAgywEnrollmentViewForm> {
   List<FormSection>? formSections;
   late List<FormSection> prepScreeningFormSections;
-  // List<FormSection> enrollmentClientIntakeFormSections;
   late List<FormSection> htsConsentFormSections;
   late List<FormSection> htsClientInformationFormSections;
   late List<FormSection> htsRegisterFormSections;
-  // List<FormSection> htsConsentForReleaseFormSections;
 
   final String label = 'None Agyw Enrolment Form';
   bool isFormReady = false;

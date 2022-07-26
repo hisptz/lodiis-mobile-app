@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/services/implementing_partner_referral_config
 import 'package:kb_mobile_app/core/services/language_selection_service.dart';
 import 'package:kb_mobile_app/core/services/user_access.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/services/workmanager_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/intervention_selection.dart';
@@ -34,6 +35,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+    WorkmanagerService.startTasks();
     AppUtil.setStatusBarColor(CustomColor.defaultPrimaryColor);
     checkingLanguageSelectionAndCurrentUser();
   }

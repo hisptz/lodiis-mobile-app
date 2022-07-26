@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcEnrollmentHousehold {
   static List<String> getMandatoryField() {
-    return [];
+    return ["RB8Wx75hGa4"];
   }
 
   static List<String> getHiddenField() {

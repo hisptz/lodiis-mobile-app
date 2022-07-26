@@ -51,10 +51,12 @@ class ServiceFormContainer extends StatelessWidget {
         gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
             AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
-        ? OvcHouseholdServicesCasePlanGaps.getFormSections()
+        ? OvcHouseholdServicesCasePlanGaps.getFormSections(
+                firstDate: dataObject['eventDate'])
             .where((FormSection form) => form.id == formSection.id)
             .toList()
-        : OvcServicesChildCasePlanGap.getFormSections()
+        : OvcServicesChildCasePlanGap.getFormSections(
+                firstDate: dataObject['eventDate'])
             .where((FormSection form) => form.id == formSection.id)
             .toList();
     formSections = formSections.map((FormSection form) {
