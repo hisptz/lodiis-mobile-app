@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/components/dreams_outgoing_referrals_outcome.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/components/agyw_dreams_outgoing_referrals_outcome.dart';
 import 'package:provider/provider.dart';
 import 'pages/dream_referral_page_home.dart';
 
@@ -75,7 +75,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
 
     AppUtil.showActionSheetModal(
         context: context,
-        containerBody: DreamsOutgoingReferralsOutcome(
+        containerBody: AgywDreamsOutgoingReferralsOutcome(
           agywList: agywList,
           isIncomingReferral: isIncomingReferral,
         ),

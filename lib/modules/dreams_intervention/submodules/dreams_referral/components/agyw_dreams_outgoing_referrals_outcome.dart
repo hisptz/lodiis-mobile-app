@@ -9,8 +9,8 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_page_home.dart';
 import 'package:provider/provider.dart';
 
-class DreamsOutgoingReferralsOutcome extends StatefulWidget {
-  const DreamsOutgoingReferralsOutcome({
+class AgywDreamsOutgoingReferralsOutcome extends StatefulWidget {
+  const AgywDreamsOutgoingReferralsOutcome({
     Key? key,
     required this.agywList,
     required this.isIncomingReferral,
@@ -19,12 +19,12 @@ class DreamsOutgoingReferralsOutcome extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _DreamsOutgoingReferralsOutcomeState createState() =>
-      _DreamsOutgoingReferralsOutcomeState();
+  _AgywDreamsOutgoingReferralsOutcomeState createState() =>
+      _AgywDreamsOutgoingReferralsOutcomeState();
 }
 
-class _DreamsOutgoingReferralsOutcomeState
-    extends State<DreamsOutgoingReferralsOutcome> {
+class _AgywDreamsOutgoingReferralsOutcomeState
+    extends State<AgywDreamsOutgoingReferralsOutcome> {
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
   String searchedValue = '';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_follow_up.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_following_up_modal.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_follow_up.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_following_up_modal.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';

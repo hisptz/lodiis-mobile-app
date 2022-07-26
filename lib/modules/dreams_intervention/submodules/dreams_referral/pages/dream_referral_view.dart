@@ -3,8 +3,8 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_cu
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_detailed_card.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_card.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_detailed_card.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/events.dart';
