@@ -8,8 +8,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_body_summary.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_summary.dart';
+import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
@@ -182,56 +181,17 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                   horizontal: 13.0,
                                                 ),
                                                 child: Column(
-                                                  children: events
-                                                      .map((Events eventData) {
+                                                  children: events.map((Events
+                                                      referralEventData) {
                                                     int count = referralIndex--;
-                                                    return Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                        bottom: 15.0,
-                                                      ),
-                                                      child:
-                                                          ReferralCardSummary(
-                                                        borderColor:
-                                                            const Color(
-                                                          0xFFE9F4FA,
-                                                        ),
-                                                        buttonLabelColor:
-                                                            const Color(
-                                                          0xFF1F8ECE,
-                                                        ),
-                                                        titleColor: const Color(
-                                                          0xFF05131B,
-                                                        ),
-                                                        count: count,
-                                                        cardBody:
-                                                            ReferralCardBodySummary(
-                                                          isIncomingReferral: widget
-                                                              .isIncomingReferral,
-                                                          labelColor:
-                                                              const Color(
-                                                            0XFF82898D,
-                                                          ),
-                                                          valueColor:
-                                                              const Color(
-                                                            0XFF444E54,
-                                                          ),
-                                                          referralEvent:
-                                                              eventData,
-                                                        ),
-                                                        onView: () =>
-                                                            onViewReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
-                                                        onManage: () =>
-                                                            onManageReferral(
-                                                          context,
-                                                          eventData,
-                                                          count,
-                                                        ),
-                                                      ),
+                                                    return BeneficiaryRefereralCardContainer(
+                                                      referralIndex: count,
+                                                      themeColor:
+                                                          AgywDreamsCommonConstant
+                                                              .defaultColor,
+                                                      referralEventData:
+                                                          referralEventData,
+                                                      isOvcIntervention: false,
                                                     );
                                                   }).toList(),
                                                 ),
