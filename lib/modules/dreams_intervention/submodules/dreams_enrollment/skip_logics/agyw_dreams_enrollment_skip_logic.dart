@@ -109,7 +109,12 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenFields['Z7PTcgqwCLu'] = true;
         }
       }
-
+        if (inputFieldId == 'NrYoz8RewxV' && value != '') {
+           assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
+        }
+        if(hiddenFields == 'zowQOCZivv8' &&  value == 'true'){
+             assignInputFieldValue(context, 'iIdrEpTkpsk','true' );
+        }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
@@ -143,10 +148,12 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'rsi08hlOFm8') {
         if (value == 'true') {
           assignInputFieldValue(context, 'HJIHPjOf5s1', 'true');
+          assignInputFieldValue(context, 'QaIUtFdgdIa', 'true');
         } else {
           hiddenFields['yU4tNjFpQIq'] = true;
           hiddenFields['zsivYH5qkho'] = true;
           assignInputFieldValue(context, 'HJIHPjOf5s1', '');
+          assignInputFieldValue(context, 'QaIUtFdgdIa', 'false');
         }
       }
       if (inputFieldId == 'fSQY2z3L0lp' && value != 'true') {
@@ -160,6 +167,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['XYPRtYgQUF8'] = true;
         hiddenFields['SuB4oeLyzZ0'] = true;
         hiddenFields['GDrEW22l54i'] = true;
+        hiddenFields['GwVHeyOqTv2']=true;
         hiddenSections['E_M_4_S_A'] = true;
         hiddenSections['4_N_O_I_C_U'] = true;
         hiddenSections['2_H_O_P'] = true;
