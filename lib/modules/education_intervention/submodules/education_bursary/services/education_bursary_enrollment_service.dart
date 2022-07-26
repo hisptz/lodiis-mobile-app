@@ -139,8 +139,10 @@ class EducationBursaryEnrollmentService {
   }
 
   Future<List<NoneParticipationBeneficiary>>
-      getBursaryWithoutVulnerabilityCriteria(
-          {page, String searchableValue = ''}) async {
+      getBursaryWithoutVulnerabilityCriteria({
+    page,
+    String searchableValue = '',
+  }) async {
     String programId = BursaryWithoutEnrollmentCriteriaConstant.program;
     String programStageId =
         BursaryWithoutEnrollmentCriteriaConstant.programStage;
@@ -170,7 +172,7 @@ class EducationBursaryEnrollmentService {
   }
 
   Future saveBursaryWithoutVulnerabilityCriteria(
-      List<FormSection> formSections, Map dataObject, String eventId) async {
+      List<FormSection> formSections, Map dataObject, String? eventId) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
