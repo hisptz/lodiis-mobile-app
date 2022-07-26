@@ -140,6 +140,10 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                 builder: (context, referralNotificationState, child) {
                   return Consumer<ServiceEventDataState>(
                     builder: (context, serviceEventDataState, child) {
+                      bool isIncomingReferral =
+                          interventionBottomNavigationState
+                                  .currentInterventionBottomNavigationId ==
+                              'incomingReferral';
                       bool isLoading = serviceEventDataState.isLoading;
                       AgywDream? agywDream = dreamAgywState.currentAgywDream;
                       List<Events> events = AgywDreamsReferralUtil
@@ -186,21 +190,42 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                     int count = referralIndex--;
                                                     return BeneficiaryRefereralCardContainer(
                                                       referralIndex: count,
+                                                      titleColor:
+                                                          AgywDreamsCommonConstant
+                                                              .referralCardTitleColor,
+                                                      labelColor:
+                                                          AgywDreamsCommonConstant
+                                                              .referralCardLabelColor,
+                                                      valueColor:
+                                                          AgywDreamsCommonConstant
+                                                              .referralCardValueColor,
                                                       themeColor:
                                                           AgywDreamsCommonConstant
                                                               .defaultColor,
                                                       referralEventData:
                                                           referralEventData,
+                                                      isIncomingReferral:
+                                                          isIncomingReferral,
                                                       isOvcIntervention: false,
+                                                      onManage: () =>
+                                                          onManageReferral(
+                                                        context,
+                                                        referralEventData,
+                                                        count,
+                                                      ),
+                                                      onView: () =>
+                                                          onViewReferral(
+                                                        context,
+                                                        referralEventData,
+                                                        count,
+                                                      ),
                                                     );
                                                   }).toList(),
                                                 ),
                                               ),
                                       ),
                                       Visibility(
-                                        visible: interventionBottomNavigationState
-                                                .currentInterventionBottomNavigationId !=
-                                            'incomingReferral',
+                                        visible: !isIncomingReferral,
                                         child: EntryFormSaveButton(
                                           label: 'ADD REFERRAL',
                                           labelColor: Colors.white,
