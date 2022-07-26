@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 import 'package:provider/provider.dart';
 import 'pages/dream_referral_page_home.dart';
 
@@ -119,7 +120,7 @@ class _DreamsIncomingReferralPageState
                           style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,
-                            color: const Color(0xFF1F8ECE),
+                            color: AgywDreamsCommonConstant.defaultColor,
                           ),
                         ),
                       )

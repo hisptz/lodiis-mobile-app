@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_enrollment_service.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/components/dreams_outgoing_referrals_outcome.dart';
 import 'package:provider/provider.dart';
@@ -171,7 +172,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
                           style: const TextStyle().copyWith(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,
-                            color: const Color(0xFF1F8ECE),
+                            color: AgywDreamsCommonConstant.defaultColor,
                           ),
                         ),
                       )

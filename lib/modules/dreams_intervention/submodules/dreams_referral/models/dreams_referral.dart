@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 
 class DreamsReferral {
   static List<String> getMandatoryFields() {
@@ -22,7 +23,7 @@ class DreamsReferral {
                     id: 'qAed23reDPP',
                     name: 'Services Referred for at',
                     valueType: 'TEXT',
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                     options: [
                       InputFieldOption(code: 'Facility', name: 'Facility'),
@@ -32,7 +33,7 @@ class DreamsReferral {
                     id: 'y0bvausyTyh',
                     name: 'Implementing partner',
                     valueType: 'TEXT',
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                     options: [
                       InputFieldOption(code: 'EGPAF', name: 'EGPAF'),
@@ -52,7 +53,7 @@ class DreamsReferral {
                       id: 'LLWTHwhnch0',
                       name: 'Service Category at community',
                       valueType: 'TEXT',
-                      inputColor: const Color(0xFF1F8ECE),
+                      inputColor: AgywDreamsCommonConstant.defaultColor,
                       labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
@@ -68,7 +69,7 @@ class DreamsReferral {
                       id: 'rsh5Kvx6qAU',
                       name: 'Type of service at community',
                       valueType: 'TEXT',
-                      inputColor: const Color(0xFF1F8ECE),
+                      inputColor: AgywDreamsCommonConstant.defaultColor,
                       labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
@@ -175,14 +176,14 @@ class DreamsReferral {
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
                     allowedSelectedLevels: [3, 4],
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
                   InputField(
                     id: 'WHktsYoFqat',
                     name: 'Comments on referral at community',
                     valueType: 'LONG_TEXT',
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
                 ]),
@@ -195,7 +196,7 @@ class DreamsReferral {
                       id: 'AuCryxQYmrk',
                       name: 'Service Category at facility',
                       valueType: 'TEXT',
-                      inputColor: const Color(0xFF1F8ECE),
+                      inputColor: AgywDreamsCommonConstant.defaultColor,
                       labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
@@ -211,7 +212,7 @@ class DreamsReferral {
                       id: 'OrC9Bh2bcFz',
                       name: 'Type of service at facility',
                       valueType: 'TEXT',
-                      inputColor: const Color(0xFF1F8ECE),
+                      inputColor: AgywDreamsCommonConstant.defaultColor,
                       labelColor: const Color(0xFF737373),
                       options: [
                         InputFieldOption(
@@ -317,14 +318,14 @@ class DreamsReferral {
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
                     allowedSelectedLevels: [3, 4],
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
                   InputField(
                     id: 'iifSkIcBZz2',
                     name: 'Comments on referral at facility',
                     valueType: 'LONG_TEXT',
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
                 ]),
@@ -336,14 +337,14 @@ class DreamsReferral {
                     id: 'tRvDAZxam3P',
                     name: 'Name of next of kin',
                     valueType: 'TEXT',
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
                   InputField(
                     id: 'qCu2f4kEfzW',
                     name: 'Phone Number of next of kin',
                     valueType: 'PHONE_NUMBER',
-                    inputColor: const Color(0xFF1F8ECE),
+                    inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
                 ])
