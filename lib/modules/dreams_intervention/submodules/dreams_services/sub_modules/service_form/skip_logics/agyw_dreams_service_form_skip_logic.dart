@@ -38,8 +38,9 @@ class AgywDreamsServiceFormSkipLogic {
     if (agywDreamAge < 10 || agywDreamAge > 19) {
       hiddenOptions['LBSE'] = true;
     }
-    if (agywDreamAge < 10) {
+    if (agywDreamAge < 10 || agywDreamAge > 24) {
       hiddenOptions['FinancialLiteracyEducation'] = true;
+      hiddenOptions['ViolencePreventionEducation'] = true;
     }
     if (agywDreamAge < 18) {
       hiddenOptions['Go Girls'] = true;
