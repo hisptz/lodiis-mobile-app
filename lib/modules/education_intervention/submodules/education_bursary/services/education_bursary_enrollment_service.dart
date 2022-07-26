@@ -170,7 +170,7 @@ class EducationBursaryEnrollmentService {
   }
 
   Future saveBursaryWithoutVulnerabilityCriteria(
-      List<FormSection> formSections, Map dataObject, String eventId) async {
+      List<FormSection> formSections, Map dataObject, String? eventId) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );

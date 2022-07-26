@@ -251,7 +251,8 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Service",
+                                                  visitName: eventData
+                                                      .getServiceFormEventLabel(),
                                                   onEdit: () => onEditService(
                                                       context,
                                                       eventData,
@@ -263,7 +264,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                     agywDream!,
                                                   ),
                                                   eventData: eventData,
-                                                  visitCount: serviceIndex,
+                                                  // visitCount: serviceIndex,
                                                 ),
                                               );
                                             }).toList(),
