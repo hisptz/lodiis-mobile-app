@@ -63,7 +63,7 @@ class BeneficiaryRefereralCardButton extends StatelessWidget {
               ),
               _getButtonContainer(
                 label: 'MANAGE',
-                onTap: onView,
+                onTap: onManage,
               ),
             ],
           ),
