@@ -76,7 +76,6 @@ class _NumericalInputFieldContainerState
 inputFormatters: [
       FilteringTextInputFormatter.allow(widget.inputField.numericRegexValidation??RegExp(r'[0-9.]')),
       LengthLimitingTextInputFormatter(widget.inputField.limitingNumericLength??1),
-
   ],            controller: widget.inputField.isReadOnly!
                 ? TextEditingController(
                     text: widget.inputValue,
