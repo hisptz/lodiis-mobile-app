@@ -140,10 +140,6 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                 builder: (context, referralNotificationState, child) {
                   return Consumer<ServiceEventDataState>(
                     builder: (context, serviceEventDataState, child) {
-                      bool isIncomingReferral =
-                          interventionBottomNavigationState
-                                  .currentInterventionBottomNavigationId ==
-                              'incomingReferral';
                       bool isLoading = serviceEventDataState.isLoading;
                       AgywDream? agywDream = dreamAgywState.currentAgywDream;
                       List<Events> events = AgywDreamsReferralUtil
@@ -204,8 +200,8 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                               .defaultColor,
                                                       referralEventData:
                                                           referralEventData,
-                                                      isIncomingReferral:
-                                                          isIncomingReferral,
+                                                      isIncomingReferral: widget
+                                                          .isIncomingReferral,
                                                       isOvcIntervention: false,
                                                       onManage: () =>
                                                           onManageReferral(
@@ -225,7 +221,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                               ),
                                       ),
                                       Visibility(
-                                        visible: !isIncomingReferral,
+                                        visible: !widget.isIncomingReferral,
                                         child: EntryFormSaveButton(
                                           label: 'ADD REFERRAL',
                                           labelColor: Colors.white,
