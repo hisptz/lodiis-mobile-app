@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -50,6 +51,8 @@ class _NumericalInputFieldContainerState
     widget.onInputValueChange(sanitizedValue.trim());
   }
 
+
+
   @override
   void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
@@ -70,7 +73,11 @@ class _NumericalInputFieldContainerState
         Expanded(
           child: TextFormField(
             readOnly: widget.inputField.isReadOnly!,
-            controller: widget.inputField.isReadOnly!
+inputFormatters: [
+      FilteringTextInputFormatter.allow(widget.inputField.numericRegexValidation??RegExp(r'[0-9.]')),
+      LengthLimitingTextInputFormatter(widget.inputField.limitingNumericLength??1),
+
+  ],            controller: widget.inputField.isReadOnly!
                 ? TextEditingController(
                     text: widget.inputValue,
                   )

@@ -18,7 +18,6 @@ class AgywDreamsEnrollmentSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
-
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     Map hiddenOptions = {};
     for (var key in dataObject.keys) {
@@ -438,7 +437,12 @@ class AgywDreamsEnrollmentSkipLogic {
           assignInputFieldValue(context, 'p33MrrhsQRz', '');
         }
       }
+
+      if(['B4ojlzKypUF','HJIHPjOf5s1','bApA6X6TVvJ','yc3BlUIEup3','p33MrrhsQRz'].contains(inputFieldId)){
+        
+  }
     }
+    
     // for enrollment module 6 questions
     if ("${dataObject['i32OwNqUYRn']}" != 'true' &&
         "${dataObject['NgIDtgfZMVH']}" != 'true' &&

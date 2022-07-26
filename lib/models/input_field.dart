@@ -31,6 +31,8 @@ class InputField {
   bool? hasLabelOnly;
   InputField? subInputField;
   List<int>? allowedSelectedLevels;
+  RegExp? numericRegexValidation ;
+  int? limitingNumericLength;
   List<String>? filteredPrograms;
 
   InputField({
@@ -64,6 +66,8 @@ class InputField {
     this.shouldUserCustomAgeLimit,
     this.showCountryLevelTree,
     this.hasLabelOnly,
+    this.numericRegexValidation,
+    this.limitingNumericLength
   }) {
     showCountryLevelTree = showCountryLevelTree ?? false;
     hasLabelOnly = hasLabelOnly ?? false;
