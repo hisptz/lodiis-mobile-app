@@ -34,7 +34,7 @@ class AgywDreamsPrep extends StatefulWidget {
 }
 
 class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
-  final String label = 'AGYW PrEP';
+  final String label = 'PrEP';
   List<String> programStageIds = [PrepIntakeConstant.programStage];
   List<String> visitProgramStageIds = [
     PrepIntakeConstant.prepVisitProgramStage
@@ -368,7 +368,7 @@ class _AgywDreamsPrepState extends State<AgywDreamsPrep> {
                                                               events, visits) ==
                                                           false
                                                   ? EntryFormSaveButton(
-                                                      label: 'ADD VISIT',
+                                                      label: 'ADD PrEP VISIT',
                                                       labelColor: Colors.white,
                                                       buttonColor: const Color(
                                                           0xFF1F8ECE),
