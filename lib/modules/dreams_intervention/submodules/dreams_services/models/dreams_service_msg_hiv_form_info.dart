@@ -21,8 +21,8 @@ class DreamsMsgHivInfo {
             ),
             InputField(
               id: 'qFwm4RM45gi',
-              name: 'HIV Messaging',
-              valueType: 'TRUE_ONLY',
+              name: 'HIV Risk Assessment',
+              valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),

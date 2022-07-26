@@ -20,7 +20,7 @@ class DreamsANCInfo {
         InputField(
           id: 'irtbsom4W8P',
           name: 'ANC',
-          valueType: 'TRUE_ONLY',
+          valueType: 'BOOLEAN',
           inputColor: const Color(0xFF258DCC),
           labelColor: const Color(0xFF737373),
         ),

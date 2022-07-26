@@ -20,8 +20,8 @@ class DreamsCondomsForm {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'uciT2F6ByYO',
-                name: 'Contraceptives (Condoms)',
-                valueType: 'TRUE_ONLY',
+                name: 'Condom Education/Provision',
+                valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
