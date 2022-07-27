@@ -22,7 +22,7 @@ class DreamsContraceptivesForm {
             InputField(
               id: 'uciT2F6ByYO',
               name: 'Contraceptives',
-              valueType: 'TRUE_ONLY',
+              valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),

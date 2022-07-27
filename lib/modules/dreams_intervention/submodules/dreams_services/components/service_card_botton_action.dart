@@ -114,7 +114,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'PREP',
+                                  'PrEP',
                                   style: const TextStyle().copyWith(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
@@ -149,7 +149,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'HIV Messaging',
+                                  'HIV Risk Assessment',
                                   style: const TextStyle().copyWith(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
@@ -184,7 +184,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'CONDOMS',
+                                  'Condom Education/Provision',
                                   style: const TextStyle().copyWith(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,

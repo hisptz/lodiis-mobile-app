@@ -50,10 +50,10 @@ class ServiceEvent {
       return '(SAB) Social Assets Building';
     } else if (interventionType == 'SILC' ||
         interventionType == 'SAVING GROUP' ||
-        interventionType == 'FINANCIAL EDUCATION') {
+        interventionType == 'FinancialLiteracyEducation') {
       return '(ES) Economic Strengthening';
     } else if (interventionType == 'STEPPING STONES' ||
-        interventionType == 'IPC' ||
+        interventionType == 'CondomEducationProvision' ||
         interventionType == 'LBSE') {
       return 'HIV & VIOLENCE PREVENTION';
     } else if (interventionType == 'PARENTING') {

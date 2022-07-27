@@ -38,7 +38,7 @@ class AgywDreamHIVMessageForm extends StatefulWidget {
 }
 
 class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
-  final String label = 'MSG HIV form';
+  final String label = 'HIV Risk Assessment form';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;

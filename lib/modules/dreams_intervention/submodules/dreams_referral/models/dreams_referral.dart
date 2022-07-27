@@ -59,10 +59,14 @@ class DreamsReferral {
                             code: 'Clinical Services',
                             name: 'Clinical Services'),
                         InputFieldOption(
-                            code: 'Post abuse case management',
-                            name: 'Post abuse case management'),
+                            code: 'GenderBasedViolence',
+                            name: 'Gender Based Violence'),
                         InputFieldOption(
-                            code: 'Social Services', name: 'Social Services'),
+                            code: 'EconomicStrengtheningActivities',
+                            name: 'Economic Strengthening Activities'),
+                        InputFieldOption(
+                            code: 'LifeSkillSocialAssetServices',
+                            name: 'Life-skill & Social Asset Services'),
                       ]),
                   InputField(
                       id: 'rsh5Kvx6qAU',
@@ -76,19 +80,7 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'STI Treatment', name: 'STI Treatment'),
                         InputFieldOption(
-                            code: 'HIV Testing and counselling',
-                            name: 'HIV Testing and counselling'),
-                        InputFieldOption(
-                            code: 'Evaluation for ARVs/HAART',
-                            name: 'Evaluation for ARVs/HAART'),
-                        InputFieldOption(
-                            code: 'PostAbuseCaseManagement',
-                            name: 'Post abuse case management'),
-                        InputFieldOption(
-                            code: 'ART and Adherence',
-                            name: 'ART and Adherence'),
-                        // InputFieldOption(
-                        //     code: 'PMTCT Services', name: 'PMTCT Services'),
+                            code: 'ARTInitiation', name: 'ART Initiation'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
                             name: 'Cervical Cancer Screening'),
@@ -96,67 +88,53 @@ class DreamsReferral {
                             code: 'FamilyPlanningSRH',
                             name: 'Family planning/SRH'),
                         InputFieldOption(
-                            code: 'Condom supply', name: 'Condom supply'),
+                            code: 'CondomEducationProvision',
+                            name: 'Condom Education/Provision'),
+                        InputFieldOption(
+                            code: 'ViolencePreventionEducation',
+                            name: 'Violence Prevention Education'),
+                        InputFieldOption(
+                            code: 'ComprehensiveEconomicStrengthening',
+                            name: 'Comprehensive Economic Strengthening'),
+                        InputFieldOption(
+                            code: 'HIVPreventionEducation',
+                            name: 'HIV Prevention Education'),
+                        InputFieldOption(
+                            code: 'ParentingPregBreastfeeding',
+                            name: 'Parenting (Preg & Breastfeeding)'),
+                        InputFieldOption(
+                            code: 'EducationSubsidiesSupport',
+                            name: 'Education Subsidies/support'),
                         InputFieldOption(
                             code: 'TB screening', name: 'TB screening'),
-                        InputFieldOption(
-                            code: 'TB treatment', name: 'TB treatment'),
                         InputFieldOption(code: 'HTS', name: 'HTS'),
                         InputFieldOption(code: 'ANC', name: 'ANC'),
-                        InputFieldOption(code: 'PrEP/PEP', name: 'PrEP/PEP'),
-                        InputFieldOption(code: 'PMTCT', name: 'PMTCT'),
+                        InputFieldOption(code: 'PrEP', name: 'PrEP'),
+                        InputFieldOption(code: 'EMTCT', name: 'EMTCT'),
                         InputFieldOption(
                             code: 'Treatment Support (TB/ARV)',
                             name: 'Treatment Support (TB/ARV)'),
                         InputFieldOption(
-                            code: 'Youth friendly services',
-                            name: 'Youth friendly services'),
+                            code: 'PostGBVServicesClinical',
+                            name: 'Post GBV Services (clinical)'),
                         InputFieldOption(
-                            code: 'Gender Based Violence',
-                            name: 'Gender Based Violence'),
+                            code: 'PostGBVCareLegal',
+                            name: 'Post GBV Care (legal)'),
                         InputFieldOption(
-                            code: 'Domestic Violence Support group',
-                            name: 'Domestic Violence Support group'),
-                        InputFieldOption(
-                            code: 'Income generating activity',
-                            name: 'Income generating activity'),
-                        InputFieldOption(
-                            code: 'Orphan Care & Support',
-                            name: 'Orphan Care & Support'),
-                        InputFieldOption(
-                            code: 'Psycho-social Support',
-                            name: 'Psycho-social Support'),
-                        InputFieldOption(
-                            code: 'PLHIV support group',
-                            name: 'PLHIV support group'),
-                        InputFieldOption(
-                            code: 'Referral to post abuse care services',
-                            name: 'Referral to post abuse care services'),
-                        InputFieldOption(
-                            code: 'Educational and vocational support',
-                            name: 'Educational and vocational support'),
-                        InputFieldOption(
-                            code: 'Social grants', name: 'Social grants'),
-                        InputFieldOption(
-                            code: 'HIVPreventionMessaging',
-                            name: 'HIV Prevention Messaging'),
+                            code: 'HIVRiskAssessment',
+                            name: 'HIV Risk Assessment'),
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
-                        InputFieldOption(
-                            code: 'PTS 4 NON-GRAD', name: 'PTS 4 NON-GRAD'),
-                        InputFieldOption(
-                            code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
                         InputFieldOption(code: 'SILC', name: 'SILC'),
                         InputFieldOption(code: 'LBSE', name: 'LBSE'),
                         InputFieldOption(
-                            code: 'FINANCIAL EDUCATION',
-                            name: 'FINANCIAL EDUCATION'),
+                            code: 'FinancialLiteracyEducation',
+                            name: 'Financial Literacy (Education)'),
                         InputFieldOption(
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
                         InputFieldOption(
                             code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                        InputFieldOption(code: 'IPC', name: 'IPC'),
                         InputFieldOption(
                             code: 'GBV Legal Protection',
                             name: 'GBV Legal Protection'),
@@ -202,10 +180,14 @@ class DreamsReferral {
                             code: 'Clinical Services',
                             name: 'Clinical Services'),
                         InputFieldOption(
-                            code: 'Post abuse case management',
-                            name: 'Post abuse case management'),
+                            code: 'GenderBasedViolence',
+                            name: 'Gender Based Violence'),
                         InputFieldOption(
-                            code: 'Social Services', name: 'Social Services'),
+                            code: 'EconomicStrengtheningActivities',
+                            name: 'Economic Strengthening Activities'),
+                        InputFieldOption(
+                            code: 'LifeSkillSocialAssetServices',
+                            name: 'Life-skill & Social Asset Services'),
                       ]),
                   InputField(
                       id: 'OrC9Bh2bcFz',
@@ -219,17 +201,7 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'STI Treatment', name: 'STI Treatment'),
                         InputFieldOption(
-                            code: 'HIV Testing and counselling',
-                            name: 'HIV Testing and counselling'),
-                        InputFieldOption(
-                            code: 'Evaluation for ARVs/HAART',
-                            name: 'Evaluation for ARVs/HAART'),
-                        InputFieldOption(
-                            code: 'PostAbuseCaseManagement',
-                            name: 'Post abuse case management'),
-                        InputFieldOption(
-                            code: 'ART and Adherence',
-                            name: 'ART and Adherence'),
+                            code: 'ARTInitiation', name: 'ART Initiation'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
                             name: 'Cervical Cancer Screening'),
@@ -237,68 +209,53 @@ class DreamsReferral {
                             code: 'FamilyPlanningSRH',
                             name: 'Family planning/SRH'),
                         InputFieldOption(
-                            code: 'Condom supply', name: 'Condom supply'),
+                            code: 'CondomEducationProvision',
+                            name: 'Condom Education/Provision'),
+                        InputFieldOption(
+                            code: 'ViolencePreventionEducation',
+                            name: 'Violence Prevention Education'),
+                        InputFieldOption(
+                            code: 'ComprehensiveEconomicStrengthening',
+                            name: 'Comprehensive Economic Strengthening'),
+                        InputFieldOption(
+                            code: 'HIVPreventionEducation',
+                            name: 'HIV Prevention Education'),
+                        InputFieldOption(
+                            code: 'ParentingPregBreastfeeding',
+                            name: 'Parenting (Preg & Breastfeeding)'),
+                        InputFieldOption(
+                            code: 'EducationSubsidiesSupport',
+                            name: 'Education Subsidies/support'),
                         InputFieldOption(
                             code: 'TB screening', name: 'TB screening'),
-                        InputFieldOption(
-                            code: 'TB treatment', name: 'TB treatment'),
-                        // InputFieldOption(code: 'Nutrition', name: 'Nutrition'),
                         InputFieldOption(code: 'HTS', name: 'HTS'),
                         InputFieldOption(code: 'ANC', name: 'ANC'),
-                        InputFieldOption(code: 'PrEP/PEP', name: 'PrEP/PEP'),
-                        InputFieldOption(code: 'PMTCT', name: 'PMTCT'),
+                        InputFieldOption(code: 'PrEP', name: 'PrEP'),
+                        InputFieldOption(code: 'EMTCT', name: 'EMTCT'),
                         InputFieldOption(
                             code: 'Treatment Support (TB/ARV)',
                             name: 'Treatment Support (TB/ARV)'),
                         InputFieldOption(
-                            code: 'Youth friendly services',
-                            name: 'Youth friendly services'),
+                            code: 'PostGBVServicesClinical',
+                            name: 'Post GBV Services (clinical)'),
                         InputFieldOption(
-                            code: 'Gender Based Violence',
-                            name: 'Gender Based Violence'),
+                            code: 'PostGBVCareLegal',
+                            name: 'Post GBV Care (legal)'),
                         InputFieldOption(
-                            code: 'Domestic Violence Support group',
-                            name: 'Domestic Violence Support group'),
-                        InputFieldOption(
-                            code: 'Income generating activity',
-                            name: 'Income generating activity'),
-                        InputFieldOption(
-                            code: 'Orphan Care & Support',
-                            name: 'Orphan Care & Support'),
-                        InputFieldOption(
-                            code: 'Psycho-social Support',
-                            name: 'Psycho-social Support'),
-                        InputFieldOption(
-                            code: 'PLHIV support group',
-                            name: 'PLHIV support group'),
-                        InputFieldOption(
-                            code: 'Referral to post abuse care services',
-                            name: 'Referral to post abuse care services'),
-                        InputFieldOption(
-                            code: 'Educational and vocational support',
-                            name: 'Educational and vocational support'),
-                        InputFieldOption(
-                            code: 'Social grants', name: 'Social grants'),
-                        InputFieldOption(
-                            code: 'HIVPreventionMessaging',
-                            name: 'HIV Prevention Messaging'),
+                            code: 'HIVRiskAssessment',
+                            name: 'HIV Risk Assessment'),
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
-                        InputFieldOption(
-                            code: 'PTS 4 NON-GRAD', name: 'PTS 4 NON-GRAD'),
-                        InputFieldOption(
-                            code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
                         InputFieldOption(code: 'SILC', name: 'SILC'),
                         InputFieldOption(code: 'LBSE', name: 'LBSE'),
                         InputFieldOption(
-                            code: 'FINANCIAL EDUCATION',
-                            name: 'FINANCIAL EDUCATION'),
+                            code: 'FinancialLiteracyEducation',
+                            name: 'Financial Literacy (Education)'),
                         InputFieldOption(
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
                         InputFieldOption(
                             code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                        InputFieldOption(code: 'IPC', name: 'IPC'),
                         InputFieldOption(
                             code: 'GBV Legal Protection',
                             name: 'GBV Legal Protection'),

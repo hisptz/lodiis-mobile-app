@@ -42,29 +42,27 @@ class DreamsServiceVisitCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  RichText(
+                      text: TextSpan(
+                    text: '${eventData.eventDate}   ',
+                    style: const TextStyle().copyWith(
+                      color: const Color(0xFF82898D),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )),
                   Expanded(
                     child: RichText(
-                      text: TextSpan(
-                        text: '${eventData.eventDate}   ',
-                        style: const TextStyle().copyWith(
-                          color: const Color(0xFF82898D),
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: visitCount == null || visitCount == 0
-                                ? "      $visitName "
-                                : "      $visitName " + visitCount.toString(),
-                            style: const TextStyle().copyWith(
-                              color: const Color(0xFF05131B),
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
-                        ],
+                        text: TextSpan(
+                      text: visitCount == null || visitCount == 0
+                          ? visitName
+                          : visitName + visitCount.toString(),
+                      style: const TextStyle().copyWith(
+                        color: const Color(0xFF05131B),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
                       ),
-                    ),
+                    )),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
