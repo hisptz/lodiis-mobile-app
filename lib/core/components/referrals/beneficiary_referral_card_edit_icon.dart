@@ -70,7 +70,9 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
           return Visibility(
             visible: isOnEditMode && !_hasReferralOutcome,
             child: InkWell(
-              onTap: () => {},
+              onTap: () => {
+                //TODO edit referral
+              },
               child: Container(
                 height: editIconHeight,
                 width: editIconHeight,

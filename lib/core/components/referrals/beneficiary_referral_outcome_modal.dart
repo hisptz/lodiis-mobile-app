@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
@@ -21,6 +25,7 @@ class ReferralOutcomeModal extends StatefulWidget {
     required this.themeColor,
     required this.formSections,
     required this.hiddenFields,
+    required this.referralProgramStage,
     required this.referralOutcomeLinkage,
     required this.referralToFollowUpLinkage,
     required this.mandatoryFields,
@@ -32,6 +37,7 @@ class ReferralOutcomeModal extends StatefulWidget {
   final bool enrollmentOuAccessible;
   final Color themeColor;
   final List<FormSection> formSections;
+  final String referralProgramStage;
   final String referralToFollowUpLinkage;
   final String referralOutcomeLinkage;
   final List<String> hiddenFields;
@@ -121,18 +127,67 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     BuildContext context,
     Map dataObject,
   ) async {
-    _isSaving = true;
+    unFilledMandatoryFields = [];
     setState(() {});
-
-    print(dataObject);
-
-    Timer(
-        const Duration(
-          milliseconds: 300,
-        ), () {
-      _isSaving = false;
+    List mandatoryFields = _mandatoryFieldsObject.keys.toList();
+    bool isAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    if (isAllMandatoryFilled) {
+      _isSaving = true;
       setState(() {});
-    });
+      updateReferralNotificationStatus();
+      dataObject[widget.referralOutcomeLinkage] =
+          dataObject[widget.referralOutcomeLinkage] ?? widget.referralEvent.id;
+      dataObject[widget.referralToFollowUpLinkage] =
+          dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
+      var orgUnit = dataObject['location'] ?? '';
+      var eventId = dataObject['eventId'];
+      var eventDate = dataObject['eventDate'];
+      await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+        widget.referralEvent.eventData?.program,
+        widget.referralProgramStage,
+        orgUnit,
+        formSections ?? [],
+        dataObject,
+        eventDate,
+        widget.beneficiary.trackedEntityInstance,
+        eventId,
+        widget.hiddenFields,
+        skippedFields: ['location'],
+      );
+      Provider.of<ServiceEventDataState>(context, listen: false)
+          .resetServiceEventDataState(widget.beneficiary.trackedEntityInstance);
+      Timer(const Duration(milliseconds: 200), () {
+        setState(() {
+          _isSaving = false;
+          String? currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+          );
+          Navigator.pop(context);
+        });
+      });
+    } else {
+      setState(() {
+        unFilledMandatoryFields =
+            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      });
+      AppUtil.showToastMessage(
+        message: 'Please fill all mandatory field',
+      );
+    }
+  }
+
+  void updateReferralNotificationStatus() {
+    bool isCompleted = true;
+    bool isViewed = false;
+    Provider.of<ReferralNotificationState>(context, listen: false)
+        .updateReferralNotificationEvent(widget.referralEvent.id,
+            widget.beneficiary.trackedEntityInstance, isCompleted, isViewed);
   }
 
   @override

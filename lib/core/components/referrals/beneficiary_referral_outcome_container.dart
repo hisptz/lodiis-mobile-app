@@ -98,6 +98,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
       referralEvent: referralEvent,
       themeColor:
           isOvcIntervention ? const Color(0xFF4B9F46) : const Color(0xFF1F8ECE),
+      referralProgramStage: referralOutcomeProgramStage,
       referralToFollowUpLinkage: referralOutcomeFollowingUpProgramStage,
       referralOutcomeLinkage: referralOutcomeLinkage,
     );
@@ -124,7 +125,6 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
         referralToComeReference: referralOutcomeLinkage,
         referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
       );
-      print(referralOutComeEvent);
       return referralOutComeEvent.referralReference == referralEvent.id;
     }).toList();
     ReferralOutcomeEvent referralOutComeEvent =
@@ -153,28 +153,31 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               )
-            : !_hasReferralOutcome //TODO activate this && isIncomingReferral
+            : !_hasReferralOutcome && isIncomingReferral
                 ? BeneficiaryReferralOutcomeButton(
                     onTap: () => onAddOrEditReferralOutcome(context, null),
                     color: labelColor,
                   )
-                : Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: valueColor.withOpacity(0.3),
+                : Visibility(
+                    visible: _hasReferralOutcome,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: valueColor.withOpacity(0.3),
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 10.0,
-                      horizontal: 15.0,
-                    ),
-                    child: Text(
-                      '$referralEvent : $isIncomingReferral $referralOutComeEvent',
-                      style: const TextStyle().copyWith(
-                        fontSize: 14.0,
-                        color: labelColor,
-                        fontWeight: FontWeight.w500,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 15.0,
+                      ),
+                      child: Text(
+                        '$referralEvent : $_hasReferralOutcome $referralOutComeEvent',
+                        style: const TextStyle().copyWith(
+                          fontSize: 14.0,
+                          color: labelColor,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   );
