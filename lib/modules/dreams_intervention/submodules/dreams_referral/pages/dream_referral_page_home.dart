@@ -216,6 +216,9 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                           .isIncomingReferral,
                                                       beneficiary: agywDream!
                                                           .trackedEntityInstanceData!,
+                                                      enrollmentOuAccessible:
+                                                          agywDream
+                                                              .enrollmentOuAccessible!,
                                                       referralProgram:
                                                           DreamsAgywReferralConstant
                                                               .program,

@@ -68,6 +68,11 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                     labelColor: AgywDreamsCommonConstant.referralCardLabelColor,
                     valueColor: AgywDreamsCommonConstant.referralCardValueColor,
                     themeColor: AgywDreamsCommonConstant.defaultColor,
+                    beneficiary:
+                        currentDreamsAgywBeneficiary.trackedEntityInstanceData!,
+                    enrollmentOuAccessible:
+                        currentDreamsAgywBeneficiary.enrollmentOuAccessible!,
+                    referralProgram: DreamsAgywReferralConstant.program,
                     referralOutcomeProgramStage:
                         DreamsAgywReferralConstant.referralOutComeStage,
                     referralOutcomeFollowingUpProgramStage:
@@ -82,9 +87,6 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                     isOnViewOrManage: true,
                     onManage: () {},
                     onView: () {},
-                    beneficiary:
-                        currentDreamsAgywBeneficiary.trackedEntityInstanceData!,
-                    referralProgram: DreamsAgywReferralConstant.program,
                   ),
                 )
               ],

@@ -80,6 +80,8 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                     isIncomingReferral: widget.isIncomingReferral,
                     beneficiary:
                         currentDreamsAgywBeneficiary.trackedEntityInstanceData!,
+                    enrollmentOuAccessible:
+                        currentDreamsAgywBeneficiary.enrollmentOuAccessible!,
                     referralProgram: DreamsAgywReferralConstant.program,
                     onManage: () {},
                     onView: () {},

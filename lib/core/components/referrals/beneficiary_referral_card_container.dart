@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_body.dart';
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_button.dart';
+import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_edit_icon.dart';
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_outcome_container.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
@@ -22,6 +22,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
     required this.isIncomingReferral,
     required this.referralEventData,
     required this.beneficiary,
+    required this.enrollmentOuAccessible,
     required this.referralProgram,
     required this.referralOutcomeProgramStage,
     required this.referralOutcomeFollowingUpProgramStage,
@@ -37,6 +38,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
   }) : super(key: key);
 
   final Events referralEventData;
+  final bool enrollmentOuAccessible;
   final TrackedEntityInstance beneficiary;
   final String referralProgram;
   final String referralOutcomeProgramStage;
@@ -121,6 +123,11 @@ class _BeneficiaryRefereralCardContainerState
                       ),
                       BeneficiaryReferralCardEditIcon(
                         referralEvent: referralEvent,
+                        referralOutcomeProgramStage:
+                            widget.referralOutcomeProgramStage,
+                        referralOutcomeLinkage: widget.referralOutcomeLinkage,
+                        referralOutcomeFollowingUplinkage:
+                            widget.referralOutcomeFollowingUplinkage,
                         isOnEditMode:
                             referralEvent.eventData!.enrollmentOuAccessible! &&
                                 widget.isOnReferralManage,
@@ -141,6 +148,7 @@ class _BeneficiaryRefereralCardContainerState
                   Visibility(
                     visible: widget.isOnViewOrManage,
                     child: BeneficiaryRefereralOutcomeContainer(
+                      enrollmentOuAccessible: widget.enrollmentOuAccessible,
                       beneficiary: widget.beneficiary,
                       referralProgram: widget.referralProgram,
                       referralOutcomeProgramStage:
@@ -169,63 +177,6 @@ class _BeneficiaryRefereralCardContainerState
                 ],
               ),
             ),
-    );
-  }
-}
-
-class BeneficiaryReferralCardEditIcon extends StatelessWidget {
-  const BeneficiaryReferralCardEditIcon({
-    Key? key,
-    required this.referralEvent,
-    required this.isOnEditMode,
-    required this.color,
-  }) : super(key: key);
-
-  final ReferralEvent referralEvent;
-  final bool isOnEditMode;
-  final Color color;
-
-  final double editIconHeight = 20.0;
-
-  //TODO checking if has outcomes of a given referral to control edit functionality;
-
-  // bool shouldEditReferral(List dataValues) {
-  //   CurrentUser? user =
-  //       Provider.of<CurrentUserState>(context, listen: false).currentUser;
-  //   var referralImplementingPartner = dataValues.firstWhere(
-  //       (dataValue) =>
-  //           dataValue['dataElement'] ==
-  //           DreamsAgywReferralConstant.referralImplementingPartner,
-  //       orElse: () => null);
-  //   return referralImplementingPartner != null
-  //       ? referralImplementingPartner['value'] != user!.implementingPartner
-  //       : true;
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
-      child: Visibility(
-        visible: isOnEditMode,
-        child: InkWell(
-          onTap: () => {},
-          child: Container(
-            height: editIconHeight,
-            width: editIconHeight,
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 10.0,
-            ),
-            child: SvgPicture.asset(
-              'assets/icons/edit-icon.svg',
-              color: color,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
