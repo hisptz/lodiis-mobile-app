@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_primary_child_warning.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCardHeader extends StatelessWidget {
@@ -111,6 +112,12 @@ class OvcHouseholdCardHeader extends StatelessWidget {
                   ),
                 ),
               ),
+              Visibility(
+                  visible: ovcHousehold?.primaryChildExist != true ||
+                      ovcHousehold?.primaryChildHasExited == true,
+                  child: OvcHouseholdPrimaryChildWarning(
+                    primaryChildExited: (ovcHousehold?.primaryChildHasExited)!,
+                  )),
               Consumer<SynchronizationStatusState>(
                   builder: (context, synchronizationStatusState, child) {
                 List<String> unsyncedTeiReferences =
