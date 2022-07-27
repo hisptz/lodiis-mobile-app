@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/skip_logics/dreams_agyw_referral_outcome_skip_logic.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/skip_logics/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +16,8 @@ import 'package:provider/provider.dart';
 class ReferralOutcomeModal extends StatefulWidget {
   const ReferralOutcomeModal({
     Key? key,
+    required this.enrollmentOuAccessible,
+    required this.beneficiary,
     required this.themeColor,
     required this.formSections,
     required this.hiddenFields,
@@ -23,6 +28,8 @@ class ReferralOutcomeModal extends StatefulWidget {
     required this.isOvcIntervention,
   }) : super(key: key);
 
+  final TrackedEntityInstance beneficiary;
+  final bool enrollmentOuAccessible;
   final Color themeColor;
   final List<FormSection> formSections;
   final String referralToFollowUpLinkage;
@@ -51,6 +58,26 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
 
   void setEntryFormMetadata() {
     _mandatoryFieldsObject.clear();
+    if (!widget.enrollmentOuAccessible) {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+        inputColor: widget.themeColor,
+        allowedSelectedLevels: widget.isOvcIntervention ? [2] : [4, 3],
+        program: widget.referralEvent.eventData!.program!,
+        labelColor: const Color(0xFF737373),
+        sectionLabelColor: const Color(0xFF737373),
+        formlabel: 'Referral Completion Location',
+      );
+      formSections = [serviceProvisionForm, ...widget.formSections];
+      for (String id in FormUtil.getFormFieldIds(
+        [serviceProvisionForm],
+        includeLocationId: true,
+      )) {
+        _mandatoryFieldsObject[id] = true;
+      }
+    } else {
+      formSections = widget.formSections;
+    }
     for (String id in widget.mandatoryFields) {
       _mandatoryFieldsObject[id] = true;
     }
@@ -96,6 +123,16 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
   ) async {
     _isSaving = true;
     setState(() {});
+
+    print(dataObject);
+
+    Timer(
+        const Duration(
+          milliseconds: 300,
+        ), () {
+      _isSaving = false;
+      setState(() {});
+    });
   }
 
   @override
@@ -119,7 +156,7 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
                         hiddenSections: serviceFormState.hiddenSections,
                         hiddenFields: serviceFormState.hiddenFields,
                         elevation: 2.0,
-                        formSections: widget.formSections,
+                        formSections: formSections,
                         mandatoryFieldObject: _mandatoryFieldsObject,
                         unFilledMandatoryFields: unFilledMandatoryFields,
                         dataObject: serviceFormState.formState,
@@ -151,8 +188,8 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
                                         ),
                                   child: Text(
                                     _isSaving
-                                        ? 'SAVING OUTCOME ...'
-                                        : 'SAVE OUTCOME',
+                                        ? 'COMPLETING REFERRAL ...'
+                                        : 'COMPLETE REFERRAL',
                                     style: const TextStyle().copyWith(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w700,
