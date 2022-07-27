@@ -79,9 +79,6 @@ class DreamsReferral {
                             code: 'Evaluation for ARVs/HAART',
                             name: 'Evaluation for ARVs/HAART'),
                         InputFieldOption(
-                            code: 'PostAbuseCaseManagement',
-                            name: 'Post abuse case management'),
-                        InputFieldOption(
                             code: 'ARTInitiation', name: 'ART Initiation'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
@@ -122,34 +119,14 @@ class DreamsReferral {
                             code: 'Youth friendly services',
                             name: 'Youth friendly services'),
                         InputFieldOption(
-                            code: 'Gender Based Violence',
-                            name: 'Gender Based Violence'),
-                        InputFieldOption(
-                            code: 'Domestic Violence Support group',
-                            name: 'Domestic Violence Support group'),
-                        InputFieldOption(
-                            code: 'Income generating activity',
-                            name: 'Income generating activity'),
-                        InputFieldOption(
                             code: 'Orphan Care & Support',
                             name: 'Orphan Care & Support'),
-                        InputFieldOption(
-                            code: 'Psycho-social Support',
-                            name: 'Psycho-social Support'),
-                        InputFieldOption(
-                            code: 'PLHIV support group',
-                            name: 'PLHIV support group'),
                         InputFieldOption(
                             code: 'PostGBVServicesClinical',
                             name: 'Post GBV Services (clinical)'),
                         InputFieldOption(
                             code: 'PostGBVCareLegal',
                             name: 'Post GBV Care (legal)'),
-                        InputFieldOption(
-                            code: 'Educational and vocational support',
-                            name: 'Educational and vocational support'),
-                        InputFieldOption(
-                            code: 'Social grants', name: 'Social grants'),
                         InputFieldOption(
                             code: 'HIVRiskAssessment',
                             name: 'HIV Risk Assessment'),
@@ -238,9 +215,6 @@ class DreamsReferral {
                             code: 'Evaluation for ARVs/HAART',
                             name: 'Evaluation for ARVs/HAART'),
                         InputFieldOption(
-                            code: 'PostAbuseCaseManagement',
-                            name: 'Post abuse case management'),
-                        InputFieldOption(
                             code: 'ARTInitiation', name: 'ART Initiation'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
@@ -281,34 +255,14 @@ class DreamsReferral {
                             code: 'Youth friendly services',
                             name: 'Youth friendly services'),
                         InputFieldOption(
-                            code: 'Gender Based Violence',
-                            name: 'Gender Based Violence'),
-                        InputFieldOption(
-                            code: 'Domestic Violence Support group',
-                            name: 'Domestic Violence Support group'),
-                        InputFieldOption(
-                            code: 'Income generating activity',
-                            name: 'Income generating activity'),
-                        InputFieldOption(
                             code: 'Orphan Care & Support',
                             name: 'Orphan Care & Support'),
-                        InputFieldOption(
-                            code: 'Psycho-social Support',
-                            name: 'Psycho-social Support'),
-                        InputFieldOption(
-                            code: 'PLHIV support group',
-                            name: 'PLHIV support group'),
                         InputFieldOption(
                             code: 'PostGBVServicesClinical',
                             name: 'Post GBV Services (clinical)'),
                         InputFieldOption(
                             code: 'PostGBVCareLegal',
                             name: 'Post GBV Care (legal)'),
-                        InputFieldOption(
-                            code: 'Educational and vocational support',
-                            name: 'Educational and vocational support'),
-                        InputFieldOption(
-                            code: 'Social grants', name: 'Social grants'),
                         InputFieldOption(
                             code: 'HIVRiskAssessment',
                             name: 'HIV Risk Assessment'),
