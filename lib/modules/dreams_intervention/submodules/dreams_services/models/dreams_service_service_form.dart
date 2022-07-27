@@ -50,7 +50,9 @@ class DreamsServiceForm {
                       name: 'Violence Prevention Education'),
                   InputFieldOption(
                       code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                  InputFieldOption(code: 'IPC', name: 'IPC'),
+                  InputFieldOption(
+                      code: 'CondomEducationProvision',
+                      name: 'Condom Education/Provision'),
                   InputFieldOption(code: 'LBSE', name: 'LBSE'),
                   InputFieldOption(
                       code: 'GBV Messaging', name: 'GBV Messaging'),

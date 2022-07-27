@@ -1,6 +1,6 @@
 class AgywDreamsServiceFormSessions {
   static final Map<String, List> sessionMapping = {
-    'IPC': ['1', '2', '4', '6', '7', '8', '9', '10'],
+    'CondomEducationProvision': ['1', '2', '4', '6', '7', '8', '9', '10'],
     'Go Girls': [
       '1',
       '2',

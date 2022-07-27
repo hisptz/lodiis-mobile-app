@@ -53,7 +53,7 @@ class AgywDreamsServiceFormSkipLogic {
     }
     if (agywDreamAge < 15) {
       hiddenOptions['STEPPING STONES'] = true;
-      hiddenOptions['IPC'] = true;
+      hiddenOptions['CondomEducationProvision'] = true;
     }
 
     // skip logic as per implementing partner
@@ -64,7 +64,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['LBSE'] = true;
       hiddenOptions['FinancialLiteracyEducation'] = true;
       hiddenOptions['STEPPING STONES'] = true;
-      hiddenOptions['IPC'] = true;
+      hiddenOptions['CondomEducationProvision'] = true;
       hiddenOptions['PTS 4 NON-GRADS'] = true;
       hiddenOptions['Go Girls'] = true;
       hiddenOptions['PTS 4-GRADS'] = true;

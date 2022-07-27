@@ -53,7 +53,7 @@ class ServiceEvent {
         interventionType == 'FinancialLiteracyEducation') {
       return '(ES) Economic Strengthening';
     } else if (interventionType == 'STEPPING STONES' ||
-        interventionType == 'IPC' ||
+        interventionType == 'CondomEducationProvision' ||
         interventionType == 'LBSE') {
       return 'HIV & VIOLENCE PREVENTION';
     } else if (interventionType == 'PARENTING') {
