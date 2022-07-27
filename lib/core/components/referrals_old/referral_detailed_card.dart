@@ -74,7 +74,11 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   void onUpdateEventData(Events eventData) async {
     if (isLoading) {
       referralDataCard = await ReferralEvent().fromTeiModel(eventData);
-      referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
+      referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(
+        eventData: eventData,
+        referralToComeReference: "",
+        referralToFollowUpLinkage: "",
+      );
       isLoading = false;
       setState(() {});
     }

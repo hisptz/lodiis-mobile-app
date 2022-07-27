@@ -14,8 +14,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/skip_logics/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
-class ReferralOutcomeModal extends StatefulWidget {
-  const ReferralOutcomeModal(
+class ReferralOutcomeModalOld extends StatefulWidget {
+  const ReferralOutcomeModalOld(
       {Key? key,
       required this.themeColor,
       required this.referralOutcomeFormSections,
@@ -33,10 +33,11 @@ class ReferralOutcomeModal extends StatefulWidget {
   final List<String> referralOutcomeMandatoryFields;
 
   @override
-  _ReferralOutcomeModalState createState() => _ReferralOutcomeModalState();
+  _ReferralOutcomeModalOldState createState() =>
+      _ReferralOutcomeModalOldState();
 }
 
-class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
+class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
   bool isFormReady = false;
   bool isSaving = false;
   Map referralOutcomeMandatoryFieldsObject = {};

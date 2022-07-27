@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
-import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_modal.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_modal_old.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_follow_up.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_outcome.dart';
@@ -106,7 +106,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
 
   void onAddReferralOutCome(BuildContext context) async {
     updateFormState(context, widget.eventData);
-    Widget modal = ReferralOutcomeModal(
+    Widget modal = ReferralOutcomeModalOld(
       themeColor: themeColor,
       eventData: widget.eventData,
       referralOutcomeFormSections: referralOutcomeFormSections,

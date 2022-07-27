@@ -21,6 +21,7 @@ class ReferralOutcomeFollowUpEvent {
     this.eventData,
   });
 
+  //TODO refactor this to follow new model
   ReferralOutcomeFollowUpEvent fromTeiModel(
     Events eventData,
     String referralToFollowUpLinkage,
