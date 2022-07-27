@@ -437,10 +437,19 @@ class AgywDreamsEnrollmentSkipLogic {
           assignInputFieldValue(context, 'p33MrrhsQRz', '');
         }
       }
+  if(inputFieldId == 'FuYyLjYxxkg'){
+    if(value == 'Single Orphan(Mother)'){
+      assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
+    }else if(value == 'Single Orphan(Father)'){
+      assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
+    }else if(value == 'Double Orphan'){
+      assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
+            assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
 
-      if(['B4ojlzKypUF','HJIHPjOf5s1','bApA6X6TVvJ','yc3BlUIEup3','p33MrrhsQRz'].contains(inputFieldId)){
-        
+    }
+
   }
+    
     }
     
     // for enrollment module 6 questions

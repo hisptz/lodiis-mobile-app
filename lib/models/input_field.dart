@@ -31,7 +31,7 @@ class InputField {
   bool? hasLabelOnly;
   InputField? subInputField;
   List<int>? allowedSelectedLevels;
-  RegExp? numericRegexValidation ;
+  Pattern? numericRegexValidation ;
   int? limitingNumericLength;
   List<String>? filteredPrograms;
 
@@ -86,6 +86,8 @@ class InputField {
     labelColor = labelColor ?? const Color(0xFF1A3518);
     background = background ?? Colors.transparent;
     suffixLabel = suffixLabel ?? '';
+    limitingNumericLength = limitingNumericLength??99;
+    numericRegexValidation = numericRegexValidation ?? RegExp('[0-9]');
   }
 
   @override
