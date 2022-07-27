@@ -37,7 +37,7 @@ class AgywDreamsCondomsForm extends StatefulWidget {
 }
 
 class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
-  final String label = 'Condoms';
+  final String label = 'Condom Education/Provision';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;

@@ -55,6 +55,8 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('age', agywDream.age);
     CurrentUser? user = await UserService().getCurrentUser();
     await Provider.of<ImplementingPartnerReferralServiceState>(context,
             listen: false)

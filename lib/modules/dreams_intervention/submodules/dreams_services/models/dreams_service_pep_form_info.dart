@@ -19,7 +19,7 @@ class DreamsPEPInfo {
         InputField(
           id: 'mcgHO4djXTu',
           name: 'PEP',
-          valueType: 'TRUE_ONLY',
+          valueType: 'BOOLEAN',
           inputColor: const Color(0xFF258DCC),
           labelColor: const Color(0xFF737373),
         ),

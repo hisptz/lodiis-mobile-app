@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceForm {
   static List<String> getMandatoryField() {
-    return ['Eug4BXDFLym'];
+    return ['Eug4BXDFLym', 'vL6NpUA0rIU'];
   }
 
   static List<FormSection> getFormSections({
@@ -43,10 +43,16 @@ class DreamsServiceForm {
                   InputFieldOption(code: 'SILC', name: 'SILC'),
                   InputFieldOption(code: 'SAVING GROUP', name: 'SAVING GROUP'),
                   InputFieldOption(
-                      code: 'FINANCIAL EDUCATION', name: 'FINANCIAL EDUCATION'),
+                      code: 'FinancialLiteracyEducation',
+                      name: 'Financial Literacy (Education)'),
+                  InputFieldOption(
+                      code: 'ViolencePreventionEducation',
+                      name: 'Violence Prevention Education'),
                   InputFieldOption(
                       code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                  InputFieldOption(code: 'IPC', name: 'IPC'),
+                  InputFieldOption(
+                      code: 'CondomEducationProvision',
+                      name: 'Condom Education/Provision'),
                   InputFieldOption(code: 'LBSE', name: 'LBSE'),
                   InputFieldOption(
                       code: 'GBV Messaging', name: 'GBV Messaging'),

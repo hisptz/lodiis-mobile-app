@@ -21,7 +21,7 @@ class AgywDreamsServiceSummaryConstant {
           'programStage': ['CEyIqiOZOwx']
         },
         {
-          'name': 'HIV MESSAGING',
+          'name': 'HIV Risk Assessment',
           'programStage': ['PGFt6IwdZLM']
         },
         {
@@ -31,11 +31,11 @@ class AgywDreamsServiceSummaryConstant {
       ],
       [
         {
-          'name': 'PREP',
+          'name': 'PrEP',
           'programStage': ['mMjGlK1W0Xo', 'Qw8c20q5V0w']
         },
         {
-          'name': 'CONDOMS',
+          'name': 'Condom Education/Provision',
           'programStage': ['NXsIkG9Q1BA']
         },
         {
