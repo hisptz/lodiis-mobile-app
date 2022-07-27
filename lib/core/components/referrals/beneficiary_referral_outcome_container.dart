@@ -43,12 +43,24 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
   final Color valueColor;
   final Color labelColor;
 
-  void updateFormState(BuildContext context, Events? eventData) {
+  void updateFormState(
+    BuildContext context,
+    ReferralOutcomeEvent? referralOutcomeEvent,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
-    if (eventData != null) {
-      for (Map dataValue in eventData.dataValues) {
+    String location = enrollmentOuAccessible ? beneficiary.orgUnit ?? '' : '';
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('location', location);
+    if (referralOutcomeEvent != null) {
+      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+          'eventDate', referralOutcomeEvent.eventData?.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', referralOutcomeEvent.eventData?.event);
+      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+          'location', referralOutcomeEvent.eventData?.orgUnit);
+      for (Map dataValue in referralOutcomeEvent.eventData?.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
               .setFormFieldState(dataValue['dataElement'], dataValue['value']);
@@ -59,11 +71,13 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
 
   void onAddOrEditReferralOutcome(
     BuildContext context,
-    Events? eventData,
+    ReferralOutcomeEvent? referralOutcomeEvent,
   ) {
     double modalRatio = 0.75;
-    updateFormState(context, eventData);
+    updateFormState(context, referralOutcomeEvent);
     Widget modal = ReferralOutcomeModal(
+      enrollmentOuAccessible: enrollmentOuAccessible,
+      beneficiary: beneficiary,
       isOvcIntervention: isOvcIntervention,
       formSections: isOvcIntervention
           ? OvcReferralOutCome.getFormSections(
