@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_outcome_modal.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_outcome.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
 class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
@@ -38,12 +43,54 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
   final Color valueColor;
   final Color labelColor;
 
-  void onAddReferralOutcome(BuildContext context) {
-    print("on add referral outcomes");
+  void updateFormState(BuildContext context, Events? eventData) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: true);
+    if (eventData != null) {
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
+        }
+      }
+    }
+  }
 
-    Provider.of<ServiceEventDataState>(context, listen: false)
-        .resetServiceEventDataState(
-            referralEvent.eventData!.trackedEntityInstance);
+  void onAddOrEditReferralOutcome(
+    BuildContext context,
+    Events? eventData,
+  ) {
+    double modalRatio = 0.75;
+    updateFormState(context, eventData);
+    Widget modal = ReferralOutcomeModal(
+      isOvcIntervention: isOvcIntervention,
+      formSections: isOvcIntervention
+          ? OvcReferralOutCome.getFormSections(
+              firstDate: referralEvent.date!,
+            )
+          : DreamsReferralOutCome.getFormSections(
+              firstDate: referralEvent.date!,
+            ),
+      hiddenFields: [
+        referralOutcomeFollowingUpProgramStage,
+        referralOutcomeLinkage
+      ],
+      mandatoryFields: isOvcIntervention
+          ? OvcReferralOutCome.getMandatoryFields()
+          : DreamsReferralOutCome.getMandatoryFields(),
+      referralEvent: referralEvent,
+      themeColor:
+          isOvcIntervention ? const Color(0xFF4B9F46) : const Color(0xFF1F8ECE),
+      referralToFollowUpLinkage: referralOutcomeFollowingUpProgramStage,
+      referralOutcomeLinkage: referralOutcomeLinkage,
+    );
+    AppUtil.showActionSheetModal(
+      context: context,
+      containerBody: modal,
+      initialHeightRatio: modalRatio,
+      maxHeightRatio: modalRatio,
+    );
   }
 
   ReferralOutcomeEvent _getReferralOutcomeEvent({
@@ -55,9 +102,6 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
       [referralOutcomeProgramStage],
       shouldSortByDate: true,
     );
-
-    print(events);
-
     ReferralOutcomeEvent referralOutComeEvent =
         ReferralOutcomeEvent().fromTeiModel(
       eventData: events.isEmpty ? Events(dataValues: []) : events.first,
@@ -76,7 +120,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
               serviceEventDataState.eventListByProgramStage,
         );
         bool _hasReferralOutcome =
-            referralOutComeEvent.dateClientReachStation == "";
+            referralOutComeEvent.dateClientReachStation != "";
         return serviceEventDataState.isLoading
             ? Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -86,7 +130,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
               )
             : !_hasReferralOutcome //TODO activate this && isIncomingReferral
                 ? BeneficiaryReferralOutcomeButton(
-                    onTap: () => onAddReferralOutcome(context),
+                    onTap: () => onAddOrEditReferralOutcome(context, null),
                     color: labelColor,
                   )
                 : Container(
