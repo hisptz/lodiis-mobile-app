@@ -21,30 +21,33 @@ class OvcHousehold {
   String? implementingPartner;
   String? searchableValue;
   bool? enrollmentOuAccessible;
+  bool? primaryChildExist;
+  bool? primaryChildHasExited;
   List<OvcHouseholdChild>? children;
   TrackedEntityInstance? teiData;
 
-  OvcHousehold({
-    this.id,
-    this.firstName,
-    this.middleName,
-    this.surname,
-    this.ovcMaleCount,
-    this.children,
-    this.primaryUIC,
-    this.secondaryUIC,
-    this.location,
-    this.phoneNumber,
-    this.village,
-    this.orgUnit,
-    this.createdDate,
-    this.ovcFemaleCount,
-    this.houseHoldStatus,
-    this.searchableValue,
-    this.enrollmentOuAccessible,
-    this.implementingPartner,
-    this.teiData,
-  });
+  OvcHousehold(
+      {this.id,
+      this.firstName,
+      this.middleName,
+      this.surname,
+      this.ovcMaleCount,
+      this.children,
+      this.primaryUIC,
+      this.secondaryUIC,
+      this.location,
+      this.phoneNumber,
+      this.village,
+      this.orgUnit,
+      this.createdDate,
+      this.ovcFemaleCount,
+      this.houseHoldStatus,
+      this.searchableValue,
+      this.enrollmentOuAccessible,
+      this.implementingPartner,
+      this.teiData,
+      this.primaryChildExist,
+      this.primaryChildHasExited});
 
   OvcHousehold fromTeiModel(
     TrackedEntityInstance tei,
@@ -102,9 +105,25 @@ class OvcHousehold {
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"
               .toLowerCase(),
+      primaryChildExist: _doesPrimaryChildExist(children),
+      primaryChildHasExited: _hasPrimaryChildExited(children),
       children: children,
       teiData: tei,
     );
+  }
+
+  bool _doesPrimaryChildExist(List<OvcHouseholdChild> children) {
+    return children
+        .any((OvcHouseholdChild child) => child.isChildPrimary == true);
+  }
+
+  bool _hasPrimaryChildExited(List<OvcHouseholdChild> children) {
+    List<OvcHouseholdChild> primaryChildren = children
+        .where((OvcHouseholdChild child) => child.isChildPrimary == true)
+        .toList();
+    return primaryChildren.isNotEmpty &&
+        primaryChildren
+            .every((OvcHouseholdChild child) => child.ovcStatus == 'Exit');
   }
 
   String getPhoneNumbers(

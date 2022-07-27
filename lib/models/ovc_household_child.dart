@@ -14,6 +14,8 @@ class OvcHouseholdChild {
   String? createdDate;
   String? hivStatus;
   bool? enrollmentOuAccessible;
+  String? ovcStatus;
+  bool? isChildPrimary;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -29,6 +31,8 @@ class OvcHouseholdChild {
     this.createdDate,
     this.hivStatus,
     this.enrollmentOuAccessible,
+    this.isChildPrimary,
+    this.ovcStatus,
     this.teiData,
   });
 
@@ -45,6 +49,8 @@ class OvcHouseholdChild {
       'ls9hlz2tyol',
       'vIX4GTSCX4P',
       'wmKqYZML8GA',
+      'PN92g65TkVI',
+      'KO5NC4pfBmv',
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
@@ -71,6 +77,8 @@ class OvcHouseholdChild {
                 : 'Negative'
             : '',
         enrollmentOuAccessible: enrollmentOuAccessible,
+        isChildPrimary: "${data['KO5NC4pfBmv']}" == 'true',
+        ovcStatus: data['PN92g65TkVI'] ?? 'Active',
         orgUnit: orgUnit,
         teiData: tei);
   }
