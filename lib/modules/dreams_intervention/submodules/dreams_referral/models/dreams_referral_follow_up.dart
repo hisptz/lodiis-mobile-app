@@ -6,6 +6,10 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 
 class DreamsReferralFollowUp {
+  static List<String> getMandatoryFields() {
+    return ['DPf5mUDoZMy', 'VHe4ctA0bqU'];
+  }
+
   static List<FormSection> getFormSections({required String firstDate}) {
     return [
       FormSection(
