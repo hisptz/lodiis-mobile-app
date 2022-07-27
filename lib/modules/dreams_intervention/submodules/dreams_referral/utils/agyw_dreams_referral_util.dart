@@ -32,7 +32,11 @@ class AgywDreamsReferralUtil {
   ) {
     try {
       ReferralOutcomeEvent referralOutComeEvent =
-          ReferralOutcomeEvent().fromTeiModel(eventData, "");
+          ReferralOutcomeEvent().fromTeiModel(
+        eventData: eventData,
+        referralToComeReference: "",
+        referralToFollowUpLinkage: "",
+      );
       bool hasReferralOutCome =
           referralOutComeEvent.dateClientReachStation != "";
       String currentImplementingPartner =

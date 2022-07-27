@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
 import 'package:provider/provider.dart';
 
 class DreamsReferralView extends StatefulWidget {
@@ -68,7 +69,18 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                     themeColor: AgywDreamsCommonConstant.defaultColor,
                     isOnViewOrManage: true,
                     referralEventData: widget.eventData,
+                    referralOutcomeProgramStage:
+                        DreamsAgywReferralConstant.referralOutComeStage,
+                    referralOutcomeFollowingUpProgramStage:
+                        DreamsAgywReferralConstant.referralFollowUpStage,
+                    referralOutcomeLinkage:
+                        DreamsAgywReferralConstant.referralToOutcomeLinkage,
+                    referralOutcomeFollowingUplinkage:
+                        DreamsAgywReferralConstant.referralToFollowUpLinkage,
                     isIncomingReferral: widget.isIncomingReferral,
+                    beneficiary:
+                        currentDreamsAgywBeneficiary.trackedEntityInstanceData!,
+                    referralProgram: DreamsAgywReferralConstant.program,
                     onManage: () {},
                     onView: () {},
                   ),

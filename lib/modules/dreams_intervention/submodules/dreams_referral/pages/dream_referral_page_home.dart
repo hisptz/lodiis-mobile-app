@@ -200,8 +200,25 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                               .defaultColor,
                                                       referralEventData:
                                                           referralEventData,
+                                                      referralOutcomeProgramStage:
+                                                          DreamsAgywReferralConstant
+                                                              .referralOutComeStage,
+                                                      referralOutcomeFollowingUpProgramStage:
+                                                          DreamsAgywReferralConstant
+                                                              .referralFollowUpStage,
+                                                      referralOutcomeLinkage:
+                                                          DreamsAgywReferralConstant
+                                                              .referralToOutcomeLinkage,
+                                                      referralOutcomeFollowingUplinkage:
+                                                          DreamsAgywReferralConstant
+                                                              .referralToFollowUpLinkage,
                                                       isIncomingReferral: widget
                                                           .isIncomingReferral,
+                                                      beneficiary: agywDream!
+                                                          .trackedEntityInstanceData!,
+                                                      referralProgram:
+                                                          DreamsAgywReferralConstant
+                                                              .program,
                                                       isOvcIntervention: false,
                                                       onManage: () =>
                                                           onManageReferral(
