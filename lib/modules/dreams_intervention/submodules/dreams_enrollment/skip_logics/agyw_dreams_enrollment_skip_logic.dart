@@ -24,6 +24,25 @@ class AgywDreamsEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+      bool hasEnrollmentCriteria(Map dataObject) {
+    List<String> enrollmentCriteria = [
+      'B4ojlzKypUF',
+      'HJIHPjOf5s1',
+      'bApA6X6TVvJ',
+      'yc3BlUIEup3',
+      'p33MrrhsQRz',
+      'iY67qYnywgS',
+      'rh881j2vfvT',
+      'AZCVLPzD0Vd',
+    ];
+    for (var criteria in enrollmentCriteria) {
+      if (dataObject[criteria] != null && dataObject[criteria] != '') {
+        return true;
+      }
+    }
+
+    return false;
+  }
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -448,6 +467,9 @@ class AgywDreamsEnrollmentSkipLogic {
 
     }
 
+  }
+  if(!hasEnrollmentCriteria(dataObject)){
+ hiddenSections['E_O_I'] = true; 
   }
     
     }
