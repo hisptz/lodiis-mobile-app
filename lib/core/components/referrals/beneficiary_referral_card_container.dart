@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_car
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_outcome_container.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class BeneficiaryRefereralCardContainer extends StatefulWidget {
   const BeneficiaryRefereralCardContainer({
@@ -20,16 +21,30 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
     required this.valueColor,
     required this.isIncomingReferral,
     required this.referralEventData,
+    required this.beneficiary,
+    required this.referralProgram,
+    required this.referralOutcomeProgramStage,
+    required this.referralOutcomeFollowingUpProgramStage,
+    required this.referralOutcomeLinkage,
+    required this.referralOutcomeFollowingUplinkage,
     this.isOvcIntervention = false,
     this.isHouseHoldReferral = false,
     this.isOnViewOrManage = false,
+    this.isOnReferralManage = false,
     this.prefixReferralTitle = 'Referral',
     required this.onManage,
     required this.onView,
   }) : super(key: key);
 
   final Events referralEventData;
+  final TrackedEntityInstance beneficiary;
+  final String referralProgram;
+  final String referralOutcomeProgramStage;
+  final String referralOutcomeFollowingUpProgramStage;
+  final String referralOutcomeLinkage;
+  final String referralOutcomeFollowingUplinkage;
   final bool isIncomingReferral;
+  final bool isOnReferralManage;
   final String prefixReferralTitle;
   final Color themeColor;
   final Color titleColor;
@@ -95,7 +110,7 @@ class _BeneficiaryRefereralCardContainerState
                             horizontal: 15.0,
                           ),
                           child: Text(
-                            '${widget.prefixReferralTitle} ${widget.referralIndex}-',
+                            '${widget.prefixReferralTitle} ${widget.referralIndex}',
                             style: const TextStyle().copyWith(
                               color: widget.titleColor,
                               fontWeight: FontWeight.w700,
@@ -108,7 +123,7 @@ class _BeneficiaryRefereralCardContainerState
                         referralEvent: referralEvent,
                         isOnEditMode:
                             referralEvent.eventData!.enrollmentOuAccessible! &&
-                                widget.isOnViewOrManage,
+                                widget.isOnReferralManage,
                         color: widget.themeColor,
                       )
                     ],
@@ -126,9 +141,21 @@ class _BeneficiaryRefereralCardContainerState
                   Visibility(
                     visible: widget.isOnViewOrManage,
                     child: BeneficiaryRefereralOutcomeContainer(
+                      beneficiary: widget.beneficiary,
+                      referralProgram: widget.referralProgram,
+                      referralOutcomeProgramStage:
+                          widget.referralOutcomeProgramStage,
+                      referralOutcomeFollowingUpProgramStage:
+                          widget.referralOutcomeFollowingUpProgramStage,
+                      referralOutcomeLinkage: widget.referralOutcomeLinkage,
+                      referralOutcomeFollowingUplinkage:
+                          widget.referralOutcomeFollowingUplinkage,
                       referralEvent: referralEvent,
                       labelColor: widget.themeColor,
                       valueColor: widget.valueColor,
+                      isIncomingReferral: widget.isIncomingReferral,
+                      isHouseholdReferral: widget.isHouseHoldReferral,
+                      isOvcIntervention: widget.isOvcIntervention,
                     ),
                   ),
                   Visibility(
