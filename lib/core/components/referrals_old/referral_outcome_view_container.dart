@@ -85,8 +85,9 @@ class _ReferralOutComeViewContainerState
       [widget.referralFollowUpStage],
     );
     List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUps = events
-        .map((Events event) => ReferralOutcomeFollowUpEvent()
-            .fromTeiModel(event, widget.referralToFollowUpLinkage))
+        .map((Events event) => ReferralOutcomeFollowUpEvent().fromTeiModel(
+            eventData: event,
+            referralToFollowUpLinkage: widget.referralToFollowUpLinkage))
         .toList();
     return referralOutComeFollowUps
         .where((referralOutComeFollowUp) =>

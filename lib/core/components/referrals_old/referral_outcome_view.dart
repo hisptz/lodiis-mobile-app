@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_follow_up.dart';
-import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_following_up_modal.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_following_up_modal_old.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -44,7 +44,7 @@ class ReferralOutComeView extends StatelessWidget {
 
   void onAddReferralOutComeFollowUp(BuildContext context) async {
     updateFormState(context, referralOutComeEvent!.referralReference);
-    Widget modal = ReferralOutComeFollowUpModal(
+    Widget modal = ReferralOutComeFollowUpModalOld(
       themeColor: themeColor,
       referralProgram: referralProgram,
       referralFollowUpStage: referralFollowUpStage,
@@ -56,7 +56,7 @@ class ReferralOutComeView extends StatelessWidget {
   }
 
   void onEditOutComeFollowUp(BuildContext context) async {
-    Widget modal = ReferralOutComeFollowUpModal(
+    Widget modal = ReferralOutComeFollowUpModalOld(
       themeColor: themeColor,
       referralProgram: referralProgram,
       referralFollowUpStage: referralFollowUpStage,
@@ -81,8 +81,9 @@ class ReferralOutComeView extends StatelessWidget {
       [referralFollowUpStage],
     );
     List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUps = events
-        .map((Events event) => ReferralOutcomeFollowUpEvent()
-            .fromTeiModel(event, referralToFollowUpLinkage))
+        .map((Events event) => ReferralOutcomeFollowUpEvent().fromTeiModel(
+            eventData: event,
+            referralToFollowUpLinkage: referralToFollowUpLinkage))
         .toList();
     return referralOutComeFollowUps
         .where((referralOutComeFollowUp) =>
