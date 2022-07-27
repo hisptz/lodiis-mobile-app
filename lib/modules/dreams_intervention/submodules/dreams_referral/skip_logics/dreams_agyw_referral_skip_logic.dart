@@ -112,7 +112,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['IPC'] = true;
-        } else if (value == 'Post abuse case management') {
+        } else if (value == 'GenderBasedViolence') {
           referralServiceHiddenOptions['Aflateen/toun'] = true;
           referralServiceHiddenOptions['Go Girls'] = true;
           referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
@@ -138,7 +138,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['ANC'] = true;
           referralServiceHiddenOptions['PrEP'] = true;
           referralServiceHiddenOptions['EMTCT'] = true;
-        } else if (value == 'Social Services') {
+        } else if (value == 'LifeSkillSocialAssetServices') {
           referralServiceHiddenOptions['GBV Legal Protection'] = true;
           referralServiceHiddenOptions['GBV Legal Messaging'] = true;
           referralServiceHiddenOptions['VAC Legal Messaging'] = true;

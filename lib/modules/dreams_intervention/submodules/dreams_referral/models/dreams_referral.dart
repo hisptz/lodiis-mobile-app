@@ -59,10 +59,12 @@ class DreamsReferral {
                             code: 'Clinical Services',
                             name: 'Clinical Services'),
                         InputFieldOption(
-                            code: 'Post abuse case management',
-                            name: 'Post abuse case management'),
+                            code: 'GenderBasedViolence',
+                            name: 'Gender Based Violence'),
                         InputFieldOption(
-                            code: 'Social Services', name: 'Social Services'),
+                            code:
+                                'LifeSkillSocial GenderBasedViolence AssetServices',
+                            name: 'Life-skill & Social Asset Services'),
                       ]),
                   InputField(
                       id: 'rsh5Kvx6qAU',
@@ -181,10 +183,12 @@ class DreamsReferral {
                             code: 'Clinical Services',
                             name: 'Clinical Services'),
                         InputFieldOption(
-                            code: 'Post abuse case management',
-                            name: 'Post abuse case management'),
+                            code: 'GenderBasedViolence',
+                            name: 'Gender Based Violence'),
                         InputFieldOption(
-                            code: 'Social Services', name: 'Social Services'),
+                            code:
+                                'LifeSkillSocial GenderBasedViolence AssetServices',
+                            name: 'Life-skill & Social Asset Services'),
                       ]),
                   InputField(
                       id: 'OrC9Bh2bcFz',
