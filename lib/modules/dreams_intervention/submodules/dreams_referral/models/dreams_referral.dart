@@ -76,9 +76,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'STI Treatment', name: 'STI Treatment'),
                         InputFieldOption(
-                            code: 'Evaluation for ARVs/HAART',
-                            name: 'Evaluation for ARVs/HAART'),
-                        InputFieldOption(
                             code: 'ARTInitiation', name: 'ART Initiation'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
@@ -106,8 +103,6 @@ class DreamsReferral {
                             name: 'Education Subsidies/support'),
                         InputFieldOption(
                             code: 'TB screening', name: 'TB screening'),
-                        InputFieldOption(
-                            code: 'TB treatment', name: 'TB treatment'),
                         InputFieldOption(code: 'HTS', name: 'HTS'),
                         InputFieldOption(code: 'ANC', name: 'ANC'),
                         InputFieldOption(code: 'PrEP', name: 'PrEP'),
@@ -115,12 +110,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Treatment Support (TB/ARV)',
                             name: 'Treatment Support (TB/ARV)'),
-                        InputFieldOption(
-                            code: 'Youth friendly services',
-                            name: 'Youth friendly services'),
-                        InputFieldOption(
-                            code: 'Orphan Care & Support',
-                            name: 'Orphan Care & Support'),
                         InputFieldOption(
                             code: 'PostGBVServicesClinical',
                             name: 'Post GBV Services (clinical)'),
@@ -209,12 +198,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'STI Treatment', name: 'STI Treatment'),
                         InputFieldOption(
-                            code: 'HIV Testing and counselling',
-                            name: 'HIV Testing and counselling'),
-                        InputFieldOption(
-                            code: 'Evaluation for ARVs/HAART',
-                            name: 'Evaluation for ARVs/HAART'),
-                        InputFieldOption(
                             code: 'ARTInitiation', name: 'ART Initiation'),
                         InputFieldOption(
                             code: 'Cervical Cancer Screening',
@@ -242,8 +225,6 @@ class DreamsReferral {
                             name: 'Education Subsidies/support'),
                         InputFieldOption(
                             code: 'TB screening', name: 'TB screening'),
-                        InputFieldOption(
-                            code: 'TB treatment', name: 'TB treatment'),
                         InputFieldOption(code: 'HTS', name: 'HTS'),
                         InputFieldOption(code: 'ANC', name: 'ANC'),
                         InputFieldOption(code: 'PrEP', name: 'PrEP'),
@@ -251,12 +232,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Treatment Support (TB/ARV)',
                             name: 'Treatment Support (TB/ARV)'),
-                        InputFieldOption(
-                            code: 'Youth friendly services',
-                            name: 'Youth friendly services'),
-                        InputFieldOption(
-                            code: 'Orphan Care & Support',
-                            name: 'Orphan Care & Support'),
                         InputFieldOption(
                             code: 'PostGBVServicesClinical',
                             name: 'Post GBV Services (clinical)'),

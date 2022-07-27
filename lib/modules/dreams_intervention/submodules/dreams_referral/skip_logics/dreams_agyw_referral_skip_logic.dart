@@ -24,6 +24,48 @@ class DreamsAgywReferralSkipLogic {
       inputFieldIds.add('$key');
     }
 
+    // Age based skip logics
+    Map referralServiceHiddenByAge = {};
+    int agywDreamAge = int.parse(dataObject['age'] ?? '0');
+    if (agywDreamAge < 10 || agywDreamAge > 24) {
+      referralServiceHiddenByAge['ParentingPregBreastfeeding'] = true;
+      referralServiceHiddenByAge['LBSE'] = true;
+      referralServiceHiddenByAge['FinancialLiteracyEducation'] = true;
+      referralServiceHiddenByAge['ViolencePreventionEducation'] = true;
+      referralServiceHiddenByAge['PostGBVCareLegal'] = true;
+      referralServiceHiddenByAge['HIVPreventionEducation'] = true;
+      referralServiceHiddenByAge['ARTInitiation'] = true;
+      referralServiceHiddenByAge['PostGBVServicesClinical'] = true;
+      referralServiceHiddenByAge['Treatment Support (TB/ARV)'] = true;
+      referralServiceHiddenByAge['EMTCT'] = true;
+      referralServiceHiddenByAge['ANC'] = true;
+      referralServiceHiddenByAge['TB screening'] = true;
+      referralServiceHiddenByAge['HTS'] = true;
+      referralServiceHiddenByAge['FamilyPlanningSRH'] = true;
+      referralServiceHiddenByAge['STI Screening'] = true;
+      referralServiceHiddenByAge['STI Treatment'] = true;
+      referralServiceHiddenByAge['HIVRiskAssessment'] = true;
+    }
+    if (agywDreamAge < 15 || agywDreamAge > 24) {
+      referralServiceHiddenByAge['PEP'] = true;
+      referralServiceHiddenByAge['PrEP'] = true;
+      referralServiceHiddenByAge['CondomEducationProvision'] = true;
+      referralServiceHiddenByAge['Cervical Cancer Screening'] = true;
+    }
+    if (agywDreamAge < 18 || agywDreamAge > 24) {
+      referralServiceHiddenByAge['Go Girls'] = true;
+      referralServiceHiddenByAge['ComprehensiveEconomicStrengthening'] = true;
+      referralServiceHiddenByAge['SILC'] = true;
+    }
+    if (agywDreamAge < 10 || agywDreamAge > 17) {
+      referralServiceHiddenByAge['Parenting'] = true;
+      referralServiceHiddenByAge['Aflateen/toun'] = true;
+      referralServiceHiddenByAge['SAVING GROUPS'] = true;
+    }
+    if (agywDreamAge < 13 || agywDreamAge > 18) {
+      referralServiceHiddenByAge['EducationSubsidiesSupport'] = true;
+    }
+
     String implementingPartnerValue = "${dataObject['y0bvausyTyh'] ?? ''}";
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
@@ -53,8 +95,6 @@ class DreamsAgywReferralSkipLogic {
       if (inputFieldId == 'LLWTHwhnch0' && value != 'null') {
         Map referralServiceHiddenOptions = {};
         if (value == 'Clinical Services') {
-          referralServiceHiddenOptions['Youth friendly services'] = true;
-          referralServiceHiddenOptions['Orphan Care & Support'] = true;
           referralServiceHiddenOptions['PostGBVCareLegal'] = true;
           referralServiceHiddenOptions['Aflateen/toun'] = true;
           referralServiceHiddenOptions['Go Girls'] = true;
@@ -84,17 +124,13 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['IPC'] = true;
           referralServiceHiddenOptions['HIVRiskAssessment'] = true;
-          referralServiceHiddenOptions['Youth friendly services'] = true;
-          referralServiceHiddenOptions['Orphan Care & Support'] = true;
           referralServiceHiddenOptions['STI Screening'] = true;
           referralServiceHiddenOptions['STI Treatment'] = true;
           referralServiceHiddenOptions['HIVPreventionEducation'] = true;
-          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
           referralServiceHiddenOptions['ARTInitiation'] = true;
           referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
           referralServiceHiddenOptions['CondomEducationProvision'] = true;
           referralServiceHiddenOptions['TB screening'] = true;
-          referralServiceHiddenOptions['TB treatment'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
           referralServiceHiddenOptions['HTS'] = true;
@@ -111,12 +147,10 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['STI Screening'] = true;
           referralServiceHiddenOptions['STI Treatment'] = true;
           referralServiceHiddenOptions['HIVPreventionEducation'] = true;
-          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
           referralServiceHiddenOptions['ARTInitiation'] = true;
           referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
           referralServiceHiddenOptions['CondomEducationProvision'] = true;
           referralServiceHiddenOptions['TB screening'] = true;
-          referralServiceHiddenOptions['TB treatment'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
           referralServiceHiddenOptions['HTS'] = true;
@@ -130,13 +164,14 @@ class DreamsAgywReferralSkipLogic {
                 implementingPartnerValue);
         referralServiceHiddenOptions
             .addAll(hiddenReferralServicesByImplementingPartner);
-        hiddenInputFieldOptions['rsh5Kvx6qAU'] = referralServiceHiddenOptions;
+        hiddenInputFieldOptions['rsh5Kvx6qAU'] = {
+          ...referralServiceHiddenOptions,
+          ...referralServiceHiddenByAge
+        };
       }
       if (inputFieldId == 'AuCryxQYmrk' && value != 'null') {
         Map referralServiceHiddenOptions = {};
         if (value == 'Clinical Services') {
-          referralServiceHiddenOptions['Youth friendly services'] = true;
-          referralServiceHiddenOptions['Orphan Care & Support'] = true;
           referralServiceHiddenOptions['PostGBVCareLegal'] = true;
           referralServiceHiddenOptions['Aflateen/toun'] = true;
           referralServiceHiddenOptions['Go Girls'] = true;
@@ -166,17 +201,13 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['IPC'] = true;
           referralServiceHiddenOptions['HIVRiskAssessment'] = true;
-          referralServiceHiddenOptions['Youth friendly services'] = true;
-          referralServiceHiddenOptions['Orphan Care & Support'] = true;
           referralServiceHiddenOptions['STI Screening'] = true;
           referralServiceHiddenOptions['STI Treatment'] = true;
           referralServiceHiddenOptions['HIVPreventionEducation'] = true;
-          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
           referralServiceHiddenOptions['ARTInitiation'] = true;
           referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
           referralServiceHiddenOptions['CondomEducationProvision'] = true;
           referralServiceHiddenOptions['TB screening'] = true;
-          referralServiceHiddenOptions['TB treatment'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
           referralServiceHiddenOptions['HTS'] = true;
@@ -193,12 +224,10 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['STI Screening'] = true;
           referralServiceHiddenOptions['STI Treatment'] = true;
           referralServiceHiddenOptions['HIVPreventionEducation'] = true;
-          referralServiceHiddenOptions['Evaluation for ARVs/HAART'] = true;
           referralServiceHiddenOptions['ARTInitiation'] = true;
           referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
           referralServiceHiddenOptions['CondomEducationProvision'] = true;
           referralServiceHiddenOptions['TB screening'] = true;
-          referralServiceHiddenOptions['TB treatment'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
           referralServiceHiddenOptions['HTS'] = true;
@@ -212,7 +241,10 @@ class DreamsAgywReferralSkipLogic {
                 implementingPartnerValue);
         referralServiceHiddenOptions
             .addAll(hiddenReferralServicesByImplementingPartner);
-        hiddenInputFieldOptions['OrC9Bh2bcFz'] = referralServiceHiddenOptions;
+        hiddenInputFieldOptions['OrC9Bh2bcFz'] = {
+          ...referralServiceHiddenOptions,
+          ...referralServiceHiddenByAge
+        };
       }
     }
     for (String sectionId in hiddenSections.keys) {
