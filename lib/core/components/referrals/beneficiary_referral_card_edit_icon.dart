@@ -71,6 +71,7 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
             visible: isOnEditMode && !_hasReferralOutcome,
             child: InkWell(
               onTap: () => {
+                // IPS issue references
                 //TODO edit referral
               },
               child: Container(

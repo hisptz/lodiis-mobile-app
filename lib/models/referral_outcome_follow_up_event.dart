@@ -22,10 +22,10 @@ class ReferralOutcomeFollowUpEvent {
   });
 
   //TODO refactor this to follow new model
-  ReferralOutcomeFollowUpEvent fromTeiModel(
-    Events eventData,
-    String referralToFollowUpLinkage,
-  ) {
+  ReferralOutcomeFollowUpEvent fromTeiModel({
+    required Events eventData,
+    required String referralToFollowUpLinkage,
+  }) {
     List keys = [
       'DPf5mUDoZMy',
       'VHe4ctA0bqU',

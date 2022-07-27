@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_outcome.dart';
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_outcome_modal.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -88,10 +89,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
           : DreamsReferralOutCome.getFormSections(
               firstDate: referralEvent.date!,
             ),
-      hiddenFields: [
-        referralOutcomeFollowingUpProgramStage,
-        referralOutcomeLinkage
-      ],
+      hiddenFields: [referralOutcomeFollowingUplinkage, referralOutcomeLinkage],
       mandatoryFields: isOvcIntervention
           ? OvcReferralOutCome.getMandatoryFields()
           : DreamsReferralOutCome.getMandatoryFields(),
@@ -99,7 +97,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
       themeColor:
           isOvcIntervention ? const Color(0xFF4B9F46) : const Color(0xFF1F8ECE),
       referralProgramStage: referralOutcomeProgramStage,
-      referralToFollowUpLinkage: referralOutcomeFollowingUpProgramStage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
       referralOutcomeLinkage: referralOutcomeLinkage,
     );
     AppUtil.showActionSheetModal(
@@ -130,74 +128,16 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
     ReferralOutcomeEvent referralOutComeEvent =
         ReferralOutcomeEvent().fromTeiModel(
       eventData: events.isEmpty ? Events(dataValues: []) : events.first,
-      referralToComeReference: "",
-      referralToFollowUpLinkage: "",
+      referralToComeReference: referralOutcomeLinkage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
     );
     return referralOutComeEvent;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<ServiceEventDataState>(
-      builder: (context, serviceEventDataState, child) {
-        ReferralOutcomeEvent referralOutComeEvent = _getReferralOutcomeEvent(
-          eventListByProgramStage:
-              serviceEventDataState.eventListByProgramStage,
-        );
-        bool _hasReferralOutcome =
-            referralOutComeEvent.dateClientReachStation != "";
-        return serviceEventDataState.isLoading
-            ? Container(
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                child: const CircularProcessLoader(
-                  color: Colors.blueGrey,
-                ),
-              )
-            : !_hasReferralOutcome && isIncomingReferral
-                ? BeneficiaryReferralOutcomeButton(
-                    onTap: () => onAddOrEditReferralOutcome(context, null),
-                    color: labelColor,
-                  )
-                : Visibility(
-                    visible: _hasReferralOutcome,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: valueColor.withOpacity(0.3),
-                        ),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 15.0,
-                      ),
-                      child: Text(
-                        '$referralEvent : $_hasReferralOutcome $referralOutComeEvent',
-                        style: const TextStyle().copyWith(
-                          fontSize: 14.0,
-                          color: labelColor,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  );
-      },
-    );
-  }
-}
-
-class BeneficiaryReferralOutcomeButton extends StatelessWidget {
-  const BeneficiaryReferralOutcomeButton({
-    Key? key,
-    required this.color,
-    required this.onTap,
-  }) : super(key: key);
-
-  final Color color;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _getReferralButton({
+    required Color color,
+    required VoidCallback onTap,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(),
       child: Column(
@@ -234,6 +174,63 @@ class BeneficiaryReferralOutcomeButton extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ServiceEventDataState>(
+      builder: (context, serviceEventDataState, child) {
+        ReferralOutcomeEvent referralOutcomeEvent = _getReferralOutcomeEvent(
+          eventListByProgramStage:
+              serviceEventDataState.eventListByProgramStage,
+        );
+        bool _hasReferralOutcome =
+            referralOutcomeEvent.dateClientReachStation != "";
+        return serviceEventDataState.isLoading
+            ? Container(
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                child: const CircularProcessLoader(
+                  color: Colors.blueGrey,
+                ),
+              )
+            : !_hasReferralOutcome && isIncomingReferral
+                ? _getReferralButton(
+                    onTap: () => onAddOrEditReferralOutcome(context, null),
+                    color: labelColor,
+                  )
+                : Visibility(
+                    visible: _hasReferralOutcome,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: valueColor.withOpacity(0.3),
+                        ),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 15.0,
+                      ),
+                      child: BeneficiaryReferralOutcome(
+                        isOvcIntervention: isOvcIntervention,
+                        isHouseholdReferral: isHouseholdReferral,
+                        enrollmentOuAccessible: enrollmentOuAccessible,
+                        valueColor: valueColor,
+                        beneficiary: beneficiary,
+                        referralProgram: referralProgram,
+                        referralOutcomeFollowingUpProgramStage:
+                            referralOutcomeFollowingUpProgramStage,
+                        referralOutcomeFollowingUplinkage:
+                            referralOutcomeFollowingUplinkage,
+                        referralOutcomeEvent: referralOutcomeEvent,
+                        labelColor: labelColor,
+                        onEditReferralOutcome: () => onAddOrEditReferralOutcome(
+                            context, referralOutcomeEvent),
+                      ),
+                    ),
+                  );
+      },
     );
   }
 }
