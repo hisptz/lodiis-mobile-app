@@ -62,8 +62,10 @@ class DreamsReferral {
                             code: 'GenderBasedViolence',
                             name: 'Gender Based Violence'),
                         InputFieldOption(
-                            code:
-                                'LifeSkillSocial GenderBasedViolence AssetServices',
+                            code: 'EconomicStrengtheningActivities',
+                            name: 'Economic Strengthening Activities'),
+                        InputFieldOption(
+                            code: 'LifeSkillSocialAssetServices',
                             name: 'Life-skill & Social Asset Services'),
                       ]),
                   InputField(
@@ -186,8 +188,10 @@ class DreamsReferral {
                             code: 'GenderBasedViolence',
                             name: 'Gender Based Violence'),
                         InputFieldOption(
-                            code:
-                                'LifeSkillSocial GenderBasedViolence AssetServices',
+                            code: 'EconomicStrengtheningActivities',
+                            name: 'Economic Strengthening Activities'),
+                        InputFieldOption(
+                            code: 'LifeSkillSocialAssetServices',
                             name: 'Life-skill & Social Asset Services'),
                       ]),
                   InputField(
