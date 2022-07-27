@@ -126,10 +126,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
-                        InputFieldOption(
-                            code: 'PTS 4 NON-GRAD', name: 'PTS 4 NON-GRAD'),
-                        InputFieldOption(
-                            code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
                         InputFieldOption(code: 'SILC', name: 'SILC'),
                         InputFieldOption(code: 'LBSE', name: 'LBSE'),
                         InputFieldOption(
@@ -139,7 +135,6 @@ class DreamsReferral {
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
                         InputFieldOption(
                             code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                        InputFieldOption(code: 'IPC', name: 'IPC'),
                         InputFieldOption(
                             code: 'GBV Legal Protection',
                             name: 'GBV Legal Protection'),
@@ -252,10 +247,6 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
-                        InputFieldOption(
-                            code: 'PTS 4 NON-GRAD', name: 'PTS 4 NON-GRAD'),
-                        InputFieldOption(
-                            code: 'PTS 4-GRAD', name: 'PTS 4-GRAD'),
                         InputFieldOption(code: 'SILC', name: 'SILC'),
                         InputFieldOption(code: 'LBSE', name: 'LBSE'),
                         InputFieldOption(
@@ -265,7 +256,6 @@ class DreamsReferral {
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
                         InputFieldOption(
                             code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                        InputFieldOption(code: 'IPC', name: 'IPC'),
                         InputFieldOption(
                             code: 'GBV Legal Protection',
                             name: 'GBV Legal Protection'),

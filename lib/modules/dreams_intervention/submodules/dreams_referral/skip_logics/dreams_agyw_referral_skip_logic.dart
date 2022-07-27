@@ -99,8 +99,6 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['PostGBVCareLegal'] = true;
           referralServiceHiddenOptions['Aflateen/toun'] = true;
           referralServiceHiddenOptions['Go Girls'] = true;
-          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
-          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
           referralServiceHiddenOptions['FinancialLiteracyEducation'] = true;
           referralServiceHiddenOptions['SAVING GROUPS'] = true;
           referralServiceHiddenOptions['STEPPING STONES'] = true;
@@ -111,19 +109,24 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['VAC Legal'] = true;
           referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
-          referralServiceHiddenOptions['IPC'] = true;
+          referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
+          referralServiceHiddenOptions['ParentingPregBreastfeeding'] = true;
+          referralServiceHiddenOptions['ComprehensiveEconomicStrengthening'] =
+              true;
+          referralServiceHiddenOptions['EducationSubsidiesSupport'] = true;
         } else if (value == 'GenderBasedViolence') {
           referralServiceHiddenOptions['Aflateen/toun'] = true;
           referralServiceHiddenOptions['Go Girls'] = true;
-          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
-          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
           referralServiceHiddenOptions['FinancialLiteracyEducation'] = true;
           referralServiceHiddenOptions['SAVING GROUPS'] = true;
+          referralServiceHiddenOptions['GBV Legal Protection'] = true;
+          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
+          referralServiceHiddenOptions['VAC Legal'] = true;
           referralServiceHiddenOptions['STEPPING STONES'] = true;
           referralServiceHiddenOptions['Parenting'] = true;
           referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
-          referralServiceHiddenOptions['IPC'] = true;
           referralServiceHiddenOptions['HIVRiskAssessment'] = true;
           referralServiceHiddenOptions['STI Screening'] = true;
           referralServiceHiddenOptions['STI Treatment'] = true;
@@ -134,10 +137,17 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['TB screening'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
+          referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
           referralServiceHiddenOptions['HTS'] = true;
           referralServiceHiddenOptions['ANC'] = true;
           referralServiceHiddenOptions['PrEP'] = true;
           referralServiceHiddenOptions['EMTCT'] = true;
+          referralServiceHiddenOptions['ParentingPregBreastfeeding'] = true;
+          referralServiceHiddenOptions['ComprehensiveEconomicStrengthening'] =
+              true;
+          referralServiceHiddenOptions['EducationSubsidiesSupport'] = true;
+          referralServiceHiddenOptions['PostGBVServicesClinical'] = true;
+          referralServiceHiddenOptions['Treatment Support (TB/ARV)'] = true;
         } else if (value == 'LifeSkillSocialAssetServices') {
           referralServiceHiddenOptions['GBV Legal Protection'] = true;
           referralServiceHiddenOptions['GBV Legal Messaging'] = true;
@@ -156,17 +166,22 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
           referralServiceHiddenOptions['HTS'] = true;
           referralServiceHiddenOptions['ANC'] = true;
+          referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['PrEP'] = true;
           referralServiceHiddenOptions['EMTCT'] = true;
+          referralServiceHiddenOptions['ComprehensiveEconomicStrengthening'] =
+              true;
+          referralServiceHiddenOptions['Treatment Support (TB/ARV)'] = true;
+          referralServiceHiddenOptions['PostGBVServicesClinical'] = true;
+          referralServiceHiddenOptions['FinancialLiteracyEducation'] = true;
+          referralServiceHiddenOptions['STEPPING STONES'] = true;
+          referralServiceHiddenOptions['SAVING GROUPS'] = true;
         } else if (value == 'EconomicStrengtheningActivities') {
           referralServiceHiddenOptions['GBV Legal Protection'] = true;
           referralServiceHiddenOptions['GBV Legal Messaging'] = true;
           referralServiceHiddenOptions['VAC Legal Messaging'] = true;
           referralServiceHiddenOptions['STEPPING STONES'] = true;
-          referralServiceHiddenOptions['IPC'] = true;
           referralServiceHiddenOptions['VAC Legal'] = true;
-          referralServiceHiddenOptions['PTS 4 NON-GRAD'] = true;
-          referralServiceHiddenOptions['PTS 4-GRAD'] = true;
           referralServiceHiddenOptions['ParentingPregBreastfeeding'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
