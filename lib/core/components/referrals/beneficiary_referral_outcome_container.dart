@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
   const BeneficiaryRefereralOutcomeContainer({
     Key? key,
+    required this.enrollmentOuAccessible,
     required this.beneficiary,
     required this.referralEvent,
     required this.labelColor,
@@ -35,6 +36,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
   final String referralOutcomeLinkage;
   final String referralOutcomeFollowingUplinkage;
   final TrackedEntityInstance beneficiary;
+  final bool enrollmentOuAccessible;
   final ReferralEvent referralEvent;
   final String referralProgram;
   final bool isOvcIntervention;
@@ -115,7 +117,16 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
       eventListByProgramStage,
       [referralOutcomeProgramStage],
       shouldSortByDate: true,
-    );
+    ).where((Events eventData) {
+      ReferralOutcomeEvent referralOutComeEvent =
+          ReferralOutcomeEvent().fromTeiModel(
+        eventData: eventData,
+        referralToComeReference: referralOutcomeLinkage,
+        referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      );
+      print(referralOutComeEvent);
+      return referralOutComeEvent.referralReference == referralEvent.id;
+    }).toList();
     ReferralOutcomeEvent referralOutComeEvent =
         ReferralOutcomeEvent().fromTeiModel(
       eventData: events.isEmpty ? Events(dataValues: []) : events.first,
