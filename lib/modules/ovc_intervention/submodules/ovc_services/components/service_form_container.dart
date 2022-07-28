@@ -52,11 +52,17 @@ class ServiceFormContainer extends StatelessWidget {
             AppUtil.getUid();
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-                firstDate: dataObject['eventDate'])
+                firstDate: dataObject['eventDate'] ??
+                    AppUtil.formattedDateTimeIntoString(
+                      DateTime.now(),
+                    ))
             .where((FormSection form) => form.id == formSection.id)
             .toList()
         : OvcServicesChildCasePlanGap.getFormSections(
-                firstDate: dataObject['eventDate'])
+                firstDate: dataObject['eventDate'] ??
+                    AppUtil.formattedDateTimeIntoString(
+                      DateTime.now(),
+                    ))
             .where((FormSection form) => form.id == formSection.id)
             .toList();
     formSections = formSections.map((FormSection form) {
