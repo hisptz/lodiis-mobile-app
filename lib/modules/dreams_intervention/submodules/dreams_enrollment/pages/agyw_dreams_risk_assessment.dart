@@ -214,10 +214,12 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                 'Are you sure  have ${dataObject[sexPartnerDataElement]} sex partners',
                 onDiscard),
             false);
+
         if (beneficiaryHasEnrollmentCriteria &&
-            !beneficiaryHasEnrollmentInstruction &&
-            confirmationResponse) {
-          onSave(dataObject, context);
+            !beneficiaryHasEnrollmentInstruction) {
+          if (confirmationResponse) {
+            onSave(dataObject, context);
+          }
         } else {
           if (confirmationResponse) {
             Navigator.push(
@@ -230,6 +232,12 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
             );
           }
         }
+
+        if (beneficiaryHasEnrollmentCriteria &&
+            !beneficiaryHasEnrollmentInstruction &&
+            confirmationResponse) {
+          onSave(dataObject, context);
+        } else {}
       } else {
         if (beneficiaryHasEnrollmentCriteria &&
             !beneficiaryHasEnrollmentInstruction) {

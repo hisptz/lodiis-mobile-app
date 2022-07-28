@@ -55,10 +55,8 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                   child: SizedBox(
                     height: 20.0,
                     width: 20.0,
-                    child: SvgPicture.asset(
-                      svgIcon,
-                      color: isAgeBeyondAverage?CustomColor.preferenceIndicatorColor:null
-                    ),
+                    child: SvgPicture.asset(svgIcon,
+                        color: isAgeBeyondAverage ? Colors.redAccent : null),
                   ),
                 ),
               ),
