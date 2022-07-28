@@ -202,22 +202,23 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
       }
       if (dataObject[sexPartnerDataElement] != "" &&
           (int.parse(dataObject[sexPartnerDataElement]) > 0)) {
+        void onDiscard() {
+          dataObject[sexPartnerDataElement] = '';
+          Navigator.pop(context, false);
+        }
+
+        bool confirmationResponse = await AppUtil.showPopUpModal(
+            context,
+            AppUtil.getConfirmationWidget(
+                context,
+                'Are you sure  have ${dataObject[sexPartnerDataElement]} sex partners',
+                onDiscard),
+            false);
         if (beneficiaryHasEnrollmentCriteria &&
-            !beneficiaryHasEnrollmentInstruction) {
+            !beneficiaryHasEnrollmentInstruction &&
+            confirmationResponse) {
           onSave(dataObject, context);
         } else {
-          void onDiscard() {
-            dataObject[sexPartnerDataElement] = '';
-            Navigator.pop(context, false);
-          }
-
-          bool confirmationResponse = await AppUtil.showPopUpModal(
-              context,
-              AppUtil.getConfirmationWidget(
-                  context,
-                  'Are you sure  have ${dataObject[sexPartnerDataElement]} sex partners',
-                  onDiscard),
-              false);
           if (confirmationResponse) {
             Navigator.push(
               context,
