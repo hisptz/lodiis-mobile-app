@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_eligible_not_enrollment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_none_participation_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_without_enrollment_criteria_constants.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
@@ -177,6 +178,27 @@ class AgywDreamsEnrollmentService {
   }
 
   Future<List<NoneParticipationBeneficiary>>
+      getEnrolledNotEligibleParticipationBeneficiaryList(
+          {page, String searchableValue = ''}) async {
+    String programId = AgywDreamEnrollmentNotEligible.program;
+    String programStageId = AgywDreamEnrollmentNotEligible.programStage;
+
+    List<NoneParticipationBeneficiary> dreamsEnrollmentNotEligibleParticipants =
+        await EventOfflineProvider().getEventsByProgram(
+            programId: programId, programStageId: programStageId, page: page);
+
+    return searchableValue == ''
+        ? dreamsEnrollmentNotEligibleParticipants
+        : dreamsEnrollmentNotEligibleParticipants
+            .where((NoneParticipationBeneficiary beneficiary) {
+            bool isBeneficiaryFound = AppUtil().searchFromString(
+                searchableString: beneficiary.searchableValue,
+                searchedValue: searchableValue);
+            return isBeneficiaryFound;
+          }).toList();
+  }
+
+  Future<List<NoneParticipationBeneficiary>>
       getBeneficiariesWithoutEnrollmentCriteriaList(
           {page, String searchableValue = ''}) async {
     String programId = AgywDreamsWithoutEnrollmentCriteriaConstant.program;
@@ -218,6 +240,13 @@ class AgywDreamsEnrollmentService {
 
   Future<int> getAgywBeneficiaryCount() async {
     return await EnrollmentOfflineProvider().getEnrollmentsCount(program);
+  }
+
+  Future<int> getEnrolledNotEligibleParticipationCount() async {
+    String programId = AgywDreamEnrollmentNotEligible.program;
+    String programStageId = AgywDreamEnrollmentNotEligible.programStage;
+    return await EventOfflineProvider().getEventsByProgramCount(
+        programId: programId, programStageId: programStageId);
   }
 
   Future<int> getIncomingReferralAgywBeneficiaryCount(

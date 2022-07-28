@@ -1255,13 +1255,19 @@ class AgywEnrollmentRiskAssessment {
                   'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
-
                 InputField(
               id: 'OmOU8n78dg7',
               name: 'Has the AGYW agreed to be enrolled in DREAMS?',
               translatedName:
                   'Na moroetsana/mosali ea mocha lilemong o lumetse ho kena lenaneng la DREAMS?',
               valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+                InputField(
+              id: 'L1Z7gkuKtbs',
+              name: 'Comments/Notes',
+              translatedName: 'Tlhakiso',
+              valueType: 'LONG_TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
 

@@ -103,13 +103,7 @@ class AgywEnrollmentFormSection {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
          
-          InputField(
-              id: 'L1Z7gkuKtbs',
-              name: 'Comments/Notes',
-              translatedName: 'Tlhakiso',
-              valueType: 'LONG_TEXT',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
+        
         ],
       ),
       FormSection(
