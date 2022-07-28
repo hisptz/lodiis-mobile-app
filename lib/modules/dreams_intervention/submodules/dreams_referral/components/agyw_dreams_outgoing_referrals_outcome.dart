@@ -9,8 +9,8 @@ import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/pages/dream_referral_page_home.dart';
 import 'package:provider/provider.dart';
 
-class DreamsOutgoingReferralsOutcome extends StatefulWidget {
-  const DreamsOutgoingReferralsOutcome({
+class AgywDreamsOutgoingReferralsOutcome extends StatefulWidget {
+  const AgywDreamsOutgoingReferralsOutcome({
     Key? key,
     required this.agywList,
     required this.isIncomingReferral,
@@ -19,12 +19,12 @@ class DreamsOutgoingReferralsOutcome extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _DreamsOutgoingReferralsOutcomeState createState() =>
-      _DreamsOutgoingReferralsOutcomeState();
+  _AgywDreamsOutgoingReferralsOutcomeState createState() =>
+      _AgywDreamsOutgoingReferralsOutcomeState();
 }
 
-class _DreamsOutgoingReferralsOutcomeState
-    extends State<DreamsOutgoingReferralsOutcome> {
+class _AgywDreamsOutgoingReferralsOutcomeState
+    extends State<AgywDreamsOutgoingReferralsOutcome> {
   final String svgIcon = 'assets/icons/dreams-header-icon.svg';
   String searchedValue = '';
 
@@ -78,15 +78,19 @@ class _DreamsOutgoingReferralsOutcomeState
                     .contains(searchedValue)))
             .map((agyw) => Container(
                   margin: const EdgeInsets.symmetric(
-                      horizontal: 5.0, vertical: 10.0),
+                    horizontal: 5.0,
+                    vertical: 10.0,
+                  ),
                   child: MaterialCard(
-                    body: GestureDetector(
+                    body: InkWell(
                       onTap: () => onView(agyw),
                       child: Column(
                         children: [
                           Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

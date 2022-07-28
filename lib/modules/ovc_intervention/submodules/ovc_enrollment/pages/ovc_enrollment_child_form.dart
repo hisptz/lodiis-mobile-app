@@ -89,7 +89,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     });
   }
 
-  // TODO see how to re-use existing skip logic
   evaluateSkipLogics() async {
     hiddenFields.clear();
     hiddenSections.clear();

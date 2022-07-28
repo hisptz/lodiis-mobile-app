@@ -139,8 +139,10 @@ class EducationBursaryEnrollmentService {
   }
 
   Future<List<NoneParticipationBeneficiary>>
-      getBursaryWithoutVulnerabilityCriteria(
-          {page, String searchableValue = ''}) async {
+      getBursaryWithoutVulnerabilityCriteria({
+    page,
+    String searchableValue = '',
+  }) async {
     String programId = BursaryWithoutEnrollmentCriteriaConstant.program;
     String programStageId =
         BursaryWithoutEnrollmentCriteriaConstant.programStage;
