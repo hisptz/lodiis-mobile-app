@@ -233,11 +233,6 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
           }
         }
 
-        if (beneficiaryHasEnrollmentCriteria &&
-            !beneficiaryHasEnrollmentInstruction &&
-            confirmationResponse) {
-          onSave(dataObject, context);
-        } else {}
       } else {
         if (beneficiaryHasEnrollmentCriteria &&
             !beneficiaryHasEnrollmentInstruction) {
