@@ -116,7 +116,6 @@ class DataQualityService {
   }
 
   static Future<void> runDataQualityCheckResolution() async {
-    print('Running data quality check resolution ${DateTime.now()}');
     List resolvedAttributes = [];
     List<FormSection> enrollmentFormSections = getEnrollmentFormSections();
     List<InputField> numericalInputFields =

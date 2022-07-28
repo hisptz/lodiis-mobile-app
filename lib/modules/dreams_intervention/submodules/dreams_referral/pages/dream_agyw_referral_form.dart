@@ -29,6 +29,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_notification.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
@@ -207,7 +208,9 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
               position: ToastGravity.TOP,
             );
             clearFormAutoSaveState(context, currentAgywDream.id, eventId ?? '');
-            Navigator.pop(context);
+            if (Navigator.canPop(context)) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
           });
         });
       } catch (error) {
@@ -362,7 +365,8 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                                             ? 'Boloka'
                                             : 'Save',
                                     labelColor: Colors.white,
-                                    buttonColor: const Color(0xFF1F8ECE),
+                                    buttonColor:
+                                        AgywDreamsCommonConstant.defaultColor,
                                     fontSize: 15.0,
                                     onPressButton: () => onSaveForm(
                                         context,

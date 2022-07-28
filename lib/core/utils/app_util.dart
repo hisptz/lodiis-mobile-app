@@ -18,9 +18,10 @@ class AppUtil {
     required List<int> allowedSelectedLevels,
     required String program,
     bool isReadOnly = false,
+    String formlabel = 'Service Provision Location',
   }) {
     return FormSection(
-      name: "Service Provision Location",
+      name: formlabel,
       color: sectionLabelColor,
       inputFields: [
         InputField(

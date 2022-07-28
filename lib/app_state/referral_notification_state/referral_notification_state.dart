@@ -18,7 +18,7 @@ class ReferralNotificationState with ChangeNotifier {
   String get currentImplementingPartner => _currentImplementingPartner ?? "";
   List<String> get beneficiariesWithIncomingReferrals =>
       _beneficiariesWithIncomingReferrals ?? [];
-  List<String?> get incomingReferrals => _incomingReferrals ?? [];
+  List<String>? get incomingReferrals => _incomingReferrals ?? [];
   List<ReferralEventNotification> get incomingResolvedReferrals =>
       _incomingResolvedReferrals ?? [];
   String get incomingReferralsResolvedIndicator =>
