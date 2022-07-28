@@ -154,7 +154,10 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
               bottomLeft: Radius.circular(12.0),
               bottomRight: Radius.circular(12.0),
             ),
-            child: SizedBox(
+            child: Container(
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.03),
+              ),
               width: double.infinity,
               child: TextButton(
                 onPressed: onTap,

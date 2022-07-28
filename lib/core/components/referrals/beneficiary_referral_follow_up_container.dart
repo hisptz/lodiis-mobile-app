@@ -163,14 +163,3 @@ class BeneficiaryReferralFollowUpContainer extends StatelessWidget {
     );
   }
 }
-
-/**
- * Text(
-            'referral following ups $valueColor $',
-            style: const TextStyle().copyWith(
-              fontSize: 14.0,
-              color: labelColor,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
- */

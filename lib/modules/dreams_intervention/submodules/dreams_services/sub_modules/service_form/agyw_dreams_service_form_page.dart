@@ -216,7 +216,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     .map((Events event) =>
                         ServiceEvent().getServiceSessions(event))
                     .toList();
-                int serviceIndex = events.length + 1;
                 return Column(
                   children: [
                     DreamsBeneficiaryTopHeader(
@@ -245,7 +244,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                           child: Column(
                                             children:
                                                 events.map((Events eventData) {
-                                              serviceIndex--;
                                               return Container(
                                                 margin: const EdgeInsets.only(
                                                   bottom: 15.0,

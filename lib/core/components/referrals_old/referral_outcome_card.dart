@@ -161,7 +161,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
               ),
               Visibility(
                 visible: widget.isEditableMode &&
-                    widget.isIncomingReferral &&
+                    (widget.isIncomingReferral || widget.isOvcIntervention) &&
                     !isReferralOutComeFilled &&
                     widget.eventData.enrollmentOuAccessible!,
                 child: ClipRRect(
