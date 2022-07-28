@@ -195,7 +195,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
                         activeInterventionProgram);
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(105),
+                preferredSize: const Size.fromHeight(110),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   tabController: tabController,
