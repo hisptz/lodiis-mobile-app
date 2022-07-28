@@ -20,7 +20,7 @@ class AgywDreamsNoneParticipationService {
   Future saveNoneParticipationForm(
     List<FormSection> formSections,
     Map dataObject,
-    String eventId,
+    String? eventId,
   ) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
@@ -60,8 +60,7 @@ class AgywDreamsNoneParticipationService {
         dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
             appAndDeviceTrackingDataElement;
     inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
-    eventId =
-        eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
+    eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         dataObject['location'], inputFieldIds, dataObject, null, null);
     await FormUtil.savingEvent(eventData);

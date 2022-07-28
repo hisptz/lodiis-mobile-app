@@ -65,7 +65,7 @@ class EventOfflineDataValueProvider extends OfflineDbProvider {
       var dbClient = await db;
       await dbClient!.rawUpdate(
         'UPDATE $table SET $value = SUBSTR($value, 0, 1190)  WHERE $dataElement = ? AND LENGTH($value) > 1199',
-        ['$deviceInfoId'],
+        [deviceInfoId],
       );
     } catch (e) {
       rethrow;
