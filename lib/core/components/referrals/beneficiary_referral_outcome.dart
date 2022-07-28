@@ -4,12 +4,15 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_follow_up_container.dart';
+import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_follow_up_modal.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/models/referral_outcome_follow_up_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_follow_up.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_follow_up.dart';
 import 'package:provider/provider.dart';
 
 class BeneficiaryReferralOutcome extends StatelessWidget {
@@ -26,6 +29,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     required this.referralProgram,
     required this.isOvcIntervention,
     required this.isHouseholdReferral,
+    required this.isOnEditMode,
   }) : super(key: key);
 
   final Color valueColor;
@@ -37,6 +41,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
   final bool enrollmentOuAccessible;
   final String referralProgram;
   final bool isOvcIntervention;
+  final bool isOnEditMode;
   final bool isHouseholdReferral;
 
   final VoidCallback onEditReferralOutcome;
@@ -50,19 +55,26 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
+
     String location = enrollmentOuAccessible ? beneficiary.orgUnit ?? '' : '';
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('location', location);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        'eventDate', referralOutcomeEvent.eventData?.eventDate);
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('eventId', referralOutcomeEvent.eventData?.event);
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState('location', referralOutcomeEvent.eventData?.orgUnit);
-    for (Map dataValue in referralOutcomeEvent.eventData?.dataValues) {
-      if (dataValue['value'] != '') {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
+        referralOutcomeFollowingUplinkage,
+        referralOutcomeEvent.referralFollowUpReference);
+    if (referralOutcomeFollowUpEvent != null) {
+      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+          'eventDate', referralOutcomeFollowUpEvent.eventData?.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+          'eventId', referralOutcomeFollowUpEvent.eventData?.event);
+      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+          'location', referralOutcomeFollowUpEvent.eventData?.orgUnit);
+      for (Map dataValue
+          in referralOutcomeFollowUpEvent.eventData?.dataValues) {
+        if (dataValue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
+        }
       }
     }
   }
@@ -73,10 +85,28 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
   ) {
     updateFormState(context, referralOutcomeFollowUpEvent);
     double modalRatio = 0.65;
-    Widget modal = Container(
-      margin: const EdgeInsets.symmetric(),
-      child: Text(
-          '$isOvcIntervention $beneficiary $enrollmentOuAccessible $referralOutcomeFollowingUpProgramStage $referralOutcomeEvent $referralOutcomeFollowingUplinkage'),
+    Widget modal = BeneficiaryReferralFollowUpModal(
+      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      formSections: isOvcIntervention
+          ? OvcReferralFollowUp.getFormSections(
+              firstDate: referralOutcomeEvent.dateClientReachStation!,
+            )
+          : DreamsReferralFollowUp.getFormSections(
+              firstDate: referralOutcomeEvent.dateClientReachStation!,
+            ),
+      hiddenFields: [
+        referralOutcomeFollowingUplinkage,
+      ],
+      mandatoryFields: isOvcIntervention
+          ? OvcReferralFollowUp.getMandatoryFields()
+          : DreamsReferralFollowUp.getMandatoryFields(),
+      beneficiary: beneficiary,
+      referralFollowUpStage: referralOutcomeFollowingUpProgramStage,
+      referralProgram: referralProgram,
+      isOvcIntervention: isOvcIntervention,
+      enrollmentOuAccessible: enrollmentOuAccessible,
+      themeColor:
+          isOvcIntervention ? const Color(0xFF4B9F46) : const Color(0xFF1F8ECE),
     );
     AppUtil.showActionSheetModal(
       context: context,
@@ -114,27 +144,37 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
                 _getReferralOutcomFollowUps(
                     eventListByProgramStage:
                         serviceEventDataState.eventListByProgramStage);
-            // TODO checking for completion of folloqing
-            return referralOutcomeEvent.requiredFollowUp! &&
-                    referralOutcomeFollowUpEvents.isEmpty
-                ? Visibility(
-                    //TODO referralOutcomeEvent.referralServiceProvided!
-                    visible: true,
+            List<ReferralOutcomeFollowUpEvent> completedReferrals =
+                referralOutcomeFollowUpEvents
+                    .where((followUp) => followUp.isCompleted!)
+                    .toList();
+            return Column(
+              children: [
+                Visibility(
+                  visible: referralOutcomeFollowUpEvents.isNotEmpty,
+                  child: BeneficiaryReferralFollowUpContainer(
+                    valueColor: valueColor,
+                    isOnEditMode: isOnEditMode,
+                    referralOutcomeFollowUpEvents:
+                        referralOutcomeFollowUpEvents,
+                    labelColor: labelColor,
+                    onEditReferralFollowUp: (ReferralOutcomeFollowUpEvent
+                            referralOutcomeFollowUpEvent) =>
+                        onAddOrEditReferralFollowUp(
+                            context, referralOutcomeFollowUpEvent),
+                  ),
+                ),
+                Visibility(
+                  visible: referralOutcomeEvent.requiredFollowUp! &&
+                      completedReferrals.isEmpty &&
+                      isOnEditMode,
+                  child: Visibility(
+                    visible: referralOutcomeEvent.referralServiceProvided!,
                     child: _getAddFollowUpButton(context),
-                  )
-                : Visibility(
-                    visible: referralOutcomeFollowUpEvents.isNotEmpty,
-                    child: BeneficiaryReferralFollowUpContainer(
-                      valueColor: valueColor,
-                      referralOutcomeFollowUpEvents:
-                          referralOutcomeFollowUpEvents,
-                      labelColor: labelColor,
-                      onEditReferralFollowUp: (ReferralOutcomeFollowUpEvent
-                              referralOutcomeFollowUpEvent) =>
-                          onAddOrEditReferralFollowUp(
-                              context, referralOutcomeFollowUpEvent),
-                    ),
-                  );
+                  ),
+                ),
+              ],
+            );
           },
         )
       ],
@@ -145,14 +185,20 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     return Row(
       children: [
         Expanded(
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
             child: Text(
-          'OUTCOME',
-          style: const TextStyle().copyWith(
-            color: valueColor,
-            fontWeight: FontWeight.w700,
-            fontSize: 14.0,
+              'OUTCOME',
+              style: const TextStyle().copyWith(
+                color: valueColor,
+                fontWeight: FontWeight.w700,
+                fontSize: 14.0,
+              ),
+            ),
           ),
-        )),
+        ),
         Consumer<ServiceEventDataState>(
           builder: (context, serviceEventDataState, child) {
             List<ReferralOutcomeFollowUpEvent> followingUps =
@@ -162,7 +208,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
             );
             //TODO handling has access to edit outcome
             return Visibility(
-              visible: followingUps.isEmpty,
+              visible: followingUps.isEmpty && isOnEditMode,
               child: Container(
                 margin: const EdgeInsets.symmetric(),
                 child: InkWell(

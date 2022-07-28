@@ -31,7 +31,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
     this.isOvcIntervention = false,
     this.isHouseHoldReferral = false,
     this.isOnViewOrManage = false,
-    this.isOnReferralManage = false,
+    this.isOnEditMode = false,
     this.prefixReferralTitle = 'Referral',
     required this.onManage,
     required this.onView,
@@ -46,7 +46,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
   final String referralOutcomeLinkage;
   final String referralOutcomeFollowingUplinkage;
   final bool isIncomingReferral;
-  final bool isOnReferralManage;
+  final bool isOnEditMode;
   final String prefixReferralTitle;
   final Color themeColor;
   final Color titleColor;
@@ -130,7 +130,7 @@ class _BeneficiaryRefereralCardContainerState
                             widget.referralOutcomeFollowingUplinkage,
                         isOnEditMode:
                             referralEvent.eventData!.enrollmentOuAccessible! &&
-                                widget.isOnReferralManage,
+                                widget.isOnEditMode,
                         color: widget.themeColor,
                       )
                     ],
@@ -150,6 +150,7 @@ class _BeneficiaryRefereralCardContainerState
                     child: BeneficiaryRefereralOutcomeContainer(
                       enrollmentOuAccessible: widget.enrollmentOuAccessible,
                       beneficiary: widget.beneficiary,
+                      isOnEditMode: widget.isOnEditMode,
                       referralProgram: widget.referralProgram,
                       referralOutcomeProgramStage:
                           widget.referralOutcomeProgramStage,

@@ -83,7 +83,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                         DreamsAgywReferralConstant.referralToFollowUpLinkage,
                     referralEventData: widget.eventData,
                     isIncomingReferral: widget.isIncomingReferral,
-                    isOnReferralManage: true,
+                    isOnEditMode: true,
                     isOnViewOrManage: true,
                     onManage: () {},
                     onView: () {},

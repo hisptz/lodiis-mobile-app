@@ -30,6 +30,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
     required this.referralOutcomeFollowingUplinkage,
     required this.isOvcIntervention,
     required this.isIncomingReferral,
+    required this.isOnEditMode,
     required this.isHouseholdReferral,
   }) : super(key: key);
   final String referralOutcomeProgramStage;
@@ -38,6 +39,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
   final String referralOutcomeFollowingUplinkage;
   final TrackedEntityInstance beneficiary;
   final bool enrollmentOuAccessible;
+  final bool isOnEditMode;
   final ReferralEvent referralEvent;
   final String referralProgram;
   final bool isOvcIntervention;
@@ -194,7 +196,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               )
-            : !_hasReferralOutcome && isIncomingReferral
+            : !_hasReferralOutcome && isIncomingReferral && isOnEditMode
                 ? _getReferralButton(
                     onTap: () => onAddOrEditReferralOutcome(context, null),
                     color: labelColor,
@@ -215,6 +217,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
                       child: BeneficiaryReferralOutcome(
                         isOvcIntervention: isOvcIntervention,
                         isHouseholdReferral: isHouseholdReferral,
+                        isOnEditMode: isOnEditMode,
                         enrollmentOuAccessible: enrollmentOuAccessible,
                         valueColor: valueColor,
                         beneficiary: beneficiary,
