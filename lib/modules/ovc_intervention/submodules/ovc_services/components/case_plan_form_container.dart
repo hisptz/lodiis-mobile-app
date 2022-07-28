@@ -53,15 +53,20 @@ class CasePlanFormContainer extends StatelessWidget {
             AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
+    print(gapDataObject['eventDate']);
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-                firstDate: gapDataObject['eventDate'])
-            .where((FormSection form) => form.id == formSection.id)
-            .toList()
+            firstDate: gapDataObject['eventDate'] ??
+                AppUtil.formattedDateTimeIntoString(
+                  DateTime.now(),
+                ),
+          ).where((FormSection form) => form.id == formSection.id).toList()
         : OvcServicesChildCasePlanGap.getFormSections(
-                firstDate: gapDataObject['eventDate'])
-            .where((FormSection form) => form.id == formSection.id)
-            .toList();
+            firstDate: gapDataObject['eventDate'] ??
+                AppUtil.formattedDateTimeIntoString(
+                  DateTime.now(),
+                ),
+          ).where((FormSection form) => form.id == formSection.id).toList();
     formSections = formSections.map((FormSection form) {
       form.borderColor = Colors.transparent;
       return form;
