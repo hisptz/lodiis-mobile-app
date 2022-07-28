@@ -78,15 +78,19 @@ class _AgywDreamsOutgoingReferralsOutcomeState
                     .contains(searchedValue)))
             .map((agyw) => Container(
                   margin: const EdgeInsets.symmetric(
-                      horizontal: 5.0, vertical: 10.0),
+                    horizontal: 5.0,
+                    vertical: 10.0,
+                  ),
                   child: MaterialCard(
-                    body: GestureDetector(
+                    body: InkWell(
                       onTap: () => onView(agyw),
                       child: Column(
                         children: [
                           Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
