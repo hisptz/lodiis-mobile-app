@@ -50,6 +50,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
 
   Future<List<Enrollment>> getEnrollmentsByProgram(String programId,
       {int? page, String searchedValue = ''}) async {
+    // TODO implement search by tables join here
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;

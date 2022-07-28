@@ -50,6 +50,8 @@ class OvcInterventionListState with ChangeNotifier {
     return _ovcFilters.length;
   }
 
+  Map get ovcSearchableValue => _ovcSearchableValue;
+  Map get noneParticipationSearchableValue => _noneParticipationSearchableValue;
   bool get isLoading => _isLoading;
   int get numberOfHouseholds => _numberOfHouseholds;
   int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;

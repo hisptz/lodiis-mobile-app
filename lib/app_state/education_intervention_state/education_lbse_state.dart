@@ -23,6 +23,7 @@ class EducationLbseInterventionState with ChangeNotifier {
 
   EducationLbseInterventionState(this.context);
 
+  Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationLbse => _numberOfEducationLbse;
   String get numberOfEducationLbseBySex =>

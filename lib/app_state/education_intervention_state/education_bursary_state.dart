@@ -32,6 +32,9 @@ class EducationBursaryInterventionState with ChangeNotifier {
 
   EducationBursaryInterventionState(this.context);
 
+  Map get bursarySearchedAttributes => _bursarySearchedAttributes;
+  Map get bursaryWithoutVulnerabilitySearchedAttributes =>
+      _bursaryWithoutVulnerabilitySearchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationBursary => _numberOfEducationBursary;
   String get numberOfEducationBursaryBySex =>

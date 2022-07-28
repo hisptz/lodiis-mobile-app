@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
@@ -71,12 +72,93 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   }
 
   void onOpenOfflineSearchSheet(BuildContext context) {
+    Map searchedAttributes = _getSearchedAttributes(context);
     showModalBottomSheet(
         context: context,
         isDismissible: true,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (BuildContext context) => const OfflineBeneficiarySearch());
+        builder: (BuildContext context) => OfflineBeneficiarySearch(
+              searchedAttributes: searchedAttributes,
+            ));
+  }
+
+  Map _getSearchedAttributes(BuildContext context) {
+    Map searchedAttributes = {};
+    InterventionCard activeInterventionProgram =
+        Provider.of<InterventionCardState>(context, listen: false)
+            .currentInterventionProgram;
+    String? currentInterventionBottomNavigationId =
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .currentInterventionBottomNavigationId;
+    if (activeInterventionProgram.id == 'ogac') {
+      searchedAttributes =
+          Provider.of<OgacInterventionListState>(context, listen: false)
+              .searchedAttributes;
+    } else if (activeInterventionProgram.id == 'dreams') {
+      if (currentInterventionBottomNavigationId == 'records') {
+        searchedAttributes = {
+          ...Provider.of<DreamsInterventionListState>(context, listen: false)
+              .agywSearchableValue,
+          ...Provider.of<DreamsInterventionListState>(context, listen: false)
+              .nonAgywSearchableValue,
+          ...Provider.of<DreamsInterventionListState>(context, listen: false)
+              .incomingReferralsSearchableValue,
+          ...Provider.of<DreamsInterventionListState>(context, listen: false)
+              .beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes
+        };
+      } else if (currentInterventionBottomNavigationId == 'incomingReferral') {
+        searchedAttributes =
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .incomingReferralsSearchableValue;
+      } else if (currentInterventionBottomNavigationId == 'noneAgyw') {
+        searchedAttributes =
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .nonAgywSearchableValue;
+      } else {
+        searchedAttributes =
+            Provider.of<DreamsInterventionListState>(context, listen: false)
+                .agywSearchableValue;
+      }
+    } else if (activeInterventionProgram.id == 'ovc') {
+      if (currentInterventionBottomNavigationId == 'records') {
+        searchedAttributes = {
+          ...Provider.of<OvcInterventionListState>(context, listen: false)
+              .ovcSearchableValue,
+          ...Provider.of<OvcInterventionListState>(context, listen: false)
+              .noneParticipationSearchableValue
+        };
+      } else {
+        searchedAttributes =
+            Provider.of<OvcInterventionListState>(context, listen: false)
+                .ovcSearchableValue;
+      }
+    } else if (activeInterventionProgram.id == 'pp_prev') {
+      searchedAttributes =
+          Provider.of<PpPrevInterventionState>(context, listen: false)
+              .searchedAttributes;
+    } else if (activeInterventionProgram.id == 'education') {
+      if (currentInterventionBottomNavigationId == 'records') {
+        searchedAttributes = {
+          ...Provider.of<EducationBursaryInterventionState>(context,
+                  listen: false)
+              .bursarySearchedAttributes,
+          ...Provider.of<EducationBursaryInterventionState>(context,
+                  listen: false)
+              .bursaryWithoutVulnerabilitySearchedAttributes
+        };
+      } else if (currentInterventionBottomNavigationId == "lbse") {
+        searchedAttributes =
+            Provider.of<EducationLbseInterventionState>(context, listen: false)
+                .searchedAttributes;
+      } else if (currentInterventionBottomNavigationId == "bursary") {
+        searchedAttributes = Provider.of<EducationBursaryInterventionState>(
+                context,
+                listen: false)
+            .bursarySearchedAttributes;
+      }
+    }
+    return searchedAttributes;
   }
 
   void refreshBeneficiaryList(BuildContext context) async {

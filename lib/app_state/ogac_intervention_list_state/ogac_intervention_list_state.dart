@@ -22,6 +22,7 @@ class OgacInterventionListState with ChangeNotifier {
 
   OgacInterventionListState(this.context);
 
+  Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfOgac => _numberOfOgac;
   int get numberOfPages =>

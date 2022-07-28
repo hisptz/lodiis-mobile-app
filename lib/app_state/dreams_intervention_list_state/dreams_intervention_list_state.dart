@@ -55,6 +55,11 @@ class DreamsInterventionListState with ChangeNotifier {
 
   DreamsInterventionListState(this.context);
 
+  Map get agywSearchableValue => _agywSearchableValue;
+  Map get nonAgywSearchableValue => _nonAgywSearchableValue;
+  Map get incomingReferralsSearchableValue => _incomingReferralsSearchableValue;
+  Map get beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes =>
+      _beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes;
   bool get isLoading => _isLoading;
   int get numberOfAgywDreamsBeneficiaries => _numberOfAgywDreamsBeneficiaries;
   int get numberOfAgywDreamsIncomingReferralBeneficiaries =>

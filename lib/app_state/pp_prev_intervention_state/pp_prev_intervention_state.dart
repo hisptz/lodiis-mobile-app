@@ -21,6 +21,7 @@ class PpPrevInterventionState with ChangeNotifier {
 
   PpPrevInterventionState(this.context);
 
+  Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfPpPrev => _numberOfPpPrev;
   int get numberOfPages =>
