@@ -13,9 +13,11 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
     required this.referralEvent,
     required this.referralOutcomeProgramStage,
     required this.isOnEditMode,
+    required this.isIncomingReferral,
     required this.color,
     required this.referralOutcomeLinkage,
     required this.referralOutcomeFollowingUplinkage,
+    required this.onEditReferral,
   }) : super(key: key);
 
   final ReferralEvent referralEvent;
@@ -23,7 +25,10 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
   final String referralOutcomeLinkage;
   final String referralOutcomeFollowingUplinkage;
   final bool isOnEditMode;
+  final bool isIncomingReferral;
   final Color color;
+
+  final VoidCallback onEditReferral;
 
   final double editIconHeight = 20.0;
 
@@ -68,12 +73,12 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
           bool _hasReferralOutcome =
               referralOutComeEvent.dateClientReachStation != "";
           return Visibility(
-            visible: isOnEditMode && !_hasReferralOutcome,
+            visible: isOnEditMode &&
+                !_hasReferralOutcome &&
+                referralEvent.enrollmentOuAccessible! &&
+                !isIncomingReferral,
             child: InkWell(
-              onTap: () => {
-                // IPS issue references
-                //TODO edit referral
-              },
+              onTap: onEditReferral,
               child: Container(
                 height: editIconHeight,
                 width: editIconHeight,

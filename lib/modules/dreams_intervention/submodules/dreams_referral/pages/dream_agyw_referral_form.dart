@@ -208,7 +208,9 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
               position: ToastGravity.TOP,
             );
             clearFormAutoSaveState(context, currentAgywDream.id, eventId ?? '');
-            Navigator.pop(context);
+            if (Navigator.canPop(context)) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
           });
         });
       } catch (error) {

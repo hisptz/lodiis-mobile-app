@@ -35,6 +35,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
     this.prefixReferralTitle = 'Referral',
     required this.onManage,
     required this.onView,
+    required this.onEditReferral,
   }) : super(key: key);
 
   final Events referralEventData;
@@ -59,6 +60,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
 
   final VoidCallback onView;
   final VoidCallback onManage;
+  final VoidCallback onEditReferral;
 
   @override
   State<BeneficiaryRefereralCardContainer> createState() =>
@@ -122,6 +124,8 @@ class _BeneficiaryRefereralCardContainerState
                         ),
                       ),
                       BeneficiaryReferralCardEditIcon(
+                        onEditReferral: widget.onEditReferral,
+                        isIncomingReferral: widget.isIncomingReferral,
                         referralEvent: referralEvent,
                         referralOutcomeProgramStage:
                             widget.referralOutcomeProgramStage,
@@ -132,7 +136,7 @@ class _BeneficiaryRefereralCardContainerState
                             referralEvent.eventData!.enrollmentOuAccessible! &&
                                 widget.isOnEditMode,
                         color: widget.themeColor,
-                      )
+                      ),
                     ],
                   ),
                   LineSeparator(

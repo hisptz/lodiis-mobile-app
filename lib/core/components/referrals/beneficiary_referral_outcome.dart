@@ -211,7 +211,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
             return Visibility(
               visible: followingUps.isEmpty &&
                   isOnEditMode &&
-                  !isIncomingReferral &&
+                  isIncomingReferral &&
                   enrollmentOuAccessible,
               child: Container(
                 margin: const EdgeInsets.symmetric(),

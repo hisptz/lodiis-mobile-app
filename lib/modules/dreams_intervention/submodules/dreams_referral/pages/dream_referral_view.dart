@@ -85,6 +85,7 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                     referralProgram: DreamsAgywReferralConstant.program,
                     onManage: () {},
                     onView: () {},
+                    onEditReferral: () {},
                   ),
                 )
               ],
