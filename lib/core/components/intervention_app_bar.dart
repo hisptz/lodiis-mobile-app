@@ -10,13 +10,12 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/app_update_warning.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
-import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
+import 'package:kb_mobile_app/core/components/offline_beneficiary_search.dart';
 import 'package:kb_mobile_app/core/components/online_beneficiary_search.dart';
 import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 
 class InterventionAppBar extends StatefulWidget {
   const InterventionAppBar(
@@ -55,28 +54,12 @@ class InterventionAppBar extends StatefulWidget {
 }
 
 class _InterventionAppBarState extends State<InterventionAppBar> {
-  bool isSearchActive = false;
-  final PublishSubject<String> _searchedValued = PublishSubject<String>();
   InputField inputField = InputField(
     id: 'search',
     name: '',
     valueType: 'TEXT',
     inputColor: Colors.white,
   );
-
-  void onActivateOrDeactivateSearch(
-    BuildContext context,
-  ) async {
-    setState(() {
-      isSearchActive = !isSearchActive;
-      _searchedValued.add('');
-      if (!isSearchActive) {
-        refreshBeneficiaryList(context);
-      } else {
-        onSearchBeneficiary(context);
-      }
-    });
-  }
 
   void onOpenOnlineSearchSheet(BuildContext context) {
     showModalBottomSheet(
@@ -87,12 +70,13 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         builder: (BuildContext context) => const OnlineBeneficiarySearch());
   }
 
-  String _getCurrentInterventionBottomNavigationId(
-      BuildContext context, InterventionCard activeInterventionProgram) {
-    InterventionBottomNavigation currentInterventionBottomNavigation =
-        Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(activeInterventionProgram);
-    return currentInterventionBottomNavigation.id!;
+  void onOpenOfflineSearchSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isDismissible: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) => const OfflineBeneficiarySearch());
   }
 
   void refreshBeneficiaryList(BuildContext context) async {
@@ -115,75 +99,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       await Provider.of<EducationLbseInterventionState>(context, listen: false)
           .refreshEducationLbseNumber();
     }
-  }
-
-  void onSearchInputValueChange(BuildContext context, String value) {
-    value = value.toLowerCase();
-    _searchedValued.add(value);
-    onSearchBeneficiary(context);
-  }
-
-  void onSearchBeneficiary(BuildContext context) {
-    _searchedValued
-        .debounce((_) => TimerStream(true, const Duration(milliseconds: 500)))
-        .listen((searchedValue) async {
-      String currentInterventionBottomNavigationId =
-          _getCurrentInterventionBottomNavigationId(
-              context, widget.activeInterventionProgram);
-      if (searchedValue.isNotEmpty) {
-        if (widget.activeInterventionProgram.id == 'ogac') {
-          Provider.of<OgacInterventionListState>(context, listen: false)
-              .searchOgacList(searchedValue);
-        } else if (widget.activeInterventionProgram.id == 'dreams') {
-          if (currentInterventionBottomNavigationId == 'records') {
-            Provider.of<DreamsInterventionListState>(context, listen: false)
-                .searchAllAgywDreamsLists(searchedValue);
-          } else if (currentInterventionBottomNavigationId ==
-              'incomingReferral') {
-            Provider.of<DreamsInterventionListState>(context, listen: false)
-                .searchIncomingReferralList(searchedValue);
-          } else if (currentInterventionBottomNavigationId == 'noneAgyw') {
-            Provider.of<DreamsInterventionListState>(context, listen: false)
-                .searchNonAgywList(searchedValue);
-          } else {
-            Provider.of<DreamsInterventionListState>(context, listen: false)
-                .searchAgywDreamsList(searchedValue);
-          }
-        } else if (widget.activeInterventionProgram.id == 'ovc') {
-          if (currentInterventionBottomNavigationId == 'records') {
-            Provider.of<OvcInterventionListState>(context, listen: false)
-                .searchAllOvcList(searchedValue);
-          } else {
-            Provider.of<OvcInterventionListState>(context, listen: false)
-                .searchHousehold(searchedValue);
-          }
-        } else if (widget.activeInterventionProgram.id == 'pp_prev') {
-          Provider.of<PpPrevInterventionState>(context, listen: false)
-              .searchPpPrevList(searchedValue);
-        } else if (widget.activeInterventionProgram.id == 'education') {
-          if (currentInterventionBottomNavigationId == 'records') {
-            Provider.of<EducationLbseInterventionState>(context, listen: false)
-                .searchEducationLbseList(searchedValue);
-            Provider.of<EducationBursaryInterventionState>(context,
-                    listen: false)
-                .searchAllEducationBursaryLists(searchedValue);
-          } else if (currentInterventionBottomNavigationId == "lbse") {
-            Provider.of<EducationLbseInterventionState>(context, listen: false)
-                .searchEducationLbseList(searchedValue);
-          } else if (currentInterventionBottomNavigationId == "bursary") {
-            Provider.of<EducationBursaryInterventionState>(context,
-                    listen: false)
-                .searchEducationBursaryList(searchedValue);
-          }
-        }
-      }
-    });
-  }
-
-  @override
-  void dispose() async {
-    super.dispose();
-    await _searchedValued.close();
   }
 
   @override
@@ -237,96 +152,61 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
               ),
             ),
           ),
-          Expanded(
-            child: Visibility(
-              visible: isSearchActive,
-              child: Container(
-                margin: const EdgeInsets.only(left: 5),
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: widget.activeInterventionProgram.svgIconColor!,
-                  ),
-                ),
-                child: TextInputFieldContainer(
-                  inputField: inputField,
-                  inputValue: '',
-                  showInputCheckedIcon: false,
-                  onInputValueChange: (dynamic value) =>
-                      onSearchInputValueChange(context, value),
-                ),
-              ),
-            ),
-          )
         ],
       ),
       actions: [
         IconButton(
-          icon: Icon(isSearchActive ? Icons.search_off : Icons.search),
-          onPressed: () => onActivateOrDeactivateSearch(context),
+          icon: const Icon(Icons.search),
+          onPressed: () => onOpenOfflineSearchSheet(context),
         ),
         Consumer<DeviceConnectivityState>(
             builder: (context, deviceConnectivityState, child) {
-          return Visibility(
-            visible: !isSearchActive &&
-                (deviceConnectivityState.connectivityStatus ?? false),
-            child: IconButton(
-              icon: const Icon(Icons.travel_explore),
-              onPressed: () => onOpenOnlineSearchSheet(context),
-            ),
+          return IconButton(
+            icon: const Icon(Icons.travel_explore),
+            onPressed: () => onOpenOnlineSearchSheet(context),
           );
         }),
-        Visibility(
-          visible: !isSearchActive,
-          child: Consumer<InterventionBottomNavigationState>(
-            builder: (context, interventionBottomNavigationState, child) {
-              InterventionBottomNavigation currentInterventionBottomNavigation =
-                  interventionBottomNavigationState
-                      .getCurrentInterventionBottomNavigation(
-                widget.activeInterventionProgram,
-              );
-              return Visibility(
-                visible: widget.activeInterventionProgram.id == 'pp_prev' ||
-                    widget.activeInterventionProgram.id == 'education' ||
-                    widget.activeInterventionProgram.id == 'ogac' ||
-                    (currentInterventionBottomNavigation.id == 'enrollment' ||
-                        currentInterventionBottomNavigation.id == 'noneAgyw'),
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    widget.activeInterventionProgram.enrollmentIcon!,
-                  ),
-                  onPressed: currentInterventionBottomNavigation.id ==
-                          'noneAgyw'
-                      ? widget.onAddNoneAgywBeneficiary
-                      : currentInterventionBottomNavigation.id == 'lbse'
-                          ? widget.onAddLbseBeneficiary
-                          : currentInterventionBottomNavigation.id == 'bursary'
-                              ? widget.onAddBursaryBeneficiary
-                              : widget.activeInterventionProgram.id == 'dreams'
-                                  ? widget.onAddAgywBeneficiary
-                                  : widget.activeInterventionProgram.id ==
-                                          'ogac'
-                                      ? widget.onAddOgacBeneficiary
-                                      : widget.activeInterventionProgram.id ==
-                                              'pp_prev'
-                                          ? widget.onAddPpPrevBeneficiary
-                                          : widget.activeInterventionProgram
-                                                      .id ==
-                                                  "ovc"
-                                              ? widget.onAddHousehold
-                                              : () => {},
+        Consumer<InterventionBottomNavigationState>(
+          builder: (context, interventionBottomNavigationState, child) {
+            InterventionBottomNavigation currentInterventionBottomNavigation =
+                interventionBottomNavigationState
+                    .getCurrentInterventionBottomNavigation(
+              widget.activeInterventionProgram,
+            );
+            return Visibility(
+              visible: widget.activeInterventionProgram.id == 'pp_prev' ||
+                  widget.activeInterventionProgram.id == 'education' ||
+                  widget.activeInterventionProgram.id == 'ogac' ||
+                  (currentInterventionBottomNavigation.id == 'enrollment' ||
+                      currentInterventionBottomNavigation.id == 'noneAgyw'),
+              child: IconButton(
+                icon: SvgPicture.asset(
+                  widget.activeInterventionProgram.enrollmentIcon!,
                 ),
-              );
-            },
-          ),
+                onPressed: currentInterventionBottomNavigation.id == 'noneAgyw'
+                    ? widget.onAddNoneAgywBeneficiary
+                    : currentInterventionBottomNavigation.id == 'lbse'
+                        ? widget.onAddLbseBeneficiary
+                        : currentInterventionBottomNavigation.id == 'bursary'
+                            ? widget.onAddBursaryBeneficiary
+                            : widget.activeInterventionProgram.id == 'dreams'
+                                ? widget.onAddAgywBeneficiary
+                                : widget.activeInterventionProgram.id == 'ogac'
+                                    ? widget.onAddOgacBeneficiary
+                                    : widget.activeInterventionProgram.id ==
+                                            'pp_prev'
+                                        ? widget.onAddPpPrevBeneficiary
+                                        : widget.activeInterventionProgram.id ==
+                                                "ovc"
+                                            ? widget.onAddHousehold
+                                            : () => {},
+              ),
+            );
+          },
         ),
-        Visibility(
-          visible: !isSearchActive,
-          child: IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: widget.onOpenMoreMenu,
-          ),
+        IconButton(
+          icon: const Icon(Icons.more_vert),
+          onPressed: widget.onOpenMoreMenu,
         )
       ],
       bottom: PreferredSize(
