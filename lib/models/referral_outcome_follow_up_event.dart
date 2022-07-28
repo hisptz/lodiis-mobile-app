@@ -7,6 +7,7 @@ class ReferralOutcomeFollowUpEvent {
   String? comments;
   String? referralReference;
   bool? additionalFollowUpRequired;
+  bool? isCompleted;
   bool? enrollmentOuAccessible;
   Events? eventData;
 
@@ -18,6 +19,7 @@ class ReferralOutcomeFollowUpEvent {
     this.referralReference,
     this.additionalFollowUpRequired,
     this.enrollmentOuAccessible,
+    this.isCompleted,
     this.eventData,
   });
 
@@ -40,24 +42,27 @@ class ReferralOutcomeFollowUpEvent {
         data[dataElement] = '${detailObj['value']}'.trim();
       }
     }
+    String followUpStatus = data['VHe4ctA0bqU'] ?? '';
+    bool additionalFollowUpRequired = data['BzkeBAxdEVT'] != null
+        ? data['BzkeBAxdEVT'] == 'true'
+            ? true
+            : false
+        : true;
     return ReferralOutcomeFollowUpEvent(
       id: eventData.event,
       followUpDate: data['DPf5mUDoZMy'] ?? '',
-      followUpStatus: data['VHe4ctA0bqU'] ?? '',
+      followUpStatus: followUpStatus,
       comments: data['LcG4J82PM4Z'] ?? '',
-      additionalFollowUpRequired: data['BzkeBAxdEVT'] != null
-          ? data['BzkeBAxdEVT'] == 'true'
-              ? true
-              : false
-          : true,
+      additionalFollowUpRequired: additionalFollowUpRequired,
       enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       referralReference: data[referralToFollowUpLinkage] ?? '',
+      isCompleted: followUpStatus == 'Complete' || !additionalFollowUpRequired,
       eventData: eventData,
     );
   }
 
   @override
   String toString() {
-    return '$id  ';
+    return '$id  $followUpStatus';
   }
 }
