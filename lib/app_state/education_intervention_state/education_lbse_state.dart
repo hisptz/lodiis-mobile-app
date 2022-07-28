@@ -17,7 +17,7 @@ class EducationLbseInterventionState with ChangeNotifier {
   int _numberOfLbsePages = 0;
   int _numberOfLbseSearchablePages = 0;
   int? _nextLbsePage = 0;
-  String _searchableValue = '';
+  Map _searchedAttributes = {};
   List<Map<String, dynamic>> _lbseFilters = [];
   PagingController? _lbsePagingController;
 
@@ -27,7 +27,7 @@ class EducationLbseInterventionState with ChangeNotifier {
   int get numberOfEducationLbse => _numberOfEducationLbse;
   String get numberOfEducationLbseBySex =>
       '${_numberOfEducationLbseBySex['male'] ?? 0} Male  ${_numberOfEducationLbseBySex['female'] ?? 0} Female';
-  int get numberOfPages => _searchableValue == ''
+  int get numberOfPages => _searchedAttributes.isEmpty
       ? _numberOfLbsePages
       : _numberOfLbseSearchablePages;
   List<Map<String, dynamic>> get lbseFilters => _lbseFilters
@@ -61,9 +61,10 @@ class EducationLbseInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchLbsePage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    Map searchedAttributes = _searchedAttributes;
+    print('$searchedAttributes');
     List lbseList = await EducationLbseEnrollmentService().getBeneficiaries(
-        page: pageKey, searchableValue: searchableValue, filters: _lbseFilters);
+        page: pageKey, searchableValue: '', filters: _lbseFilters);
     if (lbseList.isEmpty && pageKey < numberOfPages) {
       _fetchLbsePage(pageKey + 1);
     } else {
@@ -87,7 +88,7 @@ class EducationLbseInterventionState with ChangeNotifier {
 
   Future<void> refreshEducationLbseNumber() async {
     _isLoading = true;
-    _searchableValue = '';
+    _searchedAttributes.clear();
     notifyListeners();
     await _getLbseBeneficiariesNumber();
     getNumberOfPages();
@@ -102,8 +103,8 @@ class EducationLbseInterventionState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
-  void searchEducationLbseList(String value) {
-    _searchableValue = value;
+  void searchEducationLbseList(Map searchedAttributes) {
+    _searchedAttributes = searchedAttributes;
     notifyListeners();
     if (_educationLbseInterventionList.isEmpty) {
       _educationLbseInterventionList =
@@ -111,7 +112,7 @@ class EducationLbseInterventionState with ChangeNotifier {
               <EducationBeneficiary>[];
       _nextLbsePage = _lbsePagingController!.nextPageKey;
     }
-    if (value.isNotEmpty) {
+    if (searchedAttributes.isNotEmpty) {
       refreshEducationLbseList();
     } else {
       _lbsePagingController!.itemList = _educationLbseInterventionList;

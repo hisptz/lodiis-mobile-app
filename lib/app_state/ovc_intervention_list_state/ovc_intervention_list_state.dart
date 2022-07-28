@@ -29,8 +29,8 @@ class OvcInterventionListState with ChangeNotifier {
   int _numberOfNoneParticipantsSearchablePages = 0;
   int? _nextPage = 0;
   int? _nextNoneParticipantPage = 0;
-  String _ovcSearchableValue = '';
-  String _searchableValue = '';
+  Map _ovcSearchableValue = {};
+  Map _noneParticipationSearchableValue = {};
 
   OvcInterventionListState(this.context);
 
@@ -55,10 +55,11 @@ class OvcInterventionListState with ChangeNotifier {
   int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;
   int get numberOfOvcs => _numberOfOvcs;
   int get numberOfPages =>
-      _ovcSearchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
-  int get numberOfNoneParticipantsPages => _searchableValue == ''
-      ? _numberOfNoneParticipantsPages
-      : _numberOfNoneParticipantsSearchablePages;
+      _ovcSearchableValue.isEmpty ? _numberOfPages : _numberOfSearchablePages;
+  int get numberOfNoneParticipantsPages =>
+      _noneParticipationSearchableValue.isEmpty
+          ? _numberOfNoneParticipantsPages
+          : _numberOfNoneParticipantsSearchablePages;
   List<Map<String, dynamic>> get ovcFilters => _ovcFilters
       .where((Map<String, dynamic> filter) => filter.isNotEmpty)
       .toList();
@@ -83,9 +84,10 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchOvcPage(int pageKey) async {
-    String searchableValue = _ovcSearchableValue;
+    Map searchedAttributes = _ovcSearchableValue;
+    print('$searchedAttributes');
     List ovcList = await OvcEnrollmentHouseholdService().getHouseholdList(
-        page: pageKey, searchableValue: searchableValue, filters: _ovcFilters);
+        page: pageKey, searchableValue: '', filters: _ovcFilters);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchOvcPage(pageKey + 1);
     } else {
@@ -96,10 +98,11 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchNoneParticipationPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    Map searchedAttributes = _noneParticipationSearchableValue;
+    print('$searchedAttributes');
     List beneficiaryList = await OvcEnrollmentHouseholdService()
         .getNoneParticipationBeneficiaryList(
-            page: pageKey, searchableValue: searchableValue);
+            page: pageKey, searchableValue: '');
     if (beneficiaryList.isEmpty && pageKey < numberOfNoneParticipantsPages) {
       _fetchNoneParticipationPage(pageKey + 1);
     } else {
@@ -121,8 +124,8 @@ class OvcInterventionListState with ChangeNotifier {
     notifyListeners();
   }
 
-  void searchHousehold(String value) {
-    _ovcSearchableValue = value;
+  void searchHousehold(Map searchedAttributes) {
+    _ovcSearchableValue = searchedAttributes;
     notifyListeners();
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList =
@@ -130,7 +133,7 @@ class OvcInterventionListState with ChangeNotifier {
               <OvcHousehold>[];
       _nextPage = _ovcPagingController!.nextPageKey;
     }
-    if (value.isNotEmpty) {
+    if (searchedAttributes.isNotEmpty) {
       refreshHouseHoldsList();
     } else {
       _ovcPagingController!.itemList = _ovcInterventionList;
@@ -141,9 +144,9 @@ class OvcInterventionListState with ChangeNotifier {
     }
   }
 
-  void searchAllOvcList(String value) {
-    _ovcSearchableValue = value;
-    _searchableValue = value;
+  void searchAllOvcList(Map searchedAttributes) {
+    _ovcSearchableValue = searchedAttributes;
+    _noneParticipationSearchableValue = searchedAttributes;
     notifyListeners();
     if (_ovcInterventionList.isEmpty) {
       _ovcInterventionList =
@@ -158,7 +161,7 @@ class OvcInterventionListState with ChangeNotifier {
       _nextNoneParticipantPage =
           _ovcNoneParticipationPagingController!.nextPageKey;
     }
-    if (value.isNotEmpty) {
+    if (searchedAttributes.isNotEmpty) {
       refreshOvcList();
     } else {
       _ovcPagingController!.itemList = _ovcInterventionList;
@@ -178,8 +181,8 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> refreshOvcNumber() async {
     _isLoading = true;
-    _ovcSearchableValue = '';
-    _searchableValue = '';
+    _ovcSearchableValue.clear();
+    _noneParticipationSearchableValue.clear();
     notifyListeners();
     await getHouseholdCount();
     getNumberOfPages();
