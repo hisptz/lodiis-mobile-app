@@ -218,6 +218,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
                         isOvcIntervention: isOvcIntervention,
                         isHouseholdReferral: isHouseholdReferral,
                         isOnEditMode: isOnEditMode,
+                        isIncomingReferral: isIncomingReferral,
                         enrollmentOuAccessible: enrollmentOuAccessible,
                         valueColor: valueColor,
                         beneficiary: beneficiary,

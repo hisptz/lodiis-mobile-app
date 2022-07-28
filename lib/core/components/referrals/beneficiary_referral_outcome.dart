@@ -30,6 +30,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     required this.isOvcIntervention,
     required this.isHouseholdReferral,
     required this.isOnEditMode,
+    required this.isIncomingReferral,
   }) : super(key: key);
 
   final Color valueColor;
@@ -42,6 +43,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
   final String referralProgram;
   final bool isOvcIntervention;
   final bool isOnEditMode;
+  final bool isIncomingReferral;
   final bool isHouseholdReferral;
 
   final VoidCallback onEditReferralOutcome;
@@ -206,9 +208,11 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
               eventListByProgramStage:
                   serviceEventDataState.eventListByProgramStage,
             );
-            //TODO handling has access to edit outcome
             return Visibility(
-              visible: followingUps.isEmpty && isOnEditMode,
+              visible: followingUps.isEmpty &&
+                  isOnEditMode &&
+                  !isIncomingReferral &&
+                  enrollmentOuAccessible,
               child: Container(
                 margin: const EdgeInsets.symmetric(),
                 child: InkWell(

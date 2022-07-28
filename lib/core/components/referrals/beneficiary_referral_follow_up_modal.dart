@@ -99,11 +99,7 @@ class _BeneficiaryReferralFollowUpModalState
   evaluateSkipLogics() {
     Timer(
       const Duration(milliseconds: 200),
-      () async {
-        Map dataObject =
-            Provider.of<ServiceFormState>(context, listen: false).formState;
-        //TODO handling skip logics if anyx
-      },
+      () {},
     );
   }
 
