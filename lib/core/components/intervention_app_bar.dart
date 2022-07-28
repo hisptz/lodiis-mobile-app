@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/int
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
+import 'package:kb_mobile_app/core/components/app_update_warning.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/input_fields/text_input_field_container.dart';
 import 'package:kb_mobile_app/core/components/online_beneficiary_search.dart';
@@ -330,21 +331,26 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
       ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
-        child: widget.hasTabs &&
-                widget.tabs.isNotEmpty &&
-                widget.tabController != null
-            ? TabBar(
-                isScrollable: true,
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                controller: widget.tabController,
-                unselectedLabelColor: Colors.white.withOpacity(0.3),
-                indicatorColor: Colors.white,
-                tabs: widget.tabs
-                    .map((tab) => Tab(
-                          child: tab,
-                        ))
-                    .toList())
-            : const DataDownloadMessage(),
+        child: Column(
+          children: [
+            const AppUpdateWarning(),
+            (widget.hasTabs &&
+                    widget.tabs.isNotEmpty &&
+                    widget.tabController != null
+                ? TabBar(
+                    isScrollable: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    controller: widget.tabController,
+                    unselectedLabelColor: Colors.white.withOpacity(0.3),
+                    indicatorColor: Colors.white,
+                    tabs: widget.tabs
+                        .map((tab) => Tab(
+                              child: tab,
+                            ))
+                        .toList())
+                : const DataDownloadMessage())
+          ],
+        ),
       ),
     );
   }
