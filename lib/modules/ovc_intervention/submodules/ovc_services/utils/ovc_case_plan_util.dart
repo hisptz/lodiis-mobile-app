@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/case_plan_event.dart';
 import 'package:kb_mobile_app/models/case_plan_gap_event.dart';
@@ -46,7 +44,6 @@ class OvcCasePlanUtil {
           .map((casePlanGapEvent) =>
               getMappedEventObject(casePlanGapEvent.eventData!))
           .toList();
-      print(json.encode(casePlanObject));
       casePlanDataObject[domainType] = casePlanObject;
     }
     return casePlanDataObject;

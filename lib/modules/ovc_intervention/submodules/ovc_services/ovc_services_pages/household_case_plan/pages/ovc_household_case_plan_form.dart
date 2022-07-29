@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_form_container_old.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
@@ -233,7 +233,7 @@ class _OvcHouseholdCasePlanFormState extends State<OvcHouseholdCasePlanForm> {
                                       children: formSections
                                           .map(
                                             (FormSection formSection) =>
-                                                CasePlanFormContainer(
+                                                CasePlanFormContainerOld(
                                               shouldAddCasePlanGap:
                                                   widget.shouldAddCasePlanGap,
                                               hasEditAccess:
