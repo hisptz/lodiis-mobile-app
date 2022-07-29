@@ -55,6 +55,7 @@ class InterventionAppBar extends StatefulWidget {
 }
 
 class _InterventionAppBarState extends State<InterventionAppBar> {
+  int searchItemsCount = 0;
   InputField inputField = InputField(
     id: 'search',
     name: '',
@@ -80,7 +81,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         backgroundColor: Colors.transparent,
         builder: (BuildContext context) => OfflineBeneficiarySearch(
               searchedAttributes: searchedAttributes,
-            ));
+            )).then((_) => _getSearchedAttributes(context));
   }
 
   Map _getSearchedAttributes(BuildContext context) {
@@ -158,6 +159,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
             .bursarySearchedAttributes;
       }
     }
+    setState(() {
+      searchItemsCount = searchedAttributes.values.length;
+    });
+    print('searching:: $searchItemsCount');
     return searchedAttributes;
   }
 
@@ -237,9 +242,48 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
         ],
       ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () => onOpenOfflineSearchSheet(context),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () => onOpenOfflineSearchSheet(context),
+            ),
+            // TODO add condition to show
+            Visibility(
+              visible: searchItemsCount > 0,
+              child: Positioned(
+                child: InkWell(
+                  onTap: () => onOpenOfflineSearchSheet(context),
+                  child: Consumer<InterventionCardState>(
+                    builder: ((context, interventionCardState, child) =>
+                        Container(
+                          padding: const EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                              color: interventionCardState
+                                  .currentInterventionProgram.primaryColor!
+                                  .withOpacity(1),
+                              borderRadius: BorderRadius.circular(12.0)),
+                          constraints: const BoxConstraints(
+                            minWidth: 14,
+                            minHeight: 14,
+                          ),
+                          child: Text(
+                            "$searchItemsCount",
+                            style: const TextStyle().copyWith(
+                                color: Colors.amberAccent,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w900),
+                            textAlign: TextAlign.center,
+                          ),
+                        )),
+                  ),
+                ),
+                right: 11,
+                top: 11,
+              ),
+            )
+          ],
         ),
         Consumer<DeviceConnectivityState>(
             builder: (context, deviceConnectivityState, child) {
