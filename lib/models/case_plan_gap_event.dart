@@ -49,6 +49,6 @@ class CasePlanGapEvent {
 
   @override
   String toString() {
-    return '<$id $date>';
+    return '<$id $date $casePlanToGap $gapOrNeed [$casePlanGapToServiceMonitoring $casePlanGapToServiceProvision]>';
   }
 }

@@ -39,6 +39,6 @@ class CasePlanEvent {
 
   @override
   String toString() {
-    return '';
+    return '<$id $domainType $casePlanToGap>';
   }
 }
