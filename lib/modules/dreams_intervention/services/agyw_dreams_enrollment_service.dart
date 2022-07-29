@@ -58,15 +58,22 @@ class AgywDreamsEnrollmentService {
     await FormUtil.savingEnrollment(enrollmentData);
   }
 
-  Future<List<AgywDream>> getAgywBenficiariesWithIncomingReferralList(
-      {int? page, List teiList = const [], String searchableValue = ''}) async {
+  Future<List<AgywDream>> getAgywBeneficiariesWithIncomingReferralList({
+    int? page,
+    List teiList = const [],
+    Map searchedAttributes = const {},
+  }) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<String> accessibleOrgUnits = await OrganisationUnitService()
           .getOrganisationUnitAccessedByCurrentUser();
-      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getFilteredEnrollments(program,
-              page: page, requiredTeiList: teiList as List<String>);
+      List<Enrollment> enrollments =
+          await EnrollmentOfflineProvider().getFilteredEnrollments(
+        program,
+        page: page,
+        requiredTeiList: teiList as List<String>,
+        searchedAttributes: searchedAttributes,
+      );
       for (Enrollment enrollment in enrollments) {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
@@ -87,14 +94,7 @@ class AgywDreamsEnrollmentService {
     } catch (e) {
       //
     }
-    return searchableValue == ''
-        ? agywDreamList
-        : agywDreamList.where((AgywDream beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return agywDreamList;
   }
 
   Future<List<AgywDream>> getAgywBeneficiaryList(

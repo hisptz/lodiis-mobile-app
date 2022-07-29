@@ -191,13 +191,12 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   _fetchAgywPagePerIncomingReferral(int pageKey) async {
-    Map searchableValue = _incomingReferralsSearchableValue;
-    print('$searchableValue');
+    Map searchedAttributes = _incomingReferralsSearchableValue;
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
-        .getAgywBenficiariesWithIncomingReferralList(
+        .getAgywBeneficiariesWithIncomingReferralList(
             page: pageKey,
             teiList: _teiWithIncomingReferral,
-            searchableValue: '');
+            searchedAttributes: searchedAttributes);
     if (agywList.isEmpty && pageKey < agywIncomingReferralNumberOfPages) {
       _fetchAgywPagePerIncomingReferral(pageKey + 1);
     } else {

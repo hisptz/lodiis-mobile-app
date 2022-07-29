@@ -54,7 +54,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       {int? page, Map searchedAttributes = const {}}) async {
     if (searchedAttributes.isNotEmpty) {
       // For searching
-      return _getEnrollmentsEnrollmentsByAttributes(
+      return _getEnrollmentsBySearchedAttributes(
         programId,
         page: page,
         searchedAttributes: searchedAttributes,
@@ -220,10 +220,21 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollmentList.length;
   }
 
-  Future<List<Enrollment>> getFilteredEnrollments(String programId,
-      {int? page, required List<String> requiredTeiList}) async {
+  Future<List<Enrollment>> getFilteredEnrollments(
+    String programId, {
+    int? page,
+    searchedAttributes = const {},
+    required List<String> requiredTeiList,
+  }) async {
     List<Enrollment> enrollments = [];
     try {
+      if (searchedAttributes.isNotEmpty) {
+        return _getFilteredEnrollmentsBySearchedAttributes(
+          programId,
+          searchedAttributes: searchedAttributes,
+          requiredTeiList: requiredTeiList,
+        );
+      }
       List<List<String>> chunkedTeiList =
           (AppUtil.chunkItems(items: requiredTeiList, size: 50))
               .cast<List<String>>();
@@ -346,7 +357,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         .toList();
   }
 
-  Future<List<Enrollment>> _getEnrollmentsEnrollmentsByAttributes(
+  Future<List<Enrollment>> _getEnrollmentsBySearchedAttributes(
     String programId, {
     int? page,
     Map searchedAttributes = const {},
@@ -368,7 +379,6 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     String searchParamsString = '(${searchParamsStringList.join(' OR ')})';
     String rawQuery =
         'SELECT $enrollment, $enrollmentDate, $incidentDate, $program, $orgUnit, $status, $syncStatus, $searchableValue, $table.$trackedEntityInstance, $attributesTable.$attribute, $attributesTable.$attributeValue FROM $table, $attributesTable  WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $searchParamsString  ORDER BY $enrollmentDate DESC';
-
     try {
       var dbClient = await db;
       List params = [
@@ -388,6 +398,76 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             await compute(_sanitizeSearchedEnrollments, enrollmentsMetadata);
         for (Map map in sanitizedMaps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
+  }
+
+  Future<List<Enrollment>> _getFilteredEnrollmentsBySearchedAttributes(
+    String programId, {
+    Map searchedAttributes = const {},
+    List<String> requiredTeiList = const [],
+  }) async {
+    List<Enrollment> enrollments = [];
+    String attributesTable = 'tracked_entity_instance_attribute';
+    String attribute = 'attribute';
+    String attributeValue = 'value';
+
+    List searchParams = [];
+    List<String> searchParamsStringList = [];
+    searchedAttributes.forEach((key, value) {
+      var attributeQuery =
+          '$attributesTable.$attribute = ? AND $attributesTable.$attributeValue LIKE ?';
+      searchParams = [...searchParams, key, '%$value%'];
+      searchParamsStringList = [...searchParamsStringList, attributeQuery];
+    });
+
+    String searchParamsString = '(${searchParamsStringList.join(' OR ')})';
+    try {
+      var dbClient = await db;
+      String rawQuery =
+          'SELECT $enrollment, $enrollmentDate, $incidentDate, $program, $orgUnit, $status, $syncStatus, $searchableValue, $table.$trackedEntityInstance, $attributesTable.$attribute, $attributesTable.$attributeValue FROM $table, $attributesTable  WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $searchParamsString';
+
+      List params = [
+        programId,
+        ...searchParams,
+      ];
+
+      List<List<String>> chunkedTeiList =
+          (AppUtil.chunkItems(items: requiredTeiList, size: 50))
+              .cast<List<String>>();
+
+      for (List<String> teiList in chunkedTeiList) {
+        String questionMarks = (teiList.isEmpty ? [''] : teiList)
+            .map((e) => '?')
+            .toList()
+            .join(',');
+        if (questionMarks.isNotEmpty) {
+          params = [...params, ...teiList];
+          rawQuery =
+              '$rawQuery AND $trackedEntityInstance in ($questionMarks) ORDER BY $enrollmentDate DESC';
+        } else {
+          rawQuery = '$rawQuery ORDER BY $enrollmentDate DESC';
+        }
+        List<Map> maps = await dbClient!.rawQuery(
+          rawQuery,
+          params,
+        );
+        if (maps.isNotEmpty) {
+          Map<String, dynamic> enrollmentsMetadata = {
+            'searchedAttributes': searchedAttributes,
+            'data': maps
+          };
+          List<Map> sanitizedMaps =
+              await compute(_sanitizeSearchedEnrollments, enrollmentsMetadata);
+          for (Map map in sanitizedMaps) {
+            enrollments
+                .add(Enrollment.fromOffline(map as Map<String, dynamic>));
+          }
         }
       }
     } catch (e) {
