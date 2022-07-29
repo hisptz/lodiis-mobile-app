@@ -341,7 +341,10 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
               bottomLeft: Radius.circular(12.0),
               bottomRight: Radius.circular(12.0),
             ),
-            child: SizedBox(
+            child: Container(
+              decoration: BoxDecoration(
+                color: labelColor,
+              ),
               width: double.infinity,
               child: TextButton(
                 onPressed: () => onAddOrEditReferralFollowUp(context, null),
@@ -353,6 +356,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
                     'ADD FOLLOW UP',
                     style: const TextStyle().copyWith(
                       fontSize: 14.0,
+                      color: Colors.white,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

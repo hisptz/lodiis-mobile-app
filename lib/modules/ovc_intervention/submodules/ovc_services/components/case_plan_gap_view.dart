@@ -60,11 +60,17 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
       label = '$label $gapIndex';
       List<FormSection> formSections = widget.isCasePlanForHousehold
           ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-                  firstDate: widget.casePlanGap['eventDate'])
+                  firstDate: widget.casePlanGap['eventDate'] ??
+                      AppUtil.formattedDateTimeIntoString(
+                        DateTime.now(),
+                      ))
               .where((FormSection form) => form.id == widget.domainId)
               .toList()
           : OvcServicesChildCasePlanGap.getFormSections(
-                  firstDate: widget.casePlanGap['eventDate'])
+                  firstDate: widget.casePlanGap['eventDate'] ??
+                      AppUtil.formattedDateTimeIntoString(
+                        DateTime.now(),
+                      ))
               .where((FormSection form) => form.id == widget.domainId)
               .toList();
       List keys = widget.casePlanGap.keys.toList();
@@ -97,11 +103,17 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
   ) async {
     List<FormSection> formSections = widget.isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-                firstDate: widget.casePlanGap['eventDate'])
+                firstDate: widget.casePlanGap['eventDate'] ??
+                    AppUtil.formattedDateTimeIntoString(
+                      DateTime.now(),
+                    ))
             .where((FormSection form) => form.id == widget.domainId)
             .toList()
         : OvcServicesChildCasePlanGap.getFormSections(
-                firstDate: widget.casePlanGap['eventDate'])
+                firstDate: widget.casePlanGap['eventDate'] ??
+                    AppUtil.formattedDateTimeIntoString(
+                      DateTime.now(),
+                    ))
             .where((FormSection form) => form.id == widget.domainId)
             .toList();
     formSections = formSections.map((FormSection form) {
