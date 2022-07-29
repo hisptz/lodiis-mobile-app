@@ -59,9 +59,10 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> _fetchOgacPage(int pageKey) async {
     Map searchedAttributes = _searchedAttributes;
-    print('$searchedAttributes');
     List ogacList = await OgacEnrollmentService().getOgacBeneficiaries(
-        page: pageKey, searchableValue: '', filters: _ogacFilters);
+        page: pageKey,
+        searchedAttributes: searchedAttributes,
+        filters: _ogacFilters);
     if (ogacList.isEmpty && pageKey < numberOfPages) {
       _fetchOgacPage(pageKey + 1);
     } else {

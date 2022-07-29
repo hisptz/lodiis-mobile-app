@@ -109,10 +109,11 @@ class EducationBursaryInterventionState with ChangeNotifier {
 
   Future<void> _fetchBursaryPage(int pageKey) async {
     Map searchedAttributes = _bursarySearchedAttributes;
-    print('$searchedAttributes');
     List bursaryList = await EducationBursaryEnrollmentService()
         .getBeneficiaries(
-            page: pageKey, searchableValue: '', filters: _bursaryFilters);
+            page: pageKey,
+            searchedAttributes: searchedAttributes,
+            filters: _bursaryFilters);
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
       _fetchBursaryPage(pageKey + 1);
     } else {

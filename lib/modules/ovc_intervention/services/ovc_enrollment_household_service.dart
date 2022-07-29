@@ -62,7 +62,7 @@ class OvcEnrollmentHouseholdService {
 
   Future<List<OvcHousehold>> getHouseholdList(
       {page,
-      String searchableValue = '',
+      Map searchedAttributes = const {},
       List<Map<String, dynamic>> filters = const []}) async {
     List<OvcHousehold> ovcHouseHoldList = [];
     List<String> accessibleOrgUnits = await OrganisationUnitService()
@@ -71,7 +71,7 @@ class OvcEnrollmentHouseholdService {
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
-              page: page, searchedValue: searchableValue);
+              page: page, searchedAttributes: searchedAttributes);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments

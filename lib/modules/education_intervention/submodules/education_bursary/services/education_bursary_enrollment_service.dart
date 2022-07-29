@@ -57,7 +57,7 @@ class EducationBursaryEnrollmentService {
 
   Future<List<dynamic>> getBeneficiaries({
     int? page,
-    String searchableValue = '',
+    Map searchedAttributes = const {},
     List<Map<String, dynamic>> filters = const [],
   }) async {
     List<String> accessibleOrgUnits = await OrganisationUnitService()
@@ -65,7 +65,7 @@ class EducationBursaryEnrollmentService {
     List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(BursaryInterventionConstant.program,
-            page: page, searchedValue: searchableValue);
+            page: page, searchedAttributes: searchedAttributes);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);

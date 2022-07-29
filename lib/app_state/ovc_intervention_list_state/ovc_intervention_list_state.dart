@@ -87,9 +87,10 @@ class OvcInterventionListState with ChangeNotifier {
 
   Future<void> _fetchOvcPage(int pageKey) async {
     Map searchedAttributes = _ovcSearchableValue;
-    print('$searchedAttributes');
     List ovcList = await OvcEnrollmentHouseholdService().getHouseholdList(
-        page: pageKey, searchableValue: '', filters: _ovcFilters);
+        page: pageKey,
+        searchedAttributes: searchedAttributes,
+        filters: _ovcFilters);
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchOvcPage(pageKey + 1);
     } else {

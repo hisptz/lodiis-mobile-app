@@ -135,10 +135,11 @@ class DreamsInterventionListState with ChangeNotifier {
 
   Future<void> _fetchAgywPage(int pageKey) async {
     Map searchableValue = _agywSearchableValue;
-    print('$searchableValue');
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
         .getAgywBeneficiaryList(
-            page: pageKey, searchableValue: '', filters: _agywFilters);
+            page: pageKey,
+            searchedAttributes: searchableValue,
+            filters: _agywFilters);
     if (agywList.isEmpty && pageKey < agywNumberOfPages) {
       _fetchAgywPage(pageKey + 1);
     } else {
@@ -211,9 +212,11 @@ class DreamsInterventionListState with ChangeNotifier {
 
   Future<void> _fetchNonAgywPage(int pageKey) async {
     Map searchableValue = _nonAgywSearchableValue;
-    print('$searchableValue');
-    List<AgywDream> nonAgywList = await NoneAgywDreamsEnrollmentService()
-        .getNonAgywBeneficiaryList(page: pageKey, searchableValue: '');
+    List<AgywDream> nonAgywList =
+        await NoneAgywDreamsEnrollmentService().getNonAgywBeneficiaryList(
+      page: pageKey,
+      searchedAttributes: searchableValue,
+    );
     if (nonAgywList.isEmpty && pageKey != nonAgywNumberOfPages) {
       _fetchNonAgywPage(pageKey + 1);
     } else {

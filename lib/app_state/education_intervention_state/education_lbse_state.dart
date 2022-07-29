@@ -63,9 +63,10 @@ class EducationLbseInterventionState with ChangeNotifier {
 
   Future<void> _fetchLbsePage(int pageKey) async {
     Map searchedAttributes = _searchedAttributes;
-    print('$searchedAttributes');
     List lbseList = await EducationLbseEnrollmentService().getBeneficiaries(
-        page: pageKey, searchableValue: '', filters: _lbseFilters);
+        page: pageKey,
+        searchedAttributes: searchedAttributes,
+        filters: _lbseFilters);
     if (lbseList.isEmpty && pageKey < numberOfPages) {
       _fetchLbsePage(pageKey + 1);
     } else {

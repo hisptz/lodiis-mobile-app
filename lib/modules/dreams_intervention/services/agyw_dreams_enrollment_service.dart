@@ -99,7 +99,7 @@ class AgywDreamsEnrollmentService {
 
   Future<List<AgywDream>> getAgywBeneficiaryList(
       {page,
-      String searchableValue = '',
+      Map searchedAttributes = const {},
       List<Map<String, dynamic>> filters = const []}) async {
     List<AgywDream> agywDreamList = [];
     try {
@@ -107,7 +107,7 @@ class AgywDreamsEnrollmentService {
           .getOrganisationUnitAccessedByCurrentUser();
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
-              page: page, searchedValue: searchableValue);
+              page: page, searchedAttributes: searchedAttributes);
       for (Enrollment enrollment in enrollments) {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);
@@ -157,6 +157,7 @@ class AgywDreamsEnrollmentService {
   Future<List<NoneParticipationBeneficiary>>
       getNoneParticipationBeneficiaryList(
           {page, String searchableValue = ''}) async {
+    // TODO Update the search to use sql
     String programId = AgywDreamsEnrollmentNoneParticipationConstant.program;
     String programStageId =
         AgywDreamsEnrollmentNoneParticipationConstant.programStage;

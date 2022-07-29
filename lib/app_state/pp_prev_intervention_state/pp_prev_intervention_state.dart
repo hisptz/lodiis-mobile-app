@@ -58,9 +58,10 @@ class PpPrevInterventionState with ChangeNotifier {
 
   Future<void> _fetchPpPrevPage(int pageKey) async {
     Map searchedAttributes = _searchedAttributes;
-    print('$searchedAttributes');
     List ppPrevList = await PpPrevEnrollmentService().getBeneficiaries(
-        page: pageKey, searchableValue: '', filters: _ppPrevFilters);
+        page: pageKey,
+        searchedAttributes: searchedAttributes,
+        filters: _ppPrevFilters);
     if (ppPrevList.isEmpty && pageKey < numberOfPages) {
       _fetchPpPrevPage(pageKey + 1);
     } else {
