@@ -141,7 +141,7 @@ class EducationBursaryEnrollmentService {
   Future<List<NoneParticipationBeneficiary>>
       getBursaryWithoutVulnerabilityCriteria({
     page,
-    String searchableValue = '',
+    Map searchedDataValues = const {},
   }) async {
     String programId = BursaryWithoutEnrollmentCriteriaConstant.program;
     String programStageId =
@@ -149,17 +149,13 @@ class EducationBursaryEnrollmentService {
 
     List<NoneParticipationBeneficiary> bursaryWithoutVulnerability =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+      programId: programId,
+      programStageId: programStageId,
+      page: page,
+      searchedDataValues: searchedDataValues,
+    );
 
-    return searchableValue == ''
-        ? bursaryWithoutVulnerability
-        : bursaryWithoutVulnerability
-            .where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return bursaryWithoutVulnerability;
   }
 
   Future<int> getBursaryWithoutVulnerabilityCriteriaCount() async {

@@ -87,12 +87,11 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchBursaryWithoutVulnerability(int pageKey) async {
-    Map searchedAttributes = _bursaryWithoutVulnerabilitySearchedAttributes;
-    print('$searchedAttributes');
+    Map searchedDataValues = _bursaryWithoutVulnerabilitySearchedAttributes;
     List<NoneParticipationBeneficiary> beneficiaryList =
         await EducationBursaryEnrollmentService()
             .getBursaryWithoutVulnerabilityCriteria(
-                page: pageKey, searchableValue: '');
+                page: pageKey, searchedDataValues: searchedDataValues);
     if (beneficiaryList.isEmpty &&
         pageKey < numberOfBursaryWithoutVulnerabilityPages) {
       _fetchBursaryWithoutVulnerability(pageKey + 1);

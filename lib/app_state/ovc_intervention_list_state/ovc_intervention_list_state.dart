@@ -101,11 +101,10 @@ class OvcInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchNoneParticipationPage(int pageKey) async {
-    Map searchedAttributes = _noneParticipationSearchableValue;
-    print('$searchedAttributes');
+    Map searchedDataValues = _noneParticipationSearchableValue;
     List beneficiaryList = await OvcEnrollmentHouseholdService()
         .getNoneParticipationBeneficiaryList(
-            page: pageKey, searchableValue: '');
+            page: pageKey, searchedDataValues: searchedDataValues);
     if (beneficiaryList.isEmpty && pageKey < numberOfNoneParticipantsPages) {
       _fetchNoneParticipationPage(pageKey + 1);
     } else {

@@ -153,22 +153,19 @@ class OvcEnrollmentHouseholdService {
 
   Future<List<NoneParticipationBeneficiary>>
       getNoneParticipationBeneficiaryList(
-          {page, String searchableValue = ''}) async {
+          {page, Map searchedDataValues = const {}}) async {
     String programId = OvcEnrollmentNoneParticipationConstant.program;
     String programStageId = OvcEnrollmentNoneParticipationConstant.programStage;
 
     List<NoneParticipationBeneficiary> ovcNoneParticipants =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+      programId: programId,
+      programStageId: programStageId,
+      page: page,
+      searchedDataValues: searchedDataValues,
+    );
 
-    return searchableValue == ''
-        ? ovcNoneParticipants
-        : ovcNoneParticipants.where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ovcNoneParticipants;
   }
 
   TrackedEntityInstance getUpdatedHouseholdWithOvcCounts(

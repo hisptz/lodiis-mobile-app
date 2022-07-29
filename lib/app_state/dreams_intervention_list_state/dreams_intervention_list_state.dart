@@ -150,12 +150,11 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchAgywDreamsNoneParticipantsPage(int pageKey) async {
-    Map searchableValue =
+    Map searchedDataValues =
         _beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes;
-    print('$searchableValue');
     List<NoneParticipationBeneficiary> beneficiaryList =
         await AgywDreamsEnrollmentService().getNoneParticipationBeneficiaryList(
-            page: pageKey, searchableValue: '');
+            page: pageKey, searchedDataValues: searchedDataValues);
     if (beneficiaryList.isEmpty && pageKey < noneParticipantsNumberOfPages) {
       _fetchAgywDreamsNoneParticipantsPage(pageKey + 1);
     } else {
@@ -170,13 +169,12 @@ class DreamsInterventionListState with ChangeNotifier {
 
   Future<void> _fetchBeneficiariesWithoutAgywEnrollmentCriteriaPage(
       int pageKey) async {
-    Map searchableValue =
+    Map searchedDataValues =
         _beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes;
-    print('$searchableValue');
     List<NoneParticipationBeneficiary> beneficiaryList =
         await AgywDreamsEnrollmentService()
             .getBeneficiariesWithoutEnrollmentCriteriaList(
-                page: pageKey, searchableValue: '');
+                page: pageKey, searchedDataValues: searchedDataValues);
     if (beneficiaryList.isEmpty &&
         pageKey < beneficiariesWithoutAgywDreamsCriteriaNumberOfPages) {
       _fetchBeneficiariesWithoutAgywEnrollmentCriteriaPage(pageKey + 1);

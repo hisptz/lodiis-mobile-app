@@ -11,7 +11,6 @@ import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_inter
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/core/components/online_beneficiary_search_result_card.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/online_beneficiary_search_input.dart';

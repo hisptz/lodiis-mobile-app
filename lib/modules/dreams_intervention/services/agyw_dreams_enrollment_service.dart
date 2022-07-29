@@ -156,47 +156,36 @@ class AgywDreamsEnrollmentService {
 
   Future<List<NoneParticipationBeneficiary>>
       getNoneParticipationBeneficiaryList(
-          {page, String searchableValue = ''}) async {
-    // TODO Update the search to use sql
+          {page, Map searchedDataValues = const {}}) async {
     String programId = AgywDreamsEnrollmentNoneParticipationConstant.program;
     String programStageId =
         AgywDreamsEnrollmentNoneParticipationConstant.programStage;
 
     List<NoneParticipationBeneficiary> dreamsNoneParticipants =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+            programId: programId,
+            programStageId: programStageId,
+            page: page,
+            searchedDataValues: searchedDataValues);
 
-    return searchableValue == ''
-        ? dreamsNoneParticipants
-        : dreamsNoneParticipants
-            .where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return dreamsNoneParticipants;
   }
 
   Future<List<NoneParticipationBeneficiary>>
       getBeneficiariesWithoutEnrollmentCriteriaList(
-          {page, String searchableValue = ''}) async {
+          {page, Map searchedDataValues = const {}}) async {
     String programId = AgywDreamsWithoutEnrollmentCriteriaConstant.program;
     String programStageId =
         AgywDreamsWithoutEnrollmentCriteriaConstant.programStage;
 
     List<NoneParticipationBeneficiary> unenrolledDreamsBeneficiaries =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+            programId: programId,
+            programStageId: programStageId,
+            page: page,
+            searchedDataValues: searchedDataValues);
 
-    return searchableValue == ''
-        ? unenrolledDreamsBeneficiaries
-        : unenrolledDreamsBeneficiaries
-            .where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return unenrolledDreamsBeneficiaries;
   }
 
   Future<int> getBeneficiariesWithoutEnrollmentCriteriaCount() async {
