@@ -11,4 +11,12 @@ class OvcCasePlanUtil {
             eventListByProgramStage, programStageIds);
     return TrackedEntityInstanceUtil.getGroupedEventByDates(events);
   }
+
+  static bool hasAccessToEdit(List<Events> events) {
+    return events.length ==
+        events
+            .where((Events event) => event.enrollmentOuAccessible!)
+            .toList()
+            .length;
+  }
 }

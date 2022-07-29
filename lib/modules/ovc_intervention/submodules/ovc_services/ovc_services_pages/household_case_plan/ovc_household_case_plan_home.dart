@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_home_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
@@ -171,7 +172,7 @@ class _OvcHouseholdCasePlanHomeState extends State<OvcHouseholdCasePlanHome> {
       body: SubPageBody(
         body: Consumer<OvcHouseholdCurrentSelectionState>(
           builder: (context, ovcHouseholdCurrentSelectionState, child) {
-            var currentOvcHousehold =
+            OvcHousehold? currentOvcHousehold =
                 ovcHouseholdCurrentSelectionState.currentOvcHousehold;
             return Column(
               children: [
@@ -179,60 +180,19 @@ class _OvcHouseholdCasePlanHomeState extends State<OvcHouseholdCasePlanHome> {
                   currentOvcHousehold: currentOvcHousehold,
                 ),
                 CasePlanHomeContainer(
-                  programStageIds: casePlanProgramStageIds,
+                  casePlanProgram: OvcHouseholdCasePlanConstant.program,
+                  casePlanProgramStage:
+                      OvcHouseholdCasePlanConstant.casePlanProgramStage,
+                  casePlanGapProgramStage:
+                      OvcHouseholdCasePlanConstant.casePlanGapProgramStage,
+                  casePlanServiceProgramStage: OvcHouseholdCasePlanConstant
+                      .casePlanGapServiceProvisionProgramStage,
+                  casePlanMonitoringProgramStage: OvcHouseholdCasePlanConstant
+                      .casePlanGapServiceMonitoringProgramStage,
                   enrollmentOuAccessible:
                       currentOvcHousehold!.enrollmentOuAccessible!,
                   isHouseholdCasePlan: true,
-                )
-                // Consumer<ServiceEventDataState>(
-                //   builder: (context, serviceEventDataState, child) {
-                //     bool isLoading = serviceEventDataState.isLoading;
-                //     Map<String?, List<Events>> eventListByProgramStage =
-                //         serviceEventDataState.eventListByProgramStage;
-                //     return isLoading
-                //         ? const CircularProcessLoader(
-                //             color: Colors.blueGrey,
-                //           )
-                //         : ;
-
-                //     // Column(
-                //     //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     //     mainAxisAlignment: MainAxisAlignment.start,
-                //     //     children: [
-                //     //       CasePlanHomeListContainerOld(
-                //     //         programStageIds: casePlanProgramStageIds,
-                //     //         onEditCasePlan: (casePlanEvents) =>
-                //     //             onEditCasePlan(
-                //     //           context,
-                //     //           casePlanEvents,
-                //     //           eventListByProgramStage,
-                //     //         ),
-                //     //         onViewCasePlan: (casePlanEvents) =>
-                //     //             onViewCasePlan(
-                //     //           context,
-                //     //           casePlanEvents,
-                //     //           eventListByProgramStage,
-                //     //         ),
-                //     //       ),
-                //     //       Visibility(
-                //     //         visible: !isLoading &&
-                //     //             currentOvcHousehold!
-                //     //                 .enrollmentOuAccessible!,
-                //     //         child: EntryFormSaveButton(
-                //     //           label: 'NEW CASE PLAN',
-                //     //           labelColor: Colors.white,
-                //     //           fontSize: 10.0,
-                //     //           buttonColor: const Color(0xFF4B9F46),
-                //     //           onPressButton: () => onAddNewCasePlan(
-                //     //             context,
-                //     //             eventListByProgramStage,
-                //     //           ),
-                //     //         ),
-                //     //       ),
-                //     //     ],
-                //     //   );
-                //   },
-                // )
+                ),
               ],
             );
           },
