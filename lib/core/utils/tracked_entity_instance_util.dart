@@ -115,15 +115,15 @@ class TrackedEntityInstanceUtil {
     return events.reversed.toList();
   }
 
-  static Map getGroupedEventByDates(List<Events> events) {
-    Map groupedEvents = {};
-    List<String?> eventDates = events
-        .map((event) => event.eventDate)
+  static Map<String, List<Events>> getGroupedEventByDates(List<Events> events) {
+    Map<String, List<Events>> groupedEvents = {};
+    List<String> eventDates = events
+        .map((event) => event.eventDate!)
         .toSet()
         .toList()
-      ..sort((b, a) => a!.compareTo(b!));
+      ..sort((b, a) => a.compareTo(b));
     for (String? eventDate in eventDates) {
-      groupedEvents[eventDate] =
+      groupedEvents[eventDate!] =
           events.where((event) => event.eventDate == eventDate).toList();
     }
     return groupedEvents;
