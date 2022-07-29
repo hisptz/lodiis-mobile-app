@@ -192,6 +192,9 @@ class _OvcHouseholdCasePlanHomeState extends State<OvcHouseholdCasePlanHome> {
                   enrollmentOuAccessible:
                       currentOvcHousehold!.enrollmentOuAccessible!,
                   isHouseholdCasePlan: true,
+                  isOnCasePlanPage: true,
+                  isOnCasePlanServiceMonitoring: false,
+                  isOnCasePlanServiceProvision: false,
                 ),
               ],
             );

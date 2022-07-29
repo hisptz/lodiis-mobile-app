@@ -21,7 +21,7 @@ class CasePlanHomeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int assessementIndex = casePlanByDates.keys.length;
+    int casePlanIndex = casePlanByDates.keys.length;
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 17.0,
@@ -29,7 +29,7 @@ class CasePlanHomeList extends StatelessWidget {
       child: Column(
         children: casePlanByDates.keys.toList().map(
           (String casePlanDate) {
-            assessementIndex--;
+            casePlanIndex--;
             bool hasEditAccess =
                 OvcCasePlanUtil.hasAccessToEdit(casePlanByDates[casePlanDate]!);
             return MaterialCard(
@@ -54,15 +54,26 @@ class CasePlanHomeList extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          'Case Plan ${assessementIndex + 1}',
+                          child: RichText(
+                        text: TextSpan(
+                          text: '$casePlanDate   ',
                           style: const TextStyle().copyWith(
-                            color: const Color(0xFF1A3518),
-                            fontSize: 14.0,
+                            color: const Color(0xFF92A791),
+                            fontSize: 12.0,
                             fontWeight: FontWeight.w700,
                           ),
+                          children: [
+                            TextSpan(
+                              text: 'Case plan ${casePlanIndex + 1}',
+                              style: const TextStyle().copyWith(
+                                color: const Color(0xFF1A3518),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            )
+                          ],
                         ),
-                      ),
+                      )),
                       _getActionButton(
                         icon: 'assets/icons/expand_icon.svg',
                         onTap: () =>

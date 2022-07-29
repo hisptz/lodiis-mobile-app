@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_home_list.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/ovc_case_plan_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_util.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +22,9 @@ class CasePlanHomeContainer extends StatelessWidget {
     required this.casePlanGapProgramStage,
     required this.casePlanServiceProgramStage,
     required this.casePlanMonitoringProgramStage,
+    required this.isOnCasePlanPage,
+    required this.isOnCasePlanServiceProvision,
+    required this.isOnCasePlanServiceMonitoring,
   }) : super(key: key);
 
   final String casePlanProgram;
@@ -25,6 +34,50 @@ class CasePlanHomeContainer extends StatelessWidget {
   final String casePlanMonitoringProgramStage;
   final bool enrollmentOuAccessible;
   final bool isHouseholdCasePlan;
+  final bool isOnCasePlanPage;
+  final bool isOnCasePlanServiceProvision;
+  final bool isOnCasePlanServiceMonitoring;
+
+  void _updateFormState(
+      List<Events> casePlanEvents,
+      List<String> casePlanDates,
+      BuildContext context,
+      bool isEditMode,
+      Map<String?, List<Events>> eventListByProgramStage) {
+    String eventDate = AppUtil.formattedDateTimeIntoString(DateTime.now());
+    if (casePlanEvents.isEmpty && casePlanDates.contains(eventDate)) {
+      AppUtil.showToastMessage(
+        message: 'There is exiting case plan that has already created',
+      );
+    } else {
+      Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+      Provider.of<ServiceFormState>(context, listen: false)
+          .updateFormEditabilityState(isEditableMode: isEditMode);
+      Map casePlanDataObject = {};
+      if (casePlanEvents.isNotEmpty) {
+        eventDate = casePlanEvents.first.eventDate ?? eventDate;
+        List<Events> casePlanGapsEvents =
+            eventListByProgramStage[casePlanGapProgramStage] ?? [];
+        casePlanDataObject = OvcCasePlanUtil.getMappedCasePlanWithGapsByDomain(
+          casePlanEvents: casePlanEvents,
+          casePlanGapsEvents: casePlanGapsEvents,
+        );
+      }
+      for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+        String formSectionId = formSection.id!;
+        Map map = casePlanDataObject.containsKey(formSectionId)
+            ? casePlanDataObject[formSectionId]
+            : {};
+        map['gaps'] = map['gaps'] ?? [];
+        map['eventDate'] = map['eventDate'] ?? eventDate;
+        map[OvcCasePlanConstant.casePlanToGapLinkage] =
+            map[OvcCasePlanConstant.casePlanToGapLinkage] ?? AppUtil.getUid();
+        map[OvcCasePlanConstant.casePlanDomainType] = formSectionId;
+        Provider.of<ServiceFormState>(context, listen: false)
+            .setFormFieldState(formSectionId, map);
+      }
+    }
+  }
 
   onManageCasePlan({
     required BuildContext context,
@@ -33,14 +86,27 @@ class CasePlanHomeContainer extends StatelessWidget {
     List<Events> casePlanEvents = const [],
     Map<String?, List<Events>> eventListByProgramStage = const {},
   }) {
-    // checking on adding
-    // checking on edit
-    // checking on add
-    print(isEditMode);
-    print(casePlanEvents);
-    print(casePlanDates);
-    print(eventListByProgramStage);
-    print('-------');
+    _updateFormState(casePlanEvents, casePlanDates, context, isEditMode,
+        eventListByProgramStage);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OvcCasePlanForm(
+            casePlanLabel: isHouseholdCasePlan
+                ? 'Household Case Plan Form'
+                : 'Child Case Plan Form',
+            isOnCasePlanPage: isOnCasePlanPage,
+            isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
+            isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+            hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+            isHouseholdCasePlan: isHouseholdCasePlan,
+            casePlanProgram: casePlanProgram,
+            casePlanProgramStage: casePlanProgramStage,
+            casePlanGapProgramStage: casePlanGapProgramStage,
+            casePlanServiceProgramStage: casePlanServiceProgramStage,
+            casePlanMonitoringProgramStage: casePlanMonitoringProgramStage),
+      ),
+    );
   }
 
   @override
