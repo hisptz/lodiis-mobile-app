@@ -120,7 +120,7 @@ class _CasePlanGapViewState extends State<CasePlanGapView> {
       form.borderColor = Colors.transparent;
       return form;
     }).toList();
-    Widget modal = CasePlanGapFormContainer(
+    Widget modal = CasePlanGapFormContainerOld(
       formSections: formSections,
       isCasePlanForHousehold: widget.isCasePlanForHousehold,
       isEditableMode: widget.shouldEditCaseGapServiceProvision,
