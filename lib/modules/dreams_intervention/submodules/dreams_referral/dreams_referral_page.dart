@@ -65,7 +65,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
         Provider.of<ReferralNotificationState>(context, listen: false)
             .teiWithIncomingResolvedReferrals;
     List<AgywDream> agywList = await AgywDreamsEnrollmentService()
-        .getAgywBenficiariesWithIncomingReferralList(
+        .getAgywBeneficiariesWithIncomingReferralList(
             teiList: incomingTeiWithOutcome);
 
     var primaryColor =

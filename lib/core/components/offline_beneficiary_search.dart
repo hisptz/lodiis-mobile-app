@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
+import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/core/components/online_beneficiary_search_result_card.dart';
-import 'package:kb_mobile_app/core/constants/intervention_program_mapper.dart';
-import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/online_beneficiary_search_input.dart';
 import 'package:kb_mobile_app/models/online_beneficiary_search_result.dart';
 import 'package:provider/provider.dart';
 
-class OnlineBeneficiarySearch extends StatefulWidget {
-  const OnlineBeneficiarySearch({Key? key}) : super(key: key);
-
+class OfflineBeneficiarySearch extends StatefulWidget {
+  const OfflineBeneficiarySearch({Key? key, required this.searchedAttributes})
+      : super(key: key);
+  final Map searchedAttributes;
   @override
-  _OnlineBeneficiarySearchState createState() =>
-      _OnlineBeneficiarySearchState();
+  _OfflineBeneficiarySearchState createState() =>
+      _OfflineBeneficiarySearchState();
 }
 
-class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
-  Map<String, String> onlineSearchDataObject = {};
+class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
+  Map offlineSearchDataObject = {};
   List<OnlineBeneficiarySearchResult> searchResults = [];
+
   String searchResultMessage = '';
   bool isSearching = false;
   List<BeneficiarySearchInput> searchInputs = [
@@ -48,13 +54,22 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
 
   bool isItemSearched(BeneficiarySearchInput input) {
     var inputId = input.inputField.id;
-    var value = onlineSearchDataObject[inputId];
+    var value = offlineSearchDataObject[inputId];
     return value != null && value.isNotEmpty;
   }
 
   void searchInputChange(String id, String? value) {
     setState(() {
-      onlineSearchDataObject[id] = value ?? '';
+      offlineSearchDataObject[id] = value ?? '';
+    });
+  }
+
+  void initializeSearchDataObject() {
+    setState(() {
+      offlineSearchDataObject = {
+        ...offlineSearchDataObject,
+        ...widget.searchedAttributes
+      };
     });
   }
 
@@ -63,29 +78,6 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
       setState(() {
         isSearching = !isSearching;
       });
-    }
-  }
-
-  void updateSearchResultMessage(String message) {
-    if (mounted) {
-      setState(() {
-        searchResultMessage = message;
-      });
-    }
-  }
-
-  void updateSearchResults(
-      {List<OnlineBeneficiarySearchResult> results = const []}) {
-    if (mounted) {
-      setState(() {
-        searchResults = results;
-      });
-      updateSearchState();
-      if (results.isEmpty) {
-        updateSearchResultMessage('No results found');
-      } else {
-        updateSearchResultMessage('');
-      }
     }
   }
 
@@ -102,62 +94,75 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
         ),
       );
 
-  String getApiFilterString() {
-    // remove empty values
-    onlineSearchDataObject.removeWhere((String key, String value) {
-      return value.isEmpty;
+  Future<void> onClearSearchFields(BuildContext context, String program) async {
+    setState(() {
+      offlineSearchDataObject.clear();
     });
-
-    List<String> apiFilters = [];
-    onlineSearchDataObject.forEach((key, value) {
-      apiFilters.add('$key:like:$value');
-    });
-
-    return apiFilters.join('&filter=');
+    onBeneficiarySearch(context, program);
   }
 
   Future<void> onBeneficiarySearch(BuildContext context, String program) async {
     FocusScope.of(context).requestFocus(FocusNode());
-    List<OnlineBeneficiarySearchResult> searchedTeis = [];
-    updateSearchResults();
-    updateSearchResultMessage('');
-
-    String searchFilterUrl = getApiFilterString();
-
     try {
-      List<String> searchablePrograms =
-          getSearchableProgramsByUserAccess(context, program);
-      if (searchablePrograms.isEmpty) {
-        updateSearchResultMessage(
-            'You do not have searching access to this intervention');
-        return;
+      InterventionCard activeInterventionProgram =
+          Provider.of<InterventionCardState>(context, listen: false)
+              .currentInterventionProgram;
+      String? currentInterventionBottomNavigationId =
+          Provider.of<InterventionBottomNavigationState>(context, listen: false)
+              .currentInterventionBottomNavigationId;
+      if (activeInterventionProgram.id == 'ogac') {
+        Provider.of<OgacInterventionListState>(context, listen: false)
+            .searchOgacList(offlineSearchDataObject);
+      } else if (activeInterventionProgram.id == 'dreams') {
+        if (currentInterventionBottomNavigationId == 'records') {
+          Provider.of<DreamsInterventionListState>(context, listen: false)
+              .searchAllAgywDreamsLists(offlineSearchDataObject);
+        } else if (currentInterventionBottomNavigationId ==
+            'incomingReferral') {
+          Provider.of<DreamsInterventionListState>(context, listen: false)
+              .searchIncomingReferralList(offlineSearchDataObject);
+        } else if (currentInterventionBottomNavigationId == 'noneAgyw') {
+          Provider.of<DreamsInterventionListState>(context, listen: false)
+              .searchNonAgywList(offlineSearchDataObject);
+        } else {
+          Provider.of<DreamsInterventionListState>(context, listen: false)
+              .searchAgywDreamsList(offlineSearchDataObject);
+        }
+      } else if (activeInterventionProgram.id == 'ovc') {
+        if (currentInterventionBottomNavigationId == 'records') {
+          Provider.of<OvcInterventionListState>(context, listen: false)
+              .searchAllOvcList(offlineSearchDataObject);
+        } else {
+          Provider.of<OvcInterventionListState>(context, listen: false)
+              .searchHousehold(offlineSearchDataObject);
+        }
+      } else if (activeInterventionProgram.id == 'pp_prev') {
+        Provider.of<PpPrevInterventionState>(context, listen: false)
+            .searchPpPrevList(offlineSearchDataObject);
+      } else if (activeInterventionProgram.id == 'education') {
+        if (currentInterventionBottomNavigationId == 'records') {
+          Provider.of<EducationLbseInterventionState>(context, listen: false)
+              .searchEducationLbseList(offlineSearchDataObject);
+          Provider.of<EducationBursaryInterventionState>(context, listen: false)
+              .searchAllEducationBursaryLists(offlineSearchDataObject);
+        } else if (currentInterventionBottomNavigationId == "lbse") {
+          Provider.of<EducationLbseInterventionState>(context, listen: false)
+              .searchEducationLbseList(offlineSearchDataObject);
+        } else if (currentInterventionBottomNavigationId == "bursary") {
+          Provider.of<EducationBursaryInterventionState>(context, listen: false)
+              .searchEducationBursaryList(offlineSearchDataObject);
+        }
       }
-
-      List<dynamic> results = await TrackedEntityInstanceService()
-          .discoveringBeneficiaryByFilters(searchablePrograms, searchFilterUrl);
-      searchedTeis = results
-          .map((result) => OnlineBeneficiarySearchResult().fromJson(result))
-          .toList();
+      Navigator.pop(context);
     } catch (error) {
       //
     }
-    updateSearchResults(results: searchedTeis);
   }
 
-  List<String> getSearchableProgramsByUserAccess(
-      BuildContext context, String intervention) {
-    Map<String, List<String>> programMapper =
-        InterventionProgramMapper.programs;
-
-    List<String> interventionPrograms = programMapper[intervention] ?? [];
-    List userPrograms = Provider.of<CurrentUserState>(context, listen: false)
-            .currentUser!
-            .programs ??
-        [];
-
-    return interventionPrograms
-        .where((program) => userPrograms.contains(program))
-        .toList();
+  @override
+  void initState() {
+    initializeSearchDataObject();
+    super.initState();
   }
 
   @override
@@ -210,7 +215,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: const Text(
-                                    'Online Beneficiary Search',
+                                    'Offline Beneficiary Search',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16.0),
@@ -236,12 +241,12 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                           onTap: () => {
                                             if (canSearch())
                                               {
-                                                onBeneficiarySearch(
+                                                onClearSearchFields(
                                                     context, program)
                                               }
                                           },
                                           child: Text(
-                                            'Search',
+                                            'clear All',
                                             style: TextStyle(
                                                 color: canSearch()
                                                     ? primaryColor
@@ -300,7 +305,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                               showClearIcon: true,
                                               mandatoryFieldObject: const {},
                                               dataObject:
-                                                  onlineSearchDataObject,
+                                                  offlineSearchDataObject,
                                               onInputValueChange: (String id,
                                                       dynamic value) =>
                                                   searchInputChange(id, value))
@@ -310,46 +315,39 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                       ),
                                     ));
                               }).toList(),
-                              Visibility(
-                                  visible: searchResults.isNotEmpty ||
-                                      searchResultMessage.isNotEmpty,
-                                  child: Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            alignment: Alignment.centerLeft,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8.0),
-                                            margin: const EdgeInsets.only(
-                                                bottom: 10.0),
-                                            child: const Text(
-                                              'Search Results',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16.0),
-                                            )),
-                                      ],
-                                    ),
-                                  )),
-                              Visibility(
-                                  child: Container(
-                                      alignment: Alignment.center,
-                                      margin:
-                                          const EdgeInsets.only(bottom: 15.0),
-                                      padding: const EdgeInsets.only(top: 10.0),
-                                      child: Text(searchResultMessage)),
-                                  visible: searchResultMessage.isNotEmpty),
-                              ...searchResults.map((result) {
-                                return OnlineBeneficiarySearchResultCard(
-                                  searchResult: result,
-                                  primaryColor: primaryColor,
-                                  lineColor: lineColor,
-                                );
-                              }),
                             ])),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12.0)),
+                            color: interventionCardState
+                                .currentInterventionProgram.primaryColor,
+                          ),
+                          padding: const EdgeInsets.only(
+                            right: 5.0,
+                          ),
+                          child: TextButton(
+                            onPressed: () => canSearch()
+                                ? {onBeneficiarySearch(context, program)}
+                                : null,
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
+                            ),
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 25.0),
+                              child: const Text(
+                                "Search",
+                                style: TextStyle(
+                                  color: Color(0xFFFAFAFA),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         Padding(
                             padding: EdgeInsets.only(
                                 bottom:

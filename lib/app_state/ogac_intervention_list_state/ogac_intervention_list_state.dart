@@ -16,16 +16,17 @@ class OgacInterventionListState with ChangeNotifier {
   int _numberOfPages = 0;
   int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
-  String _searchableValue = '';
+  Map _searchedAttributes = {};
   List<Map<String, dynamic>> _ogacFilters = [];
   PagingController? _ogacPagingController;
 
   OgacInterventionListState(this.context);
 
+  Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfOgac => _numberOfOgac;
   int get numberOfPages =>
-      _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
+      _searchedAttributes.isEmpty ? _numberOfPages : _numberOfSearchablePages;
   List<Map<String, dynamic>> get ogacFilters => _ogacFilters
       .where((Map<String, dynamic> filter) => filter.isNotEmpty)
       .toList();
@@ -57,9 +58,11 @@ class OgacInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchOgacPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    Map searchedAttributes = _searchedAttributes;
     List ogacList = await OgacEnrollmentService().getOgacBeneficiaries(
-        page: pageKey, searchableValue: searchableValue, filters: _ogacFilters);
+        page: pageKey,
+        searchedAttributes: searchedAttributes,
+        filters: _ogacFilters);
     if (ogacList.isEmpty && pageKey < numberOfPages) {
       _fetchOgacPage(pageKey + 1);
     } else {
@@ -75,7 +78,7 @@ class OgacInterventionListState with ChangeNotifier {
 
   Future<void> refreshOgacNumber() async {
     _isLoading = true;
-    _searchableValue = '';
+    _searchedAttributes.clear();
     notifyListeners();
     await _getOgacBeneficiaryNumber();
     getNumberOfPages();
@@ -90,8 +93,8 @@ class OgacInterventionListState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
-  void searchOgacList(String value) {
-    _searchableValue = value;
+  void searchOgacList(Map searchedAttributes) {
+    _searchedAttributes = searchedAttributes;
     notifyListeners();
     if (_ogacInterventionList.isEmpty) {
       _ogacInterventionList =
@@ -99,7 +102,7 @@ class OgacInterventionListState with ChangeNotifier {
               <OgacBeneficiary>[];
       _nextPage = _ogacPagingController!.nextPageKey;
     }
-    if (value != '') {
+    if (searchedAttributes.isNotEmpty) {
       refreshOgacList();
     } else {
       _ogacPagingController!.itemList = _ogacInterventionList;

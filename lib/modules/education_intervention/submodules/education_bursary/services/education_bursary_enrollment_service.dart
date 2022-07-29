@@ -57,7 +57,7 @@ class EducationBursaryEnrollmentService {
 
   Future<List<dynamic>> getBeneficiaries({
     int? page,
-    String searchableValue = '',
+    Map searchedAttributes = const {},
     List<Map<String, dynamic>> filters = const [],
   }) async {
     List<String> accessibleOrgUnits = await OrganisationUnitService()
@@ -65,7 +65,7 @@ class EducationBursaryEnrollmentService {
     List<EducationBeneficiary> beneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(BursaryInterventionConstant.program,
-            page: page, searchedValue: searchableValue);
+            page: page, searchedAttributes: searchedAttributes);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -141,7 +141,7 @@ class EducationBursaryEnrollmentService {
   Future<List<NoneParticipationBeneficiary>>
       getBursaryWithoutVulnerabilityCriteria({
     page,
-    String searchableValue = '',
+    Map searchedDataValues = const {},
   }) async {
     String programId = BursaryWithoutEnrollmentCriteriaConstant.program;
     String programStageId =
@@ -149,17 +149,13 @@ class EducationBursaryEnrollmentService {
 
     List<NoneParticipationBeneficiary> bursaryWithoutVulnerability =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+      programId: programId,
+      programStageId: programStageId,
+      page: page,
+      searchedDataValues: searchedDataValues,
+    );
 
-    return searchableValue == ''
-        ? bursaryWithoutVulnerability
-        : bursaryWithoutVulnerability
-            .where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return bursaryWithoutVulnerability;
   }
 
   Future<int> getBursaryWithoutVulnerabilityCriteriaCount() async {

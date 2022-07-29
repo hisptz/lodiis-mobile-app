@@ -62,7 +62,7 @@ class OvcEnrollmentHouseholdService {
 
   Future<List<OvcHousehold>> getHouseholdList(
       {page,
-      String searchableValue = '',
+      Map searchedAttributes = const {},
       List<Map<String, dynamic>> filters = const []}) async {
     List<OvcHousehold> ovcHouseHoldList = [];
     List<String> accessibleOrgUnits = await OrganisationUnitService()
@@ -71,7 +71,7 @@ class OvcEnrollmentHouseholdService {
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
-              page: page, searchedValue: searchableValue);
+              page: page, searchedAttributes: searchedAttributes);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -153,22 +153,19 @@ class OvcEnrollmentHouseholdService {
 
   Future<List<NoneParticipationBeneficiary>>
       getNoneParticipationBeneficiaryList(
-          {page, String searchableValue = ''}) async {
+          {page, Map searchedDataValues = const {}}) async {
     String programId = OvcEnrollmentNoneParticipationConstant.program;
     String programStageId = OvcEnrollmentNoneParticipationConstant.programStage;
 
     List<NoneParticipationBeneficiary> ovcNoneParticipants =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+      programId: programId,
+      programStageId: programStageId,
+      page: page,
+      searchedDataValues: searchedDataValues,
+    );
 
-    return searchableValue == ''
-        ? ovcNoneParticipants
-        : ovcNoneParticipants.where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ovcNoneParticipants;
   }
 
   TrackedEntityInstance getUpdatedHouseholdWithOvcCounts(

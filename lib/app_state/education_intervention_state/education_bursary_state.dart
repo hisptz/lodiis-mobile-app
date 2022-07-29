@@ -24,25 +24,28 @@ class EducationBursaryInterventionState with ChangeNotifier {
   int _numberOfBursaryWithoutVulnerabilitySearchablePages = 0;
   int? _nextBursaryPage = 0;
   int? _nextBursaryWithoutCriteriaPage = 0;
-  String _bursarySearchableValue = '';
-  String _bursaryWithoutVulnerabilitySearchableValue = '';
+  Map _bursarySearchedAttributes = {};
+  Map _bursaryWithoutVulnerabilitySearchedAttributes = {};
   List<Map<String, dynamic>> _bursaryFilters = [];
   PagingController? _bursaryPagingController;
   PagingController? _bursaryWithoutVulnerabilityPagingController;
 
   EducationBursaryInterventionState(this.context);
 
+  Map get bursarySearchedAttributes => _bursarySearchedAttributes;
+  Map get bursaryWithoutVulnerabilitySearchedAttributes =>
+      _bursaryWithoutVulnerabilitySearchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationBursary => _numberOfEducationBursary;
   String get numberOfEducationBursaryBySex =>
       '${_numberOfEducationBursaryBySex['male'] ?? 0} Male  ${_numberOfEducationBursaryBySex['female'] ?? 0} Female';
   int get numberOfEducationBursaryWithoutVulnerability =>
       _numberOfEducationBursaryWithoutVulnerability;
-  int get numberOfPages => _bursarySearchableValue == ''
+  int get numberOfPages => _bursarySearchedAttributes.isEmpty
       ? _numberOfBursaryPages
       : _numberOfBursarySearchablePages;
   int get numberOfBursaryWithoutVulnerabilityPages =>
-      _bursaryWithoutVulnerabilitySearchableValue == ''
+      _bursaryWithoutVulnerabilitySearchedAttributes.isEmpty
           ? _numberOfBursaryWithoutVulnerabilityPages
           : _numberOfBursaryWithoutVulnerabilitySearchablePages;
   List<Map<String, dynamic>> get bursaryFilters => _bursaryFilters
@@ -84,11 +87,11 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchBursaryWithoutVulnerability(int pageKey) async {
-    String searchableValue = _bursaryWithoutVulnerabilitySearchableValue;
+    Map searchedDataValues = _bursaryWithoutVulnerabilitySearchedAttributes;
     List<NoneParticipationBeneficiary> beneficiaryList =
         await EducationBursaryEnrollmentService()
             .getBursaryWithoutVulnerabilityCriteria(
-                page: pageKey, searchableValue: searchableValue);
+                page: pageKey, searchedDataValues: searchedDataValues);
     if (beneficiaryList.isEmpty &&
         pageKey < numberOfBursaryWithoutVulnerabilityPages) {
       _fetchBursaryWithoutVulnerability(pageKey + 1);
@@ -104,11 +107,11 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchBursaryPage(int pageKey) async {
-    String searchableValue = _bursarySearchableValue;
+    Map searchedAttributes = _bursarySearchedAttributes;
     List bursaryList = await EducationBursaryEnrollmentService()
         .getBeneficiaries(
             page: pageKey,
-            searchableValue: searchableValue,
+            searchedAttributes: searchedAttributes,
             filters: _bursaryFilters);
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
       _fetchBursaryPage(pageKey + 1);
@@ -136,8 +139,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
 
   Future<void> refreshEducationBursaryNumber() async {
     _isLoading = true;
-    _bursarySearchableValue = '';
-    _bursaryWithoutVulnerabilitySearchableValue = '';
+    _bursarySearchedAttributes.clear();
+    _bursaryWithoutVulnerabilitySearchedAttributes.clear();
     notifyListeners();
     await _getBursaryBeneficiaryNumber();
     getNumberOfPages();
@@ -155,8 +158,8 @@ class EducationBursaryInterventionState with ChangeNotifier {
   }
 
   // For searching only the bursary
-  void searchEducationBursaryList(String value) {
-    _bursarySearchableValue = value;
+  void searchEducationBursaryList(Map searchedAttributes) {
+    _bursarySearchedAttributes = searchedAttributes;
     notifyListeners();
     if (_educationBursaryInterventionList.isEmpty) {
       _educationBursaryInterventionList =
@@ -164,7 +167,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
               <EducationBeneficiary>[];
       _nextBursaryPage = _bursaryPagingController!.nextPageKey;
     }
-    if (value.isNotEmpty) {
+    if (searchedAttributes.isNotEmpty) {
       // _getBursaryBeneficiaryNumber();
       _bursaryPagingController!.refresh();
     } else {
@@ -175,9 +178,9 @@ class EducationBursaryInterventionState with ChangeNotifier {
     }
   }
 
-  void searchAllEducationBursaryLists(String value) {
-    _bursarySearchableValue = value;
-    _bursaryWithoutVulnerabilitySearchableValue = value;
+  void searchAllEducationBursaryLists(Map searchedAttributes) {
+    _bursarySearchedAttributes = searchedAttributes;
+    _bursaryWithoutVulnerabilitySearchedAttributes = searchedAttributes;
     notifyListeners();
     if (_educationBursaryInterventionList.isEmpty) {
       _educationBursaryInterventionList =
@@ -193,7 +196,7 @@ class EducationBursaryInterventionState with ChangeNotifier {
       _nextBursaryWithoutCriteriaPage =
           _bursaryWithoutVulnerabilityPagingController!.nextPageKey;
     }
-    if (value.isNotEmpty) {
+    if (searchedAttributes.isNotEmpty) {
       refreshAllEducationBursaryLists();
     } else {
       _bursaryPagingController!.itemList = _educationBursaryInterventionList;
