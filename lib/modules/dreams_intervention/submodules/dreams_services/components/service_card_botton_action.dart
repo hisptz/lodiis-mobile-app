@@ -56,6 +56,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       Visibility(
                         visible: currentUserState.canManageHtsLongForm ||
