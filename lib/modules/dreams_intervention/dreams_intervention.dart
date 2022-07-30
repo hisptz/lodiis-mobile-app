@@ -128,7 +128,7 @@ class _DreamsInterventionState extends State<DreamsIntervention>
     VersionStatus? versionStatus =
         Provider.of<AppInfoState>(context, listen: false).versionStatus;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (shouldShowUpdateWarning && versionStatus != null) {
+      if (shouldShowUpdateWarning) {
         AppVersionUpdate.showAppUpdateWarning(context, versionStatus);
       }
     });
