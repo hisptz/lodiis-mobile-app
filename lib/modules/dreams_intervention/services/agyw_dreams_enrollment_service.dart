@@ -173,24 +173,22 @@ class AgywDreamsEnrollmentService {
   }
 
   Future<List<NoneParticipationBeneficiary>>
-      getEnrolledNotEligibleParticipationBeneficiaryList(
-          {page, String searchableValue = ''}) async {
+      getEnrolledNotEligibleParticipationBeneficiaryList({
+    page,
+    Map searchedDataValues = const {},
+  }) async {
     String programId = AgywDreamEnrollmentNotEligible.program;
     String programStageId = AgywDreamEnrollmentNotEligible.programStage;
 
     List<NoneParticipationBeneficiary> dreamsEnrollmentNotEligibleParticipants =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+      programId: programId,
+      programStageId: programStageId,
+      page: page,
+      searchedDataValues: searchedDataValues,
+    );
 
-    return searchableValue == ''
-        ? dreamsEnrollmentNotEligibleParticipants
-        : dreamsEnrollmentNotEligibleParticipants
-            .where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return dreamsEnrollmentNotEligibleParticipants;
   }
 
   Future<List<NoneParticipationBeneficiary>>

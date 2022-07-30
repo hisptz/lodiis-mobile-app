@@ -45,7 +45,7 @@ class DreamsInterventionListState with ChangeNotifier {
   int _enrolledNotEligibleParticipantsNumberOfPages = 0;
   int? _beneficiariesWithoutAgywDreamsCriteriaNextPage = 0;
   int? _eligibleNotEnrolledNextPage = 0;
-  String _searchableValue = '';
+  Map _noneEnrolledSearchableValue = {};
   Map _agywSearchableValue = {};
   Map _nonAgywSearchableValue = {};
   Map _incomingReferralsSearchableValue = {};
@@ -67,6 +67,7 @@ class DreamsInterventionListState with ChangeNotifier {
   Map get incomingReferralsSearchableValue => _incomingReferralsSearchableValue;
   Map get beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes =>
       _beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes;
+  Map get noneEnrolledSearchableValue => _noneEnrolledSearchableValue;
   bool get isLoading => _isLoading;
   int get numberOfAgywDreamsBeneficiaries => _numberOfAgywDreamsBeneficiaries;
   int get numberOfAgywDreamsIncomingReferralBeneficiaries =>
@@ -112,9 +113,10 @@ class DreamsInterventionListState with ChangeNotifier {
       _noneParticipantsPagingController;
   PagingController? get enrolledNotEligibleParticipantPagingController =>
       _enrolledNotEligibleParticipantPagingController;
-  int get enrolledNotEligibleParticipantsNumberOfPages => _searchableValue == ''
-      ? _enrolledNotEligibleParticipantsNumberOfPages
-      : _noneParticipantsNumberOfSearchablePages;
+  int get enrolledNotEligibleParticipantsNumberOfPages =>
+      _noneEnrolledSearchableValue.isEmpty
+          ? _enrolledNotEligibleParticipantsNumberOfPages
+          : _noneParticipantsNumberOfSearchablePages;
   PagingController?
       get beneficiariesWithoutAgywDreamsCriteriaPagingController =>
           _beneficiariesWithoutAgywDreamsCriteriaPagingController;
@@ -182,11 +184,13 @@ class DreamsInterventionListState with ChangeNotifier {
   }
 
   Future<void> _fetchAgyWDreamsEnrolledNotEligible(int pageKey) async {
-    String searchableValue = _searchableValue;
+    Map searchableValue = _noneEnrolledSearchableValue;
     List<NoneParticipationBeneficiary> beneficiaryList =
         (await AgywDreamsEnrollmentService()
             .getEnrolledNotEligibleParticipationBeneficiaryList(
-                page: pageKey, searchableValue: searchableValue));
+      page: pageKey,
+      searchedDataValues: searchableValue,
+    ));
     if (beneficiaryList.isEmpty &&
         pageKey < enrolledNotEligibleParticipantsNumberOfPages) {
       _fetchAgyWDreamsEnrolledNotEligible(pageKey + 1);
@@ -301,6 +305,7 @@ class DreamsInterventionListState with ChangeNotifier {
     _agywSearchableValue.clear();
     _beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes.clear();
     _nonAgywSearchableValue.clear();
+    _noneEnrolledSearchableValue.clear();
     _incomingReferralsSearchableValue.clear();
     notifyListeners();
     await getDreamsCount();
@@ -408,6 +413,7 @@ class DreamsInterventionListState with ChangeNotifier {
     _agywSearchableValue = searchedAttributes;
     _beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes =
         searchedAttributes;
+    _noneEnrolledSearchableValue = searchedAttributes;
     _nonAgywSearchableValue = searchedAttributes;
     _incomingReferralsSearchableValue = searchedAttributes;
     notifyListeners();
@@ -504,6 +510,7 @@ class DreamsInterventionListState with ChangeNotifier {
     _agywIncomingReferralPagingController!.refresh();
     _noneParticipantsPagingController!.refresh();
     _beneficiariesWithoutAgywDreamsCriteriaPagingController!.refresh();
+    _enrolledNotEligibleParticipantPagingController!.refresh();
     notifyListeners();
     Provider.of<SynchronizationStatusState>(context!, listen: false)
         .resetSyncStatusReferences();
