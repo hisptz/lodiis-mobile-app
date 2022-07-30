@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
+import 'package:kb_mobile_app/core/services/app_info_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -6,11 +8,19 @@ import 'package:new_version/new_version.dart';
 
 class AppVersionUpdate {
   static showAppUpdateWarning(
-      BuildContext context, VersionStatus versionStatus) {
+      BuildContext context, VersionStatus? versionStatus) async {
     String modalTitle = 'Update Available';
-    String appStoreLink = versionStatus.appStoreLink;
+    String appStoreLink = versionStatus != null
+        ? versionStatus.appStoreLink
+        : AppInfoReference.androidId;
+    String localVersion = versionStatus != null
+        ? versionStatus.localVersion
+        : AppInfoReference.currentAppVersion;
+    String storeVersion = versionStatus != null
+        ? versionStatus.storeVersion
+        : await AppInfoService.getSavedApStoreVersion();
     String message =
-        'You can now update this app from ${versionStatus.localVersion} to ${versionStatus.storeVersion}';
+        'You can now update this app from $localVersion to $storeVersion';
 
     Widget modal = getDialogWidget(context, message, appStoreLink);
     AppUtil.showPopUpModal(context, modal, false, title: modalTitle);
