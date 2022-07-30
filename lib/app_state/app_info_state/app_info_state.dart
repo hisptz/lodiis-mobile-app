@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/services/app_info_service.dart';
+import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:new_version/new_version.dart';
 
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
@@ -41,7 +43,12 @@ class AppInfoState with ChangeNotifier {
         localVersion: status.localVersion,
       );
     } catch (error) {
-      //
+      var localVersion = AppInfoReference.currentAppVersion;
+      var storeVersion = await AppInfoService.getSavedApStoreVersion();
+      updateAppUpdateState(
+        storeVersion: storeVersion,
+        localVersion: localVersion,
+      );
     }
     notifyListeners();
   }
