@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/constants/workmanager_constants.dart';
+import 'package:kb_mobile_app/core/services/app_info_service.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
@@ -13,6 +14,7 @@ callbackDispatcher() {
     var dataQualityTaskName = WorkmanagerConstants.dataQuality;
     try {
       if (task == autoSyncTaskName) {
+        await AppInfoService.updateAppStoreVersion();
         CurrentUser? currentUser = await UserService().getCurrentUser();
         if (currentUser != null) {
           SynchronizationService synchronizationService =
@@ -26,7 +28,6 @@ callbackDispatcher() {
       }
       return Future.value(true);
     } catch (err) {
-      //
       return Future.value(false);
     }
   });
