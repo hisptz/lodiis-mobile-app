@@ -14,11 +14,12 @@ class DreamsEligibleNotEnrollment extends StatefulWidget {
   const DreamsEligibleNotEnrollment({Key? key}) : super(key: key);
 
   @override
-  State<DreamsEligibleNotEnrollment> createState() => _DreamsEnrollmentNotEligibleState();
+  State<DreamsEligibleNotEnrollment> createState() =>
+      _DreamsEnrollmentNotEligibleState();
 }
 
-class _DreamsEnrollmentNotEligibleState extends State<DreamsEligibleNotEnrollment> {
-
+class _DreamsEnrollmentNotEligibleState
+    extends State<DreamsEligibleNotEnrollment> {
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
@@ -41,7 +42,7 @@ class _DreamsEnrollmentNotEligibleState extends State<DreamsEligibleNotEnrollmen
     }
   }
 
-    void onEditBeneficiary(
+  void onEditBeneficiary(
     BuildContext context,
     NoneParticipationBeneficiary beneficiary,
   ) {
@@ -54,7 +55,7 @@ class _DreamsEnrollmentNotEligibleState extends State<DreamsEligibleNotEnrollmen
     );
   }
 
- void onViewBeneficiary(
+  void onViewBeneficiary(
     BuildContext context,
     NoneParticipationBeneficiary beneficiary,
   ) {
@@ -67,19 +68,20 @@ class _DreamsEnrollmentNotEligibleState extends State<DreamsEligibleNotEnrollmen
     );
   }
 
-
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
     dreamInterventionListState.refreshNoneParticipantsList();
   }
+
   @override
   Widget build(BuildContext context) {
-       return Consumer<LanguageTranslationState>(
+    return Consumer<LanguageTranslationState>(
       builder: (context, languageTranslationState, child) {
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Consumer<DreamsInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
-            String header = 'AGYW/DREAMS Eligible but not Enroll '.toUpperCase() +
+            String header = 'AGYW/DREAMS Eligible but not Enrolled '
+                    .toUpperCase() +
                 ': ${ovcInterventionListState.numberOfEnrolledNotEligibleParticipant}';
             return SubModuleHomeContainer(
               header: header,
@@ -88,11 +90,10 @@ class _DreamsEnrollmentNotEligibleState extends State<DreamsEligibleNotEnrollmen
           },
         );
       },
-    ); 
+    );
   }
 
-
-   Widget _buildBody(String? currentLanguage) {
+  Widget _buildBody(String? currentLanguage) {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) => RefreshIndicator(
         onRefresh: () async {
@@ -112,16 +113,17 @@ class _DreamsEnrollmentNotEligibleState extends State<DreamsEligibleNotEnrollmen
               ),
             ),
           ),
-          pagingController:
-              dreamInterventionListState.enrolledNotEligibleParticipantPagingController,
-          childBuilder: (context, dreamsEnrolledNotEligibleParticipant, index) =>
-              NoneParticipantBeneficiaryCard(
+          pagingController: dreamInterventionListState
+              .enrolledNotEligibleParticipantPagingController,
+          childBuilder:
+              (context, dreamsEnrolledNotEligibleParticipant, index) =>
+                  NoneParticipantBeneficiaryCard(
             beneficiary: dreamsEnrolledNotEligibleParticipant,
             canEdit: true,
-            onViewBeneficiary: () =>
-                onViewBeneficiary(context, dreamsEnrolledNotEligibleParticipant),
-            onEditBeneficiary: () =>
-                onEditBeneficiary(context, dreamsEnrolledNotEligibleParticipant),
+            onViewBeneficiary: () => onViewBeneficiary(
+                context, dreamsEnrolledNotEligibleParticipant),
+            onEditBeneficiary: () => onEditBeneficiary(
+                context, dreamsEnrolledNotEligibleParticipant),
           ),
           emptyListWidget: Center(
             child: Container(
