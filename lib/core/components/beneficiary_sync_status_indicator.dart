@@ -26,7 +26,7 @@ class BeneficiarySyncStatusIndicator extends StatelessWidget {
         ),
         child: SvgPicture.asset(
           'assets/icons/sync.svg',
-          color: isSynced == true ? Colors.green : Colors.red,
+          color: isSynced == true ? Colors.green : Colors.redAccent,
         ),
       ),
     );

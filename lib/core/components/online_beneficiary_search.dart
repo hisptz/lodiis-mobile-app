@@ -26,27 +26,27 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
   List<OnlineBeneficiarySearchResult> searchResults = [];
   String searchResultMessage = '';
   bool isSearching = false;
-  List<OnlineBeneficiarySearchInput> searchInputs = [
-    OnlineBeneficiarySearchInput(
+  List<BeneficiarySearchInput> searchInputs = [
+    BeneficiarySearchInput(
         label: 'First Name',
         inputField: InputField(id: 'WTZ7GLTrE8Q', name: '', valueType: 'TEXT')),
-    OnlineBeneficiarySearchInput(
+    BeneficiarySearchInput(
         label: 'Surname',
         inputField: InputField(id: 'rSP9c21JsfC', name: '', valueType: 'TEXT')),
-    OnlineBeneficiarySearchInput(
+    BeneficiarySearchInput(
         label: 'Date of Birth',
         inputField: InputField(id: 'qZP982qpSPS', name: '', valueType: 'DATE')),
-    OnlineBeneficiarySearchInput(
+    BeneficiarySearchInput(
         label: 'Primary UIC',
         interventions: ['dreams', 'ovc'],
         inputField: InputField(id: 'fTSAY18LgCF', name: '', valueType: 'TEXT')),
-    OnlineBeneficiarySearchInput(
+    BeneficiarySearchInput(
         label: 'School Name',
         interventions: ['education'],
         inputField: InputField(id: 'EwZil0AnlYo', name: '', valueType: 'TEXT')),
   ];
 
-  bool isItemSearched(OnlineBeneficiarySearchInput input) {
+  bool isItemSearched(BeneficiarySearchInput input) {
     var inputId = input.inputField.id;
     var value = onlineSearchDataObject[inputId];
     return value != null && value.isNotEmpty;
@@ -183,7 +183,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
 
                   String currentIntervention =
                       interventionCardState.currentInterventionProgram.id ?? '';
-                  List<OnlineBeneficiarySearchInput> filteredSearchInputs =
+                  List<BeneficiarySearchInput> filteredSearchInputs =
                       searchInputs
                           .where((input) =>
                               input.interventions!.isEmpty ||
@@ -260,7 +260,7 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                 controller: scrollController,
                                 children: [
                               ...filteredSearchInputs
-                                  .map((OnlineBeneficiarySearchInput input) {
+                                  .map((BeneficiarySearchInput input) {
                                 InputField inputField = input.inputField;
                                 inputField.inputColor = primaryColor;
                                 return Container(

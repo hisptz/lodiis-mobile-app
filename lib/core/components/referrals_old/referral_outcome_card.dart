@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view_container.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_view_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_modal.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_modal_old.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_follow_up.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/models/dreams_referral_outcome.dart';
@@ -106,7 +106,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
 
   void onAddReferralOutCome(BuildContext context) async {
     updateFormState(context, widget.eventData);
-    Widget modal = ReferralOutcomeModal(
+    Widget modal = ReferralOutcomeModalOld(
       themeColor: themeColor,
       eventData: widget.eventData,
       referralOutcomeFormSections: referralOutcomeFormSections,
@@ -161,7 +161,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
               ),
               Visibility(
                 visible: widget.isEditableMode &&
-                    widget.isIncomingReferral &&
+                    (widget.isIncomingReferral || widget.isOvcIntervention) &&
                     !isReferralOutComeFilled &&
                     widget.eventData.enrollmentOuAccessible!,
                 child: ClipRRect(

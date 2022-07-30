@@ -216,7 +216,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                     .map((Events event) =>
                         ServiceEvent().getServiceSessions(event))
                     .toList();
-                int serviceIndex = events.length + 1;
                 return Column(
                   children: [
                     DreamsBeneficiaryTopHeader(
@@ -245,13 +244,13 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                           child: Column(
                                             children:
                                                 events.map((Events eventData) {
-                                              serviceIndex--;
                                               return Container(
                                                 margin: const EdgeInsets.only(
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Service",
+                                                  visitName: eventData
+                                                      .getServiceFormEventLabel(),
                                                   onEdit: () => onEditService(
                                                       context,
                                                       eventData,
@@ -263,7 +262,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                     agywDream!,
                                                   ),
                                                   eventData: eventData,
-                                                  visitCount: serviceIndex,
+                                                  // visitCount: serviceIndex,
                                                 ),
                                               );
                                             }).toList(),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 
 class DreamsReferralOutCome {
   static List<String> getMandatoryFields() {
@@ -20,7 +21,7 @@ class DreamsReferralOutCome {
               name: 'Date client reached the referral station',
               valueType: 'DATE',
               firstDate: firstDate,
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
@@ -28,14 +29,14 @@ class DreamsReferralOutCome {
               name: 'Date service was provided',
               valueType: 'DATE',
               firstDate: firstDate,
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'Ep3atnNQGTY',
               name: 'Follow up required',
               valueType: 'BOOLEAN',
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
@@ -45,14 +46,14 @@ class DreamsReferralOutCome {
               disablePastPeriod: true,
               valueType: 'DATE',
               firstDate: firstDate,
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'JyEhKJXJiTp',
               name: 'Referring Organisation/Officer contacted for Feedback',
               valueType: 'BOOLEAN',
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
@@ -60,14 +61,14 @@ class DreamsReferralOutCome {
               name: 'Date Contacted for Feedback',
               valueType: 'DATE',
               firstDate: firstDate,
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
               valueType: 'LONG_TEXT',
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
           ])

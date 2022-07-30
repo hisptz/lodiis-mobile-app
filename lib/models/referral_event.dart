@@ -15,6 +15,7 @@ class ReferralEvent {
   String? referredToIp;
   String? comments;
   Events? eventData;
+  bool? enrollmentOuAccessible;
 
   ReferralEvent({
     this.id,
@@ -27,6 +28,7 @@ class ReferralEvent {
     this.referredToIp,
     this.type,
     this.comments,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
@@ -78,6 +80,7 @@ class ReferralEvent {
               ? data['WHktsYoFqat']
               : '',
       status: '',
+      enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
   }

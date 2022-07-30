@@ -50,8 +50,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (_) => InterventionBottomNavigationState()),
           ChangeNotifierProvider(create: (_) => ReferralNotificationState()),
-          ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
-          ChangeNotifierProvider(create: (_) => ServiceFormState()),
+          ChangeNotifierProvider(
+              create: (BuildContext context) => EnrollmentFormState(context)),
+          ChangeNotifierProvider(
+              create: (BuildContext context) => ServiceFormState(context)),
           ChangeNotifierProvider(
               create: (_) => EducationInterventionCurrentSelectionState()),
           ChangeNotifierProvider(

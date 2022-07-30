@@ -18,6 +18,7 @@ class AppVersionUpdate {
 
   static Widget getDialogWidget(
       BuildContext context, String message, String appStoreLink) {
+    Uri appStoreLinkUrI = Uri.parse(appStoreLink);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
@@ -50,8 +51,8 @@ class AppVersionUpdate {
                     ),
                     child: TextButton(
                       onPressed: () async {
-                        await canLaunch(appStoreLink)
-                            ? await launch(appStoreLink)
+                        await canLaunchUrl(appStoreLinkUrI)
+                            ? await launchUrl(appStoreLinkUrI)
                             : throw 'Could not launch $appStoreLink';
                       },
                       style: TextButton.styleFrom(

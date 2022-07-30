@@ -22,8 +22,9 @@ class AppUpdateRedirectPage extends StatelessWidget {
   }
 
   void onUpdateApp(String appStoreLink) async {
-    await canLaunch(appStoreLink)
-        ? await launch(appStoreLink)
+    Uri appStoreLinkUri = Uri.parse(appStoreLink);
+    await canLaunchUrl(appStoreLinkUri)
+        ? await launchUrl(appStoreLinkUri)
         : throw 'Could not launch $appStoreLink';
   }
 

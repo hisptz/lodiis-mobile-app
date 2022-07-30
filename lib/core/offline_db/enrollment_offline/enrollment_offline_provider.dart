@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:sqflite/sqflite.dart';
+import "package:collection/collection.dart";
 
 class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String table = 'enrollment';
@@ -49,7 +51,15 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   }
 
   Future<List<Enrollment>> getEnrollmentsByProgram(String programId,
-      {int? page, String searchedValue = ''}) async {
+      {int? page, Map searchedAttributes = const {}}) async {
+    if (searchedAttributes.isNotEmpty) {
+      // For searching
+      return _getEnrollmentsBySearchedAttributes(
+        programId,
+        page: page,
+        searchedAttributes: searchedAttributes,
+      );
+    }
     List<Enrollment> enrollments = [];
     try {
       var dbClient = await db;
@@ -65,23 +75,12 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             searchableValue,
             trackedEntityInstance
           ],
-          where: searchedValue.isNotEmpty
-              ? '$program = ? AND $searchableValue LIKE ?'
-              : '$program = ?',
+          where: '$program = ?',
           orderBy: '$enrollmentDate DESC',
-          whereArgs: searchedValue.isNotEmpty
-              ? [programId, '%$searchedValue%']
-              : [programId],
-          limit: page != null
-              ? searchedValue.isNotEmpty
-                  ? PaginationConstants.searchingPaginationLimit
-                  : PaginationConstants.paginationLimit
-              : null,
-          offset: page != null
-              ? searchedValue.isNotEmpty
-                  ? page * PaginationConstants.searchingPaginationLimit
-                  : page * PaginationConstants.paginationLimit
-              : null);
+          whereArgs: [programId],
+          limit: page != null ? PaginationConstants.paginationLimit : null,
+          offset:
+              page != null ? page * PaginationConstants.paginationLimit : null);
       if (maps.isNotEmpty) {
         for (Map map in maps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
@@ -221,10 +220,21 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollmentList.length;
   }
 
-  Future<List<Enrollment>> getFilteredEnrollments(String programId,
-      {int? page, required List<String> requiredTeiList}) async {
+  Future<List<Enrollment>> getFilteredEnrollments(
+    String programId, {
+    int? page,
+    searchedAttributes = const {},
+    required List<String> requiredTeiList,
+  }) async {
     List<Enrollment> enrollments = [];
     try {
+      if (searchedAttributes.isNotEmpty) {
+        return _getFilteredEnrollmentsBySearchedAttributes(
+          programId,
+          searchedAttributes: searchedAttributes,
+          requiredTeiList: requiredTeiList,
+        );
+      }
       List<List<String>> chunkedTeiList =
           (AppUtil.chunkItems(items: requiredTeiList, size: 50))
               .cast<List<String>>();
@@ -329,5 +339,141 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       //
     }
     return enrollments;
+  }
+
+  ///
+  /// enrollmentsMetadata :  is a map with 'searchedAttributes' as a map of key value pairs and  'data' as a List of map of enrollment database data
+  ///
+  List<Map> _sanitizeSearchedEnrollments(
+      Map<String, dynamic> enrollmentsMetadata) {
+    var maps = enrollmentsMetadata['data'] ?? [] as List<Map>;
+    var searchedAttributes = enrollmentsMetadata['searchedAttributes'] ?? {};
+    var groupedEnrollments =
+        groupBy(maps, (Map data) => data[trackedEntityInstance]);
+    return groupedEnrollments.values
+        .where((List<Map> dataGroup) =>
+            dataGroup.length == searchedAttributes.values.length)
+        .map((List<Map> dataGroup) => dataGroup.first)
+        .toList();
+  }
+
+  Future<List<Enrollment>> _getEnrollmentsBySearchedAttributes(
+    String programId, {
+    int? page,
+    Map searchedAttributes = const {},
+  }) async {
+    List<Enrollment> enrollments = [];
+    String attributesTable = 'tracked_entity_instance_attribute';
+    String attribute = 'attribute';
+    String attributeValue = 'value';
+
+    List searchParams = [];
+    List<String> searchParamsStringList = [];
+    searchedAttributes.forEach((key, value) {
+      var attributeQuery =
+          '$attributesTable.$attribute = ? AND $attributesTable.$attributeValue LIKE ?';
+      searchParams = [...searchParams, key, '%$value%'];
+      searchParamsStringList = [...searchParamsStringList, attributeQuery];
+    });
+
+    String searchParamsString = '(${searchParamsStringList.join(' OR ')})';
+    String rawQuery =
+        'SELECT $enrollment, $enrollmentDate, $incidentDate, $program, $orgUnit, $status, $syncStatus, $searchableValue, $table.$trackedEntityInstance, $attributesTable.$attribute, $attributesTable.$attributeValue FROM $table, $attributesTable  WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $searchParamsString  ORDER BY $enrollmentDate DESC';
+    try {
+      var dbClient = await db;
+      List params = [
+        programId,
+        ...searchParams,
+      ];
+      List<Map> maps = await dbClient!.rawQuery(
+        rawQuery,
+        params,
+      );
+      if (maps.isNotEmpty) {
+        Map<String, dynamic> enrollmentsMetadata = {
+          'searchedAttributes': searchedAttributes,
+          'data': maps
+        };
+        List<Map> sanitizedMaps =
+            await compute(_sanitizeSearchedEnrollments, enrollmentsMetadata);
+        for (Map map in sanitizedMaps) {
+          enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
+  }
+
+  Future<List<Enrollment>> _getFilteredEnrollmentsBySearchedAttributes(
+    String programId, {
+    Map searchedAttributes = const {},
+    List<String> requiredTeiList = const [],
+  }) async {
+    List<Enrollment> enrollments = [];
+    String attributesTable = 'tracked_entity_instance_attribute';
+    String attribute = 'attribute';
+    String attributeValue = 'value';
+
+    List searchParams = [];
+    List<String> searchParamsStringList = [];
+    searchedAttributes.forEach((key, value) {
+      var attributeQuery =
+          '$attributesTable.$attribute = ? AND $attributesTable.$attributeValue LIKE ?';
+      searchParams = [...searchParams, key, '%$value%'];
+      searchParamsStringList = [...searchParamsStringList, attributeQuery];
+    });
+
+    String searchParamsString = '(${searchParamsStringList.join(' OR ')})';
+    try {
+      var dbClient = await db;
+      String rawQuery =
+          'SELECT $enrollment, $enrollmentDate, $incidentDate, $program, $orgUnit, $status, $syncStatus, $searchableValue, $table.$trackedEntityInstance, $attributesTable.$attribute, $attributesTable.$attributeValue FROM $table, $attributesTable  WHERE $program = ? AND $table.$trackedEntityInstance = $attributesTable.$trackedEntityInstance AND $searchParamsString';
+
+      List params = [
+        programId,
+        ...searchParams,
+      ];
+
+      List<List<String>> chunkedTeiList =
+          (AppUtil.chunkItems(items: requiredTeiList, size: 50))
+              .cast<List<String>>();
+
+      for (List<String> teiList in chunkedTeiList) {
+        String questionMarks = (teiList.isEmpty ? [''] : teiList)
+            .map((e) => '?')
+            .toList()
+            .join(',');
+        if (questionMarks.isNotEmpty) {
+          params = [...params, ...teiList];
+          rawQuery =
+              '$rawQuery AND $trackedEntityInstance in ($questionMarks) ORDER BY $enrollmentDate DESC';
+        } else {
+          rawQuery = '$rawQuery ORDER BY $enrollmentDate DESC';
+        }
+        List<Map> maps = await dbClient!.rawQuery(
+          rawQuery,
+          params,
+        );
+        if (maps.isNotEmpty) {
+          Map<String, dynamic> enrollmentsMetadata = {
+            'searchedAttributes': searchedAttributes,
+            'data': maps
+          };
+          List<Map> sanitizedMaps =
+              await compute(_sanitizeSearchedEnrollments, enrollmentsMetadata);
+          for (Map map in sanitizedMaps) {
+            enrollments
+                .add(Enrollment.fromOffline(map as Map<String, dynamic>));
+          }
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return enrollments
+      ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
   }
 }

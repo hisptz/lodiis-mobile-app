@@ -21,8 +21,8 @@ class DreamsPostGBVInfo {
             ),
             InputField(
               id: 'mnYT2rZyGgJ',
-              name: 'Post GBV',
-              valueType: 'TRUE_ONLY',
+              name: 'Post GBV Services (clinical)',
+              valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),

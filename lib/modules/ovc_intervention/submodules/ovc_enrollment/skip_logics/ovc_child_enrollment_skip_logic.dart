@@ -37,7 +37,6 @@ class OvcChildEnrollmentSkipLogic {
         }
       }
       if (inputFieldId == 'iS9mAp3jDaU') {
-        print('value: $value');
         if (value == 'Biological mother' || value == 'Biological father') {
           assignInputFieldValue(context, 'UeF4OvjIIEK', 'false');
           hiddenFields['nOgf8LKXS4k'] = true;

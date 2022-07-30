@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_st
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_data.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_card_data.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -74,7 +74,11 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
   void onUpdateEventData(Events eventData) async {
     if (isLoading) {
       referralDataCard = await ReferralEvent().fromTeiModel(eventData);
-      referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(eventData, "");
+      referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(
+        eventData: eventData,
+        referralToComeReference: "",
+        referralToFollowUpLinkage: "",
+      );
       isLoading = false;
       setState(() {});
     }

@@ -22,7 +22,7 @@ class DreamsARTRefillInfo {
             InputField(
               id: 'uWKbFmG9ZWQ',
               name: 'ART Re-fill',
-              valueType: 'TRUE_ONLY',
+              valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),
