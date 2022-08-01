@@ -21,7 +21,6 @@ class OvcHouseholdEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-                         assignInputFieldValue(context, 'tNdoR0jYr7R', '0713949476');
 
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
@@ -44,11 +43,7 @@ class OvcHouseholdEnrollmentSkipLogic {
         hiddenFields['cvrdI9t4rtN'] = true;
         hiddenFields['W7QUtemHnvI'] = true;
       }
-    
-     
     }
-
-
 
     if (dataObject['children'] != null) {
       List<dynamic> children = dataObject['children'] ?? [];
