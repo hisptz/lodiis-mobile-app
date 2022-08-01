@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_util.dart';
+import 'package:provider/provider.dart';
 
 class CasePlanHomeList extends StatelessWidget {
   const CasePlanHomeList({
@@ -10,8 +12,12 @@ class CasePlanHomeList extends StatelessWidget {
     required this.casePlanByDates,
     required this.onEditCasePlan,
     required this.onViewCasePlan,
+    required this.isOnCasePlanServiceProvision,
+    required this.isOnCasePlanServiceMonitoring,
   }) : super(key: key);
   final Map<String, List<Events>> casePlanByDates;
+  final bool isOnCasePlanServiceProvision;
+  final bool isOnCasePlanServiceMonitoring;
 
   final Function onEditCasePlan;
   final Function onViewCasePlan;
@@ -58,33 +64,47 @@ class CasePlanHomeList extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                            child: RichText(
-                          text: TextSpan(
-                            text: '$casePlanDate   ',
-                            style: const TextStyle().copyWith(
-                              color: const Color(0xFF92A791),
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Case plan ${casePlanIndex + 1}',
-                                style: const TextStyle().copyWith(
-                                  color: const Color(0xFF1A3518),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
+                          child: Consumer<LanguageTranslationState>(
+                            builder:
+                                (context, languageTranslationState, child) {
+                              String? currentLanguage =
+                                  languageTranslationState.currentLanguage;
+                              return RichText(
+                                text: TextSpan(
+                                  text: '$casePlanDate   ',
+                                  style: const TextStyle().copyWith(
+                                    color: const Color(0xFF92A791),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: isOnCasePlanServiceProvision
+                                          ? currentLanguage == 'lesotho'
+                                              ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${casePlanIndex + 1})'
+                                              : 'Services Provision(Case plan ${casePlanIndex + 1})'
+                                          : 'Case plan ${casePlanIndex + 1}',
+                                      style: const TextStyle().copyWith(
+                                        color: const Color(0xFF1A3518),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              )
-                            ],
+                              );
+                            },
                           ),
-                        )),
+                        ),
                         _getActionButton(
                           icon: 'assets/icons/expand_icon.svg',
                           onTap: () =>
                               onViewCasePlan(casePlanByDates[casePlanDate]),
                         ),
                         Visibility(
-                          visible: hasEditAccess,
+                          visible: hasEditAccess &&
+                              !(isOnCasePlanServiceMonitoring ||
+                                  isOnCasePlanServiceProvision),
                           child: _getActionButton(
                             icon: 'assets/icons/edit-icon.svg',
                             onTap: () =>

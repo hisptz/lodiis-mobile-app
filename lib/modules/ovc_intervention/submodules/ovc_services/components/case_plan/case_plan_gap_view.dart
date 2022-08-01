@@ -127,14 +127,18 @@ class CasePlanGapView extends StatelessWidget {
                                 width: double.infinity,
                                 margin: const EdgeInsets.only(bottom: 5.0),
                                 child: Text(
-                                    _getInputValue(
-                                      inputField,
-                                      casePlanGap,
-                                    ),
-                                    style: const TextStyle().copyWith(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.normal,
-                                    )),
+                                  _getInputValue(
+                                    inputField,
+                                    casePlanGap,
+                                  ),
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ),
+                              LineSeparator(
+                                color: formSectionColor.withOpacity(0.5),
                               )
                             ],
                           ),
@@ -145,13 +149,6 @@ class CasePlanGapView extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(),
                       child: Column(
                         children: [
-                          Visibility(
-                            visible: !isOnCasePlanServiceProvision ||
-                                !isOnCasePlanServiceMonitoring,
-                            child: LineSeparator(
-                              color: formSectionColor.withOpacity(0.5),
-                            ),
-                          ),
                           Visibility(
                             visible: isOnCasePlanServiceProvision,
                             child: Container(
