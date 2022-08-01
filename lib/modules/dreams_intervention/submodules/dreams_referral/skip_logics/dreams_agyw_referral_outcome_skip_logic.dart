@@ -28,6 +28,31 @@ class DreamsAgywReferralOutcomeSkipLogic {
       if (inputFieldId == 'JyEhKJXJiTp' && value != 'true') {
         hiddenFields['yGf4w48y1Jt'] = true;
       }
+      if (inputFieldId == 'hXyqgOWZ17b') {
+        if (value == 'true') {
+          hiddenFields['DPf5mUDoZMy'] = true;
+          hiddenFields['JyEhKJXJiTp'] = true;
+          hiddenFields['yGf4w48y1Jt'] = true;
+          hiddenFields['LcG4J82PM4Z'] = true;
+          hiddenFields['Ep3atnNQGTY'] = true;
+
+          hiddenFields['JyEhKJXJiTp'] = true;
+        } else if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+        } else {
+          hiddenFields['DPf5mUDoZMy'] = true;
+          hiddenFields['JyEhKJXJiTp'] = true;
+          hiddenFields['yGf4w48y1Jt'] = true;
+          hiddenFields['LcG4J82PM4Z'] = true;
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['Ep3atnNQGTY'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+          hiddenFields['JyEhKJXJiTp'] = true;
+        }
+      }
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
