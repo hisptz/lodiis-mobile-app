@@ -11,14 +11,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
-class OvcChildCasePlan extends StatefulWidget {
+class OvcChildCasePlan extends StatelessWidget {
   const OvcChildCasePlan({Key? key}) : super(key: key);
-
-  @override
-  State<OvcChildCasePlan> createState() => _OvcChildCasePlanState();
-}
-
-class _OvcChildCasePlanState extends State<OvcChildCasePlan> {
   final String label = 'Child Case Plan';
 
   @override
