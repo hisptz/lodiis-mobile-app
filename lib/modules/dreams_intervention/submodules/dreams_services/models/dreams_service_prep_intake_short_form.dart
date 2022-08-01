@@ -27,7 +27,7 @@ class DreamsPrepIntakeShortForm {
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
               name: 'PrEP Provided',
-              valueType: 'TRUE_ONLY',
+              valueType: 'BOOLEAN',
             ),
             InputField(
               id: 'lvT9gfpHIlT',

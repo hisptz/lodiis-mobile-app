@@ -171,7 +171,7 @@ class _OvcInterventionState extends State<OvcIntervention>
                           activeInterventionProgram);
               return Scaffold(
                 appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(105),
+                    preferredSize: const Size.fromHeight(110),
                     child: InterventionAppBar(
                       tabController: tabController,
                       tabs: tabsItems,

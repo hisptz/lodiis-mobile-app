@@ -72,14 +72,17 @@ class NoneAgywDreamsEnrollmentService {
   }
 
   Future<List<AgywDream>> getNonAgywBeneficiaryList(
-      {int? page, String searchableValue = ''}) async {
+      {int? page, Map searchedAttributes = const {}}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<String> accessibleOrgUnits = await OrganisationUnitService()
           .getOrganisationUnitAccessedByCurrentUser();
-      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollmentsByProgram(program,
-              page: page, searchedValue: searchableValue);
+      List<Enrollment> enrollments =
+          await EnrollmentOfflineProvider().getEnrollmentsByProgram(
+        program,
+        page: page,
+        searchedAttributes: searchedAttributes,
+      );
       for (Enrollment enrollment in enrollments) {
         List<OrganisationUnit> ous = await OrganisationUnitService()
             .getOrganisationUnits([enrollment.orgUnit]);

@@ -123,11 +123,17 @@ class _CasePlanServiceProvisionContainerState
             .id!;
     List<FormSection> formSections = widget.isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-                firstDate: casePlanGapDataObject['eventDate'])
+                firstDate: casePlanGapDataObject['eventDate'] ??
+                    AppUtil.formattedDateTimeIntoString(
+                      DateTime.now(),
+                    ))
             .where((FormSection form) => form.id == widget.domainId)
             .toList()
         : OvcServicesChildCasePlanGap.getFormSections(
-                firstDate: casePlanGapDataObject['eventDate'])
+                firstDate: casePlanGapDataObject['eventDate'] ??
+                    AppUtil.formattedDateTimeIntoString(
+                      DateTime.now(),
+                    ))
             .where((FormSection form) => form.id == widget.domainId)
             .toList();
     List<String> hiddenFields = [

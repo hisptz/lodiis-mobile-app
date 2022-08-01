@@ -57,14 +57,14 @@ class OgacEnrollmentService {
 
   Future<List<OgacBeneficiary>> getOgacBeneficiaries(
       {int? page,
-      String searchableValue = '',
+      Map searchedAttributes = const {},
       List<Map<String, dynamic>> filters = const []}) async {
     List<String> accessibleOrgUnits = await OrganisationUnitService()
         .getOrganisationUnitAccessedByCurrentUser();
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(OgacInterventionConstant.program,
-            page: page, searchedValue: searchableValue);
+            page: page, searchedAttributes: searchedAttributes);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);

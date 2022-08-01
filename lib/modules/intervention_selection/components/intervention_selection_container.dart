@@ -11,7 +11,7 @@ import 'package:kb_mobile_app/core/components/route_page_not_found.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/dreams_intervention.dart';
 import 'package:kb_mobile_app/modules/education_intervention/education_intervention.dart';
-import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_list.dart';
+import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_list.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/intervention_selection_button.dart';
 import 'package:kb_mobile_app/core/utils/intervention_selection_helper.dart';
 import 'package:kb_mobile_app/modules/ogac_intervention/ogac_intervention.dart';

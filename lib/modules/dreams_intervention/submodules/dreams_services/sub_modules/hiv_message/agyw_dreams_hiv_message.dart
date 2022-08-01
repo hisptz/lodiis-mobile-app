@@ -30,7 +30,7 @@ class AgywDreamHIVMessage extends StatefulWidget {
 }
 
 class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
-  final String label = 'HIV Messaging';
+  final String label = 'HIV Risk Assessment';
   List<String> programStageIds = [HIVMessageConstant.programStage];
   @override
   void initState() {
@@ -184,7 +184,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                         ),
                                 ),
                                 EntryFormSaveButton(
-                                  label: 'ADD HIV Messaging',
+                                  label: 'ADD HIV Risk Assessment',
                                   labelColor: Colors.white,
                                   buttonColor: const Color(0xFF1F8ECE),
                                   fontSize: 15.0,

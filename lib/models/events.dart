@@ -75,4 +75,32 @@ class Events {
     syncStatus = mapData['syncStatus'];
     dataValues = mapData['dataValues'];
   }
+
+  String getServiceFormEventLabel() {
+    String serviceFormIntervention = 'Eug4BXDFLym';
+    String serviceFormSessionNumber = 'vL6NpUA0rIU';
+
+    List<Map> sanitizedDataValues = _getSanitizedDataValues();
+    Map intervention = (sanitizedDataValues).firstWhere(
+        (Map dataValue) => dataValue['dataElement'] == serviceFormIntervention,
+        orElse: () => {});
+    Map sessionNumber = (sanitizedDataValues).firstWhere(
+        (Map dataValue) => dataValue['dataElement'] == serviceFormSessionNumber,
+        orElse: () => {});
+
+    return intervention.isNotEmpty
+        ? "${intervention['value']}${sessionNumber.isNotEmpty ? ' - Session Number ${sessionNumber["value"]}' : ''}"
+        : "Service";
+  }
+
+  List<Map> _getSanitizedDataValues() {
+    List<Map> sanitizedDataValues = [];
+    for (Map dataValue in dataValues) {
+      sanitizedDataValues.add({
+        "dataElement": "${dataValue['dataElement']}",
+        "value": dataValue['value']
+      });
+    }
+    return sanitizedDataValues;
+  }
 }

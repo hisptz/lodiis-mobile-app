@@ -13,8 +13,8 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
-class ReferralOutComeFollowUpModal extends StatefulWidget {
-  const ReferralOutComeFollowUpModal({
+class ReferralOutComeFollowUpModalOld extends StatefulWidget {
+  const ReferralOutComeFollowUpModalOld({
     Key? key,
     required this.themeColor,
     required this.referralToFollowUpLinkage,
@@ -32,12 +32,12 @@ class ReferralOutComeFollowUpModal extends StatefulWidget {
   final String referralProgram;
 
   @override
-  _ReferralOutComeFollowUpModalState createState() =>
-      _ReferralOutComeFollowUpModalState();
+  _ReferralOutComeFollowUpModalOldState createState() =>
+      _ReferralOutComeFollowUpModalOldState();
 }
 
-class _ReferralOutComeFollowUpModalState
-    extends State<ReferralOutComeFollowUpModal> {
+class _ReferralOutComeFollowUpModalOldState
+    extends State<ReferralOutComeFollowUpModalOld> {
   bool isFormReady = false;
   bool isSaving = false;
 

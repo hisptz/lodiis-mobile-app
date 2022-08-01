@@ -1,11 +1,11 @@
 import 'package:kb_mobile_app/models/input_field.dart';
 
-class OnlineBeneficiarySearchInput {
+class BeneficiarySearchInput {
   String label;
   List<String>? interventions;
   InputField inputField;
 
-  OnlineBeneficiarySearchInput(
+  BeneficiarySearchInput(
       {required this.label,
       required this.inputField,
       this.interventions = const []});

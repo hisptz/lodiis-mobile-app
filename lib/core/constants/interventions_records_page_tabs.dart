@@ -16,21 +16,22 @@ class InterventionRecordsPageTabs {
   List<String>? implementingPartners;
 
   static final Map<String, InterventionRecordsPageTabs> dreamsModule = {
-    'AGYW/DREAMS': InterventionRecordsPageTabs(page: const DreamsEnrollmentRecords()),
-    'None Participation':
-        InterventionRecordsPageTabs(page: const DreamsNoneParticipationRecordsPage()),
+    'AGYW/DREAMS':
+        InterventionRecordsPageTabs(page: const DreamsEnrollmentRecords()),
+    'None Participation': InterventionRecordsPageTabs(
+        page: const DreamsNoneParticipationRecordsPage()),
     'No Enrollment Criteria': InterventionRecordsPageTabs(
         page: const BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage(),
         implementingPartners: []),
     'Kb PrEP': InterventionRecordsPageTabs(
         page: const NonAgywRecords(),
-        implementingPartners: ['KB-AGYW/DREAMS', 'Super user']), 
-   'Eligible Not Enroll': InterventionRecordsPageTabs(
-        page: const DreamsEligibleNotEnrollment(),
-        implementingPartners: [])
+        implementingPartners: ['KB-AGYW/DREAMS', 'Super user']),
+    'Eligible Not Enrolled': InterventionRecordsPageTabs(
+        page: const DreamsEligibleNotEnrollment(), implementingPartners: [])
   };
   static final Map<String, InterventionRecordsPageTabs> ovcModule = {
-    'Households': InterventionRecordsPageTabs(page: const OvcEnrollmentRecords()),
+    'Households':
+        InterventionRecordsPageTabs(page: const OvcEnrollmentRecords()),
     'None Participation':
         InterventionRecordsPageTabs(page: const OvcNoneParticipationRecords()),
   };

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_card_data.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_card_data.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:provider/provider.dart';

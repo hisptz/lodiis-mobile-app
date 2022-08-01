@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
-import 'package:kb_mobile_app/core/components/referrals/referral_outcome_view.dart';
+import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_view.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -61,7 +61,10 @@ class _ReferralOutComeViewContainerState
           () {
             isViewReady = true;
             referralOutComeEvent = ReferralOutcomeEvent().fromTeiModel(
-                widget.eventData, widget.referralToFollowUpLinkage);
+              eventData: widget.eventData,
+              referralToComeReference: "",
+              referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
+            );
           },
         );
       },
@@ -82,8 +85,9 @@ class _ReferralOutComeViewContainerState
       [widget.referralFollowUpStage],
     );
     List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUps = events
-        .map((Events event) => ReferralOutcomeFollowUpEvent()
-            .fromTeiModel(event, widget.referralToFollowUpLinkage))
+        .map((Events event) => ReferralOutcomeFollowUpEvent().fromTeiModel(
+            eventData: event,
+            referralToFollowUpLinkage: widget.referralToFollowUpLinkage))
         .toList();
     return referralOutComeFollowUps
         .where((referralOutComeFollowUp) =>
