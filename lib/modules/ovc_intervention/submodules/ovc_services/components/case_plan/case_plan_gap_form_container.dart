@@ -82,7 +82,9 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(),
+      margin: const EdgeInsets.symmetric(
+        vertical: 20.0,
+      ),
       child: Column(
         children: [
           EntryFormContainer(
@@ -95,6 +97,40 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
             isEditableMode: widget.isEditableMode,
             onInputValueChange: onInputValueChange,
             unFilledMandatoryFields: unFilledMandatoryFields,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 13.0,
+            ),
+            child: Visibility(
+              visible: widget.isEditableMode,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: widget.formSectionColor,
+                      ),
+                      onPressed: () => onSaveGapForm(context),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 22.0,
+                        ),
+                        child: Text(
+                          'ADD GAP',
+                          style: const TextStyle().copyWith(
+                            color: const Color(0xFFFAFAFA),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),

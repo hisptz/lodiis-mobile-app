@@ -65,6 +65,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
       context: context,
       containerBody: CasePlanGapFormContainer(
         formSections: formSections,
+        //TODO dynamic view and edit this variables
         isEditableMode: true,
         formSectionColor: formSectionColor,
         dataObject: gapDataObject,
@@ -72,10 +73,21 @@ class CasePlanGapViewContainer extends StatelessWidget {
       initialHeightRatio: ratio,
       maxHeightRatio: ratio,
     );
+    if (response != null) {
+      var eventId = response['eventId'] ?? '';
+      if (isOnEdit) {
+        dataObject['gaps'] = dataObject['gaps']
+            .where((Map gap) => gap['eventId'] != eventId)
+            .toList();
+      }
+      dataObject['gaps'].add(response);
+      onValueChange('gaps', dataObject['gaps']);
+    }
+  }
 
-    print(response);
-
-    //Handling on editing and add mew
+  void onValueChange(String id, dynamic value) {
+    dataObject[id] = value;
+    onInputValueChange(dataObject);
   }
 
   @override
