@@ -14,12 +14,14 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.isHouseholdCasePlan,
     required this.hasEditAccess,
+    required this.isEditableMode,
     required this.domainId,
     required this.onInputValueChange,
   }) : super(key: key);
 
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
+  final bool isEditableMode;
   final Map dataObject;
   final Color formSectionColor;
   final String domainId;
@@ -99,6 +101,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
         children: [
           CasePlanGapView(
             hasEditAccess: hasEditAccess,
+            isEditableMode: isEditableMode,
             domainId: domainId,
             formSectionColor: formSectionColor,
             isHouseholdCasePlan: isHouseholdCasePlan,
@@ -109,29 +112,32 @@ class CasePlanGapViewContainer extends StatelessWidget {
               isOnEdit: true,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10.0),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-                onSurface: formSectionColor.withOpacity(0.5),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: formSectionColor),
-                  borderRadius: BorderRadius.circular(12.0),
+          Visibility(
+            visible: isEditableMode,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 10.0),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  onSurface: formSectionColor.withOpacity(0.5),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: formSectionColor),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ),
-              ),
-              onPressed: () => onAddOrEditCasePlanGap(context),
-              child: Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 40.0,
-                ),
-                child: Text(
-                  'Add Gap',
-                  style: const TextStyle().copyWith(
-                    color: formSectionColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
+                onPressed: () => onAddOrEditCasePlanGap(context),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 40.0,
+                  ),
+                  child: Text(
+                    'Add Gap',
+                    style: const TextStyle().copyWith(
+                      color: formSectionColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),

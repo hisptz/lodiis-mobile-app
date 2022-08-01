@@ -13,6 +13,7 @@ class CasePlanGapView extends StatelessWidget {
     Key? key,
     required this.casePlanGapObjects,
     required this.hasEditAccess,
+    required this.isEditableMode,
     required this.isHouseholdCasePlan,
     required this.domainId,
     required this.formSectionColor,
@@ -22,6 +23,7 @@ class CasePlanGapView extends StatelessWidget {
   final List casePlanGapObjects;
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
+  final bool isEditableMode;
   final String domainId;
   final Color formSectionColor;
 
@@ -74,7 +76,7 @@ class CasePlanGapView extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: hasEditAccess,
+                          visible: hasEditAccess && isEditableMode,
                           child: InkWell(
                             onTap: () => onEdiCasePlanGap(casePlanGap),
                             child: Container(
@@ -96,10 +98,44 @@ class CasePlanGapView extends StatelessWidget {
                   ],
                   ...inputFields
                       .map(
-                        (e) => Container(),
+                        (inputField) => Container(
+                          margin: const EdgeInsets.symmetric(),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                child: Text(
+                                  inputField.name,
+                                  style: const TextStyle().copyWith(
+                                    color: formSectionColor,
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.only(bottom: 5.0),
+                                child: Text(
+                                    _getInputValue(
+                                      inputField,
+                                      casePlanGap,
+                                    ),
+                                    style: const TextStyle().copyWith(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.normal,
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
                       )
                       .toList()
                     ..add(Container(
+                      margin: const EdgeInsets.symmetric(),
                       child: LineSeparator(
                         color: formSectionColor.withOpacity(0.5),
                       ),

@@ -56,7 +56,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   List<FormSection> formSections = [];
   Map borderColors = {};
 
-  bool isSaving = false;
+  final bool _isSaving = false;
   bool _isFormReady = true;
 
   @override
@@ -86,6 +86,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }
+
+  void onSaveCasePlan() {}
 
   @override
   Widget build(BuildContext context) {
@@ -139,57 +141,64 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                 horizontal: 13.0,
                               ),
                               child: Column(
-                                  children: formSections
-                                      .where((formSection) =>
-                                          formSection.id == 'Schooled'
-                                              ? beneficairyAge > 5
-                                                  ? true
-                                                  : false
-                                              : true)
-                                      .toList()
-                                      .map(
-                                        (formSection) => Container(
-                                          margin: const EdgeInsets.symmetric(),
-                                          child: CasePlanFormContainer(
-                                            formSectionColor:
-                                                borderColors[formSection.id],
-                                            formSection: formSection,
-                                            isEditableMode:
-                                                serviceFormState.isEditableMode,
-                                            dataObject:
-                                                dataObject[formSection.id],
-                                            onInputValueChange: (
-                                              dynamic value,
-                                            ) =>
-                                                onInputValueChange(
-                                                    formSection.id, value),
-                                            isHouseholdCasePlan:
-                                                widget.isHouseholdCasePlan,
-                                            hasEditAccess: widget.hasEditAccess,
-                                            isOnCasePlanPage:
-                                                widget.isOnCasePlanPage,
-                                            isOnCasePlanServiceProvision: widget
-                                                .isOnCasePlanServiceProvision,
-                                            isOnCasePlanServiceMonitoring: widget
-                                                .isOnCasePlanServiceMonitoring,
-                                          ),
+                                children: formSections
+                                    .where((formSection) =>
+                                        formSection.id == 'Schooled'
+                                            ? beneficairyAge > 5
+                                                ? true
+                                                : false
+                                            : true)
+                                    .toList()
+                                    .map(
+                                      (formSection) => Container(
+                                        margin: const EdgeInsets.symmetric(),
+                                        child: CasePlanFormContainer(
+                                          formSectionColor:
+                                              borderColors[formSection.id],
+                                          formSection: formSection,
+                                          isEditableMode:
+                                              serviceFormState.isEditableMode,
+                                          dataObject:
+                                              dataObject[formSection.id],
+                                          onInputValueChange: (
+                                            dynamic value,
+                                          ) =>
+                                              onInputValueChange(
+                                                  formSection.id, value),
+                                          isHouseholdCasePlan:
+                                              widget.isHouseholdCasePlan,
+                                          hasEditAccess: widget.hasEditAccess,
+                                          isOnCasePlanPage:
+                                              widget.isOnCasePlanPage,
+                                          isOnCasePlanServiceProvision: widget
+                                              .isOnCasePlanServiceProvision,
+                                          isOnCasePlanServiceMonitoring: widget
+                                              .isOnCasePlanServiceMonitoring,
                                         ),
-                                      )
-                                      .toList()
-                                    ..add(Container(
-                                      margin: const EdgeInsets.symmetric(),
-                                      child: EntryFormSaveButton(
-                                        label: isSaving
-                                            ? 'Saving ...'
-                                            : currentLanguage == 'lesotho'
-                                                ? 'Boloka'
-                                                : 'Save',
-                                        labelColor: Colors.white,
-                                        buttonColor: const Color(0xFF4B9F46),
-                                        fontSize: 15.0,
-                                        onPressButton: () => {},
                                       ),
-                                    ))),
+                                    )
+                                    .toList()
+                                  ..add(
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(),
+                                      child: Visibility(
+                                        visible:
+                                            serviceFormState.isEditableMode,
+                                        child: EntryFormSaveButton(
+                                          label: _isSaving
+                                              ? 'Saving ...'
+                                              : currentLanguage == 'lesotho'
+                                                  ? 'Boloka'
+                                                  : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: const Color(0xFF4B9F46),
+                                          fontSize: 15.0,
+                                          onPressButton: () => {},
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ),
                             ),
                           ],
                         ),

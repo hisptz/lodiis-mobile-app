@@ -73,6 +73,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   isHouseholdCasePlan: isHouseholdCasePlan,
                   domainId: formSection.id!,
                   hasEditAccess: hasEditAccess,
+                  isEditableMode: isEditableMode && isOnCasePlanPage,
                   dataObject: dataObject,
                   formSectionColor: formSectionColor,
                   onInputValueChange: (dynamic value) =>
