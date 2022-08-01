@@ -23,6 +23,7 @@ class AgywDream {
   String? phoneNumber;
   String? village;
   String? landMark;
+  bool? isAgeBeyondAverage;
   bool? enrollmentOuAccessible;
   TrackedEntityInstance? trackedEntityInstanceData;
 
@@ -38,6 +39,7 @@ class AgywDream {
     this.programStatus,
     this.enrolledOrganisation,
     this.location,
+    this.isAgeBeyondAverage,
     this.orgUnit,
     this.createdDate,
     this.enrollment,
@@ -99,6 +101,7 @@ class AgywDream {
       landMark: landMark.isNotEmpty ? landMark : 'N/A',
       orgUnit: orgUnit,
       location: location,
+      isAgeBeyondAverage:age > 24 ? true:false,
       createdDate: createdDate,
       enrollment: enrollment,
       enrolledOrganisation:

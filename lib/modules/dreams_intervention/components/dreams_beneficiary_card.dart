@@ -147,7 +147,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 canView: canView,
                 isExpanded: isExpanded,
                 onToggleCard: onCardToggle,
-                isAgeBeyondAverage: int.parse(agywDream.age as String) > 24 ? true:false,
+                isAgeBeyondAverage: agywDream.isAgeBeyondAverage as bool,
                 onEdit: () => onEdit(context),
                 onView: () => onView(context),
               );

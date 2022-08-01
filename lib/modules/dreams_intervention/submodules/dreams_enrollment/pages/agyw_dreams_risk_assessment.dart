@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_risk_assessment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_eligible_not_enrollment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
@@ -129,7 +130,7 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
       'OmOU8n78dg7'
     ];
     for (var instruction in enrollmentInstructions) {
-      if (dataObject[instruction] != "" && dataObject[instruction]) {
+      if (dataObject[instruction] != "" && !dataObject[instruction]) {
         return true;
       }
     }
@@ -201,7 +202,8 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
         }
       }
       if (dataObject[sexPartnerDataElement] != "" &&
-          (int.parse(dataObject[sexPartnerDataElement]) > 0)) {
+          (int.parse(dataObject[sexPartnerDataElement]) >
+              AgywDreamsRiskAssment.sexPartnerConfirmation)) {
         void onDiscard() {
           dataObject[sexPartnerDataElement] = '';
           Navigator.pop(context, false);
@@ -214,14 +216,11 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                 'Are you sure  have ${dataObject[sexPartnerDataElement]} sex partners',
                 onDiscard),
             false);
-
-        if (beneficiaryHasEnrollmentCriteria &&
-            !beneficiaryHasEnrollmentInstruction) {
-          if (confirmationResponse) {
+        if (confirmationResponse) {
+          if (beneficiaryHasEnrollmentCriteria &&
+              beneficiaryHasEnrollmentInstruction) {
             onSave(dataObject, context);
-          }
-        } else {
-          if (confirmationResponse) {
+          } else {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -232,10 +231,9 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
             );
           }
         }
-
       } else {
         if (beneficiaryHasEnrollmentCriteria &&
-            !beneficiaryHasEnrollmentInstruction) {
+            beneficiaryHasEnrollmentInstruction) {
           onSave(dataObject, context);
         } else {
           Navigator.push(
@@ -247,6 +245,20 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
             ),
           );
         }
+
+        // if (beneficiaryHasEnrollmentCriteria &&
+        //     !beneficiaryHasEnrollmentInstruction) {
+        //   onSave(dataObject, context);
+        // } else {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => beneficiaryHasEnrollmentCriteria
+        //           ? const AgywDreamsEnrollmentForm()
+        //           : const AgywDreamsWithoutEnrollmentCriteriaForm(),
+        //     ),
+        //   );
+        // }
       }
     } else {
       setState(() {

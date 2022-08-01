@@ -48,6 +48,14 @@ class OvcEnrollmentChild {
               labelColor: const Color(0xFF737373),
             ),
             InputField(
+              id: 'tNdoR0jYr7R',
+              name: 'Phone Number',
+              translatedName: 'Nomoro ea mohala',
+              valueType: 'PHONE_NUMBER',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
               id: 'qZP982qpSPS',
               name: 'Date of Birth',
               translatedName: 'Letsatsi la tsoalo ',
