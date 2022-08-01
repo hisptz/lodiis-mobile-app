@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_form_container_old.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_service_provision_view_container_old.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class ServiceFormContainer extends StatelessWidget {
@@ -115,7 +115,7 @@ class ServiceFormContainer extends StatelessWidget {
                   isEditableMode: isEditableMode,
                   onInputValueChange: onValueChange,
                 ),
-                CasePlanServiceProvisionViewContainer(
+                CasePlanServiceProvisionViewContainerOld(
                   casePlanGaps: dataObject['gaps'] ?? [],
                   hasEditAccess: hasEditAccess,
                   domainId: formSection.id,

@@ -13,8 +13,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
-class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
-  const CasePlanGapServiceMonitoringViewContainer({
+class CasePlanGapServiceMonitoringViewContainerOld extends StatefulWidget {
+  const CasePlanGapServiceMonitoringViewContainerOld({
     Key? key,
     required this.casePlanGapToServiceMonitoringLinkageValue,
     required this.shouldEditCaseGapServiceMonitoring,
@@ -34,12 +34,12 @@ class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
   final bool hasEditAccess;
 
   @override
-  _CasePlanGapServiceMonitoringViewContainerState createState() =>
-      _CasePlanGapServiceMonitoringViewContainerState();
+  _CasePlanGapServiceMonitoringViewContainerOldState createState() =>
+      _CasePlanGapServiceMonitoringViewContainerOldState();
 }
 
-class _CasePlanGapServiceMonitoringViewContainerState
-    extends State<CasePlanGapServiceMonitoringViewContainer> {
+class _CasePlanGapServiceMonitoringViewContainerOldState
+    extends State<CasePlanGapServiceMonitoringViewContainerOld> {
   String? programStage;
   String casePlanGapToServiceMonitoringLinkage =
       OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
