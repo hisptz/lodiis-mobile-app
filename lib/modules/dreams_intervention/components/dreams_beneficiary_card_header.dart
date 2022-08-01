@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/constants/custom_color.dart';
 
 class DreamsBeneficiaryCardHeader extends StatelessWidget {
   const DreamsBeneficiaryCardHeader({
@@ -13,6 +14,7 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
     required this.canExpand,
     required this.isExpanded,
     required this.isSynced,
+    required this.isAgeBeyondAverage,
     this.isActive = true,
     this.onEdit,
     this.onView,
@@ -27,6 +29,7 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
   final bool isExpanded;
   final bool isActive;
   final bool isSynced;
+  final bool isAgeBeyondAverage;
 
   final VoidCallback? onEdit;
   final VoidCallback? onView;
@@ -52,9 +55,8 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                   child: SizedBox(
                     height: 20.0,
                     width: 20.0,
-                    child: SvgPicture.asset(
-                      svgIcon,
-                    ),
+                    child: SvgPicture.asset(svgIcon,
+                        color: isAgeBeyondAverage ? Colors.redAccent : null),
                   ),
                 ),
               ),
@@ -109,7 +111,7 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                     style: const TextStyle().copyWith(
                       color: isActive
                           ? const Color(0xFF1F8DCE)
-                          : const Color(0xFFC81314),
+                          : CustomColor.preferenceIndicatorColor,
                       fontSize: 12.0,
                     ),
                   ),

@@ -473,7 +473,7 @@ class AgywEnrollmentRiskAssessment {
                     'e. U entse thobalano le batho ba bakae ka palo likhoeling tse 12 tse fetileng?',
                 valueType: 'NUMBER',
                 inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
+                labelColor: const Color(0xFF737373),         
               ),
             ],
           ),
@@ -1149,6 +1149,7 @@ class AgywEnrollmentRiskAssessment {
       ),
       FormSection(
         name: 'Enrollment Criteria',
+        id:'E_O_C',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -1224,6 +1225,54 @@ class AgywEnrollmentRiskAssessment {
           ),
         ],
       ),
+    
+      FormSection(
+        id: 'E_O_I',
+        name: 'Enrollment Instructions',
+        color: const Color(0xFF258DCC),
+        inputFields: [
+                 InputField(
+              id: 'fEHah8SvP35',
+              name:
+                  'Is she currently residing in a community council/ district you are implementing DREAMS?',
+              translatedName:
+                  'Na nakong ea joale o lula k’hanseleng/seterekeng seo le kentseng lenane la DREAMS?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+
+                  InputField(
+              id: 'x6VFmJLsqgx',
+              name:
+                  'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
+              translatedName:
+                  'Bakeng sa baroetsana ba lilemo tse 9 hoisa ho 12, na motsoali/mohlokomeli o fane ka tumello ea hore moroetsana a kene lenaneng la DREAMS?',
+              valueType: 'BOOLEAN',
+              description: 'Ensure you have documented consent in AGYW file.',
+              translatedDescription:
+                  'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+                InputField(
+              id: 'OmOU8n78dg7',
+              name: 'Has the AGYW agreed to be enrolled in DREAMS?',
+              translatedName:
+                  'Na moroetsana/mosali ea mocha lilemong o lumetse ho kena lenaneng la DREAMS?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+                InputField(
+              id: 'L1Z7gkuKtbs',
+              name: 'Comments/Notes',
+              translatedName: 'Tlhakiso',
+              valueType: 'LONG_TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+
+
+
+        ],
+      )
     ];
   }
 }

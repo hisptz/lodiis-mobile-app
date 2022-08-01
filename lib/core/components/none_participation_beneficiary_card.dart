@@ -28,6 +28,7 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
   final String femaleSvgIcon = 'assets/icons/female-education-beneficiary.svg';
   final String maleSvgIcon = 'assets/icons/male-education-beneficiary.svg';
 
+
   @override
   Widget build(BuildContext context) {
     double iconHeight = 25;

@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -17,7 +18,9 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_risk_assessment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_eligible_not_enrollment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_without_enrollment_criteria_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/skip_logics/agyw_dreams_enrollment_skip_logic.dart';
@@ -39,6 +42,7 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
       AgywEnrollmentRiskAssessment.getMandatoryField();
   final Map mandatoryFieldObject = {};
   bool isFormReady = false;
+  bool isSaving = false;
   List unFilledMandatoryFields = [];
   @override
   void initState() {
@@ -119,14 +123,69 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
     return false;
   }
 
-  void onSaveAndContinue(BuildContext context, Map dataObject,
-      {Map hiddenFields = const {}}) {
+  bool hasEnrollmentCriteriaWithInstruction(Map dataObject) {
+    List<String> enrollmentInstructions = [
+      'fEHah8SvP35',
+      'x6VFmJLsqgx',
+      'OmOU8n78dg7'
+    ];
+    for (var instruction in enrollmentInstructions) {
+      if (dataObject[instruction] != "" && !dataObject[instruction]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void clearFormAutoSaveState(BuildContext context) async {
+    String beneficiaryId = "";
+    String formAutoSaveId =
+        "${DreamsRoutesConstant.agywConsentPage}_$beneficiaryId";
+    await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
+  }
+
+  void onSave(Map dataObject, BuildContext context) async {
+    setState(() {
+      isSaving = true;
+    });
+    String eventId = dataObject['eventId'] ?? AppUtil.getUid();
+    await AgywDreamsEligibleNotEnrollmentService()
+        .saveEnrolledNotEligibleForm(formSections!, dataObject, eventId);
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshAllDreamsLists();
+    clearFormAutoSaveState(context);
+    Timer(const Duration(seconds: 1), () {
+      if (Navigator.canPop(context)) {
+        setState(() {
+          isSaving = false;
+        });
+        String? currentLanguage =
+            Provider.of<LanguageTranslationState>(context, listen: false)
+                .currentLanguage;
+        AppUtil.showToastMessage(
+          message: currentLanguage == 'lesotho'
+              ? 'Fomo e bolokeile'
+              : 'Form has been saved successfully',
+          position: ToastGravity.TOP,
+        );
+        clearFormAutoSaveState(context);
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
+    });
+  }
+
+  Future<void> onSaveAndContinue(BuildContext context, Map dataObject,
+      {Map hiddenFields = const {}}) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
         mandatoryFields, dataObject,
         hiddenFields: hiddenFields);
+    String sexPartnerDataElement = 'q8qPtzanSTU';
     if (hadAllMandatoryFilled) {
       onUpdateFormAutoSaveState(context, isSaveForm: true);
       bool beneficiaryHasEnrollmentCriteria = hasEnrollmentCriteria(dataObject);
+      bool beneficiaryHasEnrollmentInstruction =
+          hasEnrollmentCriteriaWithInstruction(dataObject);
+
       if (!beneficiaryHasEnrollmentCriteria) {
         final List<BeneficiaryWithoutEnrollmentCriteriaConstant>
             agywWithoutEnrollmentConstants =
@@ -142,15 +201,52 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
           }
         }
       }
+      if (dataObject[sexPartnerDataElement] != "" &&
+          (int.parse(dataObject[sexPartnerDataElement]) >
+              AgywDreamsRiskAssment.sexPartnerConfirmation)) {
+        void onDiscard() {
+          dataObject[sexPartnerDataElement] = '';
+          Navigator.pop(context, false);
+        }
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => beneficiaryHasEnrollmentCriteria
-              ? const AgywDreamsEnrollmentForm()
-              : const AgywDreamsWithoutEnrollmentCriteriaForm(),
-        ),
-      );
+        bool confirmationResponse = await AppUtil.showPopUpModal(
+            context,
+            AppUtil.getConfirmationWidget(
+                context,
+                'Are you sure  have ${dataObject[sexPartnerDataElement]} sex partners',
+                onDiscard),
+            false);
+        if (confirmationResponse) {
+          if (beneficiaryHasEnrollmentCriteria &&
+              beneficiaryHasEnrollmentInstruction) {
+            onSave(dataObject, context);
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => beneficiaryHasEnrollmentCriteria
+                    ? const AgywDreamsEnrollmentForm()
+                    : const AgywDreamsWithoutEnrollmentCriteriaForm(),
+              ),
+            );
+          }
+        }
+      } else {
+        if (beneficiaryHasEnrollmentCriteria &&
+            beneficiaryHasEnrollmentInstruction) {
+          onSave(dataObject, context);
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => beneficiaryHasEnrollmentCriteria
+                  ? const AgywDreamsEnrollmentForm()
+                  : const AgywDreamsWithoutEnrollmentCriteriaForm(),
+            ),
+          );
+        }
+
+      }
     } else {
       setState(() {
         unFilledMandatoryFields =
@@ -217,9 +313,11 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                               unFilledMandatoryFields: unFilledMandatoryFields,
                             ),
                             EntryFormSaveButton(
-                              label: currentLanguage == 'lesotho'
-                                  ? 'Boloka ebe u fetela pele'
-                                  : 'Save and Continue',
+                              label: isSaving
+                                  ? 'Saving ...'
+                                  : currentLanguage == 'lesotho'
+                                      ? 'Boloka ebe u fetela pele'
+                                      : 'Save and Continue',
                               labelColor: Colors.white,
                               buttonColor: const Color(0xFF258DCC),
                               fontSize: 15.0,

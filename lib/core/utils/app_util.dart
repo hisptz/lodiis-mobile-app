@@ -218,6 +218,95 @@ class AppUtil {
 
     return false;
   }
+   static Widget getConfirmationWidget(
+      BuildContext context, String? message,Function? onDiscard) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Text(
+              message??'',
+              style: const TextStyle().copyWith(
+                color: const Color(0xFF82898D),
+                fontSize: 14.0,
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      right: 5.0,
+                    ),
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: Color(0xFF7FBA7C),
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                      ),
+                      child: const Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: Color(0xFF7FBA7C),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: 5.0,
+                    ),
+                    child: TextButton(
+                      onPressed:()=>onDiscard!(),
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: Colors.redAccent,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                      ),
+                      child: const Text(
+                        "Discard changes",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   static showActionSheetModal({
     required BuildContext context,
@@ -368,7 +457,7 @@ class AppUtil {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               InkWell(
-                                onTap: () => Navigator.of(context).pop(),
+                                onTap: () => Navigator.of(context).pop(true),
                                 child: Container(
                                   margin: const EdgeInsets.all(10),
                                   height: 22,

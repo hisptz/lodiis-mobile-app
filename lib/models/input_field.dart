@@ -31,6 +31,8 @@ class InputField {
   bool? hasLabelOnly;
   InputField? subInputField;
   List<int>? allowedSelectedLevels;
+  Pattern? numericRegexValidation ;
+  int? limitingNumericLength;
   List<String>? filteredPrograms;
 
   InputField({
@@ -64,6 +66,8 @@ class InputField {
     this.shouldUserCustomAgeLimit,
     this.showCountryLevelTree,
     this.hasLabelOnly,
+    this.numericRegexValidation,
+    this.limitingNumericLength
   }) {
     showCountryLevelTree = showCountryLevelTree ?? false;
     hasLabelOnly = hasLabelOnly ?? false;
@@ -82,6 +86,8 @@ class InputField {
     labelColor = labelColor ?? const Color(0xFF1A3518);
     background = background ?? Colors.transparent;
     suffixLabel = suffixLabel ?? '';
+    limitingNumericLength = limitingNumericLength??99;
+    numericRegexValidation = numericRegexValidation ?? RegExp('[0-9]');
   }
 
   @override

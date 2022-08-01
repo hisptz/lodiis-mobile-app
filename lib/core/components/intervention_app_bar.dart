@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/core/components/app_update_warning.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/offline_beneficiary_search.dart';
 import 'package:kb_mobile_app/core/components/online_beneficiary_search.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
