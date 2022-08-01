@@ -6,7 +6,6 @@ class OvcHouseholdServicesCasePlanGaps {
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
-    print(firstDate);
     return [
       FormSection(
           id: 'Health',

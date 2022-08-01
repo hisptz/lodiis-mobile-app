@@ -7,8 +7,8 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:provider/provider.dart';
 
-class CasePlanHomeListContainer extends StatelessWidget {
-  const CasePlanHomeListContainer({
+class CasePlanHomeListContainerOld extends StatelessWidget {
+  const CasePlanHomeListContainerOld({
     Key? key,
     required this.programStageIds,
     this.onEditCasePlan,

@@ -9,8 +9,11 @@ mixin OvcCasePlanGapSkipLogic {
   Map childMapObject = {};
 
   Future evaluateSkipLogics(
-      BuildContext context, List<FormSection> formSections, Map dataObject,
-      {OvcHouseholdChild? currentHouseholdChild}) async {
+    BuildContext context,
+    List<FormSection> formSections,
+    Map dataObject, {
+    OvcHouseholdChild? currentHouseholdChild,
+  }) async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);

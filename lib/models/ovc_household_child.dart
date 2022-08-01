@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseholdChild {
@@ -51,6 +52,7 @@ class OvcHouseholdChild {
       'wmKqYZML8GA',
       'PN92g65TkVI',
       'KO5NC4pfBmv',
+      'qZP982qpSPS',
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
@@ -61,13 +63,14 @@ class OvcHouseholdChild {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
     }
+    int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return OvcHouseholdChild(
         id: tei.trackedEntityInstance,
         firstName: data['WTZ7GLTrE8Q'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
-        age: data['ls9hlz2tyol'] ?? '',
+        age: '$age',
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,

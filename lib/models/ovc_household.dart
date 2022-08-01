@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -10,6 +11,7 @@ class OvcHousehold {
   String? surname;
   String? location;
   String? phoneNumber;
+  String? age;
   String? village;
   String? orgUnit;
   String? createdDate;
@@ -37,6 +39,7 @@ class OvcHousehold {
       this.secondaryUIC,
       this.location,
       this.phoneNumber,
+      this.age,
       this.village,
       this.orgUnit,
       this.createdDate,
@@ -69,6 +72,7 @@ class OvcHousehold {
       'BXUNH6LXeGA',
       'PN92g65TkVI',
       'RB8Wx75hGa4',
+      'qZP982qpSPS',
       UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
@@ -84,12 +88,14 @@ class OvcHousehold {
     String phoneNumber = getPhoneNumbers(data, phoneNumberIds);
     int maleCount = getChildCountBySex(children, 'male');
     int femaleCount = getChildCountBySex(children, 'female');
+    int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return OvcHousehold(
       id: tei.trackedEntityInstance,
       firstName: data['WTZ7GLTrE8Q'] ?? '',
       middleName: data['s1HaiT6OllL'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
       location: location,
+      age: '$age',
       phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
       village: village != "" ? village : 'N/A',
       orgUnit: orgUnit,
