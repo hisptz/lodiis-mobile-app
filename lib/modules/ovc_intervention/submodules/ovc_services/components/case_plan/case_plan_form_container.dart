@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_view_container.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
   const CasePlanFormContainer({
@@ -68,22 +69,31 @@ class CasePlanFormContainer extends StatelessWidget {
                   isEditableMode: isEditableMode && isOnCasePlanPage,
                   onInputValueChange: onValueChange,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(),
-                  child: Text(
-                    '$isOnCasePlanPage => Gaps : ${dataObject["gaps"]} ',
+                CasePlanGapViewContainer(
+                  isHouseholdCasePlan: isHouseholdCasePlan,
+                  domainId: formSection.id!,
+                  hasEditAccess: hasEditAccess,
+                  dataObject: dataObject,
+                  formSectionColor: formSectionColor,
+                  onInputValueChange: (dynamic value) =>
+                      onValueChange(formSection.id!, value),
+                ),
+                Visibility(
+                  visible: isOnCasePlanServiceProvision,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(),
+                    child: Text(
+                      'Services $isOnCasePlanServiceProvision',
+                    ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(),
-                  child: Text(
-                    'Services $isOnCasePlanServiceProvision',
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(),
-                  child: Text(
-                    'Montoring $isOnCasePlanServiceMonitoring',
+                Visibility(
+                  visible: isOnCasePlanServiceMonitoring,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(),
+                    child: Text(
+                      'Montoring $isOnCasePlanServiceMonitoring',
+                    ),
                   ),
                 )
               ],
