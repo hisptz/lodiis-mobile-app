@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_view.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
@@ -30,7 +31,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
   final String casePlanGapToServiceMonitoringLinkage =
       OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
 
-  void addOrEditCasePlanGap(
+  void onAddOrEditCasePlanGap(
     BuildContext context, {
     Map? gapDataObject,
     bool isOnEdit = false,
@@ -96,9 +97,17 @@ class CasePlanGapViewContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(),
       child: Column(
         children: [
-          //TODO display gaps with edit functionalities
-          Text(
-            ' Gaps : ${dataObject["gaps"]} ',
+          CasePlanGapView(
+            hasEditAccess: hasEditAccess,
+            domainId: domainId,
+            formSectionColor: formSectionColor,
+            isHouseholdCasePlan: isHouseholdCasePlan,
+            casePlanGapObjects: dataObject['gaps'],
+            onEdiCasePlanGap: (dynamic gapDataObject) => onAddOrEditCasePlanGap(
+              context,
+              gapDataObject: gapDataObject,
+              isOnEdit: true,
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 10.0),
@@ -111,7 +120,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
               ),
-              onPressed: () => addOrEditCasePlanGap(context),
+              onPressed: () => onAddOrEditCasePlanGap(context),
               child: Container(
                 margin: const EdgeInsets.symmetric(
                   vertical: 15.0,
@@ -129,6 +138,42 @@ class CasePlanGapViewContainer extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _getCasePlanGapList({List<dynamic> casePlanGapObjects = const []}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      child: Column(
+        children: casePlanGapObjects.map((dynamic casePlanGapObject) {
+          int gapIndex = casePlanGapObjects.indexOf(casePlanGapObject) + 1;
+          String label = "Gap $gapIndex";
+          List<FormSection> formSections = isHouseholdCasePlan
+              ? OvcHouseholdServicesCasePlanGaps.getFormSections(
+                      firstDate: casePlanGapObject['eventDate'] ??
+                          AppUtil.formattedDateTimeIntoString(
+                            DateTime.now(),
+                          ))
+                  .where((FormSection form) => form.id == domainId)
+                  .toList()
+              : OvcServicesChildCasePlanGap.getFormSections(
+                      firstDate: casePlanGapObject['eventDate'] ??
+                          AppUtil.formattedDateTimeIntoString(
+                            DateTime.now(),
+                          ))
+                  .where((FormSection form) => form.id == domainId)
+                  .toList();
+
+          return Container(
+            margin: const EdgeInsets.only(
+              bottom: 10.0,
+            ),
+            child: Text('$gapIndex => $casePlanGapObject'),
+          );
+        }).toList(),
       ),
     );
   }
