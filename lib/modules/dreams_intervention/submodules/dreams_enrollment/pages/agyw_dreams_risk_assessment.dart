@@ -246,19 +246,6 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
           );
         }
 
-        // if (beneficiaryHasEnrollmentCriteria &&
-        //     !beneficiaryHasEnrollmentInstruction) {
-        //   onSave(dataObject, context);
-        // } else {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => beneficiaryHasEnrollmentCriteria
-        //           ? const AgywDreamsEnrollmentForm()
-        //           : const AgywDreamsWithoutEnrollmentCriteriaForm(),
-        //     ),
-        //   );
-        // }
       }
     } else {
       setState(() {
