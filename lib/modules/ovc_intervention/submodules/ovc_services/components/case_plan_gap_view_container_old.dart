@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_view.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan_gap_view_old.dart';
 
-class CasePlanGapViewContainer extends StatelessWidget {
-  const CasePlanGapViewContainer({
+class CasePlanGapViewContainerOld extends StatelessWidget {
+  const CasePlanGapViewContainerOld({
     Key? key,
     required this.casePlanGaps,
     required this.formSectionColor,
@@ -32,7 +32,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
           int gapIndex = casePlanGaps.indexOf(casePlanGap);
           return Container(
             margin: const EdgeInsets.only(bottom: 10.0),
-            child: CasePlanGapView(
+            child: CasePlanGapViewOld(
               hasEditAccess: hasEditAccess,
               gapIndex: gapIndex,
               domainId: domainId,
