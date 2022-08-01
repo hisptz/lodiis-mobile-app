@@ -53,7 +53,6 @@ class CasePlanFormContainerOld extends StatelessWidget {
             AppUtil.getUid();
     gapDataObject[caseToGapLinkage] =
         dataObject![caseToGapLinkage] ?? AppUtil.getUid();
-    print(gapDataObject['eventDate']);
     List<FormSection> formSections = isCasePlanForHousehold
         ? OvcHouseholdServicesCasePlanGaps.getFormSections(
             firstDate: gapDataObject['eventDate'] ??

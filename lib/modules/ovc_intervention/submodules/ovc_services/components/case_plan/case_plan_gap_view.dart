@@ -18,12 +18,16 @@ class CasePlanGapView extends StatelessWidget {
     required this.domainId,
     required this.formSectionColor,
     required this.onEdiCasePlanGap,
+    required this.isOnCasePlanServiceProvision,
+    required this.isOnCasePlanServiceMonitoring,
   }) : super(key: key);
 
   final List casePlanGapObjects;
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
   final bool isEditableMode;
+  final bool isOnCasePlanServiceProvision;
+  final bool isOnCasePlanServiceMonitoring;
   final String domainId;
   final Color formSectionColor;
 
@@ -76,7 +80,10 @@ class CasePlanGapView extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: hasEditAccess && isEditableMode,
+                          visible: hasEditAccess &&
+                              isEditableMode &&
+                              !(isOnCasePlanServiceMonitoring ||
+                                  isOnCasePlanServiceProvision),
                           child: InkWell(
                             onTap: () => onEdiCasePlanGap(casePlanGap),
                             child: Container(
@@ -136,8 +143,34 @@ class CasePlanGapView extends StatelessWidget {
                       .toList()
                     ..add(Container(
                       margin: const EdgeInsets.symmetric(),
-                      child: LineSeparator(
-                        color: formSectionColor.withOpacity(0.5),
+                      child: Column(
+                        children: [
+                          Visibility(
+                            visible: !isOnCasePlanServiceProvision ||
+                                !isOnCasePlanServiceMonitoring,
+                            child: LineSeparator(
+                              color: formSectionColor.withOpacity(0.5),
+                            ),
+                          ),
+                          Visibility(
+                            visible: isOnCasePlanServiceProvision,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(),
+                              child: Text(
+                                'Services $isOnCasePlanServiceProvision',
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: isOnCasePlanServiceMonitoring,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(),
+                              child: Text(
+                                'Montoring $isOnCasePlanServiceMonitoring',
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ))
                 ],

@@ -17,11 +17,15 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.isEditableMode,
     required this.domainId,
     required this.onInputValueChange,
+    required this.isOnCasePlanServiceProvision,
+    required this.isOnCasePlanServiceMonitoring,
   }) : super(key: key);
 
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
   final bool isEditableMode;
+  final bool isOnCasePlanServiceProvision;
+  final bool isOnCasePlanServiceMonitoring;
   final Map dataObject;
   final Color formSectionColor;
   final String domainId;
@@ -68,8 +72,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
       context: context,
       containerBody: CasePlanGapFormContainer(
         formSections: formSections,
-        //TODO dynamic view and edit this variables
-        isEditableMode: true,
+        isEditableMode: isEditableMode,
         formSectionColor: formSectionColor,
         dataObject: gapDataObject,
       ),
@@ -102,6 +105,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
           CasePlanGapView(
             hasEditAccess: hasEditAccess,
             isEditableMode: isEditableMode,
+            isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+            isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
             domainId: domainId,
             formSectionColor: formSectionColor,
             isHouseholdCasePlan: isHouseholdCasePlan,
@@ -113,9 +118,13 @@ class CasePlanGapViewContainer extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: isEditableMode,
+            visible: isEditableMode &&
+                !(isOnCasePlanServiceMonitoring ||
+                    isOnCasePlanServiceProvision),
             child: Container(
-              margin: const EdgeInsets.only(bottom: 10.0),
+              margin: const EdgeInsets.only(
+                bottom: 10.0,
+              ),
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -144,42 +153,6 @@ class CasePlanGapViewContainer extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
-  }
-
-  Widget _getCasePlanGapList({List<dynamic> casePlanGapObjects = const []}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10.0,
-      ),
-      child: Column(
-        children: casePlanGapObjects.map((dynamic casePlanGapObject) {
-          int gapIndex = casePlanGapObjects.indexOf(casePlanGapObject) + 1;
-          String label = "Gap $gapIndex";
-          List<FormSection> formSections = isHouseholdCasePlan
-              ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-                      firstDate: casePlanGapObject['eventDate'] ??
-                          AppUtil.formattedDateTimeIntoString(
-                            DateTime.now(),
-                          ))
-                  .where((FormSection form) => form.id == domainId)
-                  .toList()
-              : OvcServicesChildCasePlanGap.getFormSections(
-                      firstDate: casePlanGapObject['eventDate'] ??
-                          AppUtil.formattedDateTimeIntoString(
-                            DateTime.now(),
-                          ))
-                  .where((FormSection form) => form.id == domainId)
-                  .toList();
-
-          return Container(
-            margin: const EdgeInsets.only(
-              bottom: 10.0,
-            ),
-            child: Text('$gapIndex => $casePlanGapObject'),
-          );
-        }).toList(),
       ),
     );
   }

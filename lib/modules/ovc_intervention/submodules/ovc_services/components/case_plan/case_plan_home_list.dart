@@ -32,62 +32,67 @@ class CasePlanHomeList extends StatelessWidget {
             casePlanIndex--;
             bool hasEditAccess =
                 OvcCasePlanUtil.hasAccessToEdit(casePlanByDates[casePlanDate]!);
-            return MaterialCard(
-              body: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(borderRadius),
-                  bottomLeft: Radius.circular(borderRadius),
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      left: BorderSide(
-                        color: Color(0xFF4B9F46),
-                        width: 10.0,
+            return Container(
+              margin: const EdgeInsets.symmetric(
+                vertical: 7.0,
+              ),
+              child: MaterialCard(
+                body: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(borderRadius),
+                    bottomLeft: Radius.circular(borderRadius),
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                          color: Color(0xFF4B9F46),
+                          width: 10.0,
+                        ),
                       ),
                     ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 20.0,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: RichText(
-                        text: TextSpan(
-                          text: '$casePlanDate   ',
-                          style: const TextStyle().copyWith(
-                            color: const Color(0xFF92A791),
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w700,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10.0,
+                      horizontal: 20.0,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: RichText(
+                          text: TextSpan(
+                            text: '$casePlanDate   ',
+                            style: const TextStyle().copyWith(
+                              color: const Color(0xFF92A791),
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Case plan ${casePlanIndex + 1}',
+                                style: const TextStyle().copyWith(
+                                  color: const Color(0xFF1A3518),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              )
+                            ],
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Case plan ${casePlanIndex + 1}',
-                              style: const TextStyle().copyWith(
-                                color: const Color(0xFF1A3518),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            )
-                          ],
-                        ),
-                      )),
-                      _getActionButton(
-                        icon: 'assets/icons/expand_icon.svg',
-                        onTap: () =>
-                            onViewCasePlan(casePlanByDates[casePlanDate]),
-                      ),
-                      Visibility(
-                        visible: hasEditAccess,
-                        child: _getActionButton(
-                          icon: 'assets/icons/edit-icon.svg',
+                        )),
+                        _getActionButton(
+                          icon: 'assets/icons/expand_icon.svg',
                           onTap: () =>
-                              onEditCasePlan(casePlanByDates[casePlanDate]),
+                              onViewCasePlan(casePlanByDates[casePlanDate]),
                         ),
-                      ),
-                    ],
+                        Visibility(
+                          visible: hasEditAccess,
+                          child: _getActionButton(
+                            icon: 'assets/icons/edit-icon.svg',
+                            onTap: () =>
+                                onEditCasePlan(casePlanByDates[casePlanDate]),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -71,6 +71,8 @@ class CasePlanFormContainer extends StatelessWidget {
                 ),
                 CasePlanGapViewContainer(
                   isHouseholdCasePlan: isHouseholdCasePlan,
+                  isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+                  isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                   domainId: formSection.id!,
                   hasEditAccess: hasEditAccess,
                   isEditableMode: isEditableMode && isOnCasePlanPage,
@@ -79,24 +81,6 @@ class CasePlanFormContainer extends StatelessWidget {
                   onInputValueChange: (dynamic value) =>
                       onValueChange(formSection.id!, value),
                 ),
-                Visibility(
-                  visible: isOnCasePlanServiceProvision,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(),
-                    child: Text(
-                      'Services $isOnCasePlanServiceProvision',
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: isOnCasePlanServiceMonitoring,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(),
-                    child: Text(
-                      'Montoring $isOnCasePlanServiceMonitoring',
-                    ),
-                  ),
-                )
               ],
             ),
           ),

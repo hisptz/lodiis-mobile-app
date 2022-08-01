@@ -92,19 +92,20 @@ class CasePlanHomeContainer extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => OvcCasePlanForm(
-            casePlanLabel: isHouseholdCasePlan
-                ? 'Household Case Plan Form'
-                : 'Child Case Plan Form',
-            isOnCasePlanPage: isOnCasePlanPage,
-            isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
-            isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-            hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
-            isHouseholdCasePlan: isHouseholdCasePlan,
-            casePlanProgram: casePlanProgram,
-            casePlanProgramStage: casePlanProgramStage,
-            casePlanGapProgramStage: casePlanGapProgramStage,
-            casePlanServiceProgramStage: casePlanServiceProgramStage,
-            casePlanMonitoringProgramStage: casePlanMonitoringProgramStage),
+          casePlanLabel: isHouseholdCasePlan
+              ? 'Household Case Plan Form'
+              : 'Child Case Plan Form',
+          isOnCasePlanPage: isOnCasePlanPage,
+          isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
+          isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+          hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+          isHouseholdCasePlan: isHouseholdCasePlan,
+          casePlanProgram: casePlanProgram,
+          casePlanProgramStage: casePlanProgramStage,
+          casePlanGapProgramStage: casePlanGapProgramStage,
+          casePlanServiceProgramStage: casePlanServiceProgramStage,
+          casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
+        ),
       ),
     );
   }
