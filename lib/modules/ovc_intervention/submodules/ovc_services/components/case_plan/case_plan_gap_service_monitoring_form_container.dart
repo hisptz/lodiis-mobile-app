@@ -84,7 +84,8 @@ class _CasePlanGapServiceMonitoringFormContainerState
   }
 
   void onSaveCasePlanMonitoring() async {
-    //TODO checking for form validy
+    //TODO checking for form validity
+    //TODO propegate service for childdren on household
     _isSaving = true;
     setState(() {});
     try {
@@ -139,7 +140,9 @@ class _CasePlanGapServiceMonitoringFormContainerState
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(),
+      margin: const EdgeInsets.symmetric(
+        vertical: 15.0,
+      ),
       child: !_isFormReady
           ? const CircularProcessLoader(
               color: Colors.blueGrey,
@@ -157,6 +160,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
                   onInputValueChange: onInputValueChange,
                 ),
                 Visibility(
+                  visible: widget.isEditableMode,
                   child: Container(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 15.0,
