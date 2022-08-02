@@ -101,7 +101,7 @@ class AgywDream {
       landMark: landMark.isNotEmpty ? landMark : 'N/A',
       orgUnit: orgUnit,
       location: location,
-      isAgeBeyondAverage:age > 24 ? true:false,
+      isAgeBeyondAverage: age > 24 ? true : false,
       createdDate: createdDate,
       enrollment: enrollment,
       enrolledOrganisation:

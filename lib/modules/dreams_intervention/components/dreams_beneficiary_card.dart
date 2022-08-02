@@ -113,6 +113,8 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     );
   }
 
+  void onOpenStatus(AgywDream agywDream) {}
+
   bool _syncStatusOfAgyw(
     AgywDream agywDream,
     List<String> unsyncedTeiReferences,
@@ -120,8 +122,6 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     int teiIndex = unsyncedTeiReferences.indexOf(agywDream.id!);
     return teiIndex == -1;
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +147,8 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 canView: canView,
                 isExpanded: isExpanded,
                 onToggleCard: onCardToggle,
+                programStatus: agywDream.programStatus ?? '',
+                isActive: agywDream.programStatus == 'Active',
                 isAgeBeyondAverage: agywDream.isAgeBeyondAverage as bool,
                 onEdit: () => onEdit(context),
                 onView: () => onView(context),
