@@ -76,7 +76,7 @@ class _CasePlanGapServiceProvisionViewState
             builder: (context, serviceEventDataState, child) {
               bool isLoading = serviceEventDataState.isLoading;
               List<CasePlanGapServiceProvisionEvent> casePlanServiceProvisions =
-                  OvcCasePlanUtil.getCasePlanGapServiceProvisionEvent(
+                  OvcCasePlanUtil.getCasePlanGapServiceProvisionEvents(
                       casePlanGapToServiceProvisionLinkage:
                           casePlanGapToServiceProvisionLinkage,
                       programStageIds: [programStage],

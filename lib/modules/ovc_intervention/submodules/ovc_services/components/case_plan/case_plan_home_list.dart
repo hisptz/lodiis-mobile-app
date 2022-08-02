@@ -83,7 +83,11 @@ class CasePlanHomeList extends StatelessWidget {
                                           ? currentLanguage == 'lesotho'
                                               ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${casePlanIndex + 1})'
                                               : 'Services Provision(Case plan ${casePlanIndex + 1})'
-                                          : 'Case plan ${casePlanIndex + 1}',
+                                          : isOnCasePlanServiceMonitoring
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${casePlanIndex + 1}) '
+                                                  : 'Services Monitoring (Case plan ${casePlanIndex + 1})'
+                                              : 'Case plan ${casePlanIndex + 1}',
                                       style: const TextStyle().copyWith(
                                         color: const Color(0xFF1A3518),
                                         fontSize: 14.0,
