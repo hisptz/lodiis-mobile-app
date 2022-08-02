@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_home_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/pages/ovc_service_case_plan_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_monitor/components/monitor_list_container.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceMonitoring extends StatefulWidget {
@@ -90,22 +92,31 @@ class _OvcServiceMonitoringState extends State<OvcServiceMonitoring> {
         bool isLoading = serviceEventDataState.isLoading;
         Map<String?, List<Events>> eventListByProgramStage =
             serviceEventDataState.eventListByProgramStage;
-
         return isLoading
             ? const CircularProgressIndicator()
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  MonitoringHomeListContainer(
-                    programStageIds: casePlanProgramStageIds,
-                    onViewCasePlan: (casePlanEvents) => onViewCasePlan(
-                      context,
-                      casePlanEvents,
-                      eventListByProgramStage,
-                    ),
-                  ),
-                ],
+            : Consumer<OvcHouseholdCurrentSelectionState>(
+                builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                  OvcHouseholdChild? currentOvcHouseholdChild =
+                      ovcHouseholdCurrentSelectionState
+                          .currentOvcHouseholdChild;
+                  return CasePlanHomeContainer(
+                    casePlanProgram: OvcChildCasePlanConstant.program,
+                    casePlanProgramStage:
+                        OvcChildCasePlanConstant.casePlanProgramStage,
+                    casePlanGapProgramStage:
+                        OvcChildCasePlanConstant.casePlanGapProgramStage,
+                    casePlanServiceProgramStage: OvcChildCasePlanConstant
+                        .casePlanGapServiceProvisionProgramStage,
+                    casePlanMonitoringProgramStage: OvcChildCasePlanConstant
+                        .casePlanGapServiceMonitoringProgramStage,
+                    enrollmentOuAccessible:
+                        currentOvcHouseholdChild!.enrollmentOuAccessible!,
+                    isHouseholdCasePlan: false,
+                    isOnCasePlanPage: false,
+                    isOnCasePlanServiceMonitoring: true,
+                    isOnCasePlanServiceProvision: false,
+                  );
+                },
               );
       }),
     );
