@@ -81,7 +81,7 @@ class OvcHouseholdChild {
             : '',
         enrollmentOuAccessible: enrollmentOuAccessible,
         isChildPrimary: "${data['KO5NC4pfBmv']}" == 'true',
-        ovcStatus: data['PN92g65TkVI'] ?? 'Active',
+        ovcStatus: data['PN92g65TkVI'] ?? '',
         orgUnit: orgUnit,
         teiData: tei);
   }
