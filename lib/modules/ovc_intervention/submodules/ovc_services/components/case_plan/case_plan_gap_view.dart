@@ -5,6 +5,8 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_monitoring_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_provision_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 
@@ -151,20 +153,22 @@ class CasePlanGapView extends StatelessWidget {
                         children: [
                           Visibility(
                             visible: isOnCasePlanServiceProvision,
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(),
-                              child: Text(
-                                'Services $isOnCasePlanServiceProvision',
-                              ),
+                            child: CasePlanGapServiceProvisionViewContainer(
+                              domainId: domainId,
+                              formSectionColor: formSectionColor,
+                              casePlanGap: casePlanGap,
+                              isHouseholdCasePlan: isHouseholdCasePlan,
+                              hasEditAccess: hasEditAccess,
                             ),
                           ),
                           Visibility(
                             visible: isOnCasePlanServiceMonitoring,
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(),
-                              child: Text(
-                                'Montoring $isOnCasePlanServiceMonitoring',
-                              ),
+                            child: CasePlanGapServiceMonitoringViewContainer(
+                              domainId: domainId,
+                              formSectionColor: formSectionColor,
+                              casePlanGap: casePlanGap,
+                              isHouseholdCasePlan: isHouseholdCasePlan,
+                              hasEditAccess: hasEditAccess,
                             ),
                           )
                         ],
