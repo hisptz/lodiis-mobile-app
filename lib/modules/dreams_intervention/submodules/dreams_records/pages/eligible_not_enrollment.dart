@@ -108,7 +108,7 @@ class _DreamsEnrollmentNotEligibleState
             ),
             child: const Center(
               child: Text(
-                'There is no AGYW/DREAMS Enrolled but not eligible participants at moment',
+                'There is no AGYW/DREAMS Eligible but not Enroll participants at moment',
                 textAlign: TextAlign.center,
               ),
             ),
@@ -135,7 +135,7 @@ class _DreamsEnrollmentNotEligibleState
               child: Column(
                 children: const [
                   Text(
-                    'There is no AGYW/DREAMS Enrolled but not eligible  participants at moment',
+                    'There is no AGYW/DREAMS Eligible but not Enroll  participants at moment',
                     textAlign: TextAlign.center,
                   )
                 ],

@@ -93,6 +93,8 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
     for (String inputFieldId in inputFieldIds) {
       String value = '${childMapObject![inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -154,6 +156,13 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       }
       if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
         hiddenFields['YR7Xxk14qoP_checkbox'] = true;
+      }
+      if (inputFieldId == 'tNdoR0jYr7R') {
+        if (dataObject['tNdoR0jYr7R'] == '') {
+          hiddenFields['tNdoR0jYr7R'] = true;
+        } else {
+          assignInputFieldValue('tNdoR0jYr7R', dataObject['tNdoR0jYr7R']);
+        }
       }
     }
     assignPrimaryVulnerability(childMapObject);
