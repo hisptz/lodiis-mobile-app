@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/case_plan_event.dart';
 import 'package:kb_mobile_app/models/case_plan_gap_event.dart';
+import 'package:kb_mobile_app/models/case_plan_gap_service_monitoring_event.dart';
 import 'package:kb_mobile_app/models/case_plan_gap_service_provision_event.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
@@ -78,7 +79,7 @@ class OvcCasePlanUtil {
   }
 
   static List<CasePlanGapServiceProvisionEvent>
-      getCasePlanGapServiceProvisionEvent({
+      getCasePlanGapServiceProvisionEvents({
     required Map<String?, List<Events>> eventListByProgramStage,
     required List<String> programStageIds,
     required String casePlanGapToServiceProvisionLinkage,
@@ -93,6 +94,25 @@ class OvcCasePlanUtil {
         .where((casePlanService) =>
             casePlanService.casePlanGapToServiceProvisionLinkage ==
             casePlanGapToServiceProvisionLinkage)
+        .toList();
+  }
+
+  static List<CasePlanGapServiceMonitoringEvent>
+      getCasePlanGapServiceMonitoringEvents({
+    required Map<String?, List<Events>> eventListByProgramStage,
+    required List<String> programStageIds,
+    required String casePlanGapToServiceMonitoringLinkage,
+  }) {
+    List<Events> events = TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
+            eventListByProgramStage, programStageIds);
+    return events
+        .map((eventData) => CasePlanGapServiceMonitoringEvent()
+            .toDataModel(eventData: eventData))
+        .toList()
+        .where((casePlanService) =>
+            casePlanService.casePlanGapToServiceMonitoringLinkage ==
+            casePlanGapToServiceMonitoringLinkage)
         .toList();
   }
 }
