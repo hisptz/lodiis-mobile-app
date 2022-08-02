@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/case_plan_event.dart';
 import 'package:kb_mobile_app/models/case_plan_gap_event.dart';
+import 'package:kb_mobile_app/models/case_plan_gap_service_provision_event.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
@@ -74,5 +75,24 @@ class OvcCasePlanUtil {
       }
     }
     return isAllDomainFilled;
+  }
+
+  static List<CasePlanGapServiceProvisionEvent>
+      getCasePlanGapServiceProvisionEvent({
+    required Map<String?, List<Events>> eventListByProgramStage,
+    required List<String> programStageIds,
+    required String casePlanGapToServiceProvisionLinkage,
+  }) {
+    List<Events> events = TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
+            eventListByProgramStage, programStageIds);
+    return events
+        .map((eventData) => CasePlanGapServiceProvisionEvent()
+            .toDataModel(eventData: eventData))
+        .toList()
+        .where((casePlanService) =>
+            casePlanService.casePlanGapToServiceProvisionLinkage ==
+            casePlanGapToServiceProvisionLinkage)
+        .toList();
   }
 }
