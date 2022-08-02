@@ -27,7 +27,7 @@ class CasePlanHomeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int casePlanIndex = casePlanByDates.keys.length;
+    int casePlanIndex = casePlanByDates.keys.length + 1;
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 17.0,
@@ -35,6 +35,7 @@ class CasePlanHomeList extends StatelessWidget {
       child: Column(
         children: casePlanByDates.keys.toList().map(
           (String casePlanDate) {
+            var index = casePlanIndex - 1;
             casePlanIndex--;
             bool hasEditAccess =
                 OvcCasePlanUtil.hasAccessToEdit(casePlanByDates[casePlanDate]!);
@@ -81,12 +82,12 @@ class CasePlanHomeList extends StatelessWidget {
                                     TextSpan(
                                       text: isOnCasePlanServiceProvision
                                           ? currentLanguage == 'lesotho'
-                                              ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${casePlanIndex + 1})'
-                                              : 'Services Provision(Case plan ${casePlanIndex + 1})'
+                                              ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa $index)'
+                                              : 'Services Provision(Case plan $index )'
                                           : isOnCasePlanServiceMonitoring
                                               ? currentLanguage == 'lesotho'
-                                                  ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${casePlanIndex + 1}) '
-                                                  : 'Services Monitoring (Case plan ${casePlanIndex + 1})'
+                                                  ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa $index) '
+                                                  : 'Services Monitoring (Case plan $index)'
                                               : 'Case plan ${casePlanIndex + 1}',
                                       style: const TextStyle().copyWith(
                                         color: const Color(0xFF1A3518),
