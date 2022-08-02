@@ -1,13 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_services_ongoing_monitoring.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_ongoing_monitoring.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_service_monitoring_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +43,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
     extends State<CasePlanGapServiceMonitoringFormContainer>
     with OvcServiceMonitoringSkipLogic {
   bool _isFormReady = false;
-  final bool _isSaving = false;
+  bool _isSaving = false;
   List<FormSection> formSections = [];
   Map mandatoryFieldObject = {};
 
@@ -76,6 +83,59 @@ class _CasePlanGapServiceMonitoringFormContainerState
         context, formSections, widget.gapServiceMonitoringObject);
   }
 
+  void onSaveCasePlanMonitoring() async {
+    //TODO checking for form validy
+    _isSaving = true;
+    setState(() {});
+    try {
+      List<String> hiddenFields = [
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage
+      ];
+      TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
+          ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                  listen: false)
+              .currentOvcHousehold!
+              .teiData!
+          : Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                  listen: false)
+              .currentOvcHouseholdChild!
+              .teiData!;
+      await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+        widget.isHouseholdCasePlan
+            ? OvcHouseholdCasePlanConstant.program
+            : OvcChildCasePlanConstant.program,
+        widget.isHouseholdCasePlan
+            ? OvcHouseholdCasePlanConstant
+                .casePlanGapServiceMonitoringProgramStage
+            : OvcChildCasePlanConstant.casePlanGapServiceMonitoringProgramStage,
+        beneficiary.orgUnit,
+        formSections,
+        widget.gapServiceMonitoringObject,
+        widget.gapServiceMonitoringObject['eventDate'],
+        beneficiary.trackedEntityInstance,
+        widget.gapServiceMonitoringObject['eventId'],
+        hiddenFields,
+      );
+      Provider.of<ServiceEventDataState>(context, listen: false)
+          .resetServiceEventDataState(beneficiary.trackedEntityInstance);
+      String? currentLanguage =
+          Provider.of<LanguageTranslationState>(context, listen: false)
+              .currentLanguage;
+      AppUtil.showToastMessage(
+        message: currentLanguage == 'lesotho'
+            ? 'Fomo e bolokeile'
+            : 'Form has been saved successfully',
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      _isSaving = true;
+      setState(() {});
+      AppUtil.showToastMessage(
+        message: e.toString(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -95,47 +155,38 @@ class _CasePlanGapServiceMonitoringFormContainerState
                   dataObject: widget.gapServiceMonitoringObject,
                   isEditableMode: widget.isEditableMode,
                   onInputValueChange: onInputValueChange,
+                ),
+                Visibility(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 15.0,
+                    ),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: widget.formSectionColor,
+                      ),
+                      onPressed: onSaveCasePlanMonitoring,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 22.0,
+                        ),
+                        child: Text(
+                          _isSaving
+                              ? 'SAVING MONITORING ...'
+                              : 'SAVE MONITORING',
+                          style: const TextStyle().copyWith(
+                            color: const Color(0xFFFAFAFA),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
     );
-  }
-
-  List<String> getInputFieldsLabel(
-    List<FormSection> formSections,
-    List<String> inputFieldIds,
-  ) {
-    String? currentLanguage =
-        Provider.of<LanguageTranslationState>(context, listen: false)
-            .currentLanguage;
-    List<String> inputFieldLabels = [];
-    for (FormSection formSection in formSections) {
-      for (InputField inputField in formSection.inputFields!) {
-        if (inputFieldIds.contains(inputField.id)) {
-          if (inputField.id != '' &&
-              inputField.id != 'location' &&
-              inputField.valueType != 'CHECK_BOX') {
-            String? label = currentLanguage == 'lesotho' &&
-                    inputField.translatedName!.isNotEmpty
-                ? inputField.translatedName
-                : inputField.name;
-            inputFieldLabels.add(label!);
-          }
-          if (inputField.valueType == 'CHECK_BOX') {
-            for (var option in inputField.options!) {
-              String? label = currentLanguage == 'lesotho' &&
-                      option.translatedName!.isNotEmpty
-                  ? option.translatedName
-                  : option.name;
-              inputFieldLabels.add(label!);
-            }
-          }
-        }
-      }
-      List<String> subSectionFormInputFieldLabels =
-          getInputFieldsLabel(formSection.subSections!, inputFieldIds);
-      inputFieldLabels.addAll(subSectionFormInputFieldLabels);
-    }
-    return inputFieldLabels.toSet().toList();
   }
 }
