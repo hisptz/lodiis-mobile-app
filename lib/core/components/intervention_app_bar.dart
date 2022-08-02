@@ -162,7 +162,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
     setState(() {
       searchItemsCount = searchedAttributes.values.length;
     });
-    print('searching:: $searchItemsCount');
     return searchedAttributes;
   }
 

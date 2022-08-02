@@ -232,7 +232,9 @@ class EventOfflineProvider extends OfflineDbProvider {
               .add(NoneParticipationBeneficiary().fromEventsModel(eventData));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
     return eventsProgramBeneficiaries;
   }
 

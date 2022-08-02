@@ -7,7 +7,6 @@ class OvcServicesWellbeingAssessment {
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
-    print(firstDate);
     return [
       FormSection(
           name: 'Role/Impact of a Child to the family',

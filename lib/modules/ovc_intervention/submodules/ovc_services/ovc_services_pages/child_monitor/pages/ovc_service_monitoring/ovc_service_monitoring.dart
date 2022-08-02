@@ -90,8 +90,6 @@ class _OvcServiceMonitoringState extends State<OvcServiceMonitoring> {
       child: Consumer<ServiceEventDataState>(
           builder: (context, serviceEventDataState, _) {
         bool isLoading = serviceEventDataState.isLoading;
-        Map<String?, List<Events>> eventListByProgramStage =
-            serviceEventDataState.eventListByProgramStage;
         return isLoading
             ? const CircularProgressIndicator()
             : Consumer<OvcHouseholdCurrentSelectionState>(
