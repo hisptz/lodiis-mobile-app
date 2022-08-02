@@ -173,9 +173,6 @@ class AppResumeRoute
         OvcRoutesConstant.houseHoldAssessmentFormPage) {
       redirectToOvcHouseholdAssessmentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.houseHoldCasePlanFormPage) {
-      redirectToOvcHouseholdCasePlanForm(context, formAutoSave);
-    } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldReferralFormPage) {
       redirectToOvcHouseholdReferral(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
