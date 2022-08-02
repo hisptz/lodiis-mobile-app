@@ -192,7 +192,7 @@ class _CasePlanServiceProvisionContainerState
         children: [
           Container(
             child: widget.isServiceMonitoring
-                ? CasePlanGapServiceMonitoringViewContainer(
+                ? CasePlanGapServiceMonitoringViewContainerOld(
                     hasEditAccess: widget.hasEditAccess,
                     casePlanGap: widget.casePlanGap,
                     domainId: widget.domainId,

@@ -19,7 +19,11 @@ class CasePlanGapServiceProvisionEvent {
   });
 
   CasePlanGapServiceProvisionEvent toDataModel({required Events eventData}) {
-    List keys = [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage];
+    List keys = [
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      ...OvcCasePlanConstant.casePlanServiceProvisionResults,
+      ...OvcCasePlanConstant.casePlanServiceProvisionReasons
+    ];
     Map data = {};
     String followupResults = '';
     String followUpReason = '';
@@ -45,7 +49,7 @@ class CasePlanGapServiceProvisionEvent {
     return CasePlanGapServiceProvisionEvent(
       id: eventData.event,
       casePlanGapToServiceProvisionLinkage:
-          data[casePlanGapToServiceProvisionLinkage] ?? '',
+          data[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] ?? '',
       date: eventData.eventDate,
       result: followupResults == "true" ? "Yes" : "No",
       reason: followUpReason,

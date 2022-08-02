@@ -32,32 +32,34 @@ class OvcChildCasePlan extends StatelessWidget {
         ),
       ),
       body: SubPageBody(
-        body: Column(children: [
-          const OvcChildInfoTopHeader(),
-          Consumer<OvcHouseholdCurrentSelectionState>(
-            builder: (context, ovcHouseholdCurrentSelectionState, child) {
-              OvcHouseholdChild? currentOvcHouseholdChild =
-                  ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
-              return CasePlanHomeContainer(
-                casePlanProgram: OvcChildCasePlanConstant.program,
-                casePlanProgramStage:
-                    OvcChildCasePlanConstant.casePlanProgramStage,
-                casePlanGapProgramStage:
-                    OvcChildCasePlanConstant.casePlanGapProgramStage,
-                casePlanServiceProgramStage: OvcChildCasePlanConstant
-                    .casePlanGapServiceProvisionProgramStage,
-                casePlanMonitoringProgramStage: OvcChildCasePlanConstant
-                    .casePlanGapServiceMonitoringProgramStage,
-                enrollmentOuAccessible:
-                    currentOvcHouseholdChild!.enrollmentOuAccessible!,
-                isHouseholdCasePlan: false,
-                isOnCasePlanPage: true,
-                isOnCasePlanServiceMonitoring: false,
-                isOnCasePlanServiceProvision: false,
-              );
-            },
-          ),
-        ]),
+        body: Column(
+          children: [
+            const OvcChildInfoTopHeader(),
+            Consumer<OvcHouseholdCurrentSelectionState>(
+              builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                OvcHouseholdChild? currentOvcHouseholdChild =
+                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+                return CasePlanHomeContainer(
+                  casePlanProgram: OvcChildCasePlanConstant.program,
+                  casePlanProgramStage:
+                      OvcChildCasePlanConstant.casePlanProgramStage,
+                  casePlanGapProgramStage:
+                      OvcChildCasePlanConstant.casePlanGapProgramStage,
+                  casePlanServiceProgramStage: OvcChildCasePlanConstant
+                      .casePlanGapServiceProvisionProgramStage,
+                  casePlanMonitoringProgramStage: OvcChildCasePlanConstant
+                      .casePlanGapServiceMonitoringProgramStage,
+                  enrollmentOuAccessible:
+                      currentOvcHouseholdChild!.enrollmentOuAccessible!,
+                  isHouseholdCasePlan: false,
+                  isOnCasePlanPage: true,
+                  isOnCasePlanServiceMonitoring: false,
+                  isOnCasePlanServiceProvision: false,
+                );
+              },
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
