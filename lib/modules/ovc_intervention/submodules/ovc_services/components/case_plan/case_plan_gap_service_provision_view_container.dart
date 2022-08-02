@@ -41,20 +41,17 @@ class _CasePlanGapServiceProvisionViewContainerState
     String programStage = widget.isHouseholdCasePlan
         ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
         : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
-    if (gapServiceObject.isEmpty) {
-      List skippedKeys = [
-        'eventId',
-        'eventDate',
-        UserAccountReference.appAndDeviceTrackingDataElement,
-        UserAccountReference.implementingPartnerDataElement,
-        UserAccountReference.subImplementingPartnerDataElement,
-        UserAccountReference.serviceProviderDataElement
-      ];
-      for (String key in widget.casePlanGap.keys
-          .where((element) => !skippedKeys.contains(element))) {
-        gapServiceObject[key] =
-            gapServiceObject[key] ?? widget.casePlanGap[key];
-      }
+    List skippedKeys = [
+      'eventId',
+      'eventDate',
+      UserAccountReference.appAndDeviceTrackingDataElement,
+      UserAccountReference.implementingPartnerDataElement,
+      UserAccountReference.subImplementingPartnerDataElement,
+      UserAccountReference.serviceProviderDataElement
+    ];
+    for (String key in widget.casePlanGap.keys
+        .where((element) => !skippedKeys.contains(element))) {
+      gapServiceObject[key] = gapServiceObject[key] ?? widget.casePlanGap[key];
     }
     gapServiceObject['casePlanDate'] = widget.casePlanGap['eventDate'];
     Map<String, List<String>> previousSessionMapping =
@@ -91,9 +88,16 @@ class _CasePlanGapServiceProvisionViewContainerState
               formSectionColor: widget.formSectionColor,
               domainId: widget.domainId,
               casePlanGap: widget.casePlanGap,
+              onEditCasePlanServive: (Map dataObject) =>
+                  onManageCasePlanGapServiceProvision(
+                      gapServiceObject: dataObject),
+              onViewCasePlanServive: (Map dataObject) =>
+                  onManageCasePlanGapServiceProvision(
+                      gapServiceObject: dataObject, isOnEditMode: false),
             ),
           ),
           Visibility(
+            visible: widget.hasEditAccess,
             child: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
                 String? currentLanguage =
