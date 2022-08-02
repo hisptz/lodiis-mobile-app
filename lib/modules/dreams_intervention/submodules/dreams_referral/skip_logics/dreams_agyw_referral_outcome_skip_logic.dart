@@ -30,15 +30,15 @@ class DreamsAgywReferralOutcomeSkipLogic {
       }
       if (inputFieldId == 'hXyqgOWZ17b') {
         if (value == 'true') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        } else if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['Ep3atnNQGTY'] = true;
           hiddenFields['DPf5mUDoZMy'] = true;
           hiddenFields['JyEhKJXJiTp'] = true;
           hiddenFields['yGf4w48y1Jt'] = true;
           hiddenFields['LcG4J82PM4Z'] = true;
-          hiddenFields['Ep3atnNQGTY'] = true;
-
           hiddenFields['JyEhKJXJiTp'] = true;
-        } else if (value == 'false') {
-          hiddenFields['lvT9gfpHIlT'] = true;
         } else {
           hiddenFields['DPf5mUDoZMy'] = true;
           hiddenFields['JyEhKJXJiTp'] = true;
