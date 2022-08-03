@@ -104,6 +104,8 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
         );
         Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .refetchCurrentHousehold();
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHousehold.id);
         Timer(const Duration(seconds: 1), () {

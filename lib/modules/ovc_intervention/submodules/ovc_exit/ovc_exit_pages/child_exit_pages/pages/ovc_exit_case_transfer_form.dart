@@ -156,6 +156,8 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
             .resetServiceEventDataState(currentOvcHouseholdChild.id);
         Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .refetchCurrentHousehold();
 
         Timer(const Duration(seconds: 1), () {
           setState(() {
