@@ -100,7 +100,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
     );
   }
 
-  Container _getHouseholdStatusRow({
+  Container _getChildStatusRow({
     required String status,
   }) {
     String key = 'Status';
@@ -248,7 +248,7 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                             valueColor: const Color(0xFF4B9F46),
                             fontSize: 12.0,
                           ),
-                          _getHouseholdStatusRow(
+                          _getChildStatusRow(
                               status: currentOvcHouseholdChild.ovcStatus ?? ''),
                         ],
                       ),
