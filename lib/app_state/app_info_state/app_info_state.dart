@@ -63,9 +63,12 @@ class AppInfoState with ChangeNotifier {
             AppInfoReference.minimumAllowedMajorVersion <
         storeSemanticVersion.major) {
       _shouldUpdateTheApp = true;
-    } else if (localSemanticVersion.minor +
-            AppInfoReference.minimumAllowedMinorVersion <
-        storeSemanticVersion.minor) {
+    } else if (!(localSemanticVersion.major +
+                AppInfoReference.minimumAllowedMajorVersion <
+            storeSemanticVersion.major) &&
+        (localSemanticVersion.minor +
+                AppInfoReference.minimumAllowedMinorVersion <
+            storeSemanticVersion.minor)) {
       _shouldUpdateTheApp = true;
     } else if (!(storeSemanticVersion.patch <= localSemanticVersion.patch) &&
         storeSemanticVersion.patch - localSemanticVersion.patch <=
