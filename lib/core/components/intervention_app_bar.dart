@@ -248,7 +248,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
               icon: const Icon(Icons.search),
               onPressed: () => onOpenOfflineSearchSheet(context),
             ),
-            // TODO add condition to show
             Visibility(
               visible: searchItemsCount > 0,
               child: Positioned(

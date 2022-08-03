@@ -21,6 +21,30 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class FormUtil {
+  static isAtleastOnFormField({
+    required Map hiddenFields,
+    required List<FormSection> formSections,
+    required Map dataObject,
+  }) {
+    bool hasAtLeasrOnFieldFilled = false;
+    List hiddenFieldIds = [];
+    for (String key in hiddenFields.keys) {
+      if (hiddenFields[key]) {
+        hiddenFieldIds.add(key);
+      }
+    }
+    List ids = FormUtil.getFormFieldIds(formSections)
+        .where((element) => !hiddenFieldIds.contains(element))
+        .toList();
+    for (String key in dataObject.keys.where((key) => ids.contains(key))) {
+      dynamic value = dataObject[key];
+      if ("$value".trim().isNotEmpty) {
+        hasAtLeasrOnFieldFilled = true;
+      }
+    }
+    return hasAtLeasrOnFieldFilled;
+  }
+
   static updateServiceFormState(
     BuildContext context,
     bool isEditableMode,
@@ -114,7 +138,9 @@ class FormUtil {
   }
 
   static bool geFormFilledStatus(
-      Map dataObject, List<FormSection>? formSections) {
+    Map dataObject,
+    List<FormSection>? formSections,
+  ) {
     bool isFormFilled = false;
     if (dataObject.keys.isNotEmpty) {
       List<String> inputFields = getFormFieldIds(formSections!);
@@ -124,7 +150,6 @@ class FormUtil {
         }
       }
     }
-
     return isFormFilled;
   }
 
@@ -169,7 +194,6 @@ class FormUtil {
                       organisationUnit!, dataObject, beneficiaryIndex);
       dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     }
-
     String attributes = inputFieldIds
         .toSet()
         .toList()
