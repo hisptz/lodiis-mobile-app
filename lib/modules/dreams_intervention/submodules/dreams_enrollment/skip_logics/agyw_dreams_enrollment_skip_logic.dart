@@ -24,25 +24,26 @@ class AgywDreamsEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-      bool hasEnrollmentCriteria(Map dataObject) {
-    List<String> enrollmentCriteria = [
-      'B4ojlzKypUF',
-      'HJIHPjOf5s1',
-      'bApA6X6TVvJ',
-      'yc3BlUIEup3',
-      'p33MrrhsQRz',
-      'iY67qYnywgS',
-      'rh881j2vfvT',
-      'AZCVLPzD0Vd',
-    ];
-    for (var criteria in enrollmentCriteria) {
-      if (dataObject[criteria] != null && dataObject[criteria] != '') {
-        return true;
+    bool hasEnrollmentCriteria(Map dataObject) {
+      List<String> enrollmentCriteria = [
+        'B4ojlzKypUF',
+        'HJIHPjOf5s1',
+        'bApA6X6TVvJ',
+        'yc3BlUIEup3',
+        'p33MrrhsQRz',
+        'iY67qYnywgS',
+        'rh881j2vfvT',
+        'AZCVLPzD0Vd',
+      ];
+      for (var criteria in enrollmentCriteria) {
+        if (dataObject[criteria] != null && dataObject[criteria] != '') {
+          return true;
+        }
       }
+
+      return false;
     }
 
-    return false;
-  }
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -127,12 +128,12 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenFields['Z7PTcgqwCLu'] = true;
         }
       }
-        if (inputFieldId == 'NrYoz8RewxV' && value != '') {
-           assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
-        }
-        if(hiddenFields == 'zowQOCZivv8' &&  value == 'true'){
-             assignInputFieldValue(context, 'iIdrEpTkpsk','true' );
-        }
+      if (inputFieldId == 'NrYoz8RewxV' && value != '') {
+        assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
+      }
+      if (inputFieldId == 'zowQOCZivv8' && value == 'true') {
+        assignInputFieldValue(context, 'iIdrEpTkpsk', 'true');
+      }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
@@ -185,7 +186,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['XYPRtYgQUF8'] = true;
         hiddenFields['SuB4oeLyzZ0'] = true;
         hiddenFields['GDrEW22l54i'] = true;
-        hiddenFields['GwVHeyOqTv2']=true;
+        hiddenFields['GwVHeyOqTv2'] = true;
         hiddenSections['E_M_4_S_A'] = true;
         hiddenSections['4_N_O_I_C_U'] = true;
         hiddenSections['2_H_O_P'] = true;
@@ -456,24 +457,21 @@ class AgywDreamsEnrollmentSkipLogic {
           assignInputFieldValue(context, 'p33MrrhsQRz', '');
         }
       }
-  if(inputFieldId == 'FuYyLjYxxkg'){
-    if(value == 'Single Orphan(Mother)'){
-      assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
-    }else if(value == 'Single Orphan(Father)'){
-      assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
-    }else if(value == 'Double Orphan'){
-      assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
-            assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
-
+      if (inputFieldId == 'FuYyLjYxxkg') {
+        if (value == 'Single Orphan(Mother)') {
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
+        } else if (value == 'Single Orphan(Father)') {
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
+        } else if (value == 'Double Orphan') {
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
+        }
+      }
+      if (!hasEnrollmentCriteria(dataObject)) {
+        hiddenSections['E_O_I'] = true;
+      }
     }
 
-  }
-  if(!hasEnrollmentCriteria(dataObject)){
- hiddenSections['E_O_I'] = true; 
-  }
-    
-    }
-    
     // for enrollment module 6 questions
     if ("${dataObject['i32OwNqUYRn']}" != 'true' &&
         "${dataObject['NgIDtgfZMVH']}" != 'true' &&

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
@@ -91,20 +92,37 @@ class CasePlanHomeContainer extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OvcCasePlanForm(
-          casePlanLabel: isHouseholdCasePlan
-              ? 'Household Case Plan Form'
-              : 'Child Case Plan Form',
-          isOnCasePlanPage: isOnCasePlanPage,
-          isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
-          isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-          hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
-          isHouseholdCasePlan: isHouseholdCasePlan,
-          casePlanProgram: casePlanProgram,
-          casePlanProgramStage: casePlanProgramStage,
-          casePlanGapProgramStage: casePlanGapProgramStage,
-          casePlanServiceProgramStage: casePlanServiceProgramStage,
-          casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
+        builder: (context) => Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return OvcCasePlanForm(
+              casePlanLabel: isHouseholdCasePlan
+                  ? isOnCasePlanServiceProvision
+                      ? currentLanguage == 'lesotho'
+                          ? 'Litsebeletso tsa lelapa'
+                          : 'Household Service Provision'
+                      : isOnCasePlanServiceMonitoring
+                          ? 'Household Service monitoring tool'
+                          : 'Household Case Plan Form'
+                  : isOnCasePlanServiceProvision
+                      ? currentLanguage == 'lesotho'
+                          ? 'Phano ea Litsebeletso'
+                          : 'Service Provision'
+                      : isOnCasePlanServiceMonitoring
+                          ? 'Service monitoring tool'
+                          : 'Child Case Plan Form',
+              isOnCasePlanPage: isOnCasePlanPage,
+              isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
+              isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+              hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+              isHouseholdCasePlan: isHouseholdCasePlan,
+              casePlanProgram: casePlanProgram,
+              casePlanProgramStage: casePlanProgramStage,
+              casePlanGapProgramStage: casePlanGapProgramStage,
+              casePlanServiceProgramStage: casePlanServiceProgramStage,
+              casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
+            );
+          },
         ),
       ),
     );
@@ -145,6 +163,10 @@ class CasePlanHomeContainer extends StatelessWidget {
                     Visibility(
                       visible: casePlanByDates.keys.toList().isNotEmpty,
                       child: CasePlanHomeList(
+                        isOnCasePlanServiceProvision:
+                            isOnCasePlanServiceProvision,
+                        isOnCasePlanServiceMonitoring:
+                            isOnCasePlanServiceMonitoring,
                         casePlanByDates: casePlanByDates,
                         onViewCasePlan: (List<Events> casePlanEvents) =>
                             onManageCasePlan(
@@ -164,7 +186,9 @@ class CasePlanHomeContainer extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: enrollmentOuAccessible,
+                      visible: enrollmentOuAccessible &&
+                          !(isOnCasePlanServiceMonitoring ||
+                              isOnCasePlanServiceProvision),
                       child: Container(
                         margin: EdgeInsets.symmetric(
                           vertical: casePlanByDates.keys.toList().isEmpty

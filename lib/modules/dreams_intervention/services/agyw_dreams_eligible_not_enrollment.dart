@@ -8,7 +8,6 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_eligible_not_enrollment.dart';
 
-
 class AgywDreamsEligibleNotEnrollmentService {
   final String program = AgywDreamEnrollmentNotEligible.program;
   final String programStage = AgywDreamEnrollmentNotEligible.programStage;
@@ -18,7 +17,7 @@ class AgywDreamsEligibleNotEnrollmentService {
   Future saveEnrolledNotEligibleForm(
     List<FormSection> formSections,
     Map dataObject,
-    String eventId,
+    String? eventId,
   ) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
@@ -57,8 +56,7 @@ class AgywDreamsEligibleNotEnrollmentService {
         dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
             appAndDeviceTrackingDataElement;
     inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
-    eventId =
-        eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
+    eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         dataObject['location'], inputFieldIds, dataObject, null, null);
     await FormUtil.savingEvent(eventData);

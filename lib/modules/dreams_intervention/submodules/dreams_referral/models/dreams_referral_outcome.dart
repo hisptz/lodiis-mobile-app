@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 
 class DreamsReferralOutCome {
   static List<String> getMandatoryFields() {
-    return ['p7saxV2libq'];
+    return ['p7saxV2libq', 'hXyqgOWZ17b'];
   }
 
   static List<FormSection> getFormSections({
@@ -25,10 +26,46 @@ class DreamsReferralOutCome {
               labelColor: const Color(0xFF737373),
             ),
             InputField(
+              id: 'hXyqgOWZ17b',
+              name: 'Referral service provided ?',
+              valueType: 'BOOLEAN',
+              inputColor: AgywDreamsCommonConstant.defaultColor,
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
               valueType: 'DATE',
               firstDate: firstDate,
+              inputColor: AgywDreamsCommonConstant.defaultColor,
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+              id: 'gEjigBuBTmh',
+              name: 'Reasons for rejecting/declining service(s) offered',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(
+                    code: 'Religion/Culture', name: 'Religion/Culture'),
+                InputFieldOption(
+                    code: 'Service already provided',
+                    name: 'Service already provided (by other provider)'),
+                InputFieldOption(code: 'NotReady', name: 'NotReady'),
+                InputFieldOption(
+                    code: 'HealthConcerns', name: 'HealthConcerns'),
+                InputFieldOption(
+                    code: 'AccessIssues',
+                    name: 'Access Issues (resources, time)"'),
+                InputFieldOption(code: 'NotInterested', name: 'NotInterested'),
+                InputFieldOption(code: 'Other(s)', name: 'Other(s)'),
+              ],
+              inputColor: AgywDreamsCommonConstant.defaultColor,
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+              id: 'oTTL6vEpKok',
+              name: 'Specify other reasons for service declining',
+              valueType: 'LONG_TEXT',
               inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),

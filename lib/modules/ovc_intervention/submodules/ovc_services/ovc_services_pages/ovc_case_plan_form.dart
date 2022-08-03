@@ -145,6 +145,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     required Map dataObject,
     required TrackedEntityInstance beneficiary,
   }) async {
+    //TODO propegate service for childdren on household
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
@@ -210,7 +211,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           }
         } catch (e) {
           //
-          print(e.toString());
         }
       }
     }
