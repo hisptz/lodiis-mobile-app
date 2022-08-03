@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -94,66 +95,76 @@ class _CasePlanGapServiceProvisionFormContainerState
   }
 
   void onSaveCasePlanServiceProvision() async {
-    Map<String, dynamic> sessionNumberValidation =
-        OvcServiceProvisionUtil.getSessionNumberValidation(
-            widget.gapServiceObject);
-    setSessionNumberViolationMessages(sessionNumberValidation);
-    bool isSessionNumberExit = sessionNumberValidation["isSessionNumberExit"];
-    bool isSessionNumberInValid =
-        sessionNumberValidation["isSessionNumberInValid"];
-    //TODO checking for service being provided
-    //TODO propegate service for childdren on household
-    if (!isSessionNumberExit && !isSessionNumberInValid) {
-      _isSaving = true;
-      setState(() {});
-      try {
-        TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
-            ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                    listen: false)
-                .currentOvcHousehold!
-                .teiData!
-            : Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                    listen: false)
-                .currentOvcHouseholdChild!
-                .teiData!;
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          widget.isHouseholdCasePlan
-              ? OvcHouseholdCasePlanConstant.program
-              : OvcChildCasePlanConstant.program,
-          widget.isHouseholdCasePlan
-              ? OvcHouseholdCasePlanConstant
-                  .casePlanGapServiceProvisionProgramStage
-              : OvcChildCasePlanConstant
-                  .casePlanGapServiceProvisionProgramStage,
-          beneficiary.orgUnit,
-          formSections,
-          widget.gapServiceObject,
-          widget.gapServiceObject['eventDate'],
-          beneficiary.trackedEntityInstance,
-          widget.gapServiceObject['eventId'],
-          [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
-        );
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(beneficiary.trackedEntityInstance);
-        String? currentLanguage =
-            Provider.of<LanguageTranslationState>(context, listen: false)
-                .currentLanguage;
-        AppUtil.showToastMessage(
-          message: currentLanguage == 'lesotho'
-              ? 'Fomo e bolokeile'
-              : 'Form has been saved successfully',
-        );
-        Navigator.pop(context);
-      } catch (e) {
+    bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+      hiddenFields: hiddenFields,
+      formSections: formSections,
+      dataObject: widget.gapServiceObject,
+    );
+    if (hasAtLeasrOnFieldFilled) {
+      Map<String, dynamic> sessionNumberValidation =
+          OvcServiceProvisionUtil.getSessionNumberValidation(
+              widget.gapServiceObject);
+      setSessionNumberViolationMessages(sessionNumberValidation);
+      bool isSessionNumberExit = sessionNumberValidation["isSessionNumberExit"];
+      bool isSessionNumberInValid =
+          sessionNumberValidation["isSessionNumberInValid"];
+      //TODO propegate service for childdren on household
+      if (!isSessionNumberExit && !isSessionNumberInValid) {
         _isSaving = true;
         setState(() {});
+        try {
+          TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
+              ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                      listen: false)
+                  .currentOvcHousehold!
+                  .teiData!
+              : Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                      listen: false)
+                  .currentOvcHouseholdChild!
+                  .teiData!;
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            widget.isHouseholdCasePlan
+                ? OvcHouseholdCasePlanConstant.program
+                : OvcChildCasePlanConstant.program,
+            widget.isHouseholdCasePlan
+                ? OvcHouseholdCasePlanConstant
+                    .casePlanGapServiceProvisionProgramStage
+                : OvcChildCasePlanConstant
+                    .casePlanGapServiceProvisionProgramStage,
+            beneficiary.orgUnit,
+            formSections,
+            widget.gapServiceObject,
+            widget.gapServiceObject['eventDate'],
+            beneficiary.trackedEntityInstance,
+            widget.gapServiceObject['eventId'],
+            [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
+          );
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(beneficiary.trackedEntityInstance);
+          String? currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+          );
+          Navigator.pop(context);
+        } catch (e) {
+          _isSaving = true;
+          setState(() {});
+          AppUtil.showToastMessage(
+            message: e.toString(),
+          );
+        }
+      } else {
         AppUtil.showToastMessage(
-          message: e.toString(),
+          message: 'Session number is invalid or already exist',
         );
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Session number is invalid or already exist',
+        message: 'Please fill at least one field field',
       );
     }
   }

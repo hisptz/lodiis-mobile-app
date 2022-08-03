@@ -4,7 +4,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 class CasePlanGapEvent {
   String? id;
   String? date;
-  String? gapOrNeed;
   String? casePlanToGap;
   String? casePlanGapToServiceProvision;
   String? casePlanGapToServiceMonitoring;
@@ -13,7 +12,6 @@ class CasePlanGapEvent {
   CasePlanGapEvent({
     this.id,
     this.date,
-    this.gapOrNeed,
     this.casePlanToGap,
     this.casePlanGapToServiceProvision,
     this.casePlanGapToServiceMonitoring,
@@ -22,7 +20,6 @@ class CasePlanGapEvent {
 
   CasePlanGapEvent toDataModel({required Events eventData}) {
     List keys = [
-      OvcCasePlanConstant.casePlanGapNeed,
       OvcCasePlanConstant.casePlanToGapLinkage,
       OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
       OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
@@ -37,7 +34,6 @@ class CasePlanGapEvent {
     return CasePlanGapEvent(
       id: eventData.event,
       date: eventData.eventDate,
-      gapOrNeed: data[OvcCasePlanConstant.casePlanGapNeed] ?? '',
       casePlanToGap: data[OvcCasePlanConstant.casePlanToGapLinkage] ?? '',
       casePlanGapToServiceProvision:
           data[OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage] ?? '',
@@ -49,6 +45,6 @@ class CasePlanGapEvent {
 
   @override
   String toString() {
-    return '<$id $date $casePlanToGap $gapOrNeed [$casePlanGapToServiceMonitoring $casePlanGapToServiceProvision]>';
+    return '<$id $date $casePlanToGap [$casePlanGapToServiceMonitoring $casePlanGapToServiceProvision]>';
   }
 }
