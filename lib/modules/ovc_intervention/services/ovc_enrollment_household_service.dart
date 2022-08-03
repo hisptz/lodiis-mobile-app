@@ -59,6 +59,25 @@ class OvcEnrollmentHouseholdService {
     await FormUtil.savingEnrollment(enrollmentData);
   }
 
+  Future updateHouseholdStatus({
+    String? trackedEntityInstance,
+    String? orgUnit,
+    Map dataObject = const {},
+  }) async {
+    String programStatusId = 'PN92g65TkVI';
+    List<String> inputFieldIds = [programStatusId];
+    TrackedEntityInstance trackedEntityInstanceData =
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+      trackedEntityInstance,
+      trackedEntityType,
+      orgUnit,
+      inputFieldIds,
+      dataObject,
+      hasBeneficiaryId: false,
+    );
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
+  }
+
   Future<List<OvcHousehold>> getHouseholdList(
       {page,
       Map searchedAttributes = const {},
@@ -99,9 +118,13 @@ class OvcEnrollmentHouseholdService {
               await TrackedEntityInstanceOfflineProvider()
                   .getTrackedEntityInstanceByIds(childTeiIds);
           List<OvcHouseholdChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackedEntityInstance child) => OvcHouseholdChild()
-                  .fromTeiModel(
-                      child, orgUnit, createdDate, enrollmentOuAccessible))
+              .map((TrackedEntityInstance child) =>
+                  OvcHouseholdChild().fromTeiModel(
+                    child,
+                    orgUnit,
+                    createdDate,
+                    enrollmentOuAccessible,
+                  ))
               .toList();
           try {
             tei =

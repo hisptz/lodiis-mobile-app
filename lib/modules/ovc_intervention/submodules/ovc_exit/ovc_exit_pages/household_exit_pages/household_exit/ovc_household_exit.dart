@@ -6,10 +6,12 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_househ
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -20,6 +22,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_information.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/component/ovc_household_exit_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/household_exit/constants/ovc_household_exit_constant.dart';
@@ -69,6 +72,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
+      String programStatusId = 'PN92g65TkVI';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           OvcHouseholdExitConstant.program,
@@ -81,6 +85,13 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
           eventId,
           null,
         );
+        await OvcEnrollmentHouseholdService().updateHouseholdStatus(
+          trackedEntityInstance: currentOvcHousehold.id,
+          orgUnit: currentOvcHousehold.orgUnit,
+          dataObject: {programStatusId: ProgramStatus.exit},
+        );
+        Provider.of<OvcInterventionListState>(context, listen: false)
+            .refreshOvcList();
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHousehold.id);
         Timer(const Duration(seconds: 1), () {
