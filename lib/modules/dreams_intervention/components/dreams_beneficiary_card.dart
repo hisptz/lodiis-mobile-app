@@ -4,10 +4,12 @@ import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_st
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_status_change.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_enrollment_edit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agwy_dreams_enrollment_view_form.dart';
@@ -113,7 +115,27 @@ class DreamsBeneficiaryCard extends StatelessWidget {
     );
   }
 
-  void onOpenStatus(AgywDream agywDream) {}
+  void onChangeStatus(BuildContext context, AgywDream agywDream) {
+    Color labelColor = const Color(0xFF1C7AB2);
+
+    Widget modal = DreamsBeneficiaryStatusChange(
+      agywDream: agywDream,
+    );
+    Widget title = Center(
+      child: Text(beneficiaryName,
+          style: TextStyle(
+              fontSize: 14.0, fontWeight: FontWeight.w900, color: labelColor)),
+    );
+    double modalRatio = 0.65;
+
+    AppUtil.showActionSheetModal(
+      context: context,
+      containerBody: modal,
+      title: title,
+      initialHeightRatio: modalRatio,
+      maxHeightRatio: modalRatio,
+    );
+  }
 
   bool _syncStatusOfAgyw(
     AgywDream agywDream,
@@ -152,6 +174,7 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 isAgeBeyondAverage: agywDream.isAgeBeyondAverage as bool,
                 onEdit: () => onEdit(context),
                 onView: () => onView(context),
+                onOpenStatus: () => onChangeStatus(context, agywDream),
               );
             }),
             cardBody,

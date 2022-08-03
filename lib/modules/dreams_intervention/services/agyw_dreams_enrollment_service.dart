@@ -58,6 +58,38 @@ class AgywDreamsEnrollmentService {
     await FormUtil.savingEnrollment(enrollmentData);
   }
 
+  Future updateAgywBeneficiaryStatus(
+    Map dataObject,
+    String? trackedEntityInstance,
+    String? orgUnit,
+    String? enrollment,
+    String? enrollmentDate,
+    String? incidentDate,
+    List<String> hiddenFields, {
+    List<FormSection> formSections = const [],
+  }) async {
+    List<String> inputFieldIds = hiddenFields;
+    inputFieldIds.addAll(FormUtil.getFormFieldIds(formSections));
+    TrackedEntityInstance trackedEntityInstanceData =
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+            trackedEntityInstance,
+            trackedEntityType,
+            orgUnit,
+            inputFieldIds,
+            dataObject,
+            hasBeneficiaryId: false);
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
+    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+        enrollment,
+        enrollmentDate,
+        incidentDate,
+        orgUnit,
+        program,
+        trackedEntityInstance,
+        dataObject);
+    await FormUtil.savingEnrollment(enrollmentData);
+  }
+
   Future<List<AgywDream>> getAgywBeneficiariesWithIncomingReferralList({
     int? page,
     List teiList = const [],
