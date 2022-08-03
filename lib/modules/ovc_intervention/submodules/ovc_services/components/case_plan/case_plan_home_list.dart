@@ -27,7 +27,7 @@ class CasePlanHomeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int casePlanIndex = casePlanByDates.keys.length + 1;
+    int casePlanIndex = casePlanByDates.keys.length;
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 17.0,
@@ -82,13 +82,13 @@ class CasePlanHomeList extends StatelessWidget {
                                     TextSpan(
                                       text: isOnCasePlanServiceProvision
                                           ? currentLanguage == 'lesotho'
-                                              ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa $index)'
-                                              : 'Services Provision(Case plan $index )'
+                                              ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${index + 1})'
+                                              : 'Services Provision(Case plan ${index + 1} )'
                                           : isOnCasePlanServiceMonitoring
                                               ? currentLanguage == 'lesotho'
-                                                  ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa $index) '
-                                                  : 'Services Monitoring (Case plan $index)'
-                                              : 'Case plan ${casePlanIndex + 1}',
+                                                  ? 'Phano ea Litsebeletso (moralo oa lintlafatso tsa lelapa ${index + 1}) '
+                                                  : 'Services Monitoring (Case plan ${index + 1})'
+                                              : 'Case plan ${index + 1}',
                                       style: const TextStyle().copyWith(
                                         color: const Color(0xFF1A3518),
                                         fontSize: 14.0,
