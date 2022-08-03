@@ -16,6 +16,25 @@ class OvcEnrollmentChildService {
   final String relationshipType = 'UVV4IIKD73V';
   final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
 
+  Future updateOvcStatus({
+    String? trackedEntityInstance,
+    String? orgUnit,
+    Map dataObject = const {},
+  }) async {
+    String programStatusId = 'PN92g65TkVI';
+    List<String> inputFieldIds = [programStatusId];
+    TrackedEntityInstance trackedEntityInstanceData =
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+      trackedEntityInstance,
+      trackedEntityType,
+      orgUnit,
+      inputFieldIds,
+      dataObject,
+      hasBeneficiaryId: false,
+    );
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
+  }
+
   Future savingChildrenEnrollmentForms(
     String? parentTrackedEntityInstance,
     String? orgUnit,
