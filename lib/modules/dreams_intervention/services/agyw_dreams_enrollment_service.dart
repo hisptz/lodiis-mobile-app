@@ -62,9 +62,6 @@ class AgywDreamsEnrollmentService {
     Map dataObject,
     String? trackedEntityInstance,
     String? orgUnit,
-    String? enrollment,
-    String? enrollmentDate,
-    String? incidentDate,
     List<String> hiddenFields, {
     List<FormSection> formSections = const [],
   }) async {
@@ -79,15 +76,6 @@ class AgywDreamsEnrollmentService {
             dataObject,
             hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-        enrollment,
-        enrollmentDate,
-        incidentDate,
-        orgUnit,
-        program,
-        trackedEntityInstance,
-        dataObject);
-    await FormUtil.savingEnrollment(enrollmentData);
   }
 
   Future<List<AgywDream>> getAgywBeneficiariesWithIncomingReferralList({

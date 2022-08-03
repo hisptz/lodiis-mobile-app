@@ -65,9 +65,7 @@ class _DreamsBeneficiaryStatusChangeState
       if (FormUtil.geFormFilledStatus(dataObject, dreamsStatusChangeForm)) {
         var trackedEntityInstance =
             _trackedEntityInstance?.trackedEntityInstance;
-        var enrollment = widget.agywDream.enrollment;
         var orgUnit = _trackedEntityInstance?.orgUnit;
-        var enrollmentDate = widget.agywDream.createdDate;
         List<String> hiddenFieldsIds = [];
         hiddenFields.forEach((key, value) {
           if (value == true && key != '') {
@@ -75,13 +73,7 @@ class _DreamsBeneficiaryStatusChangeState
           }
         });
         await AgywDreamsEnrollmentService().updateAgywBeneficiaryStatus(
-            dataObject,
-            trackedEntityInstance,
-            orgUnit,
-            enrollment,
-            enrollmentDate,
-            enrollmentDate,
-            hiddenFieldsIds,
+            dataObject, trackedEntityInstance, orgUnit, hiddenFieldsIds,
             formSections: dreamsStatusChangeForm);
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .refreshAllDreamsLists();

@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -23,6 +24,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_information.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_information_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_exit_skip_logic.dart';
@@ -123,6 +125,7 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
+      String programStatusId = 'PN92g65TkVI';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcExitInformationConstant.program,
@@ -134,6 +137,11 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
             currentOvcHouseholdChild.id,
             eventId,
             null);
+        await OvcEnrollmentChildService().updateOvcStatus(
+          trackedEntityInstance: currentOvcHouseholdChild.id,
+          orgUnit: currentOvcHouseholdChild.orgUnit,
+          dataObject: {programStatusId: ProgramStatus.exit},
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseholdChild.id);
 
