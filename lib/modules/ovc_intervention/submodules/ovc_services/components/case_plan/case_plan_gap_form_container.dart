@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_case_plan_gap_skip_logic.dart';
@@ -29,7 +30,7 @@ class CasePlanGapFormContainer extends StatefulWidget {
 class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     with OvcCasePlanGapSkipLogic {
   Map mandatoryFieldObject = {};
-  List mandatoryFields = ['QjlTTO5KAIf'];
+  List mandatoryFields = [];
   List unFilledMandatoryFields = [];
   Map dataObject = {};
 
@@ -64,17 +65,16 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
   }
 
   onSaveGapForm(BuildContext context) {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
-    if (hadAllMandatoryFilled) {
+    bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+      hiddenFields: hiddenFields,
+      formSections: widget.formSections,
+      dataObject: dataObject,
+    );
+    if (hasAtLeasrOnFieldFilled) {
       Navigator.pop(context, dataObject);
     } else {
-      setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
-      });
       AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
+        message: 'Please fill at least one field field',
       );
     }
   }

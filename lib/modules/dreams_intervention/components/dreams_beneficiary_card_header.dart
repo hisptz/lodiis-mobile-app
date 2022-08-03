@@ -89,10 +89,13 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
               BeneficiarySyncStatusIndicator(
                 isSynced: isSynced,
               ),
-              GestureDetector(
-                onTap: onOpenStatus,
-                child: Visibility(
-                  visible: programStatus.isNotEmpty,
+              Visibility(
+                visible: programStatus.isNotEmpty,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(35.0),
+                  onTap: () => programStatus == ProgramStatus.inActive
+                      ? onOpenStatus!()
+                      : null,
                   child: Container(
                     margin: const EdgeInsets.symmetric(
                       vertical: 5.0,

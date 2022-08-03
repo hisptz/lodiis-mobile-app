@@ -66,7 +66,6 @@ class OvcHouseholdCardBody extends StatelessWidget {
         Container(
           margin: const EdgeInsets.symmetric(
             vertical: 5.0,
-            horizontal: 5.0,
           ),
           decoration: BoxDecoration(
             color: (programStatus == ProgramStatus.active
