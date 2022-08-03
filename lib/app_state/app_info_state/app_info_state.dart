@@ -53,6 +53,8 @@ class AppInfoState with ChangeNotifier {
   }
 
   void updateAppUpdateState({storeVersion, localVersion}) {
+    storeVersion = "$storeVersion".split("-").first;
+    localVersion = "$localVersion".split("-").first;
     AppSemanticVersion storeSemanticVersion =
         AppUtil.getSemanticVersionValue(version: storeVersion);
     AppSemanticVersion localSemanticVersion =
