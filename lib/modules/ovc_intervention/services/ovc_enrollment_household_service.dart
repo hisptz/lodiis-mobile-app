@@ -47,16 +47,19 @@ class OvcEnrollmentHouseholdService {
             inputFieldIds,
             dataObject,
             hasBeneficiaryId: false);
+
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-        enrollment,
-        enrollmentDate,
-        incidentDate,
-        orgUnit,
-        program,
-        trackedEntityInstance,
-        dataObject);
-    await FormUtil.savingEnrollment(enrollmentData);
+    if (shouldEnroll) {
+      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          orgUnit,
+          program,
+          trackedEntityInstance,
+          dataObject);
+      await FormUtil.savingEnrollment(enrollmentData);
+    }
   }
 
   Future updateHouseholdStatus({
@@ -148,6 +151,7 @@ class OvcEnrollmentHouseholdService {
     } catch (e) {
       return null;
     }
+    return null;
   }
 
   Future<List<OvcHousehold>> getHouseholdList(

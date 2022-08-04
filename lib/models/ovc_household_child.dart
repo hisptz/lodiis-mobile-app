@@ -11,6 +11,7 @@ class OvcHouseholdChild {
   String? surname;
   String? sex;
   String? age;
+  String? phoneNumber;
   String? orgUnit;
   String? createdDate;
   String? hivStatus;
@@ -28,6 +29,7 @@ class OvcHouseholdChild {
     this.surname,
     this.sex,
     this.age,
+    this.phoneNumber,
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
@@ -36,6 +38,22 @@ class OvcHouseholdChild {
     this.ovcStatus,
     this.teiData,
   });
+
+  Map toMap({
+    required String parentId,
+  }) {
+    Map dataOject = {
+      "parentTrackedEntityInstance": parentId,
+      "orgUnit": orgUnit,
+      "enrollmentDate": createdDate,
+      "incidentDate": createdDate,
+      "trackedEntityInstance": id,
+    };
+    for (Map attributeObj in teiData!.attributes ?? []) {
+      dataOject[attributeObj['attribute']] = attributeObj['value'];
+    }
+    return dataOject;
+  }
 
   OvcHouseholdChild fromTeiModel(
     TrackedEntityInstance tei,
@@ -53,6 +71,7 @@ class OvcHouseholdChild {
       'PN92g65TkVI',
       'KO5NC4pfBmv',
       'qZP982qpSPS',
+      BeneficiaryIdentification.phoneNumber,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
@@ -71,6 +90,7 @@ class OvcHouseholdChild {
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
         age: '$age',
+        phoneNumber: data[BeneficiaryIdentification.phoneNumber] ?? '',
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,

@@ -218,8 +218,11 @@ class AppUtil {
 
     return false;
   }
-   static Widget getConfirmationWidget(
-      BuildContext context, String? message,Function? onDiscard) {
+
+  static Widget getConfirmationWidget(
+    BuildContext context,
+    String? message,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
@@ -231,7 +234,7 @@ class AppUtil {
               vertical: 10.0,
             ),
             child: Text(
-              message??'',
+              message ?? '',
               style: const TextStyle().copyWith(
                 color: const Color(0xFF82898D),
                 fontSize: 14.0,
@@ -278,7 +281,7 @@ class AppUtil {
                       left: 5.0,
                     ),
                     child: TextButton(
-                      onPressed:()=>onDiscard!(),
+                      onPressed: () => Navigator.pop(context, false),
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           side: const BorderSide(
@@ -306,7 +309,6 @@ class AppUtil {
       ),
     );
   }
-
 
   static showActionSheetModal({
     required BuildContext context,

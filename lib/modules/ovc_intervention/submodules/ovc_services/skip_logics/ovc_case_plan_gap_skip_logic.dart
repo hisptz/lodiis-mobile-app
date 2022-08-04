@@ -28,6 +28,17 @@ mixin OvcCasePlanGapSkipLogic {
 
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'HKCv7lkLexo' && value != 'true') {
+        hiddenFields['d3X7sRgkQkl'] = true;
+        hiddenFields['d8vFkGjiux4'] = true;
+        hiddenFields['JzlLk2tW4xh'] = true;
+      }
+      if( inputFieldId == 'uvJV4WGc5ct' && value != 'true'){
+        hiddenFields['mvdraUOCfKA'] = true;
+        hiddenFields['aZ1ogdjGHUV'] = true;
+        hiddenFields['F2IOqOr4EuV'] = true;
+
+      }
       if (inputFieldId == 'XoSPWmpWXCy' && value != 'true') {
         hiddenFields['CxwbNfPmiN9'] = true;
         hiddenFields['vqf67Edjw4y'] = true;
@@ -203,38 +214,32 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['B9YT3pHNGOg'] = true;
       }
       if (inputFieldId == 'hJUuQ648wVF' && value != 'true') {
-        hiddenFields['thVPqfmKo4X'] = true;
-        hiddenFields['DQab5Id3WMj'] = true;
+        hiddenFields['aYFP1w8y96h'] = true;
         hiddenFields['o37J0mUPmg6'] = true;
         hiddenFields['QfqDdhGC5vR'] = true;
       }
       if (inputFieldId == 'BJrrrqQqwQO' && value != 'true') {
-        hiddenFields['I0s1qoxF2wl'] = true;
-        hiddenFields['c5vtF9QMiVU'] = true;
+        hiddenFields['joBt3RJP76y'] = true;
         hiddenFields['S6O1OxbLfzz'] = true;
         hiddenFields['wQDSOL4EJ8G'] = true;
       }
       if (inputFieldId == 'LswSBpMoG5C' && value != 'true') {
-        hiddenFields['t9HMcipzuSf'] = true;
-        hiddenFields['Zdv3luz9Fja'] = true;
+        hiddenFields['RUoYTsLHBdY'] = true;
         hiddenFields['ziQvzVbjmcb'] = true;
         hiddenFields['FAJpI6PUK8w'] = true;
       }
       if (inputFieldId == 'gCKoJgBFdob' && value != 'true') {
-        hiddenFields['epF36cYU1Em'] = true;
-        hiddenFields['zVUhTogG1qE'] = true;
+        hiddenFields['mWwizkG0EK2'] = true;
         hiddenFields['VmuVgr4tfor'] = true;
         hiddenFields['nUIvqATNc7A'] = true;
       }
       if (inputFieldId == 'JSQ3xP1NhuN' && value != 'true') {
-        hiddenFields['PVWwxGicRIl'] = true;
-        hiddenFields['DWIqhVfMZrD'] = true;
+        hiddenFields['k6jzyzGOu5Y'] = true;
         hiddenFields['MdmCqSwcrlk'] = true;
         hiddenFields['HrCyUkuZath'] = true;
       }
       if (inputFieldId == 'AwWKp6KmqgY' && value != 'true') {
-        hiddenFields['WiJd5cYINcp'] = true;
-        hiddenFields['jvxeGCV3VZf'] = true;
+        hiddenFields['cXCdR7BvrSM'] = true;
         hiddenFields['Mu0LxlAOoSp'] = true;
         hiddenFields['u8yn7sY5eOX'] = true;
       }
@@ -360,6 +365,7 @@ mixin OvcCasePlanGapSkipLogic {
       List<String> inputFieldIds, OvcHouseholdChild? currentHouseholdChild) {
     try {
       int age = int.parse(currentHouseholdChild!.age!);
+      String? gender = currentHouseholdChild.sex;
       //Domain health
       if (age > 5) {
         hiddenFields['x4yAqv4z2Xv'] = true;
@@ -371,6 +377,10 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['AwWKp6KmqgY'] = true;
         hiddenFields['EaJTFrklMo5'] = true;
       }
+      if(age != 12 && gender != 'Female'){
+        hiddenFields['d2vXxEPeCq7']=true;
+      }
+      
       if (age < 2 || age > 5) {
         hiddenFields['BJrrrqQqwQO'] = true;
       }

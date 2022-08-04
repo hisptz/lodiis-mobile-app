@@ -15,6 +15,30 @@ class OvcServicesChildServiceProvision {
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
+              id: 'otd2tndsE4Z',
+              name: 'HIV ADHERANCE SUPPORT Service provided',
+              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVSCREEN',
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'ruZFn94Hcyw',
+                name: 'HIV ADHERANCE SUPPORT Service Provision Date',
+                translatedName:
+                    'Letsatsi la Kabo ea Litšebeletso tsa HIV ADHERANCE SUPPORT',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+                 InputField(
+                id: 'dwhnvU5m667',
+                name: 'HIV ADHERANCE SUPPORT Comment',
+                translatedName: 'Tlhaloso ea HIV ADHERANCE SUPPORT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
               id: 'BYu8pI5kGXF',
               name: 'HIVSCREEN Service provided',
               // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVSCREEN',
