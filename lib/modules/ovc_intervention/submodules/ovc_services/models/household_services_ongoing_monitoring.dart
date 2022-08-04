@@ -28,24 +28,9 @@ class HouseholdServicesOngoingMonitoring {
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
-                id: 'PcLhqLEjKGw',
-                name: 'HIVS&D/HIV Messaging Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa HIVS&D/HIV Messaging ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'fySDvo8AXNy',
                 name: 'HEALTH Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa HEALTH',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kWyCcWCVJjv',
-                name: 'PRG&L Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa PRG&L',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
@@ -57,23 +42,31 @@ class HouseholdServicesOngoingMonitoring {
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
+                id: 'gtXZARFG9Pa',
+                name: 'FOOD SUPPORT Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa FOOD SUPPORT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
                 id: 'qezhtOHXgaK',
-                name: 'WASHMES Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa WASHMES',
+                name: 'WASH MESSAGING Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa WASH MESSAGING',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'W4UjM09aOEw',
-                name: 'SOACKAGE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SOACKAGE',
+                name: 'SOACKAGE PIT Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa SOACKAGE PIT',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'TaSyHHXKYhF',
-                name: 'TIPPY Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa TIPPY',
+                name: 'TIPPY TAP Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa TIPPY TAP',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373))
@@ -93,37 +86,6 @@ class HouseholdServicesOngoingMonitoring {
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
-                id: 'QD77bNjavza',
-                name: 'Financial Education Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa Financial Education',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'VtX5d8LBcZP',
-                name: 'EST COOPRTVS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa EST COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'b2f8Bv0MozX',
-                name: 'FUNCT COOPRTVS Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa FUNCT COOPRTVS ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'HwbAyUqRqjT',
-                name: 'MARKT COOPRTVS Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa MARKT COOPRTVS ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'legjCg7fomo',
                 name: 'K/TPLOTS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa K/TPLOTS ',
@@ -138,51 +100,6 @@ class HouseholdServicesOngoingMonitoring {
           color: const Color(0xFF0F9587),
           borderColor: const Color(0xFF0F9587),
           inputFields: [
-            InputField(
-                id: 'JgokYFY6IWK',
-                name: 'P&FC Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa P&FC',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'es23GNgSa7N',
-                name: 'VAC/VAC Messaging Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa VAC/VAC Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'x3FxC6Bw139',
-                name: 'VAC Legal Messaging progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'akSICiOvXty',
-                name: 'Survivors of Abuse Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa Survivors of Abuse',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'J5Tw8gd59Aq',
-                name: 'COUNSEL Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa COUNSEL',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ngjLjWJjPmN',
-                name: 'ABUSE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa ABUSE',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'XPFvUiqedGQ',
                 name: 'LEGALPROT Service progress',
@@ -199,46 +116,17 @@ class HouseholdServicesOngoingMonitoring {
                 labelColor: const Color(0xFF737373))
           ]),
       FormSection(
-          id: 'Schooled',
-          name: 'DOMAIN SCHOOLED',
-          translatedName: 'TSA SEKOLO',
-          color: const Color(0xFF9B2BAE),
-          borderColor: const Color(0xFF9B2BAE),
+          name: 'Other activities',
+          color: Color(0xFF4D9E49),
+          borderColor: Color(0xFF4D9E49),
           inputFields: [
             InputField(
-                id: 'KURLrgcqqZS',
-                name: 'PTS4G Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa PTS4G',
+                id: 'C06k1O4qrjw',
+                name: 'Other activities progress',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'MKfKx93j7Mb',
-                name: 'PTS4NG Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa PTS4NG',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'I4vmREMJZug',
-                name: 'HWCLUB Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HWCLUB',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
+                inputColor: Color(0xFF4D9E49),
+                labelColor: Color(0xFF737373))
           ]),
-      // FormSection(
-      //     name: 'Other activities',
-      //     color: Color(0xFF4D9E49),
-      //     borderColor: Color(0xFF4D9E49),
-      //     inputFields: [
-      //       InputField(
-      //           id: 'C06k1O4qrjw',
-      //           name: 'Other activities progress',
-      //           valueType: 'TEXT',
-      //           inputColor: Color(0xFF4D9E49),
-      //           labelColor: Color(0xFF737373))
-      //     ]),
       FormSection(
         id: '',
         name: 'Household ongoing monitoring',
