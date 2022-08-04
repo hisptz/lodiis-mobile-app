@@ -28,7 +28,6 @@ class DreamsAgywReferralSkipLogic {
     Map referralServiceHiddenByAge = {};
     int agywDreamAge = int.parse(dataObject['age'] ?? '0');
     if (agywDreamAge < 10 || agywDreamAge > 24) {
-      referralServiceHiddenByAge['ParentingPregBreastfeeding'] = true;
       referralServiceHiddenByAge['LBSE'] = true;
       referralServiceHiddenByAge['FinancialLiteracyEducation'] = true;
       referralServiceHiddenByAge['ViolencePreventionEducation'] = true;
@@ -101,12 +100,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['Go Girls'] = true;
           referralServiceHiddenOptions['FinancialLiteracyEducation'] = true;
           referralServiceHiddenOptions['SAVING GROUPS'] = true;
-          referralServiceHiddenOptions['STEPPING STONES'] = true;
-          referralServiceHiddenOptions['GBV Legal Protection'] = true;
-          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
           referralServiceHiddenOptions['Parenting'] = true;
-          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
-          referralServiceHiddenOptions['VAC Legal'] = true;
           referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
@@ -119,11 +113,6 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['Go Girls'] = true;
           referralServiceHiddenOptions['FinancialLiteracyEducation'] = true;
           referralServiceHiddenOptions['SAVING GROUPS'] = true;
-          referralServiceHiddenOptions['GBV Legal Protection'] = true;
-          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
-          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
-          referralServiceHiddenOptions['VAC Legal'] = true;
-          referralServiceHiddenOptions['STEPPING STONES'] = true;
           referralServiceHiddenOptions['Parenting'] = true;
           referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
@@ -149,10 +138,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['PostGBVServicesClinical'] = true;
           referralServiceHiddenOptions['Treatment Support (TB/ARV)'] = true;
         } else if (value == 'LifeSkillSocialAssetServices') {
-          referralServiceHiddenOptions['GBV Legal Protection'] = true;
-          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
-          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
-          referralServiceHiddenOptions['VAC Legal'] = true;
+          referralServiceHiddenByAge['ParentingPregBreastfeeding'] = true;
           referralServiceHiddenOptions['HIVRiskAssessment'] = true;
           referralServiceHiddenOptions['PostGBVCareLegal'] = true;
           referralServiceHiddenOptions['STI Screening'] = true;
@@ -174,14 +160,8 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['Treatment Support (TB/ARV)'] = true;
           referralServiceHiddenOptions['PostGBVServicesClinical'] = true;
           referralServiceHiddenOptions['FinancialLiteracyEducation'] = true;
-          referralServiceHiddenOptions['STEPPING STONES'] = true;
           referralServiceHiddenOptions['SAVING GROUPS'] = true;
         } else if (value == 'EconomicStrengtheningActivities') {
-          referralServiceHiddenOptions['GBV Legal Protection'] = true;
-          referralServiceHiddenOptions['GBV Legal Messaging'] = true;
-          referralServiceHiddenOptions['VAC Legal Messaging'] = true;
-          referralServiceHiddenOptions['STEPPING STONES'] = true;
-          referralServiceHiddenOptions['VAC Legal'] = true;
           referralServiceHiddenOptions['ParentingPregBreastfeeding'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
