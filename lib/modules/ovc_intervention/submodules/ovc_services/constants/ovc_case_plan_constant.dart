@@ -6,6 +6,7 @@ class OvcCasePlanConstant {
   static const String casePlanGapToServiceProvisionLinkage = 'tDWIRBsuwsB';
   static const String casePlanDomainType = 'vexrPNgPBYg';
   static const String casePlanFirstGoal = 'ADc3clrQRl4';
+  static const String casePlansSecondGoal = 'efNgDIqhlNs';
   static const List<String> casePlanServiceProvisionResults = [
     'gwwUOs6yt6C',
     'gV77yUM8NK8',
