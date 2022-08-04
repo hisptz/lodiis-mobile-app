@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -157,11 +158,14 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
         hiddenFields['YR7Xxk14qoP_checkbox'] = true;
       }
-      if (inputFieldId == 'tNdoR0jYr7R') {
-        if (dataObject['tNdoR0jYr7R'] == '') {
-          hiddenFields['tNdoR0jYr7R'] = true;
+      if (inputFieldId == BeneficiaryIdentification.phoneNumber) {
+        dynamic caregiverAge =
+            dataObject[BeneficiaryIdentification.phoneNumber] ?? '';
+        if ("$caregiverAge" == '') {
+          hiddenFields[BeneficiaryIdentification.phoneNumber] = true;
         } else {
-          assignInputFieldValue('tNdoR0jYr7R', dataObject['tNdoR0jYr7R']);
+          assignInputFieldValue(
+              BeneficiaryIdentification.phoneNumber, "$caregiverAge");
         }
       }
     }

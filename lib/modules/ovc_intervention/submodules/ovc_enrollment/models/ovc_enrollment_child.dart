@@ -52,6 +52,7 @@ class OvcEnrollmentChild {
               name: 'Phone Number',
               translatedName: 'Nomoro ea mohala',
               valueType: 'PHONE_NUMBER',
+              isReadOnly: true,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
             ),
