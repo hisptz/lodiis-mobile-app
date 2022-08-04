@@ -108,6 +108,6 @@ class OvcHouseholdChild {
 
   @override
   String toString() {
-    return '$firstName $surname [$phoneNumber]';
+    return '$firstName $surname';
   }
 }
