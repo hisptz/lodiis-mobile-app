@@ -245,7 +245,6 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
             ),
           );
         }
-
       }
     } else {
       setState(() {
