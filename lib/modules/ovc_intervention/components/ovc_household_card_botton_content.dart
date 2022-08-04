@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -62,7 +63,8 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         .setFormFieldState('incidentDate', child.createdDate);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('trackedEntityInstance', child.id);
-
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     for (Map attributeObj in teiData.attributes) {
@@ -132,6 +134,8 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         .setFormFieldState('parentTrackedEntityInstance', ovcHousehold.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', ovcHousehold.orgUnit);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
     String beneficiaryId = "";
     String formAutoSaveId =
         "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
