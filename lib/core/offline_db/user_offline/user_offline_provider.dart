@@ -18,6 +18,7 @@ class UserOfflineProvider extends OfflineDbProvider {
   String userRoles = 'userRoles';
   String implementingPartner = 'implementingPartner';
   String subImplementingPartner = 'subImplementingPartner';
+  String hasPreviousSuccessLogin = 'hasPreviousSuccessLogin';
 
   addOrUpdateUser(CurrentUser user) async {
     var dbClient = await db;
@@ -52,6 +53,7 @@ class UserOfflineProvider extends OfflineDbProvider {
           isLogin,
           implementingPartner,
           subImplementingPartner,
+          hasPreviousSuccessLogin,
         ],
       );
       if (maps.isNotEmpty) {

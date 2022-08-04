@@ -143,11 +143,13 @@ class _LoginFormState extends State<LoginForm> {
             .discoveringOrgananisationUnitsFromTheServer();
         loginFormState.setCurrentLoginProcessMessage(
             "Saving assigned access for interventions...");
-        List<String?> programs = user.programs as List<String?>? ?? [];
-        for (String? program in programs) {
+        List<String> programs = user.programs as List<String>? ?? const [];
+        for (String program in programs) {
           await ProgramService()
               .discoverProgramOrganisationUnitsFromTheServer(program);
         }
+        user.hasPreviousSuccessLogin = true;
+        await UserService().setCurrentUser(user);
         redirectToLoginPage();
       } else {
         String message = 'Incorrect username or password';
