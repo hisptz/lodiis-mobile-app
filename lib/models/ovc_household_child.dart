@@ -11,6 +11,7 @@ class OvcHouseholdChild {
   String? surname;
   String? sex;
   String? age;
+  String? phoneNumber;
   String? orgUnit;
   String? createdDate;
   String? hivStatus;
@@ -28,6 +29,7 @@ class OvcHouseholdChild {
     this.surname,
     this.sex,
     this.age,
+    this.phoneNumber,
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
@@ -53,6 +55,7 @@ class OvcHouseholdChild {
       'PN92g65TkVI',
       'KO5NC4pfBmv',
       'qZP982qpSPS',
+      BeneficiaryIdentification.phoneNumber,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
@@ -71,6 +74,7 @@ class OvcHouseholdChild {
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
         age: '$age',
+        phoneNumber: data[BeneficiaryIdentification.phoneNumber] ?? '',
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
