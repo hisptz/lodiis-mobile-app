@@ -39,6 +39,22 @@ class OvcHouseholdChild {
     this.teiData,
   });
 
+  Map toMap({
+    required String parentId,
+  }) {
+    Map dataOject = {
+      "parentTrackedEntityInstance": parentId,
+      "orgUnit": orgUnit,
+      "enrollmentDate": createdDate,
+      "incidentDate": createdDate,
+      "trackedEntityInstance": id,
+    };
+    for (Map attributeObj in teiData!.attributes ?? []) {
+      dataOject[attributeObj['attribute']] = attributeObj['value'];
+    }
+    return dataOject;
+  }
+
   OvcHouseholdChild fromTeiModel(
     TrackedEntityInstance tei,
     String? orgUnit,
@@ -92,6 +108,6 @@ class OvcHouseholdChild {
 
   @override
   String toString() {
-    return '$firstName $surname';
+    return '$firstName $surname [$phoneNumber]';
   }
 }
