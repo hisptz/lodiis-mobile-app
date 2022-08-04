@@ -49,19 +49,12 @@ class DreamsServiceForm {
                       code: 'ViolencePreventionEducation',
                       name: 'Violence Prevention Education'),
                   InputFieldOption(
-                      code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                  InputFieldOption(
                       code: 'CondomEducationProvision',
                       name: 'Condom Education/Provision'),
                   InputFieldOption(code: 'LBSE', name: 'LBSE'),
                   InputFieldOption(
-                      code: 'GBV Messaging', name: 'GBV Messaging'),
-                  InputFieldOption(
-                      code: 'VAC Messaging', name: 'VAC Messaging'),
-                  InputFieldOption(
-                      code: 'VAC Legal Messaging', name: 'VAC Legal Messaging'),
-                  InputFieldOption(
-                      code: 'GBV Legal Messaging', name: 'GBV Legal Messaging')
+                      code: 'HIV Prevention Education',
+                      name: 'HIV Prevention Education (VAC/GBV)'),
                 ]),
             InputField(
               id: 'O7sjTjxUmEa',

@@ -100,7 +100,7 @@ class DreamsReferral {
                             name: 'Comprehensive Economic Strengthening'),
                         InputFieldOption(
                             code: 'HIVPreventionEducation',
-                            name: 'HIV Prevention Education'),
+                            name: 'HIV Prevention Education  (VAC/GBV)'),
                         InputFieldOption(
                             code: 'ParentingPregBreastfeeding',
                             name: 'Parenting (Preg & Breastfeeding)'),
@@ -137,17 +137,6 @@ class DreamsReferral {
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
                         InputFieldOption(
                             code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                        InputFieldOption(
-                            code: 'GBV Legal Protection',
-                            name: 'GBV Legal Protection'),
-                        InputFieldOption(
-                            code: 'GBV Legal Messaging',
-                            name: 'GBV Legal Messaging'),
-                        InputFieldOption(code: 'Parenting', name: 'Parenting'),
-                        InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
-                        InputFieldOption(
-                            code: 'VAC Legal Messaging',
-                            name: 'VAC Legal Messaging'),
                       ]),
                   InputField(
                     id: 'ubB83OWNWsv',
@@ -221,7 +210,7 @@ class DreamsReferral {
                             name: 'Comprehensive Economic Strengthening'),
                         InputFieldOption(
                             code: 'HIVPreventionEducation',
-                            name: 'HIV Prevention Education'),
+                            name: 'HIV Prevention Education  (VAC/GBV)'),
                         InputFieldOption(
                             code: 'ParentingPregBreastfeeding',
                             name: 'Parenting (Preg & Breastfeeding)'),
@@ -258,17 +247,6 @@ class DreamsReferral {
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
                         InputFieldOption(
                             code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                        InputFieldOption(
-                            code: 'GBV Legal Protection',
-                            name: 'GBV Legal Protection'),
-                        InputFieldOption(
-                            code: 'GBV Legal Messaging',
-                            name: 'GBV Legal Messaging'),
-                        InputFieldOption(code: 'Parenting', name: 'Parenting'),
-                        InputFieldOption(code: 'VAC Legal', name: 'VAC Legal'),
-                        InputFieldOption(
-                            code: 'VAC Legal Messaging',
-                            name: 'VAC Legal Messaging'),
                       ]),
                   InputField(
                     id: 'jOXN2iPhkxj',
