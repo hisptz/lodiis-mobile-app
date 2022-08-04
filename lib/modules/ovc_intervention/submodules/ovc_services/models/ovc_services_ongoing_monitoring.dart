@@ -15,67 +15,15 @@ class OvcServicesOngoingMonitoring {
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
-                id: 'kVvlzs4hSP3',
-                name: 'HIVSCREEN Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVSCREEN',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'DC4B9EIMZN9',
-                name: 'HTS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HTS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'yOoWkd9dHsJ',
-                name: 'HIVTREAT Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVTREAT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'PcLhqLEjKGw',
-                name: 'HIVS&D/HIV Messaging Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa HIVS&D/HIV Messaging ',
+                name: 'HIVS&D Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVS&D',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'fySDvo8AXNy',
-                name: 'HEALTH Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HEALTH',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kWyCcWCVJjv',
-                name: 'PRG&L Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa PRG&L',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'QvFFo0xqZCy',
-                name: 'SAIDS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SAIDS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Kcy88uJjTQl',
-                name: 'IMMUNIZE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa IMMUNIZE',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'a7yFGFtZ3U9',
-                name: 'MALNU Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa MALNU',
-                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -83,48 +31,223 @@ class OvcServicesOngoingMonitoring {
                 name: 'CCFLS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa CCFLS',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'qhTPL1R9OlY',
-                name: 'STIMULATE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa STIMULATE',
+                name: 'CHILD STIMULATION Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa CHILD STIMULATION',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'FroSdO9AGHb',
-                name: 'TBSCREEN Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa TBSCREEN',
+                name: 'TB SCREENING Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa TB SCREENING',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'lviiwATI5uv',
-                name: 'TBREFER Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa TBREFER',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'BLuel6eSkV3',
-                name: 'FOODPREP Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa FOODPREP',
-                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'JINWcteYR7D',
-                name: 'FOODPREV Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa FOODPREV',
+                name: 'FOOD PREV Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa FOOD PREV',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
-                id: 'gtXZARFG9Pa',
-                name: 'FOODSUPP Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa FOODSUPP',
+                id: 'BLuel6eSkV3',
+                name: 'FOOD PREP Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa FOOD PREP',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'TaSyHHXKYhF',
+                name: 'TIPPY TAP Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa TIPPY TAP',
+                isReadOnly: true,
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'W4UjM09aOEw',
+                name: 'SOACKAGE PIT Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa SOACKAGE PIT',
+                isReadOnly: true,
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'qezhtOHXgaK',
+                name: 'WASH MESSAGING Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa WASH MESSAGING',
+                isReadOnly: true,
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'TACaGIXmXMs',
+                name: 'HIV ADHERANCE SUPPORT Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa HIV ADHERANCE SUPPORT',
+                isReadOnly: true,
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'DC4B9EIMZN9',
+                name: 'HTS Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa HTS',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'yOoWkd9dHsJ',
+                name: 'HIVTREAT Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVTREAT',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'kWyCcWCVJjv',
+                name: 'PRG&L Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa PRG&L',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'QvFFo0xqZCy',
+                name: 'SAIDS Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa SAIDS',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'Kcy88uJjTQl',
+                name: 'IMMUNIZATION Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa IMMUNIZATION',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'a7yFGFtZ3U9',
+                name: 'MALNUTRITION Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa MALNUTRITION',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'lviiwATI5uv',
+                name: 'TB REFFER Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa TB REFFER',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'oOWfgTZr6qL',
+                name: 'FOOD SUPPLIMENTS Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa FOOD SUPPLIMENTS',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'fySDvo8AXNy',
+                name: 'HEALTH Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa HEALTH',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -136,40 +259,54 @@ class OvcServicesOngoingMonitoring {
           borderColor: const Color(0xFF0000FF),
           inputFields: [
             InputField(
-                id: 'EG4MGO83vqG',
-                name: 'OVCFUND Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa OVCFUND',
+                id: 'wNUBfCAg3Fq',
+                name: 'SILC Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa SILC',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
+                isReadOnly: true,
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'a7GDFMWz1qf',
                 name: 'Savings Group Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa Savings Group',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
-                id: 'VtX5d8LBcZP',
-                name: 'EST COOPRTVS Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa EST COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'b2f8Bv0MozX',
-                name: 'FUNCT COOPRTVS Service progress',
+                id: 'QD77bNjavza',
+                name: 'FINANCIAL EDUCATION  Service progress',
                 translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa FUNCT COOPRTVS ',
+                    'Tsoelo-pele ea litšebeletso tsa FINANCIAL EDUCATION ',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
-                id: 'HwbAyUqRqjT',
-                name: 'MARKT COOPRTVS Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa MARKT COOPRTVS ',
+                id: 'legjCg7fomo',
+                name: 'K/TPLOTS  Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa K/TPLOTS',
                 valueType: 'TEXT',
+                isReadOnly: true,
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -182,9 +319,14 @@ class OvcServicesOngoingMonitoring {
           inputFields: [
             InputField(
                 id: 'KNRkkNs8IeP',
-                name: 'Singing to the LION Service progress',
+                name: 'SLION Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SLION',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -193,6 +335,11 @@ class OvcServicesOngoingMonitoring {
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa RTEEN/Parenting',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -200,6 +347,23 @@ class OvcServicesOngoingMonitoring {
                 name: 'RKIDS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa RKIDS',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF0F9587),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'JgokYFY6IWK',
+                name: 'P&FC Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa P&FC',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -208,6 +372,11 @@ class OvcServicesOngoingMonitoring {
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa VAC/VAC Messaging',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -216,58 +385,65 @@ class OvcServicesOngoingMonitoring {
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa VAC Legal Messaging progress',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'akSICiOvXty',
-                name: 'Survivors of Abuse Service progress',
-                translatedName:
-                    'Tsoelo-pele ea litšebeletso tsa Survivors of Abuse',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'J5Tw8gd59Aq',
-                name: 'COUNSEL Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa COUNSEL',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'HY12JH4WYIl',
-                name: 'FCARE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa FCARE',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ouQhwyHxW0W',
-                name: 'SHELTER Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SHELTER',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ngjLjWJjPmN',
-                name: 'ABUSE Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa ABUSE',
-                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'XPFvUiqedGQ',
-                name: 'LEGALPROT Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa LEGALPROT',
+                name: 'LEGAL PROTECTION  Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa LEGAL PROTECTION  Service progress',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF0F9587),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'J5Tw8gd59Aq',
+                name: 'COUNSEL  Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa COUNSEL Service progress',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'zYjncKPdz9C',
-                name: 'BIRTHCERT Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa BIRTHCERT',
+                name: 'BIRTHCERT  Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa BIRTHCERT Service progress',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373))
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'XPFvUiqedGQ',
+                name: 'LEGAL PROTECTION  Service progress',
+                translatedName:
+                    'Tsoelo-pele ea litšebeletso tsa LEGAL PROTECTION Service progress',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF0F9587),
+                labelColor: const Color(0xFF737373)),
           ]),
       FormSection(
           id: 'Schooled',
@@ -281,33 +457,58 @@ class OvcServicesOngoingMonitoring {
                 name: 'Aflatoun/teen Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa Aflatoun/teen',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'KURLrgcqqZS',
-                name: 'PTS4G Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa PTS4G',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'MKfKx93j7Mb',
-                name: 'PTS4NG Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa PTS4NG',
-                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'I4vmREMJZug',
-                name: 'HWCLUB Service progress',
+                name: 'HOMEWORK CLUB Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa HWCLUB',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'wJergsqzGLz',
                 name: 'BURSARY Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa BURSARY',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'ks2bazFqWHo',
+                name: 'SMATERIAL Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa SMATERIAL',
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
+                inputColor: const Color(0xFF9B2BAE),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'T51fsJaITSM',
+                name: 'REENROL Service progress',
+                translatedName: 'Tsoelo-pele ea litšebeletso tsa REENROL',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373)),
@@ -316,22 +517,13 @@ class OvcServicesOngoingMonitoring {
                 name: 'SFEES Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SFEES',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                  InputFieldOption(code: 'Completed', name: 'Completed')
+                ],
                 inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ks2bazFqWHo',
-                name: 'SMATERIAL Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SMATERIAL',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'T51fsJaITSM',
-                name: 'REENROL Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa REENROL',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
+                labelColor: const Color(0xFF737373))
           ]),
       FormSection(
           name: 'Other activities',
