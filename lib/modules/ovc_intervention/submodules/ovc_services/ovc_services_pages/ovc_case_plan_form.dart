@@ -82,9 +82,12 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     setState(() {});
     formSections = [];
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-      borderColors[formSection.id] = formSection.borderColor;
-      formSection.borderColor = Colors.transparent;
-      formSections.add(formSection);
+      // Removing the Schooled section for caregiver
+      if (!(widget.isHouseholdCasePlan && formSection.id == 'Schooled')) {
+        borderColors[formSection.id] = formSection.borderColor;
+        formSection.borderColor = Colors.transparent;
+        formSections.add(formSection);
+      }
     }
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = false;

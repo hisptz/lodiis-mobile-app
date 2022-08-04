@@ -325,6 +325,11 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['LGsvIyYkrP8'] = true;
         hiddenFields['XSTUvAjvijB'] = true;
       }
+      if (inputFieldId == 'EaJTFrklMo5' && value != 'true') {
+        hiddenFields['rHgxOKM91wi'] = true;
+        hiddenFields['v00dsDvhCRu'] = true;
+        hiddenFields['WAq2HJHXZYS'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
