@@ -46,18 +46,33 @@ class DreamsReferralOutCome {
               valueType: 'TEXT',
               options: [
                 InputFieldOption(
-                    code: 'Religion/Culture', name: 'Religion/Culture'),
+                  code: 'Religion/Culture',
+                  name: 'Religion/Culture',
+                ),
                 InputFieldOption(
-                    code: 'Service already provided',
-                    name: 'Service already provided (by other provider)'),
-                InputFieldOption(code: 'NotReady', name: 'NotReady'),
+                  code: 'Service already provided',
+                  name: 'Service already provided (by other provider)',
+                ),
                 InputFieldOption(
-                    code: 'HealthConcerns', name: 'HealthConcerns'),
+                  code: 'NotReady',
+                  name: 'Not Ready',
+                ),
                 InputFieldOption(
-                    code: 'AccessIssues',
-                    name: 'Access Issues (resources, time)"'),
-                InputFieldOption(code: 'NotInterested', name: 'NotInterested'),
-                InputFieldOption(code: 'Other(s)', name: 'Other(s)'),
+                  code: 'HealthConcerns',
+                  name: 'Health Concerns',
+                ),
+                InputFieldOption(
+                  code: 'AccessIssues',
+                  name: 'Access Issues (resources, time)',
+                ),
+                InputFieldOption(
+                  code: 'NotInterested',
+                  name: 'Not Interested',
+                ),
+                InputFieldOption(
+                  code: 'Other(s)',
+                  name: 'Other(s)',
+                ),
               ],
               inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
