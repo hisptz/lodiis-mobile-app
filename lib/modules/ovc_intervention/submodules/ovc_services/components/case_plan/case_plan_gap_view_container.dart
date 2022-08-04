@@ -45,7 +45,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
     String casePlanFirstGoal =
         dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
     String casePlansSecondGoal =
-        dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
+        dataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
     if (casePlanFirstGoal.isEmpty && casePlansSecondGoal.isEmpty) {
       AppUtil.showToastMessage(
         message: 'Please fill at least one goal in $domainId domain',
