@@ -93,14 +93,40 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
   }
 
   void onInputValueChange(String id, dynamic value) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(id, value);
-    if (id == 'ls9hlz2tyol') {
+    if (id == 'q8qPtzanSTU') {
+      _confirmNumberOfSexPartner(id, value);
+    } else {
       Provider.of<EnrollmentFormState>(context, listen: false)
-          .removeFieldFromState('UzQ533pOnvt');
+          .setFormFieldState(id, value);
+      if (id == 'ls9hlz2tyol') {
+        Provider.of<EnrollmentFormState>(context, listen: false)
+            .removeFieldFromState('UzQ533pOnvt');
+      }
     }
     evaluateSkipLogics();
     onUpdateFormAutoSaveState(context);
+  }
+
+  void _confirmNumberOfSexPartner(String id, dynamic value) async {
+    int numberOfSexParner =
+        int.tryParse(value) ?? AgywDreamsRiskAssment.sexPartnerConfirmation;
+    dynamic confirmationResponse = "true";
+    if (numberOfSexParner > AgywDreamsRiskAssment.sexPartnerConfirmation) {
+      confirmationResponse = await AppUtil.showPopUpModal(
+          context,
+          AppUtil.getConfirmationWidget(
+            context,
+            'Are you sure  have $value sex partners',
+          ),
+          false);
+    }
+    if ("$confirmationResponse" == "true") {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(id, value);
+    } else if ("$confirmationResponse" == "false") {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(id, "");
+    }
   }
 
   bool hasEnrollmentCriteria(Map dataObject) {
@@ -174,12 +200,16 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
     });
   }
 
-  Future<void> onSaveAndContinue(BuildContext context, Map dataObject,
-      {Map hiddenFields = const {}}) async {
+  Future<void> onSaveAndContinue(
+    BuildContext context,
+    Map dataObject, {
+    Map hiddenFields = const {},
+  }) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: hiddenFields);
-    String sexPartnerDataElement = 'q8qPtzanSTU';
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
       onUpdateFormAutoSaveState(context, isSaveForm: true);
       bool beneficiaryHasEnrollmentCriteria = hasEnrollmentCriteria(dataObject);
@@ -201,50 +231,18 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
           }
         }
       }
-      if (dataObject[sexPartnerDataElement] != "" &&
-          (int.parse(dataObject[sexPartnerDataElement]) >
-              AgywDreamsRiskAssment.sexPartnerConfirmation)) {
-        void onDiscard() {
-          dataObject[sexPartnerDataElement] = '';
-          Navigator.pop(context, false);
-        }
-
-        bool confirmationResponse = await AppUtil.showPopUpModal(
-            context,
-            AppUtil.getConfirmationWidget(
-                context,
-                'Are you sure  have ${dataObject[sexPartnerDataElement]} sex partners',
-                onDiscard),
-            false);
-        if (confirmationResponse) {
-          if (beneficiaryHasEnrollmentCriteria &&
-              beneficiaryHasEnrollmentInstruction) {
-            onSave(dataObject, context);
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => beneficiaryHasEnrollmentCriteria
-                    ? const AgywDreamsEnrollmentForm()
-                    : const AgywDreamsWithoutEnrollmentCriteriaForm(),
-              ),
-            );
-          }
-        }
+      if (beneficiaryHasEnrollmentCriteria &&
+          beneficiaryHasEnrollmentInstruction) {
+        onSave(dataObject, context);
       } else {
-        if (beneficiaryHasEnrollmentCriteria &&
-            beneficiaryHasEnrollmentInstruction) {
-          onSave(dataObject, context);
-        } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => beneficiaryHasEnrollmentCriteria
-                  ? const AgywDreamsEnrollmentForm()
-                  : const AgywDreamsWithoutEnrollmentCriteriaForm(),
-            ),
-          );
-        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => beneficiaryHasEnrollmentCriteria
+                ? const AgywDreamsEnrollmentForm()
+                : const AgywDreamsWithoutEnrollmentCriteriaForm(),
+          ),
+        );
       }
     } else {
       setState(() {
