@@ -634,7 +634,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName: 'Tšebeletso ea SILC',
                 isReadOnly: true,
                 valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'JtfKB58MvNK',
@@ -642,7 +642,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName: 'Motho ea ikarabellang ka hare ho SILC',
                                 isReadOnly: true,
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'MMjndp2xsoQ',
@@ -651,7 +651,7 @@ class OvcServicesChildCasePlanGap {
                                 isReadOnly: true,
 
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'Hdf3EtTGfAb',
@@ -662,7 +662,7 @@ class OvcServicesChildCasePlanGap {
 
                 valueType: 'DATE',
                 firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'yPP7lkomNfK',
@@ -701,7 +701,7 @@ class OvcServicesChildCasePlanGap {
                 name: 'FINANCIAL EDUCATION ',
                 translatedName: 'Tšebeletso ea FINANCIAL EDUCATION ',
                 valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'OMtcDA7tcVL',
@@ -710,7 +710,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName:
                     'Motho ea ikarabellang ka hare ho FINANCIAL EDUCATION ',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'Mz24UpWclb3',
@@ -719,7 +719,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName:
                     'Motho ea ikarabellang ka ntle ho FINANCIAL EDUCATION ',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'zVCkEJuy2t8',
@@ -729,7 +729,7 @@ class OvcServicesChildCasePlanGap {
                     'Letsatsi la FINANCIAL EDUCATION le tla phetheloa',
                 valueType: 'DATE',
                 firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'WrjNxZBVHCL',
@@ -737,7 +737,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName: 'Tšebeletso ea KPLOT ',
                 isReadOnly: true,
                 valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'NWBZilCPutW',
@@ -745,7 +745,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName: 'Motho ea ikarabellang ka hare ho KPLOT',
                                 isReadOnly: true,
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'boUUP8UeWDL',
@@ -753,7 +753,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName: 'Motho ea ikarabellang ka ntle ho KPLOT',
                                 isReadOnly: true,
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'd3k97F0fS2y',
@@ -762,7 +762,7 @@ class OvcServicesChildCasePlanGap {
                 translatedName: 'Letsatsi la KPLOT le tla phetheloa',
                 valueType: 'DATE',
                 firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
+                inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
           ]),
       FormSection(

@@ -15,13 +15,6 @@ class OvcHouseholdServicesCasePlanGaps {
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'XoSPWmpWXCy',
                 translatedName: 'Tšebeletso ea  HTS',
                 name: 'HTS',
@@ -305,13 +298,6 @@ class OvcHouseholdServicesCasePlanGaps {
           borderColor: const Color(0xFF0000FF),
           inputFields: [
             InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'e6NV2ZAzFEh',
                 name: 'SILC',
                 valueType: 'TRUE_ONLY',
@@ -509,13 +495,6 @@ class OvcHouseholdServicesCasePlanGaps {
           color: const Color(0xFF0F9587),
           borderColor: const Color(0xFF0F9587),
           inputFields: [
-            InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'PoxYSqq8Hgz',
                 name: 'P&FC',
@@ -771,13 +750,6 @@ class OvcHouseholdServicesCasePlanGaps {
           borderColor: const Color(0xFF9B2BAE),
           inputFields: [
             InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'TQSMaZgfZPO',
                 name: 'PTS4G',
                 translatedName: 'Tšebeletso ea  PTS4G',
@@ -873,13 +845,6 @@ class OvcHouseholdServicesCasePlanGaps {
           color: const Color(0xFF4D9E49),
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
-            InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'ksc7ov3MihX',
                 name: 'OTHER ACTIVITIES',

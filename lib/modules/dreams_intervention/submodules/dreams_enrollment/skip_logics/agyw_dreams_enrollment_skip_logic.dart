@@ -459,19 +459,18 @@ class AgywDreamsEnrollmentSkipLogic {
       }
       if (inputFieldId == 'FuYyLjYxxkg') {
         if (value == 'Single Orphan(Mother)') {
-          assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
         } else if (value == 'Single Orphan(Father)') {
-          assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
         } else if (value == 'Double Orphan') {
-          assignInputFieldValue(context, 'cJl00w5DjIL', 'false');
-          assignInputFieldValue(context, 'R9e8v9r3lMM', 'false');
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
         }
       }
       if (!hasEnrollmentCriteria(dataObject)) {
         hiddenSections['E_O_I'] = true;
       }
     }
-
     // for enrollment module 6 questions
     if ("${dataObject['i32OwNqUYRn']}" != 'true' &&
         "${dataObject['NgIDtgfZMVH']}" != 'true' &&
