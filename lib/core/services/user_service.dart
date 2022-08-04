@@ -14,8 +14,8 @@ class UserService {
       'current_user_data_entry_authority';
 
   Future<CurrentUser?> login({
-    required String? username,
-    required String? password,
+    required String username,
+    required String password,
     isOnlineAuthentication = true,
   }) async {
     CurrentUser? user;
@@ -54,6 +54,22 @@ class UserService {
     } catch (error) {
       rethrow;
     }
+  }
+
+  Future<bool> hasUserPreviousSuccessLogin({
+    required String username,
+    required String password,
+  }) async {
+    bool hasPreviousSuccessLogin = false;
+    try {
+      List<CurrentUser> users = await UserOfflineProvider().getUsers();
+      var user = users.firstWhere((CurrentUser user) =>
+          user.username == username && user.password == password);
+      hasPreviousSuccessLogin = user.hasPreviousSuccessLogin!;
+    } catch (e) {
+      //
+    }
+    return hasPreviousSuccessLogin;
   }
 
   Future logout() async {
