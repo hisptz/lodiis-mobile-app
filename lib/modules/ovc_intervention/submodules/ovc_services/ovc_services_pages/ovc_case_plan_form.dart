@@ -139,7 +139,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       });
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least first goal for all domain with gaps',
+        message: 'Please fill at least one goal for all domain with gaps',
       );
     }
   }

@@ -42,52 +42,66 @@ class CasePlanGapViewContainer extends StatelessWidget {
     Map? gapDataObject,
     bool isOnEdit = false,
   }) async {
-    double ratio = 0.8;
-    gapDataObject = gapDataObject ?? {};
-    gapDataObject[casePlanGapToServiceProvisionLinkage] =
-        gapDataObject[casePlanGapToServiceProvisionLinkage] ?? AppUtil.getUid();
-    gapDataObject[casePlanGapToServiceMonitoringLinkage] =
-        gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
-            AppUtil.getUid();
-    gapDataObject[caseToGapLinkage] =
-        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
-    List<FormSection> formSections = isHouseholdCasePlan
-        ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-            firstDate: gapDataObject['eventDate'] ??
-                AppUtil.formattedDateTimeIntoString(
-                  DateTime.now(),
-                ),
-          ).where((FormSection form) => form.id == domainId).toList()
-        : OvcServicesChildCasePlanGap.getFormSections(
-            firstDate: gapDataObject['eventDate'] ??
-                AppUtil.formattedDateTimeIntoString(
-                  DateTime.now(),
-                ),
-          ).where((FormSection form) => form.id == domainId).toList();
-    formSections = formSections.map((FormSection form) {
-      form.borderColor = Colors.transparent;
-      return form;
-    }).toList();
-    var response = await AppUtil.showActionSheetModal(
-      context: context,
-      containerBody: CasePlanGapFormContainer(
-        formSections: formSections,
-        isEditableMode: isEditableMode,
-        formSectionColor: formSectionColor,
-        dataObject: gapDataObject,
-      ),
-      initialHeightRatio: ratio,
-      maxHeightRatio: ratio,
-    );
-    if (response != null) {
-      var eventId = response['eventId'] ?? '';
-      if (isOnEdit) {
-        dataObject['gaps'] = dataObject['gaps']
-            .where((Map gap) => gap['eventId'] != eventId)
-            .toList();
+    String casePlanFirstGoal =
+        dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
+    String casePlansSecondGoal =
+        dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
+    if (casePlanFirstGoal.isEmpty && casePlansSecondGoal.isEmpty) {
+      AppUtil.showToastMessage(
+        message: 'Please fill at least one goal in $domainId domain',
+      );
+    } else {
+      double ratio = 0.8;
+      gapDataObject = gapDataObject ?? {};
+      gapDataObject[casePlanGapToServiceProvisionLinkage] =
+          gapDataObject[casePlanGapToServiceProvisionLinkage] ??
+              AppUtil.getUid();
+      gapDataObject[casePlanGapToServiceMonitoringLinkage] =
+          gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
+              AppUtil.getUid();
+      gapDataObject[OvcCasePlanConstant.casePlanFirstGoal] = casePlanFirstGoal;
+      gapDataObject[OvcCasePlanConstant.casePlansSecondGoal] =
+          casePlansSecondGoal;
+      gapDataObject[caseToGapLinkage] =
+          dataObject[caseToGapLinkage] ?? AppUtil.getUid();
+      List<FormSection> formSections = isHouseholdCasePlan
+          ? OvcHouseholdServicesCasePlanGaps.getFormSections(
+              firstDate: gapDataObject['eventDate'] ??
+                  AppUtil.formattedDateTimeIntoString(
+                    DateTime.now(),
+                  ),
+            ).where((FormSection form) => form.id == domainId).toList()
+          : OvcServicesChildCasePlanGap.getFormSections(
+              firstDate: gapDataObject['eventDate'] ??
+                  AppUtil.formattedDateTimeIntoString(
+                    DateTime.now(),
+                  ),
+            ).where((FormSection form) => form.id == domainId).toList();
+      formSections = formSections.map((FormSection form) {
+        form.borderColor = Colors.transparent;
+        return form;
+      }).toList();
+      var response = await AppUtil.showActionSheetModal(
+        context: context,
+        containerBody: CasePlanGapFormContainer(
+          formSections: formSections,
+          isEditableMode: isEditableMode,
+          formSectionColor: formSectionColor,
+          dataObject: gapDataObject,
+        ),
+        initialHeightRatio: ratio,
+        maxHeightRatio: ratio,
+      );
+      if (response != null) {
+        var eventId = response['eventId'] ?? '';
+        if (isOnEdit) {
+          dataObject['gaps'] = dataObject['gaps']
+              .where((Map gap) => gap['eventId'] != eventId)
+              .toList();
+        }
+        dataObject['gaps'].add(response);
+        onValueChange('gaps', dataObject['gaps']);
       }
-      dataObject['gaps'].add(response);
-      onValueChange('gaps', dataObject['gaps']);
     }
   }
 
