@@ -163,6 +163,8 @@ class OvcServiceMonitoringSkipLogic {
         hiddenFields['T51fsJaITSM'] = false;
       } else if (key == 'ksc7ov3MihX' && value == 'true') {
         hiddenFields['C06k1O4qrjw'] = false;
+      } else if (key == 'EaJTFrklMo5' && value == 'true') {
+        hiddenFields['gtXZARFG9Pa'] = false;
       }
     });
 
