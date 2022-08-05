@@ -41,8 +41,9 @@ class DreamsRoutesConstant {
   static const String agywDreamsArtRefillNextPage = "ART Re-fill";
   static const String agywDreamsCondomsFormPage = "Condoms";
   static const String agywDreamsCondomsFormNextPage = "Condoms";
-  static const String agywDreamsContraceptivesPage = "Contraceptives form";
-  static const String agywDreamsContraceptivesNextPage = "Contraceptives form";
+  static const String agywDreamsFamilyPlanningSrhPage = "Contraceptives form";
+  static const String agywDreamsFamilyPlanningSrhNextPage =
+      "Contraceptives form";
   static const String agywDreamsHTSShortFormPage = "HTS Form";
   static const String agywDreamsHTSShortFormNextPage = "HTS Form";
   static const String agywDreamHIVMessageFormPage = "MSG HIV form";

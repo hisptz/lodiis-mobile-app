@@ -70,13 +70,20 @@ class EducationLbseInterventionState with ChangeNotifier {
     if (lbseList.isEmpty && pageKey < numberOfPages) {
       _fetchLbsePage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _lbsePagingController,
-        lbseList,
-        pageKey,
-        numberOfPages,
-      );
+      if (_searchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _lbsePagingController,
+          lbseList,
+          pageKey,
+          numberOfPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _lbsePagingController,
+          lbseList,
+        );
+      }
     }
   }
 

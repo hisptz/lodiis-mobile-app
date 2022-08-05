@@ -110,8 +110,8 @@ class AppResumeRoute
         DreamsRoutesConstant.agywDreamsCondomsFormNextPage) {
       redirectToAgywDreamsCondomsForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.agywDreamsContraceptivesNextPage) {
-      redirectToAgywDreamsContraceptivesForm(context, formAutoSave);
+        DreamsRoutesConstant.agywDreamsFamilyPlanningSrhNextPage) {
+      redirectToAgywDreamsFamilyPlanningSrhForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsHTSShortFormNextPage) {
       redirectToAgywDreamsHTSShortForm(context, formAutoSave);

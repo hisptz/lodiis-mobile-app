@@ -220,7 +220,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'CONTRACEPTIVES',
+                                  'Family planning/SRH',
                                   style: const TextStyle().copyWith(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.normal,
