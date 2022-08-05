@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_interv
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/app_update_warning.dart';
+import 'package:kb_mobile_app/core/components/current_user_metadata_sync.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
 import 'package:kb_mobile_app/core/components/offline_beneficiary_search.dart';
 import 'package:kb_mobile_app/core/components/online_beneficiary_search.dart';
@@ -352,7 +353,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                               child: tab,
                             ))
                         .toList())
-                : const DataDownloadMessage())
+                : const DataDownloadMessage()),
+            CurrentUserMetadataSync(
+              color: widget.activeInterventionProgram.secondaryColor!,
+            )
           ],
         ),
       ),

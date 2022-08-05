@@ -12,6 +12,7 @@ class CurrentUser {
   String? userRoles;
   String? userGroups;
   bool? isLogin;
+  bool? hasPreviousSuccessLogin;
   List? userOrgUnitIds;
   List? programs;
 
@@ -27,6 +28,7 @@ class CurrentUser {
     this.phoneNumber,
     this.password,
     this.isLogin,
+    this.hasPreviousSuccessLogin,
     this.implementingPartner,
     this.subImplementingPartner,
     this.userOrgUnitIds,
@@ -51,7 +53,7 @@ class CurrentUser {
 
   @override
   String toString() {
-    return 'Current user is $username $id $name $implementingPartner->$subImplementingPartner';
+    return 'Current user is $username $id $name $implementingPartner->$subImplementingPartner :: $hasPreviousSuccessLogin';
   }
 
   factory CurrentUser.fromJson(
@@ -81,7 +83,8 @@ class CurrentUser {
       phoneNumber: json["phoneNumber"],
       userGroups: userGroups,
       userRoles: userRoles,
-      isLogin: true,
+      isLogin: false,
+      hasPreviousSuccessLogin: false,
       subImplementingPartner: subImplementingPartner,
       implementingPartner: implementingPartner,
       programs: programList.map((program) => '$program').toList(),
@@ -164,6 +167,7 @@ class CurrentUser {
     data['userRoles'] = user.userRoles;
     data['password'] = user.password;
     data['isLogin'] = user.isLogin! ? 1 : 0;
+    data['hasPreviousSuccessLogin'] = user.hasPreviousSuccessLogin! ? 1 : 0;
     data['subImplementingPartner'] = user.subImplementingPartner;
     data['implementingPartner'] = user.implementingPartner;
     return data;
@@ -179,6 +183,7 @@ class CurrentUser {
     userGroups = mapData['userGroups'];
     userRoles = mapData['userRoles'];
     isLogin = '${mapData['isLogin']}' == '1';
+    hasPreviousSuccessLogin = '${mapData['hasPreviousSuccessLogin']}' == '1';
     implementingPartner = mapData['implementingPartner'];
     subImplementingPartner = mapData['subImplementingPartner'];
     userOrgUnitIds = [];

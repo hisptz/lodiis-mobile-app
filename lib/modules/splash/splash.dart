@@ -98,7 +98,7 @@ class _SplashState extends State<Splash> {
 
   void setLandingPage(bool? isUserLoginIn) {
     Timer(
-      const Duration(seconds: 2),
+      const Duration(milliseconds: 600),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
