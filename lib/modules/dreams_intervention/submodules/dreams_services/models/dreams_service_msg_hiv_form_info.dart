@@ -35,10 +35,10 @@ class DreamsMsgHivInfo {
                 InputFieldOption(code: 'Religion/Culture', name: 'Religion/Culture'),
                  InputFieldOption(code: 'Service already provided', name: 'Service already provided (by other provider)'),
                   InputFieldOption(code: 'NotReady', name: 'Not Ready'),
-                   InputFieldOption(code: 'HealthConcerns', name: 'Health Concerns'),
-                    InputFieldOption(code: 'AccessIssues', name: 'Access Issues (resources, time)'),
-                     InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
-                      InputFieldOption(code: 'Other(s)', name: 'Other(s)')
+                  InputFieldOption(code: 'HealthConcerns', name: 'Health Concerns'),
+                  InputFieldOption(code: 'AccessIssues', name: 'Access Issues (resources, time)'),
+                  InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
+                  InputFieldOption(code: 'Other(s)', name: 'Other(s)')
               ],
               firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),
