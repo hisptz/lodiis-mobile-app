@@ -34,6 +34,7 @@ class OvcCasePlanForm extends StatefulWidget {
   const OvcCasePlanForm({
     Key? key,
     required this.casePlanLabel,
+    required this.currentCasePlanDate,
     required this.hasEditAccess,
     required this.isHouseholdCasePlan,
     required this.casePlanProgram,
@@ -47,6 +48,7 @@ class OvcCasePlanForm extends StatefulWidget {
   }) : super(key: key);
 
   final String casePlanLabel;
+  final String currentCasePlanDate;
   final bool hasEditAccess;
   final String casePlanProgram;
   final String casePlanProgramStage;
@@ -117,8 +119,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   listen: false)
               .currentOvcHouseholdChild!
               .teiData!;
-      await savingDomainsAndGaps(
-          dataObject: dataObject, beneficiary: beneficiary);
+      print(widget.currentCasePlanDate);
+      // await savingDomainsAndGaps(
+      //     dataObject: dataObject, beneficiary: beneficiary);
       Provider.of<ServiceEventDataState>(context, listen: false)
           .resetServiceEventDataState(beneficiary.trackedEntityInstance);
       Timer(const Duration(milliseconds: 200), () {
@@ -148,7 +151,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     required Map dataObject,
     required TrackedEntityInstance beneficiary,
   }) async {
-    //TODO propegate service for childdren on household
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];

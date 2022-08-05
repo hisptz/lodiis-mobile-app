@@ -86,7 +86,11 @@ class CasePlanHomeContainer extends StatelessWidget {
     bool isEditMode = true,
     List<Events> casePlanEvents = const [],
     Map<String?, List<Events>> eventListByProgramStage = const {},
+    String currentCasePlanDate = '',
   }) {
+    currentCasePlanDate.isEmpty
+        ? AppUtil.formattedDateTimeIntoString(DateTime.now())
+        : currentCasePlanDate;
     _updateFormState(casePlanEvents, casePlanDates, context, isEditMode,
         eventListByProgramStage);
     Navigator.push(
@@ -96,6 +100,7 @@ class CasePlanHomeContainer extends StatelessWidget {
           builder: (context, languageTranslationState, child) {
             String? currentLanguage = languageTranslationState.currentLanguage;
             return OvcCasePlanForm(
+              currentCasePlanDate: currentCasePlanDate,
               casePlanLabel: isHouseholdCasePlan
                   ? isOnCasePlanServiceProvision
                       ? currentLanguage == 'lesotho'
@@ -168,20 +173,28 @@ class CasePlanHomeContainer extends StatelessWidget {
                         isOnCasePlanServiceMonitoring:
                             isOnCasePlanServiceMonitoring,
                         casePlanByDates: casePlanByDates,
-                        onViewCasePlan: (List<Events> casePlanEvents) =>
+                        onViewCasePlan: (
+                          List<Events> casePlanEvents,
+                          String currentCasePlanDate,
+                        ) =>
                             onManageCasePlan(
                                 context: context,
                                 casePlanDates: casePlanDates,
                                 eventListByProgramStage: serviceEventDataState
                                     .eventListByProgramStage,
                                 isEditMode: false,
+                                currentCasePlanDate: currentCasePlanDate,
                                 casePlanEvents: casePlanEvents),
-                        onEditCasePlan: (List<Events> casePlanEvents) =>
+                        onEditCasePlan: (
+                          List<Events> casePlanEvents,
+                          String currentCasePlanDate,
+                        ) =>
                             onManageCasePlan(
                                 context: context,
                                 casePlanDates: casePlanDates,
                                 eventListByProgramStage: serviceEventDataState
                                     .eventListByProgramStage,
+                                currentCasePlanDate: currentCasePlanDate,
                                 casePlanEvents: casePlanEvents),
                       ),
                     ),
