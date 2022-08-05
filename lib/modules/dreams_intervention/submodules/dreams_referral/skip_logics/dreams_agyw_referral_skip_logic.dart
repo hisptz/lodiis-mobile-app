@@ -104,7 +104,6 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['SILC'] = true;
           referralServiceHiddenOptions['LBSE'] = true;
           referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
-          referralServiceHiddenOptions['ParentingPregBreastfeeding'] = true;
           referralServiceHiddenOptions['ComprehensiveEconomicStrengthening'] =
               true;
           referralServiceHiddenOptions['EducationSubsidiesSupport'] = true;
@@ -126,7 +125,6 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['TB screening'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
-          referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
           referralServiceHiddenOptions['HTS'] = true;
           referralServiceHiddenOptions['ANC'] = true;
           referralServiceHiddenOptions['PrEP'] = true;
@@ -139,6 +137,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['Treatment Support (TB/ARV)'] = true;
         } else if (value == 'LifeSkillSocialAssetServices') {
           referralServiceHiddenByAge['ParentingPregBreastfeeding'] = true;
+          referralServiceHiddenOptions['ViolencePreventionEducation'] = true;
           referralServiceHiddenOptions['HIVRiskAssessment'] = true;
           referralServiceHiddenOptions['PostGBVCareLegal'] = true;
           referralServiceHiddenOptions['STI Screening'] = true;
