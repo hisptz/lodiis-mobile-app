@@ -18,6 +18,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'HTS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa HTS',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -25,6 +39,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'HIVTREAT Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa HIVTREAT',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -32,6 +60,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'HEALTH Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa HEALTH',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -39,6 +81,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'SAIDS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SAIDS',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -46,6 +102,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'FOOD SUPPORT Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa FOOD SUPPORT',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -54,6 +124,20 @@ class HouseholdServicesOngoingMonitoring {
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa WASH MESSAGING',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -61,6 +145,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'SOACKAGE PIT Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SOACKAGE PIT',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -68,6 +166,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'TIPPY TAP Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa TIPPY TAP',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -83,6 +195,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'SILC Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa SILC',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -90,6 +216,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'K/TPLOTS Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa K/TPLOTS ',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -105,6 +245,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'LEGALPROT Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa LEGALPROT',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -112,6 +266,20 @@ class HouseholdServicesOngoingMonitoring {
                 name: 'BIRTHCERT Service progress',
                 translatedName: 'Tsoelo-pele ea litšebeletso tsa BIRTHCERT',
                 valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -126,6 +294,22 @@ class HouseholdServicesOngoingMonitoring {
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373))
+                options: [
+                  InputFieldOption(
+                    code: 'Incomplete',
+                    name: 'Incomplete',
+                  ),
+                  InputFieldOption(
+                    code: 'Inprogress',
+                    name: 'Inprogress',
+                  ),
+                  InputFieldOption(
+                    code: 'Completed',
+                    name: 'Completed',
+                  ),
+                ],
+                inputColor: Color(0xFF4D9E49),
+                labelColor: Color(0xFF737373))
           ]),
       FormSection(
         id: '',

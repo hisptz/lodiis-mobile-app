@@ -3,20 +3,6 @@ class AgywDreamsServiceSummaryConstant {
     return [
       [
         {
-          'name': 'HTS',
-          'programStage': ['QNdBI9U7rnV', 'vAMc8n0YB6m']
-        },
-        {
-          'name': 'ART RE-FILL',
-          'programStage': ['Gk494qKQP8B']
-        },
-        {
-          'name': 'GBV Messaging',
-          'programStage': ['bDJq2JWVTbC']
-        },
-      ],
-      [
-        {
           'name': 'PEP',
           'programStage': ['CEyIqiOZOwx']
         },
@@ -59,12 +45,12 @@ class AgywDreamsServiceSummaryConstant {
       ],
       [
         {
-          'name': 'VAC Messaging',
-          'programStage': ['bDJq2JWVTbC']
+          'name': 'HTS',
+          'programStage': ['QNdBI9U7rnV', 'vAMc8n0YB6m']
         },
         {
-          'name': 'VAC LEGAL MESSAGING',
-          'programStage': ['bDJq2JWVTbC']
+          'name': 'ART RE-FILL',
+          'programStage': ['Gk494qKQP8B']
         },
         {
           'name': 'HIV & VIOLENCE PREVENTION',
@@ -73,7 +59,7 @@ class AgywDreamsServiceSummaryConstant {
       ],
       [
         {
-          'name': 'GBV LEGAL MESSAGING',
+          'name': 'HIV Prevention Education (VAC/GBV)',
           'programStage': ['bDJq2JWVTbC']
         },
         {'name': ''},

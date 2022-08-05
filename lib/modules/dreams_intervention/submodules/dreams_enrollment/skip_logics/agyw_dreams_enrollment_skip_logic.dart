@@ -128,8 +128,12 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenFields['Z7PTcgqwCLu'] = true;
         }
       }
-      if (inputFieldId == 'NrYoz8RewxV' && value != '') {
+      if (inputFieldId == 'NrYoz8RewxV') {
+        if(value != ''){
         assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
+        }else{
+        assignInputFieldValue(context, 'ODBeRytTLHm', 'false');
+        }
       }
       if (inputFieldId == 'zowQOCZivv8' && value == 'true') {
         assignInputFieldValue(context, 'iIdrEpTkpsk', 'true');

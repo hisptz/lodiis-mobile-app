@@ -18,7 +18,6 @@ class AgywDreamsServiceFormSessions {
       '14',
       '15'
     ],
-    'STEPPING STONES': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'],
     'AFLATEEN/TOUN': [
       '1',
       '2',
@@ -154,9 +153,6 @@ class AgywDreamsServiceFormSessions {
       '13',
       '14'
     ],
-    'GBV Messaging': ['1'],
-    'VAC Messaging': ['1'],
-    'GBV Legal Messaging': ['1', '2', '3', '4'],
-    'VAC Legal Messaging': ['1', '2', '3', '4'],
+    'HIV Prevention Education': ['1', '2', '3', '4'],
   };
 }
