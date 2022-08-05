@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_htc_client_decline_service.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_client_information.dart';
 
@@ -65,7 +66,6 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
       'B4xx1IVaAnI',
       'rY4ei8RNw6c'
     ];
-
     return !consentFields.every((field) =>
         '${dataObject[field]}' == 'false' || '${dataObject[field]}' == 'null');
   }

@@ -49,7 +49,6 @@ class DreamsANCInfo {
                   InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
                   InputFieldOption(code: 'Other(s)', name: 'Other(s)')
               ],
-              firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),
@@ -57,7 +56,6 @@ class DreamsANCInfo {
               id: 'oTTL6vEpKok',
               name: 'Specify other reasons for service declining',
               valueType: 'LONG_TEXT',
-              firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),

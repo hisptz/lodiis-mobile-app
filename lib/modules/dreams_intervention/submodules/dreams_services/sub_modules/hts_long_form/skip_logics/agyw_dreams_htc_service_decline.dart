@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsPrepShortFormSkipLogic {
+class AgywDreamsHTCServiceDecline {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
-  static List skippedFields = [];
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -17,27 +17,18 @@ class AgywDreamsPrepShortFormSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-
+    for (var key in dataObject.keys) {
+      inputFieldIds.add('$key');
+    }
+    inputFieldIds = inputFieldIds.toSet().toList();
+    dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersDataElementKey] =
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey];
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-            if (inputFieldId == 'VtmkYCQkBQw') {
-        if (value == 'false') {
-          hiddenFields['lvT9gfpHIlT'] = true;
-                    hiddenFields['XhMaVycZx8l'] = true;
-        } else if (value == 'true') {
-          hiddenFields['gEjigBuBTmh'] = true;
-        } else {
-          hiddenFields['lvT9gfpHIlT'] = true;
-          hiddenFields['gEjigBuBTmh'] = true;
-          hiddenFields['XhMaVycZx8l'] = true;
-
-        }
-      }
       if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
         hiddenFields['oTTL6vEpKok'] = true;
       }
     }
-
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -55,7 +46,7 @@ class AgywDreamsPrepShortFormSkipLogic {
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
     for (String inputFieldId in inputFieldIds) {
-      if (hiddenFields[inputFieldId] && !skippedFields.contains(inputFieldId)) {
+      if (hiddenFields[inputFieldId]) {
         assignInputFieldValue(context, inputFieldId, null);
       }
     }
@@ -79,4 +70,6 @@ class AgywDreamsPrepShortFormSkipLogic {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
+
+
 }
