@@ -35,7 +35,7 @@ class AgywDreamsServiceSummaryConstant {
           'programStage': ['wA5y7RU83lF']
         },
         {
-          'name': 'CONTRACEPTIVES',
+          'name': 'Family planning/SRH',
           'programStage': ['A7Tl3vML6as']
         },
         {
