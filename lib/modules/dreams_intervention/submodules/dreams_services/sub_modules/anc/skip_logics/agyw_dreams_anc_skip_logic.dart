@@ -22,7 +22,6 @@ class AgywDreamsANCSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-
       if (inputFieldId == 'irtbsom4W8P') {
         if (value == 'false') {
           hiddenFields['lvT9gfpHIlT'] = true;

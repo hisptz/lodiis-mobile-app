@@ -46,15 +46,15 @@ class _AgywDreamsHTSConsentFormSubpartState
   Map mandatoryFieldObject = {};
   List<String> mandatoryFields = [];
   List unFilledMandatoryFields = [];
-   List<String> consentFields = [
-      'rguXA70zATn',
-      'TcN49hQNZiG',
-      'HZ4BrWoGNIO',
-      'Gl7NGINbUAV',
-      'yVYVJe26S4u',
-      'B4xx1IVaAnI',
-      'rY4ei8RNw6c'
-    ];
+  List<String> consentFields = [
+    'rguXA70zATn',
+    'TcN49hQNZiG',
+    'HZ4BrWoGNIO',
+    'Gl7NGINbUAV',
+    'yVYVJe26S4u',
+    'B4xx1IVaAnI',
+    'rY4ei8RNw6c'
+  ];
 
   @override
   void initState() {
@@ -130,28 +130,7 @@ class _AgywDreamsHTSConsentFormSubpartState
             ),
           ),
         );
-      } else {
-        if(consentFields.every((field) =>
-        '${dataObject[field]}' == 'false')){
-    dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
-          getNoOfPartners(agywDream!);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AgywDreamsHTSClientServices(
-            isComingFromPrep: isComingFromPrep,
-          ),
-        ),
-      );
-        }else{
-        AppUtil.showToastMessage(
-          message: 'Cannot proceed without consent',
-          position: ToastGravity.TOP,
-        );
-        }
-      
-
-      }
+      } else {}
     } else {
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

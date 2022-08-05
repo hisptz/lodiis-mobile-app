@@ -38,6 +38,15 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   bool isFormReady = false;
   bool isSaving = false;
   bool? isComingFromPrep;
+  List<String> consentFields = [
+    'rguXA70zATn',
+    'TcN49hQNZiG',
+    'HZ4BrWoGNIO',
+    'Gl7NGINbUAV',
+    'yVYVJe26S4u',
+    'B4xx1IVaAnI',
+    'rY4ei8RNw6c'
+  ];
 
   @override
   void initState() {
@@ -57,15 +66,6 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
   }
 
   bool isConsentGiven(Map dataObject) {
-    List<String> consentFields = [
-      'rguXA70zATn',
-      'TcN49hQNZiG',
-      'HZ4BrWoGNIO',
-      'Gl7NGINbUAV',
-      'yVYVJe26S4u',
-      'B4xx1IVaAnI',
-      'rY4ei8RNw6c'
-    ];
     return !consentFields.every((field) =>
         '${dataObject[field]}' == 'false' || '${dataObject[field]}' == 'null');
   }
@@ -86,10 +86,23 @@ class _AgywDreamsHTSConsentFormState extends State<AgywDreamsHTSConsentForm> {
         ),
       );
     } else {
-      AppUtil.showToastMessage(
-        message: 'Cannot proceed without consent',
-        position: ToastGravity.TOP,
-      );
+      if (consentFields.every((field) => '${dataObject[field]}' == 'false')) {
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
+            getNoOfPartners(agywDream!);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSClientServices(
+              isComingFromPrep: isComingFromPrep,
+            ),
+          ),
+        );
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Cannot proceed without consent',
+          position: ToastGravity.TOP,
+        );
+      }
     }
   }
 
