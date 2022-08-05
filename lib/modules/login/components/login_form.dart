@@ -21,9 +21,9 @@ import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key, required this.currentLanguage}) : super(key: key);
-
   final String? currentLanguage;
+
+  const LoginForm({Key? key, required this.currentLanguage}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -100,8 +100,10 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  Future<void> offlineAuthentication(
-      {String? username, String? password}) async {
+  Future<void> offlineAuthentication({
+    required String username,
+    required String password,
+  }) async {
     try {
       CurrentUser? user = await UserService().login(
         username: username,
@@ -122,32 +124,47 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  Future<void> onlineAuthentication(
-      {String? username, String? password}) async {
+  Future<void> onlineAuthentication({
+    required String username,
+    required String password,
+  }) async {
     try {
       CurrentUser? user = await UserService().login(
         username: username,
         password: password,
       );
       if (user != null) {
-        UserService().resetUserAssociatedMetadata(user.id);
-        var userAccessConfigurations =
-            await UserAccess().getUserAccessConfigurationsFromTheServer(
-          user.username,
-          user.password,
+        bool hasPreviousSuccessLogin =
+            await UserService().hasUserPreviousSuccessLogin(
+          username: username,
+          password: password,
         );
-        await setCurrentUserAccess(user, userAccessConfigurations);
-        loginFormState.setCurrentLoginProcessMessage(
-            "Saving user's assigned locations...");
-        await OrganisationUnitService()
-            .discoveringOrgananisationUnitsFromTheServer();
-        loginFormState.setCurrentLoginProcessMessage(
-            "Saving assigned access for interventions...");
-        List<String?> programs = user.programs as List<String?>? ?? [];
-        for (String? program in programs) {
-          await ProgramService()
-              .discoverProgramOrganisationUnitsFromTheServer(program);
+        if (!hasPreviousSuccessLogin) {
+          UserService().resetUserAssociatedMetadata(user.id);
+          var userAccessConfigurations =
+              await UserAccess().getUserAccessConfigurationsFromTheServer(
+            user.username,
+            user.password,
+          );
+          await setCurrentUserAccess(user, userAccessConfigurations);
+          loginFormState.setCurrentLoginProcessMessage(
+              "Saving user's assigned locations...");
+          await OrganisationUnitService()
+              .discoveringOrgananisationUnitsFromTheServer();
+          loginFormState.setCurrentLoginProcessMessage(
+              "Saving assigned access for interventions...");
+          for (dynamic program in user.programs ?? []) {
+            await ProgramService()
+                .discoverProgramOrganisationUnitsFromTheServer("$program");
+          }
+        } else {
+          var userAccessConfigurations =
+              await UserAccess().getSavedUserAccessConfigurations();
+          await setCurrentUserAccess(user, userAccessConfigurations);
         }
+        user.isLogin = true;
+        user.hasPreviousSuccessLogin = true;
+        await UserService().setCurrentUser(user);
         redirectToLoginPage();
       } else {
         String message = 'Incorrect username or password';
@@ -163,7 +180,9 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Future<void> setCurrentUserAccess(
-      CurrentUser user, userAccessConfigurations) async {
+    CurrentUser user,
+    userAccessConfigurations,
+  ) async {
     await UserService().setCurrentUser(user);
     loginFormState.setCurrentLoginProcessMessage('Saving user access...');
     await UserAccess().savingUserAccessConfigurations(userAccessConfigurations);

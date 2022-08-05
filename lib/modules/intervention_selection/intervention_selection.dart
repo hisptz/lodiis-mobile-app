@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/education_intervention_state/education_b
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
@@ -46,6 +47,7 @@ class _InterventionSelectionState extends State<InterventionSelection> {
 
   updateDataStateLoadingStatus() async {
     try {
+      await UserService().setCurrentUserMetadatadataSyncStatus("false");
       await Provider.of<CurrentUserState>(context, listen: false)
           .getAndSetCurrentUserDataEntryAuthorityStatus();
       await ReservedAttributeValueService().generateReservedAttributeValues();

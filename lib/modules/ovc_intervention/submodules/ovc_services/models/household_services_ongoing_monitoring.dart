@@ -285,29 +285,30 @@ class HouseholdServicesOngoingMonitoring {
           ]),
       FormSection(
           name: 'Other activities',
-          color: Color(0xFF4D9E49),
-          borderColor: Color(0xFF4D9E49),
+          color: const Color(0xFF4D9E49),
+          borderColor: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
-                id: 'C06k1O4qrjw',
-                name: 'Other activities progress',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(
-                    code: 'Incomplete',
-                    name: 'Incomplete',
-                  ),
-                  InputFieldOption(
-                    code: 'Inprogress',
-                    name: 'Inprogress',
-                  ),
-                  InputFieldOption(
-                    code: 'Completed',
-                    name: 'Completed',
-                  ),
-                ],
-                inputColor: Color(0xFF4D9E49),
-                labelColor: Color(0xFF737373))
+              id: 'C06k1O4qrjw',
+              name: 'Other activities progress',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: 'Incomplete',
+                  name: 'Incomplete',
+                ),
+                InputFieldOption(
+                  code: 'Inprogress',
+                  name: 'Inprogress',
+                ),
+                InputFieldOption(
+                  code: 'Completed',
+                  name: 'Completed',
+                ),
+              ],
+            )
           ]),
       FormSection(
         id: '',
