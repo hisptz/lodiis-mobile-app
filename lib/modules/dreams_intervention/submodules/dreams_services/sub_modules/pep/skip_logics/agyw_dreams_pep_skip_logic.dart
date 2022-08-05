@@ -22,8 +22,8 @@ class AgywDreamsPepSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['mcgHO4djXTu'] = true;
+      if (inputFieldId == 'mcgHO4djXTu' && value != 'true') {
+        hiddenFields['lvT9gfpHIlT'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
