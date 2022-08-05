@@ -8,7 +8,7 @@ class DreamsContraceptivesForm {
   }) {
     return [
       FormSection(
-          name: 'Contraceptives',
+          name: 'Family planning/SRH',
           color: const Color(0xFF737373),
           inputFields: [
             InputField(
@@ -21,7 +21,7 @@ class DreamsContraceptivesForm {
             ),
             InputField(
               id: 'uciT2F6ByYO',
-              name: 'Contraceptives',
+              name: 'Family planning/SRH',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),

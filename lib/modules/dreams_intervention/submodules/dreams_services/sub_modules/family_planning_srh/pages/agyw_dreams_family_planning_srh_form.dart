@@ -23,22 +23,22 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_contraceptives_form_info.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/constants/contraceptives_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/skip_logics/agyw_dreams_contraceptives_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_family_planning_srh_form_info.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/family_planning_srh/constants/family_planning_srh_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/family_planning_srh/skip_logics/agyw_dreams_family_planning_srh_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsContraceptivesForm extends StatefulWidget {
-  const AgywDreamsContraceptivesForm({Key? key}) : super(key: key);
+class AgywDreamsFamilyPlanningSrhForm extends StatefulWidget {
+  const AgywDreamsFamilyPlanningSrhForm({Key? key}) : super(key: key);
   @override
-  _AgywDreamsContraceptivesFormState createState() =>
-      _AgywDreamsContraceptivesFormState();
+  _AgywDreamsFamilyPlanningSrhFormState createState() =>
+      _AgywDreamsFamilyPlanningSrhFormState();
 }
 
-class _AgywDreamsContraceptivesFormState
-    extends State<AgywDreamsContraceptivesForm> {
-  final String label = 'Contraceptives form';
+class _AgywDreamsFamilyPlanningSrhFormState
+    extends State<AgywDreamsFamilyPlanningSrhForm> {
+  final String label = 'Family planning/SRH form';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -101,7 +101,7 @@ class _AgywDreamsContraceptivesFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsContraceptivesSkipLogic.evaluateSkipLogics(
+        await AgywDreamsFamilyPlanningSrhSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -136,8 +136,8 @@ class _AgywDreamsContraceptivesFormState
         String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            ContraceptivesConstant.program,
-            ContraceptivesConstant.programStage,
+            FamilyPlanningSrhConstant.program,
+            FamilyPlanningSrhConstant.programStage,
             orgUnit,
             defaultFormSections!,
             dataObject,
@@ -190,7 +190,7 @@ class _AgywDreamsContraceptivesFormState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsFamilyPlanningSrhPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -207,16 +207,16 @@ class _AgywDreamsContraceptivesFormState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsFamilyPlanningSrhPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: DreamsRoutesConstant.agywDreamsContraceptivesPage,
+      pageModule: DreamsRoutesConstant.agywDreamsFamilyPlanningSrhPage,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : DreamsRoutesConstant.agywDreamsContraceptivesNextPage
-          : DreamsRoutesConstant.agywDreamsContraceptivesPage,
+              : DreamsRoutesConstant.agywDreamsFamilyPlanningSrhNextPage
+          : DreamsRoutesConstant.agywDreamsFamilyPlanningSrhPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);

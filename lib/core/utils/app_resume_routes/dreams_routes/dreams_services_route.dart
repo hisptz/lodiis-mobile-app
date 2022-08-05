@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/anc/pages/agyw_dreams_anc_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/art_refill/pages/agyw_dreams_art_refill_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/pages/agyw_dreams_condoms_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/pages/agyw_dreams_contraceptives_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/family_planning_srh/pages/agyw_dreams_family_planning_srh_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_client_information.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_hts_register.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/pages/agyw_dreams_hts_short_form.dart';
@@ -60,7 +60,7 @@ class DreamsServicesRoute {
     );
   }
 
-  redirectToAgywDreamsContraceptivesForm(
+  redirectToAgywDreamsFamilyPlanningSrhForm(
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
@@ -68,7 +68,7 @@ class DreamsServicesRoute {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const AgywDreamsContraceptivesForm(),
+        builder: (context) => const AgywDreamsFamilyPlanningSrhForm(),
       ),
     );
   }
