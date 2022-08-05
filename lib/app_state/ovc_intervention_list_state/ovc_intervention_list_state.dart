@@ -94,9 +94,14 @@ class OvcInterventionListState with ChangeNotifier {
     if (ovcList.isEmpty && pageKey < numberOfPages) {
       _fetchOvcPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-          _ovcPagingController, ovcList, pageKey, numberOfPages);
+      if (_ovcSearchableValue.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _ovcPagingController, ovcList, pageKey, numberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
+            _ovcPagingController, ovcList);
+      }
     }
   }
 
@@ -108,12 +113,20 @@ class OvcInterventionListState with ChangeNotifier {
     if (beneficiaryList.isEmpty && pageKey < numberOfNoneParticipantsPages) {
       _fetchNoneParticipationPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
+      if (_noneParticipationSearchableValue.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
           _ovcNoneParticipationPagingController,
           beneficiaryList,
           pageKey,
-          numberOfNoneParticipantsPages);
+          numberOfNoneParticipantsPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _ovcNoneParticipationPagingController,
+          beneficiaryList,
+        );
+      }
     }
   }
 

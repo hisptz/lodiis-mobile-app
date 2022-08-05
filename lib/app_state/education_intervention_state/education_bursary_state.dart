@@ -96,13 +96,20 @@ class EducationBursaryInterventionState with ChangeNotifier {
         pageKey < numberOfBursaryWithoutVulnerabilityPages) {
       _fetchBursaryWithoutVulnerability(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _bursaryWithoutVulnerabilityPagingController,
-        beneficiaryList,
-        pageKey,
-        numberOfBursaryWithoutVulnerabilityPages,
-      );
+      if (_bursaryWithoutVulnerabilitySearchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _bursaryWithoutVulnerabilityPagingController,
+          beneficiaryList,
+          pageKey,
+          numberOfBursaryWithoutVulnerabilityPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _bursaryWithoutVulnerabilityPagingController,
+          beneficiaryList,
+        );
+      }
     }
   }
 
@@ -116,13 +123,20 @@ class EducationBursaryInterventionState with ChangeNotifier {
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
       _fetchBursaryPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _bursaryPagingController,
-        bursaryList,
-        pageKey,
-        numberOfPages,
-      );
+      if (_bursarySearchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _bursaryPagingController,
+          bursaryList,
+          pageKey,
+          numberOfPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _bursaryPagingController,
+          bursaryList,
+        );
+      }
     }
   }
 

@@ -66,9 +66,16 @@ class OgacInterventionListState with ChangeNotifier {
     if (ogacList.isEmpty && pageKey < numberOfPages) {
       _fetchOgacPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-          _ogacPagingController, ogacList, pageKey, numberOfPages);
+      if (_searchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _ogacPagingController, ogacList, pageKey, numberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
+          _ogacPagingController,
+          ogacList,
+        );
+      }
     }
   }
 

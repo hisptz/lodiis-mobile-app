@@ -65,13 +65,20 @@ class PpPrevInterventionState with ChangeNotifier {
     if (ppPrevList.isEmpty && pageKey < numberOfPages) {
       _fetchPpPrevPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _ppPrevPagingController,
-        ppPrevList,
-        pageKey,
-        numberOfPages,
-      );
+      if (_searchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _ppPrevPagingController,
+          ppPrevList,
+          pageKey,
+          numberOfPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _ppPrevPagingController,
+          ppPrevList,
+        );
+      }
     }
   }
 

@@ -159,9 +159,16 @@ class DreamsInterventionListState with ChangeNotifier {
     if (agywList.isEmpty && pageKey < agywNumberOfPages) {
       _fetchAgywPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-          _agywPagingController, agywList, pageKey, agywNumberOfPages);
+      if (_agywSearchableValue.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _agywPagingController, agywList, pageKey, agywNumberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
+          _agywPagingController,
+          agywList,
+        );
+      }
     }
   }
 
@@ -174,12 +181,19 @@ class DreamsInterventionListState with ChangeNotifier {
     if (beneficiaryList.isEmpty && pageKey < noneParticipantsNumberOfPages) {
       _fetchAgywDreamsNoneParticipantsPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
+      if (_beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _noneParticipantsPagingController,
+            beneficiaryList,
+            pageKey,
+            noneParticipantsNumberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
           _noneParticipantsPagingController,
           beneficiaryList,
-          pageKey,
-          noneParticipantsNumberOfPages);
+        );
+      }
     }
   }
 
@@ -195,12 +209,19 @@ class DreamsInterventionListState with ChangeNotifier {
         pageKey < enrolledNotEligibleParticipantsNumberOfPages) {
       _fetchAgyWDreamsEnrolledNotEligible(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
+      if (_noneEnrolledSearchableValue.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _enrolledNotEligibleParticipantPagingController,
+            beneficiaryList,
+            pageKey,
+            enrolledNotEligibleParticipantsNumberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
           _enrolledNotEligibleParticipantPagingController,
           beneficiaryList,
-          pageKey,
-          enrolledNotEligibleParticipantsNumberOfPages);
+        );
+      }
     }
   }
 
@@ -216,12 +237,19 @@ class DreamsInterventionListState with ChangeNotifier {
         pageKey < beneficiariesWithoutAgywDreamsCriteriaNumberOfPages) {
       _fetchBeneficiariesWithoutAgywEnrollmentCriteriaPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
+      if (_beneficiariesWithoutAgywDreamsCriteriaSearchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _beneficiariesWithoutAgywDreamsCriteriaPagingController,
+            beneficiaryList,
+            pageKey,
+            beneficiariesWithoutAgywDreamsCriteriaNumberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
           _beneficiariesWithoutAgywDreamsCriteriaPagingController,
           beneficiaryList,
-          pageKey,
-          beneficiariesWithoutAgywDreamsCriteriaNumberOfPages);
+        );
+      }
     }
   }
 
@@ -235,12 +263,19 @@ class DreamsInterventionListState with ChangeNotifier {
     if (agywList.isEmpty && pageKey < agywIncomingReferralNumberOfPages) {
       _fetchAgywPagePerIncomingReferral(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
+      if (_incomingReferralsSearchableValue.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+            _agywIncomingReferralPagingController,
+            agywList,
+            pageKey,
+            agywIncomingReferralNumberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
           _agywIncomingReferralPagingController,
           agywList,
-          pageKey,
-          agywIncomingReferralNumberOfPages);
+        );
+      }
     }
   }
 
@@ -254,9 +289,16 @@ class DreamsInterventionListState with ChangeNotifier {
     if (nonAgywList.isEmpty && pageKey != nonAgywNumberOfPages) {
       _fetchNonAgywPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-          _nonAgywPagingController, nonAgywList, pageKey, nonAgywNumberOfPages);
+      if (_nonAgywSearchableValue.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(_nonAgywPagingController,
+            nonAgywList, pageKey, nonAgywNumberOfPages);
+      } else {
+        PaginationService.assignLastPageToController(
+          _nonAgywPagingController,
+          nonAgywList,
+        );
+      }
     }
   }
 

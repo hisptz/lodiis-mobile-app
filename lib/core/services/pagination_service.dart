@@ -33,4 +33,13 @@ class PaginationService {
       }
     }
   }
+
+  static void assignLastPageToController(
+    PagingController? pagingController,
+    List beneficiaryList,
+  ) {
+    if (pagingController != null) {
+      pagingController.appendLastPage(beneficiaryList);
+    }
+  }
 }
