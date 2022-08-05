@@ -22,21 +22,18 @@ class AgywDreamHIVMessageSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-       if (inputFieldId == 'qFwm4RM45gi') {
-         if(value == 'false'){
-        hiddenFields['lvT9gfpHIlT'] = true;
-        hiddenFields['oTTL6vEpKok'] = true;
-
-         }else if (value == 'true'){
+      if (inputFieldId == 'qFwm4RM45gi') {
+        if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+        } else if (value == 'true') {
           hiddenFields['gEjigBuBTmh'] = true;
-          hiddenFields['oTTL6vEpKok'] = true;
-         }else {
-            hiddenFields['gEjigBuBTmh'] = true;
-            hiddenFields['oTTL6vEpKok'] = true;
-            hiddenFields['lvT9gfpHIlT'] = true;
-         }
+        } else {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+        }
       }
-      if(inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)'){
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
