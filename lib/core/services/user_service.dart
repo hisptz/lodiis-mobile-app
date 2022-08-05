@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserService {
+  final String userSuccessMetadataSyncKey = 'userSuccessMetadataSync';
   final String preferenceKey = 'current_user';
   final String currentUserDataEntryAuthorityPreferenceKey =
       'current_user_data_entry_authority';
@@ -77,6 +78,7 @@ class UserService {
     if (user != null) {
       user.isLogin = false;
       await setCurrentUser(user);
+      await setCurrentUserMetadatadataSyncStatus("false");
     }
   }
 
@@ -147,5 +149,16 @@ class UserService {
       preferenceKey,
       user.id!,
     );
+  }
+
+  Future setCurrentUserMetadatadataSyncStatus(dynamic status) async {
+    await PreferenceProvider.setPreferenceValue(
+        userSuccessMetadataSyncKey, "$status");
+  }
+
+  Future<bool> getCurrentUserMetadatadataSyncStatus() async {
+    var status =
+        await PreferenceProvider.getPreferenceValue(userSuccessMetadataSyncKey);
+    return "$status" == "true";
   }
 }

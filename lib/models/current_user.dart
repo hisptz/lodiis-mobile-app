@@ -83,7 +83,7 @@ class CurrentUser {
       phoneNumber: json["phoneNumber"],
       userGroups: userGroups,
       userRoles: userRoles,
-      isLogin: true,
+      isLogin: false,
       hasPreviousSuccessLogin: false,
       subImplementingPartner: subImplementingPartner,
       implementingPartner: implementingPartner,
@@ -157,7 +157,6 @@ class CurrentUser {
   }
 
   Map toOffline(CurrentUser user) {
-    print(user.hasPreviousSuccessLogin);
     var data = <String, dynamic>{};
     data['id'] = user.id;
     data['name'] = user.name;
