@@ -14,7 +14,6 @@ class OgacInterventionListState with ChangeNotifier {
   bool? _isLoading;
   int _numberOfOgac = 0;
   int _numberOfPages = 0;
-  int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
   Map _searchedAttributes = {};
   List<Map<String, dynamic>> _ogacFilters = [];
@@ -24,9 +23,14 @@ class OgacInterventionListState with ChangeNotifier {
 
   Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
-  int get numberOfOgac => _numberOfOgac;
-  int get numberOfPages =>
-      _searchedAttributes.isEmpty ? _numberOfPages : _numberOfSearchablePages;
+  int get numberOfOgac => _searchedAttributes.isEmpty
+      ? _numberOfOgac
+      : _ogacPagingController != null
+          ? _ogacPagingController!.itemList != null
+              ? _ogacPagingController!.itemList!.length
+              : 0
+          : 0;
+  int get numberOfPages => _numberOfPages;
   List<Map<String, dynamic>> get ogacFilters => _ogacFilters
       .where((Map<String, dynamic> filter) => filter.isNotEmpty)
       .toList();
@@ -77,6 +81,7 @@ class OgacInterventionListState with ChangeNotifier {
         );
       }
     }
+    notifyListeners();
   }
 
   Future<void> _getOgacBeneficiaryNumber() async {
@@ -136,8 +141,6 @@ class OgacInterventionListState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfPages =
         (numberOfOgac / PaginationConstants.paginationLimit).ceil();
-    _numberOfSearchablePages =
-        (numberOfOgac / PaginationConstants.searchingPaginationLimit).ceil();
     notifyListeners();
   }
 }

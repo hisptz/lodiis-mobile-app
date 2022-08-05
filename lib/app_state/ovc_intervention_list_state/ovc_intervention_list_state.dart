@@ -23,10 +23,8 @@ class OvcInterventionListState with ChangeNotifier {
   int _numberOfHouseholds = 0;
   int _numberOfOvcs = 0;
   int _numberOfPages = 0;
-  int _numberOfSearchablePages = 0;
   int _numberOfNoneParticipants = 0;
   int _numberOfNoneParticipantsPages = 0;
-  int _numberOfNoneParticipantsSearchablePages = 0;
   int? _nextPage = 0;
   int? _nextNoneParticipantPage = 0;
   Map _ovcSearchableValue = {};
@@ -53,15 +51,24 @@ class OvcInterventionListState with ChangeNotifier {
   Map get ovcSearchableValue => _ovcSearchableValue;
   Map get noneParticipationSearchableValue => _noneParticipationSearchableValue;
   bool get isLoading => _isLoading;
-  int get numberOfHouseholds => _numberOfHouseholds;
-  int get numberOfOvcNoneParticipants => _numberOfNoneParticipants;
-  int get numberOfOvcs => _numberOfOvcs;
-  int get numberOfPages =>
-      _ovcSearchableValue.isEmpty ? _numberOfPages : _numberOfSearchablePages;
-  int get numberOfNoneParticipantsPages =>
+  int get numberOfHouseholds => _ovcSearchableValue.isEmpty
+      ? _numberOfHouseholds
+      : _ovcPagingController != null
+          ? _ovcPagingController!.itemList != null
+              ? _ovcPagingController!.itemList!.length
+              : 0
+          : 0;
+  int get numberOfOvcNoneParticipants =>
       _noneParticipationSearchableValue.isEmpty
-          ? _numberOfNoneParticipantsPages
-          : _numberOfNoneParticipantsSearchablePages;
+          ? _numberOfNoneParticipants
+          : _ovcNoneParticipationPagingController != null
+              ? _ovcNoneParticipationPagingController!.itemList != null
+                  ? _ovcNoneParticipationPagingController!.itemList!.length
+                  : 0
+              : 0;
+  int get numberOfOvcs => _numberOfOvcs;
+  int get numberOfPages => _numberOfPages;
+  int get numberOfNoneParticipantsPages => _numberOfNoneParticipantsPages;
   List<Map<String, dynamic>> get ovcFilters => _ovcFilters
       .where((Map<String, dynamic> filter) => filter.isNotEmpty)
       .toList();
@@ -103,6 +110,7 @@ class OvcInterventionListState with ChangeNotifier {
             _ovcPagingController, ovcList);
       }
     }
+    notifyListeners();
   }
 
   Future<void> _fetchNoneParticipationPage(int pageKey) async {
@@ -127,6 +135,7 @@ class OvcInterventionListState with ChangeNotifier {
           beneficiaryList,
         );
       }
+      notifyListeners();
     }
   }
 
@@ -248,15 +257,9 @@ class OvcInterventionListState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfPages =
         (numberOfHouseholds / PaginationConstants.paginationLimit).ceil();
-    _numberOfSearchablePages =
-        (numberOfHouseholds / PaginationConstants.searchingPaginationLimit)
-            .ceil();
     _numberOfNoneParticipantsPages =
         (numberOfOvcNoneParticipants / PaginationConstants.paginationLimit)
             .ceil();
-    _numberOfNoneParticipantsSearchablePages = (numberOfOvcNoneParticipants /
-            PaginationConstants.searchingPaginationLimit)
-        .ceil();
     notifyListeners();
   }
 }
