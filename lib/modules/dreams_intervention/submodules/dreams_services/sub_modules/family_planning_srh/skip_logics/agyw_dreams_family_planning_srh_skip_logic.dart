@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsContraceptivesSkipLogic {
+class AgywDreamsFamilyPlanningSrhSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
 

@@ -40,7 +40,14 @@ class EducationBursaryInterventionState with ChangeNotifier {
   String get numberOfEducationBursaryBySex =>
       '${_numberOfEducationBursaryBySex['male'] ?? 0} Male  ${_numberOfEducationBursaryBySex['female'] ?? 0} Female';
   int get numberOfEducationBursaryWithoutVulnerability =>
-      _numberOfEducationBursaryWithoutVulnerability;
+      _bursaryWithoutVulnerabilitySearchedAttributes.isEmpty
+          ? _numberOfEducationBursaryWithoutVulnerability
+          : _bursaryWithoutVulnerabilityPagingController != null
+              ? _bursaryWithoutVulnerabilityPagingController!.itemList != null
+                  ? _bursaryWithoutVulnerabilityPagingController!
+                      .itemList!.length
+                  : 0
+              : 0;
   int get numberOfPages => _bursarySearchedAttributes.isEmpty
       ? _numberOfBursaryPages
       : _numberOfBursarySearchablePages;
@@ -96,14 +103,22 @@ class EducationBursaryInterventionState with ChangeNotifier {
         pageKey < numberOfBursaryWithoutVulnerabilityPages) {
       _fetchBursaryWithoutVulnerability(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _bursaryWithoutVulnerabilityPagingController,
-        beneficiaryList,
-        pageKey,
-        numberOfBursaryWithoutVulnerabilityPages,
-      );
+      if (_bursaryWithoutVulnerabilitySearchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _bursaryWithoutVulnerabilityPagingController,
+          beneficiaryList,
+          pageKey,
+          numberOfBursaryWithoutVulnerabilityPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _bursaryWithoutVulnerabilityPagingController,
+          beneficiaryList,
+        );
+      }
     }
+    notifyListeners();
   }
 
   Future<void> _fetchBursaryPage(int pageKey) async {
@@ -116,14 +131,22 @@ class EducationBursaryInterventionState with ChangeNotifier {
     if (bursaryList.isEmpty && pageKey < numberOfPages) {
       _fetchBursaryPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _bursaryPagingController,
-        bursaryList,
-        pageKey,
-        numberOfPages,
-      );
+      if (_bursarySearchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _bursaryPagingController,
+          bursaryList,
+          pageKey,
+          numberOfPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _bursaryPagingController,
+          bursaryList,
+        );
+      }
     }
+    notifyListeners();
   }
 
   Future<void> _getBursaryBeneficiaryNumber() async {

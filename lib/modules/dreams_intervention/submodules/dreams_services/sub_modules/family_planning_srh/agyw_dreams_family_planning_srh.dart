@@ -17,23 +17,24 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/contraceptives/pages/agyw_dreams_contraceptives_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/family_planning_srh/pages/agyw_dreams_family_planning_srh_form.dart';
 import 'package:provider/provider.dart';
 
-import 'constants/contraceptives_constant.dart';
+import 'constants/family_planning_srh_constant.dart';
 
-class AgywDreamContraceptives extends StatefulWidget {
-  const AgywDreamContraceptives({Key? key}) : super(key: key);
+class AgywDreamFamilyPlanningSrh extends StatefulWidget {
+  const AgywDreamFamilyPlanningSrh({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamContraceptivesState createState() =>
-      _AgywDreamContraceptivesState();
+  _AgywDreamFamilyPlanningSrhState createState() =>
+      _AgywDreamFamilyPlanningSrhState();
 }
 
-class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
-  final String label = 'Contraceptives';
-  List<String> programStageIds = [ContraceptivesConstant.programStage];
+class _AgywDreamFamilyPlanningSrhState
+    extends State<AgywDreamFamilyPlanningSrh> {
+  final String label = 'Family planning/SRH';
+  List<String> programStageIds = [FamilyPlanningSrhConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -44,7 +45,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
     String? beneficiaryId = agywDream.id;
     String eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsFamilyPlanningSrhPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -58,7 +59,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AgywDreamsContraceptivesForm(),
+          builder: (context) => const AgywDreamsFamilyPlanningSrhForm(),
         ),
       );
     }
@@ -69,7 +70,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const AgywDreamsContraceptivesForm(),
+        builder: (context) => const AgywDreamsFamilyPlanningSrhForm(),
       ),
     );
   }
@@ -80,7 +81,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
     String? beneficiaryId = agywDream.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsContraceptivesPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsFamilyPlanningSrhPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -92,7 +93,7 @@ class _AgywDreamContraceptivesState extends State<AgywDreamContraceptives> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AgywDreamsContraceptivesForm(),
+          builder: (context) => const AgywDreamsFamilyPlanningSrhForm(),
         ),
       );
     }
