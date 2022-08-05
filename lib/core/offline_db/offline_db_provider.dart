@@ -4,11 +4,11 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class OfflineDbProvider {
-  final String databaseName = "kb_ovc_dreams_mobile_app_testing";
+  final String databaseName = "lodiis_testing";
   Database? _db;
   // Script for migrations as well as initialization of tables
   final List<String> initialQuery = [
-    "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER, subImplementingPartner TEXT, phoneNumber TEXT email TEXT, userRoles TEXT, userGroups TEXT, hasPreviousSuccessLogin TEXT)",
+    "CREATE TABLE IF NOT EXISTS current_user (id TEXT PRIMARY KEY, name TEXT, username TEXT, password TEXT , implementingPartner TEXT ,isLogin INTEGER, subImplementingPartner TEXT, phoneNumber TEXT, email TEXT, userRoles TEXT, userGroups TEXT, hasPreviousSuccessLogin TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_ou (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS current_user_program (id TEXT PRIMARY KEY, userId TEXT)",
     "CREATE TABLE IF NOT EXISTS organisation_unit (id TEXT PRIMARY KEY, name TEXT, code TEXT, parent TEXT, level NUMBER)",
@@ -31,19 +31,7 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS form_auto_save (id TEXT PRIMARY KEY, beneficiaryId TEXT, pageModule TEXT, nextPageModule TEXT, data TEXT)"
   ];
 
-  final List<String> migrationQuery = [
-    //TODO remove this on release v2.0
-    "CREATE TABLE IF NOT EXISTS form_auto_save (id TEXT PRIMARY KEY, beneficiaryId TEXT, pageModule TEXT, nextPageModule TEXT, data TEXT)",
-    "UPDATE tracked_entity_instance_attribute SET value = 'JHPIEGO' WHERE attribute = 'klLkGxy328c' AND value = 'JPHIEGO'",
-    "ALTER TABLE current_user ADD subImplementingPartner TEXT DEFAULT ''",
-    "ALTER TABLE current_user ADD phoneNumber TEXT DEFAULT 'phoneNumber'",
-    "ALTER TABLE current_user ADD email TEXT DEFAULT 'email'",
-    "ALTER TABLE current_user ADD userRoles TEXT DEFAULT 'userRoles'",
-    "ALTER TABLE current_user ADD userGroups TEXT DEFAULT 'userGroups'",
-    "ALTER TABLE tei_relationships ADD syncStatus TEXT DEFAULT 'not-synced'",
-    "ALTER TABLE enrollment ADD searchableValue TEXT DEFAULT ''",
-    "ALTER TABLE current_user ADD hasPreviousSuccessLogin TEXT DEFAULT ''",
-  ];
+  final List<String> migrationQuery = [];
   Future<Database?> get db async {
     if (_db != null) {
       return _db;
