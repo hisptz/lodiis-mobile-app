@@ -50,7 +50,9 @@ class WorkmanagerService {
     var reAssessmentEvaluationTask =
         WorkmanagerConstants.reAssessmentEvaluation;
     var syncTimeOut = const Duration(minutes: AutoSynchronization.syncInterval);
-    var reAssessmentTimeout = const Duration(hours: 23);
+    // TODO Add a re-assessment timeout
+    // var reAssessmentTimeout = const Duration(hours: 23);
+    var reAssessmentTimeout = syncTimeOut;
     var autoSync = await PreferenceProvider.getPreferenceValue(
       WorkmanagerConstants.autoSync,
     );

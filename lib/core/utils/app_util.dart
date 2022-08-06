@@ -314,6 +314,7 @@ class AppUtil {
     required BuildContext context,
     required Widget containerBody,
     Widget? title,
+    Color? backgroundColor,
     double initialHeightRatio = 0.3,
     double minHeightRatio = 0.1,
     double maxHeightRatio = 0.85,
@@ -343,10 +344,10 @@ class AppUtil {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
-                  decoration: const BoxDecoration(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(8.0)),
-                      color: Colors.white),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(8.0)),
+                      color: backgroundColor ?? Colors.white),
                   child: Column(
                     children: [
                       Visibility(
