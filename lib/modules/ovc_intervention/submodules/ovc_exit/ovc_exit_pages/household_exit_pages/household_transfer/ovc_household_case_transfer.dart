@@ -101,6 +101,7 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
           trackedEntityInstance: currentOvcHousehold.id,
           orgUnit: currentOvcHousehold.orgUnit,
           dataObject: {programStatusId: ProgramStatus.transferred},
+          inputFieldIds: [programStatusId]
         );
         Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();

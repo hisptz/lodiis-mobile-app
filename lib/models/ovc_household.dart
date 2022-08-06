@@ -20,6 +20,7 @@ class OvcHousehold {
   String? ovcMaleCount;
   String? ovcFemaleCount;
   String? houseHoldStatus;
+  String? houseHoldCategorization;
   String? implementingPartner;
   String? searchableValue;
   bool? enrollmentOuAccessible;
@@ -45,6 +46,7 @@ class OvcHousehold {
       this.createdDate,
       this.ovcFemaleCount,
       this.houseHoldStatus,
+      this.houseHoldCategorization,
       this.searchableValue,
       this.enrollmentOuAccessible,
       this.implementingPartner,
@@ -73,6 +75,7 @@ class OvcHousehold {
       'PN92g65TkVI',
       'RB8Wx75hGa4',
       'qZP982qpSPS',
+      BeneficiaryIdentification.householdCategorization,
       UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
@@ -80,6 +83,8 @@ class OvcHousehold {
     Map<String, dynamic> data = {};
     for (Map attributeObject in tei.attributes) {
       String? attribute = attributeObject['attribute'];
+     
+
       if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
@@ -105,6 +110,7 @@ class OvcHousehold {
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
+      houseHoldCategorization:data['uetInX0KTfc']??'',
       implementingPartner:
           data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,

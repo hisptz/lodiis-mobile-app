@@ -89,6 +89,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
           trackedEntityInstance: currentOvcHousehold.id,
           orgUnit: currentOvcHousehold.orgUnit,
           dataObject: {programStatusId: ProgramStatus.exit},
+          inputFieldIds: [programStatusId]
         );
         Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();
