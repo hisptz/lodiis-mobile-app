@@ -165,10 +165,10 @@ class AppUtil {
     return position;
   }
 
-  static int getAgeInYear(String? dateOfBirth) {
+  static int getAgeInYear(String? dateOfBirth, {DateTime? currentDate}) {
     int age = 0;
     try {
-      DateTime currentDate = DateTime.now();
+      currentDate = currentDate ?? DateTime.now();
       DateTime birthDate = dateOfBirth != null && dateOfBirth != ''
           ? getDateIntoDateTimeFormat(dateOfBirth)
           : getDateIntoDateTimeFormat(formattedDateTimeIntoString(currentDate));
