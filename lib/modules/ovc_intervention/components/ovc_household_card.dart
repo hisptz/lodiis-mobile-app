@@ -113,8 +113,22 @@ class OvcHouseholdCard extends StatelessWidget {
     );
   }
 
+  onCategorizationColor() {
+    String? categorizationValue = ovcHousehold.houseHoldCategorization;
+    if (categorizationValue == 'Red: HH visited/monitored regularly') {
+      return Colors.redAccent;
+    } else if (categorizationValue == 'Yellow: HH visited/monitored monthly') {
+      return Colors.yellowAccent;
+    } else if (categorizationValue == 'Green: HH visited/monitored quarterly') {
+      return Colors.greenAccent;
+    } else {
+      return Colors.transparent;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    onCategorizationColor();
     return Container(
       margin: const EdgeInsets.only(
         bottom: 16.0,
@@ -122,6 +136,7 @@ class OvcHouseholdCard extends StatelessWidget {
         left: 13.0,
       ),
       child: MaterialCard(
+        borderColor: onCategorizationColor(),
         body: Column(
           children: [
             OvcHouseholdCardHeader(

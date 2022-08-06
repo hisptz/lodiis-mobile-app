@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_route
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/hts_consent.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/pages/agyw_dreams_htc_client_decline_service.dart';
 import 'package:provider/provider.dart';
 import 'agyw_dreams_hts_client_information.dart';
 
@@ -45,6 +46,15 @@ class _AgywDreamsHTSConsentFormSubpartState
   Map mandatoryFieldObject = {};
   List<String> mandatoryFields = [];
   List unFilledMandatoryFields = [];
+  List<String> consentFields = [
+    'rguXA70zATn',
+    'TcN49hQNZiG',
+    'HZ4BrWoGNIO',
+    'Gl7NGINbUAV',
+    'yVYVJe26S4u',
+    'B4xx1IVaAnI',
+    'rY4ei8RNw6c'
+  ];
 
   @override
   void initState() {
@@ -99,15 +109,6 @@ class _AgywDreamsHTSConsentFormSubpartState
   }
 
   bool isConsentGiven(Map dataObject) {
-    List<String> consentFields = [
-      'rguXA70zATn',
-      'TcN49hQNZiG',
-      'HZ4BrWoGNIO',
-      'Gl7NGINbUAV',
-      'yVYVJe26S4u',
-      'B4xx1IVaAnI',
-      'rY4ei8RNw6c'
-    ];
     return !consentFields.every((field) =>
         '${dataObject[field]}' == 'false' || '${dataObject[field]}' == 'null');
   }
@@ -130,10 +131,23 @@ class _AgywDreamsHTSConsentFormSubpartState
           ),
         );
       } else {
+       if (consentFields.every((field) => '${dataObject[field]}' == 'false')) {
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
+            getNoOfPartners(agywDream!);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSClientServices(
+              isComingFromPrep: isComingFromPrep,
+            ),
+          ),
+        );
+      } else {
         AppUtil.showToastMessage(
           message: 'Cannot proceed without consent',
           position: ToastGravity.TOP,
         );
+      }
       }
     } else {
       AppUtil.showToastMessage(

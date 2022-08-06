@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsPostGbvSkipLogic {
+class AgywDreamsPostGbvLegalSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
 
@@ -22,7 +22,7 @@ class AgywDreamsPostGbvSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-        if (inputFieldId == 'mnYT2rZyGgJ') {
+      if (inputFieldId == 'qML4gVZ2UFc') {
         if (value == 'false') {
           hiddenFields['lvT9gfpHIlT'] = true;
         } else if (value == 'true') {

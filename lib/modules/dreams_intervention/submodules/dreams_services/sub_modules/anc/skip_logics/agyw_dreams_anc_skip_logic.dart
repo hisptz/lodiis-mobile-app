@@ -22,9 +22,20 @@ class AgywDreamsANCSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['irtbsom4W8P'] = true;
-        hiddenFields['m4cRnpwgOlY'] = true;
+      if (inputFieldId == 'irtbsom4W8P') {
+        if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['m4cRnpwgOlY'] = true;
+        } else if (value == 'true') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        } else {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+          hiddenFields['m4cRnpwgOlY'] = true;
+        }
+      }
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

@@ -3,18 +3,18 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class DreamsContraceptivesForm {
+class DreamsPostGBVLEGALInfo {
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
     return [
       FormSection(
-          name: 'Family planning/SRH',
+          name: 'Post GBV(legal)',
           color: const Color(0xFF737373),
           inputFields: [
-             InputField(
-              id: 'uciT2F6ByYO',
-              name: 'Family planning/SRH',
+            InputField(
+              id: 'qML4gVZ2UFc',
+              name: 'Post GBV Services (legal)',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
@@ -27,18 +27,18 @@ class DreamsContraceptivesForm {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),
-             InputField(
+              InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(code: 'Religion/Culture', name: 'Religion/Culture'),
-                InputFieldOption(code: 'Service already provided', name: 'Service already provided (by other provider)'),
-                InputFieldOption(code: 'NotReady', name: 'Not Ready'),
-                InputFieldOption(code: 'HealthConcerns', name: 'Health Concerns'),
-                InputFieldOption(code: 'AccessIssues', name: 'Access Issues (resources, time)'),
-                InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
-                InputFieldOption(code: 'Other(s)', name: 'Other(s)')
+                 InputFieldOption(code: 'Service already provided', name: 'Service already provided (by other provider)'),
+                  InputFieldOption(code: 'NotReady', name: 'Not Ready'),
+                   InputFieldOption(code: 'HealthConcerns', name: 'Health Concerns'),
+                    InputFieldOption(code: 'AccessIssues', name: 'Access Issues (resources, time)'),
+                     InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
+                      InputFieldOption(code: 'Other(s)', name: 'Other(s)')
               ],
               firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),
@@ -52,6 +52,7 @@ class DreamsContraceptivesForm {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),
+            
           ])
     ];
   }
