@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_case_plan_service_provision_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_service_provision_household_to_ovc_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_service_provision_util.dart';
 import 'package:provider/provider.dart';
 
@@ -108,7 +109,6 @@ class _CasePlanGapServiceProvisionFormContainerState
       bool isSessionNumberExit = sessionNumberValidation["isSessionNumberExit"];
       bool isSessionNumberInValid =
           sessionNumberValidation["isSessionNumberInValid"];
-      //TODO propegate service for childdren on household
       if (!isSessionNumberExit && !isSessionNumberInValid) {
         _isSaving = true;
         setState(() {});
@@ -139,6 +139,18 @@ class _CasePlanGapServiceProvisionFormContainerState
             widget.gapServiceObject['eventId'],
             [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
           );
+          if (widget.isHouseholdCasePlan) {
+            await OvcCasePlanServiceProvisionHouseholdToOvcUtil
+                .autoSyncOvcsCasePlanServiceProvisions(
+              childrens: Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                          listen: false)
+                      .currentOvcHousehold!
+                      .children ??
+                  [],
+              dataObject: widget.gapServiceObject,
+              domainId: widget.domainId,
+            );
+          }
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(beneficiary.trackedEntityInstance);
           String? currentLanguage =
