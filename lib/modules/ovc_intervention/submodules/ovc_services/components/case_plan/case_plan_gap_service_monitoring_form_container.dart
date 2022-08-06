@@ -17,6 +17,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_service_monitoring_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_service_monitoring_household_to_ovc_util.dart';
 import 'package:provider/provider.dart';
 
 class CasePlanGapServiceMonitoringFormContainer extends StatefulWidget {
@@ -91,7 +92,6 @@ class _CasePlanGapServiceMonitoringFormContainerState
       dataObject: widget.gapServiceMonitoringObject,
     );
     if (hasAtLeasrOnFieldFilled) {
-      //TODO propegate service for childdren on household
       _isSaving = true;
       setState(() {});
       try {
@@ -124,6 +124,18 @@ class _CasePlanGapServiceMonitoringFormContainerState
           widget.gapServiceMonitoringObject['eventId'],
           hiddenFields,
         );
+        if (widget.isHouseholdCasePlan) {
+          await OvcCasePlanServiceMonitoringHouseholdToOvcUtil
+              .autoSyncOvcsCasePlanServiceMonitoring(
+            childrens: Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                        listen: false)
+                    .currentOvcHousehold!
+                    .children ??
+                [],
+            dataObject: widget.gapServiceMonitoringObject,
+            domainId: widget.domainId,
+          );
+        }
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(beneficiary.trackedEntityInstance);
         String? currentLanguage =

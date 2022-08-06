@@ -33,6 +33,7 @@ class CurrentUserState with ChangeNotifier {
   bool? _canManagePOSTGBV;
   bool? _canManagePEP;
   bool? _canManageServiceForm;
+  bool? _canManagePOSTGBVLegal;
 
   // selectors
   CurrentUser? get currentUser => _currentUser;
@@ -62,6 +63,7 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageCondom => _canManageCondom ?? false;
   bool get canManageContraceptives => _canManageContraceptives ?? false;
   bool get canManagePOSTGBV => _canManagePOSTGBV ?? false;
+  bool get canManagePOSTGBVLegal => _canManagePOSTGBVLegal ?? false;
   bool get canManagePEP => _canManagePEP ?? false;
   bool get canManageServiceForm => _canManageServiceForm ?? false;
 
@@ -122,6 +124,8 @@ class CurrentUserState with ChangeNotifier {
               userAccesses['canManageServiceForm'] == true;
       _canManagePOSTGBV = userAccesses.containsKey('canManagePOSTGBV') &&
           userAccesses['canManagePOSTGBV'] == true;
+      _canManagePOSTGBVLegal = userAccesses.containsKey('canManagePOSTGBVLegal') &&
+          userAccesses['canManagePOSTGBVLegal'] == true;
     } catch (error) {
       //
     }

@@ -26,6 +26,12 @@ class InterventionBottomNavigation {
       svgIcon: 'assets/icons/bursary-navigation-icon.svg',
     ),
     InterventionBottomNavigation(
+      id: 'enrollment',
+      name: 'Enrollment',
+      translatedName: 'Ngoliso',
+      svgIcon: 'assets/icons/enrollment-navigation-icon.svg',
+    ),
+    InterventionBottomNavigation(
       id: 'services',
       name: 'Services',
       translatedName: 'Litsebeletso',
@@ -45,12 +51,6 @@ class InterventionBottomNavigation {
       id: 'incomingReferral',
       name: 'Incoming Referral',
       svgIcon: 'assets/icons/incoming-referral-navigation-icon.svg',
-    ),
-    InterventionBottomNavigation(
-      id: 'enrollment',
-      name: 'Enrollment',
-      translatedName: 'Ngoliso',
-      svgIcon: 'assets/icons/enrollment-navigation-icon.svg',
     ),
     InterventionBottomNavigation(
       id: 'exit',

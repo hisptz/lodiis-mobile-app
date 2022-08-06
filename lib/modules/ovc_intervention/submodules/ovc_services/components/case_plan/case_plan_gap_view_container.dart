@@ -96,7 +96,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
         var eventId = response['eventId'] ?? '';
         if (isOnEdit) {
           dataObject['gaps'] = dataObject['gaps']
-              .where((Map gap) => gap['eventId'] != eventId)
+              .where((dynamic gap) => gap['eventId'] != eventId)
               .toList();
         }
         dataObject['gaps'].add(response);

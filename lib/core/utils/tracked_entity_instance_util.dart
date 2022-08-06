@@ -55,8 +55,6 @@ class TrackedEntityInstanceUtil {
             appAndDeviceTrackingDataElement;
     inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
     eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
-    dataObject.remove('eventId');
-    dataObject.remove('eventDate');
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);

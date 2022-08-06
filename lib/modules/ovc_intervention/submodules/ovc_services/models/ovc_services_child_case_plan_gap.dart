@@ -311,7 +311,7 @@ class OvcServicesChildCasePlanGap {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'HKCv7lkLexo',
-                name: 'HIV ADHERANCE SUPPORT ',
+                name: 'HIV ADHERANCE SUPPORT',
                 translatedName: 'Tšebeletso ea HIV ADHERANCE SUPPORT',
                 valueType: 'TRUE_ONLY',
                 inputColor: const Color(0xFF4D9E49),

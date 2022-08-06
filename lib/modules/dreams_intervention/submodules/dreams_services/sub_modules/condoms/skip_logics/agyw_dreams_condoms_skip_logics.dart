@@ -22,12 +22,20 @@ class AgywDreamsCondomsSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['sdgj99xGuv3'] = true;
-        hiddenFields['uciT2F6ByYO'] = true;
+        if (inputFieldId == 'uciT2F6ByYO') {
+        if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['sdgj99xGuv3'] = true;
+        } else if (value == 'true') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        } else {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+           hiddenFields['sdgj99xGuv3'] = true;
+        }
       }
-      if (inputFieldId == 'uciT2F6ByYO' && value != 'true') {
-        hiddenFields['sdgj99xGuv3'] = true;
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

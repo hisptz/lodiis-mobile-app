@@ -103,8 +103,8 @@ class CasePlanHomeList extends StatelessWidget {
                         ),
                         _getActionButton(
                           icon: 'assets/icons/expand_icon.svg',
-                          onTap: () =>
-                              onViewCasePlan(casePlanByDates[casePlanDate]),
+                          onTap: () => onViewCasePlan(
+                              casePlanByDates[casePlanDate], casePlanDate),
                         ),
                         Visibility(
                           visible: hasEditAccess &&
@@ -112,8 +112,8 @@ class CasePlanHomeList extends StatelessWidget {
                                   isOnCasePlanServiceProvision),
                           child: _getActionButton(
                             icon: 'assets/icons/edit-icon.svg',
-                            onTap: () =>
-                                onEditCasePlan(casePlanByDates[casePlanDate]),
+                            onTap: () => onEditCasePlan(
+                                casePlanByDates[casePlanDate], casePlanDate),
                           ),
                         ),
                       ],

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/constants/agyw_dreams_hts_constant.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsPostGbvSkipLogic {
+class AgywDreamsHTCServiceDecline {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
 
@@ -20,18 +21,10 @@ class AgywDreamsPostGbvSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersDataElementKey] =
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey];
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-        if (inputFieldId == 'mnYT2rZyGgJ') {
-        if (value == 'false') {
-          hiddenFields['lvT9gfpHIlT'] = true;
-        } else if (value == 'true') {
-          hiddenFields['gEjigBuBTmh'] = true;
-        } else {
-          hiddenFields['lvT9gfpHIlT'] = true;
-          hiddenFields['gEjigBuBTmh'] = true;
-        }
-      }
       if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
         hiddenFields['oTTL6vEpKok'] = true;
       }
@@ -77,4 +70,6 @@ class AgywDreamsPostGbvSkipLogic {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(inputFieldId, value);
   }
+
+
 }
