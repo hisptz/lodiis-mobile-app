@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -132,14 +133,12 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         beneficiary: beneficiary,
       );
       if (widget.isHouseholdCasePlan) {
-      String houseHoldCategorizationAttribute = 'uetInX0KTfc';
       String houseHoldCategorizationDataElement = 'aEJnSplwvsw';
-
         await OvcEnrollmentHouseholdService().updateHouseholdStatus(
           trackedEntityInstance: currentOvcHousehold?.id,
           orgUnit: currentOvcHousehold?.orgUnit,
-          dataObject: {houseHoldCategorizationAttribute: dataObject['house_hold_categorization'][houseHoldCategorizationDataElement]},
-          inputFieldIds: [houseHoldCategorizationAttribute]
+          dataObject: {BeneficiaryIdentification.householdCategorization: dataObject['house_hold_categorization'][houseHoldCategorizationDataElement]},
+          inputFieldIds: [BeneficiaryIdentification.householdCategorization]
         );
           Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();
@@ -186,7 +185,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     required Map dataObject,
     required TrackedEntityInstance beneficiary,
   }) async {
-    print("goal");
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];

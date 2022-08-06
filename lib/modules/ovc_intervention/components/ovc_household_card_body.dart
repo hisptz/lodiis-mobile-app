@@ -12,7 +12,6 @@ class OvcHouseholdCardBody extends StatelessWidget {
   }) : super(key: key);
 
   final OvcHousehold ovcHousehold;
-
   Expanded _getOvcHouseholdDetailsWidget({
     required String value,
     required int flex,
