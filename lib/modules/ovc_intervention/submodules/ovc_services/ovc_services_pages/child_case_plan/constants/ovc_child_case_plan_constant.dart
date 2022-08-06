@@ -15,10 +15,7 @@ class OvcChildCasePlanConstant {
       OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
       OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
       //Tippy tap
-      "DQxqyncQtwm",
-      "P4I6rK6Xqxw",
-      "WFKe1YpH1uK",
-      "YJXb5rSVP0L",
+      "DQxqyncQtwm", "P4I6rK6Xqxw", "WFKe1YpH1uK", "YJXb5rSVP0L",
       //Soackage pit
       "qTf8VSoojJ2", "ontonbgTJ8k", "AjYKLfIQPtT", "M2Aqvn027cd",
       //washmessage
@@ -35,6 +32,55 @@ class OvcChildCasePlanConstant {
       "e6NV2ZAzFEh", "JtfKB58MvNK", "MMjndp2xsoQ", "Hdf3EtTGfAb",
       //KPlot
       "WrjNxZBVHCL", "NWBZilCPutW", "boUUP8UeWDL", "d3k97F0fS2y",
+    ],
+  };
+
+  static const Map<String, List<String>>
+      domainToAutopopuledCasePlanServiceProvision = {
+    "Health": [
+      //Defult for events
+      "eventDate",
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      //Tippy tap
+      "FRWCmEerPic", "lQYnoeqfKpe", "IiIVDSKX8yk",
+      //Soackage pit
+      "qL9c5r7c6kK", "pUphS6E1Gu5", "k5RGRpWRbbs", "SODPuEmHEGV",
+      //washmessage
+      "gV77yUM8NK8",
+      "aqJBZDBzh4m", "EtENRPlSnO0", "JFlnkaXlXm5"
+    ],
+    "Stable": [
+      //Defult for events
+      "eventDate",
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      //Silc
+      "xTO562B5g53", "uOMr56xoKDh", "hMdC0CMKSGn",
+      //KPlot
+      "lEkrLOFmLrH", "F8ALMOcc6C1", "ereN7hP7yuT", "p77CBdxxtHI"
+    ],
+  };
+
+  static const Map<String, List<String>>
+      domainToAutopopuledCasePlanServiceMonitoring = {
+    "Health": [
+      //Defult for events
+      "eventDate",
+      "eventId",
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      //Tippy tap
+
+      //Soackage pit
+
+      //washmessage
+    ],
+    "Stable": [
+      //Defult for events
+      "eventDate",
+      "eventId",
+      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      //Silc
+
+      //KPlot
     ],
   };
 }
