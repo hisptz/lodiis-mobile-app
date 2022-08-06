@@ -294,6 +294,51 @@ class EventOfflineProvider extends OfflineDbProvider {
       ..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
   }
 
+  Future<List<Events>> getEventByTeiByEventDateByProgramStage({
+    required String date,
+    required String programStageId,
+    required String teiId,
+  }) async {
+    List<Events> events = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [
+          id,
+          event,
+          eventDate,
+          program,
+          programStage,
+          trackedEntityInstance,
+          status,
+          orgUnit,
+          syncStatus,
+        ],
+        where:
+            '$eventDate = ? AND $programStage = ? AND $trackedEntityInstance = ?',
+        whereArgs: [
+          date,
+          programStageId,
+          teiId,
+        ],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          List dataValues = await EventOfflineDataValueProvider()
+              .getEventDataValuesByEventId(map['id']);
+          Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+          eventData.dataValues = dataValues;
+          events.add(eventData);
+        }
+      }
+    } catch (e) {
+      //
+    }
+
+    return events;
+  }
+
   Future<int> getEventsByProgramCount(
       {String programId = '', String programStageId = ''}) async {
     int? offlineEventsCount;
