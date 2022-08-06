@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_for_re_assessment.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentPage extends StatefulWidget {
@@ -62,6 +67,40 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
     }
   }
 
+  void onViewBeneficiariesWhoRequireReAssessment(BuildContext context) {
+    var primaryColor =
+        Provider.of<InterventionCardState>(context, listen: false)
+            .currentInterventionProgram
+            .primaryColor;
+    var backgroundColor = Color.alphaBlend(
+        (primaryColor ?? Colors.white).withOpacity(0.1), Colors.white);
+    AppUtil.showActionSheetModal(
+        context: context,
+        containerBody: const AgywDreamForReAssessment(),
+        backgroundColor: backgroundColor,
+        title: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                'AGYW DREAMS Beneficiaries for Re-assessment',
+                style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 14.0,
+                    color: primaryColor ?? Colors.black),
+              ),
+            ),
+            LineSeparator(
+              color: primaryColor ?? Colors.black,
+              height: 1.0,
+            ),
+          ],
+        ),
+        initialHeightRatio: 0.8,
+        minHeightRatio: 0.7,
+        maxHeightRatio: 0.85);
+  }
+
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
     dreamInterventionListState.refreshAgywDreamsList();
@@ -69,16 +108,22 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DreamsInterventionListState>(
-      builder: (context, dreamInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
-          showFilter: true,
-          bodyContents: _buildBody(),
-        );
-      },
-    );
+    return Consumer<DreamsRaAssessmentListState>(
+        builder: (context, dreamsRaAssessmentListState, child) {
+      return Consumer<DreamsInterventionListState>(
+        builder: (context, dreamInterventionListState, child) {
+          return SubModuleHomeContainer(
+            onOpenInfo: () =>
+                onViewBeneficiariesWhoRequireReAssessment(context),
+            hasInfo: dreamsRaAssessmentListState.numberOfDreamsToReAssess > 0,
+            header:
+                '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+            showFilter: true,
+            bodyContents: _buildBody(),
+          );
+        },
+      );
+    });
   }
 
   Widget _buildBody() {

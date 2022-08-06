@@ -20,6 +20,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String status = 'status';
   final String syncStatus = 'syncStatus';
   final String searchableValue = 'searchableValue';
+  final String shouldReAssess = 'shouldReAssess';
 
   addOrUpdateEnrollment(Enrollment enrollment) async {
     var dbClient = await db;
@@ -73,7 +74,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             status,
             syncStatus,
             searchableValue,
-            trackedEntityInstance
+            trackedEntityInstance,
+            shouldReAssess
           ],
           where: '$program = ?',
           orderBy: '$enrollmentDate DESC',
@@ -107,7 +109,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
           orgUnit,
           status,
           syncStatus,
-          trackedEntityInstance
+          trackedEntityInstance,
+          shouldReAssess
         ],
         orderBy: '$enrollmentDate DESC',
         limit: PaginationConstants.searchingPaginationLimit,
@@ -179,7 +182,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
               incidentDate,
               program,
               orgUnit,
-              trackedEntityInstance
+              trackedEntityInstance,
+              shouldReAssess
             ],
             where: "$trackedEntityInstance IN ($questionMarks)",
             whereArgs: [...teiIdsChunk]);
@@ -254,7 +258,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
               orgUnit,
               status,
               syncStatus,
-              trackedEntityInstance
+              trackedEntityInstance,
+              shouldReAssess
             ],
             where:
                 "$trackedEntityInstance IN ($questionMarks) AND $program = ?",
@@ -281,11 +286,25 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
   Future<int> getOfflineEnrollmentsCount(
       String? programId, String? orgUnitId) async {
     int? offlineEnrollmentsCount;
+    String params = programId == null && orgUnitId == null
+        ? ''
+        : programId == null
+            ? orgUnitId == null
+                ? 'WHERE $program = ?'
+                : '$orgUnit = ?'
+            : 'WHERE $program = ? AND $orgUnit = ?';
+
+    List<String> paramsArgs = programId == null && orgUnitId == null
+        ? []
+        : programId == null
+            ? ['$orgUnitId']
+            : orgUnitId == null
+                ? [programId]
+                : [programId, orgUnitId];
     try {
       var dbClient = await db;
-      offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
-          'SELECT COUNT(*) FROM $table WHERE $program = ? AND $orgUnit = ?',
-          ['$programId', '$orgUnitId']));
+      offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!
+          .rawQuery('SELECT COUNT(*) FROM $table $params', paramsArgs));
     } catch (e) {
       //
     }
@@ -304,6 +323,61 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return offlineEnrollmentsCount ?? 0;
   }
 
+  Future<int> getEnrollmentToReassessCount(String programId) async {
+    int? offlineEnrollmentsCount;
+    var reAssessStatus = 'true';
+    try {
+      var dbClient = await db;
+      offlineEnrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ? AND $shouldReAssess = ?',
+          [
+            programId,
+            reAssessStatus,
+          ]));
+    } catch (e) {
+      //
+    }
+    return offlineEnrollmentsCount ?? 0;
+  }
+
+  Future<List<Enrollment>> getEnrollmentToReassess({
+    int? page,
+  }) async {
+    var reAssessStatus = 'true';
+    List<Enrollment> enrollments = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(table,
+          columns: [
+            enrollment,
+            enrollmentDate,
+            incidentDate,
+            program,
+            orgUnit,
+            status,
+            syncStatus,
+            trackedEntityInstance,
+            shouldReAssess
+          ],
+          where: '$shouldReAssess = ?',
+          whereArgs: [reAssessStatus],
+          limit: page != null
+              ? PaginationConstants.dataUploadPaginationLimit
+              : null,
+          offset: page != null
+              ? page * PaginationConstants.dataUploadPaginationLimit
+              : null);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return enrollments;
+  }
+
   Future<List<Enrollment>> getEnrollmentByStatus(
     String enrollmentSyncStatus, {
     int? page,
@@ -320,7 +394,8 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             orgUnit,
             status,
             syncStatus,
-            trackedEntityInstance
+            trackedEntityInstance,
+            shouldReAssess
           ],
           where: '$syncStatus = ?',
           whereArgs: [enrollmentSyncStatus],

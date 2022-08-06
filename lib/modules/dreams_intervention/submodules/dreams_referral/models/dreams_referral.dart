@@ -135,8 +135,11 @@ class DreamsReferral {
                             name: 'Financial Literacy (Education)'),
                         InputFieldOption(
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
+                        InputFieldOption(code: 'PEP', name: 'PEP'),
                         InputFieldOption(
-                            code: 'STEPPING STONES', name: 'STEPPING STONES'),
+                          code: 'Parenting',
+                          name: 'Parenting for caregivers',
+                        ),
                       ]),
                   InputField(
                     id: 'ubB83OWNWsv',
@@ -245,8 +248,11 @@ class DreamsReferral {
                             name: 'Financial Literacy (Education)'),
                         InputFieldOption(
                             code: 'SAVING GROUPS', name: 'SAVING GROUPS'),
+                        InputFieldOption(code: 'PEP', name: 'PEP'),
                         InputFieldOption(
-                            code: 'STEPPING STONES', name: 'STEPPING STONES'),
+                          code: 'Parenting',
+                          name: 'Parenting for caregivers',
+                        ),
                       ]),
                   InputField(
                     id: 'jOXN2iPhkxj',
