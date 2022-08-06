@@ -41,11 +41,11 @@ class OvcCasePlanService {
   }
 
   Future<List<CasePlanGapServiceProvisionEvent>>
-      getCasePlanServiveProvisonEvents({
-    required String date,
-    required String programStageId,
-    required String teiId,
-  }) async {
+      getCasePlanServiveProvisonEvents(
+          {required String date,
+          required String programStageId,
+          required String teiId,
+          required String casePlanGapToServiceProvisionLinkage}) async {
     List<Events> events =
         await EventOfflineProvider().getEventByTeiByEventDateByProgramStage(
       date: date,
@@ -55,6 +55,10 @@ class OvcCasePlanService {
     return events
         .map((eventData) => CasePlanGapServiceProvisionEvent()
             .toDataModel(eventData: eventData))
+        .toList()
+        .where((gapService) =>
+            gapService.casePlanGapToServiceProvisionLinkage ==
+            casePlanGapToServiceProvisionLinkage)
         .toList();
   }
 
@@ -63,6 +67,7 @@ class OvcCasePlanService {
     required String date,
     required String programStageId,
     required String teiId,
+    required String casePlanGapToServiceMonitoringLinkage,
   }) async {
     List<Events> events =
         await EventOfflineProvider().getEventByTeiByEventDateByProgramStage(
@@ -73,6 +78,10 @@ class OvcCasePlanService {
     return events
         .map((eventData) => CasePlanGapServiceMonitoringEvent()
             .toDataModel(eventData: eventData))
+        .toList()
+        .where((gapServiceMonitoring) =>
+            gapServiceMonitoring.casePlanGapToServiceMonitoringLinkage ==
+            casePlanGapToServiceMonitoringLinkage)
         .toList();
   }
 }
