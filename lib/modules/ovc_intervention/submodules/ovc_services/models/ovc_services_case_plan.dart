@@ -6,36 +6,33 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class OvcServicesCasePlan {
   static List<FormSection> getFormSections() {
     return [
-FormSection(
-  name: 'Household Categorization', 
-  color: const Color(0xFF4D9E49),
-  id:'house_hold_categorization',
-  inputFields: [
-     InputField(
-            id: 'aEJnSplwvsw',
-            name: 'Household categorization/prioritization',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF4A9F46),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                code: 'Red: HH visited/monitored regularly',
-                name: 'Red: HH visited/monitored regularly',
-              ),
-              InputFieldOption(
-                code: 'Yellow: HH visited/monitored monthly',
-                name: 'Yellow: HH visited/monitored monthly',
-              ),
-              InputFieldOption(
-                code: 'Green: HH visited/monitored quarterly',
-                name: 'Green: HH visited/monitored quarterly',
-              ),
-            ],
-          )
-  ]
-  
-  ),
-
+      FormSection(
+          name: 'Household Categorization',
+          color: const Color(0xFF4D9E49),
+          id: 'house_hold_categorization',
+          inputFields: [
+            InputField(
+              id: 'aEJnSplwvsw',
+              name: 'Household categorization/prioritization',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4A9F46),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: 'Red: HH visited/monitored regularly',
+                  name: 'Red: HH visited/monitored regularly',
+                ),
+                InputFieldOption(
+                  code: 'Yellow: HH visited/monitored monthly',
+                  name: 'Yellow: HH visited/monitored monthly',
+                ),
+                InputFieldOption(
+                  code: 'Green: HH visited/monitored quarterly',
+                  name: 'Green: HH visited/monitored quarterly',
+                ),
+              ],
+            )
+          ]),
       FormSection(
         name: 'DOMAIN HEALTH',
         translatedName: 'BOPHELO BO BOTLE',
