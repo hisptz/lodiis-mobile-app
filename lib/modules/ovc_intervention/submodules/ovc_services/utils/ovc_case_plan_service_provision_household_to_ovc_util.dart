@@ -48,7 +48,6 @@ class OvcCasePlanServiceProvisionHouseholdToOvcUtil {
       }
     } catch (e) {
       //
-      print(e.toString());
     }
   }
 
