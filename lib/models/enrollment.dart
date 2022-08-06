@@ -60,6 +60,7 @@ class Enrollment {
     mapData['status'] = enrollmentData.status;
     mapData['syncStatus'] = enrollmentData.syncStatus;
     mapData['searchableValue'] = enrollmentData.searchableValue;
+    mapData['shouldReAssess'] = enrollmentData.shouldReAssess;
     return mapData;
   }
 

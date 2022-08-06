@@ -13,34 +13,38 @@ class DreamsBackgroundReAssessmentService {
   }
 
   static Future<void> _evaluateDreamsTrackedEntityInstancesToUpdate() async {
-    int enrollmentCount = await EnrollmentOfflineProvider()
-        .getEnrollmentsCount(AgywDreamsEnrollmentConstant.program);
-    if (enrollmentCount > 0) {
-      for (var page = 0;
-          page <=
-              (enrollmentCount / PaginationConstants.paginationLimit).ceil();
-          page++) {
-        List<Enrollment> enrollments =
-            await EnrollmentOfflineProvider().getEnrollmentsByProgram(
-          AgywDreamsEnrollmentConstant.program,
-          page: page,
-        );
-        List<String> trackedEntityInstancesIds = enrollments
-            .map((Enrollment enrollment) => enrollment.trackedEntityInstance!)
-            .toList();
-        List<TrackedEntityInstance> teiList =
-            await TrackedEntityInstanceOfflineProvider()
-                .getTrackedEntityInstanceByIds(trackedEntityInstancesIds);
-        List<CombinedEnrollmentAndTei> trackedEntityInstances = teiList
-            .map((tei) => CombinedEnrollmentAndTei(
-                trackedEntityInstance: tei,
-                enrollment: enrollments.firstWhere((enrollment) =>
-                    enrollment.trackedEntityInstance ==
-                    tei.trackedEntityInstance)))
-            .toList();
-        await _discoverDreamsBeneficiariesWhoShiftedAgeGroup(
-            trackedEntityInstances);
+    try {
+      int enrollmentCount = await EnrollmentOfflineProvider()
+          .getEnrollmentsCount(AgywDreamsEnrollmentConstant.program);
+      if (enrollmentCount > 0) {
+        for (var page = 0;
+            page <=
+                (enrollmentCount / PaginationConstants.paginationLimit).ceil();
+            page++) {
+          List<Enrollment> enrollments =
+              await EnrollmentOfflineProvider().getEnrollmentsByProgram(
+            AgywDreamsEnrollmentConstant.program,
+            page: page,
+          );
+          List<String> trackedEntityInstancesIds = enrollments
+              .map((Enrollment enrollment) => enrollment.trackedEntityInstance!)
+              .toList();
+          List<TrackedEntityInstance> teiList =
+              await TrackedEntityInstanceOfflineProvider()
+                  .getTrackedEntityInstanceByIds(trackedEntityInstancesIds);
+          List<CombinedEnrollmentAndTei> trackedEntityInstances = teiList
+              .map((tei) => CombinedEnrollmentAndTei(
+                  trackedEntityInstance: tei,
+                  enrollment: enrollments.firstWhere((enrollment) =>
+                      enrollment.trackedEntityInstance ==
+                      tei.trackedEntityInstance)))
+              .toList();
+          await _discoverDreamsBeneficiariesWhoShiftedAgeGroup(
+              trackedEntityInstances);
+        }
       }
+    } catch (e) {
+      //
     }
   }
 
