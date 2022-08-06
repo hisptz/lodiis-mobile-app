@@ -88,9 +88,6 @@ class CasePlanHomeContainer extends StatelessWidget {
     Map<String?, List<Events>> eventListByProgramStage = const {},
     String currentCasePlanDate = '',
   }) {
-    currentCasePlanDate.isEmpty
-        ? AppUtil.formattedDateTimeIntoString(DateTime.now())
-        : currentCasePlanDate;
     _updateFormState(casePlanEvents, casePlanDates, context, isEditMode,
         eventListByProgramStage);
     Navigator.push(
@@ -216,6 +213,9 @@ class CasePlanHomeContainer extends StatelessWidget {
                           onPressButton: () => onManageCasePlan(
                             context: context,
                             casePlanDates: casePlanDates,
+                            currentCasePlanDate:
+                                AppUtil.formattedDateTimeIntoString(
+                                    DateTime.now()),
                           ),
                         ),
                       ),
