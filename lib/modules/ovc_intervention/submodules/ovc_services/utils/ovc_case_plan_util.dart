@@ -129,14 +129,14 @@ class OvcCasePlanUtil {
   }) async {
     try {
       List<FormSection> formSections = OvcServicesCasePlan.getFormSections();
-      Map sanitizedDataObjects = getSanitizedCaregiverDataObjects(dataObject);
+      Map<String, dynamic> sanitizedDataObjects =
+          getSanitizedCaregiverDataObjects(dataObject);
       for (OvcHouseholdChild child in childrens) {
         Map childDataObject = await getAutoPopulatingDataObejct(
           currentCasePlanDate,
           child,
           sanitizedDataObjects,
         );
-        print("\n$childDataObject\n");
         for (String domainType in childDataObject.keys.toList()) {
           Map domainDataObject = dataObject[domainType];
           List<String> hiddenFields = [
@@ -185,14 +185,13 @@ class OvcCasePlanUtil {
       }
     } catch (e) {
       //
-      print(e.toString());
     }
   }
 
-  static Map getSanitizedCaregiverDataObjects(
+  static Map<String, dynamic> getSanitizedCaregiverDataObjects(
     Map dataObject,
   ) {
-    Map sanitizedDataObjects = {};
+    Map<String, dynamic> sanitizedDataObjects = {};
     List<String> domains =
         OvcChildCasePlanConstant.domainToAutopopuledCasePlanGaps.keys.toList();
     for (String domain in domains) {
@@ -204,9 +203,14 @@ class OvcCasePlanUtil {
       if (gaps.isNotEmpty) {
         List selectedGaps = [];
         for (Map gap in gaps) {
-          gap.removeWhere((key, value) => !validFields.contains(key));
-          if (gap.keys.isNotEmpty) {
-            selectedGaps.add(gap);
+          Map selectedGap = {};
+          for (String key in gap.keys.toList()) {
+            if (validFields.contains(key)) {
+              selectedGap[key] = gap[key];
+            }
+          }
+          if (selectedGap.keys.isNotEmpty) {
+            selectedGaps.add(selectedGap);
           }
         }
         if (selectedGaps.isNotEmpty) {
@@ -218,12 +222,12 @@ class OvcCasePlanUtil {
     return sanitizedDataObjects;
   }
 
-  static Future<Map> getAutoPopulatingDataObejct(
+  static Future<Map<String, dynamic>> getAutoPopulatingDataObejct(
     String currentCasePlanDate,
     OvcHouseholdChild child,
-    Map caregiverDataObjects,
+    Map<String, dynamic> caregiverDataObjects,
   ) async {
-    Map dataObject = {};
+    Map<String, dynamic> dataObject = {};
     Map domainToAutopopuledCasePlanGaps =
         OvcChildCasePlanConstant.domainToAutopopuledCasePlanGaps;
     List<CasePlanEvent> casePlans =
@@ -240,16 +244,47 @@ class OvcCasePlanUtil {
     if (casePlans.isEmpty) {
       dataObject = {...dataObject, ...caregiverDataObjects};
     } else {
-      //TODO handling for existing one
-      // make sur to updte gps
-      List<CasePlanGapEvent> casePlanGaps =
-          await OvcCasePlanService().getCasePlanGapEvents(
-        date: currentCasePlanDate,
-        programStageId: OvcChildCasePlanConstant.casePlanGapProgramStage,
-        teiId: child.id!,
-        casePlanToGaps:
-            casePlans.map((casePlan) => casePlan.casePlanToGap).toList(),
-      );
+      List<CasePlanGapEvent> casePlanGaps = await OvcCasePlanService()
+          .getCasePlanGapEvents(
+              date: currentCasePlanDate,
+              programStageId: OvcChildCasePlanConstant.casePlanGapProgramStage,
+              teiId: child.id!,
+              casePlanToGaps:
+                  casePlans.map((casePlan) => casePlan.casePlanToGap).toList());
+      List<String> existingDomains =
+          casePlans.map((casePlan) => casePlan.domainType!).toList();
+      for (String domainType in caregiverDataObjects.keys) {
+        for (CasePlanEvent casePlan in casePlans) {
+          if (existingDomains.contains(domainType)) {
+            Map casePlanObject = casePlan.toDataObject();
+            List caregiverGaps = caregiverDataObjects[domainType]['gaps'] ?? [];
+            List<Map<String, dynamic>> domainCasePlanGaps = casePlanGaps
+                .where((casePlanGap) =>
+                    casePlanGap.casePlanToGap == casePlan.casePlanToGap)
+                .toList()
+                .map((casePlanGap) => casePlanGap.toDataObject())
+                .toList();
+            casePlanObject['gaps'] = domainCasePlanGaps.isEmpty
+                ? caregiverGaps
+                : caregiverGaps.map((dynamic caregiverGap) {
+                    String eventDate = caregiverGap['eventDate'] ?? '';
+                    Map<String, dynamic> selectedDominGap = domainCasePlanGaps
+                        .firstWhere((Map<String, dynamic> domainCasePlanGap) {
+                      return domainCasePlanGap['eventDate'] == eventDate;
+                    }, orElse: () => {});
+                    for (String key in caregiverGap.keys.toList()) {
+                      if (key != 'eventId') {
+                        selectedDominGap[key] = caregiverGap[key];
+                      }
+                    }
+                    return selectedDominGap;
+                  }).toList();
+            dataObject[domainType] = casePlanObject;
+          } else {
+            dataObject[domainType] = caregiverDataObjects[domainType];
+          }
+        }
+      }
     }
     return dataObject;
   }

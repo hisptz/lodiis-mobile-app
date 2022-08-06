@@ -67,7 +67,6 @@ class OvcCasePlanForm extends StatefulWidget {
 class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   List<FormSection> formSections = [];
   Map borderColors = {};
-
   bool _isSaving = false;
   bool _isFormReady = true;
 
@@ -85,7 +84,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     formSections = [];
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       // Removing the Schooled section for caregiver
-      if (!(widget.isHouseholdCasePlan && formSection.id == 'Schooled')) {
+      if (!(widget.isHouseholdCasePlan &&
+          ['Schooled'].contains(formSection.id))) {
         borderColors[formSection.id] = formSection.borderColor;
         formSection.borderColor = Colors.transparent;
         formSections.add(formSection);
@@ -119,7 +119,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   listen: false)
               .currentOvcHouseholdChild!
               .teiData!;
-      print("saving care giver");
       await savingDomainsAndGaps(
         dataObject: dataObject,
         beneficiary: beneficiary,
