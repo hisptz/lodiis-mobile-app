@@ -10,17 +10,20 @@ class Enrollment {
   String? status;
   String? syncStatus;
   String? searchableValue;
+  String? shouldReAssess;
 
-  Enrollment(
-      {this.enrollment,
-      this.enrollmentDate,
-      this.incidentDate,
-      this.program,
-      this.orgUnit,
-      this.trackedEntityInstance,
-      this.status,
-      this.searchableValue,
-      this.syncStatus});
+  Enrollment({
+    this.enrollment,
+    this.enrollmentDate,
+    this.incidentDate,
+    this.program,
+    this.orgUnit,
+    this.trackedEntityInstance,
+    this.status,
+    this.searchableValue,
+    this.syncStatus,
+    this.shouldReAssess,
+  });
 
   @override
   String toString() {
@@ -29,15 +32,17 @@ class Enrollment {
 
   Enrollment fromJson(dynamic json) {
     return Enrollment(
-        enrollment: json['enrollment'],
-        enrollmentDate: "${json['enrollmentDate']}".split('T')[0],
-        incidentDate: "${json['incidentDate']}".split('T')[0],
-        program: json['program'],
-        orgUnit: json['orgUnit'],
-        trackedEntityInstance: json['trackedEntityInstance'],
-        status: json['status'],
-        searchableValue: json['searchableValue'] ?? '',
-        syncStatus: json['syncStatus'] ?? 'synced');
+      enrollment: json['enrollment'],
+      enrollmentDate: "${json['enrollmentDate']}".split('T')[0],
+      incidentDate: "${json['incidentDate']}".split('T')[0],
+      program: json['program'],
+      orgUnit: json['orgUnit'],
+      trackedEntityInstance: json['trackedEntityInstance'],
+      status: json['status'],
+      searchableValue: json['searchableValue'] ?? '',
+      syncStatus: json['syncStatus'] ?? 'synced',
+      shouldReAssess: json['shouldReAssess'] ?? '',
+    );
   }
 
   String toJson(Enrollment enrollment) {
@@ -68,5 +73,6 @@ class Enrollment {
     status = mapData['status'];
     syncStatus = mapData['syncStatus'];
     searchableValue = mapData['searchableValue'];
+    shouldReAssess = mapData['shouldReAssess'];
   }
 }

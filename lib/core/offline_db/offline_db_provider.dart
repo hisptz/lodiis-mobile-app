@@ -31,7 +31,9 @@ class OfflineDbProvider {
     "CREATE TABLE IF NOT EXISTS form_auto_save (id TEXT PRIMARY KEY, beneficiaryId TEXT, pageModule TEXT, nextPageModule TEXT, data TEXT)"
   ];
 
-  final List<String> migrationQuery = [];
+  final List<String> migrationQuery = [
+    "ALTER TABLE enrollment ADD shouldReAssess TEXT DEFAULT ''"
+  ];
   Future<Database?> get db async {
     if (_db != null) {
       return _db;
