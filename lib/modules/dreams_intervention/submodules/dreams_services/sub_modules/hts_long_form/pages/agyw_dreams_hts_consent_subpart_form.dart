@@ -130,7 +130,25 @@ class _AgywDreamsHTSConsentFormSubpartState
             ),
           ),
         );
-      } else {}
+      } else {
+       if (consentFields.every((field) => '${dataObject[field]}' == 'false')) {
+        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
+            getNoOfPartners(agywDream!);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AgywDreamsHTSClientServices(
+              isComingFromPrep: isComingFromPrep,
+            ),
+          ),
+        );
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Cannot proceed without consent',
+          position: ToastGravity.TOP,
+        );
+      }
+      }
     } else {
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

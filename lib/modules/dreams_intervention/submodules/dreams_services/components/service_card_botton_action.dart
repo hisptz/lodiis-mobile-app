@@ -20,6 +20,7 @@ class ServiceCardButtonAction extends StatelessWidget {
     this.onOpenPEPForm,
     this.onOpenPostGBVForm,
     this.onOpenServiceForm,
+    this.onOpenPostGBVLegalForm
   }) : super(key: key);
 
   final AgywDream? agywBeneficiary;
@@ -35,6 +36,7 @@ class ServiceCardButtonAction extends StatelessWidget {
   final VoidCallback? onOpenANCForm;
   final VoidCallback? onOpenArtRefillForm;
   final VoidCallback? onOpenServiceForm;
+  final VoidCallback? onOpenPostGBVLegalForm;
 
   @override
   Widget build(BuildContext context) {
@@ -407,6 +409,41 @@ class ServiceCardButtonAction extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Visibility(
+                        visible: currentUserState.canManagePOSTGBVLegal,
+                        child: InkWell(
+                          onTap:onOpenPostGBVLegalForm ,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                left: BorderSide(
+                                  width: 1,
+                                  color: Color(0xFF8EBAD3),
+                                ),
+                              ),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'POST GBV (Legal)',
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.normal,
+                                    color: const Color(0xFF1F8ECE),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
