@@ -62,19 +62,51 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     setState(() {});
     _evaluateSkipLogics();
     setState(() {});
+    setMandatoryFieldForVacLegalMessage();
+  }
+
+  void setMandatoryFieldForVacLegalMessage() {
+    List vacLegalMessagingMandatoryFields = [
+      "TizNGPP6e1d",
+      "Q7GxvZD6h99",
+      "A4xYu8BYOg7"
+    ];
+    bool isVacessageSelected = "${dataObject['aPmPhwm8Zln']}" == "true";
+    bool isVacLegalMessageSelected = "${dataObject['AaqeRcyjbyS']}" == "true";
+    if (isVacessageSelected && !isVacLegalMessageSelected) {
+      dataObject['AaqeRcyjbyS'] = true;
+    }
+    isVacLegalMessageSelected = "${dataObject['AaqeRcyjbyS']}" == "true";
+    mandatoryFields = [];
+    for (String id in vacLegalMessagingMandatoryFields) {
+      if (isVacLegalMessageSelected && isVacessageSelected) {
+        mandatoryFieldObject[id] = true;
+        mandatoryFields.add(id);
+      }
+    }
+    _evaluateSkipLogics();
+    setState(() {});
   }
 
   onSaveGapForm(BuildContext context) {
-    bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
-      hiddenFields: hiddenFields,
-      formSections: widget.formSections,
-      dataObject: dataObject,
-    );
-    if (hasAtLeasrOnFieldFilled) {
-      Navigator.pop(context, dataObject);
+    bool isAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    if (isAllMandatoryFilled) {
+      bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+        hiddenFields: hiddenFields,
+        formSections: widget.formSections,
+        dataObject: dataObject,
+      );
+      if (hasAtLeasrOnFieldFilled) {
+        Navigator.pop(context, dataObject);
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one field',
+        );
+      }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least one field field',
+        message: 'Please fill  all mandatory fields',
       );
     }
   }
