@@ -30,6 +30,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/m
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_gap_household_to_ovc_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_util.dart';
 import 'package:provider/provider.dart';
 
@@ -70,7 +71,6 @@ class OvcCasePlanForm extends StatefulWidget {
 class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   List<FormSection> formSections = [];
   Map borderColors = {};
-
   bool _isSaving = false;
   bool _isFormReady = true;
 
@@ -88,7 +88,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     formSections = [];
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       // Removing the Schooled section for caregiver
-      if (!(widget.isHouseholdCasePlan && formSection.id == 'Schooled')) {
+      if (!(widget.isHouseholdCasePlan &&
+          ['Schooled'].contains(formSection.id))) {
         borderColors[formSection.id] = formSection.borderColor;
         formSection.borderColor = Colors.transparent;
         formSections.add(formSection);

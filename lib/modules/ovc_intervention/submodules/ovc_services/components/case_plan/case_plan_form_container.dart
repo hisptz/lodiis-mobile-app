@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class CasePlanFormContainer extends StatelessWidget {
   const CasePlanFormContainer({
@@ -34,8 +36,29 @@ class CasePlanFormContainer extends StatelessWidget {
   final OvcHouseholdChild? currentHouseholdChild;
 
   void onValueChange(String id, dynamic value) {
+    dynamic previousValue = dataObject[id] ?? '';
     dataObject[id] = value;
-    onInputValueChange(dataObject);
+    bool canUpdate = _hasAtLeasOneGoalAndGap();
+    if (canUpdate) {
+      onInputValueChange(dataObject);
+    } else {
+      dataObject[id] = previousValue;
+      AppUtil.showToastMessage(
+        message: 'You can not clear all goals with intentified needs/gaps',
+      );
+    }
+  }
+
+  bool _hasAtLeasOneGoalAndGap() {
+    bool status = true;
+    dynamic gaps = dataObject['gaps'];
+    String firstGoal = dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
+    String secondGoal =
+        dataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
+    if (gaps.isNotEmpty && firstGoal.isEmpty && secondGoal.isEmpty) {
+      status = false;
+    }
+    return status;
   }
 
   @override

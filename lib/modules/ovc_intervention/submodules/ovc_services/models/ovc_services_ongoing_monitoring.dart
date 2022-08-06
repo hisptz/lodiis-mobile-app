@@ -132,7 +132,6 @@ class OvcServicesOngoingMonitoring {
                 name: 'HIV ADHERANCE SUPPORT Service progress',
                 translatedName:
                     'Tsoelo-pele ea litšebeletso tsa HIV ADHERANCE SUPPORT',
-                isReadOnly: true,
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
