@@ -20,6 +20,7 @@ class OvcHousehold {
   String? ovcMaleCount;
   String? ovcFemaleCount;
   String? houseHoldStatus;
+  String? hoouseHoldCategorization;
   String? implementingPartner;
   String? searchableValue;
   bool? enrollmentOuAccessible;
@@ -45,6 +46,7 @@ class OvcHousehold {
       this.createdDate,
       this.ovcFemaleCount,
       this.houseHoldStatus,
+      this.hoouseHoldCategorization,
       this.searchableValue,
       this.enrollmentOuAccessible,
       this.implementingPartner,
@@ -105,6 +107,7 @@ class OvcHousehold {
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
+      hoouseHoldCategorization:data['uetInX0KTfc'] ?? '',
       implementingPartner:
           data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,

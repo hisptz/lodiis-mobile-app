@@ -66,18 +66,19 @@ class OvcEnrollmentHouseholdService {
     String? trackedEntityInstance,
     String? orgUnit,
     Map dataObject = const {},
+    List<String>? inputFieldIds,
   }) async {
-    String programStatusId = 'PN92g65TkVI';
-    List<String> inputFieldIds = [programStatusId];
+    List<String> _inputFieldIds = inputFieldIds ??[];
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
       trackedEntityInstance,
       trackedEntityType,
       orgUnit,
-      inputFieldIds,
+      _inputFieldIds,
       dataObject,
       hasBeneficiaryId: false,
     );
+  
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
   }
 
