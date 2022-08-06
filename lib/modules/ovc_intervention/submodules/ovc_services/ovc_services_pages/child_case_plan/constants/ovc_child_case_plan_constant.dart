@@ -66,21 +66,23 @@ class OvcChildCasePlanConstant {
       //Defult for events
       "eventDate",
       "eventId",
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
       //Tippy tap
-
+      "TaSyHHXKYhF",
       //Soackage pit
-
+      "W4UjM09aOEw",
       //washmessage
+      "qezhtOHXgaK"
     ],
     "Stable": [
       //Defult for events
       "eventDate",
       "eventId",
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+      OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
       //Silc
-
+      "wNUBfCAg3Fq",
       //KPlot
+      "legjCg7fomo",
     ],
   };
 }
