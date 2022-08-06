@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_eligible_not_enrollment.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_none_participation_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_without_enrollment_criteria_constants.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_consent.dart';
@@ -287,7 +288,7 @@ class AgywDreamsEnrollmentService {
   }
 
   Future<int> getCountOfAgywBeneficiaryForReAssessment() async {
-    String program = AgywDreamsEnrollmentNoneParticipationConstant.program;
+    String program = AgywDreamsEnrollmentConstant.program;
     return await EnrollmentOfflineProvider()
         .getEnrollmentToReassessCount(program);
   }
