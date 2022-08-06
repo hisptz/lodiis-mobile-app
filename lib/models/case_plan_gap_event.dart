@@ -18,6 +18,20 @@ class CasePlanGapEvent {
     this.eventData,
   });
 
+  Map<String, dynamic> toDataObject() {
+    Map<String, dynamic> dataObject = {
+      "eventId": id,
+      "eventDate": date,
+    };
+    for (Map dataValueObj in eventData?.dataValues ?? []) {
+      String? dataElement = dataValueObj['dataElement'];
+      if (dataElement != null) {
+        dataObject[dataElement] = '${dataValueObj['value']}'.trim();
+      }
+    }
+    return dataObject;
+  }
+
   CasePlanGapEvent toDataModel({required Events eventData}) {
     List keys = [
       OvcCasePlanConstant.casePlanToGapLinkage,
