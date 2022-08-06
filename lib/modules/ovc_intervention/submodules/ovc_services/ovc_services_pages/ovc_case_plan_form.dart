@@ -94,11 +94,11 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         formSection.borderColor = Colors.transparent;
         formSections.add(formSection);
       }
-   
-    // Removing the house categorization for child
-    if(!widget.isHouseholdCasePlan && formSection.id == 'house_hold_categorization'){
-              formSections.remove(formSection);
-    }
+      // Removing the house categorization for child
+      if (!widget.isHouseholdCasePlan &&
+          formSection.id == 'house_hold_categorization') {
+        formSections.remove(formSection);
+      }
     }
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = false;
@@ -113,7 +113,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
 
   void onSaveCasePlan({
     required Map dataObject,
-    OvcHousehold? currentOvcHousehold,
   }) async {
     bool isAllDomainFilled =
         OvcCasePlanUtil.isAllDomainGoalAndGapFilled(dataObject);
@@ -134,20 +133,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         beneficiary: beneficiary,
       );
       if (widget.isHouseholdCasePlan) {
-      String houseHoldCategorizationDataElement = 'aEJnSplwvsw';
-        await OvcEnrollmentHouseholdService().updateHouseholdStatus(
-          trackedEntityInstance: currentOvcHousehold?.id,
-          orgUnit: currentOvcHousehold?.orgUnit,
-          dataObject: {BeneficiaryIdentification.householdCategorization: dataObject['house_hold_categorization'][houseHoldCategorizationDataElement]},
-          inputFieldIds: [BeneficiaryIdentification.householdCategorization]
-        );
-          Provider.of<OvcInterventionListState>(context, listen: false)
-            .refreshOvcList();
-        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .refetchCurrentHousehold();
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHousehold?.id);
-        await OvcCasePlanUtil.autoSyncOvcsCasPlanGaps(
+        await updateHouseholdCategorization(beneficiary, dataObject);
+        await OvcCasePlanGapHouseholdToOvcUtil.autoSyncOvcsCasPlanGaps(
           currentCasePlanDate: widget.currentCasePlanDate,
           childrens: Provider.of<OvcHouseholdCurrentSelectionState>(context,
                       listen: false)
@@ -182,6 +169,31 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     }
   }
 
+  Future<void> updateHouseholdCategorization(
+    TrackedEntityInstance beneficiary,
+    Map<dynamic, dynamic> dataObject,
+  ) async {
+    String houseHoldCategorizationDataElement = 'aEJnSplwvsw';
+    await OvcEnrollmentHouseholdService().updateHouseholdStatus(
+        trackedEntityInstance: beneficiary.trackedEntityInstance,
+        orgUnit: beneficiary.orgUnit,
+        dataObject: {
+          BeneficiaryIdentification.householdCategorization:
+              dataObject['house_hold_categorization']
+                      [houseHoldCategorizationDataElement] ??
+                  {}
+        },
+        inputFieldIds: [
+          BeneficiaryIdentification.householdCategorization
+        ]);
+    Provider.of<OvcInterventionListState>(context, listen: false)
+        .refreshOvcList();
+    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+        .refetchCurrentHousehold();
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(beneficiary.trackedEntityInstance);
+  }
+
   Future<void> savingDomainsAndGaps({
     required Map dataObject,
     required TrackedEntityInstance beneficiary,
@@ -190,8 +202,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
       if ((domainDataObject['gaps'].length > 0 &&
-          (domainDataObject[casePlanFirstGoal] != null ||
-              '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) || domainType =="house_hold_categorization") {
+              (domainDataObject[casePlanFirstGoal] != null ||
+                  '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) ||
+          domainType == "house_hold_categorization") {
         try {
           List<String> hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
@@ -365,10 +378,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                           buttonColor: const Color(0xFF4B9F46),
                                           fontSize: 15.0,
                                           onPressButton: () => onSaveCasePlan(
-                                              dataObject:
-                                                  serviceFormState.formState ,
-                                                  currentOvcHousehold: currentOvcHousehold
-                                                  ),
+                                            dataObject:
+                                                serviceFormState.formState,
+                                          ),
                                         ),
                                       ),
                                     ),
