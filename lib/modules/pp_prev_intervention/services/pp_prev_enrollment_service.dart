@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
@@ -80,30 +81,44 @@ class PpPrevEnrollmentService {
     }
 
     if (filters.isNotEmpty) {
-      for (Map<String, dynamic> filter in filters) {
-        String? implementingPartner = filter['implementingPartner'];
-        String? sex = filter['sex'];
-        String? age = filter['age'];
+      Map<String, dynamic> metadata = {
+        'filters': filters,
+        'ppPrevBeneficiaries': ppPrevBeneficiaries
+      };
+      return await compute(getFilteredBeneficiaries, metadata);
+    }
+    return ppPrevBeneficiaries;
+  }
 
-        ppPrevBeneficiaries = implementingPartner == null
-            ? ppPrevBeneficiaries
-            : ppPrevBeneficiaries
-                .where((beneficiary) =>
-                    beneficiary.implementingPartner == implementingPartner)
-                .toList();
+  List<PpPrevBeneficiary> getFilteredBeneficiaries(
+      Map<String, dynamic> metadata) {
+    List<Map<String, dynamic>> filters =
+        metadata['filters'] as List<Map<String, dynamic>>;
+    List<PpPrevBeneficiary> ppPrevBeneficiaries =
+        metadata['ppPrevBeneficiaries'] as List<PpPrevBeneficiary>;
+    for (Map<String, dynamic> filter in filters) {
+      String? implementingPartner = filter['implementingPartner'];
+      String? sex = filter['sex'];
+      String? age = filter['age'];
 
-        ppPrevBeneficiaries = age == null
-            ? ppPrevBeneficiaries
-            : ppPrevBeneficiaries
-                .where((beneficiary) => beneficiary.age == age)
-                .toList();
+      ppPrevBeneficiaries = implementingPartner == null
+          ? ppPrevBeneficiaries
+          : ppPrevBeneficiaries
+              .where((beneficiary) =>
+                  beneficiary.implementingPartner == implementingPartner)
+              .toList();
 
-        ppPrevBeneficiaries = sex == null
-            ? ppPrevBeneficiaries
-            : ppPrevBeneficiaries
-                .where((beneficiary) => beneficiary.sex == sex)
-                .toList();
-      }
+      ppPrevBeneficiaries = age == null
+          ? ppPrevBeneficiaries
+          : ppPrevBeneficiaries
+              .where((beneficiary) => beneficiary.age == age)
+              .toList();
+
+      ppPrevBeneficiaries = sex == null
+          ? ppPrevBeneficiaries
+          : ppPrevBeneficiaries
+              .where((beneficiary) => beneficiary.sex == sex)
+              .toList();
     }
     return ppPrevBeneficiaries;
   }

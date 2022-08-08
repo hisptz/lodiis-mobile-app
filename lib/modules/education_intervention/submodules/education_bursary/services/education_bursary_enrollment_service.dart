@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
@@ -91,48 +92,64 @@ class EducationBursaryEnrollmentService {
     }
 
     if (filters.isNotEmpty) {
-      for (Map<String, dynamic> filter in filters) {
-        String? implementingPartner = filter['implementingPartner'];
-        String? school = filter['schoolName'];
-        String? grade = filter['grade'];
-        String? age = filter['age'];
-        String? sex = filter['sex'];
+      Map<String, dynamic> metadata = {
+        'filters': filters,
+        'beneficiaries': beneficiaries
+      };
+      return await compute(filterBeneficiaries, metadata);
+    }
 
-        beneficiaries = sex == null
-            ? beneficiaries
-            : beneficiaries
-                .where((EducationBeneficiary beneficiary) =>
-                    beneficiary.sex == sex)
-                .toList();
+    return beneficiaries;
+  }
 
-        beneficiaries = age == null
-            ? beneficiaries
-            : beneficiaries
-                .where((EducationBeneficiary beneficiary) =>
-                    beneficiary.age == age)
-                .toList();
+  List<EducationBeneficiary> filterBeneficiaries(
+      Map<String, dynamic> metadata) {
+    List<Map<String, dynamic>> filters =
+        metadata['filters'] as List<Map<String, dynamic>>;
+    List<EducationBeneficiary> beneficiaries =
+        metadata['beneficiaries'] as List<EducationBeneficiary>;
 
-        beneficiaries = school == null
-            ? beneficiaries
-            : beneficiaries
-                .where((EducationBeneficiary beneficiary) =>
-                    beneficiary.schoolName == school)
-                .toList();
+    for (Map<String, dynamic> filter in filters) {
+      String? implementingPartner = filter['implementingPartner'];
+      String? school = filter['schoolName'];
+      String? grade = filter['grade'];
+      String? age = filter['age'];
+      String? sex = filter['sex'];
 
-        beneficiaries = grade == null
-            ? beneficiaries
-            : beneficiaries
-                .where((EducationBeneficiary beneficiary) =>
-                    beneficiary.grade == grade)
-                .toList();
+      beneficiaries = sex == null
+          ? beneficiaries
+          : beneficiaries
+              .where(
+                  (EducationBeneficiary beneficiary) => beneficiary.sex == sex)
+              .toList();
 
-        beneficiaries = implementingPartner == null
-            ? beneficiaries
-            : beneficiaries
-                .where((beneficiary) =>
-                    beneficiary.implementingPartner == implementingPartner)
-                .toList();
-      }
+      beneficiaries = age == null
+          ? beneficiaries
+          : beneficiaries
+              .where(
+                  (EducationBeneficiary beneficiary) => beneficiary.age == age)
+              .toList();
+
+      beneficiaries = school == null
+          ? beneficiaries
+          : beneficiaries
+              .where((EducationBeneficiary beneficiary) =>
+                  beneficiary.schoolName == school)
+              .toList();
+
+      beneficiaries = grade == null
+          ? beneficiaries
+          : beneficiaries
+              .where((EducationBeneficiary beneficiary) =>
+                  beneficiary.grade == grade)
+              .toList();
+
+      beneficiaries = implementingPartner == null
+          ? beneficiaries
+          : beneficiaries
+              .where((beneficiary) =>
+                  beneficiary.implementingPartner == implementingPartner)
+              .toList();
     }
 
     return beneficiaries;
