@@ -1,8 +1,6 @@
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
-import 'package:kb_mobile_app/core/constants/background_dreams_re_assessment_constants.dart';
 import 'package:kb_mobile_app/core/constants/workmanager_constants.dart';
 import 'package:kb_mobile_app/core/services/app_info_service.dart';
-import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/core/services/dreams_backrgound_re_assessment_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
@@ -28,7 +26,7 @@ callbackDispatcher() {
         }
       }
       if (task == dataQualityTaskName) {
-        await DataQualityService.runDataQualityCheckResolution();
+        await DreamsBackgroundReAssessmentService.startProcess();
       }
       if (task == reAssessmentEvaluationTask) {
         await DreamsBackgroundReAssessmentService.startProcess();
@@ -48,11 +46,7 @@ class WorkmanagerService {
   static startTasks() async {
     var autoSyncTaskName = WorkmanagerConstants.autoSync;
     var dataQualityTaskName = WorkmanagerConstants.dataQuality;
-    var reAssessmentEvaluationTask =
-        WorkmanagerConstants.reAssessmentEvaluation;
     var syncTimeOut = const Duration(minutes: AutoSynchronization.syncInterval);
-    var reAssessmentTimeout = const Duration(
-        minutes: BackgroundDreamsReAssessmentConstants.reAssessmentTimeout);
     var autoSync = await PreferenceProvider.getPreferenceValue(
       WorkmanagerConstants.autoSync,
     );
@@ -60,17 +54,8 @@ class WorkmanagerService {
     await Workmanager().registerOneOffTask(
       dataQualityTaskName,
       dataQualityTaskName,
-      initialDelay: const Duration(minutes: 1),
+      initialDelay: const Duration(minutes: 0),
       existingWorkPolicy: ExistingWorkPolicy.replace,
-    );
-
-    await Workmanager().registerPeriodicTask(
-      reAssessmentEvaluationTask,
-      reAssessmentEvaluationTask,
-      frequency: reAssessmentTimeout,
-      initialDelay: const Duration(minutes: 1),
-      existingWorkPolicy: ExistingWorkPolicy.keep,
-      constraints: Constraints(networkType: NetworkType.not_required),
     );
 
     if (autoSync != "true") {
