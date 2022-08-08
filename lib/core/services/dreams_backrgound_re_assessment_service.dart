@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/local_notification_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/combined_enrollment_and_tei.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
@@ -9,7 +10,20 @@ import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_
 
 class DreamsBackgroundReAssessmentService {
   static Future<void> startProcess() async {
-    _evaluateDreamsTrackedEntityInstancesToUpdate();
+    try {
+      LocalNotificationService.show(
+        message: "Started Reassessment of DREAMS beneficiaries",
+        title: "DREAMS Re-assessment",
+      );
+      await _evaluateDreamsTrackedEntityInstancesToUpdate();
+    } catch (e) {
+      //
+    } finally {
+      LocalNotificationService.show(
+        message: "Finished Reassessment of DREAMS beneficiaries",
+        title: "DREAMS Re-assessment",
+      );
+    }
   }
 
   static Future<void> _evaluateDreamsTrackedEntityInstancesToUpdate() async {
