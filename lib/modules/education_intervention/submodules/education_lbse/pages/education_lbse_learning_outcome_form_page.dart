@@ -154,8 +154,10 @@ class _EducationLbseLearningOutcomeFormPageState
     bool isReferralNeed = isLearningOutcomeReferralNeeded(dataObject);
     List<String> allMandatoryFields =
         getMandatoryFielOnFormSubmission(isReferralNeed);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(allMandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        allMandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;

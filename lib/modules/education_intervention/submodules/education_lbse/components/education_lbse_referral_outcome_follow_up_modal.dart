@@ -117,8 +117,10 @@ class _EducationLbseRefferalOutcomeFollowUpModalState
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
             .currentBeneficiciary;
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(widget.mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        widget.mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -173,7 +175,9 @@ class _EducationLbseRefferalOutcomeFollowUpModalState
       }
     } else {
       unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-          widget.mandatoryFields, dataObject);
+          widget.mandatoryFields, dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields);
       setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

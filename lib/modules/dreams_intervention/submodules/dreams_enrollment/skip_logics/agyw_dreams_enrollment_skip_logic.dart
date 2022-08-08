@@ -44,6 +44,10 @@ class AgywDreamsEnrollmentSkipLogic {
       return false;
     }
 
+    //Clearing opha auto populating values Q103 & Q104
+    assignInputFieldValue(context, 'cJl00w5DjIL', '');
+    assignInputFieldValue(context, 'R9e8v9r3lMM', '');
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -129,14 +133,14 @@ class AgywDreamsEnrollmentSkipLogic {
         }
       }
       if (inputFieldId == 'NrYoz8RewxV') {
-        if(value != ''){
-        assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
-        }else{
-        assignInputFieldValue(context, 'ODBeRytTLHm', 'false');
+        if (value != '') {
+          assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
+        } else {
+          assignInputFieldValue(context, 'ODBeRytTLHm', 'false');
         }
       }
-      if (inputFieldId == 'zowQOCZivv8' && value == 'true') {
-        assignInputFieldValue(context, 'iIdrEpTkpsk', 'true');
+      if (inputFieldId == 'zowQOCZivv8') {
+        assignInputFieldValue(context, 'iIdrEpTkpsk', value);
       }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
