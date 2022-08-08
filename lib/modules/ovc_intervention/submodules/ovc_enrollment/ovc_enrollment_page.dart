@@ -65,7 +65,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
 
   void refreshBeneficiaryList(
       OvcInterventionListState ovcInterventionListState) {
-    ovcInterventionListState.refreshHouseHoldsList();
+    ovcInterventionListState.refreshOvcNumber();
   }
 
   @override

@@ -70,7 +70,7 @@ class _DreamsEnrollmentNotEligibleState
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshNoneParticipantsList();
+    dreamInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

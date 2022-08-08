@@ -118,7 +118,7 @@ class OgacInterventionHome extends StatelessWidget {
 
   void refreshBeneficiaryList(
       OgacInterventionListState ogacInterventionListState) {
-    ogacInterventionListState.refreshOgacList();
+    ogacInterventionListState.refreshOgacNumber();
   }
 
   @override

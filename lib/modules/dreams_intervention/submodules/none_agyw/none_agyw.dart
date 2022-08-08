@@ -82,7 +82,7 @@ class _NoneAgywState extends State<NoneAgyw> {
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamsInterventionListState) {
-    dreamsInterventionListState.refreshNonAgywDreamsList();
+    dreamsInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

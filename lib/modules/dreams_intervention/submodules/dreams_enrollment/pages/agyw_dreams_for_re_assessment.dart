@@ -59,7 +59,7 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
       builder: (context, dreamsRaAssessmentListState, child) {
         return RefreshIndicator(
           onRefresh: () async {
-            dreamsRaAssessmentListState.refreshList();
+            dreamsRaAssessmentListState.refreshBeneficiariesNumber();
           },
           child: CustomPaginatedListView(
             childBuilder: (context, agywBeneficiary, child) =>

@@ -58,7 +58,7 @@ class _AppLogsState extends State<AppLogsPage> {
   }
 
   void refreshLogs(AppLogsState appLogsState) {
-    appLogsState.refreshAppLogsList();
+    appLogsState.refreshAppLogsNumber();
   }
 
   @override

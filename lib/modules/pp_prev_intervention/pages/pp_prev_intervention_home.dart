@@ -112,7 +112,7 @@ class PpPrevInterventionHome extends StatelessWidget {
   }
 
   void refreshBeneficiaryList(PpPrevInterventionState ppPrevInterventionState) {
-    ppPrevInterventionState.refreshPpPrevList();
+    ppPrevInterventionState.refreshPpPrevNumber();
   }
 
   void onOpenBeneficiaryServices(

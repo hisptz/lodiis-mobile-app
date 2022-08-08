@@ -135,7 +135,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
 
   void refreshBeneficiaryList(
       OvcInterventionListState ovcInterventionListState) {
-    ovcInterventionListState.refreshHouseHoldsList();
+    ovcInterventionListState.refreshOvcNumber();
   }
 
   @override

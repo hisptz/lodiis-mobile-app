@@ -35,7 +35,7 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshAgywDreamsList();
+    dreamInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

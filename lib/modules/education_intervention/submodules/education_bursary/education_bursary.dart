@@ -183,7 +183,7 @@ class _EducationBursaryState extends State<EducationBursary> {
 
   void refreshBeneficiaryList(
       EducationBursaryInterventionState educationBursaryInterventionState) {
-    educationBursaryInterventionState.refreshAllEducationBursaryLists();
+    educationBursaryInterventionState.refreshEducationBursaryNumber();
   }
 
   Center _getEmptyListContainer(BuildContext context) {
