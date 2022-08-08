@@ -58,7 +58,6 @@ class AgywDreamsEligibleNotEnrollmentService {
     eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         dataObject['location'], inputFieldIds, dataObject, null, null);
-                print(eventData);
     await FormUtil.savingEvent(eventData);
   }
 }
