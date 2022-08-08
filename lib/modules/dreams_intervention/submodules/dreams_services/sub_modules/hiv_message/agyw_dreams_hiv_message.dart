@@ -165,7 +165,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Visit ",
+                                                  visitName: "HIV Risk Assessment",
                                                   onEdit: () =>
                                                       onEditHIVMessageForm(
                                                     context,

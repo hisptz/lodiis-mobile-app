@@ -163,7 +163,7 @@ class _AgywDreamsPostGBVLegalState extends State<AgywDreamsPostGBVLegal> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "POST GBV",
+                                                  visitName: "POST GBV(legal)",
                                                   onEdit: () => onEditPrep(
                                                       context,
                                                       eventData,

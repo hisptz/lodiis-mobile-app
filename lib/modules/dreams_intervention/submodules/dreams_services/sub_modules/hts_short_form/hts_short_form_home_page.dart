@@ -163,7 +163,7 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Visit ",
+                                                  visitName: "HTS ",
                                                   onEdit: () => onEditHTS(
                                                     context,
                                                     eventData,
