@@ -84,7 +84,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['G1FpSgvl1kK'] = true;
         hiddenFields['Qxb7zzJ98HI'] = true;
       }
-      if ( age <= 14) {
+      if (age <= 14) {
         hiddenFields['gN37trYWyOh'] = true;
         hiddenFields['e59e3DpsrfO'] = true;
         hiddenFields['w6aNdM4gwi3'] = true;
@@ -93,48 +93,92 @@ class AgywDreamsReAssessmentSkipLogic {
       if (age < 20) {
         hiddenFields['LPahlcvriGs'] = true;
       }
-      if (inputFieldId == 'a1pS345KP53' && value == 'true') {
-        assignInputFieldValue(context, 'RPqwCtEFza8', 'true');
+      if (inputFieldId == 'a1pS345KP53') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'RPqwCtEFza8', 'true');
+        } else {
+          assignInputFieldValue(context, 'RPqwCtEFza8', '');
+        }
       }
-      if (inputFieldId == 'G1FpSgvl1kK' && value == 'true') {
-        assignInputFieldValue(context, 'D977px8ADd8', 'true');
+      if (inputFieldId == 'G1FpSgvl1kK') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'D977px8ADd8', 'true');
+        } else {
+          assignInputFieldValue(context, 'D977px8ADd8', '');
+        }
       }
-      if (inputFieldId == 'TWvKsmKyCSc' && value == 'true') {
-        assignInputFieldValue(context, 'K9nfVNC9wQo', 'true');
+      if (inputFieldId == 'TWvKsmKyCSc') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'K9nfVNC9wQo', 'true');
+        } else {
+          assignInputFieldValue(context, 'K9nfVNC9wQo', '');
+        }
       }
-      if (inputFieldId == 'L8pjmifYu5v' && value == 'true') {
-        assignInputFieldValue(context, 'Xij6JPqNHgw', 'true');
+      if (inputFieldId == 'L8pjmifYu5v') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'Xij6JPqNHgw', 'true');
+        } else {
+          assignInputFieldValue(context, 'Xij6JPqNHgw', '');
+        }
       }
-      if (inputFieldId == 'WHRJJvbbJV2' && value == 'true') {
-        assignInputFieldValue(context, 'LmAeo9S1BFX', 'true');
+      if (inputFieldId == 'WHRJJvbbJV2') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'LmAeo9S1BFX', 'true');
+        } else {
+          assignInputFieldValue(context, 'LmAeo9S1BFX', '');
+        }
       }
-      if (inputFieldId == 'm1pw5a6ptnD' && value == 'true') {
-        assignInputFieldValue(context, 'xqMDWAQ0aST', value);
+      if (inputFieldId == 'm1pw5a6ptnD') {
+        if (value == ' true') {
+          assignInputFieldValue(context, 'xqMDWAQ0aST', 'true');
+        } else {
+          assignInputFieldValue(context, 'xqMDWAQ0aST', '');
+        }
       }
-      if (inputFieldId == 'MrxmSdFauSY' && value == 'false') {
-        assignInputFieldValue(context, 'O0rgyBGiBpW', 'true');
+      if (inputFieldId == 'MrxmSdFauSY') {
+        if (value == 'false') {
+          assignInputFieldValue(context, 'O0rgyBGiBpW', 'true');
+        } else {
+          assignInputFieldValue(context, 'O0rgyBGiBpW', '');
+        }
       }
-      if (inputFieldId == 'gN37trYWyOh' && value == 'true') {
-        assignInputFieldValue(context, 'pEZU4tCPJ7m', 'true');
+      if (inputFieldId == 'gN37trYWyOh') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'pEZU4tCPJ7m', 'true');
+        } else {
+          assignInputFieldValue(context, 'pEZU4tCPJ7m', '');
+        }
       }
-      if (inputFieldId == 'a1pS345KP53' && value == 'true') {
-        assignInputFieldValue(context, 'ICt3HySVpyI', 'true');
+      if (inputFieldId == 'a1pS345KP53') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'ICt3HySVpyI', 'true');
+        } else {
+          assignInputFieldValue(context, 'ICt3HySVpyI', 'false');
+        }
       }
-      if (inputFieldId == 'a1pS345KP53' && value == 'false') {
-        assignInputFieldValue(context, 'ICt3HySVpyI', 'false');
+      if (inputFieldId == 'a1pS345KP53') {
+        if (value == 'false') {
+          assignInputFieldValue(context, 'ICt3HySVpyI', 'false');
+        } else {
+          assignInputFieldValue(context, 'ICt3HySVpyI', 'false');
+        }
       }
-      if (inputFieldId == 'GqOBk3DGpby' && value == 'true') {
-        assignInputFieldValue(context, 'JRnOh92xlFB', 'true');
+      if (inputFieldId == 'GqOBk3DGpby') {
+        if (value == 'true') {
+          assignInputFieldValue(context, 'JRnOh92xlFB', 'true');
+        } else {
+          assignInputFieldValue(context, 'JRnOh92xlFB', 'false');
+        }
       }
-      if(inputFieldId =='Qxb7zzJ98HI' && value =='Single Orphan(Father)'){
-        assignInputFieldValue(context, 'ac0uJduZGTC', 'No');
-      }
-       if(inputFieldId =='Qxb7zzJ98HI' && value =='Single Orphan(Mother)'){
-        assignInputFieldValue(context, 'OK56Mru7Hwp', 'No');
-      }
-      if(inputFieldId =='Qxb7zzJ98HI' && value =='Double Orphan'){
-        assignInputFieldValue(context, 'OK56Mru7Hwp', 'No');
-        assignInputFieldValue(context, 'ac0uJduZGTC', 'No');
+      if (inputFieldId == 'Qxb7zzJ98HI') {
+        if (value == 'Single Orphan(Father)') {
+          assignInputFieldValue(context, 'ac0uJduZGTC', 'No');
+        } else if (value == 'Single Orphan(Mother)') {
+          assignInputFieldValue(context, 'OK56Mru7Hwp', 'No');
+        } else if (value == 'Double Orphan') {
+          assignInputFieldValue(context, 'OK56Mru7Hwp', 'No');
+          assignInputFieldValue(context, 'ac0uJduZGTC', 'No');
+        }
       }
 
       // TODO Add re-enrollment skip logic
