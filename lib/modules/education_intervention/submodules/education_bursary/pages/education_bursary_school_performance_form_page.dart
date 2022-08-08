@@ -120,8 +120,10 @@ class _EducationBursarySchoolPerformanceFormPageState
     EducationBeneficiary bursaryBeneficiary,
   ) async {
     setMandatoryFields(dataObject);
-    bool hasAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hasAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;

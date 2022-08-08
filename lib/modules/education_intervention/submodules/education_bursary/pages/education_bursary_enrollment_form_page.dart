@@ -108,8 +108,10 @@ class _EducationBursaryEnrollmentFormPageState
   }
 
   void onSave(BuildContext context, Map dataObject) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+            .hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -167,8 +169,11 @@ class _EducationBursaryEnrollmentFormPageState
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields:
+                Provider.of<EnrollmentFormState>(context, listen: false)
+                    .hiddenFields);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

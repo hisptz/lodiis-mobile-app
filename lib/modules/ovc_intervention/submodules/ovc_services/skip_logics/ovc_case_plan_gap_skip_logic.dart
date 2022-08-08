@@ -23,10 +23,6 @@ mixin OvcCasePlanGapSkipLogic {
     }
     inputFieldIds = inputFieldIds.toSet().toList();
 
-    if (currentHouseholdChild != null) {
-      evaluateAgeSkipLogics(inputFieldIds, currentHouseholdChild);
-    }
-
     // Hiding gap based on the goal
     List<String> casPlanServiceGaps = OvcCasePlanConstant.casPlanServiceGaps;
     for (String gap in casPlanServiceGaps) {
@@ -455,6 +451,11 @@ mixin OvcCasePlanGapSkipLogic {
         hiddenFields['WAq2HJHXZYS'] = true;
       }
     }
+
+    if (currentHouseholdChild != null) {
+      evaluateAgeSkipLogics(inputFieldIds, currentHouseholdChild);
+    }
+
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -491,59 +492,19 @@ mixin OvcCasePlanGapSkipLogic {
       int age = int.parse(currentHouseholdChild!.age!);
       String? gender = currentHouseholdChild.sex;
       //Domain health
-      if (age > 5) {
-        hiddenFields['x4yAqv4z2Xv'] = true;
-        hiddenFields['AM9oJCOHM7f'] = true;
-        hiddenFields['hJUuQ648wVF'] = true;
-        hiddenFields['LswSBpMoG5C'] = true;
-        hiddenFields['gCKoJgBFdob'] = true;
-        hiddenFields['JSQ3xP1NhuN'] = true;
-        hiddenFields['AwWKp6KmqgY'] = true;
-        hiddenFields['EaJTFrklMo5'] = true;
-      }
-      if (age != 12 && gender != 'Female') {
+      if (!(age == 12 && gender == 'Female')) {
         hiddenFields['d2vXxEPeCq7'] = true;
       }
-
-      if (age < 2 || age > 5) {
-        hiddenFields['BJrrrqQqwQO'] = true;
+      if (age >= 5) {
+        hiddenFields['x4yAqv4z2Xv'] = true;
+        hiddenFields['AM9oJCOHM7f'] = true;
+        hiddenFields['gCKoJgBFdob'] = true;
+        hiddenFields['uvJV4WGc5ct'] = true;
       }
-
       //Domain Schooled
-      if (age < 9 || age > 17) {
-        hiddenFields['Cb8qzfdrg7d'] = true;
-      }
-      if (age < 18 || age > 24) {
-        hiddenFields['TQSMaZgfZPO'] = true;
-        hiddenFields['SN2kJN3jAG9'] = true;
-      }
-
       if (age < 13 || age > 17) {
         hiddenFields['qraZh4n14S4'] = true;
         hiddenFields['TdReJf2LTXA'] = true;
-        hiddenFields['q2N7p3UbvSF'] = true;
-      }
-
-      if (age < 5 || age > 17) {
-        hiddenFields['NcMANzhhphO'] = true;
-      }
-      if (age < 9 || age > 20) {
-        hiddenFields['X47zxNAqMv0'] = true;
-      }
-
-      //Domain Stable
-      if (age < 10 || age > 17) {
-        hiddenFields['yPP7lkomNfK'] = true;
-      }
-
-      //Domain Safe
-      if (age < 9 || age > 17) {
-        hiddenFields['uQiyym8SEvd'] = true;
-        hiddenFields['aPmPhwm8Zln'] = true;
-        hiddenFields['AaqeRcyjbyS'] = true;
-      }
-      if (age < 5 || age > 8) {
-        hiddenFields['neF08iYV9Os'] = true;
       }
     } catch (e) {
       //

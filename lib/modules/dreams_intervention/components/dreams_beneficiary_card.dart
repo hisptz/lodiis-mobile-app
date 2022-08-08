@@ -154,6 +154,9 @@ class DreamsBeneficiaryCard extends StatelessWidget {
         left: 13.0,
       ),
       child: MaterialCard(
+        borderColor: agywDream.isAgeBeyondAverage!
+            ? Colors.redAccent
+            : Colors.transparent,
         body: Column(
           children: [
             Consumer<SynchronizationStatusState>(
@@ -171,7 +174,6 @@ class DreamsBeneficiaryCard extends StatelessWidget {
                 onToggleCard: onCardToggle,
                 programStatus: agywDream.programStatus ?? '',
                 isActive: agywDream.programStatus == 'Active',
-                isAgeBeyondAverage: agywDream.isAgeBeyondAverage as bool,
                 onEdit: () => onEdit(context),
                 onView: () => onView(context),
                 onOpenStatus: () => onChangeStatus(context, agywDream),
