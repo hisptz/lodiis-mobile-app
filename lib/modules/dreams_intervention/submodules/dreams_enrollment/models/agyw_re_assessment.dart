@@ -18,10 +18,29 @@ class AgywReAssessment {
               'ypHSdTlJvW4',
               'lMnQEQjzKJu',
               'uZQD4Hwp3j0',
-              'YeGKmvgU8gQ'
             ].contains(formSection.id))
         .toList();
-    return [...FormUtil.getFormFieldIds(mandatorySections)];
+    return [
+      ...FormUtil.getFormFieldIds(mandatorySections),
+      'zO2wRePjGvO',
+      'pVEjKAzj7mA',
+      'FMT17u0pJ7o',
+      'QxYCweHXR8r',
+      'BaG3QTzCdrm',
+      'Tl8yAujLY2T',
+      'GXb0yN9WSvZ',
+      'rfwvxFDyLnN',
+      'jeb1PlPmJHD',
+      'dAlwALiZxnT',
+      'V8ziLwhPA05',
+      'K0r3yA6oi3F',
+      'dvT9e6eeNsE',
+      'mZXrTDoaBqp',
+      'B1hsntcuB5q',
+      'FGiKknNPkbh',
+      'pDKOAGB7LKD',
+      'WMjfK2Fl7d6'
+    ];
   }
 
   static List<FormSection> getFormSections() {
