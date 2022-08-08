@@ -74,36 +74,19 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
             .primaryColor;
     var backgroundColor = Color.alphaBlend(
         (primaryColor ?? Colors.white).withOpacity(0.1), Colors.white);
-    AppUtil.showActionSheetModal(
-        context: context,
-        containerBody: const AgywDreamForReAssessment(),
-        backgroundColor: backgroundColor,
-        title: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 8.0),
-              child: Text(
-                'AGYW DREAMS Beneficiaries for Re-assessment',
-                style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14.0,
-                    color: primaryColor ?? Colors.black),
-              ),
-            ),
-            LineSeparator(
-              color: primaryColor ?? Colors.black,
-              height: 1.0,
-            ),
-          ],
-        ),
-        initialHeightRatio: 0.8,
-        minHeightRatio: 0.7,
-        maxHeightRatio: 0.85);
+
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) => const AgywDreamForReAssessment(),
+    );
   }
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshAgywDreamsList();
+    dreamInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

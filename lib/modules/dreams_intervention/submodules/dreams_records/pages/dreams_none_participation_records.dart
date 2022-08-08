@@ -70,7 +70,7 @@ class _DreamsNoneParticipationRecordsPageState
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshNoneParticipantsList();
+    dreamInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

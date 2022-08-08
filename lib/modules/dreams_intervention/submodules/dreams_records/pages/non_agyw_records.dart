@@ -34,7 +34,7 @@ class _NonAgywRecordsState extends State<NonAgywRecords> {
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshNonAgywDreamsList();
+    dreamInterventionListState.refreshBeneficiariesNumber();
   }
 
   Widget _buildBody() {

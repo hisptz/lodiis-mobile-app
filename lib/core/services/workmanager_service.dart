@@ -12,8 +12,6 @@ callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     var autoSyncTaskName = WorkmanagerConstants.autoSync;
     var dataQualityTaskName = WorkmanagerConstants.dataQuality;
-    var reAssessmentEvaluationTask =
-        WorkmanagerConstants.reAssessmentEvaluation;
     try {
       if (task == autoSyncTaskName) {
         await AppInfoService.updateAppStoreVersion();
@@ -26,9 +24,6 @@ callbackDispatcher() {
         }
       }
       if (task == dataQualityTaskName) {
-        await DreamsBackgroundReAssessmentService.startProcess();
-      }
-      if (task == reAssessmentEvaluationTask) {
         await DreamsBackgroundReAssessmentService.startProcess();
       }
       return Future.value(true);

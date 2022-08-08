@@ -68,8 +68,7 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamsInterventionListState) {
-    dreamsInterventionListState
-        .refreshBeneficiariesWithNoAgywDreamsCriteriaList();
+    dreamsInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

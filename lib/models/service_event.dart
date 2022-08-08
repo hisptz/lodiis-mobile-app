@@ -44,8 +44,6 @@ class ServiceEvent {
 
   String assignInterventionGroup(String interventionType) {
     if (interventionType == 'AFLATEEN/TOUN' ||
-        interventionType == 'PTS 4 NON-GRADS' ||
-        interventionType == 'PTS 4-GRADS' ||
         interventionType == 'Go Girls') {
       return '(SAB) Social Assets Building';
     } else if (interventionType == 'SILC' ||

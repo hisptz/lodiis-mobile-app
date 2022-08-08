@@ -82,7 +82,7 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
 
   void refreshBeneficiaryList(
       EducationLbseInterventionState educationLbseInterventionState) {
-    educationLbseInterventionState.refreshEducationLbseList();
+    educationLbseInterventionState.refreshEducationLbseNumber();
   }
 
   Center _getEmptyListContainer(BuildContext context) {

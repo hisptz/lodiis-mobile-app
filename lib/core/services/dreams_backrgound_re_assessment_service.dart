@@ -12,7 +12,7 @@ class DreamsBackgroundReAssessmentService {
   static Future<void> startProcess() async {
     try {
       LocalNotificationService.show(
-        message: "Started Reassessment of DREAMS beneficiaries",
+        message: "Started evaluation of DREAMS beneficiaries to re-assess",
         title: "DREAMS Re-assessment",
       );
       await _evaluateDreamsTrackedEntityInstancesToUpdate();
@@ -20,7 +20,7 @@ class DreamsBackgroundReAssessmentService {
       //
     } finally {
       LocalNotificationService.show(
-        message: "Finished Reassessment of DREAMS beneficiaries",
+        message: "Finished evaluation of DREAMS beneficiaries to re-assess",
         title: "DREAMS Re-assessment",
       );
     }

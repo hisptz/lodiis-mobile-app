@@ -93,7 +93,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
 
   void refreshBeneficiaryList(
       OvcInterventionListState ovcInterventionListState) {
-    ovcInterventionListState.refreshHouseHoldsList();
+    ovcInterventionListState.refreshOvcNumber();
   }
 
   @override

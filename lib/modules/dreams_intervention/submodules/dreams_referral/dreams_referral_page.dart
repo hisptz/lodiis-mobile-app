@@ -104,7 +104,7 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamsInterventionListState) {
-    dreamsInterventionListState.refreshAgywDreamsList();
+    dreamsInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

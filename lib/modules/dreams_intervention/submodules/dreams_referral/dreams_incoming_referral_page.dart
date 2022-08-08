@@ -60,7 +60,7 @@ class _DreamsIncomingReferralPageState
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshAgywIncomingReferralDreamsList();
+    dreamInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override

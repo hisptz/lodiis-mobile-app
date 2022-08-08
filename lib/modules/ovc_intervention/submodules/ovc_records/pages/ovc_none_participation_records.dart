@@ -66,7 +66,7 @@ class _OvcNoneParticipationRecordsState
 
   void refreshBeneficiaryList(
       OvcInterventionListState ovcInterventionListState) {
-    ovcInterventionListState.refreshOvcList();
+    ovcInterventionListState.refreshOvcNumber();
   }
 
   Widget _buildBody(String? currentLanguage) {

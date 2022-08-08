@@ -222,7 +222,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
-
   void onOpenPostGBVLegalForm(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -235,7 +234,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
       ),
     );
   }
-   void onOpenParentingForm(
+
+  void onOpenParentingForm(
     BuildContext context,
     AgywDream agywBeneficiary,
   ) {
@@ -263,7 +263,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamsInterventionListState) {
-    dreamsInterventionListState.refreshAgywDreamsList();
+    dreamsInterventionListState.refreshBeneficiariesNumber();
   }
 
   @override
@@ -363,7 +363,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   agywBeneficiary,
                 ),
                 onOpenParentingForm: () => onOpenParentingForm(
-                   context,
+                  context,
                   agywBeneficiary,
                 ),
               ),

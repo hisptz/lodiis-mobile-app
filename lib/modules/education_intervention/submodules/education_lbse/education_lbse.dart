@@ -150,7 +150,7 @@ class _EducationLbseState extends State<EducationLbse> {
 
   void refreshBeneficiaryList(
       EducationLbseInterventionState educationLbseInterventionState) {
-    educationLbseInterventionState.refreshEducationLbseList();
+    educationLbseInterventionState.refreshEducationLbseNumber();
   }
 
   void onOpenBeneficiaryReferrals(
