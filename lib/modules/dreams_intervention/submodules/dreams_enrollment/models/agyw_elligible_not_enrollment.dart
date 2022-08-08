@@ -7,9 +7,9 @@ class AgywElligibleNotEnrollment {
   static List<String> getMandatoryField() {
     return [
        'JhOvli80Qbx',
-      'rSP9c21JsfC',
-      'qZP982qpSPS',
-      'VJiWumvINR6',
+      'jjZWuJfVStp',
+      'jVSwC6Ln95H',
+      'an7w8LYPZ7y',
     ];
   }
 
