@@ -17,9 +17,8 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/constants/post_gbv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/pages/agyw_dreams_post_gbv_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/constants/post_gbv_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/pages/agyw_dreams_post_gbv_form.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +31,7 @@ class AgywDreamsPostGBVLegal extends StatefulWidget {
 
 class _AgywDreamsPostGBVLegalState extends State<AgywDreamsPostGBVLegal> {
   final String label = 'POST GBV(Legal)';
-  List<String> programStageIds = [PostGBVConstant.programStage];
+  List<String> programStageIds = [PostGBVLegalConstant.programStage];
   @override
   void initState() {
     super.initState();
@@ -91,7 +90,7 @@ class _AgywDreamsPostGBVLegalState extends State<AgywDreamsPostGBVLegal> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AgywDreamsPostGBVForm(),
+          builder: (context) => const AgywDreamsPostGBVLegalForm(),
         ),
       );
     }

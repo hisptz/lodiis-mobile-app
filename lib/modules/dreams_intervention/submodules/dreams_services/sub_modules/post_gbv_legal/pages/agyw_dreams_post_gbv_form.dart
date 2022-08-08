@@ -24,8 +24,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_post_gbv_legal_form.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/constants/post_gbv_constant.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/constants/post_gbv_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/skip_logics/agyw_dreams_post_gbv_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +37,7 @@ class AgywDreamsPostGBVLegalForm extends StatefulWidget {
 }
 
 class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
-  final String label = 'POST GBV form';
+  final String label = 'POST GBV(legal) form';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -135,8 +135,8 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
         String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            PostGBVConstant.program,
-            PostGBVConstant.programStage,
+            PostGBVLegalConstant.program,
+            PostGBVLegalConstant.programStage,
             orgUnit,
             defaultFormSections!,
             dataObject,

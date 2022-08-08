@@ -53,7 +53,7 @@ class AgywDreamsServiceSummaryConstant {
           'programStage': ['Gk494qKQP8B']
         },
         {
-          'name': 'HIV & VIOLENCE PREVENTION',
+          'name': 'Violence Prevention Education',
           'programStage': ['bDJq2JWVTbC']
         },
       ],
@@ -62,8 +62,26 @@ class AgywDreamsServiceSummaryConstant {
           'name': 'HIV Prevention Education (VAC/GBV)',
           'programStage': ['bDJq2JWVTbC']
         },
-        {'name': ''},
-        {'name': ''},
+        {
+          'name': 'Parenting (Preg & Breastfeeding)',
+          'programStage': ['N5SlNqQuMyC']
+        },
+        {
+          'name': 'Post GBV Care (Legal)',
+          'programStage': ['VLW93YjZOyf']
+        },
+      ],
+      [
+        {
+          'name': 'POST GBV Care (clinic)',
+          'programStage': ['yK0ENCuwPqh']
+        },
+        {
+          'name': '',
+        },
+        {
+          'name': '',
+        },
       ]
     ];
   }
