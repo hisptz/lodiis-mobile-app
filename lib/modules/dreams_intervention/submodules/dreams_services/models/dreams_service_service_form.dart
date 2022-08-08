@@ -35,9 +35,6 @@ class DreamsServiceForm {
                 options: [
                   InputFieldOption(
                       code: 'AFLATEEN/TOUN', name: 'AFLATEEN/TOUN'),
-                  InputFieldOption(
-                      code: 'PTS 4 NON-GRADS', name: 'PTS 4 NON-GRADS'),
-                  InputFieldOption(code: 'PTS 4-GRADS', name: 'PTS 4-GRADS'),
                   InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
                   InputFieldOption(code: 'PARENTING', name: 'PARENTING'),
                   InputFieldOption(code: 'SILC', name: 'SILC'),

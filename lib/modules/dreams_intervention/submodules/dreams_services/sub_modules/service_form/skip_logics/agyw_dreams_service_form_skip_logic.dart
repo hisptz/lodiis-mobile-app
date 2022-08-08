@@ -41,11 +41,7 @@ class AgywDreamsServiceFormSkipLogic {
     }
     if (agywDreamAge < 18) {
       hiddenOptions['Go Girls'] = true;
-      hiddenOptions['PTS 4-GRADS'] = true;
       hiddenOptions['SILC'] = true;
-    }
-    if (agywDreamAge < 16) {
-      hiddenOptions['PTS 4 NON-GRADS'] = true;
     }
     if (agywDreamAge < 15) {
       hiddenOptions['STEPPING STONES'] = true;
@@ -60,9 +56,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['FinancialLiteracyEducation'] = true;
       hiddenOptions['STEPPING STONES'] = true;
       hiddenOptions['CondomEducationProvision'] = true;
-      hiddenOptions['PTS 4 NON-GRADS'] = true;
       hiddenOptions['Go Girls'] = true;
-      hiddenOptions['PTS 4-GRADS'] = true;
       hiddenOptions['SILC'] = true;
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
@@ -78,8 +72,6 @@ class AgywDreamsServiceFormSkipLogic {
           'FinancialLiteracyEducation',
           'SILC',
           'SAVING GROUP',
-          'PTS 4 NON-GRADS',
-          'PTS 4-GRADS'
         ].contains(value)) {
           hiddenFields['FoLeDcnocv4'] = true;
           hiddenFields['JjX25d72ume'] = true;
