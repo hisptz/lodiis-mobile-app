@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
@@ -214,26 +215,41 @@ class AgywDreamsEnrollmentService {
       //
     }
     if (filters.isNotEmpty) {
-      for (Map<String, dynamic> filter in filters) {
-        String? implementingPartner = filter['implementingPartner'];
-        String? age = filter['age'];
-        String? sex = filter['sex'];
+      Map<String, dynamic> metadata = {
+        'filters': filters,
+        'agywDreamList': agywDreamList
+      };
+      agywDreamList = await compute(filterBeneficiaries, metadata);
+    }
 
-        agywDreamList = implementingPartner == null
-            ? agywDreamList
-            : agywDreamList
-                .where((AgywDream agyw) =>
-                    agyw.enrolledOrganisation == implementingPartner)
-                .toList();
+    return agywDreamList;
+  }
 
-        agywDreamList = age == null
-            ? agywDreamList
-            : agywDreamList.where((AgywDream agyw) => agyw.age == age).toList();
+  List<AgywDream> filterBeneficiaries(Map<String, dynamic> metadata) {
+    List<Map<String, dynamic>> filters =
+        metadata['filters'] as List<Map<String, dynamic>>;
+    List<AgywDream> agywDreamList =
+        metadata['agywDreamList'] as List<AgywDream>;
 
-        agywDreamList = sex == null
-            ? agywDreamList
-            : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
-      }
+    for (Map<String, dynamic> filter in filters) {
+      String? implementingPartner = filter['implementingPartner'];
+      String? age = filter['age'];
+      String? sex = filter['sex'];
+
+      agywDreamList = implementingPartner == null
+          ? agywDreamList
+          : agywDreamList
+              .where((AgywDream agyw) =>
+                  agyw.enrolledOrganisation == implementingPartner)
+              .toList();
+
+      agywDreamList = age == null
+          ? agywDreamList
+          : agywDreamList.where((AgywDream agyw) => agyw.age == age).toList();
+
+      agywDreamList = sex == null
+          ? agywDreamList
+          : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
     }
 
     return agywDreamList;

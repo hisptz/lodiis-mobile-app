@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
@@ -68,7 +69,7 @@ class OvcEnrollmentHouseholdService {
     Map dataObject = const {},
     List<String>? inputFieldIds,
   }) async {
-    List<String> _inputFieldIds = inputFieldIds ??[];
+    List<String> _inputFieldIds = inputFieldIds ?? [];
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
       trackedEntityInstance,
@@ -78,7 +79,7 @@ class OvcEnrollmentHouseholdService {
       dataObject,
       hasBeneficiaryId: false,
     );
-  
+
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
   }
 
@@ -224,17 +225,31 @@ class OvcEnrollmentHouseholdService {
       //
     }
     if (filters.isNotEmpty) {
-      for (Map<String, dynamic> filter in filters) {
-        String? implementingPartner = filter['implementingPartner'];
-        ovcHouseHoldList = implementingPartner == null
-            ? ovcHouseHoldList
-            : ovcHouseHoldList
-                .where((OvcHousehold household) =>
-                    household.implementingPartner == implementingPartner)
-                .toList();
-      }
+      Map<String, dynamic> metadata = {
+        'ovcHouseHoldList': ovcHouseHoldList,
+        'filters': filters
+      };
+
+      return await compute(getFilteredBeneficiaries, metadata);
     }
 
+    return ovcHouseHoldList;
+  }
+
+  List<OvcHousehold> getFilteredBeneficiaries(Map<String, dynamic> metadata) {
+    List<Map<String, dynamic>> filters =
+        metadata['filters'] as List<Map<String, dynamic>>;
+    List<OvcHousehold> ovcHouseHoldList =
+        metadata['ovcHouseHoldList'] as List<OvcHousehold>;
+    for (Map<String, dynamic> filter in filters) {
+      String? implementingPartner = filter['implementingPartner'];
+      ovcHouseHoldList = implementingPartner == null
+          ? ovcHouseHoldList
+          : ovcHouseHoldList
+              .where((OvcHousehold household) =>
+                  household.implementingPartner == implementingPartner)
+              .toList();
+    }
     return ovcHouseHoldList;
   }
 
