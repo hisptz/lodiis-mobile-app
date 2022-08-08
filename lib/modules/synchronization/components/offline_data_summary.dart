@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:provider/provider.dart';
 
 class OfflineDataSummary extends StatelessWidget {
-  const OfflineDataSummary(
-      {Key? key,
-      required this.beneficiaryCount,
-      required this.beneficiaryServiceCount})
-      : super(key: key);
+  const OfflineDataSummary({
+    Key? key,
+    required this.beneficiaryCount,
+    required this.beneficiaryServiceCount,
+    required this.onInitializeSyncAction,
+    required this.syncAction,
+    this.isSyncActive = false,
+  }) : super(key: key);
 
   final int beneficiaryCount;
   final int beneficiaryServiceCount;
+  final Function(String) onInitializeSyncAction;
+  final String syncAction;
+  final bool isSyncActive;
+
+  onSyncButtonPress() {
+    onInitializeSyncAction(syncAction);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialCard(
@@ -86,6 +100,25 @@ class OfflineDataSummary extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              margin: const EdgeInsets.only(top: 15.0),
+              child: EntryFormSaveButton(
+                marginLeft: 80.0,
+                marginRight: 80.0,
+                vertical: 5.0,
+                label: 'Sync',
+                svgIconPath: 'assets/icons/sync.svg',
+                svgIconHeight: 15.0,
+                svgIconWidth: 15.0,
+                labelColor: Colors.white,
+                buttonColor:
+                    Provider.of<InterventionCardState>(context, listen: false)
+                        .currentInterventionProgram
+                        .primaryColor,
+                fontSize: 15.0,
+                onPressButton: () => !isSyncActive ? onSyncButtonPress() : null,
+              ),
+            )
           ],
         ),
       ),

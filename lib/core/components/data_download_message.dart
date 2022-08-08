@@ -37,7 +37,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
         context,
         MaterialPageRoute(
           builder: (context) => Synchronization(
-            synchronizationAction: SynchronizationActionsConstants().download,
+            synchronizationAction: SynchronizationActionsConstants.download,
           ),
         ),
       );

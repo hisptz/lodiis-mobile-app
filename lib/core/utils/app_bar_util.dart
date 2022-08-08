@@ -81,7 +81,7 @@ class AppBarUtil {
   }
 
   static void _onOpenSyncModule(BuildContext context) async {
-    var syncActionConstants = SynchronizationActionsConstants();
+    var syncActionConstants = SynchronizationActionsConstants;
     bool isDataDownloadActive =
         Provider.of<SynchronizationState>(context, listen: false)
             .isDataDownloadingActive;
