@@ -112,6 +112,7 @@ class UserService {
       }
     } catch (e) {
       //
+      currentUserDataEntryAuthorityStatus = true;
     }
     return currentUserDataEntryAuthorityStatus;
   }
