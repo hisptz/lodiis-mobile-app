@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/agyw_dreams_hiv_message.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/hts_long_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/hts_short_form_home_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/agyw_dreams_parenting.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/agyw_dreams_post_gbv.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/agyw_dreams_post_gbv.dart';
@@ -234,6 +235,18 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
       ),
     );
   }
+   void onOpenParentingForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AgywDreamsParenting(),
+      ),
+    );
+  }
 
   void updateStateData(
     BuildContext context,
@@ -347,6 +360,10 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                 ),
                 onOpenPostGBVLegalForm: () => onOpenPostGBVLegalForm(
                   context,
+                  agywBeneficiary,
+                ),
+                onOpenParentingForm: () => onOpenParentingForm(
+                   context,
                   agywBeneficiary,
                 ),
               ),

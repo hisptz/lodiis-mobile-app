@@ -71,6 +71,10 @@ class DreamsRoutesConstant {
   static const String agywDreamsServiceFormNextPage = "Service Form";
   static const String agywDreamsPostGBVFormPage = "POST GBV form";
   static const String agywDreamsPostGBVFormNextPage = "POST GBV form";
+  static const String agywDreamsParentingFormPage = "Parenting (Preg & Breastfeeding)";
+  static const String agywDreamsParentingFormNextPage = "Parenting (Preg & Breastfeeding)";
+  static const String agywDreamPostGBVLegalFormPage = "POST GBV(legal) form";
+  static const String agywDreamPostGBVLegalFormNextPage = "POST GBV(legal) form";
 
   // routes for agyw referrals
   static const String agywDreamsReferralPage = "Dream Referral Form";

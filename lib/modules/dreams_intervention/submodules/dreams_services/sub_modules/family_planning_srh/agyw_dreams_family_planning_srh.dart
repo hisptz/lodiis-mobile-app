@@ -166,7 +166,7 @@ class _AgywDreamFamilyPlanningSrhState
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Visit",
+                                                  visitName: "Family Planning/SRH",
                                                   onEdit: () =>
                                                       onEditContraceptives(
                                                           context,
