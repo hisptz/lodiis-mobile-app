@@ -19,11 +19,8 @@ class AgywDreamsReAssessmentSkipLogic {
     hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     Map hiddenOptions = {};
-    /**
-     * 
-      *  Todo - add age evaluation to incoparate into skip logics
-            */
-    int age = int.parse('${dataObject[''] ?? '0'}');
+
+    int age = int.parse('${dataObject['age'] ?? '0'}');
 
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');

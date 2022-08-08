@@ -47,6 +47,8 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: true);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('age', '${agywDream.age}');
     Navigator.push(
       context,
       MaterialPageRoute(
