@@ -76,7 +76,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     if (isVacessageSelected && !isVacLegalMessageSelected) {
       dataObject['AaqeRcyjbyS'] = true;
     } else if (!isVacessageSelected) {
-      dataObject['AaqeRcyjbyS'] = false;
+      dataObject['AaqeRcyjbyS'] = '';
       for (String id in vacLegalMessagingMandatoryFields) {
         dataObject[id] = '';
       }
