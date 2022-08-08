@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
+import 'package:kb_mobile_app/core/constants/background_dreams_re_assessment_constants.dart';
 import 'package:kb_mobile_app/core/constants/workmanager_constants.dart';
 import 'package:kb_mobile_app/core/services/app_info_service.dart';
 import 'package:kb_mobile_app/core/services/data_quality_service.dart';
@@ -50,9 +51,8 @@ class WorkmanagerService {
     var reAssessmentEvaluationTask =
         WorkmanagerConstants.reAssessmentEvaluation;
     var syncTimeOut = const Duration(minutes: AutoSynchronization.syncInterval);
-    // TODO Add a re-assessment timeout
-    // var reAssessmentTimeout = const Duration(hours: 23);
-    var reAssessmentTimeout = syncTimeOut;
+    var reAssessmentTimeout = const Duration(
+        minutes: BackgroundDreamsReAssessmentConstants.reAssessmentTimeout);
     var autoSync = await PreferenceProvider.getPreferenceValue(
       WorkmanagerConstants.autoSync,
     );
