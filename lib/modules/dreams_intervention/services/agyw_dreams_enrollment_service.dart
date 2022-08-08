@@ -79,6 +79,33 @@ class AgywDreamsEnrollmentService {
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
   }
 
+  Future updateReAssessedAgywBeneficiary(
+    Map dataObject,
+    String? trackedEntityInstance,
+    String? orgUnit,
+    List<String> hiddenFields, {
+    List<FormSection> formSections = const [],
+  }) async {
+    List<String> inputFieldIds = hiddenFields;
+    inputFieldIds.addAll(FormUtil.getFormFieldIds(formSections));
+    TrackedEntityInstance trackedEntityInstanceData =
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+            trackedEntityInstance,
+            trackedEntityType,
+            orgUnit,
+            inputFieldIds,
+            dataObject,
+            hasBeneficiaryId: false);
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
+
+    List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+        .getEnrollmentsFromTeiList([trackedEntityInstance ?? '']);
+    for (var enrollment in enrollments) {
+      enrollment.shouldReAssess = '';
+      await await EnrollmentOfflineProvider().addOrUpdateEnrollment(enrollment);
+    }
+  }
+
   Future<List<AgywDream>> getAgywBeneficiariesWithIncomingReferralList({
     int? page,
     List teiList = const [],
