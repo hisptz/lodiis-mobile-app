@@ -70,7 +70,7 @@ class WorkmanagerService {
       frequency: reAssessmentTimeout,
       initialDelay: const Duration(minutes: 1),
       existingWorkPolicy: ExistingWorkPolicy.keep,
-      constraints: Constraints(networkType: NetworkType.connected),
+      constraints: Constraints(networkType: NetworkType.not_required),
     );
 
     if (autoSync != "true") {

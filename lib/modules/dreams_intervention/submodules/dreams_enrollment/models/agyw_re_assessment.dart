@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class AgywReAssessment {
   static List<String> getMandatoryFields() {
-    return [];
+    List<FormSection> mandatorySections = getFormSections()
+        .where((FormSection formSection) => [
+              'KMFmafOtRev',
+              'iBBkSG3VKtu',
+              'xqPsOZw0UAI',
+              'dORx8fA0CcT',
+              'hKEoD0Gg0Jj',
+              'OfGOoEeSIP6',
+              'jaSu6ravuz1',
+              'ypHSdTlJvW4',
+              'lMnQEQjzKJu',
+              'uZQD4Hwp3j0',
+              'YeGKmvgU8gQ'
+            ].contains(formSection.id))
+        .toList();
+    return [...FormUtil.getFormFieldIds(mandatorySections)];
   }
 
   static List<FormSection> getFormSections() {
@@ -83,63 +99,6 @@ class AgywReAssessment {
         ],
       ),
       FormSection(
-        id: 'KMFmafOtRev',
-        name: 'Multiple sexual partners (in the last year)',
-        color: const Color(0xFF258DCC),
-        inputFields: [
-          InputField(
-            id: 'XEZ1waTp18L',
-            name: 'Have you ever had sex?',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'c9CzrUtn7dh',
-            name: 'How old were you when you had sex for the first time?',
-            valueType: 'TEXT',
-            options: [
-              InputFieldOption(
-                code: '9-14',
-                name: '9-14',
-              ),
-              InputFieldOption(
-                code: '15-19',
-                name: '15-19',
-              ),
-              InputFieldOption(
-                code: '20-24',
-                name: '20-24',
-              ),
-            ],
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'm1pw5a6ptnD',
-            name: 'Do you have any sexual partner?',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'O9ZQS4PVdEO',
-            name: 'Are you involved in any sexual activity?',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'cLtX7aavyWx',
-            name:
-                'How many sexual partners have you had in the last 12 months?',
-            valueType: 'INTEGER_ZERO_OR_POSITIVE',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-        ],
-      ),
-      FormSection(
         id: 'dFTGCWSQDd2',
         name: 'Household Information',
         color: const Color(0xFF258DCC),
@@ -147,20 +106,6 @@ class AgywReAssessment {
           InputField(
             id: 'Tt8LW1HTLlC',
             name: 'Name of parent/caregiver',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'F0TVadK6qLP',
-            name: 'AGYW\'s father given name',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'OCs3l1GsM8P',
-            name: 'AGYW\'s mother given name',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -215,6 +160,63 @@ class AgywReAssessment {
                 name: 'Other',
               ),
             ],
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+        ],
+      ),
+      FormSection(
+        id: 'KMFmafOtRev',
+        name: 'Multiple sexual partners (in the last year)',
+        color: const Color(0xFF258DCC),
+        inputFields: [
+          InputField(
+            id: 'XEZ1waTp18L',
+            name: 'Have you ever had sex?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'c9CzrUtn7dh',
+            name: 'How old were you when you had sex for the first time?',
+            valueType: 'TEXT',
+            options: [
+              InputFieldOption(
+                code: '9-14',
+                name: '9-14',
+              ),
+              InputFieldOption(
+                code: '15-19',
+                name: '15-19',
+              ),
+              InputFieldOption(
+                code: '20-24',
+                name: '20-24',
+              ),
+            ],
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'm1pw5a6ptnD',
+            name: 'Do you have any sexual partner?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'O9ZQS4PVdEO',
+            name: 'Are you involved in any sexual activity?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'cLtX7aavyWx',
+            name:
+                'How many sexual partners have you had in the last 12 months?',
+            valueType: 'INTEGER_ZERO_OR_POSITIVE',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),
@@ -597,6 +599,7 @@ class AgywReAssessment {
             id: 'O0rgyBGiBpW',
             name: 'No or Irregular Condom use',
             valueType: 'TRUE_ONLY',
+            isReadOnly: true,
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),

@@ -1,3 +1,3 @@
 class AutoSynchronization {
-  static const int syncInterval = 15;
+  static const int syncInterval = 25;
 }

@@ -26,6 +26,10 @@ class AgywDreamsReAssessmentSkipLogic {
 
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+
+      //  TODO Add  re-assessment skip logic
+
+      // TODO Add re-enrollment skip logic
     }
 
     resetValuesForHiddenFields(context, hiddenFields.keys);
