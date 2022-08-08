@@ -29,11 +29,12 @@ class DreamsBackgroundReAssessmentService {
   static Future<void> _evaluateDreamsTrackedEntityInstancesToUpdate() async {
     try {
       int enrollmentCount = await EnrollmentOfflineProvider()
-          .getEnrollmentsCount(AgywDreamsEnrollmentConstant.program);
+          .getEnrollmentsToReAssessCount(AgywDreamsEnrollmentConstant.program);
       if (enrollmentCount > 0) {
         for (var page = 0;
             page <=
-                (enrollmentCount / PaginationConstants.paginationLimit).ceil();
+                (enrollmentCount / PaginationConstants.searchingPaginationLimit)
+                    .ceil();
             page++) {
           List<Enrollment> enrollments =
               await EnrollmentOfflineProvider().getEnrollmentsByProgram(
