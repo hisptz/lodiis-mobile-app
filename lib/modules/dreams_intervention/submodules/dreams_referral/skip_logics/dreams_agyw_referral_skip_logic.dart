@@ -122,6 +122,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['ARTInitiation'] = true;
           referralServiceHiddenOptions['FamilyPlanningSRH'] = true;
           referralServiceHiddenOptions['CondomEducationProvision'] = true;
+          referralServiceHiddenOptions['PEP'] = true;
           referralServiceHiddenOptions['TB screening'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
@@ -149,6 +150,7 @@ class DreamsAgywReferralSkipLogic {
           referralServiceHiddenOptions['TB screening'] = true;
           referralServiceHiddenOptions['Nutrition'] = true;
           referralServiceHiddenOptions['Cervical Cancer Screening'] = true;
+          referralServiceHiddenOptions['PEP'] = true;
           referralServiceHiddenOptions['HTS'] = true;
           referralServiceHiddenOptions['ANC'] = true;
           referralServiceHiddenOptions['SILC'] = true;
