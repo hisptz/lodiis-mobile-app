@@ -26,8 +26,9 @@ class MaterialCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-                color: borderColor,
-                width: borderColor == Colors.transparent ? 0.0 : 2.0),
+              color: borderColor,
+              width: borderColor == Colors.transparent ? 0.0 : 2.0,
+            ),
           ),
           child: body,
         ),

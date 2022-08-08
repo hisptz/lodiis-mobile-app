@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_monitoring_view_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_provision_view_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_view.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
@@ -110,6 +112,15 @@ class CasePlanGapViewContainer extends StatelessWidget {
     onInputValueChange(dataObject);
   }
 
+  Map _getCasePlanGapObjects(List casePlanGapObjects) {
+    Map sanitizedDataObject = {};
+    for (dynamic casePlanGapObject in casePlanGapObjects) {
+      Map casePlanGap = Map<String, dynamic>.from(casePlanGapObject);
+      sanitizedDataObject = {...sanitizedDataObject, ...casePlanGap};
+    }
+    return sanitizedDataObject;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -129,6 +140,33 @@ class CasePlanGapViewContainer extends StatelessWidget {
               context,
               gapDataObject: gapDataObject,
               isOnEdit: true,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(),
+            child: Column(
+              children: [
+                Visibility(
+                  visible: isOnCasePlanServiceProvision,
+                  child: CasePlanGapServiceProvisionViewContainer(
+                    domainId: domainId,
+                    formSectionColor: formSectionColor,
+                    casePlanGap: _getCasePlanGapObjects(dataObject['gaps']),
+                    isHouseholdCasePlan: isHouseholdCasePlan,
+                    hasEditAccess: hasEditAccess,
+                  ),
+                ),
+                Visibility(
+                  visible: isOnCasePlanServiceMonitoring,
+                  child: CasePlanGapServiceMonitoringViewContainer(
+                    domainId: domainId,
+                    formSectionColor: formSectionColor,
+                    casePlanGap: _getCasePlanGapObjects(dataObject['gaps']),
+                    isHouseholdCasePlan: isHouseholdCasePlan,
+                    hasEditAccess: hasEditAccess,
+                  ),
+                )
+              ],
             ),
           ),
           Visibility(
