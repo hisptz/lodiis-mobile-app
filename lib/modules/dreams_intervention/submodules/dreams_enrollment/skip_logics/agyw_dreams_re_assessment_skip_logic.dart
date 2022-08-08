@@ -230,6 +230,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['LHf5EZmkZ5q'] = true;
       }
       if (inputFieldId == 'VTCiGG3UqI0' && value != 'true') {
+        hiddenFields['known_family_planning'] = true;
         hiddenFields['CZcaiGJsBiZ'] = true;
         hiddenFields['BbAer5joCHv'] = true;
         hiddenFields['S3y6E3zHKOI'] = true;
@@ -240,6 +241,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['csZyQAY9BNH'] = true;
       }
       if (inputFieldId == 'csZyQAY9BNH' && value != 'true') {
+        hiddenFields['used_family_planning'] = true;
         hiddenFields['qliQfYk36Qe'] = true;
         hiddenFields['OHMTDYj2AsD'] = true;
         hiddenFields['ZsKGtSMwYqb'] = true;
@@ -250,7 +252,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['v6xma7NoXJf'] = true;
       }
       if (inputFieldId == 'V8ziLwhPA05' && value != 'true') {
-        hiddenFields['bcLRyBt45xX'] = true;
+        hiddenFields['GXb0yN9WSvZ'] = true;
       }
       if (inputFieldId == 'zO2wRePjGvO' && value != 'true') {
         hiddenFields['pVEjKAzj7mA'] = true;
@@ -259,7 +261,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['QxYCweHXR8r'] = true;
       }
       if (inputFieldId == 'BaG3QTzCdrm' && value != 'true') {
-        hiddenFields['QxYCweHXR8r'] = true;
+        hiddenFields['Tl8yAujLY2T'] = true;
       }
       if (inputFieldId == 'jeb1PlPmJHD' && value != 'true') {
         hiddenFields['dAlwALiZxnT'] = true;
@@ -274,6 +276,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['FGiKknNPkbh'] = true;
       }
       if (inputFieldId == 'WMjfK2Fl7d6' && value != 'true') {
+        hiddenFields['H2Az2c3MeAy_checkbox'] = true;
         hiddenFields['ZX7jaEWS5Tu'] = true;
         hiddenFields['ozZOGSNP0ZL'] = true;
         hiddenFields['VgaY6FIuggs'] = true;
@@ -290,6 +293,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['gwxgoK1SiG7'] = true;
       }
       if (inputFieldId == 'flG4KJIt01K' && value != 'true') {
+        hiddenFields['typeOfDrugUsed'] = true;
         hiddenFields['Qw4If3g2ZTk'] = true;
         hiddenFields['DYlMEu5l6qL'] = true;
         hiddenFields['HchL5WVGByq'] = true;
@@ -303,6 +307,7 @@ class AgywDreamsReAssessmentSkipLogic {
         hiddenFields['dEjPMMghD1I'] = true;
       }
       if (inputFieldId == 'pDKOAGB7LKD' && value != 'true') {
+        hiddenFields['seek_help'] = true;
         hiddenFields['A6QAU54w2wy'] = true;
         hiddenFields['uU3uryQGK63'] = true;
         hiddenFields['YTIdNMhrIbT'] = true;
