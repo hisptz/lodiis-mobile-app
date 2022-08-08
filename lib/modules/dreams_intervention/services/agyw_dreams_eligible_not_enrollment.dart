@@ -19,9 +19,7 @@ class AgywDreamsEligibleNotEnrollmentService {
     Map dataObject,
     String? eventId,
   ) async {
-    List<String> inputFieldIds = FormUtil.getFormFieldIds(
-      formSections,
-    );
+    List<String> inputFieldIds =[];
     for (AgywDreamEnrollmentNotEligible enrollmentNotEligibleConstant
         in enrollmentNotEligibleConstants) {
       String dataElement = enrollmentNotEligibleConstant.dataElement;
@@ -29,6 +27,7 @@ class AgywDreamsEligibleNotEnrollmentService {
       inputFieldIds.add(dataElement);
       if (dataObject.keys.toList().contains(attribute)) {
         dataObject[dataElement] = dataObject[attribute];
+        dataObject.remove(attribute);
       }
     }
     String appAndDeviceTrackingDataElement =
@@ -59,6 +58,7 @@ class AgywDreamsEligibleNotEnrollmentService {
     eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         dataObject['location'], inputFieldIds, dataObject, null, null);
+                print(eventData);
     await FormUtil.savingEvent(eventData);
   }
 }
