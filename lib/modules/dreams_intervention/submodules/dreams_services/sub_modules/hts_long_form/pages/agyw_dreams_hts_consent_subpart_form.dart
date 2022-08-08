@@ -69,8 +69,10 @@ class _AgywDreamsHTSConsentFormSubpartState
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     setState(() {});
   }
 
@@ -115,8 +117,10 @@ class _AgywDreamsHTSConsentFormSubpartState
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream) {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (isConsentGiven(dataObject)) {
         dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
@@ -131,23 +135,23 @@ class _AgywDreamsHTSConsentFormSubpartState
           ),
         );
       } else {
-       if (consentFields.every((field) => '${dataObject[field]}' == 'false')) {
-        dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
-            getNoOfPartners(agywDream!);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AgywDreamsHTSClientServices(
-              isComingFromPrep: isComingFromPrep,
+        if (consentFields.every((field) => '${dataObject[field]}' == 'false')) {
+          dataObject[AgywDreamsHTSLongFormConstant.noOfPartnersAttributeKey] =
+              getNoOfPartners(agywDream!);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AgywDreamsHTSClientServices(
+                isComingFromPrep: isComingFromPrep,
+              ),
             ),
-          ),
-        );
-      } else {
-        AppUtil.showToastMessage(
-          message: 'Cannot proceed without consent',
-          position: ToastGravity.TOP,
-        );
-      }
+          );
+        } else {
+          AppUtil.showToastMessage(
+            message: 'Cannot proceed without consent',
+            position: ToastGravity.TOP,
+          );
+        }
       }
     } else {
       AppUtil.showToastMessage(

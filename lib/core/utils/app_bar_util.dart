@@ -104,9 +104,9 @@ class AppBarUtil {
     String syncAction = isDataDownloadActive || isDataUploadActive
         ? ''
         : beneficiaryCount + beneficiaryServicesCount > 0
-            ? SynchronizationActionsConstants.upload
+            ? SynchronizationActionsConstants.downloadAndUpload
             : lastSyncDate == null || isDataAvailableForDownload
-                ? SynchronizationActionsConstants.download
+                ? SynchronizationActionsConstants.downloadAndUpload
                 : '';
     Navigator.push(
       context,

@@ -102,8 +102,10 @@ class _EducationLbseReferralFormPageState
     Map dataObject,
     EducationBeneficiary lbseBeneficiary,
   ) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -165,8 +167,10 @@ class _EducationLbseReferralFormPageState
         });
       }
     } else {
-      unFilledMandatoryFields =
-          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+          mandatoryFields, dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields);
       setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

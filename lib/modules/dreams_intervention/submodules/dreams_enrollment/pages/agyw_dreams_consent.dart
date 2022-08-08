@@ -116,8 +116,10 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+            .hiddenFields);
     if (hadAllMandatoryFilled) {
       bool hasConsent = dataObject['EsrJ2dgIMHY'];
       AppUtil.showToastMessage(
@@ -140,8 +142,11 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
       );
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields:
+                Provider.of<EnrollmentFormState>(context, listen: false)
+                    .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

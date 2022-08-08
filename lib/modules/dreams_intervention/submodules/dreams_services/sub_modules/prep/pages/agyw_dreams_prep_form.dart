@@ -59,8 +59,10 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     setState(() {});
   }
 
@@ -177,8 +179,10 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+                .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

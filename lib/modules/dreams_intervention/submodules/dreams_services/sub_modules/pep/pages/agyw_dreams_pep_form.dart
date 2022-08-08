@@ -59,8 +59,10 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     setState(() {});
   }
 
@@ -122,8 +124,10 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
     AgywDream? agywDream,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
     } else {
       AppUtil.showToastMessage(
