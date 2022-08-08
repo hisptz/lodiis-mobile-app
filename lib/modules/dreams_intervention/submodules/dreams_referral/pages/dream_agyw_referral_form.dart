@@ -196,6 +196,11 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentAgywDream.id);
+        clearFormAutoSaveState(
+          context,
+          currentAgywDream.id,
+          dataObject['eventId'] ?? '',
+        );
         Timer(const Duration(seconds: 1), () {
           setState(() {
             String? currentLanguage =
@@ -207,7 +212,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
-            clearFormAutoSaveState(context, currentAgywDream.id, eventId ?? '');
+
             if (Navigator.canPop(context)) {
               Navigator.popUntil(context, (route) => route.isFirst);
             }
@@ -265,7 +270,10 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId, String eventId) async {
+    BuildContext context,
+    String? beneficiaryId,
+    String eventId,
+  ) async {
     String formAutoSaveId =
         "${DreamsRoutesConstant.agywDreamsReferralPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);

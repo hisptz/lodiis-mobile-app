@@ -237,7 +237,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                         referralEventData,
                                                         count,
                                                       ),
-                                                      onEditReferral: (){},
+                                                      onEditReferral: () {},
                                                     );
                                                   }).toList(),
                                                 ),
