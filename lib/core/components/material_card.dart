@@ -25,7 +25,9 @@ class MaterialCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(borderRadius * 0.2)),
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: borderColor, width: 2.0),
+            border: Border.all(
+                color: borderColor,
+                width: borderColor == Colors.transparent ? 0.0 : 2.0),
           ),
           child: body,
         ),
