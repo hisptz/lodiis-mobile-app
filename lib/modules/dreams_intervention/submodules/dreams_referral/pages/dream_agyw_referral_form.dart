@@ -267,7 +267,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsReferralPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
