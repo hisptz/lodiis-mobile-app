@@ -75,9 +75,15 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     bool isVacLegalMessageSelected = "${dataObject['AaqeRcyjbyS']}" == "true";
     if (isVacessageSelected && !isVacLegalMessageSelected) {
       dataObject['AaqeRcyjbyS'] = true;
+    } else if (!isVacessageSelected) {
+      dataObject['AaqeRcyjbyS'] = false;
+      for (String id in vacLegalMessagingMandatoryFields) {
+        dataObject[id] = '';
+      }
     }
     isVacLegalMessageSelected = "${dataObject['AaqeRcyjbyS']}" == "true";
     mandatoryFields = [];
+    unFilledMandatoryFields = [];
     for (String id in vacLegalMessagingMandatoryFields) {
       if (isVacLegalMessageSelected && isVacessageSelected) {
         mandatoryFieldObject[id] = true;
@@ -105,6 +111,9 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
         );
       }
     } else {
+      unFilledMandatoryFields =
+          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill  all mandatory fields',
       );

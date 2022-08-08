@@ -246,8 +246,11 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields:
+                Provider.of<EnrollmentFormState>(context, listen: false)
+                    .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

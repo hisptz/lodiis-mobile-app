@@ -14,7 +14,6 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
     required this.canExpand,
     required this.isExpanded,
     required this.isSynced,
-    required this.isAgeBeyondAverage,
     required this.programStatus,
     this.isActive = true,
     this.onEdit,
@@ -31,7 +30,6 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
   final bool isExpanded;
   final bool isActive;
   final bool isSynced;
-  final bool isAgeBeyondAverage;
   final String programStatus;
 
   final VoidCallback? onEdit;
@@ -59,8 +57,9 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                   child: SizedBox(
                     height: 20.0,
                     width: 20.0,
-                    child: SvgPicture.asset(svgIcon,
-                        color: isAgeBeyondAverage ? Colors.redAccent : null),
+                    child: SvgPicture.asset(
+                      svgIcon,
+                    ),
                   ),
                 ),
               ),
