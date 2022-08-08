@@ -25,7 +25,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_parenting_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/constants/parenting_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv/skip_logics/agyw_dreams_post_gbv_skip_logic.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/skip_logics/agyw_dreams_parenting_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -100,7 +100,7 @@ class _AgywDreamsParentingFormState extends State<AgywDreamsParentingForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsPostGbvSkipLogic.evaluateSkipLogics(
+        await AgywDreamsParentingSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,

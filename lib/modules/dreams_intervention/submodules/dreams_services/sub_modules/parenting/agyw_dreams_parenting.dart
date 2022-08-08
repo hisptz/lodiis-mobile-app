@@ -162,7 +162,7 @@ class _AgywDreamsParentingState extends State<AgywDreamsParenting> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Parenting (Preg & Breastfeeding)",
+                                                  visitName: "Parenting ",
                                                   onEdit: () => onEditPrep(
                                                       context,
                                                       eventData,
@@ -178,7 +178,7 @@ class _AgywDreamsParentingState extends State<AgywDreamsParenting> {
                                         ),
                                 ),
                                 EntryFormSaveButton(
-                                  label: 'ADD Parenting (Preg & Breastfeeding) VISIT',
+                                  label: 'ADD Parenting VISIT',
                                   labelColor: Colors.white,
                                   buttonColor: const Color(0xFF1F8ECE),
                                   fontSize: 15.0,

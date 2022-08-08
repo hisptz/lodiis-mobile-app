@@ -34,6 +34,7 @@ class CurrentUserState with ChangeNotifier {
   bool? _canManagePEP;
   bool? _canManageServiceForm;
   bool? _canManagePOSTGBVLegal;
+  bool? _canManageParenting;
 
   // selectors
   CurrentUser? get currentUser => _currentUser;
@@ -66,6 +67,7 @@ class CurrentUserState with ChangeNotifier {
   bool get canManagePOSTGBVLegal => _canManagePOSTGBVLegal ?? false;
   bool get canManagePEP => _canManagePEP ?? false;
   bool get canManageServiceForm => _canManageServiceForm ?? false;
+   bool get canManageManageParenting => _canManageParenting ?? false;
 
   void updateUserAccessStatus(
     String? implementingPartner,
@@ -126,6 +128,8 @@ class CurrentUserState with ChangeNotifier {
           userAccesses['canManagePOSTGBV'] == true;
       _canManagePOSTGBVLegal = userAccesses.containsKey('canManagePOSTGBVLegal') &&
           userAccesses['canManagePOSTGBVLegal'] == true;
+      _canManageParenting = userAccesses.containsKey('canManageParenting') &&
+          userAccesses['canManageParenting'] == true;
     } catch (error) {
       //
     }
