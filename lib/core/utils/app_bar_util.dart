@@ -81,7 +81,6 @@ class AppBarUtil {
   }
 
   static void _onOpenSyncModule(BuildContext context) async {
-    var syncActionConstants = SynchronizationActionsConstants;
     bool isDataDownloadActive =
         Provider.of<SynchronizationState>(context, listen: false)
             .isDataDownloadingActive;
@@ -105,9 +104,9 @@ class AppBarUtil {
     String syncAction = isDataDownloadActive || isDataUploadActive
         ? ''
         : beneficiaryCount + beneficiaryServicesCount > 0
-            ? syncActionConstants.upload
+            ? SynchronizationActionsConstants.upload
             : lastSyncDate == null || isDataAvailableForDownload
-                ? syncActionConstants.download
+                ? SynchronizationActionsConstants.download
                 : '';
     Navigator.push(
       context,
