@@ -74,7 +74,7 @@ class SynchronizationState with ChangeNotifier {
   double get notificationProgress => _notificationProgress;
 
   double get overallSyncProgress =>
-      _currentSyncAction == SynchronizationActionsConstants().downloadAndUpload
+      _currentSyncAction == SynchronizationActionsConstants.downloadAndUpload
           ? (overallUploadProgress +
                   overallDownloadProgress +
                   notificationProgress) /
@@ -245,13 +245,13 @@ class SynchronizationState with ChangeNotifier {
     _currentSyncAction = syncAction!;
     notifyListeners();
     switch (syncAction) {
-      case 'Download':
+      case SynchronizationActionsConstants.download:
         await startDataDownloadActivity();
         break;
-      case 'Upload':
+      case SynchronizationActionsConstants.upload:
         await startDataUploadActivity();
         break;
-      case 'Download and Upload':
+      case SynchronizationActionsConstants.downloadAndUpload:
         await startDataDownloadActivity(skipUpload: false);
         await startDataUploadActivity();
         break;

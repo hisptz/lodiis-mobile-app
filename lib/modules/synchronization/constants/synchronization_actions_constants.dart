@@ -1,5 +1,5 @@
 class SynchronizationActionsConstants {
-  final String download = 'Download';
-  final String upload = 'Upload';
-  final String downloadAndUpload = 'Download and Upload';
+  static const String download = 'Download';
+  static const String upload = 'Upload';
+  static const String downloadAndUpload = 'Download and Upload';
 }
