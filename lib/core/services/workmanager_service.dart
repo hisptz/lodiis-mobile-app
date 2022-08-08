@@ -21,6 +21,7 @@ callbackDispatcher() {
               SynchronizationService(currentUser.username, currentUser.password,
                   currentUser.programs, currentUser.userOrgUnitIds);
           await synchronizationService.initiateBackgroundDataSync(currentUser);
+          await DreamsBackgroundReAssessmentService.startProcess();
         }
       }
       if (task == dataQualityTaskName) {

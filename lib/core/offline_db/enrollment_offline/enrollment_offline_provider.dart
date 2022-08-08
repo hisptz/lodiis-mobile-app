@@ -140,6 +140,20 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollmentsCount ?? 0;
   }
 
+  Future<int> getEnrollmentsToReAssessCount(String programId) async {
+    var reAssessStatus = 'true';
+    int? enrollmentsCount;
+    try {
+      var dbClient = await db;
+      enrollmentsCount = Sqflite.firstIntValue(await dbClient!.rawQuery(
+          'SELECT COUNT(*) FROM $table WHERE $program = ? AND $shouldReAssess != ?',
+          [programId, reAssessStatus]));
+    } catch (e) {
+      //
+    }
+    return enrollmentsCount ?? 0;
+  }
+
   Future<Map<String, int>> getEnrollmentsCountBySex(String programId) async {
     Map<String, int> enrollmentsCountBySex = {};
     String attributesTable = 'tracked_entity_instance_attribute';
