@@ -51,7 +51,7 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   void initState() {
     super.initState();
     setFormSections();
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(milliseconds: 400), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
@@ -60,6 +60,17 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    Map hiddenFields =
+        Provider.of<ServiceFormState>(context, listen: false).hiddenFields;
+    List skippedField = [];
+    for (String key in hiddenFields.keys) {
+      if (hiddenFields[key] == true) {
+        skippedField.add(key);
+      }
+    }
+    mandatoryFields = AgywDreamsShortForm.getMandatoryFields()
+        .where((id) => !skippedField.contains(id))
+        .toList();
     unFilledMandatoryFields =
         AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
     setState(() {});
@@ -103,7 +114,10 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   }
 
   void onSaveForm(
-      BuildContext context, Map dataObject, AgywDream? agywDream) async {
+    BuildContext context,
+    Map dataObject,
+    AgywDream? agywDream,
+  ) async {
     setMandatoryFields(dataObject);
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
