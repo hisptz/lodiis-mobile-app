@@ -1,4 +1,4 @@
-class PostGBVConstant {
+class PostGBVLegalConstant {
   static const String program = 'hOEIHJDrrvz';
-  static const String programStage = 'yK0ENCuwPqh';
+  static const String programStage = 'VLW93YjZOyf';
 }

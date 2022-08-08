@@ -69,19 +69,23 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _getDreamBeneficiaryDetailsWidget(
-                        key: '',
-                        value: agywDream.toString(),
-                        keyColor: const Color(0xFF05131B),
-                        valueColor: const Color(0xFF05131B),
-                        fontSize: 14.0,
+                      Expanded(
+                        child: _getDreamBeneficiaryDetailsWidget(
+                          key: '',
+                          value: agywDream.toString(),
+                          keyColor: const Color(0xFF05131B),
+                          valueColor: const Color(0xFF05131B),
+                          fontSize: 14.0,
+                        ),
                       ),
-                      _getDreamBeneficiaryDetailsWidget(
-                        key: '',
-                        value: agywDream!.primaryUIC!,
-                        keyColor: const Color(0xFF05131B),
-                        valueColor: const Color(0xFF05131B),
-                        fontSize: 14.0,
+                      Expanded(
+                        child: _getDreamBeneficiaryDetailsWidget(
+                          key: '',
+                          value: agywDream!.primaryUIC!,
+                          keyColor: const Color(0xFF05131B),
+                          valueColor: const Color(0xFF05131B),
+                          fontSize: 14.0,
+                        ),
                       ),
                     ],
                   ),

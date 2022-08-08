@@ -163,7 +163,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Visit",
+                                                  visitName: "Condom Education/Provision",
                                                   onEdit: () =>
                                                       onEditCondomProvision(
                                                           context,

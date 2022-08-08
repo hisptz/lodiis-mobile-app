@@ -17,83 +17,80 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/constants/hiv_message_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/pages/agyw_dreams_hiv_message_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/constants/parenting_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/pages/agyw_dreams_parenting_form.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamHIVMessage extends StatefulWidget {
-  const AgywDreamHIVMessage({Key? key}) : super(key: key);
+class AgywDreamsParenting extends StatefulWidget {
+  const AgywDreamsParenting({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamHIVMessageState createState() => _AgywDreamHIVMessageState();
+  _AgywDreamsParentingState createState() => _AgywDreamsParentingState();
 }
 
-class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
-  final String label = 'HIV Risk Assessment';
-  List<String> programStageIds = [HIVMessageConstant.programStage];
+class _AgywDreamsParentingState extends State<AgywDreamsParenting> {
+  final String label = 'Parenting (Preg & Breastfeeding)';
+  List<String> programStageIds = [ParentingConstant.programStage];
   @override
   void initState() {
     super.initState();
   }
 
-  void onAddHIVMessageForm(BuildContext context, AgywDream agywDream) async {
+  void onAddPrep(BuildContext context, AgywDream agywDream) async {
     FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
-    String eventId = "";
+    String? eventId = '';
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsPostGBVFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
+      Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
+          .setCurrentAgywDream(agywDream);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AgywDreamHIVMessageForm(),
+          builder: (context) => const AgywDreamsParentingForm(),
         ),
       );
     }
   }
 
-  void onViewHIVMessageForm(BuildContext context, Events eventData) {
+  void onViewPrep(BuildContext context, Events eventData) {
     FormUtil.updateServiceFormState(context, false, eventData);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const AgywDreamHIVMessageForm(),
+        builder: (context) => const AgywDreamsParentingForm(),
       ),
     );
   }
 
-  void onEditHIVMessageForm(
-    BuildContext context,
-    Events eventData,
-    AgywDream agywDream,
-  ) async {
+  void onEditPrep(
+      BuildContext context, Events eventData, AgywDream agywDream) async {
     FormUtil.updateServiceFormState(context, true, eventData);
     String? beneficiaryId = agywDream.id;
     String? eventId = eventData.event;
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamHIVMessageFormPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsPostGBVFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
-    bool shouldResumeWithUnSavedChanges =
-        await AppResumeRoute().shouldResumeWithUnSavedChanges(
-      context,
-      formAutoSave,
-      beneficiaryName: agywDream.toString(),
-    );
+    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
+        .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AgywDreamHIVMessageForm(),
+          builder: (context) => const AgywDreamsParentingForm(),
         ),
       );
     }
@@ -131,7 +128,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                   programStageIds,
                   shouldSortByDate: true,
                 );
-                int hivMessageIndex = events.length + 1;
+                int postGbvVisitIndex = events.length + 1;
                 return Column(
                   children: [
                     DreamsBeneficiaryTopHeader(
@@ -150,7 +147,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                   ),
                                   child: events.isEmpty
                                       ? const Text(
-                                          'There is no visit at a moment')
+                                          'There is no Parenting (Preg & Breastfeeding) at a moment')
                                       : Container(
                                           margin: const EdgeInsets.symmetric(
                                             vertical: 5.0,
@@ -159,24 +156,21 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                           child: Column(
                                             children:
                                                 events.map((Events eventData) {
-                                              hivMessageIndex--;
+                                              postGbvVisitIndex--;
                                               return Container(
                                                 margin: const EdgeInsets.only(
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "HIV Risk Assessment",
-                                                  onEdit: () =>
-                                                      onEditHIVMessageForm(
-                                                    context,
-                                                    eventData,
-                                                    agywDream!,
-                                                  ),
-                                                  onView: () =>
-                                                      onViewHIVMessageForm(
-                                                          context, eventData),
+                                                  visitName: "Parenting ",
+                                                  onEdit: () => onEditPrep(
+                                                      context,
+                                                      eventData,
+                                                      agywDream!),
+                                                  onView: () => onViewPrep(
+                                                      context, eventData),
                                                   eventData: eventData,
-                                                  visitCount: hivMessageIndex,
+                                                  visitCount: postGbvVisitIndex,
                                                 ),
                                               );
                                             }).toList(),
@@ -184,14 +178,12 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                         ),
                                 ),
                                 EntryFormSaveButton(
-                                  label: 'ADD HIV Risk Assessment',
+                                  label: 'ADD Parenting VISIT',
                                   labelColor: Colors.white,
                                   buttonColor: const Color(0xFF1F8ECE),
                                   fontSize: 15.0,
-                                  onPressButton: () => onAddHIVMessageForm(
-                                    context,
-                                    agywDream!,
-                                  ),
+                                  onPressButton: () =>
+                                      onAddPrep(context, agywDream!),
                                 )
                               ],
                             ),

@@ -23,21 +23,21 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_post_gbv_legal_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/models/dreams_service_parenting_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/constants/parenting_constant.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/skip_logics/agyw_dreams_parenting_skip_logic.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/constants/post_gbv_constant.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/post_gbv_legal/skip_logics/agyw_dreams_post_gbv_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class AgywDreamsPostGBVLegalForm extends StatefulWidget {
-  const AgywDreamsPostGBVLegalForm({Key? key}) : super(key: key);
+class AgywDreamsParentingForm extends StatefulWidget {
+  const AgywDreamsParentingForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsPostGBVFormState createState() => _AgywDreamsPostGBVFormState();
+  _AgywDreamsParentingFormState createState() => _AgywDreamsParentingFormState();
 }
 
-class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
-  final String label = 'POST GBV(legal) form';
+class _AgywDreamsParentingFormState extends State<AgywDreamsParentingForm> {
+  final String label = 'Parenting (Preg & Breastfeeding)';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -59,10 +59,8 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    unFilledMandatoryFields =
+        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
     setState(() {});
   }
 
@@ -70,7 +68,7 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsPostGBVLEGALInfo.getFormSections(
+    defaultFormSections = DreamsParentingForm.getFormSections(
       firstDate: agyw.createdDate!,
     );
     if (agyw.enrollmentOuAccessible!) {
@@ -102,7 +100,7 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await AgywDreamsPostGbvLegalSkipLogic.evaluateSkipLogics(
+        await AgywDreamsParentingSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -124,10 +122,8 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
     AgywDream? agywDream,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    bool hadAllMandatoryFilled =
+        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {
@@ -139,8 +135,8 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
         String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            PostGBVLegalConstant.program,
-            PostGBVLegalConstant.programStage,
+            ParentingConstant.program,
+            ParentingConstant.programStage,
             orgUnit,
             defaultFormSections!,
             dataObject,
@@ -194,7 +190,7 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamPostGBVLegalFormPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsParentingFormPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -211,16 +207,16 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${DreamsRoutesConstant.agywDreamPostGBVLegalFormPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsParentingFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: DreamsRoutesConstant.agywDreamPostGBVLegalFormPage,
+      pageModule: DreamsRoutesConstant.agywDreamsParentingFormPage,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : DreamsRoutesConstant.agywDreamPostGBVLegalFormNextPage
-          : DreamsRoutesConstant.agywDreamPostGBVLegalFormPage,
+              : DreamsRoutesConstant.agywDreamsParentingFormNextPage
+          : DreamsRoutesConstant.agywDreamsParentingFormPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
