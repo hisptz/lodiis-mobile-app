@@ -20,8 +20,7 @@ class AppInfoUtil {
   static Future<String> getAppAndDeviceTrackingInfo() async {
     String appAndDeviceInfo = '';
     try {
-      appAndDeviceInfo = await getAppVersionInfo();
-      appAndDeviceInfo = 'App version : $appAndDeviceInfo';
+      appAndDeviceInfo = 'App version : ${AppInfoReference.currentAppVersion}';
       Map<String, dynamic> deviceInfo = await DeviceInfoUtil.getDeviceInfo();
       for (String key in deviceInfo.keys) {
         dynamic value = deviceInfo[key];

@@ -44,112 +44,131 @@ class CasePlanGapView extends StatelessWidget {
         bottom: 10.0,
       ),
       child: Column(
-        children: casePlanGapObjects.map((casePlanGapObject) {
-          int gapIndex = casePlanGapObjects.indexOf(casePlanGapObject) + 1;
-          Map casePlanGap = Map<String, dynamic>.from(casePlanGapObject);
-          String label = "Gap $gapIndex";
-          List<FormSection> formSections =
-              _getCasePlanGapFormSection(casePlanGapObject);
-          List<InputField> inputFields =
-              FormUtil.getFormInputFields(formSections)
-                  .where((InputField inputField) =>
-                      casePlanGap.keys.toList().contains((inputField.id)))
-                  .toList();
-
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            decoration: BoxDecoration(
-              color: formSectionColor.withOpacity(0.2),
-            ),
+        children: [
+          Visibility(
+            visible: casePlanGapObjects.isNotEmpty,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Column(
-                children: [
-                  ...[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            label,
-                            style: const TextStyle().copyWith(
-                              color: formSectionColor,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: hasEditAccess &&
-                              isEditableMode &&
-                              !(isOnCasePlanServiceMonitoring ||
-                                  isOnCasePlanServiceProvision),
-                          child: InkWell(
-                            onTap: () => onEdiCasePlanGap(casePlanGap),
-                            child: Container(
-                              height: iconHeight,
-                              width: iconHeight,
-                              margin: const EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 10.0,
-                              ),
-                              child: SvgPicture.asset(
-                                'assets/icons/edit-icon.svg',
-                                color: formSectionColor,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                  ...inputFields
-                      .map(
-                        (inputField) => Container(
-                          margin: const EdgeInsets.symmetric(),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 5.0,
-                                ),
-                                child: Text(
-                                  inputField.name,
-                                  style: const TextStyle().copyWith(
-                                    color: formSectionColor,
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                margin: const EdgeInsets.only(bottom: 5.0),
-                                child: Text(
-                                  _getInputValue(
-                                    inputField,
-                                    casePlanGap,
-                                  ),
-                                  style: const TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                              LineSeparator(
-                                color: formSectionColor.withOpacity(0.5),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList()
-                ],
+              width: double.infinity,
+              margin: const EdgeInsets.only(
+                left: 13.0,
+                right: 13.0,
+                bottom: 5.0,
+              ),
+              child: Text(
+                "Gaps",
+                style: const TextStyle().copyWith(
+                  color: formSectionColor,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          );
-        }).toList(),
+          ),
+          Column(
+            children: casePlanGapObjects.map((casePlanGapObject) {
+              Map casePlanGap = Map<String, dynamic>.from(casePlanGapObject);
+              List<FormSection> formSections =
+                  _getCasePlanGapFormSection(casePlanGapObject);
+              List<InputField> inputFields =
+                  FormUtil.getFormInputFields(formSections)
+                      .where((InputField inputField) =>
+                          casePlanGap.keys.toList().contains((inputField.id)))
+                      .toList();
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  color: formSectionColor.withOpacity(0.2),
+                ),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    children: [
+                      ...[
+                        Row(
+                          children: [
+                            const Expanded(
+                              child: Text(
+                                '',
+                              ),
+                            ),
+                            Visibility(
+                              visible: hasEditAccess &&
+                                  isEditableMode &&
+                                  !(isOnCasePlanServiceMonitoring ||
+                                      isOnCasePlanServiceProvision),
+                              child: InkWell(
+                                onTap: () => onEdiCasePlanGap(casePlanGap),
+                                child: Container(
+                                  height: iconHeight,
+                                  width: iconHeight,
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 10.0,
+                                    horizontal: 10.0,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/edit-icon.svg',
+                                    color: formSectionColor,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                      ...inputFields
+                          .map(
+                            (inputField) => Container(
+                              margin: const EdgeInsets.symmetric(),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 5.0,
+                                    ),
+                                    child: Text(
+                                      inputField.name,
+                                      style: const TextStyle().copyWith(
+                                        color: formSectionColor,
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.only(bottom: 5.0),
+                                    child: Text(
+                                      _getInputValue(
+                                        inputField,
+                                        casePlanGap,
+                                      ),
+                                      style: const TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      bottom: 5.0,
+                                    ),
+                                    child: LineSeparator(
+                                      color: formSectionColor.withOpacity(0.5),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList()
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }
