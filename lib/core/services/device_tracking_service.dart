@@ -1,5 +1,14 @@
+import 'dart:convert';
+
+import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
+import 'package:kb_mobile_app/core/constants/device_tracking_constant.dart';
+import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
+import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/device_info_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 
 class DeviceTrackingService {
   final String lastLoginKey = 'lastLogin';
@@ -7,12 +16,53 @@ class DeviceTrackingService {
   final String lastDataDownloadDateKey = "lastSyncDatePreferenceKey";
   final String lastDataUploadDateKey = "lastDataUploadDatePreferenceKey";
 
-  /// get payload TEI
-  /// profile info
-  /// get devies details
-  /// get app details
-  /// sync info
-  /// user account
+  Future syncDeviceTrackingInfo() async {
+    try {
+      // try if you have sync metdata on given day
+      Map dataObject = await getDeviveTrackingDataObject();
+      //TODO generating model data for tracking
+      print(json.encode(dataObject));
+    } catch (e) {
+      //
+    }
+  }
+
+  Future<Map> getDeviveTrackingDataObject() async {
+    CurrentUser? user = await UserService().getCurrentUser();
+    Map dataObject = {};
+    Map deviceInfo = await DeviceInfoUtil.getDeviceInfo();
+    dataObject[DeviceTrackingConstant.deviceId] = deviceInfo['androidId'] ?? '';
+    dataObject[DeviceTrackingConstant.deviceModel] = deviceInfo['model'] ?? '';
+    dataObject[DeviceTrackingConstant.deviceManufacturerName] =
+        deviceInfo['manufacturer'] ?? '';
+    dataObject[DeviceTrackingConstant.productName] =
+        deviceInfo['product'] ?? '';
+    dataObject[DeviceTrackingConstant.securityPatchDate] =
+        deviceInfo['version.securityPatch'] ?? '';
+    dataObject[DeviceTrackingConstant.appVersion] =
+        AppInfoReference.currentAppVersion;
+    dataObject[DeviceTrackingConstant.syncedEnrollemnts] =
+        await TrackedEntityInstanceOfflineProvider()
+            .getTeiCountBySyncStatus('synced');
+    dataObject[DeviceTrackingConstant.unSyncedEnrollemnts] =
+        await TrackedEntityInstanceOfflineProvider()
+            .getTeiCountBySyncStatus('not-synced');
+    dataObject[DeviceTrackingConstant.syncedServices] =
+        await EventOfflineProvider().getEventsCountBySyncStatus('synced');
+    dataObject[DeviceTrackingConstant.unSyncedServices] =
+        await EventOfflineProvider().getEventsCountBySyncStatus('not-synced');
+    dataObject[DeviceTrackingConstant.dataStoreRef] = deviceInfo[''] ?? '';
+    dataObject[DeviceTrackingConstant.lastDataDownloadDate] =
+        await getLastDataDownloadDate();
+    dataObject[DeviceTrackingConstant.lastDataUploadDate] =
+        await getLastDataUploadDate();
+    dataObject[DeviceTrackingConstant.lastMetadataDownloadDate] =
+        await getLastMetaDataSyncDate();
+    dataObject[DeviceTrackingConstant.lastLoginDate] =
+        await getLastLoginDate(username: user!.username!);
+    dataObject[DeviceTrackingConstant.username] = user.username!;
+    return dataObject;
+  }
 
   Future<String> getLastMetaDataSyncDate() async {
     String lastMetadataDownloadDate = '';
@@ -34,7 +84,7 @@ class DeviceTrackingService {
         lastMetadataDownloadDateKey, date);
   }
 
-  Future<String> getLastDataDownloadDatae() async {
+  Future<String> getLastDataDownloadDate() async {
     String lastDataDownloadDate = '';
     try {
       var date =
@@ -46,7 +96,7 @@ class DeviceTrackingService {
     return lastDataDownloadDate;
   }
 
-  Future<String> getLastDataUploadDatae() async {
+  Future<String> getLastDataUploadDate() async {
     String lastDataUploadDate = '';
     try {
       var date =
