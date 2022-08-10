@@ -12,7 +12,7 @@ class DreamsRaAssessmentListState extends ChangeNotifier {
   int _numberOfDreamsToReAssess = 0;
   int _numberOfPages = 0;
   int? _nextPage = 0;
-  Map _searchedAttributes = {};
+  String _searchedAttributes = '';
   PagingController? _pagingController;
 
   // Getters
@@ -20,7 +20,6 @@ class DreamsRaAssessmentListState extends ChangeNotifier {
   PagingController? get pagingController => _pagingController;
   int get numberOfDreamsToReAssess => _numberOfDreamsToReAssess;
   int get numberOfPages => _numberOfPages;
-  Map get searchedAttributes => _searchedAttributes;
 
   // Reducers
 
@@ -40,8 +39,9 @@ class DreamsRaAssessmentListState extends ChangeNotifier {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    List<AgywDream> agywList =
-        await AgywDreamsEnrollmentService().getAgywDreamsToReAssess(pageKey);
+    List<AgywDream> agywList = await AgywDreamsEnrollmentService()
+        .getAgywDreamsToReAssess(pageKey,
+            searchableAttribute: _searchedAttributes);
     if (agywList.isEmpty && pageKey < numberOfPages) {
       _fetchPage(pageKey + 1);
     } else {
@@ -64,7 +64,9 @@ class DreamsRaAssessmentListState extends ChangeNotifier {
     _updateLoadingState(false);
   }
 
-  void searchOgacList(Map searchedAttributes) {
+  void searchDreamsReAssessmentBeneficiaries(
+    String searchedAttributes,
+  ) {
     _searchedAttributes = searchedAttributes;
     notifyListeners();
     if (_dreamsReAssessmentList.isEmpty) {
