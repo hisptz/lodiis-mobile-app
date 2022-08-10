@@ -158,6 +158,7 @@ class _LoginFormState extends State<LoginForm> {
             await ProgramService()
                 .discoverProgramOrganisationUnitsFromTheServer("$program");
           }
+          await DeviceTrackingService().setLastMetaDataSyncDate();
         } else {
           var userAccessConfigurations =
               await UserAccess().getSavedUserAccessConfigurations();
