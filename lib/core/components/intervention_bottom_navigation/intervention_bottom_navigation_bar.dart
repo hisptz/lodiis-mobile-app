@@ -191,7 +191,9 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                                               .incomingReferralToResolveIndicator;
                                       String reAssessedCount =
                                           dreamsForReAssessment > 0
-                                              ? '$dreamsForReAssessment'
+                                              ? dreamsForReAssessment < 10
+                                                  ? '$dreamsForReAssessment'
+                                                  : '9+'
                                               : '';
                                       return ClipOval(
                                         clipBehavior:

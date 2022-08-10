@@ -84,9 +84,11 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
     );
   }
 
-  void refreshBeneficiaryList(
-      DreamsInterventionListState dreamInterventionListState) {
-    dreamInterventionListState.refreshBeneficiariesNumber();
+  void refreshBeneficiaryList(BuildContext context) {
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshBeneficiariesNumber();
+    Provider.of<DreamsRaAssessmentListState>(context, listen: false)
+        .refreshBeneficiariesNumber();
   }
 
   @override
@@ -114,7 +116,7 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
       builder: (context, dreamInterventionListState, child) {
         return RefreshIndicator(
           onRefresh: () async {
-            refreshBeneficiaryList(dreamInterventionListState);
+            refreshBeneficiaryList(context);
           },
           child: CustomPaginatedListView(
             childBuilder: (context, agywBeneficiary, child) =>

@@ -108,7 +108,7 @@ class AgywDream {
           data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,
       searchableValue:
-          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} $age ${agywAgeBand(age)} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data['VJiWumvINR6'] ?? ''} ${data[UserAccountReference.implementingPartnerAttribute] ?? ''} $location $createdDate"
+          "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} ${data[UserAccountReference.implementingPartnerAttribute] ?? ''} $location"
               .toLowerCase(),
       trackedEntityInstanceData: trackedEntityInstance,
     );
