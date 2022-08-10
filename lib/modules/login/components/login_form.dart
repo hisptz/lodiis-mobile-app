@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/app_state/referral_notification_state/referral_not
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/form_field_input_icon.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/device_tracking_service.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_referral_config_service.dart';
 import 'package:kb_mobile_app/core/services/program_service.dart';
 import 'package:kb_mobile_app/core/services/user_access.dart';
@@ -114,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
         var userAccessConfigurations =
             await UserAccess().getSavedUserAccessConfigurations();
         await setCurrentUserAccess(user, userAccessConfigurations);
-        redirectToLoginPage();
+        redirectToInterventionPage(user);
       }
     } catch (error) {
       resetLoginFormState(
@@ -165,7 +166,7 @@ class _LoginFormState extends State<LoginForm> {
         user.isLogin = true;
         user.hasPreviousSuccessLogin = true;
         await UserService().setCurrentUser(user);
-        redirectToLoginPage();
+        redirectToInterventionPage(user);
       } else {
         String message = 'Incorrect username or password';
         resetLoginFormState(
@@ -204,7 +205,8 @@ class _LoginFormState extends State<LoginForm> {
     loginFormState.setCurrentLoginProcessMessage('');
   }
 
-  void redirectToLoginPage() {
+  void redirectToInterventionPage(CurrentUser user) async {
+    await DeviceTrackingService().setLastLoginDate(username: user.username!);
     Provider.of<CurrentUserState>(context, listen: false)
         .setCurrentUserCountryLevelReferences();
     Timer(const Duration(seconds: 2), () {
