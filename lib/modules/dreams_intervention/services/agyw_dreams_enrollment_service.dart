@@ -146,7 +146,8 @@ class AgywDreamsEnrollmentService {
     return agywDreamList;
   }
 
-  Future<List<AgywDream>> getAgywDreamsToReAssess(int page) async {
+  Future<List<AgywDream>> getAgywDreamsToReAssess(int page,
+      {String searchableAttribute = ''}) async {
     List<AgywDream> agywDreamList = [];
     try {
       List<String> accessibleOrgUnits = await OrganisationUnitService()
@@ -179,6 +180,14 @@ class AgywDreamsEnrollmentService {
       }
     } catch (error) {
       //
+    }
+
+    if (searchableAttribute.isNotEmpty) {
+      Map<String, dynamic> metadata = {
+        'searchableAttribute': searchableAttribute,
+        'agywDreamList': agywDreamList
+      };
+      agywDreamList = await compute(getFilteredAgywDreamsToReAssess, metadata);
     }
     return agywDreamList;
   }
@@ -219,13 +228,13 @@ class AgywDreamsEnrollmentService {
         'filters': filters,
         'agywDreamList': agywDreamList
       };
-      agywDreamList = await compute(filterBeneficiaries, metadata);
+      agywDreamList = await compute(filterAgywDreamsBeneficiaries, metadata);
     }
 
     return agywDreamList;
   }
 
-  List<AgywDream> filterBeneficiaries(Map<String, dynamic> metadata) {
+  List<AgywDream> filterAgywDreamsBeneficiaries(Map<String, dynamic> metadata) {
     List<Map<String, dynamic>> filters =
         metadata['filters'] as List<Map<String, dynamic>>;
     List<AgywDream> agywDreamList =
@@ -251,6 +260,24 @@ class AgywDreamsEnrollmentService {
           ? agywDreamList
           : agywDreamList.where((AgywDream agyw) => agyw.sex == sex).toList();
     }
+
+    return agywDreamList;
+  }
+
+  List<AgywDream> getFilteredAgywDreamsToReAssess(
+      Map<String, dynamic> metadata) {
+    String searchableAttribute = metadata['searchableAttribute'] as String;
+    List<AgywDream> agywDreamList =
+        metadata['agywDreamList'] as List<AgywDream>;
+
+    List<String> searchStrings = searchableAttribute.split(' ');
+
+    agywDreamList = agywDreamList
+        .where((AgywDream agywDream) => searchStrings.any((String attribute) =>
+            (agywDream.searchableValue ?? '')
+                .toLowerCase()
+                .contains(attribute)))
+        .toList();
 
     return agywDreamList;
   }
