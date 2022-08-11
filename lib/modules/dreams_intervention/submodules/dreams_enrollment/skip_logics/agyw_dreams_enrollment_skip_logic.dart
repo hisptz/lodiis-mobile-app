@@ -468,8 +468,10 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'FuYyLjYxxkg') {
         if (value == 'Single Orphan(Mother)') {
           assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'Yes');
         } else if (value == 'Single Orphan(Father)') {
           assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'Yes');
         } else if (value == 'Double Orphan') {
           assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
           assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
