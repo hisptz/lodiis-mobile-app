@@ -243,11 +243,19 @@ class OvcEnrollmentHouseholdService {
         metadata['ovcHouseHoldList'] as List<OvcHousehold>;
     for (Map<String, dynamic> filter in filters) {
       String? implementingPartner = filter['implementingPartner'];
+      String? householdCategorization = filter['householdCategorization'];
       ovcHouseHoldList = implementingPartner == null
           ? ovcHouseHoldList
           : ovcHouseHoldList
               .where((OvcHousehold household) =>
                   household.implementingPartner == implementingPartner)
+              .toList();
+
+      ovcHouseHoldList = householdCategorization == null
+          ? ovcHouseHoldList
+          : ovcHouseHoldList
+              .where((OvcHousehold household) =>
+                  household.houseHoldCategorization == householdCategorization)
               .toList();
     }
     return ovcHouseHoldList;

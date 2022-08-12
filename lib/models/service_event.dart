@@ -43,8 +43,7 @@ class ServiceEvent {
   }
 
   String assignInterventionGroup(String interventionType) {
-    if (interventionType == 'AFLATEEN/TOUN' ||
-        interventionType == 'Go Girls') {
+    if (interventionType == 'AFLATEEN/TOUN' || interventionType == 'Go Girls') {
       return '(SAB) Social Assets Building';
     } else if (interventionType == 'SILC' ||
         interventionType == 'SAVING GROUP' ||
@@ -61,7 +60,7 @@ class ServiceEvent {
         interventionType == 'HIV Prevention Education' ||
         interventionType == 'GBV Legal Messaging' ||
         interventionType == 'VAC Messaging') {
-      return 'HIV Prevention Education (VAC/GBV)';
+      return 'HIV Prevention Education';
     } else {
       return '';
     }

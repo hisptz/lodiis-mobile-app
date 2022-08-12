@@ -1,7 +1,7 @@
 import 'package:kb_mobile_app/core/constants/auto_synchronization.dart';
 import 'package:kb_mobile_app/core/constants/workmanager_constants.dart';
 import 'package:kb_mobile_app/core/services/app_info_service.dart';
-import 'package:kb_mobile_app/core/services/dreams_backrgound_re_assessment_service.dart';
+import 'package:kb_mobile_app/core/services/dreams_background_re_assessment_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/synchronization_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
