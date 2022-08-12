@@ -94,7 +94,7 @@ class DreamsReferral {
                             name: 'Condom Education/Provision'),
                         InputFieldOption(
                             code: 'ViolencePreventionEducation',
-                            name: 'Violence Prevention Education'),
+                            name: 'Voilence Prevention Education (GBV/VAC)'),
                         InputFieldOption(
                             code: 'ComprehensiveEconomicStrengthening',
                             name: 'Comprehensive Economic Strengthening'),
@@ -207,7 +207,7 @@ class DreamsReferral {
                             name: 'Condom Education/Provision'),
                         InputFieldOption(
                             code: 'ViolencePreventionEducation',
-                            name: 'Violence Prevention Education'),
+                            name: 'Voilence Prevention Education (GBV/VAC)'),
                         InputFieldOption(
                             code: 'ComprehensiveEconomicStrengthening',
                             name: 'Comprehensive Economic Strengthening'),

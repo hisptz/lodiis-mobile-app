@@ -44,14 +44,14 @@ class DreamsServiceForm {
                       name: 'Financial Literacy (Education)'),
                   InputFieldOption(
                       code: 'ViolencePreventionEducation',
-                      name: 'Violence Prevention Education'),
+                      name: 'Voilence Prevention Education (GBV/VAC)'),
                   InputFieldOption(
                       code: 'CondomEducationProvision',
                       name: 'Condom Education/Provision'),
                   InputFieldOption(code: 'LBSE', name: 'LBSE'),
                   InputFieldOption(
                       code: 'HIV Prevention Education',
-                      name: 'HIV Prevention Education (VAC/GBV)'),
+                      name: 'HIV Prevention Education'),
                 ]),
             InputField(
               id: 'O7sjTjxUmEa',
