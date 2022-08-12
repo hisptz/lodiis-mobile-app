@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
@@ -48,6 +49,11 @@ class _PhoneNumberInputFieldContainerState
           child: TextFormField(
             readOnly: widget.inputField.isReadOnly!,
             controller: phoneNumberController,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                  widget.inputField.numericRegexValidation as Pattern),
+              LengthLimitingTextInputFormatter(10),
+            ],
             keyboardType: TextInputType.phone,
             onChanged: onValueChange,
             style: const TextStyle().copyWith(
