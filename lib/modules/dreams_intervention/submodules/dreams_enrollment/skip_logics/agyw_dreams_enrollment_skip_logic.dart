@@ -219,8 +219,15 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'LNaNh7kvh4X' && value != 'true') {
         hiddenFields['wGFmu7DhNGV'] = true;
       }
-      if (inputFieldId == 'wGFmu7DhNGV' && value != 'true') {
-        hiddenFields['G1s75wng5DY'] = true;
+      if (inputFieldId == 'wGFmu7DhNGV') {
+        if (value != 'true') {
+          hiddenFields['G1s75wng5DY'] = true;
+          assignInputFieldValue(context, 'AHbtSNH0i7C', 'false');
+        } else if (value != 'false') {
+          assignInputFieldValue(context, 'AHbtSNH0i7C', 'true');
+        } else {
+          hiddenFields['G1s75wng5DY'] = true;
+        }
       }
       if (inputFieldId == 'bkpG276xEk9') {
         if (value != 'true') {
