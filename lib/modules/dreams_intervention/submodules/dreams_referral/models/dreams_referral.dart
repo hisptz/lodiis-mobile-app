@@ -100,7 +100,7 @@ class DreamsReferral {
                             name: 'Comprehensive Economic Strengthening'),
                         InputFieldOption(
                             code: 'HIVPreventionEducation',
-                            name: 'HIV Prevention Education  (VAC/GBV)'),
+                            name: 'HIV Prevention Education'),
                         InputFieldOption(
                             code: 'ParentingPregBreastfeeding',
                             name: 'Parenting (Preg & Breastfeeding)'),
@@ -213,7 +213,7 @@ class DreamsReferral {
                             name: 'Comprehensive Economic Strengthening'),
                         InputFieldOption(
                             code: 'HIVPreventionEducation',
-                            name: 'HIV Prevention Education  (VAC/GBV)'),
+                            name: 'HIV Prevention Education'),
                         InputFieldOption(
                             code: 'ParentingPregBreastfeeding',
                             name: 'Parenting (Preg & Breastfeeding)'),

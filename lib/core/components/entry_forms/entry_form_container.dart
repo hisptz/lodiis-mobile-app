@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_sub_form_contain
 import 'package:kb_mobile_app/core/components/input_fields/input_field_container.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,15 @@ class EntryFormContainer extends StatelessWidget {
   final double elevation;
   final List? unFilledMandatoryFields;
 
+  bool shouldShowSection(FormSection formSection) {
+    List<String> inputFieldIds = FormUtil.getFormFieldIds([formSection]);
+    return !inputFieldIds.every((inputFieldId) {
+      return hiddenFields != null &&
+          hiddenFields!.containsKey(inputFieldId) &&
+          hiddenFields![inputFieldId] == true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     setFieldErrors();
@@ -50,7 +60,8 @@ class EntryFormContainer extends StatelessWidget {
                   .map((FormSection formSection) => Visibility(
                         visible: hiddenSections == null ||
                             '${hiddenSections![formSection.id]}'.trim() !=
-                                'true',
+                                    'true' &&
+                                shouldShowSection(formSection),
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 10.0),
                           child: MaterialCard(
