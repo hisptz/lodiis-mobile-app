@@ -276,27 +276,19 @@ class AgywEnrollmentRiskAssessment {
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
-            id: 'dxp3qM2TgUc',
-            name: '1. Name of parent/caregiver',
-            translatedName: '1. Lebitso la motsoali/mohlokomeli',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
             id: 'YQ9G0ww2cDN',
-            name: '2. AGYW’s father given name',
+            name: '1. AGYW’s father given name',
             translatedName:
-                '2. Lebitso la ntate oa moroetsana/mosali ea mocha lilemong (AGYW)',
+                '1. Lebitso la ntate oa moroetsana/mosali ea mocha lilemong (AGYW)',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'auPInwvDZjF',
-            name: '3. AGYW’s mother given name',
+            name: '2. AGYW’s mother given name',
             translatedName:
-                '3. Lebitso la ’m’e oa moroetsana/mosali ea mocha lilemong',
+                '2. Lebitso la ’m’e oa moroetsana/mosali ea mocha lilemong',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -304,17 +296,25 @@ class AgywEnrollmentRiskAssessment {
           InputField(
             id: 'NrYoz8RewxV',
             name:
-                '4. If the AGYW comes from child headed family,Name of the Sister/Brother',
+                '3. If the AGYW comes from child headed family,Name of the Sister/Brother',
             translatedName:
-                '4. Haeba moroetsana/mosali ea mocha lilemong a tsoa lelapeng leo hloho ea lelapa e leng ngoana, fana ka lebitso la ngoana eo',
+                '3. Haeba moroetsana/mosali ea mocha lilemong a tsoa lelapeng leo hloho ea lelapa e leng ngoana, fana ka lebitso la ngoana eo',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+             InputField(
+            id: 'dxp3qM2TgUc',
+            name: '4. Name of parent/caregiver',
+            translatedName: '4. Lebitso la motsoali/mohlokomeli',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'iS9mAp3jDaU',
-            name: 'Relationship to Caregiver',
-            translatedName: 'Kamano le mohlokomeli',
+            name: '5. Relationship to Caregiver',
+            translatedName: '5. Kamano le mohlokomeli',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -352,9 +352,9 @@ class AgywEnrollmentRiskAssessment {
            InputField(
             id: 'pvjIijxEJGp',
             name:
-                '5. Phone number of parent/caregiver/heads of the family if available',
+                '6. Phone number of parent/caregiver/heads of the family if available',
             translatedName:
-                '5. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
+                '6. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
             valueType: 'PHONE_NUMBER',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
