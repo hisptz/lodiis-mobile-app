@@ -25,7 +25,7 @@ class DeviceTrackingService {
         .discoveringBeneficiaryByFilters(
             [DeviceTrackingConstant.program], filters);
     if (teis.isEmpty) {
-      await registerDeviceForTracking(
+      await _registerDeviceForTracking(
         user,
         trackedEntityInstance,
         uniqueId,
@@ -55,7 +55,7 @@ class DeviceTrackingService {
     await PreferenceProvider.setPreferenceValue(deviceTrackingReference, teiId);
   }
 
-  Future registerDeviceForTracking(
+  Future _registerDeviceForTracking(
     CurrentUser user,
     String trackedEntityInstance,
     String uniqueId,

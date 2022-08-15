@@ -140,6 +140,8 @@ class _LoginFormState extends State<LoginForm> {
           username: username,
           password: password,
         );
+        await DeviceTrackingService()
+            .checkAndRegistertDeviceTrackingInfo(user: user);
         if (!hasPreviousSuccessLogin) {
           UserService().resetUserAssociatedMetadata(user.id);
           var userAccessConfigurations =
