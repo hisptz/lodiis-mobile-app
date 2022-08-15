@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_outcome_event.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsReferralUtil {
@@ -29,13 +30,16 @@ class AgywDreamsReferralUtil {
   static updateViewStatusOfReferralNotification(
     BuildContext context,
     Events eventData,
+    Events referralEventData,
   ) {
     try {
       ReferralOutcomeEvent referralOutComeEvent =
           ReferralOutcomeEvent().fromTeiModel(
         eventData: eventData,
-        referralToComeReference: "",
-        referralToFollowUpLinkage: "",
+        referralToFollowUpLinkage:
+            DreamsAgywReferralConstant.referralToFollowUpLinkage,
+        referralToComeReference:
+            DreamsAgywReferralConstant.referralToOutcomeLinkage,
       );
       bool hasReferralOutCome =
           referralOutComeEvent.dateClientReachStation != "";
@@ -48,7 +52,8 @@ class AgywDreamsReferralUtil {
       ReferralEventNotification? incomingResolvedReferral =
           incomingResolvedReferrals.firstWhereOrNull(
         (ReferralEventNotification referralEventNotification) =>
-            referralEventNotification.id == eventData.event &&
+            referralEventNotification.id ==
+                referralOutComeEvent.referralReference &&
             referralEventNotification.fromImplementingPartner ==
                 currentImplementingPartner &&
             referralEventNotification.isCompleted!,
@@ -57,8 +62,8 @@ class AgywDreamsReferralUtil {
         bool isCompleted = true;
         bool isViewed = true;
         Provider.of<ReferralNotificationState>(context, listen: false)
-            .updateReferralNotificationEvent(eventData.event,
-                eventData.trackedEntityInstance, isCompleted, isViewed);
+            .updateReferralNotificationEvent(referralEventData.event,
+                referralEventData.trackedEntityInstance, isCompleted, isViewed);
       }
     } catch (error) {
       //
