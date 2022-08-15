@@ -44,12 +44,14 @@ class DeviceTrackingService {
     required Map dataObject,
   }) async {
     String trackedEntityInstance = await getDeviceTrackingReference();
-    CurrentUser? user = await UserService().getCurrentUser();
-    await _syncDeviceInfoStatusOnsyncProcess(
-      user,
-      dataObject,
-      trackedEntityInstance,
-    );
+    if (trackedEntityInstance.isEmpty) {
+      CurrentUser? user = await UserService().getCurrentUser();
+      await _syncDeviceInfoStatusOnsyncProcess(
+        user,
+        dataObject,
+        trackedEntityInstance,
+      );
+    }
   }
 
   Future _syncDeviceInfoStatusOnsyncProcess(
