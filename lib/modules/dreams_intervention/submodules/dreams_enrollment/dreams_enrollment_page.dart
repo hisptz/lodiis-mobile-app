@@ -4,12 +4,9 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
-import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
-import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_card.dart';
@@ -68,13 +65,6 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   }
 
   void onViewBeneficiariesWhoRequireReAssessment(BuildContext context) {
-    var primaryColor =
-        Provider.of<InterventionCardState>(context, listen: false)
-            .currentInterventionProgram
-            .primaryColor;
-    var backgroundColor = Color.alphaBlend(
-        (primaryColor ?? Colors.white).withOpacity(0.1), Colors.white);
-
     showModalBottomSheet(
       context: context,
       isDismissible: true,

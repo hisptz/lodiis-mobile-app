@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
+import 'package:kb_mobile_app/core/services/device_tracking_service.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_referral_config_service.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/program_service.dart';

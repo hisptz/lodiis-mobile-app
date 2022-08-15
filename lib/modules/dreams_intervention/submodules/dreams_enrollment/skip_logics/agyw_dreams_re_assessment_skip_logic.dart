@@ -18,7 +18,6 @@ class AgywDreamsReAssessmentSkipLogic {
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    Map hiddenOptions = {};
 
     int age = int.parse('${dataObject['age'] ?? '0'}');
 
@@ -29,8 +28,6 @@ class AgywDreamsReAssessmentSkipLogic {
 
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-
-      //  TODO Add  re-assessment skip logic
       if (inputFieldId == 'XEZ1waTp18L' && value != 'true') {
         hiddenFields['c9CzrUtn7dh'] = true;
         hiddenFields['m1pw5a6ptnD'] = true;
@@ -177,8 +174,6 @@ class AgywDreamsReAssessmentSkipLogic {
           assignInputFieldValue(context, 'ac0uJduZGTC', 'No');
         }
       }
-
-      // TODO Add re-enrollment skip logic
       if (inputFieldId == 'vg7BIorWZ90' && value != 'Other') {
         hiddenFields['PnAde2Zsx8w'] = true;
       }
