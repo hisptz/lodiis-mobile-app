@@ -232,9 +232,9 @@ class AgywDreamsEnrollmentSkipLogic {
         }
       }
       if (inputFieldId == 'G1s75wng5DY') {
-        if(value != ''){
+        if (value != '') {
           assignInputFieldValue(context, 'RW9VeyKDvjj', value);
-        }else{
+        } else {
           assignInputFieldValue(context, 'RW9VeyKDvjj', '');
         }
       }
