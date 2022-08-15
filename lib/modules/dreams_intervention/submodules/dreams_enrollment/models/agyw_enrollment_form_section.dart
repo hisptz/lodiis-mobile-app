@@ -102,8 +102,6 @@ class AgywEnrollmentFormSection {
               showCountryLevelTree: true,
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
-         
-        
         ],
       ),
       FormSection(
