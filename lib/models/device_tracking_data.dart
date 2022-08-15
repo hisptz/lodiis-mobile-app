@@ -32,7 +32,20 @@ class DeviceTrackingData {
     };
   }
 
-  String toEventData() {
-    return '';
+  Map toEventData() {
+    return {
+      "eventDate": AppUtil.formattedDateTimeIntoString(DateTime.now()),
+      "program": DeviceTrackingConstant.program,
+      "programStage": DeviceTrackingConstant.programStage,
+      "trackedEntityInstance": deviceInfo['trackedEntityInstance'] ?? '',
+      "status": "COMPLETED",
+      "orgUnit": deviceInfo['orgUnit'] ?? '',
+      "dataValues": DeviceTrackingConstant.dataElements.map((dataElementId) {
+        return {
+          "dataElement": dataElementId,
+          "value": deviceInfo[dataElementId] ?? ''
+        };
+      }).toList(),
+    };
   }
 }
