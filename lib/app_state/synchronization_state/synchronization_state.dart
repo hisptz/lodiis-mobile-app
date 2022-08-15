@@ -10,8 +10,10 @@ import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_inter
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_status_state.dart';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
+import 'package:kb_mobile_app/core/constants/device_tracking_constant.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
+import 'package:kb_mobile_app/core/services/device_tracking_service.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_config_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
@@ -66,9 +68,12 @@ class SynchronizationState with ChangeNotifier {
   Map<String, List>? _trackedInstance;
   Map<String, List>? _events;
   Map<String, List>? _relationships;
+  Map? _synchronizationTrackingInfo;
   late SynchronizationService _synchronizationService;
 
 // selectors
+  Map get synchronizationTrackingInfo => _synchronizationTrackingInfo ?? {};
+
   bool get isDataUploadingActive => _isDataUploadingActive;
 
   double get notificationProgress => _notificationProgress;
@@ -217,6 +222,17 @@ class SynchronizationState with ChangeNotifier {
     updateUnsyncedDataCheckingStatus(false);
   }
 
+  void setSynchronizationTrackingInformation(Map dataObjet) {
+    if (dataObjet.keys.isEmpty) {
+      _synchronizationTrackingInfo = {};
+      notifyListeners();
+    }
+    for (dynamic key in dataObjet.keys.toList()) {
+      _synchronizationTrackingInfo![key] = dataObjet[key];
+    }
+    notifyListeners();
+  }
+
   stopSyncActivity() async {
     _isDataDownloadingActive = false;
     _isDataUploadingActive = false;
@@ -235,6 +251,8 @@ class SynchronizationState with ChangeNotifier {
   }
 
   Future startSyncActivity({String? syncAction}) async {
+    Map syncTrackingObject = {};
+    setSynchronizationTrackingInformation(syncTrackingObject);
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;
@@ -244,6 +262,13 @@ class SynchronizationState with ChangeNotifier {
     _notificationProgress = 0.0;
     _currentSyncAction = syncAction!;
     notifyListeners();
+    syncTrackingObject[DeviceTrackingConstant.syncStartTime] =
+        AppUtil.getDataAndTimeFormatFromDateTime(DateTime.now());
+    syncTrackingObject[DeviceTrackingConstant.unSyncedEnrollment] =
+        _beneficiaryCount;
+    syncTrackingObject[DeviceTrackingConstant.unSyncedServices] =
+        _beneficiaryServiceCount;
+    setSynchronizationTrackingInformation(syncTrackingObject);
     switch (syncAction) {
       case SynchronizationActionsConstants.download:
         await startDataDownloadActivity();
@@ -259,13 +284,34 @@ class SynchronizationState with ChangeNotifier {
         break;
     }
     await syncReferralNotifications();
-
+    int unSyncedEnrollment =
+        syncTrackingObject[DeviceTrackingConstant.unSyncedEnrollment] ?? 0;
+    int unSyncedServices =
+        syncTrackingObject[DeviceTrackingConstant.unSyncedServices] ?? 0;
+    syncTrackingObject[DeviceTrackingConstant.syncEndTime] =
+        AppUtil.getDataAndTimeFormatFromDateTime(DateTime.now());
+    syncTrackingObject[DeviceTrackingConstant.syncedEnrollment] =
+        unSyncedEnrollment > _beneficiaryCount!
+            ? unSyncedEnrollment - _beneficiaryCount!
+            : unSyncedEnrollment;
+    syncTrackingObject[DeviceTrackingConstant.syncedServices] =
+        unSyncedServices > _beneficiaryServiceCount!
+            ? unSyncedServices - _beneficiaryServiceCount!
+            : unSyncedServices;
+    syncTrackingObject[DeviceTrackingConstant.unSyncedEnrollment] =
+        _beneficiaryCount;
+    syncTrackingObject[DeviceTrackingConstant.unSyncedServices] =
+        _beneficiaryServiceCount;
     _dataDownloadProcess = [];
     _dataUploadProcess = [];
     updateDataDownloadStatus(false);
     updateDataUploadStatus(false);
     _currentSyncAction = '';
+    setSynchronizationTrackingInformation(syncTrackingObject);
     notifyListeners();
+    DeviceTrackingService().syncDeviceTrackingInfoOnSynchronization(
+      dataObject: _synchronizationTrackingInfo!,
+    );
   }
 
   Future startDataDownloadActivity({bool skipUpload = true}) async {
@@ -492,9 +538,9 @@ class SynchronizationState with ChangeNotifier {
     try {
       bool conflictOnTeisImport = false;
       bool conflictOnEventsImport = false;
-
       CurrentUser? currentUser = await UserService().getCurrentUser();
 
+      ///TODO set error if any on dat state if any
       if (currentUser != null) {
         conflictOnTeisImport =
             await uploadProfileData(currentUser: currentUser);

@@ -32,13 +32,10 @@ class _SynchronizationState extends State<Synchronization> {
     ));
   }
 
-  void initializeSynchronization(BuildContext context,
-      {String? syncAction}) async {
-    setState(() {
-      selectedSyncAction = syncAction ?? selectedSyncAction;
-    });
+  void initializeSynchronization(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
-        .startSyncActivity(syncAction: syncAction);
+        .startSyncActivity(
+            syncAction: SynchronizationActionsConstants.downloadAndUpload);
   }
 
   @override
@@ -117,8 +114,7 @@ class _SynchronizationState extends State<Synchronization> {
                               syncAction: selectedSyncAction,
                               isSyncActive: isSyncActive,
                               onInitializeSyncAction: (String? syncAction) =>
-                                  initializeSynchronization(context,
-                                      syncAction: syncAction),
+                                  initializeSynchronization(context),
                               beneficiaryServiceCount: beneficiaryServiceCount),
                         ),
                         Visibility(
