@@ -158,7 +158,6 @@ class _LoginFormState extends State<LoginForm> {
             await ProgramService()
                 .discoverProgramOrganisationUnitsFromTheServer("$program");
           }
-          await DeviceTrackingService().setLastMetaDataSyncDate();
         } else {
           var userAccessConfigurations =
               await UserAccess().getSavedUserAccessConfigurations();
@@ -207,7 +206,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void redirectToInterventionPage(CurrentUser user) async {
-    await DeviceTrackingService().setLastLoginDate(username: user.username!);
     Provider.of<CurrentUserState>(context, listen: false)
         .setCurrentUserCountryLevelReferences();
     Timer(const Duration(seconds: 2), () {

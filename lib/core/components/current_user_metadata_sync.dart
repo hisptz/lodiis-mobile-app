@@ -57,7 +57,6 @@ class _CurrentUserMetadataSyncState extends State<CurrentUserMetadataSync> {
         await OrganisationUnitService()
             .discoveringOrgananisationUnitsFromTheServer();
         await UserService().setCurrentUserMetadatadataSyncStatus(true);
-        await DeviceTrackingService().setLastMetaDataSyncDate();
       }
     }
     Timer(const Duration(milliseconds: 400), () {
