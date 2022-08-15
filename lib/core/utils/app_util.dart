@@ -154,6 +154,16 @@ class AppUtil {
     return date.toIso8601String().split('T')[0].trim();
   }
 
+  static String getDataAndTimeFormatFromDateTime(DateTime date) {
+    String formattedDate = formattedDateTimeIntoString(date);
+    int hours = date.hour;
+    int minute = date.minute;
+    String formattedTime = hours > 9 ? "$hours" : "0$hours";
+    formattedTime += ":";
+    formattedTime += minute > 9 ? "$minute" : "0$minute";
+    return "${formattedDate}T$formattedTime";
+  }
+
   static DateTime getDateIntoDateTimeFormat(String date) {
     return DateTime.tryParse(date) ?? DateTime.now();
   }
