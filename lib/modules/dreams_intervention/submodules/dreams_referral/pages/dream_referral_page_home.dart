@@ -15,11 +15,13 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/referral_outcome_event.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
@@ -84,8 +86,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
     Events eventData,
     int referralIndex,
   ) {
-    AgywDreamsReferralUtil.updateViewStatusOfReferralNotification(
-        context, eventData);
+    setReferralOutComesEvents(context, eventData);
     FormUtil.updateServiceFormState(context, false, eventData);
     Navigator.push(
       context,
@@ -97,6 +98,36 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
         ),
       ),
     );
+  }
+
+  void setReferralOutComesEvents(
+    BuildContext context,
+    Events eventData,
+  ) async {
+    List<Events> referralOutComeEvents = TrackedEntityInstanceUtil
+        .getAllEventListFromServiceDataStateByProgramStages(
+      Provider.of<ServiceEventDataState>(context, listen: false)
+          .eventListByProgramStage,
+      [DreamsAgywReferralConstant.referralOutComeStage],
+      shouldSortByDate: true,
+    ).where((Events referralEvent) {
+      ReferralOutcomeEvent referralOutComeEvent =
+          ReferralOutcomeEvent().fromTeiModel(
+        eventData: referralEvent,
+        referralToFollowUpLinkage:
+            DreamsAgywReferralConstant.referralToFollowUpLinkage,
+        referralToComeReference:
+            DreamsAgywReferralConstant.referralToOutcomeLinkage,
+      );
+      return referralOutComeEvent.referralReference == eventData.event;
+    }).toList();
+    if (referralOutComeEvents.isNotEmpty) {
+      AgywDreamsReferralUtil.updateViewStatusOfReferralNotification(
+        context,
+        referralOutComeEvents.first,
+        eventData,
+      );
+    }
   }
 
   void onManageReferral(
