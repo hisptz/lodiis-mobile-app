@@ -53,13 +53,13 @@ class AgywDreamsServiceSummaryConstant {
           'programStage': ['Gk494qKQP8B']
         },
         {
-          'name': 'Violence Prevention Education',
+          'name': 'Voilence Prevention Education (GBV/VAC)',
           'programStage': ['bDJq2JWVTbC']
         },
       ],
       [
         {
-          'name': 'HIV Prevention Education (VAC/GBV)',
+          'name': 'HIV Prevention Education',
           'programStage': ['bDJq2JWVTbC']
         },
         {

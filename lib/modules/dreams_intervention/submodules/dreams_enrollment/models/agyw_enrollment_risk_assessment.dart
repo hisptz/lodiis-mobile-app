@@ -63,6 +63,7 @@ class AgywEnrollmentRiskAssessment {
       'fEHah8SvP35',
       'x6VFmJLsqgx',
       'OmOU8n78dg7',
+      's1eRvsL2Ly4',
     ];
   }
 
@@ -311,16 +312,6 @@ class AgywEnrollmentRiskAssessment {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'pvjIijxEJGp',
-            name:
-                '5. Phone number of parent/caregiver/heads of the family if available',
-            translatedName:
-                '5. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
-            valueType: 'PHONE_NUMBER',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
             id: 'iS9mAp3jDaU',
             name: 'Relationship to Caregiver',
             translatedName: 'Kamano le mohlokomeli',
@@ -355,6 +346,16 @@ class AgywEnrollmentRiskAssessment {
             name: 'Other relationship to caregiver',
             translatedName: 'Tse ling (hlalosa)',
             valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+           InputField(
+            id: 'pvjIijxEJGp',
+            name:
+                '5. Phone number of parent/caregiver/heads of the family if available',
+            translatedName:
+                '5. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
+            valueType: 'PHONE_NUMBER',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),

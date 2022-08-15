@@ -219,8 +219,15 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'LNaNh7kvh4X' && value != 'true') {
         hiddenFields['wGFmu7DhNGV'] = true;
       }
-      if (inputFieldId == 'wGFmu7DhNGV' && value != 'true') {
-        hiddenFields['G1s75wng5DY'] = true;
+      if (inputFieldId == 'wGFmu7DhNGV') {
+        if (value != 'true') {
+          hiddenFields['G1s75wng5DY'] = true;
+          assignInputFieldValue(context, 'AHbtSNH0i7C', 'false');
+        } else if (value != 'false') {
+          assignInputFieldValue(context, 'AHbtSNH0i7C', 'true');
+        } else {
+          hiddenFields['G1s75wng5DY'] = true;
+        }
       }
       if (inputFieldId == 'bkpG276xEk9') {
         if (value != 'true') {
@@ -468,8 +475,10 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'FuYyLjYxxkg') {
         if (value == 'Single Orphan(Mother)') {
           assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'Yes');
         } else if (value == 'Single Orphan(Father)') {
           assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'Yes');
         } else if (value == 'Double Orphan') {
           assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
           assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');

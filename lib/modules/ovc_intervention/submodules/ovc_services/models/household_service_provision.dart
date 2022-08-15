@@ -300,7 +300,7 @@ class HouseholdServiceProvision {
                 name: 'LEGAL PROTECTION Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa LEGAL PROTECTION',
-                valueType: 'TEXT',
+                valueType: 'DATE',
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(

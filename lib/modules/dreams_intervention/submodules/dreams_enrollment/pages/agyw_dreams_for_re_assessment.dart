@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/core/components/input_fields/search_input.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/models/agyw_dream.dart';
@@ -37,6 +38,11 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
           ? trackedEntityInstance
           : '';
     });
+  }
+
+  void onSearchBeneficiary(BuildContext context, String searchedAttributes) {
+    Provider.of<DreamsRaAssessmentListState>(context, listen: false)
+        .searchDreamsReAssessmentBeneficiaries(searchedAttributes);
   }
 
   void onReAssess(BuildContext context, AgywDream agywDream) {
@@ -86,8 +92,7 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
                       .currentInterventionProgram.primaryColor;
 
                   return Container(
-                    padding:
-                        const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+                    padding: const EdgeInsets.only(top: 10.0),
                     decoration: BoxDecoration(
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(20)),
@@ -102,6 +107,7 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
                               Expanded(
                                 flex: 8,
                                 child: Container(
+                                  alignment: Alignment.center,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
                                   child: Text(
@@ -117,6 +123,13 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
                           ),
                         ),
                         LineSeparator(color: lineColor!),
+                        SearchInput(
+                          onSearch: (String searchedValue) =>
+                              onSearchBeneficiary(
+                            context,
+                            searchedValue,
+                          ),
+                        ),
                         Flexible(
                           child: Consumer<DreamsRaAssessmentListState>(
                             builder:

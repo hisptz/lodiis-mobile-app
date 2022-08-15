@@ -219,10 +219,6 @@ class AgywEnrollmentFormSection {
                   name: 'Earth or Mud or Dung or Sand',
                   translatedName: 'Mobu'),
               InputFieldOption(
-                  code: 'Corrugated iron sheet',
-                  name: 'Corrugated iron sheet',
-                  translatedName: 'Lesenke'),
-              InputFieldOption(
                   code: 'Ceramic tiles',
                   name: 'Ceramic tiles',
                   translatedName: 'Lithaele'),
@@ -645,10 +641,6 @@ class AgywEnrollmentFormSection {
                   translatedName:
                       'Batho bao u amanang le bona (ntle le motsoali/mohlokomeli)'),
               InputFieldOption(
-                  code: 'yoYYq80SrxC',
-                  name: 'None (no additional support)',
-                  translatedName: 'Ha ho lithuso tse ling'),
-              InputFieldOption(
                   code: 'cr4RA9GGMyf',
                   name: 'Other sources',
                   translatedName: 'Lithuso tse ling')
@@ -841,6 +833,10 @@ class AgywEnrollmentFormSection {
                   code: 'In the bank',
                   name: 'In the bank',
                   translatedName: 'Bankeng'),
+              InputFieldOption(
+                  code: 'Mobile Money',
+                  name: 'Mobile Money',
+                  translatedName: 'EcoCash/Mpesa'),
               InputFieldOption(
                   code: 'Other',
                   name: 'Other',
