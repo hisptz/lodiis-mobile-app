@@ -105,6 +105,8 @@ class _DreamsReferralPageState extends State<DreamsReferralPage> {
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamsInterventionListState) {
     dreamsInterventionListState.refreshBeneficiariesNumber();
+    Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
   }
 
   @override

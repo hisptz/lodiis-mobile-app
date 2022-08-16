@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/access_to_data_entry/access_to_data_entry_warning.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:provider/provider.dart';
@@ -54,6 +55,10 @@ class _InterventionSelectionState extends State<InterventionSelection> {
           .refreshOvcNumber();
       Provider.of<DreamsInterventionListState>(context, listen: false)
           .refreshBeneficiariesNumber();
+      Provider.of<DreamsRaAssessmentListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+      Provider.of<ReferralNotificationState>(context, listen: false)
+          .reloadReferralNotifications();
       Provider.of<DreamsRaAssessmentListState>(context, listen: false)
           .refreshBeneficiariesNumber();
       Provider.of<OgacInterventionListState>(context, listen: false)

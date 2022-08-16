@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -77,6 +78,8 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
   void refreshBeneficiaryList(BuildContext context) {
     Provider.of<DreamsInterventionListState>(context, listen: false)
         .refreshBeneficiariesNumber();
+    Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
     Provider.of<DreamsRaAssessmentListState>(context, listen: false)
         .refreshBeneficiariesNumber();
   }

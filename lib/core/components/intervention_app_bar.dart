@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
@@ -9,6 +10,7 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/app_update_warning.dart';
 import 'package:kb_mobile_app/core/components/current_user_metadata_sync.dart';
 import 'package:kb_mobile_app/core/components/data_download_message.dart';
@@ -172,6 +174,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
           .refreshOgacNumber();
     } else if (widget.activeInterventionProgram.id == 'dreams') {
       Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+      Provider.of<ReferralNotificationState>(context, listen: false)
+          .reloadReferralNotifications();
+      Provider.of<DreamsRaAssessmentListState>(context, listen: false)
           .refreshBeneficiariesNumber();
     } else if (widget.activeInterventionProgram.id == 'ovc') {
       Provider.of<OvcInterventionListState>(context, listen: false)
