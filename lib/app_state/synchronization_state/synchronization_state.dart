@@ -539,15 +539,12 @@ class SynchronizationState with ChangeNotifier {
       bool conflictOnTeisImport = false;
       bool conflictOnEventsImport = false;
       CurrentUser? currentUser = await UserService().getCurrentUser();
-
-      ///TODO set error if any on dat state if any
       if (currentUser != null) {
         conflictOnTeisImport =
             await uploadProfileData(currentUser: currentUser);
         conflictOnEventsImport =
             await uploadServiceData(currentUser: currentUser);
       }
-
       if (conflictOnTeisImport && conflictOnEventsImport) {
         AppUtil.showToastMessage(message: 'Error uploading data');
       } else if (conflictOnTeisImport) {
