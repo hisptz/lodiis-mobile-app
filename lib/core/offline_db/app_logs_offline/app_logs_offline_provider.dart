@@ -64,6 +64,31 @@ class AppLogsOfflineProvider extends OfflineDbProvider {
     return logs..sort((b, a) => a.date!.compareTo(b.date!));
   }
 
+  Future<List<AppLogs>> getAppLogsByDates({
+    required String startDate,
+    required String endDate,
+  }) async {
+    List<AppLogs> logs = [];
+    try {
+      var dbClient = await db;
+      startDate =
+          startDate.contains('T') ? startDate.split('T').join(' ') : startDate;
+      endDate = endDate.contains('T') ? endDate.split('T').join(' ') : endDate;
+      String query =
+          "SELECT * from $table WHERE date >= '$startDate' and date <= '$endDate'";
+      List<Map> maps = await dbClient!.rawQuery(query);
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          AppLogs log = AppLogs.fromOffline(map as Map<String, dynamic>);
+          logs.add(log);
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return logs;
+  }
+
   Future<int> getAppLogsCount() async {
     int? logsCount;
     try {
