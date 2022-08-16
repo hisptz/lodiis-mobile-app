@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
 import 'package:kb_mobile_app/core/constants/device_tracking_constant.dart';
+import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/core/services/tracked_entity_instance_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/device_info_util.dart';
+import 'package:kb_mobile_app/models/app_logs.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/device_tracking_data.dart';
 
@@ -59,6 +61,10 @@ class DeviceTrackingService {
     Map<dynamic, dynamic> dataObject,
     String trackedEntityInstance,
   ) async {
+    Map errorMessages = _getSynchronizationErrors(
+      startDate: dataObject[DeviceTrackingConstant.syncStartTime],
+      endDate: dataObject[DeviceTrackingConstant.syncEndTime],
+    );
     List userOrgUnitIds = user!.userOrgUnitIds ?? [];
     dataObject[DeviceTrackingConstant.appVersionDataElemnt] =
         AppInfoReference.currentAppVersion;
@@ -68,7 +74,8 @@ class DeviceTrackingService {
         "trackedEntityInstance": trackedEntityInstance,
         "orgUnit": userOrgUnitIds.first ?? '',
       },
-      ...dataObject
+      ...dataObject,
+      ...errorMessages,
     };
     var httpClient = HttpService(
       username: user.username,
@@ -138,5 +145,53 @@ class DeviceTrackingService {
       }),
       queryParameters: queryParameters,
     );
+  }
+
+  _getSynchronizationErrors({
+    required String startDate,
+    required String endDate,
+  }) async {
+    Map errorMessages = {};
+    RegExp connectionRegex = RegExp(r"(timed out)");
+    RegExp accessRegex = RegExp(r"(access)");
+    RegExp enrollmentRegex = RegExp(r"(not enrolled)");
+    RegExp socketRegex = RegExp(r"(SocketException)");
+    RegExp eventForTeiNotExistRegex = RegExp(
+        r"Event.trackedEntityInstance does not point to a valid tracked entity instance");
+    RegExp eventForStageNotExistRegex =
+        RegExp(r"Event.programStage does not point to a valid programStage");
+    RegExp attributeRegEx = RegExp(r"Attribute.value");
+    RegExp notValidRegEx = RegExp(r"is not a valid");
+    String startDate = '2022-08-16T10:57';
+    String endDate = '2022-08-16T10:58';
+    List<AppLogs> logs = await AppLogsOfflineProvider().getAppLogsByDates(
+      startDate: startDate,
+      endDate: endDate,
+    );
+    for (AppLogs log in logs) {
+      String message = log.message ?? '';
+      if ((connectionRegex.hasMatch(message) ||
+          socketRegex.hasMatch(message))) {
+        errorMessages[DeviceTrackingConstant.connectivityError] = true;
+      } else if ((accessRegex.hasMatch(message) ||
+          enrollmentRegex.hasMatch(message) ||
+          eventForStageNotExistRegex.hasMatch(message) ||
+          eventForTeiNotExistRegex.hasMatch(message))) {
+        errorMessages[DeviceTrackingConstant.userAccessError] = true;
+      } else if (attributeRegEx.hasMatch(message) ||
+          notValidRegEx.hasMatch(message)) {
+        errorMessages[DeviceTrackingConstant.valueTypeError] = true;
+      } else if (!(attributeRegEx.hasMatch(message) ||
+          notValidRegEx.hasMatch(message) ||
+          accessRegex.hasMatch(message) ||
+          enrollmentRegex.hasMatch(message) ||
+          connectionRegex.hasMatch(message) ||
+          socketRegex.hasMatch(message) ||
+          eventForStageNotExistRegex.hasMatch(message) ||
+          eventForTeiNotExistRegex.hasMatch(message))) {
+        errorMessages[DeviceTrackingConstant.othersError] = true;
+      }
+    }
+    return errorMessages;
   }
 }
