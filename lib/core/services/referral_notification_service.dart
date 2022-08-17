@@ -64,7 +64,6 @@ class ReferralNotificationService {
   Future synchronizeUnsyncedBeneficiariesWithNotifications(
       BuildContext context, List<String> beneficiaryIds) async {
     try {
-      //TODO add support for get notifications by ids instaed of single at time
       for (String teiId in beneficiaryIds) {
         await TrackedEntityInstanceService()
             .discoverTrackedEntityInstanceById(teiId);
@@ -177,7 +176,6 @@ class ReferralNotificationService {
         username: currentUser!.username,
         password: currentUser.password,
       );
-      //TODO handling this handling looping for performcaes
       for (String? organisationUnitId in currentUser.userOrgUnitIds ?? []) {
         locations.addAll(await OrganisationUnitService()
             .getOrganisationUnitsInPathByOrganisationUnit(organisationUnitId));
