@@ -189,10 +189,10 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     }
   }
 
-  void updateReferralNotificationStatus() {
+  void updateReferralNotificationStatus() async {
     bool isCompleted = true;
     bool isViewed = false;
-    Provider.of<ReferralNotificationState>(context, listen: false)
+    await Provider.of<ReferralNotificationState>(context, listen: false)
         .updateReferralNotificationEvent(widget.referralEvent.id,
             widget.beneficiary.trackedEntityInstance, isCompleted, isViewed);
     List<String> teiWithIncomingReferral =

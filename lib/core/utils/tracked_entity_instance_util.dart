@@ -32,23 +32,20 @@ class TrackedEntityInstanceUtil {
         await AppInfoUtil.getAppAndDeviceTrackingInfo();
     inputFieldIds.addAll(hiddenFields ?? []);
     inputFieldIds.removeWhere((field) => skippedFields!.contains(field));
-    if (eventId == null) {
-      inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
-      inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
-      inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
-      CurrentUser? user = await (UserService().getCurrentUser());
-      dataObject[UserAccountReference.implementingPartnerDataElement] =
-          dataObject[UserAccountReference.implementingPartnerDataElement] ??
-              user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderDataElement] =
-          dataObject[UserAccountReference.serviceProviderDataElement] ??
-              user!.username;
-      if (user!.subImplementingPartner != '') {
-        dataObject[UserAccountReference.subImplementingPartnerDataElement] =
-            dataObject[
-                    UserAccountReference.subImplementingPartnerDataElement] ??
-                user.subImplementingPartner;
-      }
+    inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
+    inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+    inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
+    CurrentUser? user = await (UserService().getCurrentUser());
+    dataObject[UserAccountReference.implementingPartnerDataElement] =
+        dataObject[UserAccountReference.implementingPartnerDataElement] ??
+            user!.implementingPartner;
+    dataObject[UserAccountReference.serviceProviderDataElement] =
+        dataObject[UserAccountReference.serviceProviderDataElement] ??
+            user!.username;
+    if (user!.subImplementingPartner != '') {
+      dataObject[UserAccountReference.subImplementingPartnerDataElement] =
+          dataObject[UserAccountReference.subImplementingPartnerDataElement] ??
+              user.subImplementingPartner;
     }
     dataObject[UserAccountReference.appAndDeviceTrackingDataElement] =
         dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
