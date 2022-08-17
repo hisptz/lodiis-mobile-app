@@ -14,10 +14,8 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
-import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -154,7 +152,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
     );
     if (hadAllMandatoryFilled) {
       setState(() {
-        isSaving = true;
+        // isSaving = true;
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
@@ -167,10 +165,6 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
       ];
       try {
         if (eventId == null) {
-          CurrentUser? user = await UserService().getCurrentUser();
-          dataObject[UserAccountReference.implementingPartnerDataElement] =
-              dataObject[UserAccountReference.implementingPartnerDataElement] ??
-                  user!.implementingPartner;
           eventId = AppUtil.getUid();
           String currentImplementingPartner =
               Provider.of<ReferralNotificationState>(context, listen: false)
