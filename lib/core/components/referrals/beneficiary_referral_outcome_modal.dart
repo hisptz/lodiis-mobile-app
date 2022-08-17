@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -133,44 +134,50 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     bool isAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (isAllMandatoryFilled) {
-      _isSaving = true;
-      setState(() {});
-      updateReferralNotificationStatus();
-      dataObject[widget.referralOutcomeLinkage] =
-          dataObject[widget.referralOutcomeLinkage] ?? widget.referralEvent.id;
-      dataObject[widget.referralToFollowUpLinkage] =
-          dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
-      var orgUnit = dataObject['location'] ?? '';
-      var eventId = dataObject['eventId'];
-      var eventDate = dataObject['eventDate'];
-      await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-        widget.referralEvent.eventData?.program,
-        widget.referralProgramStage,
-        orgUnit,
-        formSections ?? [],
-        dataObject,
-        eventDate,
-        widget.beneficiary.trackedEntityInstance,
-        eventId,
-        widget.hiddenFields,
-        skippedFields: ['location'],
-      );
-      Provider.of<ServiceEventDataState>(context, listen: false)
-          .resetServiceEventDataState(widget.beneficiary.trackedEntityInstance);
-      Timer(const Duration(milliseconds: 200), () {
-        setState(() {
-          _isSaving = false;
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-          );
-          Navigator.pop(context);
+      try {
+        _isSaving = true;
+        setState(() {});
+        dataObject[widget.referralOutcomeLinkage] =
+            dataObject[widget.referralOutcomeLinkage] ??
+                widget.referralEvent.id;
+        dataObject[widget.referralToFollowUpLinkage] =
+            dataObject[widget.referralToFollowUpLinkage] ?? AppUtil.getUid();
+        var orgUnit = dataObject['location'] ?? '';
+        var eventId = dataObject['eventId'];
+        var eventDate = dataObject['eventDate'];
+        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          widget.referralEvent.eventData?.program,
+          widget.referralProgramStage,
+          orgUnit,
+          formSections ?? [],
+          dataObject,
+          eventDate,
+          widget.beneficiary.trackedEntityInstance,
+          eventId,
+          widget.hiddenFields,
+          skippedFields: ['location'],
+        );
+        Provider.of<ServiceEventDataState>(context, listen: false)
+            .resetServiceEventDataState(
+                widget.beneficiary.trackedEntityInstance);
+        updateReferralNotificationStatus();
+        Timer(const Duration(milliseconds: 200), () {
+          setState(() {
+            _isSaving = false;
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
+            AppUtil.showToastMessage(
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+            );
+            Navigator.pop(context);
+          });
         });
-      });
+      } catch (e) {
+        //
+      }
     } else {
       setState(() {
         unFilledMandatoryFields =
@@ -188,6 +195,12 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     Provider.of<ReferralNotificationState>(context, listen: false)
         .updateReferralNotificationEvent(widget.referralEvent.id,
             widget.beneficiary.trackedEntityInstance, isCompleted, isViewed);
+    List<String> teiWithIncomingReferral =
+        Provider.of<ReferralNotificationState>(context, listen: false)
+            .beneficiariesWithIncomingReferrals;
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .setTeiWithIncomingReferral(
+            teiWithIncomingReferral: teiWithIncomingReferral);
   }
 
   @override

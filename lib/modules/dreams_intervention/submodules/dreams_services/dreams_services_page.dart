@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_cu
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -264,6 +265,8 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamsInterventionListState) {
     dreamsInterventionListState.refreshBeneficiariesNumber();
+    Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
   }
 
   @override

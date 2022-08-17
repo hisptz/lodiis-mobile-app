@@ -61,6 +61,8 @@ class _DreamsIncomingReferralPageState
   void refreshBeneficiaryList(
       DreamsInterventionListState dreamInterventionListState) {
     dreamInterventionListState.refreshBeneficiariesNumber();
+    Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
   }
 
   @override
