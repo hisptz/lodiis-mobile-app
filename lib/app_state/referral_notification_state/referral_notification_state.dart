@@ -106,7 +106,7 @@ class ReferralNotificationState with ChangeNotifier {
     notifyListeners();
   }
 
-  updateReferralNotificationEvent(
+  Future<void> updateReferralNotificationEvent(
     String? referralEventId,
     String? tei,
     bool isCompleted,
