@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -194,6 +195,12 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     Provider.of<ReferralNotificationState>(context, listen: false)
         .updateReferralNotificationEvent(widget.referralEvent.id,
             widget.beneficiary.trackedEntityInstance, isCompleted, isViewed);
+    List<String> teiWithIncomingReferral =
+        Provider.of<ReferralNotificationState>(context, listen: false)
+            .beneficiariesWithIncomingReferrals;
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .setTeiWithIncomingReferral(
+            teiWithIncomingReferral: teiWithIncomingReferral);
   }
 
   @override
