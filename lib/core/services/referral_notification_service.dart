@@ -99,8 +99,6 @@ class ReferralNotificationService {
     bool isViewed,
   ) async {
     try {
-      //TODO Support for updating using paraper passed not by fetch and looping
-      //TODO if it event ids is actually referral ids
       List<ReferralEventNotification> referralEvents =
           await ReferralEventNotificationOfflineProvider()
               .getReferralEventNotification([tei]);
