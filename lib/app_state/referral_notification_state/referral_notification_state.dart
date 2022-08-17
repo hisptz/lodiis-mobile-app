@@ -116,6 +116,7 @@ class ReferralNotificationState with ChangeNotifier {
     bool isCompleted,
     bool isViewed,
   ) async {
+    //TODO checking if it update referral status accordingly
     await ReferralNotificationService().updateReferralNotificationEvent(
       referralEventId,
       tei,
