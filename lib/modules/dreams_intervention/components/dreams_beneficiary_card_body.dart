@@ -113,6 +113,14 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho'
+                          ? 'Letsatsi la tsoalo'
+                          : 'Date of Birth',
+                      value: agywBeneficiary.dateOfBirth,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
                       label: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
                       value: agywBeneficiary.age.toString(),
                       labelColor: labelColor,
