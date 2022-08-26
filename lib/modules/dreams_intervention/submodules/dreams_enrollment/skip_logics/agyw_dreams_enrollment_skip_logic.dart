@@ -474,6 +474,10 @@ class AgywDreamsEnrollmentSkipLogic {
           assignInputFieldValue(context, 'yc3BlUIEup3', '');
         }
       }
+      if (inputFieldId == 'O7FZEfXR1Ge' && value == 'Self') {
+        String age = dataObject['ls9hlz2tyol'] ?? "0";
+        assignInputFieldValue(context, 'FehkgSKYkaQ', age);
+      }
       if (inputFieldId == 'NhBs8uAiRPt') {
         if (value == 'true') {
           assignInputFieldValue(context, 'p33MrrhsQRz', 'true');

@@ -264,10 +264,6 @@ class AgywEnrollmentRiskAssessment {
                     translatedName:
                         'Melaetsa e Hlahlobang ho ba Kotsing ea Tšoaetso ea HIV'),
                 InputFieldOption(
-                    code: 'PdP87EJdp8D',
-                    name: 'VMMC DREAMS intervention?',
-                    translatedName: 'Ho rola katiba'),
-                InputFieldOption(
                     code: 'uzfQwO4ypIP',
                     name: 'ART DREAMS intervention?',
                     translatedName: 'Kalafo ea HIV ka Lipilisi '),
