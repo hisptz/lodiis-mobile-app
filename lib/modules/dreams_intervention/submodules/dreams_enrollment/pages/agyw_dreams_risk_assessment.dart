@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_risk_assessment.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_risk_assessment_constants.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/services/agyw_dreams_eligible_not_enrollment.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/models/agyw_enrollment_risk_assessment.dart';
@@ -95,6 +95,8 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
   void onInputValueChange(String id, dynamic value) {
     if (id == 'q8qPtzanSTU') {
       _confirmNumberOfSexPartner(id, value);
+    } else if (id == 'G1s75wng5DY') {
+      _confirmNumberOfChildren(id, value);
     } else {
       Provider.of<EnrollmentFormState>(context, listen: false)
           .setFormFieldState(id, value);
@@ -108,15 +110,37 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
   }
 
   void _confirmNumberOfSexPartner(String id, dynamic value) async {
-    int numberOfSexParner =
-        int.tryParse(value) ?? AgywDreamsRiskAssment.sexPartnerConfirmation;
+    int numberOfSexPartner = int.tryParse(value) ??
+        AgywDreamsRiskAssessmentConstants.sexPartnerConfirmation;
     dynamic confirmationResponse = "true";
-    if (numberOfSexParner > AgywDreamsRiskAssment.sexPartnerConfirmation) {
+    if (numberOfSexPartner >
+        AgywDreamsRiskAssessmentConstants.sexPartnerConfirmation) {
       confirmationResponse = await AppUtil.showPopUpModal(
           context,
           AppUtil.getConfirmationWidget(
             context,
-            'Are you sure  have $value sex partners',
+            'Are you sure  have $value sex partners?',
+          ),
+          false);
+    }
+    if ("$confirmationResponse" == "true") {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(id, value);
+    } else if ("$confirmationResponse" == "false") {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(id, "");
+    }
+  }
+
+  void _confirmNumberOfChildren(String id, dynamic value) async {
+    int numberOfChildren = int.tryParse("$value") ?? 0;
+    dynamic confirmationResponse = "true";
+    if (numberOfChildren > AgywDreamsRiskAssessmentConstants.numberOfChildren) {
+      confirmationResponse = await AppUtil.showPopUpModal(
+          context,
+          AppUtil.getConfirmationWidget(
+            context,
+            'Are you sure have $value children?',
           ),
           false);
     }
