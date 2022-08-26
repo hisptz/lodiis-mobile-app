@@ -87,6 +87,15 @@ class DreamsAgywReferralSkipLogic {
       }
       if (inputFieldId == 'y0bvausyTyh') {
         Map implementingPartnerHiddenOptions = {};
+        String referralLevel = dataObject['qAed23reDPP'];
+        if (referralLevel == 'Community') {
+          implementingPartnerHiddenOptions['EGPAF'] = true;
+          implementingPartnerHiddenOptions['M2M'] = true;
+        } else if (referralLevel == 'Facility') {
+          implementingPartnerHiddenOptions['JHPIEGO'] = true;
+          implementingPartnerHiddenOptions['KB-AGYW/DREAMS'] = true;
+          implementingPartnerHiddenOptions['PSI'] = true;
+        }
         implementingPartnerHiddenOptions[currentImplementingPartner] = true;
         hiddenInputFieldOptions[inputFieldId] =
             implementingPartnerHiddenOptions;
