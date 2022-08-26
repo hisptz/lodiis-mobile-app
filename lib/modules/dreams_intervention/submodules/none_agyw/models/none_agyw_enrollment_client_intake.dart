@@ -66,6 +66,7 @@ class NoneAgywEnrollmentClientIntake {
           InputField(
               id: 'WTZ7GLTrE8Q',
               name: 'First Name',
+              regExpValidation: RegExp('^[A-Za-z]{0,}'),
               valueType: 'TEXT',
               isReadOnly: true,
               inputColor: const Color(0xFF258DCC),
@@ -73,6 +74,7 @@ class NoneAgywEnrollmentClientIntake {
           InputField(
               id: 's1HaiT6OllL',
               name: 'Middle Name',
+              regExpValidation: RegExp('^[A-Za-z]{0,}'),
               isReadOnly: true,
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
@@ -80,6 +82,7 @@ class NoneAgywEnrollmentClientIntake {
           InputField(
               id: 'rSP9c21JsfC',
               name: 'Surname',
+              regExpValidation: RegExp('^[A-Za-z]{0,}'),
               isReadOnly: true,
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),

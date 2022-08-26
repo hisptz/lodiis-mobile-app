@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class AgywElligibleNotEnrollment {
   static List<String> getMandatoryField() {
     return [
-       'JhOvli80Qbx',
+      'JhOvli80Qbx',
       'jjZWuJfVStp',
       'jVSwC6Ln95H',
       'an7w8LYPZ7y',
@@ -22,6 +22,7 @@ class AgywElligibleNotEnrollment {
           InputField(
             id: 'JhOvli80Qbx',
             name: 'First Name',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             translatedName: 'Lebitso la pele',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
@@ -31,6 +32,7 @@ class AgywElligibleNotEnrollment {
             id: 'UUsPnBtuItN',
             name: 'Middle Name',
             translatedName: 'Lebitso le mahareng',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -38,6 +40,7 @@ class AgywElligibleNotEnrollment {
           InputField(
             id: 'jjZWuJfVStp',
             name: 'Surname',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             translatedName: 'Le Fane',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
@@ -89,14 +92,14 @@ class AgywElligibleNotEnrollment {
               labelColor: const Color(0xFF737373),
               renderAsRadio: true,
               options: [
-               InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female'),
-              InputFieldOption(
-                  code: 'Transgender (male to female)',
-                  name: 'Transgender (male to female)'),
-              InputFieldOption(
-                  code: 'Transgender (female to male)',
-                  name: 'Transgender (female to male)'),
+                InputFieldOption(code: 'Male', name: 'Male'),
+                InputFieldOption(code: 'Female', name: 'Female'),
+                InputFieldOption(
+                    code: 'Transgender (male to female)',
+                    name: 'Transgender (male to female)'),
+                InputFieldOption(
+                    code: 'Transgender (female to male)',
+                    name: 'Transgender (female to male)'),
               ]),
           InputField(
               id: 'n0w2Bh54Dci',
@@ -107,7 +110,7 @@ class AgywElligibleNotEnrollment {
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
-                  InputField(
+          InputField(
               id: 'VdUeb6wLNH4',
               name:
                   'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
@@ -119,7 +122,7 @@ class AgywElligibleNotEnrollment {
                   'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
-                InputField(
+          InputField(
               id: 'hXRLho0OJCR',
               name: 'Has the AGYW agreed to be enrolled in DREAMS?',
               translatedName:
@@ -127,7 +130,7 @@ class AgywElligibleNotEnrollment {
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
-                InputField(
+          InputField(
               id: 'L1Z7gkuKtbs',
               name: 'Comments/Notes',
               translatedName: 'Tlhakiso',

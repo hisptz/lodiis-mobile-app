@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_checked_icon.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_search_clear_icon.dart';
 import 'package:kb_mobile_app/core/components/input_fields/input_search_icon.dart';
@@ -86,6 +87,10 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                     text: widget.inputValue,
                   )
                 : textController,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                  widget.inputField.regExpValidation as Pattern),
+            ],
             onChanged: onValueChange,
             maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
             keyboardType: TextInputType.text,
