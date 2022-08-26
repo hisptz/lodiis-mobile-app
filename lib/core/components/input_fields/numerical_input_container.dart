@@ -51,8 +51,6 @@ class _NumericalInputFieldContainerState
     widget.onInputValueChange(sanitizedValue.trim());
   }
 
-
-
   @override
   void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
@@ -74,9 +72,13 @@ class _NumericalInputFieldContainerState
           child: TextFormField(
             readOnly: widget.inputField.isReadOnly!,
             inputFormatters: [
-      FilteringTextInputFormatter.allow(widget.inputField.numericRegexValidation as Pattern),
-      LengthLimitingTextInputFormatter(widget.inputField.limitingNumericLength),
-  ],            controller: widget.inputField.isReadOnly!
+              FilteringTextInputFormatter.allow(
+                  widget.inputField.numericRegexValidation as Pattern,
+                  replacementString: "0"),
+              LengthLimitingTextInputFormatter(
+                  widget.inputField.limitingNumericLength),
+            ],
+            controller: widget.inputField.isReadOnly!
                 ? TextEditingController(
                     text: widget.inputValue,
                   )

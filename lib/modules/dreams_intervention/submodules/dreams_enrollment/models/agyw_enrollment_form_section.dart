@@ -152,6 +152,7 @@ class AgywEnrollmentFormSection {
               name: '102. How old is the head of the household?',
               translatedName: '102. Hloho ea lelapa o lilemo li kae?',
               valueType: 'NUMBER',
+              numericRegexValidation: RegExp('^([1-9]|[1-9][0-9]|100)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -440,6 +441,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114a. Palo ea banana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              numericRegexValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -449,6 +451,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114b. Palo ea bashanyana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              numericRegexValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -458,6 +461,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114c. Palo ea basali ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              numericRegexValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -467,6 +471,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114d. Palo ea banna ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              numericRegexValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
