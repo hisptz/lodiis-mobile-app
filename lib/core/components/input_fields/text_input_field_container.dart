@@ -87,10 +87,12 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                     text: widget.inputValue,
                   )
                 : textController,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                  widget.inputField.regExpValidation as Pattern),
-            ],
+            inputFormatters: widget.inputField.regExpValidation != null
+                ? [
+                    FilteringTextInputFormatter.allow(
+                        widget.inputField.regExpValidation as Pattern),
+                  ]
+                : [],
             onChanged: onValueChange,
             maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
             keyboardType: TextInputType.text,
