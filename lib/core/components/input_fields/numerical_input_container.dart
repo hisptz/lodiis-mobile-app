@@ -71,13 +71,18 @@ class _NumericalInputFieldContainerState
         Expanded(
           child: TextFormField(
             readOnly: widget.inputField.isReadOnly!,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(
-                  widget.inputField.regExpValidation as Pattern,
-                  replacementString: "0"),
-              LengthLimitingTextInputFormatter(
-                  widget.inputField.limitingNumericLength),
-            ],
+            inputFormatters: widget.inputField.regExpValidation != null
+                ? [
+                    FilteringTextInputFormatter.allow(
+                        widget.inputField.regExpValidation as Pattern,
+                        replacementString: "0"),
+                    LengthLimitingTextInputFormatter(
+                        widget.inputField.limitingNumericLength),
+                  ]
+                : [
+                    LengthLimitingTextInputFormatter(
+                        widget.inputField.limitingNumericLength)
+                  ],
             controller: widget.inputField.isReadOnly!
                 ? TextEditingController(
                     text: widget.inputValue,
