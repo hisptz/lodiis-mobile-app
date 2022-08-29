@@ -59,7 +59,15 @@ class ServiceFormState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setFormFieldState(String? id, dynamic value) {
+  void setFormFieldState(
+    String? id,
+    dynamic value, {
+    bool isChangesBasedOnSkipLogic = false,
+  }) {
+    if (!isChangesBasedOnSkipLogic) {
+      debugPrint("$id => $isChangesBasedOnSkipLogic");
+    }
+
     _formState[id] = value ?? '';
     notifyListeners();
   }
