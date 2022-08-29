@@ -325,6 +325,8 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                             Column(
                           children: [
                             EntryFormContainer(
+                              lastUpdatedId:
+                                  enrollmentFormState.lastUpdatedFieldId,
                               hiddenFields: enrollmentFormState.hiddenFields,
                               hiddenSections:
                                   enrollmentFormState.hiddenSections,
