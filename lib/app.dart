@@ -13,7 +13,7 @@ import 'package:kb_mobile_app/app_state/education_intervention_state/education_b
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
