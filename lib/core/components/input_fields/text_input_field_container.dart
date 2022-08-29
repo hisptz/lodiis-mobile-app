@@ -69,7 +69,8 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
       if (widget.inputField.isReadOnly! ||
-          widget.lastUpdatedId != widget.inputField.id) {
+          (widget.lastUpdatedId!.isNotEmpty &&
+              widget.lastUpdatedId != widget.inputField.id)) {
         updateTextValue(value: widget.inputValue);
       }
       if (widget.inputValue == null || widget.inputValue == '') {

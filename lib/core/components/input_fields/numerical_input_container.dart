@@ -58,7 +58,8 @@ class _NumericalInputFieldContainerState
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
       if (widget.inputField.isReadOnly! ||
-          widget.lastUpdatedId != widget.inputField.id) {
+          (widget.lastUpdatedId!.isNotEmpty &&
+              widget.lastUpdatedId != widget.inputField.id)) {
         updateNumericalValue(value: widget.inputValue);
       }
       if (widget.inputValue == null || widget.inputValue == '') {
