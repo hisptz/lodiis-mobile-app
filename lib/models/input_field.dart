@@ -86,7 +86,7 @@ class InputField {
     background = background ?? Colors.transparent;
     suffixLabel = suffixLabel ?? '';
     limitingNumericLength = limitingNumericLength ?? 99;
-    regExpValidation = regExpValidation ?? RegExp('[0-9]');
+    regExpValidation = regExpValidation ?? RegExp('.*');
   }
 
   @override

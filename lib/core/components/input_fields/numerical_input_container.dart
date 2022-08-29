@@ -73,8 +73,7 @@ class _NumericalInputFieldContainerState
             readOnly: widget.inputField.isReadOnly!,
             inputFormatters: [
               FilteringTextInputFormatter.allow(
-                  widget.inputField.regExpValidation as Pattern,
-                  replacementString: "0"),
+                  widget.inputField.regExpValidation as Pattern),
               LengthLimitingTextInputFormatter(
                   widget.inputField.limitingNumericLength),
             ],
