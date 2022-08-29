@@ -9,6 +9,7 @@ class AgywDream {
   String? middlename;
   String? surname;
   String? age;
+  String? dateOfBirth;
   String? ageBand;
   String? sex;
   String? programStatus;
@@ -33,6 +34,7 @@ class AgywDream {
     this.middlename,
     this.surname,
     this.age,
+    this.dateOfBirth,
     this.ageBand,
     this.primaryUIC,
     this.sex,
@@ -101,6 +103,7 @@ class AgywDream {
       landMark: landMark.isNotEmpty ? landMark : 'N/A',
       orgUnit: orgUnit,
       location: location,
+      dateOfBirth: data['qZP982qpSPS'],
       isAgeBeyondAverage: age > 24 ? true : false,
       createdDate: createdDate,
       enrollment: enrollment,

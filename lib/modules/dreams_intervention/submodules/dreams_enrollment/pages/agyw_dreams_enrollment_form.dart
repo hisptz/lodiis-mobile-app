@@ -240,6 +240,8 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                             Consumer<EnrollmentFormState>(
                               builder: (context, enrollmentFormState, child) =>
                                   EntryFormContainer(
+                                lastUpdatedId:
+                                    enrollmentFormState.lastUpdatedFieldId,
                                 hiddenFields: enrollmentFormState.hiddenFields,
                                 hiddenSections:
                                     enrollmentFormState.hiddenSections,

@@ -13,6 +13,7 @@ class EnrollmentFormState with ChangeNotifier {
   Map _hiddenInputFieldOptions = {};
   Map _hiddenSections = {};
   bool _isEditableMode = true;
+  String _lastUpdatedFieldId = '';
 
   // selector
   Map get formState => _formState;
@@ -20,6 +21,7 @@ class EnrollmentFormState with ChangeNotifier {
   Map get hiddenSections => _hiddenSections;
   Map get hiddenInputFieldOptions => _hiddenInputFieldOptions;
   bool get isEditableMode => _isEditableMode;
+  String get lastUpdatedFieldId => _lastUpdatedFieldId;
 
   //reducers
   void resetFormState() {
@@ -59,7 +61,14 @@ class EnrollmentFormState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setFormFieldState(String? id, dynamic value) {
+  void setFormFieldState(
+    String? id,
+    dynamic value, {
+    bool isChangesBasedOnSkipLogic = false,
+  }) {
+    if (!isChangesBasedOnSkipLogic) {
+      _lastUpdatedFieldId = id!;
+    }
     _formState[id] = value ?? '';
     notifyListeners();
   }

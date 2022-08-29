@@ -81,6 +81,7 @@ class AgywEnrollmentRiskAssessment {
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
             translatedName: 'Lebitso la pele',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -89,6 +90,7 @@ class AgywEnrollmentRiskAssessment {
             id: 's1HaiT6OllL',
             name: 'Middle Name',
             translatedName: 'Lebitso le mahareng',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -97,6 +99,7 @@ class AgywEnrollmentRiskAssessment {
             id: 'rSP9c21JsfC',
             name: 'Surname',
             translatedName: 'Le Fane',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -263,10 +266,6 @@ class AgywEnrollmentRiskAssessment {
                     name: 'HIV Risk Assessment Messaging DREAMS intervention?',
                     translatedName:
                         'Melaetsa e Hlahlobang ho ba Kotsing ea Tšoaetso ea HIV'),
-                InputFieldOption(
-                    code: 'PdP87EJdp8D',
-                    name: 'VMMC DREAMS intervention?',
-                    translatedName: 'Ho rola katiba'),
                 InputFieldOption(
                     code: 'uzfQwO4ypIP',
                     name: 'ART DREAMS intervention?',

@@ -90,7 +90,10 @@ class EducationLbseReferralOutcomeFollowUpSkipLogic {
     String inputFieldId,
     String? value,
   ) {
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState(inputFieldId, value);
+    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+      inputFieldId,
+      value,
+      isChangesBasedOnSkipLogic: true,
+    );
   }
 }

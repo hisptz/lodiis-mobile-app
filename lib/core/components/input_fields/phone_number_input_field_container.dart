@@ -51,7 +51,7 @@ class _PhoneNumberInputFieldContainerState
             controller: phoneNumberController,
             inputFormatters: [
               FilteringTextInputFormatter.allow(
-                  widget.inputField.numericRegexValidation as Pattern),
+                  widget.inputField.regExpValidation as Pattern),
               LengthLimitingTextInputFormatter(10),
             ],
             keyboardType: TextInputType.phone,

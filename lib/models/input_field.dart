@@ -31,44 +31,43 @@ class InputField {
   bool? hasLabelOnly;
   InputField? subInputField;
   List<int>? allowedSelectedLevels;
-  Pattern? numericRegexValidation ;
+  Pattern? regExpValidation;
   int? limitingNumericLength;
   List<String>? filteredPrograms;
 
-  InputField({
-    required this.id,
-    required this.name,
-    required this.valueType,
-    this.hasSubInputField,
-    this.description,
-    this.inputColor,
-    this.labelColor,
-    this.background,
-    this.renderAsRadio,
-    this.isReadOnly,
-    this.options,
-    this.subInputField,
-    this.allowedSelectedLevels,
-    this.allowFuturePeriod,
-    this.disablePastPeriod,
-    this.translatedName,
-    this.translatedDescription,
-    this.hint,
-    this.translatedHint,
-    this.maxAgeInYear,
-    this.minAgeInYear,
-    this.numberOfMonth,
-    this.firstDate,
-    this.lastDate,
-    this.suffixLabel,
-    this.filteredPrograms,
-    this.hasError,
-    this.shouldUserCustomAgeLimit,
-    this.showCountryLevelTree,
-    this.hasLabelOnly,
-    this.numericRegexValidation,
-    this.limitingNumericLength
-  }) {
+  InputField(
+      {required this.id,
+      required this.name,
+      required this.valueType,
+      this.hasSubInputField,
+      this.description,
+      this.inputColor,
+      this.labelColor,
+      this.background,
+      this.renderAsRadio,
+      this.isReadOnly,
+      this.options,
+      this.subInputField,
+      this.allowedSelectedLevels,
+      this.allowFuturePeriod,
+      this.disablePastPeriod,
+      this.translatedName,
+      this.translatedDescription,
+      this.hint,
+      this.translatedHint,
+      this.maxAgeInYear,
+      this.minAgeInYear,
+      this.numberOfMonth,
+      this.firstDate,
+      this.lastDate,
+      this.suffixLabel,
+      this.filteredPrograms,
+      this.hasError,
+      this.shouldUserCustomAgeLimit,
+      this.showCountryLevelTree,
+      this.hasLabelOnly,
+      this.regExpValidation,
+      this.limitingNumericLength}) {
     showCountryLevelTree = showCountryLevelTree ?? false;
     hasLabelOnly = hasLabelOnly ?? false;
     allowedSelectedLevels = allowedSelectedLevels ?? [];
@@ -86,8 +85,11 @@ class InputField {
     labelColor = labelColor ?? const Color(0xFF1A3518);
     background = background ?? Colors.transparent;
     suffixLabel = suffixLabel ?? '';
-    limitingNumericLength = limitingNumericLength??99;
-    numericRegexValidation = numericRegexValidation ?? RegExp('[0-9]');
+    limitingNumericLength = limitingNumericLength ?? 99;
+    regExpValidation = regExpValidation ??
+        RegExp(['INTEGER_ZERO_OR_POSITIVE', 'NUMBER'].contains(valueType)
+            ? '[0-9]'
+            : '.*');
   }
 
   @override

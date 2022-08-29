@@ -109,6 +109,8 @@ class _AgywDreamsEnrollmentViewFormState
                       builder: (context, enrollmentFormState, child) => Column(
                         children: [
                           EntryFormContainer(
+                            lastUpdatedId:
+                                enrollmentFormState.lastUpdatedFieldId,
                             hiddenFields: enrollmentFormState.hiddenFields,
                             hiddenSections: enrollmentFormState.hiddenSections,
                             formSections: formSections,

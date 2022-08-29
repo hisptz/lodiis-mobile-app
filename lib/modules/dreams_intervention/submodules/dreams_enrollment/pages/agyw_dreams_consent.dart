@@ -197,6 +197,8 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
                             Column(
                           children: [
                             EntryFormContainer(
+                              lastUpdatedId:
+                                  enrollmentFormState.lastUpdatedFieldId,
                               hiddenFields: enrollmentFormState.hiddenFields,
                               hiddenSections:
                                   enrollmentFormState.hiddenSections,

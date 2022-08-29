@@ -86,6 +86,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),
@@ -93,6 +94,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 's1HaiT6OllL',
             name: 'Middle Name',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),
@@ -100,6 +102,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'rSP9c21JsfC',
             name: 'Surname',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),

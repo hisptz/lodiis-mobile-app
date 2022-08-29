@@ -5,14 +5,16 @@ import 'package:kb_mobile_app/core/services/data_quality_service.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class NumericalInputFieldContainer extends StatefulWidget {
-  const NumericalInputFieldContainer(
-      {Key? key,
-      required this.inputField,
-      required this.onInputValueChange,
-      this.inputValue})
-      : super(key: key);
+  const NumericalInputFieldContainer({
+    Key? key,
+    required this.inputField,
+    this.lastUpdatedId,
+    required this.onInputValueChange,
+    this.inputValue,
+  }) : super(key: key);
 
   final InputField inputField;
+  final String? lastUpdatedId;
   final Function onInputValueChange;
   final String? inputValue;
 
@@ -51,13 +53,13 @@ class _NumericalInputFieldContainerState
     widget.onInputValueChange(sanitizedValue.trim());
   }
 
-
-
   @override
   void didUpdateWidget(covariant NumericalInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
-      if (widget.inputField.isReadOnly!) {
+      if (widget.inputField.isReadOnly! ||
+          (widget.lastUpdatedId!.isNotEmpty &&
+              widget.lastUpdatedId != widget.inputField.id)) {
         updateNumericalValue(value: widget.inputValue);
       }
       if (widget.inputValue == null || widget.inputValue == '') {
@@ -74,9 +76,12 @@ class _NumericalInputFieldContainerState
           child: TextFormField(
             readOnly: widget.inputField.isReadOnly!,
             inputFormatters: [
-      FilteringTextInputFormatter.allow(widget.inputField.numericRegexValidation as Pattern),
-      LengthLimitingTextInputFormatter(widget.inputField.limitingNumericLength),
-  ],            controller: widget.inputField.isReadOnly!
+              FilteringTextInputFormatter.allow(
+                  widget.inputField.regExpValidation as Pattern),
+              LengthLimitingTextInputFormatter(
+                  widget.inputField.limitingNumericLength),
+            ],
+            controller: widget.inputField.isReadOnly!
                 ? TextEditingController(
                     text: widget.inputValue,
                   )

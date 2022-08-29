@@ -287,6 +287,8 @@ class _AgywDreamsEnrollmentEditFormState
                             Column(
                           children: [
                             EntryFormContainer(
+                              lastUpdatedId:
+                                  enrollmentFormState.lastUpdatedFieldId,
                               hiddenFields: enrollmentFormState.hiddenFields,
                               hiddenSections:
                                   enrollmentFormState.hiddenSections,

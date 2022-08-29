@@ -19,7 +19,7 @@ class AppLanguage {
     return [
       AppLanguage(
           id: 'lesotho',
-          name: 'Lesotho',
+          name: 'Sesotho',
           isDefault: true,
           image: 'assets/logos/lesotho-flag.png'),
       AppLanguage(
