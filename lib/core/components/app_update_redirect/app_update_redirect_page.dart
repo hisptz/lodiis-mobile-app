@@ -1,6 +1,7 @@
 import 'dart:io' show Platform, exit;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:kb_mobile_app/core/components/app_update_redirect/app_update_action_buttons.dart';
@@ -11,7 +12,12 @@ import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
 class AppUpdateRedirectPage extends StatelessWidget {
-  const AppUpdateRedirectPage({Key? key}) : super(key: key);
+  const AppUpdateRedirectPage({
+    Key? key,
+    required this.savedAppStoreVersion,
+  }) : super(key: key);
+
+  final String savedAppStoreVersion;
 
   void onCloseApp(BuildContext context) {
     if (Platform.isAndroid) {
@@ -22,8 +28,9 @@ class AppUpdateRedirectPage extends StatelessWidget {
   }
 
   void onUpdateApp(String appStoreLink) async {
-    await canLaunch(appStoreLink)
-        ? await launch(appStoreLink)
+    Uri appStoreLinkUri = Uri.parse(appStoreLink);
+    await canLaunchUrl(appStoreLinkUri)
+        ? await launchUrl(appStoreLinkUri)
         : throw 'Could not launch $appStoreLink';
   }
 
@@ -35,9 +42,14 @@ class AppUpdateRedirectPage extends StatelessWidget {
           color: const Color(0xFF4B9F46),
           child:
               Consumer<AppInfoState>(builder: (context, appInfoState, child) {
-            VersionStatus versionStatus = appInfoState.versionStatus!;
-            String appStoreLink = versionStatus.appStoreLink;
+            VersionStatus? versionStatus = appInfoState.versionStatus;
+            String appStoreLink = versionStatus != null
+                ? versionStatus.appStoreLink
+                : AppInfoReference.androidId;
             String appName = appInfoState.currentAppName;
+            String storeVersion = versionStatus != null
+                ? versionStatus.storeVersion
+                : savedAppStoreVersion;
             return Container(
               margin: const EdgeInsets.all(20.0),
               child: Column(
@@ -46,7 +58,7 @@ class AppUpdateRedirectPage extends StatelessWidget {
                 children: [
                   AppUpdateWarningMessage(
                     message:
-                        "$appName application should be updated to version ${versionStatus.storeVersion} in order to be used. Click below to update!",
+                        "$appName application should be updated to version $storeVersion in order to be used. Click below to update!",
                     color: const Color(0xFFFAFAFA),
                   ),
                   AppUpdateActionButtons(

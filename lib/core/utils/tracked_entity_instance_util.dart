@@ -32,31 +32,26 @@ class TrackedEntityInstanceUtil {
         await AppInfoUtil.getAppAndDeviceTrackingInfo();
     inputFieldIds.addAll(hiddenFields ?? []);
     inputFieldIds.removeWhere((field) => skippedFields!.contains(field));
-    if (eventId == null) {
-      inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
-      inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
-      inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
-      CurrentUser? user = await (UserService().getCurrentUser());
-      dataObject[UserAccountReference.implementingPartnerDataElement] =
-          dataObject[UserAccountReference.implementingPartnerDataElement] ??
-              user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderDataElement] =
-          dataObject[UserAccountReference.serviceProviderDataElement] ??
-              user!.username;
-      if (user!.subImplementingPartner != '') {
-        dataObject[UserAccountReference.subImplementingPartnerDataElement] =
-            dataObject[
-                    UserAccountReference.subImplementingPartnerDataElement] ??
-                user.subImplementingPartner;
-      }
+    inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
+    inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+    inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
+    CurrentUser? user = await (UserService().getCurrentUser());
+    dataObject[UserAccountReference.implementingPartnerDataElement] =
+        dataObject[UserAccountReference.implementingPartnerDataElement] ??
+            user!.implementingPartner;
+    dataObject[UserAccountReference.serviceProviderDataElement] =
+        dataObject[UserAccountReference.serviceProviderDataElement] ??
+            user!.username;
+    if (user!.subImplementingPartner != '') {
+      dataObject[UserAccountReference.subImplementingPartnerDataElement] =
+          dataObject[UserAccountReference.subImplementingPartnerDataElement] ??
+              user.subImplementingPartner;
     }
     dataObject[UserAccountReference.appAndDeviceTrackingDataElement] =
         dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
             appAndDeviceTrackingDataElement;
     inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
     eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
-    dataObject.remove('eventId');
-    dataObject.remove('eventDate');
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         orgUnit, inputFieldIds, dataObject, eventDate, trackedEntityInstance);
     await FormUtil.savingEvent(eventData);
@@ -115,15 +110,15 @@ class TrackedEntityInstanceUtil {
     return events.reversed.toList();
   }
 
-  static Map getGroupedEventByDates(List<Events> events) {
-    Map groupedEvents = {};
-    List<String?> eventDates = events
-        .map((event) => event.eventDate)
+  static Map<String, List<Events>> getGroupedEventByDates(List<Events> events) {
+    Map<String, List<Events>> groupedEvents = {};
+    List<String> eventDates = events
+        .map((event) => event.eventDate!)
         .toSet()
         .toList()
-      ..sort((b, a) => a!.compareTo(b!));
+      ..sort((b, a) => a.compareTo(b));
     for (String? eventDate in eventDates) {
-      groupedEvents[eventDate] =
+      groupedEvents[eventDate!] =
           events.where((event) => event.eventDate == eventDate).toList();
     }
     return groupedEvents;

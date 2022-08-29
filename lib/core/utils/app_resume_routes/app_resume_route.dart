@@ -110,8 +110,8 @@ class AppResumeRoute
         DreamsRoutesConstant.agywDreamsCondomsFormNextPage) {
       redirectToAgywDreamsCondomsForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        DreamsRoutesConstant.agywDreamsContraceptivesNextPage) {
-      redirectToAgywDreamsContraceptivesForm(context, formAutoSave);
+        DreamsRoutesConstant.agywDreamsFamilyPlanningSrhNextPage) {
+      redirectToAgywDreamsFamilyPlanningSrhForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsHTSShortFormNextPage) {
       redirectToAgywDreamsHTSShortForm(context, formAutoSave);
@@ -172,9 +172,6 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldAssessmentFormPage) {
       redirectToOvcHouseholdAssessmentForm(context, formAutoSave);
-    } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.houseHoldCasePlanFormPage) {
-      redirectToOvcHouseholdCasePlanForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldReferralFormPage) {
       redirectToOvcHouseholdReferral(context, formAutoSave);

@@ -4,7 +4,9 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcExitCasePlanGraduationFormInfo {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Case Plan Graduation Readiness Assessment Information',
@@ -18,11 +20,13 @@ class OvcExitCasePlanGraduationFormInfo {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373)),
             InputField(
-                id: 'DoltSbENAuc',
-                name: 'Date of Previous Assessment',
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF737373),
-                valueType: 'DATE'),
+              id: 'DoltSbENAuc',
+              name: 'Date of Previous Assessment',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
+              valueType: 'DATE',
+              firstDate: firstDate,
+            ),
             InputField(
                 id: 'aU9CHJNURsH',
                 name:
@@ -65,11 +69,13 @@ class OvcExitCasePlanGraduationFormInfo {
                 labelColor: const Color(0xFF1A3518),
                 valueType: 'BOOLEAN'),
             InputField(
-                id: 'a10M4Wqw7U3',
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518),
-                name: 'If yes indicate the date when this was done',
-                valueType: 'DATE'),
+              id: 'a10M4Wqw7U3',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              name: 'If yes indicate the date when this was done',
+              valueType: 'DATE',
+              firstDate: firstDate,
+            ),
             InputField(
                 id: 'GH9770U0uSq',
                 inputColor: const Color(0xFF4B9F46),
@@ -489,13 +495,14 @@ class OvcExitCasePlanGraduationFormInfo {
                 labelColor: const Color(0xFF1A3518),
                 valueType: 'LONG_TEXT'),
             InputField(
-                id: 'V7w2O3LqZf0',
-                allowFuturePeriod: true,
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518),
-                name:
-                    'Estimated date for Health actions or services completion',
-                valueType: 'DATE'),
+              id: 'V7w2O3LqZf0',
+              allowFuturePeriod: true,
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              name: 'Estimated date for Health actions or services completion',
+              valueType: 'DATE',
+              firstDate: firstDate,
+            ),
             InputField(
                 id: 'clt8ZSmmqES',
                 inputColor: const Color(0xFF4B9F46),
@@ -503,12 +510,14 @@ class OvcExitCasePlanGraduationFormInfo {
                 name: 'Safe: Actions or Services to be provided',
                 valueType: 'LONG_TEXT'),
             InputField(
-                id: 'DmTaqTuZ880',
-                allowFuturePeriod: true,
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518),
-                name: 'Estimated date for Safe actions or services completion',
-                valueType: 'DATE'),
+              id: 'DmTaqTuZ880',
+              allowFuturePeriod: true,
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              name: 'Estimated date for Safe actions or services completion',
+              valueType: 'DATE',
+              firstDate: firstDate,
+            ),
             InputField(
                 id: 'eK4frB0jbWZ',
                 inputColor: const Color(0xFF4B9F46),
@@ -516,13 +525,14 @@ class OvcExitCasePlanGraduationFormInfo {
                 name: 'Stable: Actions or Services to be provided',
                 valueType: 'LONG_TEXT'),
             InputField(
-                id: 'UTQXWRszCSg',
-                allowFuturePeriod: true,
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518),
-                name:
-                    'Estimated date for Stable actions or services completion',
-                valueType: 'DATE'),
+              id: 'UTQXWRszCSg',
+              allowFuturePeriod: true,
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              name: 'Estimated date for Stable actions or services completion',
+              valueType: 'DATE',
+              firstDate: firstDate,
+            ),
             InputField(
                 id: 'Amzaqqx5e1S',
                 inputColor: const Color(0xFF4B9F46),
@@ -530,13 +540,15 @@ class OvcExitCasePlanGraduationFormInfo {
                 name: 'Schooled: Actions or Services to be provided',
                 valueType: 'LONG_TEXT'),
             InputField(
-                id: 'WiBjV85rYAf',
-                allowFuturePeriod: true,
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518),
-                name:
-                    'Estimated date for Schooled actions or services completion',
-                valueType: 'DATE'),
+              id: 'WiBjV85rYAf',
+              allowFuturePeriod: true,
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              name:
+                  'Estimated date for Schooled actions or services completion',
+              valueType: 'DATE',
+              firstDate: firstDate,
+            ),
           ]),
     ];
   }

@@ -113,6 +113,14 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho'
+                          ? 'Letsatsi la tsoalo'
+                          : 'Date of Birth',
+                      value: agywBeneficiary.dateOfBirth,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
                       label: currentLanguage == 'lesotho' ? 'Lilemo' : 'Age',
                       value: agywBeneficiary.age.toString(),
                       labelColor: labelColor,
@@ -148,6 +156,14 @@ class DreamsBeneficiaryCardBody extends StatelessWidget {
                     _getVerticalRowCardData(
                       label: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
                       value: agywBeneficiary.village,
+                      labelColor: labelColor,
+                      valueColor: valueColor,
+                    ),
+                    _getVerticalRowCardData(
+                      label: currentLanguage == 'lesotho'
+                          ? 'Sebaka se tsejoang haufi'
+                          : 'Land mark near residence',
+                      value: agywBeneficiary.landMark,
                       labelColor: labelColor,
                       valueColor: valueColor,
                     ),

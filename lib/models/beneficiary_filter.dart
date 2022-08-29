@@ -9,7 +9,7 @@ import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'dart:convert';
 
 import 'package:kb_mobile_app/core/constants/default_implementing_partner_config.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -133,6 +133,80 @@ class BeneficiaryFilter {
                         implementingPartnerInput.id,
                         value),
                     options: implementingPartnerInput.options,
+                  );
+                }),
+                LineSeparator(
+                    color: currentInterventionProgram.primaryColor!
+                        .withOpacity(0.3)),
+              ]);
+        },
+      );
+    });
+  }
+
+  static Widget getHouseholdCategorizationInput(
+      InterventionCard currentIntervention) {
+    InputField householdCategorizationInput = InputField(
+        id: 'householdCategorization',
+        name: 'Select Household Categorization/Prioritization',
+        valueType: 'TEXT',
+        options: [
+          InputFieldOption(
+            code: 'Red: HH visited/monitored regularly',
+            name: 'Red: HH visited/monitored regularly',
+          ),
+          InputFieldOption(
+            code: 'Yellow: HH visited/monitored monthly',
+            name: 'Yellow: HH visited/monitored monthly',
+          ),
+          InputFieldOption(
+            code: 'Green: HH visited/monitored quarterly',
+            name: 'Green: HH visited/monitored quarterly',
+          ),
+        ]);
+
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      return Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
+          InterventionCard currentInterventionProgram =
+              interventionCardState.currentInterventionProgram;
+          return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                    text: TextSpan(
+                        text: householdCategorizationInput.name,
+                        style: TextStyle(
+                          color: householdCategorizationInput.labelColor,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.normal,
+                        ))),
+                Consumer<InterventionBottomNavigationState>(
+                    builder: (context, bottomNavigationState, child) {
+                  InterventionBottomNavigation interventionBottomNavigation =
+                      bottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                              currentIntervention);
+                  String householdCategorization = getFilterValue(
+                      context,
+                      currentIntervention,
+                      interventionBottomNavigation,
+                      householdCategorizationInput.id);
+
+                  return SelectInputField(
+                    hiddenInputFieldOptions: const {},
+                    selectedOption: householdCategorization,
+                    isReadOnly: false,
+                    currentLanguage: languageTranslationState.currentLanguage,
+                    color: currentInterventionProgram.primaryColor,
+                    renderAsRadio: householdCategorizationInput.renderAsRadio,
+                    onInputValueChange: (dynamic value) => onUpdateFilter(
+                        context,
+                        currentInterventionProgram,
+                        householdCategorizationInput.id,
+                        value),
+                    options: householdCategorizationInput.options,
                   );
                 }),
                 LineSeparator(
@@ -429,6 +503,12 @@ class BeneficiaryFilter {
         name: 'School',
         interventions: ['education'],
         filterInput: getSchoolFilterInput(currentIntervention),
+      ),
+      BeneficiaryFilter(
+        id: 'householdCategorization',
+        name: 'Household Categorization',
+        interventions: ['ovc'],
+        filterInput: getHouseholdCategorizationInput(currentIntervention),
       ),
     ];
   }

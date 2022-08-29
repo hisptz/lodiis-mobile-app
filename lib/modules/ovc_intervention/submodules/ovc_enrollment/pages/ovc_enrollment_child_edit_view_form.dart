@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -40,24 +40,30 @@ class _OvcEnrollmentChildEditViewFormState
   List<FormSection>? formSections;
   final String label = 'Child vulnerability form';
 
-  bool isSaving = false;
-  bool isFormReady = false;
+  bool _isSaving = false;
+  bool _isFormReady = false;
 
-  late List<String> mandatoryFields;
+  List<String> mandatoryFields = [];
   final Map mandatoryFieldObject = {};
   List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
+    _setFormMetdata();
+  }
+
+  void _setFormMetdata() {
     formSections = OvcEnrollmentChild.getFormSections();
     mandatoryFields = OvcEnrollmentChild.getMandatoryField();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-      isFormReady = true;
-      evaluateSkipLogics();
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
+    Timer(const Duration(milliseconds: 200), () {
+      setState(() {
+        _isFormReady = true;
+        evaluateSkipLogics();
+      });
     });
   }
 
@@ -76,12 +82,14 @@ class _OvcEnrollmentChildEditViewFormState
     );
   }
 
-  void onSaveForm(BuildContext context, Map dataObject) async {
+  void onSaveForm(
+    Map dataObject,
+  ) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
-        isSaving = true;
+        _isSaving = true;
       });
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
       List<Map> childrenObjects = [];
@@ -96,8 +104,8 @@ class _OvcEnrollmentChildEditViewFormState
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
+        BeneficiaryIdentification.phoneNumber,
       ];
-
       await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
         parentTrackedEntityInstance,
         orgUnit,
@@ -113,7 +121,7 @@ class _OvcEnrollmentChildEditViewFormState
       Timer(const Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
-            isSaving = false;
+            _isSaving = false;
           });
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
@@ -124,7 +132,7 @@ class _OvcEnrollmentChildEditViewFormState
                 : 'Form has been saved successfully',
             position: ToastGravity.TOP,
           );
-          clearFormAutoSaveState(context);
+          clearFormAutoSaveState();
           Navigator.popUntil(context, (route) => route.isFirst);
         }
       });
@@ -139,7 +147,7 @@ class _OvcEnrollmentChildEditViewFormState
     }
   }
 
-  void clearFormAutoSaveState(BuildContext context) async {
+  void clearFormAutoSaveState() async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
@@ -148,8 +156,7 @@ class _OvcEnrollmentChildEditViewFormState
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
-  void onUpdateFormAutoSaveState(
-    BuildContext context, {
+  void onUpdateFormAutoSaveState({
     bool isSaveForm = false,
     String nextPageModule = "",
   }) async {
@@ -176,7 +183,7 @@ class _OvcEnrollmentChildEditViewFormState
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
-    onUpdateFormAutoSaveState(context);
+    onUpdateFormAutoSaveState();
   }
 
   @override
@@ -198,7 +205,7 @@ class _OvcEnrollmentChildEditViewFormState
         ),
         body: SubPageBody(
           body: Container(
-            child: !isFormReady
+            child: !_isFormReady
                 ? Column(
                     children: const [
                       Center(
@@ -256,7 +263,7 @@ class _OvcEnrollmentChildEditViewFormState
                                       visible:
                                           enrollmentFormState.isEditableMode,
                                       child: EntryFormSaveButton(
-                                        label: isSaving
+                                        label: _isSaving
                                             ? 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
@@ -265,7 +272,6 @@ class _OvcEnrollmentChildEditViewFormState
                                         buttonColor: const Color(0xFF4B9F46),
                                         fontSize: 15.0,
                                         onPressButton: () => onSaveForm(
-                                          context,
                                           enrollmentFormState.formState,
                                         ),
                                       ),

@@ -81,7 +81,7 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
     VersionStatus? versionStatus =
         Provider.of<AppInfoState>(context, listen: false).versionStatus;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (shouldShowUpdateWarning && versionStatus != null) {
+      if (shouldShowUpdateWarning) {
         AppVersionUpdate.showAppUpdateWarning(context, versionStatus);
       }
     });
@@ -120,7 +120,7 @@ class _PpPrevInterventionState extends State<PpPrevIntervention> {
                 interventionCardState.currentInterventionProgram;
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(105),
+                preferredSize: const Size.fromHeight(110),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   onClickHome: onClickHome,

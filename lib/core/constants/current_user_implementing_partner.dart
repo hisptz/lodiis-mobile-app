@@ -34,6 +34,8 @@ class CurrentUserImplementingPartner {
       "NuxoYkqopE2": "CLO",
       "RoLA6GyxTlS": "Paralegal",
       "A5VS8GCyb8t": "JHPIEGO",
+      "sSdwtoDAj0H": "PP_PREV/EDUCATION",
+      "pNg5CAXMtLP": "M2M"
     };
   }
 }

@@ -49,13 +49,18 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-      formSections = AgywEnrollmentFormSection.getFormSections();
+    _setFormMetadata();
+    evaluateSkipLogics();
+  }
+
+  void _setFormMetadata() {
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
+    formSections = AgywEnrollmentFormSection.getFormSections();
+    Timer(const Duration(milliseconds: 200), () {
       isFormReady = true;
-      evaluateSkipLogics();
+      setState(() {});
     });
   }
 
@@ -178,8 +183,11 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       });
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields:
+                Provider.of<EnrollmentFormState>(context, listen: false)
+                    .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -232,6 +240,8 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
                             Consumer<EnrollmentFormState>(
                               builder: (context, enrollmentFormState, child) =>
                                   EntryFormContainer(
+                                lastUpdatedId:
+                                    enrollmentFormState.lastUpdatedFieldId,
                                 hiddenFields: enrollmentFormState.hiddenFields,
                                 hiddenSections:
                                     enrollmentFormState.hiddenSections,

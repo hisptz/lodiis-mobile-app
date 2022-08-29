@@ -31,7 +31,7 @@ class AgywDreamsPrepShortFormHomePage extends StatefulWidget {
 
 class _AgywDreamsPrepShortFormHomePageState
     extends State<AgywDreamsPrepShortFormHomePage> {
-  final String label = 'AGYW PrEP';
+  final String label = 'PrEP';
   List<String> programStageIds = [PrepIntakeShortFormConstants.programStage];
 
   @override
@@ -179,7 +179,7 @@ class _AgywDreamsPrepShortFormHomePageState
                                         ),
                                 ),
                                 EntryFormSaveButton(
-                                  label: 'ADD PREP VISIT',
+                                  label: 'ADD PrEP VISIT',
                                   labelColor: Colors.white,
                                   buttonColor: const Color(0xFF1F8ECE),
                                   fontSize: 15.0,

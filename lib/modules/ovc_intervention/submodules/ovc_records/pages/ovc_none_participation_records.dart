@@ -64,46 +64,54 @@ class _OvcNoneParticipationRecordsState
     );
   }
 
+  void refreshBeneficiaryList(
+      OvcInterventionListState ovcInterventionListState) {
+    ovcInterventionListState.refreshOvcNumber();
+  }
+
   Widget _buildBody(String? currentLanguage) {
     return Consumer<OvcInterventionListState>(
-      builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Container(
-          margin: const EdgeInsets.only(
-            bottom: 16.0,
-            right: 13.0,
-            left: 13.0,
-          ),
-          child: const Center(
-            child: Text(
-              'There is no OVC none participants at moment',
-              textAlign: TextAlign.center,
+      builder: (context, ovcState, child) => RefreshIndicator(
+        onRefresh: () async => refreshBeneficiaryList(ovcState),
+        child: CustomPaginatedListView(
+          errorWidget: Container(
+            margin: const EdgeInsets.only(
+              bottom: 16.0,
+              right: 13.0,
+              left: 13.0,
+            ),
+            child: const Center(
+              child: Text(
+                'There is no OVC none participants at moment',
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
-        ),
-        pagingController: ovcState.noneParticipationPagingController,
-        childBuilder: (context, ovcNoneParticipant, index) =>
-            NoneParticipantBeneficiaryCard(
-          beneficiary: ovcNoneParticipant,
-          canEdit: true,
-          onViewBeneficiary: () =>
-              onViewBeneficiary(context, ovcNoneParticipant),
-          onEditBeneficiary: () =>
-              onEditBeneficiary(context, ovcNoneParticipant),
-        ),
-        emptyListWidget: Container(
-          margin: const EdgeInsets.only(
-            bottom: 16.0,
-            right: 13.0,
-            left: 13.0,
+          pagingController: ovcState.noneParticipationPagingController,
+          childBuilder: (context, ovcNoneParticipant, index) =>
+              NoneParticipantBeneficiaryCard(
+            beneficiary: ovcNoneParticipant,
+            canEdit: true,
+            onViewBeneficiary: () =>
+                onViewBeneficiary(context, ovcNoneParticipant),
+            onEditBeneficiary: () =>
+                onEditBeneficiary(context, ovcNoneParticipant),
           ),
-          child: Center(
-            child: Column(
-              children: const [
-                Text(
-                  'There is no OVC none participants at moment',
-                  textAlign: TextAlign.center,
-                )
-              ],
+          emptyListWidget: Container(
+            margin: const EdgeInsets.only(
+              bottom: 16.0,
+              right: 13.0,
+              left: 13.0,
+            ),
+            child: Center(
+              child: Column(
+                children: const [
+                  Text(
+                    'There is no OVC none participants at moment',
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
             ),
           ),
         ),

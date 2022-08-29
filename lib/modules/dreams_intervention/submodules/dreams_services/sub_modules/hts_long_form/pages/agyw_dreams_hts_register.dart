@@ -85,8 +85,10 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
   }
 
   void onSaveForm(BuildContext context, Map dataObject, AgywDream? agywDream) {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (isComingFromPrep == true &&
           dataObject[AgywDreamsHTSLongFormConstant.hivResultStatus] ==
@@ -119,8 +121,10 @@ class _AgywDreamsHTSRegisterFormState extends State<AgywDreamsHTSRegisterForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+                .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

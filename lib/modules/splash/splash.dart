@@ -9,6 +9,7 @@ import 'package:kb_mobile_app/app_state/referral_notification_state/referral_not
 import 'package:kb_mobile_app/core/components/app_update_redirect/app_update_redirect_page.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/constants/custom_color.dart';
+import 'package:kb_mobile_app/core/services/app_info_service.dart';
 import 'package:kb_mobile_app/core/services/implementing_partner_referral_config_service.dart';
 import 'package:kb_mobile_app/core/services/language_selection_service.dart';
 import 'package:kb_mobile_app/core/services/user_access.dart';
@@ -53,10 +54,13 @@ class _SplashState extends State<Splash> {
     bool shouldForceUpdate =
         Provider.of<AppInfoState>(context, listen: false).shouldUpdateTheApp;
     if (shouldForceUpdate) {
+      String savedAppStoreVersion =
+          await AppInfoService.getSavedApStoreVersion();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const AppUpdateRedirectPage(),
+          builder: (context) =>
+              AppUpdateRedirectPage(savedAppStoreVersion: savedAppStoreVersion),
         ),
       );
     } else if (currentLanguage != null) {
@@ -94,7 +98,7 @@ class _SplashState extends State<Splash> {
 
   void setLandingPage(bool? isUserLoginIn) {
     Timer(
-      const Duration(seconds: 2),
+      const Duration(milliseconds: 600),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(

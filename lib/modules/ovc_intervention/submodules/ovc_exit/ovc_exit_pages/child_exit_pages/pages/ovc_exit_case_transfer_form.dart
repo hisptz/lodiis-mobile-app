@@ -2,16 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -23,6 +25,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_transfer.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_transfer_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_transfer_skip_logic.dart';
@@ -46,13 +49,22 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCaseTransfer.getFormSections();
+    setFormSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setFormSection() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections = OvcExitCaseTransfer.getFormSections(
+      firstDate: child!.createdDate!,
+    );
   }
 
   evaluateSkipLogics() {
@@ -123,6 +135,7 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
+      String programStatusId = 'PN92g65TkVI';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcExitInformationConstant.program,
@@ -134,8 +147,17 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
             currentOvcHouseholdChild.id,
             eventId,
             null);
+        await OvcEnrollmentChildService().updateOvcStatus(
+          trackedEntityInstance: currentOvcHouseholdChild.id,
+          orgUnit: currentOvcHouseholdChild.orgUnit,
+          dataObject: {programStatusId: ProgramStatus.transferred},
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseholdChild.id);
+        Provider.of<OvcInterventionListState>(context, listen: false)
+            .refreshOvcList();
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .refetchCurrentHousehold();
 
         Timer(const Duration(seconds: 1), () {
           setState(() {

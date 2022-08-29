@@ -14,10 +14,8 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/referral_notification_service.dart';
-import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -29,6 +27,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/referral_event_notification.dart';
 import 'package:kb_mobile_app/models/referral_notification.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_enrollment_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_referral/constant/dreams_agyw_referral_constant.dart';
@@ -153,7 +152,7 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
     );
     if (hadAllMandatoryFilled) {
       setState(() {
-        isSaving = true;
+        // isSaving = true;
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
@@ -166,10 +165,6 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
       ];
       try {
         if (eventId == null) {
-          CurrentUser? user = await UserService().getCurrentUser();
-          dataObject[UserAccountReference.implementingPartnerDataElement] =
-              dataObject[UserAccountReference.implementingPartnerDataElement] ??
-                  user!.implementingPartner;
           eventId = AppUtil.getUid();
           String currentImplementingPartner =
               Provider.of<ReferralNotificationState>(context, listen: false)
@@ -195,6 +190,11 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
         );
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentAgywDream.id);
+        clearFormAutoSaveState(
+          context,
+          currentAgywDream.id,
+          dataObject['eventId'] ?? '',
+        );
         Timer(const Duration(seconds: 1), () {
           setState(() {
             String? currentLanguage =
@@ -206,8 +206,10 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                   : 'Form has been saved successfully',
               position: ToastGravity.TOP,
             );
-            clearFormAutoSaveState(context, currentAgywDream.id, eventId ?? '');
-            Navigator.pop(context);
+
+            if (Navigator.canPop(context)) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
           });
         });
       } catch (error) {
@@ -262,9 +264,12 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   }
 
   void clearFormAutoSaveState(
-      BuildContext context, String? beneficiaryId, String eventId) async {
+    BuildContext context,
+    String? beneficiaryId,
+    String eventId,
+  ) async {
     String formAutoSaveId =
-        "${DreamsRoutesConstant.agywDreamsANCFormPage}_${beneficiaryId}_$eventId";
+        "${DreamsRoutesConstant.agywDreamsReferralPage}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -362,7 +367,8 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                                             ? 'Boloka'
                                             : 'Save',
                                     labelColor: Colors.white,
-                                    buttonColor: const Color(0xFF1F8ECE),
+                                    buttonColor:
+                                        AgywDreamsCommonConstant.defaultColor,
                                     fontSize: 15.0,
                                     onPressButton: () => onSaveForm(
                                         context,

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -13,14 +14,19 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_household.dart';
@@ -43,31 +49,36 @@ class _OvcEnrollmentHouseholdEditFormState
   final Map mandatoryFieldObject = {};
   final List<String> mandatoryFields =
       OvcEnrollmentBasicInfo.getMandatoryField();
-  bool isFormReady = false;
-  bool isSaving = false;
+  bool _isFormReady = false;
+  bool _isSaving = false;
   List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      for (String id in mandatoryFields) {
-        mandatoryFieldObject[id] = true;
-      }
-      enrollmentFormSections = OvcEnrollmentHousehold.getFormSections();
-      List<String> skippedInputs = [
-        'location',
-        'kQehaqmaygZ',
-        'BXUNH6LXeGA',
-        'ls9hlz2tyol'
-      ];
-      formSections = [enrollmentFormSections[0]];
-      formSections = FormUtil.getFormSectionWithReadOnlyStatus(
-        formSections!,
-        false,
-        skippedInputs,
-      );
-      isFormReady = true;
+    _setFormMetadata();
+  }
+
+  void _setFormMetadata() {
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
+    enrollmentFormSections = OvcEnrollmentHousehold.getFormSections();
+    List<String> skippedInputs = [
+      'location',
+      'kQehaqmaygZ',
+      'BXUNH6LXeGA',
+      'ls9hlz2tyol'
+    ];
+    formSections = [enrollmentFormSections[0]];
+    formSections = FormUtil.getFormSectionWithReadOnlyStatus(
+      formSections!,
+      false,
+      skippedInputs,
+    );
+    Timer(const Duration(milliseconds: 200), () {
+      _isFormReady = true;
+      setState(() {});
       evaluateSkipLogics();
     });
   }
@@ -87,7 +98,7 @@ class _OvcEnrollmentHouseholdEditFormState
     );
   }
 
-  void clearFormAutoSaveState(BuildContext context) async {
+  void clearFormAutoSaveState() async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
@@ -96,8 +107,7 @@ class _OvcEnrollmentHouseholdEditFormState
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
-  void onUpdateFormAutoSaveState(
-    BuildContext context, {
+  void onUpdateFormAutoSaveState({
     bool isSaveForm = false,
     String nextPageModule = "",
   }) async {
@@ -124,26 +134,41 @@ class _OvcEnrollmentHouseholdEditFormState
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
-    onUpdateFormAutoSaveState(context);
+    onUpdateFormAutoSaveState();
   }
 
-  void onSaveForm(BuildContext context, Map dataObject) async {
+  void onSaveForm(Map dataObject) async {
     bool hadAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (hadAllMandatoryFilled) {
       setState(() {
-        isSaving = true;
+        _isSaving = true;
       });
-      String? trackedEntityInstance = dataObject['trackedEntityInstance'];
-      String? orgUnit = dataObject['orgUnit'];
-      String? enrollment = dataObject['enrollment'];
-      String? enrollmentDate = dataObject['enrollmentDate'];
-      String? incidentDate = dataObject['incidentDate'];
+      String trackedEntityInstance = dataObject['trackedEntityInstance'] ?? '';
+      String orgUnit = dataObject['orgUnit'] ?? '';
+      String enrollment = dataObject['enrollment'] ?? '';
+      String enrollmentDate = dataObject['enrollmentDate'] ?? '';
+      String incidentDate = dataObject['incidentDate'] ?? '';
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
-        'PN92g65TkVI'
+        'PN92g65TkVI',
+        UserAccountReference.implementingPartnerAttribute,
+        UserAccountReference.serviceProviderAtttribute,
+        UserAccountReference.subImplementingPartnerAttribute
       ];
+      CurrentUser? user = await UserService().getCurrentUser();
+      dataObject[UserAccountReference.implementingPartnerAttribute] =
+          dataObject[UserAccountReference.implementingPartnerAttribute] ??
+              user!.implementingPartner;
+      dataObject[UserAccountReference.serviceProviderAtttribute] =
+          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+              user!.username;
+      if (user!.subImplementingPartner != '') {
+        dataObject[UserAccountReference.subImplementingPartnerAttribute] =
+            dataObject[UserAccountReference.subImplementingPartnerAttribute] ??
+                user.subImplementingPartner;
+      }
       await OvcEnrollmentHouseholdService().savingHouseholdForm(
         dataObject,
         trackedEntityInstance,
@@ -154,13 +179,17 @@ class _OvcEnrollmentHouseholdEditFormState
         false,
         hiddenFields,
       );
+      await updateAllChildPhoneNumber(
+        dataObject: dataObject,
+        parentId: trackedEntityInstance,
+      );
       Provider.of<OvcInterventionListState>(context, listen: false)
           .refreshOvcList();
-      clearFormAutoSaveState(context);
+      clearFormAutoSaveState();
       Timer(const Duration(seconds: 1), () {
         if (Navigator.canPop(context)) {
           setState(() {
-            isSaving = false;
+            _isSaving = false;
           });
           String? currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
@@ -182,6 +211,38 @@ class _OvcEnrollmentHouseholdEditFormState
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);
+    }
+  }
+
+  Future updateAllChildPhoneNumber({
+    required Map dataObject,
+    required String parentId,
+  }) async {
+    List<String> hiddenFields = [
+      BeneficiaryIdentification.beneficiaryId,
+      BeneficiaryIdentification.beneficiaryIndex,
+      'PN92g65TkVI',
+      BeneficiaryIdentification.phoneNumber,
+    ];
+    String phoneNumber =
+        dataObject[BeneficiaryIdentification.phoneNumber] ?? '';
+    var currentOvcHousehold =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
+    for (OvcHouseholdChild child in currentOvcHousehold?.children ?? []) {
+      if (child.phoneNumber != phoneNumber) {
+        Map childObject = child.toMap(parentId: parentId);
+        childObject[BeneficiaryIdentification.phoneNumber] = phoneNumber;
+        await OvcEnrollmentChildService().savingChildrenEnrollmentForms(
+          parentId,
+          childObject['orgUnit'],
+          [childObject],
+          childObject['enrollmentDate'],
+          childObject['incidentDate'],
+          false,
+          hiddenFields,
+        );
+      }
     }
   }
 
@@ -209,7 +270,7 @@ class _OvcEnrollmentHouseholdEditFormState
               horizontal: 13.0,
             ),
             child: Container(
-              child: !isFormReady
+              child: !_isFormReady
                   ? Column(
                       children: const [
                         Center(
@@ -233,16 +294,15 @@ class _OvcEnrollmentHouseholdEditFormState
                             unFilledMandatoryFields: unFilledMandatoryFields,
                           ),
                           EntryFormSaveButton(
-                            label: isSaving
+                            label: _isSaving
                                 ? 'Saving Household ...'
                                 : 'Save Household',
                             labelColor: Colors.white,
                             buttonColor: const Color(0xFF4B9F46),
                             fontSize: 15.0,
-                            onPressButton: () => isSaving
+                            onPressButton: () => _isSaving
                                 ? null
                                 : onSaveForm(
-                                    context,
                                     enrollmentFormState.formState,
                                   ),
                           )

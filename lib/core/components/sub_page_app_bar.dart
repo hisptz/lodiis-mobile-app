@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/components/app_update_warning.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 
@@ -38,6 +39,12 @@ class SubPageAppBar extends StatelessWidget {
                   onOpenMoreMenu(context, activeInterventionProgram)),
         )
       ],
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(80.0),
+        child: Container(
+            margin: const EdgeInsets.only(bottom: 5.0),
+            child: const AppUpdateWarning()),
+      ),
     );
   }
 }

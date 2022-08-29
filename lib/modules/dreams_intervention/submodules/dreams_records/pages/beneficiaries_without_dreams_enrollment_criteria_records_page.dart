@@ -66,6 +66,11 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
     );
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamsInterventionListState) {
+    dreamsInterventionListState.refreshBeneficiariesNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
@@ -88,44 +93,50 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
 
   Widget _buildBody(String? currentLanguage) {
     return Consumer<DreamsInterventionListState>(
-      builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Container(
-          margin: const EdgeInsets.only(
-            bottom: 16.0,
-            right: 13.0,
-            left: 13.0,
+      builder: (context, dreamsInterventionListState, child) =>
+          RefreshIndicator(
+        onRefresh: () async {
+          refreshBeneficiaryList(dreamsInterventionListState);
+        },
+        child: CustomPaginatedListView(
+          errorWidget: Container(
+            margin: const EdgeInsets.only(
+              bottom: 16.0,
+              right: 13.0,
+              left: 13.0,
+            ),
+            child: const Text(
+              'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
+              textAlign: TextAlign.center,
+            ),
           ),
-          child: const Text(
-            'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
-            textAlign: TextAlign.center,
+          pagingController: dreamsInterventionListState
+              .beneficiariesWithoutAgywDreamsCriteriaPagingController,
+          childBuilder: (context, dreamsNoneParticipant, index) =>
+              NoneParticipantBeneficiaryCard(
+            beneficiary: dreamsNoneParticipant,
+            canEdit: true,
+            onViewBeneficiary: () =>
+                onViewBeneficiary(context, dreamsNoneParticipant),
+            onEditBeneficiary: () =>
+                onEditBeneficiary(context, dreamsNoneParticipant),
           ),
-        ),
-        pagingController:
-            ovcState.beneficiariesWithoutAgywDreamsCriteriaPagingController,
-        childBuilder: (context, dreamsNoneParticipant, index) =>
-            NoneParticipantBeneficiaryCard(
-          beneficiary: dreamsNoneParticipant,
-          canEdit: true,
-          onViewBeneficiary: () =>
-              onViewBeneficiary(context, dreamsNoneParticipant),
-          onEditBeneficiary: () =>
-              onEditBeneficiary(context, dreamsNoneParticipant),
-        ),
-        emptyListWidget: Center(
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  bottom: 16.0,
-                  right: 13.0,
-                  left: 13.0,
-                ),
-                child: const Text(
-                  'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
+          emptyListWidget: Center(
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    bottom: 16.0,
+                    right: 13.0,
+                    left: 13.0,
+                  ),
+                  child: const Text(
+                    'There is no beneficiaries without AGYW/DREAMS enrollment criteria at moment',
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

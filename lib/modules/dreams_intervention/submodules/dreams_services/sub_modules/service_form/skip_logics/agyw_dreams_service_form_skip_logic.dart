@@ -25,53 +25,41 @@ class AgywDreamsServiceFormSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     // skip logic as per age
     int agywDreamAge = int.parse(dataObject['age']);
-    if (agywDreamAge < 18 || agywDreamAge > 24) {
-      hiddenOptions['GBV Legal Messaging'] = true;
-    }
+
     if (agywDreamAge < 10 || agywDreamAge > 17) {
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
-      hiddenOptions['VAC Messaging'] = true;
       hiddenOptions['SAVING GROUP'] = true;
-      hiddenOptions['VAC Legal Messaging'] = true;
     }
     if (agywDreamAge < 10 || agywDreamAge > 19) {
       hiddenOptions['LBSE'] = true;
     }
-    if (agywDreamAge < 10) {
-      hiddenOptions['FINANCIAL EDUCATION'] = true;
+    if (agywDreamAge < 10 || agywDreamAge > 24) {
+      hiddenOptions['FinancialLiteracyEducation'] = true;
+      hiddenOptions['HIV Prevention Education'] = true;
+      hiddenOptions['ViolencePreventionEducation'] = true;
     }
     if (agywDreamAge < 18) {
       hiddenOptions['Go Girls'] = true;
-      hiddenOptions['PTS 4-GRADS'] = true;
       hiddenOptions['SILC'] = true;
-      hiddenOptions['GBV Messaging'] = true;
-    }
-    if (agywDreamAge < 16) {
-      hiddenOptions['PTS 4 NON-GRADS'] = true;
     }
     if (agywDreamAge < 15) {
       hiddenOptions['STEPPING STONES'] = true;
-      hiddenOptions['IPC'] = true;
+      hiddenOptions['CondomEducationProvision'] = true;
     }
 
     // skip logic as per implementing partner
     if (implementingPartner != 'Paralegal') {
-      hiddenOptions['VAC Legal Messaging'] = true;
-      hiddenOptions['GBV Legal Messaging'] = true;
+      hiddenOptions['HIV Prevention Education'] = true;
     } else {
       hiddenOptions['LBSE'] = true;
-      hiddenOptions['FINANCIAL EDUCATION'] = true;
+      hiddenOptions['FinancialLiteracyEducation'] = true;
       hiddenOptions['STEPPING STONES'] = true;
-      hiddenOptions['IPC'] = true;
-      hiddenOptions['PTS 4 NON-GRADS'] = true;
+      hiddenOptions['CondomEducationProvision'] = true;
       hiddenOptions['Go Girls'] = true;
-      hiddenOptions['PTS 4-GRADS'] = true;
       hiddenOptions['SILC'] = true;
-      hiddenOptions['GBV Messaging'] = true;
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
-      hiddenOptions['VAC Messaging'] = true;
       hiddenOptions['SAVING GROUP'] = true;
     }
     hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
@@ -81,11 +69,9 @@ class AgywDreamsServiceFormSkipLogic {
 
       if (inputFieldId == 'Eug4BXDFLym') {
         if ([
-          'FINANCIAL EDUCATION',
+          'FinancialLiteracyEducation',
           'SILC',
           'SAVING GROUP',
-          'PTS 4 NON-GRADS',
-          'PTS 4-GRADS'
         ].contains(value)) {
           hiddenFields['FoLeDcnocv4'] = true;
           hiddenFields['JjX25d72ume'] = true;

@@ -33,6 +33,11 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
     });
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamInterventionListState) {
+    dreamInterventionListState.refreshBeneficiariesNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamsInterventionListState>(
@@ -49,45 +54,50 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
   Widget _buildBody() {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, agywBeneficiary, child) =>
-              DreamsBeneficiaryCard(
-            isAgywEnrollment: true,
-            agywDream: agywBeneficiary,
-            canEdit: canEdit,
-            canExpand: canExpand,
-            beneficiaryName: agywBeneficiary.toString(),
-            canView: canView,
-            isExpanded: agywBeneficiary.id == toggleCardId,
-            onCardToggle: () {
-              onCardToggle(
-                context,
-                agywBeneficiary.id,
-              );
-            },
-            cardBody: DreamsBeneficiaryCardBody(
-              agywBeneficiary: agywBeneficiary,
-              canViewServiceCategory: false,
-              isVerticalLayout: agywBeneficiary.id == toggleCardId,
-            ),
-            cardButtonActions: Container(),
-            cardButtonContent: Container(),
-          ),
-          pagingController: dreamInterventionListState.agywPagingController,
-          emptyListWidget: Column(
-            children: const [
-              Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                  textAlign: TextAlign.center,
-                ),
+        return RefreshIndicator(
+          onRefresh: () async {
+            refreshBeneficiaryList(dreamInterventionListState);
+          },
+          child: CustomPaginatedListView(
+            childBuilder: (context, agywBeneficiary, child) =>
+                DreamsBeneficiaryCard(
+              isAgywEnrollment: true,
+              agywDream: agywBeneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: agywBeneficiary.toString(),
+              canView: canView,
+              isExpanded: agywBeneficiary.id == toggleCardId,
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
+              },
+              cardBody: DreamsBeneficiaryCardBody(
+                agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: false,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),
-            ],
-          ),
-          errorWidget: const Center(
-            child: Text(
-              'Error in loading beneficiary list ',
-              textAlign: TextAlign.center,
+              cardButtonActions: Container(),
+              cardButtonContent: Container(),
+            ),
+            pagingController: dreamInterventionListState.agywPagingController,
+            emptyListWidget: Column(
+              children: const [
+                Center(
+                  child: Text(
+                    'There is no beneficiary list at a moment',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+            errorWidget: const Center(
+              child: Text(
+                'Error in loading beneficiary list ',
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         );

@@ -111,6 +111,10 @@ class PpPrevInterventionHome extends StatelessWidget {
     }
   }
 
+  void refreshBeneficiaryList(PpPrevInterventionState ppPrevInterventionState) {
+    ppPrevInterventionState.refreshPpPrevNumber();
+  }
+
   void onOpenBeneficiaryServices(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
@@ -132,64 +136,68 @@ class PpPrevInterventionHome extends StatelessWidget {
   Consumer<PpPrevInterventionState> _buildBody() {
     return Consumer<PpPrevInterventionState>(
       builder: (context, ppPrevInterventionState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, ppPrevBeneficiary, child) =>
-              PpPrevBeneficiaryCard(
-            ppPrevBeneficiary: ppPrevBeneficiary,
-            onEditBeneficiary: () => onEditBeneficiary(
-              context,
-              ppPrevBeneficiary,
+        return RefreshIndicator(
+          onRefresh: () async =>
+              refreshBeneficiaryList(ppPrevInterventionState),
+          child: CustomPaginatedListView(
+            childBuilder: (context, ppPrevBeneficiary, child) =>
+                PpPrevBeneficiaryCard(
+              ppPrevBeneficiary: ppPrevBeneficiary,
+              onEditBeneficiary: () => onEditBeneficiary(
+                context,
+                ppPrevBeneficiary,
+              ),
+              onViewBeneficiary: () => onViewBeneficiary(
+                context,
+                ppPrevBeneficiary,
+              ),
+              onOpenBeneficiaryServices: () => onOpenBeneficiaryServices(
+                context,
+                ppPrevBeneficiary,
+              ),
             ),
-            onViewBeneficiary: () => onViewBeneficiary(
-              context,
-              ppPrevBeneficiary,
+            pagingController: ppPrevInterventionState.pagingController!,
+            emptyListWidget: Center(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: const Text(
+                      'There is no PP PREV beneficiaries enrolled at moment',
+                    ),
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/add-beneficiary.svg',
+                      color: Colors.blueGrey,
+                    ),
+                    onPressed: () => onAddPpPrevBeneficiary(context),
+                  )
+                ],
+              ),
             ),
-            onOpenBeneficiaryServices: () => onOpenBeneficiaryServices(
-              context,
-              ppPrevBeneficiary,
-            ),
-          ),
-          pagingController: ppPrevInterventionState.pagingController!,
-          emptyListWidget: Center(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 10.0,
+            errorWidget: Center(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: const Text(
+                      'There is no PP PREV beneficiaries enrolled at moment',
+                    ),
                   ),
-                  child: const Text(
-                    'There is no PP PREV beneficiaries enrolled at moment',
-                  ),
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
-                  ),
-                  onPressed: () => onAddPpPrevBeneficiary(context),
-                )
-              ],
-            ),
-          ),
-          errorWidget: Center(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 10.0,
-                  ),
-                  child: const Text(
-                    'There is no PP PREV beneficiaries enrolled at moment',
-                  ),
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
-                  ),
-                  onPressed: () => onAddPpPrevBeneficiary(context),
-                )
-              ],
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/add-beneficiary.svg',
+                      color: Colors.blueGrey,
+                    ),
+                    onPressed: () => onAddPpPrevBeneficiary(context),
+                  )
+                ],
+              ),
             ),
           ),
         );

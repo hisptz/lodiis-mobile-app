@@ -21,6 +21,7 @@ class OvcHouseholdEnrollmentSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -166,7 +167,10 @@ class OvcHouseholdEnrollmentSkipLogic {
     String inputFieldId,
     String? value,
   ) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(inputFieldId, value);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+      inputFieldId,
+      value,
+      isChangesBasedOnSkipLogic: true,
+    );
   }
 }

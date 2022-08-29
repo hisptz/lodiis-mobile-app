@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -63,6 +63,11 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
     );
   }
 
+  void refreshBeneficiaryList(
+      OvcInterventionListState ovcInterventionListState) {
+    ovcInterventionListState.refreshOvcNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
@@ -88,76 +93,79 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
 
   Widget _buildBody(String? currentLanguage) {
     return Consumer<OvcInterventionListState>(
-      builder: (context, ovcList, child) => CustomPaginatedListView(
-        pagingController: ovcList.pagingController,
-        errorWidget: Center(
-          child: Text(
-            currentLanguage == 'lesotho'
-                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                : 'There is no household enrolled at moment',
-          ),
-        ),
-        emptyListWidget: Center(
-          child: Text(
-            currentLanguage == 'lesotho'
-                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                : 'There is no household enrolled at moment',
-          ),
-        ),
-        childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
-          ovcHousehold: ovcHousehold,
-          canEdit: canEdit,
-          canExpand: canExpand,
-          canView: canView,
-          isExpanded: ovcHousehold.id == toggleCardId,
-          onCardToggle: () {
-            onCardToggle(ovcHousehold.id);
-          },
-          cardBody: OvcHouseholdCardBody(
-            ovcHousehold: ovcHousehold,
-          ),
-          cardButtonActions: ClipRRect(
-            borderRadius: ovcHousehold.id == toggleCardId
-                ? BorderRadius.zero
-                : const BorderRadius.only(
-                    bottomLeft: Radius.circular(12.0),
-                    bottomRight: Radius.circular(12.0),
-                  ),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0XFFF6FAF6),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () => onViewRerral(
-                      context,
-                      ovcHousehold,
-                    ),
-                    child: Text(
-                      'REFERRAL',
-                      style: const TextStyle().copyWith(
-                        fontSize: 12.0,
-                        color: const Color(0xFF4B9F46),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+      builder: (context, ovcList, child) => RefreshIndicator(
+        onRefresh: () async => refreshBeneficiaryList(ovcList),
+        child: CustomPaginatedListView(
+          pagingController: ovcList.pagingController,
+          errorWidget: Center(
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                  : 'There is no household enrolled at moment',
             ),
           ),
-          cardButtonContent: OvcHouseholdCardButtonContent(
-            currentLanguage: currentLanguage,
+          emptyListWidget: Center(
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                  : 'There is no household enrolled at moment',
+            ),
+          ),
+          childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
             ovcHousehold: ovcHousehold,
-            canAddChild: canAddChild,
-            canViewChildInfo: canViewChildInfo,
-            canEditChildInfo: canEditChildInfo,
-            canViewChildService: canViewChildService,
-            canViewChildReferral: canViewChildReferral,
-            canViewChildExit: canViewChildExit,
-            isIncomingReferral: widget.isIncomingReferral,
+            canEdit: canEdit,
+            canExpand: canExpand,
+            canView: canView,
+            isExpanded: ovcHousehold.id == toggleCardId,
+            onCardToggle: () {
+              onCardToggle(ovcHousehold.id);
+            },
+            cardBody: OvcHouseholdCardBody(
+              ovcHousehold: ovcHousehold,
+            ),
+            cardButtonActions: ClipRRect(
+              borderRadius: ovcHousehold.id == toggleCardId
+                  ? BorderRadius.zero
+                  : const BorderRadius.only(
+                      bottomLeft: Radius.circular(12.0),
+                      bottomRight: Radius.circular(12.0),
+                    ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0XFFF6FAF6),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () => onViewRerral(
+                        context,
+                        ovcHousehold,
+                      ),
+                      child: Text(
+                        'REFERRAL',
+                        style: const TextStyle().copyWith(
+                          fontSize: 12.0,
+                          color: const Color(0xFF4B9F46),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            cardButtonContent: OvcHouseholdCardButtonContent(
+              currentLanguage: currentLanguage,
+              ovcHousehold: ovcHousehold,
+              canAddChild: canAddChild,
+              canViewChildInfo: canViewChildInfo,
+              canEditChildInfo: canEditChildInfo,
+              canViewChildService: canViewChildService,
+              canViewChildReferral: canViewChildReferral,
+              canViewChildExit: canViewChildExit,
+              isIncomingReferral: widget.isIncomingReferral,
+            ),
           ),
         ),
       ),

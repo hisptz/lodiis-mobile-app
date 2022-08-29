@@ -41,8 +41,9 @@ class DreamsRoutesConstant {
   static const String agywDreamsArtRefillNextPage = "ART Re-fill";
   static const String agywDreamsCondomsFormPage = "Condoms";
   static const String agywDreamsCondomsFormNextPage = "Condoms";
-  static const String agywDreamsContraceptivesPage = "Contraceptives form";
-  static const String agywDreamsContraceptivesNextPage = "Contraceptives form";
+  static const String agywDreamsFamilyPlanningSrhPage = "Contraceptives form";
+  static const String agywDreamsFamilyPlanningSrhNextPage =
+      "Contraceptives form";
   static const String agywDreamsHTSShortFormPage = "HTS Form";
   static const String agywDreamsHTSShortFormNextPage = "HTS Form";
   static const String agywDreamHIVMessageFormPage = "MSG HIV form";
@@ -70,6 +71,10 @@ class DreamsRoutesConstant {
   static const String agywDreamsServiceFormNextPage = "Service Form";
   static const String agywDreamsPostGBVFormPage = "POST GBV form";
   static const String agywDreamsPostGBVFormNextPage = "POST GBV form";
+  static const String agywDreamsParentingFormPage = "Parenting (Preg & Breastfeeding)";
+  static const String agywDreamsParentingFormNextPage = "Parenting (Preg & Breastfeeding)";
+  static const String agywDreamPostGBVLegalFormPage = "POST GBV(legal) form";
+  static const String agywDreamPostGBVLegalFormNextPage = "POST GBV(legal) form";
 
   // routes for agyw referrals
   static const String agywDreamsReferralPage = "Dream Referral Form";

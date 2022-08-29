@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/app_logs_state/app_logs_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
@@ -81,7 +82,6 @@ class AppBarUtil {
   }
 
   static void _onOpenSyncModule(BuildContext context) async {
-    var syncActionConstants = SynchronizationActionsConstants();
     bool isDataDownloadActive =
         Provider.of<SynchronizationState>(context, listen: false)
             .isDataDownloadingActive;
@@ -105,9 +105,9 @@ class AppBarUtil {
     String syncAction = isDataDownloadActive || isDataUploadActive
         ? ''
         : beneficiaryCount + beneficiaryServicesCount > 0
-            ? syncActionConstants.upload
+            ? SynchronizationActionsConstants.downloadAndUpload
             : lastSyncDate == null || isDataAvailableForDownload
-                ? syncActionConstants.download
+                ? SynchronizationActionsConstants.downloadAndUpload
                 : '';
     Navigator.push(
       context,
@@ -159,6 +159,10 @@ class AppBarUtil {
           .setTeiWithIncomingReferral(
               teiWithIncomingReferral: teiWithIncomingReferral);
       await Provider.of<DreamsInterventionListState>(context, listen: false)
+          .refreshBeneficiariesNumber();
+      Provider.of<ReferralNotificationState>(context, listen: false)
+          .reloadReferralNotifications();
+      Provider.of<DreamsRaAssessmentListState>(context, listen: false)
           .refreshBeneficiariesNumber();
     } else if (id == 'ogac') {
       await Provider.of<OgacInterventionListState>(context, listen: false)

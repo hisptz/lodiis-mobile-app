@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -61,6 +63,8 @@ class OvcHouseholdCard extends StatelessWidget {
         .setFormFieldState('yk0OH9p09C1', ovcHousehold.primaryUIC);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('PN92g65TkVI', ovcHousehold.houseHoldStatus);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+        BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
         Provider.of<EnrollmentFormState>(context, listen: false)
@@ -71,6 +75,8 @@ class OvcHouseholdCard extends StatelessWidget {
   }
 
   void onEditHousehold(BuildContext context) async {
+    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+        .setCurrentHousehold(ovcHousehold);
     String? beneficiaryId = ovcHousehold.id;
     String formAutoSaveId =
         "${OvcRoutesConstant.ovcEnrollmentHouseholdEditFormPage}_$beneficiaryId";
@@ -96,6 +102,8 @@ class OvcHouseholdCard extends StatelessWidget {
   }
 
   void onViewHousehold(BuildContext context) {
+    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+        .setCurrentHousehold(ovcHousehold);
     updateEnrollmentFormStateData(context, false);
     Navigator.push(
       context,
@@ -105,8 +113,22 @@ class OvcHouseholdCard extends StatelessWidget {
     );
   }
 
+  onCategorizationColor() {
+    String? categorizationValue = ovcHousehold.houseHoldCategorization;
+    if (categorizationValue == 'Red: HH visited/monitored regularly') {
+      return Colors.redAccent;
+    } else if (categorizationValue == 'Yellow: HH visited/monitored monthly') {
+      return Colors.yellowAccent;
+    } else if (categorizationValue == 'Green: HH visited/monitored quarterly') {
+      return Colors.greenAccent;
+    } else {
+      return Colors.transparent;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    onCategorizationColor();
     return Container(
       margin: const EdgeInsets.only(
         bottom: 16.0,
@@ -114,6 +136,7 @@ class OvcHouseholdCard extends StatelessWidget {
         left: 13.0,
       ),
       child: MaterialCard(
+        borderColor: onCategorizationColor(),
         body: Column(
           children: [
             OvcHouseholdCardHeader(

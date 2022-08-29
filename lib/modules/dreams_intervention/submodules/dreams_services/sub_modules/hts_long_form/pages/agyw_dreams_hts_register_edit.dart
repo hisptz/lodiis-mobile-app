@@ -81,8 +81,10 @@ class _AgywDreamsHTSRegisterFormEditState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream? agywDream) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {
@@ -150,8 +152,10 @@ class _AgywDreamsHTSRegisterFormEditState
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+                .hiddenFields);
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

@@ -70,7 +70,10 @@ class OgacInterventionSkipLogic {
     String inputFieldId,
     String? value,
   ) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(inputFieldId, value);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+      inputFieldId,
+      value,
+      isChangesBasedOnSkipLogic: true,
+    );
   }
 }

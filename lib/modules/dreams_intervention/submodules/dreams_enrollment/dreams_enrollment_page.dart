@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
@@ -12,6 +14,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_consent.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_enrollment/pages/agyw_dreams_for_re_assessment.dart';
 import 'package:provider/provider.dart';
 
 class DreamsEnrollmentPage extends StatefulWidget {
@@ -62,69 +65,99 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
     }
   }
 
+  void onViewBeneficiariesWhoRequireReAssessment(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) => const AgywDreamForReAssessment(),
+    );
+  }
+
+  void refreshBeneficiaryList(BuildContext context) {
+    Provider.of<DreamsInterventionListState>(context, listen: false)
+        .refreshBeneficiariesNumber();
+    Provider.of<ReferralNotificationState>(context, listen: false)
+        .reloadReferralNotifications();
+    Provider.of<DreamsRaAssessmentListState>(context, listen: false)
+        .refreshBeneficiariesNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<DreamsInterventionListState>(
-      builder: (context, dreamInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
-          showFilter: true,
-          bodyContents: _buildBody(),
-        );
-      },
-    );
+    return Consumer<DreamsRaAssessmentListState>(
+        builder: (context, dreamsRaAssessmentListState, child) {
+      return Consumer<DreamsInterventionListState>(
+        builder: (context, dreamInterventionListState, child) {
+          return SubModuleHomeContainer(
+            onOpenInfo: () =>
+                onViewBeneficiariesWhoRequireReAssessment(context),
+            hasInfo: dreamsRaAssessmentListState.numberOfDreamsToReAssess > 0,
+            header:
+                '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+            showFilter: true,
+            bodyContents: _buildBody(),
+          );
+        },
+      );
+    });
   }
 
   Widget _buildBody() {
     return Consumer<DreamsInterventionListState>(
       builder: (context, dreamInterventionListState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, agywBeneficiary, child) =>
-              DreamsBeneficiaryCard(
-            isAgywEnrollment: true,
-            agywDream: agywBeneficiary,
-            canEdit: canEdit,
-            canExpand: canExpand,
-            beneficiaryName: agywBeneficiary.toString(),
-            canView: canView,
-            isExpanded: agywBeneficiary.id == toggleCardId,
-            onCardToggle: () {
-              onCardToggle(
-                context,
-                agywBeneficiary.id,
-              );
-            },
-            cardBody: DreamsBeneficiaryCardBody(
-              agywBeneficiary: agywBeneficiary,
-              canViewServiceCategory: false,
-              isVerticalLayout: agywBeneficiary.id == toggleCardId,
-            ),
-            cardButtonActions: Container(),
-            cardButtonContent: Container(),
-          ),
-          pagingController: dreamInterventionListState.agywPagingController,
-          emptyListWidget: Column(
-            children: [
-              const Center(
-                child: Text(
-                  'There is no beneficiary list at a moment',
-                ),
+        return RefreshIndicator(
+          onRefresh: () async {
+            refreshBeneficiaryList(context);
+          },
+          child: CustomPaginatedListView(
+            childBuilder: (context, agywBeneficiary, child) =>
+                DreamsBeneficiaryCard(
+              isAgywEnrollment: true,
+              agywDream: agywBeneficiary,
+              canEdit: canEdit,
+              canExpand: canExpand,
+              beneficiaryName: agywBeneficiary.toString(),
+              canView: canView,
+              isExpanded: agywBeneficiary.id == toggleCardId,
+              onCardToggle: () {
+                onCardToggle(
+                  context,
+                  agywBeneficiary.id,
+                );
+              },
+              cardBody: DreamsBeneficiaryCardBody(
+                agywBeneficiary: agywBeneficiary,
+                canViewServiceCategory: false,
+                isVerticalLayout: agywBeneficiary.id == toggleCardId,
               ),
-              Center(
-                child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
+              cardButtonActions: Container(),
+              cardButtonContent: Container(),
+            ),
+            pagingController: dreamInterventionListState.agywPagingController,
+            emptyListWidget: Column(
+              children: [
+                const Center(
+                  child: Text(
+                    'There is no beneficiary list at a moment',
                   ),
-                  onPressed: () => onAddAgywBeneficiary(context),
                 ),
-              )
-            ],
-          ),
-          errorWidget: const Center(
-            child: Text(
-              'Error in loading beneficiary list ',
+                Center(
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/add-beneficiary.svg',
+                      color: Colors.blueGrey,
+                    ),
+                    onPressed: () => onAddAgywBeneficiary(context),
+                  ),
+                )
+              ],
+            ),
+            errorWidget: const Center(
+              child: Text(
+                'Error in loading beneficiary list ',
+              ),
             ),
           ),
         );

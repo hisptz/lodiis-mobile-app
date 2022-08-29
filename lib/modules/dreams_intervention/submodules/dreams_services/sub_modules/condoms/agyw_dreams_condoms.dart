@@ -31,14 +31,14 @@ class AgywDreamsCondoms extends StatefulWidget {
 }
 
 class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
-  final String label = 'Condoms';
+  final String label = 'Condom Education/Provision';
   List<String> programStageIds = [CondomsConstant.programStage];
   @override
   void initState() {
     super.initState();
   }
 
-  void onAddPrep(BuildContext context, AgywDream agywDream) async {
+  void onAddCondomProvision(BuildContext context, AgywDream agywDream) async {
     FormUtil.updateServiceFormState(context, true, null);
     String? beneficiaryId = agywDream.id;
     String eventId = '';
@@ -63,7 +63,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
     }
   }
 
-  void onViewPrep(BuildContext context, Events eventData) {
+  void onViewCondomProvision(BuildContext context, Events eventData) {
     FormUtil.updateServiceFormState(context, false, eventData);
     Navigator.push(
       context,
@@ -73,7 +73,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
     );
   }
 
-  void onEditPrep(
+  void onEditCondomProvision(
       BuildContext context, Events eventData, AgywDream agywDream) async {
     FormUtil.updateServiceFormState(context, true, eventData);
     String? beneficiaryId = agywDream.id;
@@ -163,13 +163,15 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Visit",
-                                                  onEdit: () => onEditPrep(
-                                                      context,
-                                                      eventData,
-                                                      agywDream!),
-                                                  onView: () => onViewPrep(
-                                                      context, eventData),
+                                                  visitName: "Condom Education/Provision",
+                                                  onEdit: () =>
+                                                      onEditCondomProvision(
+                                                          context,
+                                                          eventData,
+                                                          agywDream!),
+                                                  onView: () =>
+                                                      onViewCondomProvision(
+                                                          context, eventData),
                                                   eventData: eventData,
                                                   visitCount: condomIndex,
                                                 ),
@@ -184,7 +186,7 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                   buttonColor: const Color(0xFF1F8ECE),
                                   fontSize: 15.0,
                                   onPressButton: () =>
-                                      onAddPrep(context, agywDream!),
+                                      onAddCondomProvision(context, agywDream!),
                                 )
                               ],
                             ),

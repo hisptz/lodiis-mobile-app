@@ -59,8 +59,10 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     setState(() {});
   }
 
@@ -68,7 +70,9 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsPostGBVInfo.getFormSections();
+    defaultFormSections = DreamsPostGBVInfo.getFormSections(
+      firstDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -120,8 +124,10 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
     AgywDream? agywDream,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {

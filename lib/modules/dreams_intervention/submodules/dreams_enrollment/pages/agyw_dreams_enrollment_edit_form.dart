@@ -235,8 +235,11 @@ class _AgywDreamsEnrollmentEditFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields:
+                Provider.of<EnrollmentFormState>(context, listen: false)
+                    .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -284,6 +287,8 @@ class _AgywDreamsEnrollmentEditFormState
                             Column(
                           children: [
                             EntryFormContainer(
+                              lastUpdatedId:
+                                  enrollmentFormState.lastUpdatedFieldId,
                               hiddenFields: enrollmentFormState.hiddenFields,
                               hiddenSections:
                                   enrollmentFormState.hiddenSections,

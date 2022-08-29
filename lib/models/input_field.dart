@@ -20,6 +20,8 @@ class InputField {
   int? minAgeInYear;
   int? maxAgeInYear;
   int? numberOfMonth;
+  String? lastDate;
+  String? firstDate;
   bool? shouldUserCustomAgeLimit;
   String? suffixLabel;
   String? hint;
@@ -29,6 +31,8 @@ class InputField {
   bool? hasLabelOnly;
   InputField? subInputField;
   List<int>? allowedSelectedLevels;
+  Pattern? regExpValidation;
+  int? limitingNumericLength;
   List<String>? filteredPrograms;
 
   InputField(
@@ -54,12 +58,16 @@ class InputField {
       this.maxAgeInYear,
       this.minAgeInYear,
       this.numberOfMonth,
+      this.firstDate,
+      this.lastDate,
       this.suffixLabel,
       this.filteredPrograms,
       this.hasError,
       this.shouldUserCustomAgeLimit,
       this.showCountryLevelTree,
-      this.hasLabelOnly}) {
+      this.hasLabelOnly,
+      this.regExpValidation,
+      this.limitingNumericLength}) {
     showCountryLevelTree = showCountryLevelTree ?? false;
     hasLabelOnly = hasLabelOnly ?? false;
     allowedSelectedLevels = allowedSelectedLevels ?? [];
@@ -67,6 +75,8 @@ class InputField {
     disablePastPeriod = disablePastPeriod ?? false;
     isReadOnly = isReadOnly ?? false;
     description = description ?? '';
+    firstDate = firstDate ?? '';
+    lastDate = lastDate ?? '';
     hasSubInputField = hasSubInputField ?? false;
     renderAsRadio = renderAsRadio ?? false;
     options = options ?? [];
@@ -75,6 +85,11 @@ class InputField {
     labelColor = labelColor ?? const Color(0xFF1A3518);
     background = background ?? Colors.transparent;
     suffixLabel = suffixLabel ?? '';
+    limitingNumericLength = limitingNumericLength ?? 99;
+    regExpValidation = regExpValidation ??
+        RegExp(['INTEGER_ZERO_OR_POSITIVE', 'NUMBER'].contains(valueType)
+            ? '[0-9]'
+            : '.*');
   }
 
   @override

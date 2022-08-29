@@ -6,10 +6,12 @@ class BeneficiaryIdentification {
   static const String beneficiaryIndex = 'Uth5HQFgqlb';
   static const String primaryUIC = 'fTSAY18LgCF';
   static const String secondaryUIC = 'eIU7KMx4Tu3';
+  static const String phoneNumber = 'tNdoR0jYr7R';
   static final List<String> firstNameReference = ['WTZ7GLTrE8Q', 'JhOvli80Qbx'];
   static final List<String> surnameReference = ['rSP9c21JsfC', 'jjZWuJfVStp'];
   static final List<String> birthDate = ['qZP982qpSPS', 'jVSwC6Ln95H'];
   static const int maxNumberToReserve = 100;
+  static const String householdCategorization = 'uetInX0KTfc';
 
   String getBenificiaryId(
     OrganisationUnit organisationUnit,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kb_mobile_app/core/components/beneficiary_sync_status_indicator.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/constants/program_status.dart';
 
 class DreamsBeneficiaryCardHeader extends StatelessWidget {
   const DreamsBeneficiaryCardHeader({
@@ -13,10 +14,12 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
     required this.canExpand,
     required this.isExpanded,
     required this.isSynced,
+    required this.programStatus,
     this.isActive = true,
     this.onEdit,
     this.onView,
     this.onToggleCard,
+    this.onOpenStatus,
   }) : super(key: key);
 
   final String svgIcon;
@@ -27,10 +30,12 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
   final bool isExpanded;
   final bool isActive;
   final bool isSynced;
+  final String programStatus;
 
   final VoidCallback? onEdit;
   final VoidCallback? onView;
   final VoidCallback? onToggleCard;
+  final VoidCallback? onOpenStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -84,33 +89,53 @@ class DreamsBeneficiaryCardHeader extends StatelessWidget {
                 isSynced: isSynced,
               ),
               Visibility(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 5.0,
-                    horizontal: 5.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? const Color(0xFFF0F8FE)
-                        : const Color(0xFFFFF5F5),
-                    border: Border.all(
-                      color: isActive
-                          ? const Color(0xFF1F8DCE)
-                          : const Color(0xFFC81314),
+                visible: programStatus.isNotEmpty,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(35.0),
+                  onTap: () => programStatus == ProgramStatus.inActive
+                      ? onOpenStatus!()
+                      : null,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 5.0,
+                      horizontal: 5.0,
                     ),
-                    borderRadius: BorderRadius.circular(35.0),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 2.0,
-                  ),
-                  child: Text(
-                    isActive ? 'Active' : 'Inactive',
-                    style: const TextStyle().copyWith(
-                      color: isActive
-                          ? const Color(0xFF1F8DCE)
-                          : const Color(0xFFC81314),
-                      fontSize: 12.0,
+                    decoration: BoxDecoration(
+                      color: (programStatus == ProgramStatus.active
+                              ? const Color(0xFF1F8DCE)
+                              : programStatus == ProgramStatus.inActive
+                                  ? Colors.amberAccent
+                                  : programStatus == ProgramStatus.dropOut
+                                      ? Colors.redAccent
+                                      : Colors.blueGrey)
+                          .withOpacity(0.2),
+                      border: Border.all(
+                        color: programStatus == ProgramStatus.active
+                            ? const Color(0xFF1F8DCE)
+                            : programStatus == ProgramStatus.inActive
+                                ? Colors.amberAccent
+                                : programStatus == ProgramStatus.dropOut
+                                    ? Colors.redAccent
+                                    : Colors.blueGrey,
+                      ),
+                      borderRadius: BorderRadius.circular(35.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
+                    child: Text(
+                      programStatus,
+                      style: const TextStyle().copyWith(
+                        color: programStatus == ProgramStatus.active
+                            ? const Color(0xFF1F8DCE)
+                            : programStatus == ProgramStatus.inActive
+                                ? Colors.amberAccent.shade700
+                                : programStatus == ProgramStatus.dropOut
+                                    ? Colors.redAccent
+                                    : Colors.blueGrey,
+                        fontSize: 12.0,
+                      ),
                     ),
                   ),
                 ),

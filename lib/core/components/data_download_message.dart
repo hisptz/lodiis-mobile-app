@@ -36,8 +36,8 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Synchronization(
-            synchronizationAction: SynchronizationActionsConstants().download,
+          builder: (context) => const Synchronization(
+            synchronizationAction: SynchronizationActionsConstants.download,
           ),
         ),
       );
@@ -70,7 +70,7 @@ class _DataDownloadMessageState extends State<DataDownloadMessage> {
     return Consumer<SynchronizationState>(
       builder: (context, synchronizationState, child) {
         return Container(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
             child:
                 synchronizationState.statusMessageForAvailableDataFromServer !=
                         ''

@@ -493,7 +493,15 @@ class SynchronizationService {
             title: "Automatic sync in progress",
           );
           var teiChunk = await getTeisFromOfflineDb(page: page);
-          await uploadTeisToTheServer(teiChunk);
+          var conflicts = await uploadTeisToTheServer(teiChunk);
+          if (conflicts) {
+            LocalNotificationService.show(
+              message:
+                  "Failed to upload Beneficiaries profile data. Check app logs for more information",
+              title: "Automatic sync in progress",
+            );
+            hasDataToUpload = hasDataToUpload && conflicts;
+          }
         }
       }
       return hasDataToUpload;
@@ -518,7 +526,15 @@ class SynchronizationService {
             title: "Automatic sync in progress",
           );
           var enrollmentChunk = await getTeiEnrollmentFromOfflineDb(page: page);
-          await uploadEnrollmentsToTheServer(enrollmentChunk);
+          var conflicts = await uploadEnrollmentsToTheServer(enrollmentChunk);
+          if (conflicts) {
+            LocalNotificationService.show(
+              message:
+                  "Failed to upload some Beneficiaries enrollment data. Check app logs for more information",
+              title: "Automatic sync in progress",
+            );
+            hasDataToUpload = hasDataToUpload && conflicts;
+          }
         }
       }
 
@@ -545,7 +561,16 @@ class SynchronizationService {
           );
           var teiRelationshipChunk =
               await getTeiRelationShipFromOfflineDb(page: page);
-          await uploadTeiRelationToTheServer(teiRelationshipChunk);
+          var conflicts =
+              await uploadTeiRelationToTheServer(teiRelationshipChunk);
+          if (conflicts) {
+            LocalNotificationService.show(
+              message:
+                  "Failed to upload some Beneficiaries relationships data. Check app logs for more information",
+              title: "Automatic sync in progress",
+            );
+            hasDataToUpload = hasDataToUpload && conflicts;
+          }
         }
       }
 
@@ -571,7 +596,15 @@ class SynchronizationService {
             title: "Automatic sync in progress",
           );
           var teiEventChunk = await getTeiEventsFromOfflineDb(page: page);
-          await uploadTeiEventsToTheServer(teiEventChunk);
+          var conflicts = await uploadTeiEventsToTheServer(teiEventChunk);
+          if (conflicts) {
+            LocalNotificationService.show(
+              message:
+                  "Failed to upload some Beneficiaries service data. Check app logs for more information",
+              title: "Automatic sync in progress",
+            );
+            hasDataToUpload = hasDataToUpload && conflicts;
+          }
         }
       }
       return hasDataToUpload;

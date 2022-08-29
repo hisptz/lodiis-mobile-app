@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
@@ -57,14 +58,14 @@ class OgacEnrollmentService {
 
   Future<List<OgacBeneficiary>> getOgacBeneficiaries(
       {int? page,
-      String searchableValue = '',
+      Map searchedAttributes = const {},
       List<Map<String, dynamic>> filters = const []}) async {
     List<String> accessibleOrgUnits = await OrganisationUnitService()
         .getOrganisationUnitAccessedByCurrentUser();
     List<OgacBeneficiary> ogacBeneficiaries = [];
     List<Enrollment> enrollments = await EnrollmentOfflineProvider()
         .getEnrollmentsByProgram(OgacInterventionConstant.program,
-            page: page, searchedValue: searchableValue);
+            page: page, searchedAttributes: searchedAttributes);
     for (Enrollment enrollment in enrollments) {
       List<OrganisationUnit> ous = await OrganisationUnitService()
           .getOrganisationUnits([enrollment.orgUnit]);
@@ -94,28 +95,42 @@ class OgacEnrollmentService {
     }
 
     if (filters.isNotEmpty) {
-      for (Map<String, dynamic> filter in filters) {
-        String? implementingPartner = filter['implementingPartner'];
-        String? sex = filter['sex'];
-        String? age = filter['age'];
-
-        ogacBeneficiaries = sex == null
-            ? ogacBeneficiaries
-            : ogacBeneficiaries.where((ogac) => ogac.sex == sex).toList();
-
-        ogacBeneficiaries = age == null
-            ? ogacBeneficiaries
-            : ogacBeneficiaries.where((ogac) => ogac.age == age).toList();
-
-        ogacBeneficiaries = implementingPartner == null
-            ? ogacBeneficiaries
-            : ogacBeneficiaries
-                .where(
-                    (ogac) => ogac.implementingPartner == implementingPartner)
-                .toList();
-      }
+      Map<String, dynamic> metadata = {
+        'filters': filters,
+        'ogacBeneficiaries': ogacBeneficiaries
+      };
+      return await compute(getFilteredBeneficiaries, metadata);
     }
 
+    return ogacBeneficiaries;
+  }
+
+  List<OgacBeneficiary> getFilteredBeneficiaries(
+      Map<String, dynamic> metadata) {
+    List<Map<String, dynamic>> filters =
+        metadata['filters'] as List<Map<String, dynamic>>;
+    List<OgacBeneficiary> ogacBeneficiaries =
+        metadata['ogacBeneficiaries'] as List<OgacBeneficiary>;
+
+    for (Map<String, dynamic> filter in filters) {
+      String? implementingPartner = filter['implementingPartner'];
+      String? sex = filter['sex'];
+      String? age = filter['age'];
+
+      ogacBeneficiaries = sex == null
+          ? ogacBeneficiaries
+          : ogacBeneficiaries.where((ogac) => ogac.sex == sex).toList();
+
+      ogacBeneficiaries = age == null
+          ? ogacBeneficiaries
+          : ogacBeneficiaries.where((ogac) => ogac.age == age).toList();
+
+      ogacBeneficiaries = implementingPartner == null
+          ? ogacBeneficiaries
+          : ogacBeneficiaries
+              .where((ogac) => ogac.implementingPartner == implementingPartner)
+              .toList();
+    }
     return ogacBeneficiaries;
   }
 

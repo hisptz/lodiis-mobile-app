@@ -8,11 +8,12 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
@@ -38,55 +39,95 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => SynchronizationStatusState()),
-          ChangeNotifierProvider(create: (_) => AppInfoState()),
-          ChangeNotifierProvider(create: (_) => AppDeviceInfoState()),
-          ChangeNotifierProvider(create: (_) => LanguageTranslationState()),
-          ChangeNotifierProvider(create: (_) => CurrentUserState()),
-          ChangeNotifierProvider(create: (_) => InterventionCardState()),
           ChangeNotifierProvider(
-              create: (_) => DreamsBeneficiarySelectionState()),
-          ChangeNotifierProvider(create: (_) => LoginFormState()),
+            create: (_) => SynchronizationStatusState(),
+          ),
           ChangeNotifierProvider(
-              create: (_) => InterventionBottomNavigationState()),
-          ChangeNotifierProvider(create: (_) => ReferralNotificationState()),
-          ChangeNotifierProvider(create: (_) => EnrollmentFormState()),
-          ChangeNotifierProvider(create: (_) => ServiceFormState()),
+            create: (_) => AppInfoState(),
+          ),
           ChangeNotifierProvider(
-              create: (_) => EducationInterventionCurrentSelectionState()),
+            create: (_) => AppDeviceInfoState(),
+          ),
           ChangeNotifierProvider(
-              create: (_) => PpPrevInterventionCurrentSelectionState()),
+            create: (_) => LanguageTranslationState(),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) => ServiceEventDataState(context)),
+            create: (_) => CurrentUserState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => InterventionCardState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DreamsBeneficiarySelectionState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => LoginFormState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => InterventionBottomNavigationState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => ReferralNotificationState(),
+          ),
+          ChangeNotifierProvider(
+            create: (BuildContext context) => EnrollmentFormState(context),
+          ),
+          ChangeNotifierProvider(
+            create: (BuildContext context) => ServiceFormState(context),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => EducationInterventionCurrentSelectionState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => PpPrevInterventionCurrentSelectionState(),
+          ),
+          ChangeNotifierProvider(
+            create: (BuildContext context) => ServiceEventDataState(context),
+          ),
           ChangeNotifierProvider(
             create: (_) => OvcHouseholdCurrentSelectionState(),
           ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  OvcInterventionListState(context)),
+            create: (BuildContext context) => OvcInterventionListState(context),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  DreamsInterventionListState(context)),
+            create: (BuildContext context) =>
+                DreamsInterventionListState(context),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  OgacInterventionListState(context)),
+            create: (BuildContext context) =>
+                OgacInterventionListState(context),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  PpPrevInterventionState(context)),
+            create: (BuildContext context) => PpPrevInterventionState(context),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  EducationBursaryInterventionState(context)),
+            create: (BuildContext context) =>
+                EducationBursaryInterventionState(context),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  EducationLbseInterventionState(context)),
+            create: (BuildContext context) =>
+                EducationLbseInterventionState(context),
+          ),
           ChangeNotifierProvider(
-              create: (BuildContext context) =>
-                  SynchronizationState(context: context)),
-          ChangeNotifierProvider(create: (_) => AppLogsState()),
-          ChangeNotifierProvider(create: (_) => DeviceConnectivityState()),
+            create: (BuildContext context) =>
+                SynchronizationState(context: context),
+          ),
           ChangeNotifierProvider(
-              create: (_) => ImplementingPartnerReferralServiceState()),
-          ChangeNotifierProvider(create: (_) => BeneficiaryFilterState()),
+            create: (_) => AppLogsState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DeviceConnectivityState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => ImplementingPartnerReferralServiceState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => BeneficiaryFilterState(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DreamsRaAssessmentListState(),
+          )
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

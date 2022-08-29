@@ -33,6 +33,11 @@ class _OvcEnrollmentRecordsState extends State<OvcEnrollmentRecords> {
     });
   }
 
+  void refreshBeneficiaryList(
+      OvcInterventionListState ovcInterventionListState) {
+    ovcInterventionListState.refreshOvcNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
@@ -57,48 +62,51 @@ class _OvcEnrollmentRecordsState extends State<OvcEnrollmentRecords> {
 
   Widget _buildBody(String? currentLanguage) {
     return Consumer<OvcInterventionListState>(
-      builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Center(
-          child: Text(
-            currentLanguage == 'lesotho'
-                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                : 'There is no household enrolled at moment',
+      builder: (context, ovcState, child) => RefreshIndicator(
+        onRefresh: () async => refreshBeneficiaryList(ovcState),
+        child: CustomPaginatedListView(
+          errorWidget: Center(
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                  : 'There is no household enrolled at moment',
+            ),
           ),
-        ),
-        pagingController: ovcState.pagingController,
-        childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
-          ovcHousehold: ovcHousehold,
-          canEdit: canEdit,
-          canExpand: canExpand,
-          canView: canView,
-          isExpanded: ovcHousehold.id == toggleCardId,
-          onCardToggle: () {
-            onCardToggle(ovcHousehold.id);
-          },
-          cardBody: OvcHouseholdCardBody(
+          pagingController: ovcState.pagingController,
+          childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
             ovcHousehold: ovcHousehold,
+            canEdit: canEdit,
+            canExpand: canExpand,
+            canView: canView,
+            isExpanded: ovcHousehold.id == toggleCardId,
+            onCardToggle: () {
+              onCardToggle(ovcHousehold.id);
+            },
+            cardBody: OvcHouseholdCardBody(
+              ovcHousehold: ovcHousehold,
+            ),
+            cardButtonActions: Container(),
+            cardButtonContent: OvcHouseholdCardButtonContent(
+              currentLanguage: currentLanguage,
+              ovcHousehold: ovcHousehold,
+              canAddChild: canAddChild,
+              canViewChildInfo: canViewChildInfo,
+              canEditChildInfo: canEditChildInfo,
+              canViewChildService: canViewChildService,
+              canViewChildReferral: canViewChildReferral,
+              canViewChildExit: canViewChildExit,
+            ),
           ),
-          cardButtonActions: Container(),
-          cardButtonContent: OvcHouseholdCardButtonContent(
-            currentLanguage: currentLanguage,
-            ovcHousehold: ovcHousehold,
-            canAddChild: canAddChild,
-            canViewChildInfo: canViewChildInfo,
-            canEditChildInfo: canEditChildInfo,
-            canViewChildService: canViewChildService,
-            canViewChildReferral: canViewChildReferral,
-            canViewChildExit: canViewChildExit,
-          ),
-        ),
-        emptyListWidget: Center(
-          child: Column(
-            children: [
-              Text(
-                currentLanguage == 'lesotho'
-                    ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                    : 'There is no household enrolled at moment',
-              ),
-            ],
+          emptyListWidget: Center(
+            child: Column(
+              children: [
+                Text(
+                  currentLanguage == 'lesotho'
+                      ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                      : 'There is no household enrolled at moment',
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -9,13 +9,14 @@ import 'package:kb_mobile_app/core/services/preference_provider.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 
 class UserService {
+  final String userSuccessMetadataSyncKey = 'userSuccessMetadataSync';
   final String preferenceKey = 'current_user';
   final String currentUserDataEntryAuthorityPreferenceKey =
       'current_user_data_entry_authority';
 
   Future<CurrentUser?> login({
-    required String? username,
-    required String? password,
+    required String username,
+    required String password,
     isOnlineAuthentication = true,
   }) async {
     CurrentUser? user;
@@ -56,11 +57,28 @@ class UserService {
     }
   }
 
+  Future<bool> hasUserPreviousSuccessLogin({
+    required String username,
+    required String password,
+  }) async {
+    bool hasPreviousSuccessLogin = false;
+    try {
+      List<CurrentUser> users = await UserOfflineProvider().getUsers();
+      var user = users.firstWhere((CurrentUser user) =>
+          user.username == username && user.password == password);
+      hasPreviousSuccessLogin = user.hasPreviousSuccessLogin!;
+    } catch (e) {
+      //
+    }
+    return hasPreviousSuccessLogin;
+  }
+
   Future logout() async {
     CurrentUser? user = await getCurrentUser();
     if (user != null) {
       user.isLogin = false;
       await setCurrentUser(user);
+      await setCurrentUserMetadatadataSyncStatus("false");
     }
   }
 
@@ -94,6 +112,7 @@ class UserService {
       }
     } catch (e) {
       //
+      currentUserDataEntryAuthorityStatus = true;
     }
     return currentUserDataEntryAuthorityStatus;
   }
@@ -131,5 +150,16 @@ class UserService {
       preferenceKey,
       user.id!,
     );
+  }
+
+  Future setCurrentUserMetadatadataSyncStatus(dynamic status) async {
+    await PreferenceProvider.setPreferenceValue(
+        userSuccessMetadataSyncKey, "$status");
+  }
+
+  Future<bool> getCurrentUserMetadatadataSyncStatus() async {
+    var status =
+        await PreferenceProvider.getPreferenceValue(userSuccessMetadataSyncKey);
+    return "$status" == "true";
   }
 }

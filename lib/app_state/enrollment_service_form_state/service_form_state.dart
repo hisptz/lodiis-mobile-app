@@ -1,6 +1,12 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
+import 'package:provider/provider.dart';
 
 class ServiceFormState with ChangeNotifier {
+  final BuildContext context;
+
+  ServiceFormState(this.context);
+
   // initial state
   final Map _formState = {};
   Map _hiddenFields = {};
@@ -40,11 +46,28 @@ class ServiceFormState with ChangeNotifier {
   }
 
   void updateFormEditabilityState({bool isEditableMode = true}) {
-    _isEditableMode = isEditableMode;
+    bool shouldUpdateApp =
+        Provider.of<AppInfoState>(context, listen: false).shouldUpdateTheApp ||
+            Provider.of<AppInfoState>(context, listen: false)
+                .showWarningToAppUpdate;
+    if (!shouldUpdateApp) {
+      _isEditableMode = isEditableMode;
+    } else {
+      _isEditableMode = false;
+    }
+
     notifyListeners();
   }
 
-  void setFormFieldState(String? id, dynamic value) {
+  void setFormFieldState(
+    String? id,
+    dynamic value, {
+    bool isChangesBasedOnSkipLogic = false,
+  }) {
+    if (!isChangesBasedOnSkipLogic) {
+      debugPrint("$id => $isChangesBasedOnSkipLogic");
+    }
+
     _formState[id] = value ?? '';
     notifyListeners();
   }

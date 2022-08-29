@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildInfoTopHeader extends StatelessWidget {
@@ -39,6 +40,93 @@ class OvcChildInfoTopHeader extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _getStatus({
+    required String programStatus,
+    required int flex,
+  }) {
+    return Row(
+      children: [
+        Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 5.0,
+              horizontal: 5.0,
+            ),
+            decoration: BoxDecoration(
+              color: (programStatus == ProgramStatus.active
+                      ? const Color(0xFF4B9F46)
+                      : programStatus == ProgramStatus.transferred
+                          ? Colors.amberAccent
+                          : programStatus == ProgramStatus.exit
+                              ? Colors.redAccent
+                              : programStatus == ProgramStatus.graduated
+                                  ? const Color(0xFF1F8DCE)
+                                  : Colors.blueGrey)
+                  .withOpacity(0.2),
+              border: Border.all(
+                color: programStatus == ProgramStatus.active
+                    ? const Color(0xFF4B9F46)
+                    : programStatus == ProgramStatus.transferred
+                        ? Colors.amberAccent
+                        : programStatus == ProgramStatus.exit
+                            ? Colors.redAccent
+                            : programStatus == ProgramStatus.graduated
+                                ? const Color(0xFF1F8DCE)
+                                : Colors.blueGrey,
+              ),
+              borderRadius: BorderRadius.circular(35.0),
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 2.0,
+            ),
+            child: Text(
+              programStatus,
+              style: const TextStyle().copyWith(
+                color: programStatus == ProgramStatus.active
+                    ? const Color(0xFF4B9F46)
+                    : programStatus == ProgramStatus.transferred
+                        ? Colors.amberAccent.shade700
+                        : programStatus == ProgramStatus.exit
+                            ? Colors.redAccent
+                            : programStatus == ProgramStatus.graduated
+                                ? const Color(0xFF1F8DCE)
+                                : Colors.blueGrey,
+                fontSize: 12.0,
+              ),
+            ))
+      ],
+    );
+  }
+
+  Container _getChildStatusRow({
+    required String status,
+  }) {
+    String key = 'Status';
+    double fontSize = 13.0;
+    Color keyColor = const Color(0xFF92A791);
+
+    return status.isEmpty
+        ? Container()
+        : Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 2.0,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  key,
+                  style: const TextStyle().copyWith(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.w500,
+                    color: keyColor,
+                  ),
+                ),
+                _getStatus(programStatus: status, flex: 2),
+              ],
+            ),
+          );
   }
 
   @override
@@ -143,16 +231,6 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                           _getOvcChildInfoDetailsWidget(
                             currentLanguage: currentLanguage,
                             key: currentLanguage == 'lesotho'
-                                ? 'Mohlokomeli'
-                                : 'Caregiver',
-                            value: currentOvcHousehold.toString(),
-                            keyColor: const Color(0xFF92A791),
-                            valueColor: const Color(0xFF4B9F46),
-                            fontSize: 12.0,
-                          ),
-                          _getOvcChildInfoDetailsWidget(
-                            currentLanguage: currentLanguage,
-                            key: currentLanguage == 'lesotho'
                                 ? 'Nomoro ea mohala'
                                 : 'Phone #',
                             value: currentOvcHousehold!.phoneNumber ?? '',
@@ -166,6 +244,30 @@ class OvcChildInfoTopHeader extends StatelessWidget {
                                 ? 'Motse'
                                 : 'Village',
                             value: currentOvcHousehold.village ?? '',
+                            keyColor: const Color(0xFF92A791),
+                            valueColor: const Color(0xFF4B9F46),
+                            fontSize: 12.0,
+                          ),
+                          _getChildStatusRow(
+                              status: currentOvcHouseholdChild.ovcStatus ?? ''),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 5.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _getOvcChildInfoDetailsWidget(
+                            currentLanguage: currentLanguage,
+                            key: currentLanguage == 'lesotho'
+                                ? 'Mohlokomeli'
+                                : 'Caregiver',
+                            value: currentOvcHousehold.toString(),
                             keyColor: const Color(0xFF92A791),
                             valueColor: const Color(0xFF4B9F46),
                             fontSize: 12.0,

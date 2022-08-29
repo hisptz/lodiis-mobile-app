@@ -116,6 +116,11 @@ class OgacInterventionHome extends StatelessWidget {
     }
   }
 
+  void refreshBeneficiaryList(
+      OgacInterventionListState ogacInterventionListState) {
+    ogacInterventionListState.refreshOgacNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<OgacInterventionListState>(
@@ -133,56 +138,60 @@ class OgacInterventionHome extends StatelessWidget {
   Consumer<OgacInterventionListState> _buildBody() {
     return Consumer<OgacInterventionListState>(
       builder: (context, ogacInterventionListState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, ogacBeneficiary, child) =>
-              OgacBeneficiaryCard(
-            ogacBeneficiary: ogacBeneficiary,
-            onEditBeneficiary: () =>
-                onEditBeneficiary(context, ogacBeneficiary),
-            onViewBeneficiary: () =>
-                onViewBeneficiary(context, ogacBeneficiary),
-          ),
-          pagingController: ogacInterventionListState.pagingController,
-          emptyListWidget: Center(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 10.0,
-                  ),
-                  child: const Text(
-                    'There is no OGAC beneficiaries enrolled at moment',
-                  ),
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
-                  ),
-                  onPressed: () => onAddOgacBeneficiary(context),
-                )
-              ],
+        return RefreshIndicator(
+          onRefresh: () async =>
+              refreshBeneficiaryList(ogacInterventionListState),
+          child: CustomPaginatedListView(
+            childBuilder: (context, ogacBeneficiary, child) =>
+                OgacBeneficiaryCard(
+              ogacBeneficiary: ogacBeneficiary,
+              onEditBeneficiary: () =>
+                  onEditBeneficiary(context, ogacBeneficiary),
+              onViewBeneficiary: () =>
+                  onViewBeneficiary(context, ogacBeneficiary),
             ),
-          ),
-          errorWidget: Center(
-            child: Column(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 10.0,
+            pagingController: ogacInterventionListState.pagingController,
+            emptyListWidget: Center(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: const Text(
+                      'There is no OGAC beneficiaries enrolled at moment',
+                    ),
                   ),
-                  child: const Text(
-                    'There is no OGAC beneficiaries enrolled at moment',
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/add-beneficiary.svg',
+                      color: Colors.blueGrey,
+                    ),
+                    onPressed: () => onAddOgacBeneficiary(context),
+                  )
+                ],
+              ),
+            ),
+            errorWidget: Center(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 10.0,
+                    ),
+                    child: const Text(
+                      'There is no OGAC beneficiaries enrolled at moment',
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
-                  ),
-                  onPressed: () => onAddOgacBeneficiary(context),
-                )
-              ],
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/add-beneficiary.svg',
+                      color: Colors.blueGrey,
+                    ),
+                    onPressed: () => onAddOgacBeneficiary(context),
+                  )
+                ],
+              ),
             ),
           ),
         );

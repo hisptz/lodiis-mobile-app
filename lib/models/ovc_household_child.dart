@@ -1,4 +1,5 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
 class OvcHouseholdChild {
@@ -10,10 +11,13 @@ class OvcHouseholdChild {
   String? surname;
   String? sex;
   String? age;
+  String? phoneNumber;
   String? orgUnit;
   String? createdDate;
   String? hivStatus;
   bool? enrollmentOuAccessible;
+  String? ovcStatus;
+  bool? isChildPrimary;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -25,12 +29,31 @@ class OvcHouseholdChild {
     this.surname,
     this.sex,
     this.age,
+    this.phoneNumber,
     this.orgUnit,
     this.createdDate,
     this.hivStatus,
     this.enrollmentOuAccessible,
+    this.isChildPrimary,
+    this.ovcStatus,
     this.teiData,
   });
+
+  Map toMap({
+    required String parentId,
+  }) {
+    Map dataOject = {
+      "parentTrackedEntityInstance": parentId,
+      "orgUnit": orgUnit,
+      "enrollmentDate": createdDate,
+      "incidentDate": createdDate,
+      "trackedEntityInstance": id,
+    };
+    for (Map attributeObj in teiData!.attributes ?? []) {
+      dataOject[attributeObj['attribute']] = attributeObj['value'];
+    }
+    return dataOject;
+  }
 
   OvcHouseholdChild fromTeiModel(
     TrackedEntityInstance tei,
@@ -45,6 +68,10 @@ class OvcHouseholdChild {
       'ls9hlz2tyol',
       'vIX4GTSCX4P',
       'wmKqYZML8GA',
+      'PN92g65TkVI',
+      'KO5NC4pfBmv',
+      'qZP982qpSPS',
+      BeneficiaryIdentification.phoneNumber,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
     ];
@@ -55,13 +82,15 @@ class OvcHouseholdChild {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
     }
+    int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return OvcHouseholdChild(
         id: tei.trackedEntityInstance,
         firstName: data['WTZ7GLTrE8Q'] ?? '',
         middleName: data['s1HaiT6OllL'] ?? '',
         surname: data['rSP9c21JsfC'] ?? '',
         sex: data['vIX4GTSCX4P'] ?? '',
-        age: data['ls9hlz2tyol'] ?? '',
+        age: '$age',
+        phoneNumber: data[BeneficiaryIdentification.phoneNumber] ?? '',
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
@@ -71,6 +100,8 @@ class OvcHouseholdChild {
                 : 'Negative'
             : '',
         enrollmentOuAccessible: enrollmentOuAccessible,
+        isChildPrimary: "${data['KO5NC4pfBmv']}" == 'true',
+        ovcStatus: data['PN92g65TkVI'] ?? '',
         orgUnit: orgUnit,
         teiData: tei);
   }

@@ -28,6 +28,7 @@ class BeneficiaryFilterState with ChangeNotifier {
       if (_filters.containsKey(program)) {
         return (_filters[program] ?? []).firstWhere(
               (filter) => filter.keys.contains(key),
+              orElse: () => {},
             )[key] ??
             '';
       }

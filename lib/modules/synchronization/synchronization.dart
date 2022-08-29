@@ -7,7 +7,6 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/offline_data_summary.dart';
-import 'package:kb_mobile_app/modules/synchronization/components/synchronization_action_form.dart';
 import 'package:kb_mobile_app/modules/synchronization/components/synchronization_progress.dart';
 import 'package:kb_mobile_app/modules/synchronization/conflict_on_download_page.dart';
 import 'package:kb_mobile_app/modules/synchronization/constants/synchronization_actions_constants.dart';
@@ -23,12 +22,7 @@ class Synchronization extends StatefulWidget {
 
 class _SynchronizationState extends State<Synchronization> {
   final String label = 'Data Synchronization';
-  String? selectedSyncAction = '';
-
-  void onStartDataUpload(BuildContext context) async {
-    await Provider.of<SynchronizationState>(context, listen: false)
-        .startDataUploadActivity();
-  }
+  String selectedSyncAction = SynchronizationActionsConstants.downloadAndUpload;
 
   void onViewConflicts(BuildContext context) async {
     Navigator.push(context, MaterialPageRoute(
@@ -38,22 +32,10 @@ class _SynchronizationState extends State<Synchronization> {
     ));
   }
 
-  void onStartDataDownload(BuildContext context) async {
-    try {
-      await Provider.of<SynchronizationState>(context, listen: false)
-          .startDataDownloadActivity();
-    } catch (e) {
-      //
-    }
-  }
-
-  void initializeSynchronization(BuildContext context,
-      {String? syncAction}) async {
-    setState(() {
-      selectedSyncAction = syncAction;
-    });
+  void initializeSynchronization(BuildContext context) async {
     await Provider.of<SynchronizationState>(context, listen: false)
-        .startSyncActivity(syncAction: syncAction);
+        .startSyncActivity(
+            syncAction: SynchronizationActionsConstants.downloadAndUpload);
   }
 
   @override
@@ -129,21 +111,11 @@ class _SynchronizationState extends State<Synchronization> {
                           margin: const EdgeInsets.symmetric(vertical: 5.0),
                           child: OfflineDataSummary(
                               beneficiaryCount: beneficiaryCount,
-                              beneficiaryServiceCount: beneficiaryServiceCount),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: SynchronizationActionForm(
-                              selectedSyncAction: selectedSyncAction != ''
-                                  ? selectedSyncAction
-                                  : beneficiaryCount > 0 ||
-                                          beneficiaryServiceCount > 0
-                                      ? SynchronizationActionsConstants().upload
-                                      : '',
+                              syncAction: selectedSyncAction,
                               isSyncActive: isSyncActive,
                               onInitializeSyncAction: (String? syncAction) =>
-                                  initializeSynchronization(context,
-                                      syncAction: syncAction)),
+                                  initializeSynchronization(context),
+                              beneficiaryServiceCount: beneficiaryServiceCount),
                         ),
                         Visibility(
                           visible:

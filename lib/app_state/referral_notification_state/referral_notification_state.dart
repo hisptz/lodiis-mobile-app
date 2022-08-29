@@ -18,7 +18,7 @@ class ReferralNotificationState with ChangeNotifier {
   String get currentImplementingPartner => _currentImplementingPartner ?? "";
   List<String> get beneficiariesWithIncomingReferrals =>
       _beneficiariesWithIncomingReferrals ?? [];
-  List<String?> get incomingReferrals => _incomingReferrals ?? [];
+  List<String>? get incomingReferrals => _incomingReferrals ?? [];
   List<ReferralEventNotification> get incomingResolvedReferrals =>
       _incomingResolvedReferrals ?? [];
   String get incomingReferralsResolvedIndicator =>
@@ -26,15 +26,11 @@ class ReferralNotificationState with ChangeNotifier {
   String get incomingReferralToResolveIndicator =>
       _incomingReferralToResolveIndicator ?? "";
   List<String> get teiWithIncomingResolvedReferrals =>
-      getListOfTeiWithIncomingResolvedReferrals();
-
-  List<String> getListOfTeiWithIncomingResolvedReferrals() {
-    List<String> teiList = [];
-    for (var referral in _incomingResolvedReferrals!) {
-      teiList.add(referral.tei);
-    }
-    return teiList.toSet().toList();
-  }
+      _incomingResolvedReferrals!
+          .map((referral) => referral.tei)
+          .toList()
+          .toSet()
+          .toList();
 
   // reducer for the state
   Future<void> setCurrentImplementingPartner(String implementingPartner) async {
@@ -110,7 +106,7 @@ class ReferralNotificationState with ChangeNotifier {
     notifyListeners();
   }
 
-  updateReferralNotificationEvent(
+  Future<void> updateReferralNotificationEvent(
     String? referralEventId,
     String? tei,
     bool isCompleted,

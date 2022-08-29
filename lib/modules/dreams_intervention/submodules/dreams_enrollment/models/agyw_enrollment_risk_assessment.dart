@@ -17,7 +17,6 @@ class AgywEnrollmentRiskAssessment {
       'GwVHeyOqTv2',
       'T3i6bQ3tCaA',
       'q8qPtzanSTU',
-      // 'ojCwZf1iHOE',
       'LNaNh7kvh4X',
       'wGFmu7DhNGV',
       'G1s75wng5DY',
@@ -60,6 +59,15 @@ class AgywEnrollmentRiskAssessment {
       'aIJoCMWUqBs',
       'zowQOCZivv8',
       'RB8Wx75hGa4',
+      'dQPw7EzqJP6',
+      'fEHah8SvP35',
+      'x6VFmJLsqgx',
+      'OmOU8n78dg7',
+      's1eRvsL2Ly4',
+      'YQ9G0ww2cDN',
+      'auPInwvDZjF',
+      'dxp3qM2TgUc',
+      'iS9mAp3jDaU'
     ];
   }
 
@@ -73,6 +81,7 @@ class AgywEnrollmentRiskAssessment {
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
             translatedName: 'Lebitso la pele',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -81,6 +90,7 @@ class AgywEnrollmentRiskAssessment {
             id: 's1HaiT6OllL',
             name: 'Middle Name',
             translatedName: 'Lebitso le mahareng',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -89,6 +99,7 @@ class AgywEnrollmentRiskAssessment {
             id: 'rSP9c21JsfC',
             name: 'Surname',
             translatedName: 'Le Fane',
+            regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -180,6 +191,14 @@ class AgywEnrollmentRiskAssessment {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
+            id: 'dQPw7EzqJP6',
+            name: 'Land mark near residence',
+            translatedName: 'Sebaka se tsejoang haufi',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
               id: '',
               name: 'Have you been a member of',
               translatedName:
@@ -248,10 +267,6 @@ class AgywEnrollmentRiskAssessment {
                     translatedName:
                         'Melaetsa e Hlahlobang ho ba Kotsing ea Tšoaetso ea HIV'),
                 InputFieldOption(
-                    code: 'PdP87EJdp8D',
-                    name: 'VMMC DREAMS intervention?',
-                    translatedName: 'Ho rola katiba'),
-                InputFieldOption(
                     code: 'uzfQwO4ypIP',
                     name: 'ART DREAMS intervention?',
                     translatedName: 'Kalafo ea HIV ka Lipilisi '),
@@ -264,27 +279,19 @@ class AgywEnrollmentRiskAssessment {
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
-            id: 'dxp3qM2TgUc',
-            name: '1. Name of parent/caregiver',
-            translatedName: '1. Lebitso la motsoali/mohlokomeli',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
             id: 'YQ9G0ww2cDN',
-            name: '2. AGYW’s father given name',
+            name: '1. AGYW’s father given name',
             translatedName:
-                '2. Lebitso la ntate oa moroetsana/mosali ea mocha lilemong (AGYW)',
+                '1. Lebitso la ntate oa moroetsana/mosali ea mocha lilemong (AGYW)',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'auPInwvDZjF',
-            name: '3. AGYW’s mother given name',
+            name: '2. AGYW’s mother given name',
             translatedName:
-                '3. Lebitso la ’m’e oa moroetsana/mosali ea mocha lilemong',
+                '2. Lebitso la ’m’e oa moroetsana/mosali ea mocha lilemong',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -292,9 +299,55 @@ class AgywEnrollmentRiskAssessment {
           InputField(
             id: 'NrYoz8RewxV',
             name:
-                '4. If the AGYW comes from child headed family,Name of the Sister/Brother',
+                '3. If the AGYW comes from child headed family,Name of the Sister/Brother',
             translatedName:
-                '4. Haeba moroetsana/mosali ea mocha lilemong a tsoa lelapeng leo hloho ea lelapa e leng ngoana, fana ka lebitso la ngoana eo',
+                '3. Haeba moroetsana/mosali ea mocha lilemong a tsoa lelapeng leo hloho ea lelapa e leng ngoana, fana ka lebitso la ngoana eo',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'dxp3qM2TgUc',
+            name: '4. Name of parent/caregiver',
+            translatedName: '4. Lebitso la motsoali/mohlokomeli',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'iS9mAp3jDaU',
+            name: '5. Relationship to Caregiver',
+            translatedName: '5. Kamano le mohlokomeli',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+            options: [
+              InputFieldOption(
+                  code: 'Biological mother', name: 'Biological mother'),
+              InputFieldOption(
+                  code: 'Biological father', name: 'Biological father'),
+              InputFieldOption(
+                  code: 'Aunt/Uncle',
+                  name: 'Aunt/Uncle',
+                  translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane'),
+              InputFieldOption(
+                  code: 'Sibling',
+                  name: 'Sibling',
+                  translatedName: 'Ke ngoaneso'),
+              InputFieldOption(
+                  code: 'Grandparent',
+                  name: 'Grandparent',
+                  translatedName: 'Ke Nkhono/Ntate-moholo'),
+              InputFieldOption(
+                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane'),
+              InputFieldOption(
+                  code: 'Other', name: 'Other', translatedName: 'Tse ling')
+            ],
+          ),
+          InputField(
+            id: 'nuka3TRVCnJ',
+            name: 'Other relationship to caregiver',
+            translatedName: 'Tse ling (hlalosa)',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -302,9 +355,9 @@ class AgywEnrollmentRiskAssessment {
           InputField(
             id: 'pvjIijxEJGp',
             name:
-                '5. Phone number of parent/caregiver/heads of the family if available',
+                '6. Phone number of parent/caregiver/heads of the family if available',
             translatedName:
-                '5. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
+                '6. Nomoro ea fono ea motsoali/mohlokomeli/hloho ea lelapa',
             valueType: 'PHONE_NUMBER',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -371,14 +424,6 @@ class AgywEnrollmentRiskAssessment {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
               ),
-              // InputField(
-              //     id: 'ojCwZf1iHOE',
-              //     name: 'f. Do you have a current sexual partner?',
-              //     translatedName:
-              //         'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
-              //     valueType: 'BOOLEAN',
-              //     inputColor: Color(0xFF258DCC),
-              //     labelColor: Color(0xFF737373),),
             ],
           ),
           FormSection(
@@ -436,14 +481,6 @@ class AgywEnrollmentRiskAssessment {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
               ),
-              // InputField(
-              //     id: 'ojCwZf1iHOE',
-              //     name: 'f. Do you have a current sexual partner?',
-              //     translatedName:
-              //         'f. Na u na le motho eo u etsang thobalano le eena nakong ea joale?',
-              //     valueType: 'BOOLEAN',
-              //     inputColor: Color(0xFF258DCC),
-              //     labelColor: Color(0xFF737373),),
             ],
           ),
           FormSection(
@@ -1118,6 +1155,7 @@ class AgywEnrollmentRiskAssessment {
       ),
       FormSection(
         name: 'Enrollment Criteria',
+        id: 'E_O_C',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -1193,6 +1231,49 @@ class AgywEnrollmentRiskAssessment {
           ),
         ],
       ),
+      FormSection(
+        id: 'E_O_I',
+        name: 'Enrollment Instructions',
+        color: const Color(0xFF258DCC),
+        inputFields: [
+          InputField(
+              id: 'fEHah8SvP35',
+              name:
+                  'Is she currently residing in a community council/ district you are implementing DREAMS?',
+              translatedName:
+                  'Na nakong ea joale o lula k’hanseleng/seterekeng seo le kentseng lenane la DREAMS?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'x6VFmJLsqgx',
+              name:
+                  'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
+              translatedName:
+                  'Bakeng sa baroetsana ba lilemo tse 9 hoisa ho 12, na motsoali/mohlokomeli o fane ka tumello ea hore moroetsana a kene lenaneng la DREAMS?',
+              valueType: 'BOOLEAN',
+              description: 'Ensure you have documented consent in AGYW file.',
+              translatedDescription:
+                  'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'OmOU8n78dg7',
+              name: 'Has the AGYW agreed to be enrolled in DREAMS?',
+              translatedName:
+                  'Na moroetsana/mosali ea mocha lilemong o lumetse ho kena lenaneng la DREAMS?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'L1Z7gkuKtbs',
+              name: 'Comments/Notes',
+              translatedName: 'Tlhakiso',
+              valueType: 'LONG_TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+        ],
+      )
     ];
   }
 }

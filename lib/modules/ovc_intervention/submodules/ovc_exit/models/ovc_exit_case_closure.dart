@@ -23,7 +23,9 @@ class OvcExitCaseClosure {
     ];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Case closure checklist',
@@ -33,6 +35,7 @@ class OvcExitCaseClosure {
                 id: 'S6vcaNyPT5a',
                 name: 'Date of Household Exited from the OVC Program',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF07AD40),
                 labelColor: const Color(0xFF737373)),
             InputField(

@@ -89,7 +89,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
           Container(
             margin: const EdgeInsets.only(top: 5.0),
             child: Text(
-                'Starting ${widget.syncAction == SynchronizationActionsConstants().download ? "Download" : widget.syncAction == SynchronizationActionsConstants().upload ? "Upload" : "Synchronization"}. Please wait, this might take a while.',
+                'Starting ${widget.syncAction == SynchronizationActionsConstants.download ? "Download" : widget.syncAction == SynchronizationActionsConstants.upload ? "Upload" : "Synchronization"}. Please wait, this might take a while.',
                 textAlign: TextAlign.center,
                 style: const TextStyle().copyWith(
                   fontSize: 12.0,
@@ -121,7 +121,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
           ),
           Visibility(
             visible: widget.syncAction ==
-                SynchronizationActionsConstants().downloadAndUpload,
+                SynchronizationActionsConstants.downloadAndUpload,
             child: Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
@@ -148,7 +148,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
           ),
           Visibility(
             visible: widget.syncAction ==
-                SynchronizationActionsConstants().downloadAndUpload,
+                SynchronizationActionsConstants.downloadAndUpload,
             child: Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
@@ -175,7 +175,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
           ),
           Visibility(
             visible: widget.syncAction !=
-                SynchronizationActionsConstants().downloadAndUpload,
+                SynchronizationActionsConstants.downloadAndUpload,
             child: Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
@@ -202,7 +202,7 @@ class _SynchronizationProgressState extends State<SynchronizationProgress> {
           ),
           Visibility(
             visible: widget.syncAction !=
-                SynchronizationActionsConstants().downloadAndUpload,
+                SynchronizationActionsConstants.downloadAndUpload,
             child: Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(

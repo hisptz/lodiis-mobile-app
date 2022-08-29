@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
+import 'package:kb_mobile_app/core/utils/app_info_util.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
@@ -16,7 +17,7 @@ class OvcEnrollmentNoneParticipationService {
       OvcEnrollmentNoneParticipationConstant.getNoneParticipationConstant();
 
   Future saveNoneParticipationForm(
-      List<FormSection> formSections, Map dataObject, String eventId) async {
+      List<FormSection> formSections, Map dataObject, String? eventId) async {
     List<String> inputFieldIds = FormUtil.getFormFieldIds(
       formSections,
     );
@@ -29,9 +30,13 @@ class OvcEnrollmentNoneParticipationService {
         dataObject[dataElement] = dataObject[attribute];
       }
     }
+    String appAndDeviceTrackingDataElement =
+        await AppInfoUtil.getAppAndDeviceTrackingInfo();
     if (eventId == null) {
       inputFieldIds.add(UserAccountReference.implementingPartnerDataElement);
       inputFieldIds.add(UserAccountReference.subImplementingPartnerDataElement);
+      inputFieldIds.add(UserAccountReference.serviceProviderDataElement);
+      inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
       CurrentUser? user = await (UserService().getCurrentUser());
       dataObject[UserAccountReference.implementingPartnerDataElement] =
           dataObject[UserAccountReference.implementingPartnerDataElement] ??
@@ -46,9 +51,11 @@ class OvcEnrollmentNoneParticipationService {
                 user.subImplementingPartner;
       }
     }
-
-    eventId =
-        eventId == null ? dataObject['eventId'] ?? AppUtil.getUid() : eventId;
+    dataObject[UserAccountReference.appAndDeviceTrackingDataElement] =
+        dataObject[UserAccountReference.appAndDeviceTrackingDataElement] ??
+            appAndDeviceTrackingDataElement;
+    inputFieldIds.add(UserAccountReference.appAndDeviceTrackingDataElement);
+    eventId = eventId ?? dataObject['eventId'] ?? AppUtil.getUid();
     Events eventData = FormUtil.getEventPayload(eventId, program, programStage,
         dataObject['location'], inputFieldIds, dataObject, null, null);
     await FormUtil.savingEvent(eventData);

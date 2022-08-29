@@ -295,6 +295,7 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
         var inputValue = '${dataObject['QnFYeBNZlbf']}';
         if (inputValue == 'true') {
           hiddenFields['EnrZPBFxZuX'] = false;
+          hiddenFields['vXuVPQLxw1d'] = false;
           hiddenFields['xdI5atw8DC4'] = false;
         }
       } else if (key == 'HsxFZOuV4oZ' && value == 'true') {

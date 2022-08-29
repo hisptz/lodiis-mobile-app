@@ -3,9 +3,14 @@ import 'dart:ui';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/constants/agyw_dreams_common_constant.dart';
 
 class DreamsReferralFollowUp {
-  static List<FormSection> getFormSections() {
+  static List<String> getMandatoryFields() {
+    return ['DPf5mUDoZMy', 'VHe4ctA0bqU'];
+  }
+
+  static List<FormSection> getFormSections({required String firstDate}) {
     return [
       FormSection(
           name: 'Referral Follow Up',
@@ -15,14 +20,15 @@ class DreamsReferralFollowUp {
               id: 'DPf5mUDoZMy',
               name: 'Follow-up date',
               valueType: 'DATE',
-              inputColor: const Color(0xFF1F8ECE),
+              firstDate: firstDate,
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
                 id: 'VHe4ctA0bqU',
                 name: 'Follow-up Status',
                 valueType: 'TEXT',
-                inputColor: const Color(0xFF1F8ECE),
+                inputColor: AgywDreamsCommonConstant.defaultColor,
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(code: 'Complete', name: 'Complete'),
@@ -32,14 +38,14 @@ class DreamsReferralFollowUp {
               id: 'BzkeBAxdEVT',
               name: 'Additional follow up required',
               valueType: 'BOOLEAN',
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
               valueType: 'LONG_TEXT',
-              inputColor: const Color(0xFF1F8ECE),
+              inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
             ),
           ])

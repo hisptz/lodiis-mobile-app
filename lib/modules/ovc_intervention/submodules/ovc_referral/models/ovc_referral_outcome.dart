@@ -7,7 +7,9 @@ class OvcReferralOutCome {
     return ['p7saxV2libq'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Referral Outcome',
@@ -19,6 +21,7 @@ class OvcReferralOutCome {
               translatedName:
                   'Letsatsi, khoeli le selemo se mosebeletsuoa a fumanang ts’ebeletso',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
             ),
@@ -26,6 +29,7 @@ class OvcReferralOutCome {
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
             ),
@@ -42,6 +46,7 @@ class OvcReferralOutCome {
               disablePastPeriod: true,
               name: 'Follow-up date',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
             ),
@@ -56,6 +61,7 @@ class OvcReferralOutCome {
               id: 'yGf4w48y1Jt',
               name: 'Date Contacted for Feedback',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
             ),

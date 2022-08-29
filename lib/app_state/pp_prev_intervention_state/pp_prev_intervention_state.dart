@@ -13,18 +13,23 @@ class PpPrevInterventionState with ChangeNotifier {
   bool? _isLoading;
   int _numberOfPpPrev = 0;
   int _numberOfPages = 0;
-  int _numberOfSearchablePages = 0;
   int? _nextPage = 0;
-  String _searchableValue = '';
+  Map _searchedAttributes = {};
   List<Map<String, dynamic>> _ppPrevFilters = [];
   PagingController? _ppPrevPagingController;
 
   PpPrevInterventionState(this.context);
 
+  Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
-  int get numberOfPpPrev => _numberOfPpPrev;
-  int get numberOfPages =>
-      _searchableValue == '' ? _numberOfPages : _numberOfSearchablePages;
+  int get numberOfPpPrev => _searchedAttributes.isEmpty
+      ? _numberOfPpPrev
+      : _ppPrevPagingController != null
+          ? _ppPrevPagingController!.itemList != null
+              ? _ppPrevPagingController!.itemList!.length
+              : 0
+          : 0;
+  int get numberOfPages => _numberOfPages;
   List<Map<String, dynamic>> get ppPrevFilters => _ppPrevFilters
       .where((Map<String, dynamic> filter) => filter.isNotEmpty)
       .toList();
@@ -56,22 +61,30 @@ class PpPrevInterventionState with ChangeNotifier {
   }
 
   Future<void> _fetchPpPrevPage(int pageKey) async {
-    String searchableValue = _searchableValue;
+    Map searchedAttributes = _searchedAttributes;
     List ppPrevList = await PpPrevEnrollmentService().getBeneficiaries(
         page: pageKey,
-        searchableValue: searchableValue,
+        searchedAttributes: searchedAttributes,
         filters: _ppPrevFilters);
     if (ppPrevList.isEmpty && pageKey < numberOfPages) {
       _fetchPpPrevPage(pageKey + 1);
     } else {
-      getNumberOfPages();
-      PaginationService.assignPagesToController(
-        _ppPrevPagingController,
-        ppPrevList,
-        pageKey,
-        numberOfPages,
-      );
+      if (_searchedAttributes.isEmpty) {
+        getNumberOfPages();
+        PaginationService.assignPagesToController(
+          _ppPrevPagingController,
+          ppPrevList,
+          pageKey,
+          numberOfPages,
+        );
+      } else {
+        PaginationService.assignLastPageToController(
+          _ppPrevPagingController,
+          ppPrevList,
+        );
+      }
     }
+    notifyListeners();
   }
 
   Future<void> _getPpPrevBeneficiaryNumber() async {
@@ -81,7 +94,7 @@ class PpPrevInterventionState with ChangeNotifier {
 
   Future<void> refreshPpPrevNumber() async {
     _isLoading = true;
-    _searchableValue = '';
+    _searchedAttributes.clear();
     notifyListeners();
     await _getPpPrevBeneficiaryNumber();
     getNumberOfPages();
@@ -96,8 +109,8 @@ class PpPrevInterventionState with ChangeNotifier {
         .resetSyncStatusReferences();
   }
 
-  void searchPpPrevList(String value) {
-    _searchableValue = value;
+  void searchPpPrevList(Map searchedAttributes) {
+    _searchedAttributes = searchedAttributes;
     notifyListeners();
     if (_ppPrevInterventionList.isEmpty) {
       _ppPrevInterventionList =
@@ -105,7 +118,7 @@ class PpPrevInterventionState with ChangeNotifier {
               <PpPrevBeneficiary>[];
       _nextPage = _ppPrevPagingController!.nextPageKey;
     }
-    if (value != '') {
+    if (searchedAttributes.isNotEmpty) {
       refreshPpPrevList();
     } else {
       _ppPrevPagingController!.itemList = _ppPrevInterventionList;
@@ -130,8 +143,6 @@ class PpPrevInterventionState with ChangeNotifier {
   void getNumberOfPages() {
     _numberOfPages =
         (_numberOfPpPrev / PaginationConstants.paginationLimit).ceil();
-    _numberOfSearchablePages =
-        (_numberOfPpPrev / PaginationConstants.searchingPaginationLimit).ceil();
     notifyListeners();
   }
 }

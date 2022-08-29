@@ -8,7 +8,9 @@ class EducationBursaryAttendanceForm {
     return ['eventDate', 'WvYI4dliZyk'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Attendance',

@@ -5,10 +5,12 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceForm {
   static List<String> getMandatoryField() {
-    return ['Eug4BXDFLym'];
+    return ['Eug4BXDFLym', 'vL6NpUA0rIU'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           name: 'Service Form',
@@ -33,33 +35,30 @@ class DreamsServiceForm {
                 options: [
                   InputFieldOption(
                       code: 'AFLATEEN/TOUN', name: 'AFLATEEN/TOUN'),
-                  InputFieldOption(
-                      code: 'PTS 4 NON-GRADS', name: 'PTS 4 NON-GRADS'),
-                  InputFieldOption(code: 'PTS 4-GRADS', name: 'PTS 4-GRADS'),
                   InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
                   InputFieldOption(code: 'PARENTING', name: 'PARENTING'),
                   InputFieldOption(code: 'SILC', name: 'SILC'),
                   InputFieldOption(code: 'SAVING GROUP', name: 'SAVING GROUP'),
                   InputFieldOption(
-                      code: 'FINANCIAL EDUCATION', name: 'FINANCIAL EDUCATION'),
+                      code: 'FinancialLiteracyEducation',
+                      name: 'Financial Literacy (Education)'),
                   InputFieldOption(
-                      code: 'STEPPING STONES', name: 'STEPPING STONES'),
-                  InputFieldOption(code: 'IPC', name: 'IPC'),
+                      code: 'ViolencePreventionEducation',
+                      name: 'Voilence Prevention Education (GBV/VAC)'),
+                  InputFieldOption(
+                      code: 'CondomEducationProvision',
+                      name: 'Condom Education/Provision'),
                   InputFieldOption(code: 'LBSE', name: 'LBSE'),
                   InputFieldOption(
-                      code: 'GBV Messaging', name: 'GBV Messaging'),
-                  InputFieldOption(
-                      code: 'VAC Messaging', name: 'VAC Messaging'),
-                  InputFieldOption(
-                      code: 'VAC Legal Messaging', name: 'VAC Legal Messaging'),
-                  InputFieldOption(
-                      code: 'GBV Legal Messaging', name: 'GBV Legal Messaging')
+                      code: 'HIV Prevention Education',
+                      name: 'HIV Prevention Education'),
                 ]),
             InputField(
               id: 'O7sjTjxUmEa',
               name: 'Session date',
               translatedName: 'Letsatsi la Thupelo',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),

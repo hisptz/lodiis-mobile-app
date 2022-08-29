@@ -19,7 +19,7 @@ import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_bar_util.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/core/utils/app_version_update.dart';
-import 'package:kb_mobile_app/models/intervention_bottom_navigation.dart';
+import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -85,7 +85,7 @@ class _EducationInterventionState extends State<EducationIntervention>
     VersionStatus? versionStatus =
         Provider.of<AppInfoState>(context, listen: false).versionStatus;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (shouldShowUpdateWarning && versionStatus != null) {
+      if (shouldShowUpdateWarning) {
         AppVersionUpdate.showAppUpdateWarning(context, versionStatus);
       }
     });
@@ -192,7 +192,7 @@ class _EducationInterventionState extends State<EducationIntervention>
                         activeInterventionProgram);
             return Scaffold(
               appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(105),
+                preferredSize: const Size.fromHeight(110),
                 child: InterventionAppBar(
                   activeInterventionProgram: activeInterventionProgram,
                   onClickHome: onClickHome,

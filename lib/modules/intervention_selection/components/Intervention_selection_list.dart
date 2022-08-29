@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_card.dart';
 
-
 class InterventionSelectionList extends StatefulWidget {
   const InterventionSelectionList({
     Key? key,

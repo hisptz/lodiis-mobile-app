@@ -19,6 +19,7 @@ class InputFieldContainer extends StatelessWidget {
   const InputFieldContainer({
     Key? key,
     required this.inputField,
+    this.lastUpdatedId = '',
     required this.currentLanguage,
     required this.hiddenInputFieldOptions,
     required this.hiddenFields,
@@ -31,6 +32,7 @@ class InputFieldContainer extends StatelessWidget {
   }) : super(key: key);
 
   final InputField inputField;
+  final String? lastUpdatedId;
   final String? currentLanguage;
   final bool? isEditableMode;
   final Function? onInputValueChange;
@@ -294,6 +296,7 @@ class InputFieldContainer extends StatelessWidget {
                                   inputField.valueType == 'LONG_TEXT'
                               ? TextInputFieldContainer(
                                   inputField: inputField,
+                                  lastUpdatedId: lastUpdatedId,
                                   inputValue: dataObject![inputField.id],
                                   onInputValueChange: (dynamic value) =>
                                       onInputValueChange!(inputField.id, value),
@@ -303,6 +306,7 @@ class InputFieldContainer extends StatelessWidget {
                                       inputField.valueType == 'NUMBER'
                                   ? NumericalInputFieldContainer(
                                       inputField: inputField,
+                                      lastUpdatedId: lastUpdatedId,
                                       inputValue: dataObject![inputField.id],
                                       onInputValueChange: (dynamic value) =>
                                           onInputValueChange!(

@@ -24,14 +24,24 @@ class AgywDreamsHTSShortFormSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       var value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && dataObject[inputFieldId] == null) {
-        hiddenFields['zbHpXUjGv5H'] = true;
-        hiddenFields['GHfoqXKlK6o'] = true;
-        hiddenFields['rJUdBXiukaI'] = true;
+      if (inputFieldId == 'zbHpXUjGv5H') {
+        if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['m4cRnpwgOlY'] = true;
+          hiddenFields['GHfoqXKlK6o'] = true;
+          hiddenFields['rJUdBXiukaI'] = true;
+        } else if (value == 'true') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        } else {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+          hiddenFields['m4cRnpwgOlY'] = true;
+          hiddenFields['GHfoqXKlK6o'] = true;
+          hiddenFields['rJUdBXiukaI'] = true;
+        }
       }
-      if (inputFieldId == 'zbHpXUjGv5H' && value != 'true') {
-        hiddenFields['GHfoqXKlK6o'] = true;
-        hiddenFields['rJUdBXiukaI'] = true;
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

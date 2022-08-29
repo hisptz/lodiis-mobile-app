@@ -70,8 +70,10 @@ class _PpPrevInterventionServiceProvisionFormState
       context,
       listen: false,
     ).currentPpPrev;
-    defaultFormSections = PpPrevServiceForm.getFormSections();
-    if (currentPpPrev!.enrollmentOuAccessible!) {
+    defaultFormSections = PpPrevServiceForm.getFormSections(
+      firstDate: currentPpPrev!.createdDate!,
+    );
+    if (currentPpPrev.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
       FormSection serviceProvisionForm =
@@ -121,8 +123,10 @@ class _PpPrevInterventionServiceProvisionFormState
     PpPrevBeneficiary ppPrevBeneficiary,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, defaultFormSections)) {
         setState(() {

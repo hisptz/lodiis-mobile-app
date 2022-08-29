@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 class LbseReferralOutcomeEvent {
   String? id;
   String? dateOfServiceProvided;
+  String? eventDate;
   String? comments;
   bool? isRequireFollowUp;
   String? referralToReferralOutcomeLinkage;
@@ -13,6 +14,7 @@ class LbseReferralOutcomeEvent {
 
   LbseReferralOutcomeEvent({
     this.id,
+    this.eventDate,
     this.dateOfServiceProvided,
     this.comments,
     this.isRequireFollowUp,
@@ -42,6 +44,7 @@ class LbseReferralOutcomeEvent {
     }
     return LbseReferralOutcomeEvent(
       id: eventData.event,
+      eventDate: eventData.eventDate,
       dateOfServiceProvided: data['lvT9gfpHIlT'] ?? '',
       comments: data['LcG4J82PM4Z'] ?? '',
       isRequireFollowUp: data['Ep3atnNQGTY'] == 'true',

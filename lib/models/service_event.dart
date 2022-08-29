@@ -43,29 +43,24 @@ class ServiceEvent {
   }
 
   String assignInterventionGroup(String interventionType) {
-    if (interventionType == 'AFLATEEN/TOUN' ||
-        interventionType == 'PTS 4 NON-GRADS' ||
-        interventionType == 'PTS 4-GRADS' ||
-        interventionType == 'Go Girls') {
+    if (interventionType == 'AFLATEEN/TOUN' || interventionType == 'Go Girls') {
       return '(SAB) Social Assets Building';
     } else if (interventionType == 'SILC' ||
         interventionType == 'SAVING GROUP' ||
-        interventionType == 'FINANCIAL EDUCATION') {
+        interventionType == 'FinancialLiteracyEducation') {
       return '(ES) Economic Strengthening';
     } else if (interventionType == 'STEPPING STONES' ||
-        interventionType == 'IPC' ||
+        interventionType == 'CondomEducationProvision' ||
         interventionType == 'LBSE') {
       return 'HIV & VIOLENCE PREVENTION';
     } else if (interventionType == 'PARENTING') {
       return 'PARENTING';
-    } else if (interventionType == 'GBV Messaging') {
-      return 'GBV Messaging';
-    } else if (interventionType == 'VAC Messaging') {
-      return 'VAC Messaging';
-    } else if (interventionType == 'VAC Legal Messaging') {
-      return 'VAC LEGAL MESSAGING';
-    } else if (interventionType == 'GBV Legal Messaging') {
-      return 'GBV LEGAL MESSAGING';
+    } else if (interventionType == 'GBV Messaging' ||
+        interventionType == 'VAC Legal Messaging' ||
+        interventionType == 'HIV Prevention Education' ||
+        interventionType == 'GBV Legal Messaging' ||
+        interventionType == 'VAC Messaging') {
+      return 'HIV Prevention Education';
     } else {
       return '';
     }

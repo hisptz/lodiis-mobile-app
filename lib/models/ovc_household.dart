@@ -1,5 +1,6 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
@@ -10,6 +11,7 @@ class OvcHousehold {
   String? surname;
   String? location;
   String? phoneNumber;
+  String? age;
   String? village;
   String? orgUnit;
   String? createdDate;
@@ -18,33 +20,39 @@ class OvcHousehold {
   String? ovcMaleCount;
   String? ovcFemaleCount;
   String? houseHoldStatus;
+  String? houseHoldCategorization;
   String? implementingPartner;
   String? searchableValue;
   bool? enrollmentOuAccessible;
+  bool? primaryChildExist;
+  bool? primaryChildHasExited;
   List<OvcHouseholdChild>? children;
   TrackedEntityInstance? teiData;
 
-  OvcHousehold({
-    this.id,
-    this.firstName,
-    this.middleName,
-    this.surname,
-    this.ovcMaleCount,
-    this.children,
-    this.primaryUIC,
-    this.secondaryUIC,
-    this.location,
-    this.phoneNumber,
-    this.village,
-    this.orgUnit,
-    this.createdDate,
-    this.ovcFemaleCount,
-    this.houseHoldStatus,
-    this.searchableValue,
-    this.enrollmentOuAccessible,
-    this.implementingPartner,
-    this.teiData,
-  });
+  OvcHousehold(
+      {this.id,
+      this.firstName,
+      this.middleName,
+      this.surname,
+      this.ovcMaleCount,
+      this.children,
+      this.primaryUIC,
+      this.secondaryUIC,
+      this.location,
+      this.phoneNumber,
+      this.age,
+      this.village,
+      this.orgUnit,
+      this.createdDate,
+      this.ovcFemaleCount,
+      this.houseHoldStatus,
+      this.houseHoldCategorization,
+      this.searchableValue,
+      this.enrollmentOuAccessible,
+      this.implementingPartner,
+      this.teiData,
+      this.primaryChildExist,
+      this.primaryChildHasExited});
 
   OvcHousehold fromTeiModel(
     TrackedEntityInstance tei,
@@ -66,6 +74,8 @@ class OvcHousehold {
       'BXUNH6LXeGA',
       'PN92g65TkVI',
       'RB8Wx75hGa4',
+      'qZP982qpSPS',
+      BeneficiaryIdentification.householdCategorization,
       UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
@@ -73,6 +83,8 @@ class OvcHousehold {
     Map<String, dynamic> data = {};
     for (Map attributeObject in tei.attributes) {
       String? attribute = attributeObject['attribute'];
+     
+
       if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${attributeObject['value']}'.trim();
       }
@@ -81,12 +93,14 @@ class OvcHousehold {
     String phoneNumber = getPhoneNumbers(data, phoneNumberIds);
     int maleCount = getChildCountBySex(children, 'male');
     int femaleCount = getChildCountBySex(children, 'female');
+    int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
     return OvcHousehold(
       id: tei.trackedEntityInstance,
       firstName: data['WTZ7GLTrE8Q'] ?? '',
       middleName: data['s1HaiT6OllL'] ?? '',
       surname: data['rSP9c21JsfC'] ?? '',
       location: location,
+      age: '$age',
       phoneNumber: phoneNumber != "" ? phoneNumber : 'N/A',
       village: village != "" ? village : 'N/A',
       orgUnit: orgUnit,
@@ -96,15 +110,32 @@ class OvcHousehold {
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
+      houseHoldCategorization:data['uetInX0KTfc']??'',
       implementingPartner:
           data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,
       searchableValue:
           "${data['WTZ7GLTrE8Q'] ?? ''} ${data['s1HaiT6OllL'] ?? ''} ${data['rSP9c21JsfC'] ?? ''} ${data[BeneficiaryIdentification.beneficiaryId] ?? ''} $location $createdDate"
               .toLowerCase(),
+      primaryChildExist: _doesPrimaryChildExist(children),
+      primaryChildHasExited: _hasPrimaryChildExited(children),
       children: children,
       teiData: tei,
     );
+  }
+
+  bool _doesPrimaryChildExist(List<OvcHouseholdChild> children) {
+    return children
+        .any((OvcHouseholdChild child) => child.isChildPrimary == true);
+  }
+
+  bool _hasPrimaryChildExited(List<OvcHouseholdChild> children) {
+    List<OvcHouseholdChild> primaryChildren = children
+        .where((OvcHouseholdChild child) => child.isChildPrimary == true)
+        .toList();
+    return primaryChildren.isNotEmpty &&
+        primaryChildren
+            .every((OvcHouseholdChild child) => child.ovcStatus == 'Exit');
   }
 
   String getPhoneNumbers(

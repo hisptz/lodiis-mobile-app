@@ -80,6 +80,11 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
     redirectToLbseEnrollmentForm(context);
   }
 
+  void refreshBeneficiaryList(
+      EducationLbseInterventionState educationLbseInterventionState) {
+    educationLbseInterventionState.refreshEducationLbseNumber();
+  }
+
   Center _getEmptyListContainer(BuildContext context) {
     return Center(
       child: Column(
@@ -100,24 +105,28 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
   Consumer<EducationLbseInterventionState> _buildBody() {
     return Consumer<EducationLbseInterventionState>(
       builder: (context, educationLbseInterventionState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, lbseBeneficiary, child) =>
-              EducationBeneficiaryCard(
-            canEdit: canEdit,
-            canView: canView,
-            canExpand: canExpand,
-            isExpanded: toggleCardId == lbseBeneficiary.id,
-            isLbseLearningOutcomeVisible: false,
-            isLbseReferralVisible: false,
-            isBursarySchoolVisible: false,
-            isBursaryClubVisible: false,
-            educationBeneficiary: lbseBeneficiary,
-            onView: () => onViewBeneficiary(context, lbseBeneficiary),
-            onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
+        return RefreshIndicator(
+          onRefresh: () async =>
+              refreshBeneficiaryList(educationLbseInterventionState),
+          child: CustomPaginatedListView(
+            childBuilder: (context, lbseBeneficiary, child) =>
+                EducationBeneficiaryCard(
+              canEdit: canEdit,
+              canView: canView,
+              canExpand: canExpand,
+              isExpanded: toggleCardId == lbseBeneficiary.id,
+              isLbseLearningOutcomeVisible: false,
+              isLbseReferralVisible: false,
+              isBursarySchoolVisible: false,
+              isBursaryClubVisible: false,
+              educationBeneficiary: lbseBeneficiary,
+              onView: () => onViewBeneficiary(context, lbseBeneficiary),
+              onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
+            ),
+            pagingController: educationLbseInterventionState.pagingController!,
+            emptyListWidget: _getEmptyListContainer(context),
+            errorWidget: _getEmptyListContainer(context),
           ),
-          pagingController: educationLbseInterventionState.pagingController!,
-          emptyListWidget: _getEmptyListContainer(context),
-          errorWidget: _getEmptyListContainer(context),
         );
       },
     );

@@ -18,9 +18,10 @@ class AppUtil {
     required List<int> allowedSelectedLevels,
     required String program,
     bool isReadOnly = false,
+    String formlabel = 'Service Provision Location',
   }) {
     return FormSection(
-      name: "Service Provision Location",
+      name: formlabel,
       color: sectionLabelColor,
       inputFields: [
         InputField(
@@ -153,8 +154,18 @@ class AppUtil {
     return date.toIso8601String().split('T')[0].trim();
   }
 
+  static String getDataAndTimeFormatFromDateTime(DateTime date) {
+    String formattedDate = formattedDateTimeIntoString(date);
+    int hours = date.hour;
+    int minute = date.minute;
+    String formattedTime = hours > 9 ? "$hours" : "0$hours";
+    formattedTime += ":";
+    formattedTime += minute > 9 ? "$minute" : "0$minute";
+    return "${formattedDate}T$formattedTime";
+  }
+
   static DateTime getDateIntoDateTimeFormat(String date) {
-    return DateTime.parse(date);
+    return DateTime.tryParse(date) ?? DateTime.now();
   }
 
   static Future<Position> getCurrentLocation() async {
@@ -164,10 +175,10 @@ class AppUtil {
     return position;
   }
 
-  static int getAgeInYear(String? dateOfBirth) {
+  static int getAgeInYear(String? dateOfBirth, {DateTime? currentDate}) {
     int age = 0;
     try {
-      DateTime currentDate = DateTime.now();
+      currentDate = currentDate ?? DateTime.now();
       DateTime birthDate = dateOfBirth != null && dateOfBirth != ''
           ? getDateIntoDateTimeFormat(dateOfBirth)
           : getDateIntoDateTimeFormat(formattedDateTimeIntoString(currentDate));
@@ -218,10 +229,102 @@ class AppUtil {
     return false;
   }
 
+  static Widget getConfirmationWidget(
+    BuildContext context,
+    String? message,
+  ) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Text(
+              message ?? '',
+              style: const TextStyle().copyWith(
+                color: const Color(0xFF82898D),
+                fontSize: 14.0,
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      right: 5.0,
+                    ),
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: Color(0xFF7FBA7C),
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                      ),
+                      child: const Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: Color(0xFF7FBA7C),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: 5.0,
+                    ),
+                    child: TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: Colors.redAccent,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 15,
+                        ),
+                      ),
+                      child: const Text(
+                        "Discard changes",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   static showActionSheetModal({
     required BuildContext context,
     required Widget containerBody,
     Widget? title,
+    Color? backgroundColor,
     double initialHeightRatio = 0.3,
     double minHeightRatio = 0.1,
     double maxHeightRatio = 0.85,
@@ -251,10 +354,10 @@ class AppUtil {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
-                  decoration: const BoxDecoration(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(8.0)),
-                      color: Colors.white),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(8.0)),
+                      color: backgroundColor ?? Colors.white),
                   child: Column(
                     children: [
                       Visibility(
@@ -367,7 +470,7 @@ class AppUtil {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               InkWell(
-                                onTap: () => Navigator.of(context).pop(),
+                                onTap: () => Navigator.of(context).pop(true),
                                 child: Container(
                                   margin: const EdgeInsets.all(10),
                                   height: 22,

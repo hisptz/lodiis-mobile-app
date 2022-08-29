@@ -12,38 +12,35 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
 
   final AgywDream? agywDream;
 
-  Expanded _getDreamBeneficiaryDetailsWidget({
+  Widget _getDreamBeneficiaryDetailsWidget({
     required String key,
     required Color keyColor,
     required String value,
     required Color valueColor,
     required double fontSize,
   }) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-          vertical: 5.0,
-        ),
-        child: RichText(
-          text: TextSpan(
-            text: key != '' ? '$key: ' : "",
-            style: const TextStyle().copyWith(
-              fontSize: fontSize,
-              fontWeight: FontWeight.w500,
-              color: keyColor,
-            ),
-            children: [
-              TextSpan(
-                text: value,
-                style: const TextStyle().copyWith(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w500,
-                  color: valueColor,
-                ),
-              )
-            ],
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 5.0,
+      ),
+      child: RichText(
+        text: TextSpan(
+          text: key != '' ? '$key: ' : "",
+          style: const TextStyle().copyWith(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w500,
+            color: keyColor,
           ),
+          children: [
+            TextSpan(
+              text: value,
+              style: const TextStyle().copyWith(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w500,
+                color: valueColor,
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -63,6 +60,7 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
               horizontal: 10.0,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   margin: const EdgeInsets.symmetric(
@@ -71,19 +69,23 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _getDreamBeneficiaryDetailsWidget(
-                        key: '',
-                        value: agywDream.toString(),
-                        keyColor: const Color(0xFF05131B),
-                        valueColor: const Color(0xFF05131B),
-                        fontSize: 14.0,
+                      Expanded(
+                        child: _getDreamBeneficiaryDetailsWidget(
+                          key: '',
+                          value: agywDream.toString(),
+                          keyColor: const Color(0xFF05131B),
+                          valueColor: const Color(0xFF05131B),
+                          fontSize: 14.0,
+                        ),
                       ),
-                      _getDreamBeneficiaryDetailsWidget(
-                        key: '',
-                        value: agywDream!.primaryUIC!,
-                        keyColor: const Color(0xFF05131B),
-                        valueColor: const Color(0xFF05131B),
-                        fontSize: 14.0,
+                      Expanded(
+                        child: _getDreamBeneficiaryDetailsWidget(
+                          key: '',
+                          value: agywDream!.primaryUIC!,
+                          keyColor: const Color(0xFF05131B),
+                          valueColor: const Color(0xFF05131B),
+                          fontSize: 14.0,
+                        ),
                       ),
                     ],
                   ),
@@ -97,8 +99,9 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                     horizontal: 10.0,
                     vertical: 5.0,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Wrap(
+                    spacing: 4,
+                    runAlignment: WrapAlignment.spaceEvenly,
                     children: [
                       _getDreamBeneficiaryDetailsWidget(
                         key: currentLanguage == 'lesotho' ? 'Boleng' : 'Sex',
@@ -126,6 +129,15 @@ class DreamsBeneficiaryTopHeader extends StatelessWidget {
                       _getDreamBeneficiaryDetailsWidget(
                         key: currentLanguage == 'lesotho' ? 'Motse' : 'Village',
                         value: agywDream!.village!,
+                        keyColor: const Color(0xFF82898D),
+                        valueColor: const Color(0xFF1F8ECE),
+                        fontSize: 12.0,
+                      ),
+                      _getDreamBeneficiaryDetailsWidget(
+                        key: currentLanguage == 'lesotho'
+                            ? 'Sebaka se tsejoang haufi'
+                            : 'Land mark near residence',
+                        value: agywDream!.landMark!,
                         keyColor: const Color(0xFF82898D),
                         valueColor: const Color(0xFF1F8ECE),
                         fontSize: 12.0,

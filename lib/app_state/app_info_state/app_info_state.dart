@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/services/app_info_service.dart';
 import 'package:new_version/new_version.dart';
 
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
@@ -41,12 +42,19 @@ class AppInfoState with ChangeNotifier {
         localVersion: status.localVersion,
       );
     } catch (error) {
-      //
+      var localVersion = AppInfoReference.currentAppVersion;
+      var storeVersion = await AppInfoService.getSavedApStoreVersion();
+      updateAppUpdateState(
+        storeVersion: storeVersion,
+        localVersion: localVersion,
+      );
     }
     notifyListeners();
   }
 
   void updateAppUpdateState({storeVersion, localVersion}) {
+    storeVersion = "$storeVersion".split("-").first;
+    localVersion = "$localVersion".split("-").first;
     AppSemanticVersion storeSemanticVersion =
         AppUtil.getSemanticVersionValue(version: storeVersion);
     AppSemanticVersion localSemanticVersion =
@@ -55,9 +63,12 @@ class AppInfoState with ChangeNotifier {
             AppInfoReference.minimumAllowedMajorVersion <
         storeSemanticVersion.major) {
       _shouldUpdateTheApp = true;
-    } else if (localSemanticVersion.minor +
-            AppInfoReference.minimumAllowedMinorVersion <
-        storeSemanticVersion.minor) {
+    } else if (!(localSemanticVersion.major +
+                AppInfoReference.minimumAllowedMajorVersion <
+            storeSemanticVersion.major) &&
+        (localSemanticVersion.minor +
+                AppInfoReference.minimumAllowedMinorVersion <
+            storeSemanticVersion.minor)) {
       _shouldUpdateTheApp = true;
     } else if (!(storeSemanticVersion.patch <= localSemanticVersion.patch) &&
         storeSemanticVersion.patch - localSemanticVersion.patch <=

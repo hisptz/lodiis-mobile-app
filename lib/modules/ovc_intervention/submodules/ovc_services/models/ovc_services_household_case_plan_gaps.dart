@@ -3,7 +3,9 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class OvcHouseholdServicesCasePlanGaps {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
           id: 'Health',
@@ -12,13 +14,6 @@ class OvcHouseholdServicesCasePlanGaps {
           color: const Color(0xFF4D9E49),
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
-            InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'XoSPWmpWXCy',
                 translatedName: 'Tšebeletso ea  HTS',
@@ -46,6 +41,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 translatedName: 'Letsatsi la HTS le tla phetheloa',
                 name: '(HTS) Projected date for completion',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -75,40 +71,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 name: '(HIVTREAT) Projected date for completion',
                 translatedName: 'Letsatsi la HIVTREAT le tla phetheloa',
                 valueType: 'DATE',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'cx4xBY4jZXM',
-                translatedName: 'Tšebeletso ea  HIVS&D/HIV Messaging',
-                name: 'HIVS&D/HIV Messaging',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'b6hvMQuH3oJ',
-                name:
-                    '(HIVS&D/HIV Messaging) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho HIVS&D/HIV Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'iy0KZ7K4qld',
-                name:
-                    '(HIVS&D/HIV Messaging) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho HIVS&D/HIV Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'SIEeRmPm0Q0',
-                allowFuturePeriod: true,
-                name: '(HIVS&D/HIV Messaging) Projected date for completion',
-                translatedName:
-                    'Letsatsi la HIVS&D/HIV Messaging le tla phetheloa',
-                valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -138,35 +101,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 name: '(HEALTH) Projected date for completion',
                 translatedName: 'Letsatsi la HEALTH le tla phetheloa',
                 valueType: 'DATE',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'd2vXxEPeCq7',
-                name: 'PRG&L',
-                translatedName: 'Tšebeletso ea  PRG&L',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'GnsYKEE2fnr',
-                name: '(PRG&L) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho PRG&L',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'X2CA3iQZU74',
-                name: '(PRG&L) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho PRG&L',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kpzlTeM0673',
-                allowFuturePeriod: true,
-                name: '(PRG&L) Projected date for completion',
-                translatedName: 'Letsatsi la PRG&L le tla phetheloa',
-                valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -196,93 +131,129 @@ class OvcHouseholdServicesCasePlanGaps {
                 name: '(SAIDS) Projected date for completion',
                 translatedName: 'Letsatsi la SAIDS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'EaJTFrklMo5',
+                name: 'FOOD SUPPORT',
+                translatedName: 'Tšebeletso ea  FOOD SUPPORT',
+                valueType: 'TRUE_ONLY',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'rHgxOKM91wi',
+                name: '(FOOD SUPPORT) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho FOOD SUPPORT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'v00dsDvhCRu',
+                name: '(FOOD SUPPORT) Name of responsible external person',
+                translatedName: 'Motho ea ikarabellang ka ntle ho FOOD SUPPORT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'WAq2HJHXZYS',
+                allowFuturePeriod: true,
+                name: '(FOOD SUPPORT) Projected date for completion',
+                translatedName: 'Letsatsi la FOOD SUPPORT le tla phetheloa',
+                valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'Hvq9oisH7Gt',
-                name: 'WASHMES',
-                translatedName: 'Tšebeletso ea  WASHMES',
+                name: 'WASH MESSAGING',
+                translatedName: 'Tšebeletso ea  WASH MESSAGING',
                 valueType: 'TRUE_ONLY',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'ue6xLPEURqt',
-                name: '(WASHMES) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho WASHMES',
+                name: '(WASH MESSAGING) Name of responsible internal person',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho WASH MESSAGING',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'vIbKIUgzBU4',
-                name: '(WASHMES) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho WASHMES',
+                name: '(WASH MESSAGING) Name of responsible external person',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho WASH MESSAGING',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'tQ3pKyJ0X9d',
                 allowFuturePeriod: true,
-                name: '(WASHMES) Projected date for completion',
-                translatedName: 'Letsatsi la WASHMES le tla phetheloa',
+                name: '(WASH MESSAGING) Projected date for completion',
+                translatedName: 'Letsatsi la WASH MESSAGING le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'qTf8VSoojJ2',
-                name: 'SOACKAGE',
-                translatedName: 'Tšebeletso ea  SOACKAGE',
+                name: 'SOACKAGE PIT',
+                translatedName: 'Tšebeletso ea  SOACKAGE PIT',
                 valueType: 'TRUE_ONLY',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'ontonbgTJ8k',
-                name: '(SOACKAGE) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho SOACKAGE',
+                name: '(SOACKAGE PIT) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho SOACKAGE PIT',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'AjYKLfIQPtT',
-                name: '(SOACKAGE) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho SOACKAGE',
+                name: '(SOACKAGE PIT) Name of responsible external person',
+                translatedName: 'Motho ea ikarabellang ka ntle ho SOACKAGE PIT',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'M2Aqvn027cd',
                 allowFuturePeriod: true,
-                name: '(SOACKAGE) Projected date for completion',
-                translatedName: 'Letsatsi la SOACKAGE le tla phetheloa',
+                name: '(SOACKAGE PIT) Projected date for completion',
+                translatedName: 'Letsatsi la SOACKAGE PIT le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'DQxqyncQtwm',
-                name: 'TIPPY',
+                name: 'TIPPY TAP',
                 valueType: 'TRUE_ONLY',
-                translatedName: 'Tšebeletso ea  TIPPY',
+                translatedName: 'Tšebeletso ea  TIPPY TAP',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'P4I6rK6Xqxw',
-                name: '(TIPPY) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho TIPPY',
+                name: '(TIPPY TAP) Name of responsible internal person',
+                translatedName: 'Motho ea ikarabellang ka hare ho TIPPY TAP',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'WFKe1YpH1uK',
-                name: '(TIPPY) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho TIPPY',
+                name: '(TIPPY TAP) Name of responsible external person',
+                translatedName: 'Motho ea ikarabellang ka ntle ho TIPPY TAP',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'YJXb5rSVP0L',
                 allowFuturePeriod: true,
-                name: '(TIPPY) Projected date for completion',
-                translatedName: 'Letsatsi la TIPPY le tla phetheloa',
+                name: '(TIPPY TAP) Projected date for completion',
+                translatedName: 'Letsatsi la TIPPY TAP le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373))
           ]),
@@ -293,13 +264,6 @@ class OvcHouseholdServicesCasePlanGaps {
           color: const Color(0xFF0000FF),
           borderColor: const Color(0xFF0000FF),
           inputFields: [
-            InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'e6NV2ZAzFEh',
                 name: 'SILC',
@@ -327,132 +291,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 name: '(SILC) Projected date for completion',
                 translatedName: 'Letsatsi la SILC le tla phetheloa',
                 valueType: 'DATE',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kvF996ugmMl',
-                name: 'Financial Education',
-                translatedName: 'Tšebeletso ea  Financial Education',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'OMtcDA7tcVL',
-                name:
-                    '(Financial Education) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho Financial Education',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Mz24UpWclb3',
-                name:
-                    '(Financial Education) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho Financial Education',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'zVCkEJuy2t8',
-                allowFuturePeriod: true,
-                name: '(Financial Education) Projected date for completion',
-                translatedName:
-                    'Letsatsi la Financial Education le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'iiJpQsEE4qx',
-                name: 'EST COOPRTVS',
-                translatedName: 'Tšebeletso ea  EST COOPRTVS',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'xse9M31M9z1',
-                translatedName: 'Motho ea ikarabellang ka hare ho EST COOPRTVS',
-                name: '(EST COOPRTVS) Name of responsible internal person',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'uLi7eqd0eEy',
-                name: '(EST COOPRTVS) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho EST COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'nIoqbMHf3AS',
-                allowFuturePeriod: true,
-                name: '(EST COOPRTVS) Projected date for completion',
-                translatedName:
-                    'Letsatsi la FUNCT COOPRTVS le tla EST COOPRTVS',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ithLHgsAoxs',
-                name: 'FUNCT COOPRTVS',
-                translatedName: 'Tšebeletso ea  FUNCT COOPRTVS ',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'cKJggm2OXFQ',
-                name: '(FUNCT COOPRTVS) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho FUNCT COOPRTVS ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'NUXAxwvM3FE',
-                name: '(FUNCT COOPRTVS) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho FUNCT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kCoBEKqJelO',
-                allowFuturePeriod: true,
-                name: '(FUNCT COOPRTVS) Projected date for completion',
-                translatedName: 'Letsatsi la FUNCT COOPRTVS le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'JqGGsDlZh8T',
-                name: 'MARKT COOPRTVS',
-                translatedName: 'Tšebeletso ea  MARKT COOPRTVS',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'a9geBDwDmXA',
-                name: '(MARKT COOPRTVS) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho MARKT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 's5mJvzRyfmW',
-                name: '(MARKT COOPRTVS) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho MARKT COOPRTVS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'XODRLh84TdQ',
-                allowFuturePeriod: true,
-                name: '(MARKT COOPRTVS) Projected date for completion',
-                translatedName: 'Letsatsi la MARKT COOPRTVS le tla phetheloa',
-                valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -482,6 +321,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 name: '(K/TPLOTS) Projected date for completion',
                 translatedName: 'Letsatsi la K/TPLOTS le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
           ]),
@@ -493,221 +333,33 @@ class OvcHouseholdServicesCasePlanGaps {
           borderColor: const Color(0xFF0F9587),
           inputFields: [
             InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'PoxYSqq8Hgz',
-                name: 'P&FC',
-                translatedName: 'Tšebeletso ea  P&FC ',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'O3mOdzWYmg3',
-                name: '(P&FC) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho P&FC ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'WFscqdyjgUy',
-                name: '(P&FC) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho P&FC',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'fCDk1LxN484',
-                allowFuturePeriod: true,
-                name: '(P&FC) Projected date for completion',
-                translatedName: 'Letsatsi la P&FC  le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'aPmPhwm8Zln',
-                translatedName: 'Tšebeletso ea  VAC/VAC Messaging',
-                name: 'VAC/VAC Messaging',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'jKqWohAPqyW',
-                name: '(VAC/VAC Messaging) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho VAC/VAC Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'U8jnyQsnfBD',
-                name: '(VAC/VAC Messaging) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho VAC/VAC Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'wGrQeSydiwd',
-                allowFuturePeriod: true,
-                name: '(VAC/VAC Messaging) Projected date for completion',
-                translatedName:
-                    'Letsatsi la VAC/VAC Messaging le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'AaqeRcyjbyS',
-                name: 'VAC Legal Messaging',
-                translatedName: 'Tšebeletso a VAC Legal Messaging',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'TizNGPP6e1d',
-                name:
-                    '(VAC Legal Messaging) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho VAC Legal Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Q7GxvZD6h99',
-                name:
-                    '(VAC Legal Messaging) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho VAC Legal Messaging',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'A4xYu8BYOg7',
-                allowFuturePeriod: true,
-                name: '(VAC Legal Messaging) Projected date for completion',
-                translatedName:
-                    'Letsatsi la VAC Legal Messaging le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Vd8dV7OweWB',
-                name: 'Survivors of Abuse',
-                translatedName: 'Tšebeletso ea  Survivors of Abuse',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'UDYd31rUKgN',
-                name:
-                    '(Survivors of Abuse) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho Survivors of Abuse',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'XvOgqGxX39f',
-                name:
-                    '(Survivors of Abuse) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho Survivors of Abuse',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ZO2Zg7kaYyD',
-                allowFuturePeriod: true,
-                name: '(Survivors of Abuse) Projected date for completion',
-                translatedName:
-                    'Letsatsi la Survivors of Abuse le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Ccp4Odlh3BE',
-                translatedName: 'Tšebeletso ea COUNSEL',
-                name: 'COUNSEL',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kGoKVtkQxvk',
-                name: '(COUNSEL) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho COUNSEL',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'yoI0bu18mPo',
-                name: '(COUNSEL) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho COUNSEL',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Io9nnYXCvWR',
-                allowFuturePeriod: true,
-                name: '(COUNSEL) Projected date for completion',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'yf6KmY3Rm5I',
-                name: 'ABUSE',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'oth3dRYox12',
-                name: '(ABUSE) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho ABUSE',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'RsCebbDkMx9',
-                name: '(ABUSE) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho ABUSE',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'YtwjCoHKA9G',
-                allowFuturePeriod: true,
-                name: '(ABUSE) Projected date for completion',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
                 id: 'WdZ3PnW5yV6',
-                name: 'LEGALPROT',
+                name: 'LEGAL PROTECTION',
                 valueType: 'TRUE_ONLY',
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'dJR6GJyHCTr',
-                name: '(LEGALPROT) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho LEGALPROT',
+                name: '(LEGAL PROTECTION) Name of responsible internal person',
+                translatedName:
+                    'Motho ea ikarabellang ka hare ho  LEGAL PROTECTION',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'cu1UkUUTbME',
-                name: '(LEGALPROT) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho LEGALPROT',
+                name: '(LEGAL PROTECTION) Name of responsible external person',
+                translatedName:
+                    'Motho ea ikarabellang ka ntle ho  LEGAL PROTECTION',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'OIw6D3I6BmY',
                 allowFuturePeriod: true,
-                name: '(LEGALPROT) Projected date for completion',
+                name: '(LEGAL PROTECTION) Projected date for completion',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -735,109 +387,8 @@ class OvcHouseholdServicesCasePlanGaps {
                 allowFuturePeriod: true,
                 name: '(BIRTHCERT) Projected date for completion',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373))
-          ]),
-      FormSection(
-          id: 'Schooled',
-          name: 'DOMAIN SCHOOLED',
-          translatedName: 'TSA SEKOLO',
-          color: const Color(0xFF9B2BAE),
-          borderColor: const Color(0xFF9B2BAE),
-          inputFields: [
-            InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'TQSMaZgfZPO',
-                name: 'PTS4G',
-                translatedName: 'Tšebeletso ea  PTS4G',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'do1fAllY7Jv',
-                name: '(PTS4G) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho PTS4G',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'y5v9t8Skiyi',
-                name: '(PTS4G) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho PTS4G',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'mvuyd2jt4Jz',
-                allowFuturePeriod: true,
-                name: '(PTS4G) Projected date for completion',
-                translatedName: 'Letsatsi la PTS4G le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'SN2kJN3jAG9',
-                name: 'PTS4NG',
-                translatedName: 'Tšebeletso ea  PTS4NG',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'k9R0AUmBqHS',
-                name: '(PTS4NG) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho PTS4NG',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'k2eUheeYmfk',
-                name: '(PTS4NG) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho PTS4NG',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'bIMwh3ONDGq',
-                allowFuturePeriod: true,
-                name: '(PTS4NG) Projected date for completion',
-                translatedName: 'Letsatsi la PTS4NG le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'X47zxNAqMv0',
-                name: 'HWCLUB',
-                translatedName: 'Tšebeletso ea  HWCLUB',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'kfcqLf2d2dc',
-                name: '(HWCLUB) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho HWCLUB',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ewpLauNhb8N',
-                name: '(HWCLUB) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho HWCLUB',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'rPhOdwWvfOA',
-                allowFuturePeriod: true,
-                name: '(HWCLUB) Projected date for completion',
-                translatedName: 'Letsatsi la HWCLUB le tla phetheloa',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF737373))
           ]),
       FormSection(
@@ -845,13 +396,6 @@ class OvcHouseholdServicesCasePlanGaps {
           color: const Color(0xFF4D9E49),
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
-            InputField(
-                id: 'QjlTTO5KAIf',
-                name: 'Identified need/Gap',
-                translatedName: 'Litlhoko kapa likhahello tse hloauoeng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'ksc7ov3MihX',
                 name: 'OTHER ACTIVITIES',
@@ -881,6 +425,7 @@ class OvcHouseholdServicesCasePlanGaps {
                 name: '(Other activities) Projected date for completion ',
                 translatedName: 'Letsatsi la Mesebetsi e meng le tla phetheloa',
                 valueType: 'DATE',
+                firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
           ])

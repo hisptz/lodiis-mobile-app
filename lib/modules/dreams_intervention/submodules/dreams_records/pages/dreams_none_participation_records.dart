@@ -68,6 +68,11 @@ class _DreamsNoneParticipationRecordsPageState
     );
   }
 
+  void refreshBeneficiaryList(
+      DreamsInterventionListState dreamInterventionListState) {
+    dreamInterventionListState.refreshBeneficiariesNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
@@ -89,44 +94,50 @@ class _DreamsNoneParticipationRecordsPageState
 
   Widget _buildBody(String? currentLanguage) {
     return Consumer<DreamsInterventionListState>(
-      builder: (context, ovcState, child) => CustomPaginatedListView(
-        errorWidget: Container(
-          margin: const EdgeInsets.only(
-            bottom: 16.0,
-            right: 13.0,
-            left: 13.0,
-          ),
-          child: const Center(
-            child: Text(
-              'There is no AGYW/DREAMS none participants at moment',
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-        pagingController: ovcState.noneParticipantsPagingController,
-        childBuilder: (context, dreamsNoneParticipant, index) =>
-            NoneParticipantBeneficiaryCard(
-          beneficiary: dreamsNoneParticipant,
-          canEdit: true,
-          onViewBeneficiary: () =>
-              onViewBeneficiary(context, dreamsNoneParticipant),
-          onEditBeneficiary: () =>
-              onEditBeneficiary(context, dreamsNoneParticipant),
-        ),
-        emptyListWidget: Center(
-          child: Container(
+      builder: (context, dreamInterventionListState, child) => RefreshIndicator(
+        onRefresh: () async {
+          refreshBeneficiaryList(dreamInterventionListState);
+        },
+        child: CustomPaginatedListView(
+          errorWidget: Container(
             margin: const EdgeInsets.only(
               bottom: 16.0,
               right: 13.0,
               left: 13.0,
             ),
-            child: Column(
-              children: const [
-                Text(
-                  'There is no AGYW/DREAMS none participants at moment',
-                  textAlign: TextAlign.center,
-                )
-              ],
+            child: const Center(
+              child: Text(
+                'There is no AGYW/DREAMS none participants at moment',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          pagingController:
+              dreamInterventionListState.noneParticipantsPagingController,
+          childBuilder: (context, dreamsNoneParticipant, index) =>
+              NoneParticipantBeneficiaryCard(
+            beneficiary: dreamsNoneParticipant,
+            canEdit: true,
+            onViewBeneficiary: () =>
+                onViewBeneficiary(context, dreamsNoneParticipant),
+            onEditBeneficiary: () =>
+                onEditBeneficiary(context, dreamsNoneParticipant),
+          ),
+          emptyListWidget: Center(
+            child: Container(
+              margin: const EdgeInsets.only(
+                bottom: 16.0,
+                right: 13.0,
+                left: 13.0,
+              ),
+              child: Column(
+                children: const [
+                  Text(
+                    'There is no AGYW/DREAMS none participants at moment',
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
             ),
           ),
         ),

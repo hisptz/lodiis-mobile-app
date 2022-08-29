@@ -18,13 +18,36 @@ class AgywDreamsEnrollmentSkipLogic {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
-
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     Map hiddenOptions = {};
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    bool hasEnrollmentCriteria(Map dataObject) {
+      List<String> enrollmentCriteria = [
+        'B4ojlzKypUF',
+        'HJIHPjOf5s1',
+        'bApA6X6TVvJ',
+        'yc3BlUIEup3',
+        'p33MrrhsQRz',
+        'iY67qYnywgS',
+        'rh881j2vfvT',
+        'AZCVLPzD0Vd',
+      ];
+      for (var criteria in enrollmentCriteria) {
+        if (dataObject[criteria] != null && dataObject[criteria] != '') {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    //Clearing opha auto populating values Q103 & Q104
+    assignInputFieldValue(context, 'cJl00w5DjIL', '');
+    assignInputFieldValue(context, 'R9e8v9r3lMM', '');
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -109,7 +132,16 @@ class AgywDreamsEnrollmentSkipLogic {
           hiddenFields['Z7PTcgqwCLu'] = true;
         }
       }
-
+      if (inputFieldId == 'NrYoz8RewxV') {
+        if (value != '') {
+          assignInputFieldValue(context, 'ODBeRytTLHm', 'true');
+        } else {
+          assignInputFieldValue(context, 'ODBeRytTLHm', 'false');
+        }
+      }
+      if (inputFieldId == 'zowQOCZivv8') {
+        assignInputFieldValue(context, 'iIdrEpTkpsk', value);
+      }
       if (inputFieldId == 'oEbOkfQY3NP' && value != 'Other') {
         hiddenFields['ODMyZc2F7uc'] = true;
       }
@@ -139,14 +171,18 @@ class AgywDreamsEnrollmentSkipLogic {
       }
       if (inputFieldId == 'Z7PTcgqwCLu' && value != 'true') {
         hiddenFields['FuYyLjYxxkg'] = true;
+        assignInputFieldValue(context, 'cJl00w5DjIL', 'Yes');
+        assignInputFieldValue(context, 'R9e8v9r3lMM', 'Yes');
       }
       if (inputFieldId == 'rsi08hlOFm8') {
         if (value == 'true') {
           assignInputFieldValue(context, 'HJIHPjOf5s1', 'true');
+          assignInputFieldValue(context, 'QaIUtFdgdIa', 'true');
         } else {
           hiddenFields['yU4tNjFpQIq'] = true;
           hiddenFields['zsivYH5qkho'] = true;
           assignInputFieldValue(context, 'HJIHPjOf5s1', '');
+          assignInputFieldValue(context, 'QaIUtFdgdIa', 'false');
         }
       }
       if (inputFieldId == 'fSQY2z3L0lp' && value != 'true') {
@@ -160,6 +196,7 @@ class AgywDreamsEnrollmentSkipLogic {
         hiddenFields['XYPRtYgQUF8'] = true;
         hiddenFields['SuB4oeLyzZ0'] = true;
         hiddenFields['GDrEW22l54i'] = true;
+        hiddenFields['GwVHeyOqTv2'] = true;
         hiddenSections['E_M_4_S_A'] = true;
         hiddenSections['4_N_O_I_C_U'] = true;
         hiddenSections['2_H_O_P'] = true;
@@ -184,8 +221,22 @@ class AgywDreamsEnrollmentSkipLogic {
       if (inputFieldId == 'LNaNh7kvh4X' && value != 'true') {
         hiddenFields['wGFmu7DhNGV'] = true;
       }
-      if (inputFieldId == 'wGFmu7DhNGV' && value != 'true') {
-        hiddenFields['G1s75wng5DY'] = true;
+      if (inputFieldId == 'wGFmu7DhNGV') {
+        if (value != 'true') {
+          hiddenFields['G1s75wng5DY'] = true;
+          assignInputFieldValue(context, 'AHbtSNH0i7C', 'false');
+        } else if (value != 'false') {
+          assignInputFieldValue(context, 'AHbtSNH0i7C', 'true');
+        } else {
+          hiddenFields['G1s75wng5DY'] = true;
+        }
+      }
+      if (inputFieldId == 'G1s75wng5DY') {
+        if (value != '') {
+          assignInputFieldValue(context, 'RW9VeyKDvjj', value);
+        } else {
+          assignInputFieldValue(context, 'RW9VeyKDvjj', '');
+        }
       }
       if (inputFieldId == 'bkpG276xEk9') {
         if (value != 'true') {
@@ -423,12 +474,31 @@ class AgywDreamsEnrollmentSkipLogic {
           assignInputFieldValue(context, 'yc3BlUIEup3', '');
         }
       }
+      if (inputFieldId == 'O7FZEfXR1Ge' && value == 'Self') {
+        String age = dataObject['ls9hlz2tyol'] ?? "0";
+        assignInputFieldValue(context, 'FehkgSKYkaQ', age);
+      }
       if (inputFieldId == 'NhBs8uAiRPt') {
         if (value == 'true') {
           assignInputFieldValue(context, 'p33MrrhsQRz', 'true');
         } else {
           assignInputFieldValue(context, 'p33MrrhsQRz', '');
         }
+      }
+      if (inputFieldId == 'FuYyLjYxxkg') {
+        if (value == 'Single Orphan(Mother)') {
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'Yes');
+        } else if (value == 'Single Orphan(Father)') {
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'Yes');
+        } else if (value == 'Double Orphan') {
+          assignInputFieldValue(context, 'cJl00w5DjIL', 'No');
+          assignInputFieldValue(context, 'R9e8v9r3lMM', 'No');
+        }
+      }
+      if (!hasEnrollmentCriteria(dataObject)) {
+        hiddenSections['E_O_I'] = true;
       }
     }
     // for enrollment module 6 questions
@@ -500,7 +570,10 @@ class AgywDreamsEnrollmentSkipLogic {
     String inputFieldId,
     String? value,
   ) {
-    Provider.of<EnrollmentFormState>(context, listen: false)
-        .setFormFieldState(inputFieldId, value);
+    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
+      inputFieldId,
+      value,
+      isChangesBasedOnSkipLogic: true,
+    );
   }
 }

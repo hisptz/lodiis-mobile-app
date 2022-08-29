@@ -37,7 +37,7 @@ class AgywDreamsCondomsForm extends StatefulWidget {
 }
 
 class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
-  final String label = 'Condoms';
+  final String label = 'Condom Education/Provision';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -59,8 +59,10 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     setState(() {});
   }
 
@@ -68,7 +70,9 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsCondomsForm.getFormSections();
+    defaultFormSections = DreamsCondomsForm.getFormSections(
+      firstDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -120,8 +124,10 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
     AgywDream? agywDream,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {

@@ -22,8 +22,18 @@ class AgywDreamsPostGbvSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'lvT9gfpHIlT' && value == 'null') {
-        hiddenFields['mnYT2rZyGgJ'] = true;
+        if (inputFieldId == 'mnYT2rZyGgJ') {
+        if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+        } else if (value == 'true') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        } else {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+        }
+      }
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

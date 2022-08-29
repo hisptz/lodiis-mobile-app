@@ -20,10 +20,21 @@ class AgywDreamsPrepShortFormSkipLogic {
 
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+            if (inputFieldId == 'VtmkYCQkBQw') {
+        if (value == 'false') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+                    hiddenFields['XhMaVycZx8l'] = true;
+        } else if (value == 'true') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        } else {
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['gEjigBuBTmh'] = true;
+          hiddenFields['XhMaVycZx8l'] = true;
 
-      if (inputFieldId == 'VtmkYCQkBQw' && value != 'true') {
-        hiddenFields['lvT9gfpHIlT'] = true;
-        hiddenFields['XhMaVycZx8l'] = true;
+        }
+      }
+      if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
       }
     }
 

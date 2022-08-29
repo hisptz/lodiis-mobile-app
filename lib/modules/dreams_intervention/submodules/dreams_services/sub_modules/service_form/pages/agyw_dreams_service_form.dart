@@ -67,8 +67,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     setState(() {});
   }
 
@@ -76,7 +78,9 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     var agyw =
         Provider.of<DreamsBeneficiarySelectionState>(context, listen: false)
             .currentAgywDream!;
-    defaultFormSections = DreamsServiceForm.getFormSections();
+    defaultFormSections = DreamsServiceForm.getFormSections(
+      firstDate: agyw.createdDate!,
+    );
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -156,8 +160,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
     AgywDream? agywDream,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+        mandatoryFields, dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         bool shouldSaveForm =
@@ -243,8 +249,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+            mandatoryFields, dataObject,
+            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+                .hiddenFields);
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

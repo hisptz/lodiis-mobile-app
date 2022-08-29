@@ -4,7 +4,9 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcExitCasePlanGraduationReadiness {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
       FormSection(
         name: 'DOMAIN:SCHOOLED',
@@ -319,6 +321,7 @@ class OvcExitCasePlanGraduationReadiness {
               allowFuturePeriod: true,
               name: 'Estimated action date for health domain',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -333,6 +336,7 @@ class OvcExitCasePlanGraduationReadiness {
               allowFuturePeriod: true,
               name: 'Estimated action date for safe domain',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -347,6 +351,7 @@ class OvcExitCasePlanGraduationReadiness {
               allowFuturePeriod: true,
               name: 'Estimated action date for stable domain',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -361,6 +366,7 @@ class OvcExitCasePlanGraduationReadiness {
               allowFuturePeriod: true,
               name: 'Estimated action date for schooled domain',
               valueType: 'DATE',
+              firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373)),
         ],

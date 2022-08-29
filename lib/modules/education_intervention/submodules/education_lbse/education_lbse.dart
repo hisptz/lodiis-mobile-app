@@ -148,6 +148,11 @@ class _EducationLbseState extends State<EducationLbse> {
     );
   }
 
+  void refreshBeneficiaryList(
+      EducationLbseInterventionState educationLbseInterventionState) {
+    educationLbseInterventionState.refreshEducationLbseNumber();
+  }
+
   void onOpenBeneficiaryReferrals(
     BuildContext context,
     EducationBeneficiary lbseBeneficiary,
@@ -194,29 +199,33 @@ class _EducationLbseState extends State<EducationLbse> {
   Consumer<EducationLbseInterventionState> _buildBody() {
     return Consumer<EducationLbseInterventionState>(
       builder: (context, educationLbseInterventionState, child) {
-        return CustomPaginatedListView(
-          childBuilder: (context, lbseBeneficiary, child) =>
-              EducationBeneficiaryCard(
-            canEdit: canEdit,
-            canView: canView,
-            canExpand: canExpand,
-            isExpanded: toggleCardId == lbseBeneficiary.id,
-            isLbseLearningOutcomeVisible: true,
-            isLbseReferralVisible: true,
-            isBursarySchoolVisible: false,
-            isBursaryClubVisible: false,
-            educationBeneficiary: lbseBeneficiary,
-            onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
-            onView: () => onViewBeneficiary(context, lbseBeneficiary),
-            onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
-            onOpenLbseLearningOutcome: () =>
-                onOpenBeneficiaryLearningOutcome(context, lbseBeneficiary),
-            onOpenLbseReferral: () =>
-                onOpenBeneficiaryReferrals(context, lbseBeneficiary),
+        return RefreshIndicator(
+          onRefresh: () async =>
+              refreshBeneficiaryList(educationLbseInterventionState),
+          child: CustomPaginatedListView(
+            childBuilder: (context, lbseBeneficiary, child) =>
+                EducationBeneficiaryCard(
+              canEdit: canEdit,
+              canView: canView,
+              canExpand: canExpand,
+              isExpanded: toggleCardId == lbseBeneficiary.id,
+              isLbseLearningOutcomeVisible: true,
+              isLbseReferralVisible: true,
+              isBursarySchoolVisible: false,
+              isBursaryClubVisible: false,
+              educationBeneficiary: lbseBeneficiary,
+              onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
+              onView: () => onViewBeneficiary(context, lbseBeneficiary),
+              onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
+              onOpenLbseLearningOutcome: () =>
+                  onOpenBeneficiaryLearningOutcome(context, lbseBeneficiary),
+              onOpenLbseReferral: () =>
+                  onOpenBeneficiaryReferrals(context, lbseBeneficiary),
+            ),
+            pagingController: educationLbseInterventionState.pagingController!,
+            emptyListWidget: _getEmptyListContainer(context),
+            errorWidget: _getEmptyListContainer(context),
           ),
-          pagingController: educationLbseInterventionState.pagingController!,
-          emptyListWidget: _getEmptyListContainer(context),
-          errorWidget: _getEmptyListContainer(context),
         );
       },
     );

@@ -11,7 +11,7 @@ class OvcEnrollmentChild {
       'qZP982qpSPS',
       'vIX4GTSCX4P',
       'iS9mAp3jDaU',
-      'wmKqYZML8GA'
+      'wmKqYZML8GA',
     ];
   }
 
@@ -27,6 +27,7 @@ class OvcEnrollmentChild {
               id: 'WTZ7GLTrE8Q',
               name: 'First Name',
               translatedName: 'Lebitso la pele',
+              regExpValidation: RegExp('^[A-Za-z]{0,}'),
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
@@ -35,6 +36,7 @@ class OvcEnrollmentChild {
               id: 's1HaiT6OllL',
               name: 'Middle Name',
               translatedName: 'Lebitso le mahareng',
+              regExpValidation: RegExp('^[A-Za-z]{0,}'),
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
@@ -43,7 +45,17 @@ class OvcEnrollmentChild {
               id: 'rSP9c21JsfC',
               name: 'Surname',
               translatedName: 'Le Fane',
+              regExpValidation: RegExp('^[A-Za-z]{0,}'),
               valueType: 'TEXT',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+              id: 'tNdoR0jYr7R',
+              name: 'Phone Number',
+              translatedName: 'Nomoro ea mohala',
+              valueType: 'PHONE_NUMBER',
+              isReadOnly: true,
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
             ),

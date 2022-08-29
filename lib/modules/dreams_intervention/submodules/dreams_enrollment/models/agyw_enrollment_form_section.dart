@@ -42,7 +42,6 @@ class AgywEnrollmentFormSection {
       'NP7LbypO3li',
       'ZcfLYz7JlVo',
       'H2Az2c3MeAy',
-      'VJiWumvINR6'
     ];
   }
 
@@ -94,15 +93,6 @@ class AgywEnrollmentFormSection {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
-              id: 'fEHah8SvP35',
-              name:
-                  'Is she currently residing in a community council/ district you are implementing DREAMS?',
-              translatedName:
-                  'Na nakong ea joale o lula k’hanseleng/seterekeng seo le kentseng lenane la DREAMS?',
-              valueType: 'BOOLEAN',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-          InputField(
               id: 'uSxDP43mFEG',
               name: 'Which community council and district?',
               translatedName:
@@ -110,102 +100,6 @@ class AgywEnrollmentFormSection {
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [3],
               showCountryLevelTree: true,
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'x6VFmJLsqgx',
-              name:
-                  'Has parent/guardian provided consent for the girl to be enrolled in DREAMS?',
-              translatedName:
-                  'Bakeng sa baroetsana ba lilemo tse 9 hoisa ho 12, na motsoali/mohlokomeli o fane ka tumello ea hore moroetsana a kene lenaneng la DREAMS?',
-              valueType: 'BOOLEAN',
-              description: 'Ensure you have documented consent in AGYW file.',
-              translatedDescription:
-                  'Netefatsa hore o ngotse tumello ea AGYW faeleng.',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'OmOU8n78dg7',
-              name: 'Has the AGYW agreed to be enrolled in DREAMS?',
-              translatedName:
-                  'Na moroetsana/mosali ea mocha lilemong o lumetse ho kena lenaneng la DREAMS?',
-              valueType: 'BOOLEAN',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'L1Z7gkuKtbs',
-              name: 'Comments/Notes',
-              translatedName: 'Tlhakiso',
-              valueType: 'LONG_TEXT',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-        ],
-      ),
-      FormSection(
-        name: 'Enrolled Profile Information',
-        color: const Color(0xFF258DCC),
-        inputFields: [
-          InputField(
-            id: 'VJiWumvINR6',
-            name: 'Sex',
-            translatedName: 'Boleng',
-            valueType: 'TEXT',
-            isReadOnly: true,
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female'),
-              InputFieldOption(
-                  code: 'Transgender (male to female)',
-                  name: 'Transgender (male to female)'),
-              InputFieldOption(
-                  code: 'Transgender (female to male)',
-                  name: 'Transgender (female to male)'),
-            ],
-          ),
-          InputField(
-              id: 'dQPw7EzqJP6',
-              name: 'Land mark near residence',
-              translatedName: 'Sebaka se tsejoang haufi',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF258DCC),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-            id: 'iS9mAp3jDaU',
-            name: 'Relationship to Caregiver',
-            translatedName: 'Kamano le mohlokomeli',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF258DCC),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                  code: 'Biological mother', name: 'Biological mother'),
-              InputFieldOption(
-                  code: 'Biological father', name: 'Biological father'),
-              InputFieldOption(
-                  code: 'Aunt/Uncle',
-                  name: 'Aunt/Uncle',
-                  translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane'),
-              InputFieldOption(
-                  code: 'Sibling',
-                  name: 'Sibling',
-                  translatedName: 'Ke ngoaneso'),
-              InputFieldOption(
-                  code: 'Grandparent',
-                  name: 'Grandparent',
-                  translatedName: 'Ke Nkhono/Ntate-moholo'),
-              InputFieldOption(
-                  code: 'Spouse', name: 'Spouse', translatedName: 'Molekane'),
-              InputFieldOption(
-                  code: 'Other', name: 'Other', translatedName: 'Tse ling')
-            ],
-          ),
-          InputField(
-              id: 'nuka3TRVCnJ',
-              name: 'Other relationship to caregiver',
-              translatedName: 'Tse ling (hlalosa)',
-              valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
         ],
@@ -258,6 +152,7 @@ class AgywEnrollmentFormSection {
               name: '102. How old is the head of the household?',
               translatedName: '102. Hloho ea lelapa o lilemo li kae?',
               valueType: 'NUMBER',
+              regExpValidation: RegExp('^([1-9]|[1-9][0-9]|100)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -322,10 +217,6 @@ class AgywEnrollmentFormSection {
                   code: 'Earth or Mud or Dung or Sand',
                   name: 'Earth or Mud or Dung or Sand',
                   translatedName: 'Mobu'),
-              InputFieldOption(
-                  code: 'Corrugated iron sheet',
-                  name: 'Corrugated iron sheet',
-                  translatedName: 'Lesenke'),
               InputFieldOption(
                   code: 'Ceramic tiles',
                   name: 'Ceramic tiles',
@@ -550,6 +441,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114a. Palo ea banana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              regExpValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -559,6 +451,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114b. Palo ea bashanyana ba lilelemo li ka tlase ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              regExpValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -568,6 +461,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114c. Palo ea basali ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              regExpValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -577,6 +471,7 @@ class AgywEnrollmentFormSection {
               translatedName:
                   '114d. Palo ea banna ba lilelemo li ka holimo ho 18 ba phelang ka hara lelapa',
               valueType: 'INTEGER_ZERO_OR_POSITIVE',
+              regExpValidation: RegExp('^([0-1]{0,1}[1-9]|20)\$'),
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373)),
           InputField(
@@ -748,10 +643,6 @@ class AgywEnrollmentFormSection {
                   name: 'Relatives (excludes parent/guardian)',
                   translatedName:
                       'Batho bao u amanang le bona (ntle le motsoali/mohlokomeli)'),
-              InputFieldOption(
-                  code: 'yoYYq80SrxC',
-                  name: 'None (no additional support)',
-                  translatedName: 'Ha ho lithuso tse ling'),
               InputFieldOption(
                   code: 'cr4RA9GGMyf',
                   name: 'Other sources',
@@ -945,6 +836,10 @@ class AgywEnrollmentFormSection {
                   code: 'In the bank',
                   name: 'In the bank',
                   translatedName: 'Bankeng'),
+              InputFieldOption(
+                  code: 'Mobile Money',
+                  name: 'Mobile Money',
+                  translatedName: 'EcoCash/Mpesa'),
               InputFieldOption(
                   code: 'Other',
                   name: 'Other',

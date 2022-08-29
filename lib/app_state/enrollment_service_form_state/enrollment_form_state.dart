@@ -1,12 +1,19 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
+import 'package:provider/provider.dart';
 
 class EnrollmentFormState with ChangeNotifier {
+  final BuildContext context;
+
+  EnrollmentFormState(this.context);
+
   // initial state
   final Map _formState = {};
   Map _hiddenFields = {};
   Map _hiddenInputFieldOptions = {};
   Map _hiddenSections = {};
   bool _isEditableMode = true;
+  String _lastUpdatedFieldId = '';
 
   // selector
   Map get formState => _formState;
@@ -14,6 +21,7 @@ class EnrollmentFormState with ChangeNotifier {
   Map get hiddenSections => _hiddenSections;
   Map get hiddenInputFieldOptions => _hiddenInputFieldOptions;
   bool get isEditableMode => _isEditableMode;
+  String get lastUpdatedFieldId => _lastUpdatedFieldId;
 
   //reducers
   void resetFormState() {
@@ -26,7 +34,15 @@ class EnrollmentFormState with ChangeNotifier {
   }
 
   void updateFormEditabilityState({bool isEditableMode = true}) {
-    _isEditableMode = isEditableMode;
+    bool shouldUpdateApp =
+        Provider.of<AppInfoState>(context, listen: false).shouldUpdateTheApp ||
+            Provider.of<AppInfoState>(context, listen: false)
+                .showWarningToAppUpdate;
+    if (!shouldUpdateApp) {
+      _isEditableMode = isEditableMode;
+    } else {
+      _isEditableMode = false;
+    }
     notifyListeners();
   }
 
@@ -45,7 +61,14 @@ class EnrollmentFormState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setFormFieldState(String? id, dynamic value) {
+  void setFormFieldState(
+    String? id,
+    dynamic value, {
+    bool isChangesBasedOnSkipLogic = false,
+  }) {
+    if (!isChangesBasedOnSkipLogic) {
+      _lastUpdatedFieldId = id!;
+    }
     _formState[id] = value ?? '';
     notifyListeners();
   }

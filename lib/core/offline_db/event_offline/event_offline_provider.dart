@@ -1,3 +1,6 @@
+import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_without_enrollment_criteria.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_data_value_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
@@ -147,9 +150,109 @@ class EventOfflineProvider extends OfflineDbProvider {
     return references.toSet().toList();
   }
 
-  Future<List<NoneParticipationBeneficiary>> getEventsByProgram(
-      {String programId = '', String programStageId = '', int? page}) async {
+  ///
+  /// eventsMetadata :  is a map with 'searchedDataValues' as a map of key value pairs and  'data' as a List of map of event database data
+  ///
+  List<Map> _sanitizeSearchedEvents(Map<String, dynamic> eventsMetadata) {
+    var maps = eventsMetadata['data'] ?? [] as List<Map>;
+    var searchedAttributes = eventsMetadata['searchedDataValues'] ?? {};
+    var groupedEnrollments = groupBy(maps, (Map data) => data[event]);
+    return groupedEnrollments.values
+        .where((List<Map> dataGroup) =>
+            dataGroup.length == searchedAttributes.values.length)
+        .map((List<Map> dataGroup) => dataGroup.first)
+        .toList();
+  }
+
+  Map _getSanitizedSearchDataValues(Map searchDataValues) {
+    Map sanitizedSearchDataValues = {};
+    final List<BeneficiaryWithoutEnrollmentCriteriaConstant> constants =
+        BeneficiaryWithoutEnrollmentCriteriaConstant
+            .getDreamsWithoutEnrollmentCriteriaConstants();
+    for (BeneficiaryWithoutEnrollmentCriteriaConstant constant in constants) {
+      if (searchDataValues.containsKey(constant.attribute)) {
+        sanitizedSearchDataValues[constant.dataElement] =
+            searchDataValues[constant.attribute];
+      }
+    }
+    return sanitizedSearchDataValues;
+  }
+
+  Future<List<NoneParticipationBeneficiary>>
+      _getEventsProgramBySearchedDataElements(
+          {String programId = '',
+          String programStageId = '',
+          Map searchedDataValues = const {},
+          int? page}) async {
+    searchedDataValues = _getSanitizedSearchDataValues(searchedDataValues);
     List<NoneParticipationBeneficiary> eventsProgramBeneficiaries = [];
+    String dataValuesTable = 'event_data_value';
+    String dataElement = 'dataElement';
+    String dataValueValue = 'value';
+
+    List searchParams = [];
+    List<String> searchParamsStringList = [];
+    searchedDataValues.forEach((key, value) {
+      var dataValueQuery =
+          '$dataValuesTable.$dataElement = ? AND $dataValuesTable.$dataValueValue LIKE ?';
+      searchParams = [...searchParams, key, '%$value%'];
+      searchParamsStringList = [...searchParamsStringList, dataValueQuery];
+    });
+    String searchParamsString = '(${searchParamsStringList.join(' OR ')})';
+    String rawQuery =
+        'SELECT $table.$id, $table.$event, $eventDate, $program, $programStage, $trackedEntityInstance, $status, $orgUnit, $syncStatus FROM $table, $dataValuesTable WHERE $program = ? AND $programStage = ? AND $table.$event = $dataValuesTable.$event AND $searchParamsString ORDER BY $eventDate DESC';
+    try {
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
+      var dbClient = await db;
+      List params = [
+        programId,
+        programStageId,
+        ...searchParams,
+      ];
+      List<Map> maps = await dbClient!.rawQuery(
+        rawQuery,
+        params,
+      );
+      if (maps.isNotEmpty) {
+        Map<String, dynamic> eventsMetadata = {
+          'searchedDataValues': searchedDataValues,
+          'data': maps
+        };
+        List<Map> sanitizedMaps =
+            await compute(_sanitizeSearchedEvents, eventsMetadata);
+        for (Map map in sanitizedMaps) {
+          List dataValues = await EventOfflineDataValueProvider()
+              .getEventDataValuesByEventId(map['id']);
+          Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+          eventData.dataValues = dataValues;
+          eventData.enrollmentOuAccessible =
+              accessibleOrgUnits.contains(eventData.orgUnit);
+          eventsProgramBeneficiaries
+              .add(NoneParticipationBeneficiary().fromEventsModel(eventData));
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return eventsProgramBeneficiaries;
+  }
+
+  Future<List<NoneParticipationBeneficiary>> getEventsByProgram({
+    String programId = '',
+    String programStageId = '',
+    int? page,
+    Map searchedDataValues = const {},
+  }) async {
+    List<NoneParticipationBeneficiary> eventsProgramBeneficiaries = [];
+    if (searchedDataValues.isNotEmpty) {
+      return _getEventsProgramBySearchedDataElements(
+        programId: programId,
+        programStageId: programStageId,
+        page: page,
+        searchedDataValues: searchedDataValues,
+      );
+    }
     try {
       List<String> accessibleOrgUnits = await OrganisationUnitService()
           .getOrganisationUnitAccessedByCurrentUser();
@@ -189,6 +292,51 @@ class EventOfflineProvider extends OfflineDbProvider {
     }
     return eventsProgramBeneficiaries
       ..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
+  }
+
+  Future<List<Events>> getEventByTeiByEventDateByProgramStage({
+    required String date,
+    required String programStageId,
+    required String teiId,
+  }) async {
+    List<Events> events = [];
+    try {
+      var dbClient = await db;
+      List<Map> maps = await dbClient!.query(
+        table,
+        columns: [
+          id,
+          event,
+          eventDate,
+          program,
+          programStage,
+          trackedEntityInstance,
+          status,
+          orgUnit,
+          syncStatus,
+        ],
+        where:
+            '$eventDate = ? AND $programStage = ? AND $trackedEntityInstance = ?',
+        whereArgs: [
+          date,
+          programStageId,
+          teiId,
+        ],
+      );
+      if (maps.isNotEmpty) {
+        for (Map map in maps) {
+          List dataValues = await EventOfflineDataValueProvider()
+              .getEventDataValuesByEventId(map['id']);
+          Events eventData = Events.fromOffline(map as Map<String, dynamic>);
+          eventData.dataValues = dataValues;
+          events.add(eventData);
+        }
+      }
+    } catch (e) {
+      //
+    }
+
+    return events;
   }
 
   Future<int> getEventsByProgramCount(

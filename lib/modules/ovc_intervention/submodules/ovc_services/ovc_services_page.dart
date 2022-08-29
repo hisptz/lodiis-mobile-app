@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
@@ -91,6 +91,11 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
     );
   }
 
+  void refreshBeneficiaryList(
+      OvcInterventionListState ovcInterventionListState) {
+    ovcInterventionListState.refreshOvcNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
@@ -117,48 +122,65 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
   Widget _buildBody(String? currentLanguage) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Consumer<OvcInterventionListState>(
-      builder: (context, ovcListState, child) => CustomPaginatedListView(
-        pagingController: ovcListState.pagingController,
-        childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
-          ovcHousehold: ovcHousehold,
-          canEdit: canEdit,
-          canExpand: canExpand,
-          canView: canView,
-          isExpanded: ovcHousehold.id == toggleCardId,
-          onCardToggle: () {
-            onCardToggle(ovcHousehold.id);
-          },
-          cardBody: OvcHouseholdCardBody(
+      builder: (context, ovcListState, child) => RefreshIndicator(
+        onRefresh: () async => refreshBeneficiaryList(ovcListState),
+        child: CustomPaginatedListView(
+          pagingController: ovcListState.pagingController,
+          childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(
             ovcHousehold: ovcHousehold,
-          ),
-          cardButtonActions: ClipRRect(
-            borderRadius: ovcHousehold.id == toggleCardId
-                ? BorderRadius.zero
-                : const BorderRadius.only(
-                    bottomLeft: Radius.circular(12.0),
-                    bottomRight: Radius.circular(12.0),
+            canEdit: canEdit,
+            canExpand: canExpand,
+            canView: canView,
+            isExpanded: ovcHousehold.id == toggleCardId,
+            onCardToggle: () {
+              onCardToggle(ovcHousehold.id);
+            },
+            cardBody: OvcHouseholdCardBody(
+              ovcHousehold: ovcHousehold,
+            ),
+            cardButtonActions: ClipRRect(
+              borderRadius: ovcHousehold.id == toggleCardId
+                  ? BorderRadius.zero
+                  : const BorderRadius.only(
+                      bottomLeft: Radius.circular(12.0),
+                      bottomRight: Radius.circular(12.0),
+                    ),
+              child: Container(
+                  height: 50.0,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color(0XFFF6FAF6),
                   ),
-            child: Container(
-                height: 50.0,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0XFFF6FAF6),
-                ),
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  itemExtent:
-                      screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
-                  shrinkWrap: true,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextButton(
-                        onPressed: () => onOpenHouseholdAssess(
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    itemExtent:
+                        screenWidth > 320 ? (screenWidth * 0.95) / 4 : null,
+                    shrinkWrap: true,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextButton(
+                          onPressed: () => onOpenHouseholdAssess(
+                            context,
+                            ovcHousehold,
+                          ),
+                          child: Text(
+                            'ASSESS',
+                            style: const TextStyle().copyWith(
+                              fontSize: 12.0,
+                              color: const Color(0xFF4B9F46),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => onOpenHouseholdCasePlan(
                           context,
                           ovcHousehold,
                         ),
                         child: Text(
-                          'ASSESS',
+                          'PLAN',
                           style: const TextStyle().copyWith(
                             fontSize: 12.0,
                             color: const Color(0xFF4B9F46),
@@ -166,78 +188,64 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                           ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () => onOpenHouseholdCasePlan(
-                        context,
-                        ovcHousehold,
-                      ),
-                      child: Text(
-                        'PLAN',
-                        style: const TextStyle().copyWith(
-                          fontSize: 12.0,
-                          color: const Color(0xFF4B9F46),
-                          fontWeight: FontWeight.w500,
+                      TextButton(
+                        onPressed: () => onOpenHouseholdService(
+                          context,
+                          ovcHousehold,
+                        ),
+                        child: Text(
+                          currentLanguage == 'lesotho'
+                              ? 'Litsebeletso'.toUpperCase()
+                              : 'SERVICES',
+                          style: const TextStyle().copyWith(
+                            fontSize: 12.0,
+                            color: const Color(0xFF4B9F46),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () => onOpenHouseholdService(
-                        context,
-                        ovcHousehold,
-                      ),
-                      child: Text(
-                        currentLanguage == 'lesotho'
-                            ? 'Litsebeletso'.toUpperCase()
-                            : 'SERVICES',
-                        style: const TextStyle().copyWith(
-                          fontSize: 12.0,
-                          color: const Color(0xFF4B9F46),
-                          fontWeight: FontWeight.w500,
+                      TextButton(
+                        onPressed: () => onOpenHouseholdMonitor(
+                          context,
+                          ovcHousehold,
+                        ),
+                        child: Text(
+                          'MONITOR',
+                          style: const TextStyle().copyWith(
+                            fontSize: 12.0,
+                            color: const Color(0xFF4B9F46),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () => onOpenHouseholdMonitor(
-                        context,
-                        ovcHousehold,
-                      ),
-                      child: Text(
-                        'MONITOR',
-                        style: const TextStyle().copyWith(
-                          fontSize: 12.0,
-                          color: const Color(0xFF4B9F46),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
+                    ],
+                  )),
+            ),
+            cardButtonContent: OvcHouseholdCardButtonContent(
+              isIncomingReferral: false,
+              currentLanguage: currentLanguage,
+              ovcHousehold: ovcHousehold,
+              canAddChild: canAddChild,
+              canViewChildInfo: canViewChildInfo,
+              canEditChildInfo: canEditChildInfo,
+              canViewChildService: canViewChildService,
+              canViewChildReferral: canViewChildReferral,
+              canViewChildExit: canViewChildExit,
+            ),
           ),
-          cardButtonContent: OvcHouseholdCardButtonContent(
-            isIncomingReferral: false,
-            currentLanguage: currentLanguage,
-            ovcHousehold: ovcHousehold,
-            canAddChild: canAddChild,
-            canViewChildInfo: canViewChildInfo,
-            canEditChildInfo: canEditChildInfo,
-            canViewChildService: canViewChildService,
-            canViewChildReferral: canViewChildReferral,
-            canViewChildExit: canViewChildExit,
+          emptyListWidget: Center(
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                  : 'There is no household enrolled at moment',
+            ),
           ),
-        ),
-        emptyListWidget: Center(
-          child: Text(
-            currentLanguage == 'lesotho'
-                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                : 'There is no household enrolled at moment',
-          ),
-        ),
-        errorWidget: Center(
-          child: Text(
-            currentLanguage == 'lesotho'
-                ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                : 'There is no household enrolled at moment',
+          errorWidget: Center(
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
+                  : 'There is no household enrolled at moment',
+            ),
           ),
         ),
       ),

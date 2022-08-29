@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:kb_mobile_app/core/offline_db/enrollment_offline/enrollment_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tei_relationship_offline/tei_relationship_offline_provider.dart';
 import 'package:kb_mobile_app/core/offline_db/tracked_entity_instance_offline/tracked_entity_instance_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/none_participation_beneficiary.dart';
@@ -48,21 +48,117 @@ class OvcEnrollmentHouseholdService {
             inputFieldIds,
             dataObject,
             hasBeneficiaryId: false);
+
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
-    Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
-        enrollment,
-        enrollmentDate,
-        incidentDate,
-        orgUnit,
-        program,
-        trackedEntityInstance,
-        dataObject);
-    await FormUtil.savingEnrollment(enrollmentData);
+    if (shouldEnroll) {
+      Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
+          enrollment,
+          enrollmentDate,
+          incidentDate,
+          orgUnit,
+          program,
+          trackedEntityInstance,
+          dataObject);
+      await FormUtil.savingEnrollment(enrollmentData);
+    }
+  }
+
+  Future updateHouseholdStatus({
+    String? trackedEntityInstance,
+    String? orgUnit,
+    Map dataObject = const {},
+    List<String>? inputFieldIds,
+  }) async {
+    List<String> _inputFieldIds = inputFieldIds ?? [];
+    TrackedEntityInstance trackedEntityInstanceData =
+        await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
+      trackedEntityInstance,
+      trackedEntityType,
+      orgUnit,
+      _inputFieldIds,
+      dataObject,
+      hasBeneficiaryId: false,
+    );
+
+    await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
+  }
+
+  Future<OvcHousehold?> getSelectedHousehold(String caregiverId) async {
+    try {
+      List<Enrollment> enrollments = await EnrollmentOfflineProvider()
+          .getEnrollmentsFromTeiList([caregiverId]);
+      List<String> accessibleOrgUnits = await OrganisationUnitService()
+          .getOrganisationUnitAccessedByCurrentUser();
+
+      List<TrackedEntityInstance> allTrackedEntityInstanceList =
+          await TrackedEntityInstanceOfflineProvider()
+              .getTrackedEntityInstanceByIds(enrollments
+                  .map((Enrollment enrollment) =>
+                      enrollment.trackedEntityInstance)
+                  .toList());
+
+      if (enrollments.isNotEmpty) {
+        var caregiverEnrollment = enrollments.first;
+        List<OrganisationUnit> ous = await OrganisationUnitService()
+            .getOrganisationUnits([caregiverEnrollment.orgUnit]);
+        String? location =
+            ous.isNotEmpty ? ous[0].name : caregiverEnrollment.orgUnit;
+        String? orgUnit = caregiverEnrollment.orgUnit;
+        String? createdDate = caregiverEnrollment.enrollmentDate;
+        bool enrollmentOuAccessible = accessibleOrgUnits.contains(orgUnit);
+        List<TrackedEntityInstance> houseHolds = allTrackedEntityInstanceList
+            .where((tei) =>
+                tei.trackedEntityInstance ==
+                caregiverEnrollment.trackedEntityInstance)
+            .toList();
+        List<OvcHousehold> householdList = [];
+        for (TrackedEntityInstance tei in houseHolds) {
+          List<TeiRelationship> relationships =
+              await TeiRelationshipOfflineProvider()
+                  .getTeiRelationships(tei.trackedEntityInstance);
+          List<String?> childTeiIds = relationships
+              .map((TeiRelationship relationship) => relationship.toTei)
+              .toList();
+          List<TrackedEntityInstance> houseHoldChildrenTeiData =
+              await TrackedEntityInstanceOfflineProvider()
+                  .getTrackedEntityInstanceByIds(childTeiIds);
+          List<OvcHouseholdChild> houseHoldChildren = houseHoldChildrenTeiData
+              .map((TrackedEntityInstance child) =>
+                  OvcHouseholdChild().fromTeiModel(
+                    child,
+                    orgUnit,
+                    createdDate,
+                    enrollmentOuAccessible,
+                  ))
+              .toList();
+          try {
+            tei =
+                getUpdatedHouseholdWithOvcCounts(tei, houseHoldChildrenTeiData);
+            FormUtil.savingTrackedEntityInstance(tei);
+          } catch (e) {
+            //
+          }
+          householdList.add(OvcHousehold().fromTeiModel(
+            tei,
+            location,
+            orgUnit,
+            createdDate,
+            enrollmentOuAccessible,
+            houseHoldChildren,
+          ));
+        }
+
+        return householdList.isEmpty ? null : householdList.first;
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
   }
 
   Future<List<OvcHousehold>> getHouseholdList(
       {page,
-      String searchableValue = '',
+      Map searchedAttributes = const {},
       List<Map<String, dynamic>> filters = const []}) async {
     List<OvcHousehold> ovcHouseHoldList = [];
     List<String> accessibleOrgUnits = await OrganisationUnitService()
@@ -71,7 +167,7 @@ class OvcEnrollmentHouseholdService {
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
           .getEnrollmentsByProgram(program,
-              page: page, searchedValue: searchableValue);
+              page: page, searchedAttributes: searchedAttributes);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -100,9 +196,13 @@ class OvcEnrollmentHouseholdService {
               await TrackedEntityInstanceOfflineProvider()
                   .getTrackedEntityInstanceByIds(childTeiIds);
           List<OvcHouseholdChild> houseHoldChildren = houseHoldChildrenTeiData
-              .map((TrackedEntityInstance child) => OvcHouseholdChild()
-                  .fromTeiModel(
-                      child, orgUnit, createdDate, enrollmentOuAccessible))
+              .map((TrackedEntityInstance child) =>
+                  OvcHouseholdChild().fromTeiModel(
+                    child,
+                    orgUnit,
+                    createdDate,
+                    enrollmentOuAccessible,
+                  ))
               .toList();
           try {
             tei =
@@ -125,17 +225,39 @@ class OvcEnrollmentHouseholdService {
       //
     }
     if (filters.isNotEmpty) {
-      for (Map<String, dynamic> filter in filters) {
-        String? implementingPartner = filter['implementingPartner'];
-        ovcHouseHoldList = implementingPartner == null
-            ? ovcHouseHoldList
-            : ovcHouseHoldList
-                .where((OvcHousehold household) =>
-                    household.implementingPartner == implementingPartner)
-                .toList();
-      }
+      Map<String, dynamic> metadata = {
+        'ovcHouseHoldList': ovcHouseHoldList,
+        'filters': filters
+      };
+
+      return await compute(getFilteredBeneficiaries, metadata);
     }
 
+    return ovcHouseHoldList;
+  }
+
+  List<OvcHousehold> getFilteredBeneficiaries(Map<String, dynamic> metadata) {
+    List<Map<String, dynamic>> filters =
+        metadata['filters'] as List<Map<String, dynamic>>;
+    List<OvcHousehold> ovcHouseHoldList =
+        metadata['ovcHouseHoldList'] as List<OvcHousehold>;
+    for (Map<String, dynamic> filter in filters) {
+      String? implementingPartner = filter['implementingPartner'];
+      String? householdCategorization = filter['householdCategorization'];
+      ovcHouseHoldList = implementingPartner == null
+          ? ovcHouseHoldList
+          : ovcHouseHoldList
+              .where((OvcHousehold household) =>
+                  household.implementingPartner == implementingPartner)
+              .toList();
+
+      ovcHouseHoldList = householdCategorization == null
+          ? ovcHouseHoldList
+          : ovcHouseHoldList
+              .where((OvcHousehold household) =>
+                  household.houseHoldCategorization == householdCategorization)
+              .toList();
+    }
     return ovcHouseHoldList;
   }
 
@@ -153,22 +275,19 @@ class OvcEnrollmentHouseholdService {
 
   Future<List<NoneParticipationBeneficiary>>
       getNoneParticipationBeneficiaryList(
-          {page, String searchableValue = ''}) async {
+          {page, Map searchedDataValues = const {}}) async {
     String programId = OvcEnrollmentNoneParticipationConstant.program;
     String programStageId = OvcEnrollmentNoneParticipationConstant.programStage;
 
     List<NoneParticipationBeneficiary> ovcNoneParticipants =
         await EventOfflineProvider().getEventsByProgram(
-            programId: programId, programStageId: programStageId, page: page);
+      programId: programId,
+      programStageId: programStageId,
+      page: page,
+      searchedDataValues: searchedDataValues,
+    );
 
-    return searchableValue == ''
-        ? ovcNoneParticipants
-        : ovcNoneParticipants.where((NoneParticipationBeneficiary beneficiary) {
-            bool isBeneficiaryFound = AppUtil().searchFromString(
-                searchableString: beneficiary.searchableValue,
-                searchedValue: searchableValue);
-            return isBeneficiaryFound;
-          }).toList();
+    return ovcNoneParticipants;
   }
 
   TrackedEntityInstance getUpdatedHouseholdWithOvcCounts(

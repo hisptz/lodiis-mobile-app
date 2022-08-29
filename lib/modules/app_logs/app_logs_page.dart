@@ -57,6 +57,10 @@ class _AppLogsState extends State<AppLogsPage> {
     await Provider.of<AppLogsState>(context, listen: false).clearLogs();
   }
 
+  void refreshLogs(AppLogsState appLogsState) {
+    appLogsState.refreshAppLogsNumber();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<InterventionCardState>(
@@ -116,26 +120,31 @@ class _AppLogsState extends State<AppLogsPage> {
                         decoration: BoxDecoration(
                             color: activeInterventionProgram.background),
                       ),
-                      CustomPaginatedListView(
-                        childBuilder: (context, appLog, child) => Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: AppLogsCard(
-                              appLog: appLog,
-                              currentInterventionColor:
-                                  activeInterventionProgram.countLabelColor,
-                            )),
-                        pagingController: appLogsState.pagingController,
-                        emptyListWidget: Column(children: const [
-                          Center(
+                      RefreshIndicator(
+                        onRefresh: () async {
+                          refreshLogs(appLogsState);
+                        },
+                        child: CustomPaginatedListView(
+                          childBuilder: (context, appLog, child) => Container(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: AppLogsCard(
+                                appLog: appLog,
+                                currentInterventionColor:
+                                    activeInterventionProgram.countLabelColor,
+                              )),
+                          pagingController: appLogsState.pagingController,
+                          emptyListWidget: Column(children: const [
+                            Center(
+                              child: Text(
+                                'There are no application logs at a moment.',
+                              ),
+                            )
+                          ]),
+                          errorWidget: const Center(
                             child: Text(
-                              'There are no application logs at a moment.',
+                              'There are no application logs list at a moment.',
                             ),
-                          )
-                        ]),
-                        errorWidget: const Center(
-                          child: Text(
-                            'There are no application logs list at a moment.',
                           ),
                         ),
                       )

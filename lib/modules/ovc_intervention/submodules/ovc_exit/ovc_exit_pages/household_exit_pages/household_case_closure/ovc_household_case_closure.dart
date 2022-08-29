@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/ovc_household_current_selection_state.dart';
+import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -53,12 +53,21 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
   @override
   void initState() {
     super.initState();
-    formSections = OvcExitCaseClosure.getFormSections();
+    setFromSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
       });
     });
+  }
+
+  setFromSection() {
+    OvcHousehold? household =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
+    formSections = OvcExitCaseClosure.getFormSections(
+      firstDate: household!.createdDate!,
+    );
   }
 
   void clearFormAutoSaveState(

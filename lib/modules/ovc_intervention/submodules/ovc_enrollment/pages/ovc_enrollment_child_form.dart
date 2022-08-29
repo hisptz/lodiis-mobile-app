@@ -10,6 +10,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
@@ -89,11 +90,12 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
     });
   }
 
-  // TODO see how to re-use existing skip logic
   evaluateSkipLogics() async {
     hiddenFields.clear();
     hiddenSections.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
     for (String inputFieldId in inputFieldIds) {
       String value = '${childMapObject![inputFieldId]}';
       if (inputFieldId == 'qZP982qpSPS') {
@@ -104,7 +106,6 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
         }
       }
       if (inputFieldId == 'iS9mAp3jDaU') {
-        print('value: $value');
         if (value == 'Biological mother' || value == 'Biological father') {
           assignInputFieldValue('UeF4OvjIIEK', 'false');
           hiddenFields['nOgf8LKXS4k'] = true;
@@ -156,6 +157,16 @@ class _OvcEnrollmentChildFormState extends State<OvcEnrollmentChildForm> {
       }
       if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
         hiddenFields['YR7Xxk14qoP_checkbox'] = true;
+      }
+      if (inputFieldId == BeneficiaryIdentification.phoneNumber) {
+        dynamic caregiverAge =
+            dataObject[BeneficiaryIdentification.phoneNumber] ?? '';
+        if ("$caregiverAge" == '') {
+          hiddenFields[BeneficiaryIdentification.phoneNumber] = true;
+        } else {
+          assignInputFieldValue(
+              BeneficiaryIdentification.phoneNumber, "$caregiverAge");
+        }
       }
     }
     assignPrimaryVulnerability(childMapObject);
