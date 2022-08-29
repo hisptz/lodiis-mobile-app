@@ -49,13 +49,11 @@ class _PhoneNumberInputFieldContainerState
           child: TextFormField(
             readOnly: widget.inputField.isReadOnly!,
             controller: phoneNumberController,
-            inputFormatters: widget.inputField.regExpValidation != null
-                ? [
-                    FilteringTextInputFormatter.allow(
-                        widget.inputField.regExpValidation as Pattern),
-                    LengthLimitingTextInputFormatter(10),
-                  ]
-                : [],
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                  widget.inputField.regExpValidation as Pattern),
+              LengthLimitingTextInputFormatter(10),
+            ],
             keyboardType: TextInputType.phone,
             onChanged: onValueChange,
             style: const TextStyle().copyWith(

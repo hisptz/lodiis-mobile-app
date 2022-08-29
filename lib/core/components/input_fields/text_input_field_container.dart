@@ -9,6 +9,7 @@ class TextInputFieldContainer extends StatefulWidget {
   const TextInputFieldContainer({
     Key? key,
     required this.inputField,
+    this.lastUpdatedId,
     this.onInputValueChange,
     this.inputValue,
     this.showInputCheckedIcon = true,
@@ -16,6 +17,7 @@ class TextInputFieldContainer extends StatefulWidget {
   }) : super(key: key);
 
   final InputField inputField;
+  final String? lastUpdatedId;
   final Function? onInputValueChange;
   final String? inputValue;
   final bool showInputCheckedIcon;
@@ -66,7 +68,8 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   void didUpdateWidget(covariant TextInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
-      if (widget.inputField.isReadOnly!) {
+      if (widget.inputField.isReadOnly! ||
+          widget.lastUpdatedId != widget.inputField.id) {
         updateTextValue(value: widget.inputValue);
       }
       if (widget.inputValue == null || widget.inputValue == '') {
@@ -87,12 +90,10 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
                     text: widget.inputValue,
                   )
                 : textController,
-            inputFormatters: widget.inputField.regExpValidation != null
-                ? [
-                    FilteringTextInputFormatter.allow(
-                        widget.inputField.regExpValidation as Pattern),
-                  ]
-                : [],
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                  widget.inputField.regExpValidation as Pattern),
+            ],
             onChanged: onValueChange,
             maxLines: widget.inputField.valueType == 'LONG_TEXT' ? null : 1,
             keyboardType: TextInputType.text,
