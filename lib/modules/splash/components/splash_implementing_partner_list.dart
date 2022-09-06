@@ -15,13 +15,13 @@ class SplashImplementingPartnerList extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 2),
-              height: 40,
-              child: const Image(image: AssetImage('assets/logos/usaid.png')),
+              height: 50,
+              child: const Image(image: AssetImage('assets/logos/perpfar.png')),
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 2),
-              height: 50,
-              child: const Image(image: AssetImage('assets/logos/perpfar.png')),
+              height: 40,
+              child: const Image(image: AssetImage('assets/logos/usaid.png')),
             ),
             SvgPicture.asset('assets/logos/kb.svg'),
             SvgPicture.asset('assets/logos/hisptz.svg'),
