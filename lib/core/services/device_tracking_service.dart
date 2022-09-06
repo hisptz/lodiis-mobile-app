@@ -46,7 +46,7 @@ class DeviceTrackingService {
     required Map dataObject,
   }) async {
     String trackedEntityInstance = await getDeviceTrackingReference();
-    if (trackedEntityInstance.isEmpty) {
+    if (trackedEntityInstance.isNotEmpty) {
       CurrentUser? user = await UserService().getCurrentUser();
       await _syncDeviceInfoStatusOnsyncProcess(
         user,
@@ -61,7 +61,7 @@ class DeviceTrackingService {
     Map<dynamic, dynamic> dataObject,
     String trackedEntityInstance,
   ) async {
-    Map errorMessages = _getSynchronizationErrors(
+    Map errorMessages = await _getSynchronizationErrors(
       startDate: dataObject[DeviceTrackingConstant.syncStartTime],
       endDate: dataObject[DeviceTrackingConstant.syncEndTime],
     );
