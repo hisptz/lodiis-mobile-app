@@ -96,6 +96,7 @@ class EventOfflineProvider extends OfflineDbProvider {
           ],
           where: '$trackedEntityInstance = ?',
           whereArgs: [trackedEntityInstanceId],
+          orderBy: eventDate,
         );
         if (maps.isNotEmpty) {
           for (Map map in maps) {
@@ -112,7 +113,7 @@ class EventOfflineProvider extends OfflineDbProvider {
     } catch (e) {
       //
     }
-    return events..sort((b, a) => a.eventDate!.compareTo(b.eventDate!));
+    return events;
   }
 
   Future<List<String>> getTrackedEntityInstanceReferenceByEventSyncStatus({
