@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -158,12 +159,17 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
                         padding: const EdgeInsets.symmetric(
                           vertical: 22.0,
                         ),
-                        child: Text(
-                          'ADD GAP',
-                          style: const TextStyle().copyWith(
-                            color: const Color(0xFFFAFAFA),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
+                        child: Consumer<LanguageTranslationState>(
+                          builder: (context, languageTranslationState, child) =>
+                              Text(
+                            languageTranslationState.isSesothoLanguage
+                                ? "Eketsa sekheo"
+                                : 'ADD GAP',
+                            style: const TextStyle().copyWith(
+                              color: const Color(0xFFFAFAFA),
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),

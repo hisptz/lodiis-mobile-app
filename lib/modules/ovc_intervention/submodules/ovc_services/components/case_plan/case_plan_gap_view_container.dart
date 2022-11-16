@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_form_container.dart';
@@ -8,6 +9,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
+import 'package:provider/provider.dart';
 
 class CasePlanGapViewContainer extends StatelessWidget {
   const CasePlanGapViewContainer({
@@ -187,7 +189,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
               child: TextButton(
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.white,
-                  onSurface: formSectionColor.withOpacity(0.5),
+                  disabledForegroundColor:
+                      formSectionColor.withOpacity(0.5).withOpacity(0.38),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: formSectionColor),
                     borderRadius: BorderRadius.circular(12.0),
@@ -199,12 +202,16 @@ class CasePlanGapViewContainer extends StatelessWidget {
                     vertical: 15.0,
                     horizontal: 40.0,
                   ),
-                  child: Text(
-                    'Add Gap',
-                    style: const TextStyle().copyWith(
-                      color: formSectionColor,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
+                  child: Consumer<LanguageTranslationState>(
+                    builder: (context, languageTranslationState, child) => Text(
+                      languageTranslationState.isSesothoLanguage
+                          ? "Eketsa sekheo"
+                          : 'Add Gap',
+                      style: const TextStyle().copyWith(
+                        color: formSectionColor,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
