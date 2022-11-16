@@ -62,7 +62,7 @@ class BeneficiaryRefereralCardBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
       builder: (context, languageTranslationState, child) {
-        String currentLanguage = languageTranslationState.currentLanguage ?? '';
+        String currentLanguage = languageTranslationState.currentLanguage;
         return Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 13.0,

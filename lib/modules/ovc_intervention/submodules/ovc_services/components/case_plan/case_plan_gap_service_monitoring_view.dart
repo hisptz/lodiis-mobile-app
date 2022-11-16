@@ -63,7 +63,7 @@ class _CasePlanGapServiceMonitoringViewState
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-      String currentLanguage = languageTranslationState.currentLanguage!;
+      String currentLanguage = languageTranslationState.currentLanguage;
       return Consumer<ServiceEventDataState>(
           builder: (context, serviceEventDataState, child) {
         bool isLoading = serviceEventDataState.isLoading;

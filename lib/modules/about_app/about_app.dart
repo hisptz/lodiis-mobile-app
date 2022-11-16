@@ -45,7 +45,7 @@ class _AboutAppState extends State<AboutApp> {
                 interventionCardState.currentInterventionProgram;
             return Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
-                String? currentLanguage =
+                String currentLanguage =
                     languageTranslationState.currentLanguage;
                 return Consumer<AppInfoState>(
                   builder: (context, appInfoState, child) {
@@ -58,7 +58,7 @@ class _AboutAppState extends State<AboutApp> {
                         child: Column(
                           children: [
                             AppInfoContainer(
-                              currentLanguage: currentLanguage ?? "",
+                              currentLanguage: currentLanguage,
                             ),
                             Container(
                               margin: const EdgeInsets.only(
@@ -82,7 +82,7 @@ class _AboutAppState extends State<AboutApp> {
                               ),
                             ),
                             UserInfoContainer(
-                              currentLanguage: currentLanguage ?? "",
+                              currentLanguage: currentLanguage,
                             )
                           ],
                         ),
