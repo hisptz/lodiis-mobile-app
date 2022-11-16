@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_monitoring_form_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_monitoring_view.dart';
+import 'package:provider/provider.dart';
 
 class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
   const CasePlanGapServiceMonitoringViewContainer({
@@ -104,12 +106,16 @@ class _CasePlanGapServiceMonitoringViewContainerState
                   padding: const EdgeInsets.all(15.0),
                 ),
                 onPressed: onManageCasePlanGapServiceMonitorting,
-                child: Text(
-                  'ADD MONITORING',
-                  style: const TextStyle().copyWith(
-                    color: widget.formSectionColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
+                child: Consumer<LanguageTranslationState>(
+                  builder: (context, languageTranslationState, child) => Text(
+                    languageTranslationState.isSesothoLanguage
+                        ? 'KENYA TLHOKOMELO'
+                        : 'ADD MONITORING',
+                    style: const TextStyle().copyWith(
+                      color: widget.formSectionColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
