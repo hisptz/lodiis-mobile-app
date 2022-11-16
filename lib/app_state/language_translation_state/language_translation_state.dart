@@ -5,7 +5,9 @@ class LanguageTranslationState with ChangeNotifier {
   String? _currentLanguage;
 
   // selectors
-  String? get currentLanguage => _currentLanguage;
+  String get currentLanguage => _currentLanguage ?? '';
+
+  bool get isSesothoLanguage => currentLanguage == 'lesotho';
 
   // reducers
 
