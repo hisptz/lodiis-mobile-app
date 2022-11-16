@@ -14,8 +14,8 @@ class OvcSchoolMonitoring {
           inputFields: [
             InputField(
                 id: 'Uw2Z1XNFgXI',
-                name: '1. Is the child still in school?',
-                translatedName: '1. Na ngoana on ntse a kena sekolo?',
+                name: '1. Is the child/OVC still in school?',
+                translatedName: '1. Na ngoana o kena sekolo?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4A9F46),
                 labelColor: const Color(0xFF737373)),
@@ -35,7 +35,7 @@ class OvcSchoolMonitoring {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'vigylZN5Wjz',
-                name: '3. Why is the child not in school?',
+                name: '3. Why is the child/OVC not in school?',
                 translatedName: '3. Ha Karabo e le Che, Fana ka Mabaka',
                 valueType: 'LONG_TEXT',
                 inputColor: const Color(0xFF4A9F46),
@@ -45,7 +45,7 @@ class OvcSchoolMonitoring {
                 name:
                     '4. Has the child/OVC missed school for 10 or more consecutive days?',
                 translatedName:
-                    '4. Na khoeling tse tharo tse fetileng ngoana o la ka se ee sekolong matsatsi a 10 a hlahlamanang?',
+                    '4. Na ngoana/OVC o kile a lofa sekolo nako ea matsatsi a 10 kapa ho feta a latellaneng?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4A9F46),
                 labelColor: const Color(0xFF737373)),
@@ -54,7 +54,7 @@ class OvcSchoolMonitoring {
                 name:
                     '5. Did the child/OVC have any challenges related to school that could have led to low/bad/poor performance?',
                 translatedName:
-                    '5. Na ngoana o bile le mathata a amanang le ho kena sekolo a neng a ka ama tsebetso ea hae sekolong?',
+                    '5. Na ngoana/OVC o kile a ba le liqholotso tse amanang le sekolo tse neng li ka susumetsa hore a sebetse hampe sekolong?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4A9F46),
                 labelColor: const Color(0xFF737373)),
@@ -71,7 +71,7 @@ class OvcSchoolMonitoring {
                 name:
                     '6. Does the caregiver play any role to boost the child school performance?',
                 translatedName:
-                    '6. Na Mohlokomeli o na le karolo eo a e bapalang ho thusa ho nyolla mosebetsi oa ngoana oa sekolo?',
+                    '6. Na mohlokomeli o nka karolo ho thusa ngoana ho akofisa tsebetso ea hae mosebetsing oa sekolo?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4A9F46),
                 labelColor: const Color(0xFF737373)),
@@ -79,7 +79,8 @@ class OvcSchoolMonitoring {
                 id: 'IWxxfSkEplj',
                 name:
                     'Explain how caregiver boost the child school performance',
-                translatedName: 'Hlalosa Karabo ea hau',
+                translatedName:
+                    'Hlalosa Karabo ea hauHlalosa ka moo mohlokomeli a thusang ngoana ho akofisa tsebetso ea hae mosebetsing oa sekolo',
                 valueType: 'LONG_TEXT',
                 inputColor: const Color(0xFF4A9F46),
                 labelColor: const Color(0xFF737373)),
@@ -88,7 +89,7 @@ class OvcSchoolMonitoring {
                 name:
                     '8. Comparing the last quarter to the current quarter performance; how has the child performed?',
                 translatedName:
-                    '8. Ha o bapisa sephetho sa nako e fetileng le sa hona joale, ngoana o sebelitseng joang?',
+                    '8. Ha o bapisa tsebetso ea kotara e fetileng le ea ha joale, ngoana o sebelitse joang?',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
@@ -102,14 +103,14 @@ class OvcSchoolMonitoring {
                 name:
                     '9. What are the Caregiver’s comments about child attendance and performance',
                 translatedName:
-                    '9. Maikutlo a Mohlokomeli ke a fe ke tsela eo ngoana a kenang sekolo ka eona le tsebetso ea hae sekolong?',
+                    '9. Maikutlo a mohlokomeli ka makhetlo a ho ea sekolong le tsebetso ea ngoana ea sekolo ke a fe?',
                 valueType: 'LONG_TEXT',
                 inputColor: const Color(0xFF4A9F46),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'uEeaGfuxHyV',
                 name: 'End of Quarter/year Result',
-                translatedName: 'Sephetho sa qetello ea kotara kapa selemo',
+                translatedName: 'Sephetho sa mafelo a kotara/selemo',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
@@ -122,7 +123,7 @@ class OvcSchoolMonitoring {
             InputField(
                 id: 'zpykd7zvLsC',
                 name: 'End of year result',
-                translatedName: 'Sephetho sa qetello ea selemo',
+                translatedName: 'Sephetho sa mafelo a selemo',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
