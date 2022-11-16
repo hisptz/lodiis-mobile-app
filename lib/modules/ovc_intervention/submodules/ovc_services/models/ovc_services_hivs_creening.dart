@@ -243,11 +243,18 @@ class OvcServicesHivScreening {
             InputField(
                 id: 'hivriskres',
                 name: 'HIV RISK ASSESSMENT RESULTS',
+                translatedName: "SEPHETHO SA TLHAHLOBO EA KOTSI EA HIV",
                 valueType: 'TEXT',
                 renderAsRadio: true,
                 options: [
-                  InputFieldOption(code: 'High risk', name: 'High risk'),
-                  InputFieldOption(code: 'Low risk', name: 'Low risk')
+                  InputFieldOption(
+                      code: 'High risk',
+                      name: 'High risk',
+                      translatedName: "Kotsi e phahameng"),
+                  InputFieldOption(
+                      code: 'Low risk',
+                      name: 'Low risk',
+                      translatedName: "Kotsi e tlase")
                 ],
                 isReadOnly: true,
                 inputColor: const Color(0xFF4B9F46),

@@ -10,6 +10,7 @@ class OvcServicesWellbeingAssessment {
     return [
       FormSection(
           name: 'Role/Impact of a Child to the family',
+          translatedName: "Karolo/ts'usumetso ea ngoana ka hare ho lelapa",
           color: const Color(0xFF4B9F46),
           inputFields: [
             InputField(
@@ -45,7 +46,9 @@ class OvcServicesWellbeingAssessment {
                       name: 'Take care of the other children',
                       translatedName: 'Ho hlokomela bana'),
                   InputFieldOption(
-                      code: 'KiQnuLksmBp', name: 'A source of worry'),
+                      code: 'KiQnuLksmBp',
+                      name: 'A source of worry',
+                      translatedName: "Ke sesosa sa mats'oenyeho"),
                   InputFieldOption(
                       code: 'vCSvOI0d9M4',
                       name: 'Other',
@@ -1590,6 +1593,8 @@ class OvcServicesWellbeingAssessment {
                 id: 'WmnbKX3Vj05',
                 allowFuturePeriod: true,
                 name: 'Timeline for goal 1',
+                translatedName:
+                    "Nako eo Sepheo 1 se reretsoeng ho phetheloa ka eona",
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF4B9F46),
@@ -1612,6 +1617,8 @@ class OvcServicesWellbeingAssessment {
                 id: 'cbxJhkrHUtk',
                 allowFuturePeriod: true,
                 name: 'Timeline for goal 2',
+                translatedName:
+                    "Nako eo Sepheo 2 se reretsoeng ho phetheloa ka eona",
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF4B9F46),
