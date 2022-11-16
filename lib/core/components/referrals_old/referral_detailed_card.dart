@@ -211,7 +211,7 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                             vertical: 10.0,
                           ),
                           child: ReferralCardData(
-                            currentLanguage: currentLanguage!,
+                            currentLanguage: currentLanguage,
                             labelColor: widget.labelColor,
                             valueColor: widget.valueColor,
                             referralDataCard: referralDataCard!,

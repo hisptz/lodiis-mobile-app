@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -7,6 +8,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
+import 'package:provider/provider.dart';
 
 class CasePlanGapView extends StatelessWidget {
   const CasePlanGapView({
@@ -54,12 +56,16 @@ class CasePlanGapView extends StatelessWidget {
                 right: 13.0,
                 bottom: 5.0,
               ),
-              child: Text(
-                "Gaps",
-                style: const TextStyle().copyWith(
-                  color: formSectionColor,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w700,
+              child: Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) => Text(
+                  languageTranslationState.isSesothoLanguage
+                      ? "Likheo"
+                      : "Gaps",
+                  style: const TextStyle().copyWith(
+                    color: formSectionColor,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),

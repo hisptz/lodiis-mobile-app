@@ -150,7 +150,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         if (Navigator.canPop(context)) {
           String currentLanguage =
               Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage!;
+                  .currentLanguage;
           AppUtil.showToastMessage(
             message: currentLanguage == 'lesotho'
                 ? 'Fomo e bolokeile'

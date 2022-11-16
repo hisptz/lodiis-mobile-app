@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -118,14 +119,20 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
                     var currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
                             .currentOvcHouseholdChild!;
-                    return Visibility(
-                      visible: currentOvcHouseholdChild.enrollmentOuAccessible!,
-                      child: EntryFormSaveButton(
-                        label: 'ADD MONITORING',
-                        labelColor: Colors.white,
-                        buttonColor: const Color(0xFF4B9F46),
-                        fontSize: 15.0,
-                        onPressButton: () => onAddSchoolMonitoring(context),
+                    return Consumer<LanguageTranslationState>(
+                      builder: (context, languageTranslationState, child) =>
+                          Visibility(
+                        visible:
+                            currentOvcHouseholdChild.enrollmentOuAccessible!,
+                        child: EntryFormSaveButton(
+                          label: languageTranslationState.isSesothoLanguage
+                              ? "KENYA TLHOKOMELO"
+                              : 'ADD MONITORING',
+                          labelColor: Colors.white,
+                          buttonColor: const Color(0xFF4B9F46),
+                          fontSize: 15.0,
+                          onPressButton: () => onAddSchoolMonitoring(context),
+                        ),
                       ),
                     );
                   },

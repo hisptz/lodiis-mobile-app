@@ -16,7 +16,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/ovc_service_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/ovc_service_child_card.dart';
 import 'package:provider/provider.dart';
-import 'child_service/ovc_service_child.dart';
 
 class OvcChildServiceHome extends StatefulWidget {
   const OvcChildServiceHome({Key? key}) : super(key: key);

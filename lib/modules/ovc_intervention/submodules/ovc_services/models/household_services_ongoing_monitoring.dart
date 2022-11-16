@@ -313,6 +313,7 @@ class HouseholdServicesOngoingMonitoring {
       FormSection(
         id: '',
         name: 'Household ongoing monitoring',
+        translatedName: "Tlhokomelo e tsoelang pele ea lelapa",
         color: const Color(0xFF4D9E49),
         inputFields: [
           InputField(
@@ -320,7 +321,7 @@ class HouseholdServicesOngoingMonitoring {
               name:
                   'Since our last visit, has there been any major positive and/ or negative changes within your family which has affected you?',
               translatedName:
-                  'Khetlo la ho qetela ha re kopana, na ho na le liphetoho tse kholo tse ntle le / kapa tse mpe ka har\'a lelapa la hau tse u etsahalletseng kapa bana le litho tse ling tsa lelapa',
+                  'Ho tloha lekhetlong la ho qetela la ketelo ea rona, na ho na le liphethoto tse kholo tse ntle kapa tse mpe tse le ammeng le le lelapa',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373)),
@@ -334,7 +335,7 @@ class HouseholdServicesOngoingMonitoring {
           InputField(
               id: 'u7CdxVqH9Cv',
               name: 'Challenges hindering progress',
-              translatedName: 'Mathata a sitisang tsoelo-pele',
+              translatedName: 'Liqholotso tse sitisang tsoelopele',
               valueType: 'LONG_TEXT',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373)),
@@ -342,7 +343,7 @@ class HouseholdServicesOngoingMonitoring {
               id: 'pgjVoHQ4rr7',
               name: 'Has the size of your family changed since our last visit',
               translatedName:
-                  'Na boholo ba lelapa la hau bo fetohile ho tloha ha re etela ka lekhetlo la ho qetela',
+                  'Na palo ea litho tsa lelapa la hau e fetohile ho tloha lekhetlong la ho qetela la ketelo ea rona?',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373)),
@@ -362,7 +363,7 @@ class HouseholdServicesOngoingMonitoring {
               name:
                   'Since our last visit, is there other information you would like to share (any changes in the Case Plan that need to be made)?',
               translatedName:
-                  'Ho tloha ha ke etile  lekhetlo la ho qetela, na ho na le tlhahiso-leseling e \'ngoe eo u ka ratang ho e mpolella (liphetoho life kapa life ka moralo oa tsebetso tse lokelang ho etsoa)?',
+                  'Ho tloha lekhetlong la ho qetela la ketelo ea rona, na ho na le tlhahisoleseling eo o ka ratang ho fana ka eona (na ho na le liphetoho tse hlokang ho etsoa ka hara Case Plan)',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373)),
@@ -372,12 +373,13 @@ class HouseholdServicesOngoingMonitoring {
           id: '',
           name: 'For those who were referred and changing HIV status',
           translatedName:
-              'Bakeng sa ba fetiselitsoeng litsing tsa bophelo le bao boemo ba bona ba tšoaetso bo fetohileng',
+              'Sebakeng sa ba fetisitsoeng le ba fetotseng sephetho sa tsoaetso ea HIV',
           color: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
                 id: 'uRsImCXXDXe',
                 name: 'HIV status',
+                translatedName: 'Sephetho sa tsoaetso ea HIV',
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(code: 'Positive', name: 'Positive'),

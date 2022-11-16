@@ -62,7 +62,7 @@ class _ReferralCardBodySummaryState extends State<ReferralCardBodySummary> {
                       vertical: 10.0,
                     ),
                     child: ReferralCardData(
-                      currentLanguage: currentLanguage!,
+                      currentLanguage: currentLanguage,
                       labelColor: widget.labelColor,
                       valueColor: widget.valueColor,
                       referralDataCard: referralDataCard!,
