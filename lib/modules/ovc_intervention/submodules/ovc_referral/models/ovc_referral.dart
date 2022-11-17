@@ -192,11 +192,14 @@ class OvcReferral {
             FormSection(
                 id: 'SeRefoFa',
                 name: 'Service referred for at Facility',
+                translatedName: 'Tsebeletso e fetiselitsoeng setsing',
                 color: const Color(0xFF1B3519),
                 inputFields: [
                   InputField(
                       id: 'AuCryxQYmrk',
                       name: 'Service Category at facility',
+                      translatedName:
+                          'Mokhahlelo oa litsebeletso setsing sa bophelo',
                       valueType: 'TEXT',
                       inputColor: const Color(0xFF4B9F46),
                       labelColor: const Color(0xFF737373),
@@ -347,6 +350,7 @@ class OvcReferral {
                   InputField(
                     id: 'iifSkIcBZz2',
                     name: 'Comments on referral at facility',
+                    translatedName: 'Maikutlo ka phetisetso setsing sa bophelo',
                     valueType: 'LONG_TEXT',
                     inputColor: const Color(0xFF4B9F46),
                     labelColor: const Color(0xFF737373),
@@ -355,6 +359,7 @@ class OvcReferral {
             FormSection(
                 id: 'CoReOr',
                 name: 'Completed by the Referring Organization',
+                translatedName: 'E tlatsoa ke mokhatlo o fetisang',
                 color: const Color(0xFF1B3519),
                 inputFields: [
                   InputField(

@@ -14,6 +14,7 @@ class OvcCLOReferral {
               InputField(
                   id: 'NbQGlx6QZpK_clo_type',
                   name: 'Type of CLO Referral',
+                  translatedName: 'Mofuta oa CLO referral',
                   valueType: 'TEXT',
                   inputColor: const Color(0xFF4B9F46),
                   labelColor: const Color(0xFF737373),
@@ -113,6 +114,7 @@ class OvcCLOReferral {
                   InputField(
                     id: 'g6J1vZ2kDXB',
                     name: 'Viral Load Results (for CLHIV)',
+                    translatedName: 'Sephetho sa Viral Load (bakeng sa CLHIV)',
                     valueType: 'TEXT',
                     inputColor: const Color(0xFF4B9F46),
                     labelColor: const Color(0xFF737373),
@@ -126,6 +128,8 @@ class OvcCLOReferral {
                   InputField(
                       id: 'vEeBBzeQrQU',
                       name: 'Referred to (Name and Surname of Community Cadre)',
+                      translatedName:
+                          'O fetiselitsoe ho (Lebitso le fane tsa Mosebeletsi)',
                       valueType: 'TEXT',
                       inputColor: const Color(0xFF4B9F46),
                       labelColor: const Color(0xFF737373)),
