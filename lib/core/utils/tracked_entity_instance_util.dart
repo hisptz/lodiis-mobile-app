@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/offline_db/event_offline/event_offline_provider.dart';
@@ -91,7 +92,7 @@ class TrackedEntityInstanceUtil {
         //
       }
     }
-    return shouldSortByDate ? events.reversed.toList() : events.toList();
+    return events.toList();
   }
 
   static List<Events> getAllEventListFromServiceDataState(
