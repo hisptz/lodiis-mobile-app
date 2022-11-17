@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/condoms/agyw_dreams_condoms.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/family_planning_srh/agyw_dreams_family_planning_srh.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/agyw_dreams_hiv_message.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prevention_education/agyw_dreams_hiv_prevention_education.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/hts_long_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/hts_short_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/agyw_dreams_parenting.dart';
@@ -249,6 +250,19 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
+  void onOpenHIVPreventionEducationForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AgywDreamsHIVPreventionEducation(),
+      ),
+    );
+  }
+
   void updateStateData(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -366,6 +380,11 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
                   agywBeneficiary,
                 ),
                 onOpenParentingForm: () => onOpenParentingForm(
+                  context,
+                  agywBeneficiary,
+                ),
+                onOpenHIVPreventionEducationForm: () =>
+                    onOpenHIVPreventionEducationForm(
                   context,
                   agywBeneficiary,
                 ),
