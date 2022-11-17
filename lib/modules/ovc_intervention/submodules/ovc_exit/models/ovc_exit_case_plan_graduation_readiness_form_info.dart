@@ -15,7 +15,9 @@ class OvcExitCasePlanGraduationFormInfo {
             InputField(
                 id: 'DFPZI9TQLo1',
                 name:
-                    'Is this the first Case Plan Graduation Readiness Assessment ?',
+                    'Is this the first Case Plan Graduation Readiness Assessment?',
+                translatedName:
+                    'Na ke Case Plan Readiness Assessment ea pele ee?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373)),
@@ -31,13 +33,17 @@ class OvcExitCasePlanGraduationFormInfo {
                 id: 'aU9CHJNURsH',
                 name:
                     'Is this household child-headed (i.e. Household head age is less than 18 years)?',
+                translatedName:
+                    'Na hlooho ea lelapa lee ke ngoana? (Ha a le lilemo ka tlase ho 18)',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'AMcUQ378pJy',
                 name:
-                    'Does this household currently have a pregnant woman or pregnant adolescent girl',
+                    'Does this household currently have a pregnant woman or pregnant adolescent girl?',
+                translatedName:
+                    'Na ho na le motho ea mmeleng ka hare ho lelapa ha hajoale?',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 valueType: 'BOOLEAN'),
@@ -45,13 +51,17 @@ class OvcExitCasePlanGraduationFormInfo {
                 id: 'zpxF0UbwoFg',
                 name:
                     'Does this household have a child living with disability or has chronic illness? (Note: Cancer, Diabetes, etc)',
+                translatedName:
+                    'Na ka hare ho lelapa lee ho na le ngoana ea phelang le bokooa kapa bokulo bo sa foleng? (joalo ka: Cancer, Diabetes, le tse ling)',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 valueType: 'BOOLEAN'),
             InputField(
                 id: 'YiEFzKZ6d4d',
                 name:
-                    'Does this household have an adolescent or youth enrolled in secondary school or vocational training',
+                    'Does this household have an adolescent or youth enrolled in secondary school or vocational training?',
+                translatedName:
+                    'Na lelapa lee le na le ngoana kapa mocha ea ntse a le sekolong se mahareng kapa sa koetliso ea mesebetsi ea matsoho?',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 valueType: 'BOOLEAN')
