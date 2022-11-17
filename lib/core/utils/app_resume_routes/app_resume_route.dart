@@ -149,6 +149,9 @@ class AppResumeRoute
         DreamsRoutesConstant.agywDreamsPrepVisitFormNextPage) {
       redirectToAgywDreamsPrEPVisitForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamHIVPreventionEducationNextPage) {
+      redirectToAgywDreamsHIVPreventionEducationForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.ovcConcentFormPage) {
       redirectToOvcEnrollmentConsentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
