@@ -484,8 +484,10 @@ class ServiceCardButtonAction extends StatelessWidget {
                         ),
                       ),
                       Visibility(
-                        visible:
-                            currentUserState.canManageHIVPreventionEducation,
+                        visible: currentUserState
+                                .canManageHIVPreventionEducation &&
+                            (int.parse(agywBeneficiary!.age ?? '0') >= 10 &&
+                                int.parse(agywBeneficiary!.age ?? '0') <= 24),
                         child: InkWell(
                           onTap: onOpenHIVPreventionEducationForm,
                           child: Container(
