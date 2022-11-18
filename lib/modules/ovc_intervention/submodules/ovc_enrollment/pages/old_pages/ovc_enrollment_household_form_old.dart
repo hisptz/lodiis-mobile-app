@@ -29,16 +29,16 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_household_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcEnrollmentHouseholdForm extends StatefulWidget {
-  const OvcEnrollmentHouseholdForm({Key? key}) : super(key: key);
+class OvcEnrollmentHouseholdFormOld extends StatefulWidget {
+  const OvcEnrollmentHouseholdFormOld({Key? key}) : super(key: key);
 
   @override
-  _OvcEnrollmentHouseholdFormState createState() =>
-      _OvcEnrollmentHouseholdFormState();
+  _OvcEnrollmentHouseholdFormOldState createState() =>
+      _OvcEnrollmentHouseholdFormOldState();
 }
 
-class _OvcEnrollmentHouseholdFormState
-    extends State<OvcEnrollmentHouseholdForm> {
+class _OvcEnrollmentHouseholdFormOldState
+    extends State<OvcEnrollmentHouseholdFormOld> {
   List<FormSection>? formSections;
   final String label = 'Household information';
   final List<String> mandatoryFields =

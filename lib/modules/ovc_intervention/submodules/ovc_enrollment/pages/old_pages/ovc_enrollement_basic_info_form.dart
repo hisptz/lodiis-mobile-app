@@ -20,7 +20,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/caregiver_age_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollement_basic_info.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/old_pages/ovc_enrollment_child_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_household_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -87,7 +87,7 @@ class _OvcEnrollmentBasicInfoFormState
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const OvcEnrollmentChildForm(),
+            builder: (context) => const OvcEnrollmentChildFormOld(),
           ),
         );
       }
