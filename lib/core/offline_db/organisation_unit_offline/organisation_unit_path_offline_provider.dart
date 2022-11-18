@@ -48,7 +48,7 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
   Future<List<String?>> getOrganisationUnitsInPathByOrganisationUnit(
     String? organisationUnitId,
   ) async {
-    List<String?> organisationUnitIds = [];
+    List<String> organisationUnitIds = [];
     try {
       var dbClient = await db;
       List<Map> maps = await dbClient!.query(
@@ -62,12 +62,12 @@ class OrganisationUnitPathOfflineProvider extends OfflineDbProvider {
             .where((path) => path.contains(organisationUnitId!))
             .toList();
         for (String path in paths) {
-          List<String?> splittedPath = path.split("/");
+          List<String> splittedPath = path.split("/");
           organisationUnitIds.addAll(
             splittedPath.where(
-              (String? path) =>
+              (String path) =>
                   splittedPath.indexOf(path) >=
-                  splittedPath.indexOf(organisationUnitId),
+                  splittedPath.indexOf(organisationUnitId!),
             ),
           );
         }

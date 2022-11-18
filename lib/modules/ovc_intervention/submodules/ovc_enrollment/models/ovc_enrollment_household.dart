@@ -8,6 +8,11 @@ class OvcEnrollmentHousehold {
     return [
       'RB8Wx75hGa4',
       'xiI8aC8RwjC',
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'vIX4GTSCX4P',
+      'qZP982qpSPS',
+      'oSKX8fFQdWc',
     ];
   }
 
@@ -50,7 +55,7 @@ class OvcEnrollmentHousehold {
       ),
       FormSection(
         name: 'Caregiver/Guardian details',
-        translatedName: "Mohlokomeli",
+        translatedName: "Lintlha tsa mohlokomeli",
         color: const Color(0xFF737373),
         inputFields: [
           InputField(
@@ -140,6 +145,54 @@ class OvcEnrollmentHousehold {
                 InputFieldOption(code: 'Widowed', name: 'Widowed'),
                 InputFieldOption(
                     code: 'Divorced/separated', name: 'Divorced/separated'),
+              ]),
+          InputField(
+              id: 'oSKX8fFQdWc',
+              name: 'Caregiver HIV status',
+              translatedName:
+                  'Sephetho sa mohlokomeli sa tlhatlhobo ea ho qetela sa HIV se reng?',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'Positive', name: 'Positive'),
+                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                InputFieldOption(code: 'No Response', name: 'No Response'),
+              ]),
+          InputField(
+            id: 'l7op0btSqSc',
+            name: 'Is caregiver on ART?',
+            translatedName:
+                "Haeba ts'oaetso e le teng, Na mohlokomeli o noa litlhare tsa ART?",
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'iBws3HMjiUT',
+            name: 'Facility obtaining ART',
+            translatedName:
+                "Haeba a noa litlhare, Setsi sa bophelo moo mohlokomeli a fumanang litlhare tsa ART ke se fe?",
+            allowedSelectedLevels: [4],
+            valueType: 'ORGANISATION_UNIT',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+              id: 'qAivZumsnJ2',
+              name: 'Caregiver education level',
+              translatedName: '',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'Primary level', name: 'Primary level'),
+                InputFieldOption(
+                    code: 'Secondary level', name: 'Secondary level'),
+                InputFieldOption(code: 'Tertiary level', name: 'Tertiary'),
+                InputFieldOption(code: 'Vocational level', name: 'Vocational'),
+                InputFieldOption(code: 'None', name: 'Never been to School'),
               ]),
           InputField(
             id: 'l9tcZ2TNgx6',
