@@ -60,7 +60,7 @@ class AgywDreamsServiceSummaryConstant {
       [
         {
           'name': 'HIV Prevention Education',
-          'programStage': ['bDJq2JWVTbC']
+          'programStage': ['bDJq2JWVTbC', 'mCKbTbsQoMy']
         },
         {
           'name': 'Parenting (Preg & Breastfeeding)',

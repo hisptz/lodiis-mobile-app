@@ -97,9 +97,10 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
   }
 
   bool isServiceProvided(
-      Map serviceProgramStage, Map<String?, List<Events>> serviceEvents) {
+      Map serviceProgramStage, Map<String?, List<Events>> serviceEventsMap) {
     List<String> serviceProgramStageIds = serviceProgramStage['programStage'];
-    List<Events> events = getEventList(serviceEvents);
+    serviceProgramStageIds = serviceProgramStageIds.toSet().toList();
+    List<Events> events = getEventList(serviceEventsMap);
     List programStageIds =
         events.map((Events event) => event.programStage).toSet().toList();
     if (serviceProgramStageIds.contains(ServiceFormConstant.programStage) &&
@@ -116,6 +117,20 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
         if (element.interventionGroup == serviceProgramStage['name']) {
           return true;
         }
+      }
+
+      var sanitizedStages = [...serviceProgramStageIds];
+      sanitizedStages.removeWhere(
+        (String stage) => stage == ServiceFormConstant.programStage,
+      );
+      if (sanitizedStages.isNotEmpty) {
+        return isServiceProvided(
+          {
+            ...serviceProgramStage,
+            "programStage": sanitizedStages,
+          },
+          serviceEventsMap,
+        );
       }
       return false;
     } else if (programStageIds.indexWhere((programStageId) =>
