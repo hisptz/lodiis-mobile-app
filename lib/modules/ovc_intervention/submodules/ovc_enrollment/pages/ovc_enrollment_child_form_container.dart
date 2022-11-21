@@ -30,6 +30,9 @@ class _OvcEnrollmentChildFormContainerState
   List<FormSection> formSections = [];
   final List<Map> childrenMapObjects = [];
   Map childrenMapObject = {};
+  Map hiddenFields = {};
+  Map hiddenSections = {};
+  Map hiddenInputFieldOptions = {};
   bool _isFormready = false;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -45,6 +48,9 @@ class _OvcEnrollmentChildFormContainerState
 
   _resetSkipLogicAndFormStateObjects() {
     childrenMapObject.clear();
+    hiddenFields.clear();
+    hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
   }
 
   _evaluateSkipLogics() {
@@ -55,8 +61,17 @@ class _OvcEnrollmentChildFormContainerState
           context,
           formSections,
           childrenMapObject,
+          shouldSetEnrollmentState: false,
         );
-        debugPrint("$resultReponse");
+        hiddenFields = resultReponse['hiddenFields'] ?? {};
+        hiddenSections = resultReponse['hiddenSections'] ?? {};
+        hiddenInputFieldOptions =
+            resultReponse['hiddenInputFieldOptions'] ?? {};
+        Map assignedFields = resultReponse['assignedFields'] ?? {};
+        for (String key in assignedFields.keys) {
+          childrenMapObject[key] = assignedFields[key];
+        }
+        setState(() {});
       },
     );
   }
@@ -140,9 +155,9 @@ class _OvcEnrollmentChildFormContainerState
                             : Container(),
                         EntryFormContainer(
                           formSections: formSections,
-                          hiddenFields: const {},
-                          hiddenSections: const {},
-                          hiddenInputFieldOptions: const {},
+                          hiddenFields: hiddenFields,
+                          hiddenSections: hiddenSections,
+                          hiddenInputFieldOptions: hiddenInputFieldOptions,
                           mandatoryFieldObject: mandatoryFieldObject,
                           dataObject: childrenMapObject,
                           onInputValueChange: onInputValueChange,
