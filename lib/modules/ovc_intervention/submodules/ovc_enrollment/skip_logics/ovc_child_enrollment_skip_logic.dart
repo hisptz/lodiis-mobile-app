@@ -12,15 +12,18 @@ class OvcChildEnrollmentSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
   static Map hiddenInputFieldOptions = {};
+  static Map assignedFields = {};
 
-  static Future evaluateSkipLogics(
+  static Map evaluateSkipLogics(
     BuildContext context,
     List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+    Map dataObject, {
+    bool shouldSetEnrollmentState = true,
+  }) {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
+    assignedFields.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     OvcHousehold? ovcHousehold =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
@@ -33,25 +36,34 @@ class OvcChildEnrollmentSkipLogic {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'tNdoR0jYr7R') {
         if (ovcHousehold?.phoneNumber != 'N/A') {
-          assignInputFieldValue(
-              context, 'tNdoR0jYr7R', ovcHousehold?.phoneNumber);
+          if (shouldSetEnrollmentState) {
+            assignInputFieldValue(
+                context, 'tNdoR0jYr7R', ovcHousehold?.phoneNumber);
+          } else {
+            assignedFields['tNdoR0jYr7R'] = ovcHousehold?.phoneNumber;
+          }
         } else {
           hiddenFields['tNdoR0jYr7R'] = true;
         }
       }
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
-        assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+        if (shouldSetEnrollmentState) {
+          assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
+        } else {
+          assignedFields['ls9hlz2tyol'] = age.toString();
+        }
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
-        }
-        if (age < 2) {
-          hiddenSections['domainschooltsasekolo'] = true;
         }
       }
       if (inputFieldId == 'iS9mAp3jDaU') {
         if (value == 'Biological mother' || value == 'Biological father') {
-          assignInputFieldValue(context, 'UeF4OvjIIEK', 'false');
+          if (shouldSetEnrollmentState) {
+            assignInputFieldValue(context, 'UeF4OvjIIEK', 'false');
+          } else {
+            assignedFields['UeF4OvjIIEK'] = 'false';
+          }
           hiddenFields['nOgf8LKXS4k'] = true;
         }
       }
@@ -67,7 +79,6 @@ class OvcChildEnrollmentSkipLogic {
         }
         hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
       }
-
       if (inputFieldId == 'UeF4OvjIIEK' &&
           (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['nOgf8LKXS4k'] = true;
@@ -99,12 +110,24 @@ class OvcChildEnrollmentSkipLogic {
       }
       if (inputFieldId == 'YR7Xxk14qoP' && value != 'true') {
         hiddenFields['YR7Xxk14qoP_checkbox'] = true;
+        List<String> checkBoxFieldIds = [
+          'dufGxx0KVg0',
+          'nfp9NHLf25K',
+          'tbLVGG4zDrJ',
+          'ULr0tYkjTTB',
+          'BfbiOanp9Pi',
+          'X3MQhmVA1Jt',
+          'TPRVr4ua9f9'
+        ];
+        for (String id in checkBoxFieldIds) {
+          hiddenFields[id] = true;
+          assignedFields[id] = null;
+        }
       }
       if (inputFieldId == 'omUPOnb4JVp' && value != 'true') {
         hiddenFields['WsmWkkFBiT6'] = true;
       }
     }
-    assignPrimaryVulnerability(context, dataObject);
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -116,12 +139,28 @@ class OvcChildEnrollmentSkipLogic {
         hiddenFields[inputFieldId] = true;
       }
     }
-    resetValuesForHiddenFields(context, hiddenFields.keys);
-    resetValuesForHiddenSections(context, formSections);
-    resetValuesForHiddenInputFieldOptions(context, formSections);
+    assignPrimaryVulnerability(context, dataObject, shouldSetEnrollmentState);
+    if (shouldSetEnrollmentState) {
+      resetValuesForHiddenFields(context, hiddenFields.keys);
+      resetValuesForHiddenSections(context, formSections);
+      resetValuesForHiddenInputFieldOptions(context, formSections);
+    }
+    return shouldSetEnrollmentState
+        ? {}
+        : {
+            "assignedFields": assignedFields,
+            "hiddenFields": hiddenFields,
+            "hiddenInputFieldOptions": hiddenInputFieldOptions,
+            "hiddenSections": hiddenSections,
+          };
   }
 
-  static assignPrimaryVulnerability(BuildContext context, Map dataObject) {
+  //TODO Checking assignemt of this below
+  static assignPrimaryVulnerability(
+    BuildContext context,
+    Map dataObject,
+    bool shouldSetEnrollmentState,
+  ) {
     List<String> vulnerabilities = [
       'wmKqYZML8GA',
       'GMcljM7jbNG',
@@ -142,11 +181,15 @@ class OvcChildEnrollmentSkipLogic {
     ];
     for (var vulnerabilityKey in vulnerabilities) {
       if (dataObject[vulnerabilityKey] == true) {
-        assignInputFieldValue(
-            context,
-            OvcEnrollmentChildConstant.primaryVulnerabilityKey,
-            primaryVulnerabilitiesOptions[
-                vulnerabilities.indexOf(vulnerabilityKey)]);
+        String value = primaryVulnerabilitiesOptions[
+            vulnerabilities.indexOf(vulnerabilityKey)];
+        if (shouldSetEnrollmentState) {
+          assignInputFieldValue(context,
+              OvcEnrollmentChildConstant.primaryVulnerabilityKey, value);
+        } else {
+          assignedFields[OvcEnrollmentChildConstant.primaryVulnerabilityKey] =
+              value;
+        }
         break;
       } else {
         continue;
@@ -154,8 +197,13 @@ class OvcChildEnrollmentSkipLogic {
     }
     if (vulnerabilities.every((element) =>
         (dataObject[element] == false || dataObject[element] == null))) {
-      assignInputFieldValue(
-          context, OvcEnrollmentChildConstant.primaryVulnerabilityKey, null);
+      if (shouldSetEnrollmentState) {
+        assignInputFieldValue(
+            context, OvcEnrollmentChildConstant.primaryVulnerabilityKey, null);
+      } else {
+        assignedFields[OvcEnrollmentChildConstant.primaryVulnerabilityKey] =
+            null;
+      }
     }
   }
 
