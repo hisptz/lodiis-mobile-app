@@ -121,11 +121,64 @@ class OvcChildEnrollmentSkipLogic {
         ];
         for (String id in checkBoxFieldIds) {
           hiddenFields[id] = true;
-          assignedFields[id] = null;
         }
       }
       if (inputFieldId == 'omUPOnb4JVp' && value != 'true') {
         hiddenFields['WsmWkkFBiT6'] = true;
+      }
+      if (inputFieldId == 'pJ5NAEmwnDq' && value != 'true') {
+        hiddenFields['JPNe5w7zeki'] = true;
+      }
+      if (inputFieldId == 'JTNxMQPT134' && value != 'true') {
+        hiddenFields['iQdwzVfZdml'] = true;
+        hiddenFields['EwZil0AnlYo'] = true;
+        hiddenFields['f7WkgoF9uib'] = true;
+        hiddenFields['h1HeZ2eEkGn'] = true;
+        hiddenFields['NGVFqUVSHiU'] = true;
+        hiddenFields['oioDyk1WK1j'] = true;
+      }
+      if (inputFieldId == 'f7WkgoF9uib' && value != 'PrimaryLevel') {
+        hiddenFields['h1HeZ2eEkGn'] = true;
+      }
+      if (inputFieldId == 'f7WkgoF9uib' && value != 'SecondaryLevel') {
+        hiddenFields['NGVFqUVSHiU'] = true;
+      }
+      if (inputFieldId == 'f7WkgoF9uib' &&
+          !(value == 'PrimaryLevel' || value == 'SecondaryLevel')) {
+        hiddenFields['oioDyk1WK1j'] = true;
+      }
+      if (inputFieldId == 'oSKX8fFQdWc' && value != 'Positive') {
+        hiddenFields['l7op0btSqSc'] = true;
+      }
+      if (inputFieldId == 'l7op0btSqSc' && value != 'true') {
+        hiddenFields['iBws3HMjiUT'] = true;
+        hiddenFields['aX0niP9AH6t'] = true;
+        hiddenFields['EIMgHQW61kx'] = true;
+      }
+      //assignment for father details
+      if (inputFieldId == 'iS9mAp3jDaU' && value == 'Biological father') {
+        assignedFields['cJl00w5DjIL'] = 'Yes';
+      }
+      if (inputFieldId == 'tbpqNLJotOi' && value != 'Positive') {
+        hiddenFields['xJfScNlfNS2'] = true;
+      }
+      if (inputFieldId == 'xJfScNlfNS2' && value != 'true') {
+        hiddenFields['IWFLOoEtisa'] = true;
+      }
+      if (inputFieldId == 'cJl00w5DjIL' && value != 'No') {
+        hiddenFields['wKEQZfKU2jX'] = true;
+      }
+      if (inputFieldId == 'iS9mAp3jDaU' && value == 'Biological mother') {
+        assignedFields['R9e8v9r3lMM'] = 'Yes';
+      }
+      if (inputFieldId == 'nO38lKlKHYi' && value != 'Positive') {
+        hiddenFields['PAv1sKQn2hO'] = true;
+      }
+      if (inputFieldId == 'PAv1sKQn2hO' && value != 'true') {
+        hiddenFields['fa0BSFwqQGQ'] = true;
+      }
+      if (inputFieldId == 'R9e8v9r3lMM' && value != 'No') {
+        hiddenFields['voFec8nlKRX'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

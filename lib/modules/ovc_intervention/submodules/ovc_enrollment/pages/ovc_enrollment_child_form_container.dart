@@ -54,6 +54,7 @@ class _OvcEnrollmentChildFormContainerState
   }
 
   _evaluateSkipLogics() {
+    //TODO add support for getting caregiver additional data tp be autopopulated
     Timer(
       const Duration(milliseconds: 200),
       () {
@@ -70,6 +71,9 @@ class _OvcEnrollmentChildFormContainerState
         Map assignedFields = resultReponse['assignedFields'] ?? {};
         for (String key in assignedFields.keys) {
           childrenMapObject[key] = assignedFields[key];
+        }
+        for (String key in hiddenFields.keys) {
+          childrenMapObject[key] = null;
         }
         setState(() {});
       },
