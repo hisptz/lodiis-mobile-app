@@ -5,7 +5,47 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcEnrollmentChild {
   static List<String> getMandatoryField() {
-    return [];
+    return [
+      'iS9mAp3jDaU',
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'vIX4GTSCX4P',
+      'qZP982qpSPS',
+      'pJ5NAEmwnDq',
+      'JPNe5w7zeki',
+      'JTNxMQPT134',
+      'EwZil0AnlYo',
+      'f7WkgoF9uib',
+      'h1HeZ2eEkGn',
+      'NGVFqUVSHiU',
+      'oioDyk1WK1j',
+      'oSKX8fFQdWc',
+      'l7op0btSqSc',
+      'iBws3HMjiUT',
+      'RDobagXItZ6',
+      'KO5NC4pfBmv',
+      'cJl00w5DjIL',
+      'ZPf4iCd2aw3',
+      'JMwIgMSUnlu',
+      'wKEQZfKU2jX',
+      'R9e8v9r3lMM',
+      'd3HviODv676',
+      'FBdCMyESsdg',
+      'voFec8nlKRX',
+      'wmKqYZML8GA',
+      'GMcljM7jbNG',
+      'Gkjp5XZD70V',
+      'Sa0KVprHUr7',
+      'wtrZQadTkOL',
+      'Mc3k3bSwXNe',
+      'CePNVGSnj00',
+      'ZKMhrjWoXnD',
+      'br1xvwAQ6el',
+      'UeF4OvjIIEK',
+      'nOgf8LKXS4k',
+      'YR7Xxk14qoP',
+      'mTv9eZZq0Nz'
+    ];
   }
 
   static List<FormSection> getFormSections() {
@@ -19,6 +59,23 @@ class OvcEnrollmentChild {
             name: 'A. Child Personal Information',
             color: const Color(0xFF4B9F46),
             inputFields: [
+              InputField(
+                id: 'iS9mAp3jDaU',
+                name: 'Relationship to Caregiver',
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
+                valueType: 'TEXT',
+                options: [
+                  InputFieldOption(
+                      code: 'Biological mother', name: 'Biological mother'),
+                  InputFieldOption(
+                      code: 'Biological father', name: 'Biological father'),
+                  InputFieldOption(code: 'Aunt/Uncle', name: 'Aunt/Uncle'),
+                  InputFieldOption(code: 'Sibling', name: 'Sibling'),
+                  InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
+                  InputFieldOption(code: 'Other', name: 'Other')
+                ],
+              ),
               InputField(
                 id: 'WTZ7GLTrE8Q',
                 name: 'First Name',
@@ -122,7 +179,7 @@ class OvcEnrollmentChild {
             inputFields: [
               InputField(
                 id: 'JTNxMQPT134',
-                name: 'Child in School ',
+                name: 'Child in School',
                 translatedName: '',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4B9F46),
@@ -203,7 +260,7 @@ class OvcEnrollmentChild {
             color: const Color(0xFF4B9F46),
             inputFields: [
               InputField(
-                id: '',
+                id: 'oSKX8fFQdWc',
                 name: "Child's HIV status:",
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
@@ -268,22 +325,6 @@ class OvcEnrollmentChild {
                 options: [
                   InputFieldOption(code: 'New', name: 'New'),
                   InputFieldOption(code: 'Re-enrolled', name: 'Re-enrolled')
-                ],
-              ),
-              InputField(
-                id: 'iS9mAp3jDaU',
-                name: 'Relationship to Caregiver',
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF737373),
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(
-                      code: 'Biological mother', name: 'Biological mother'),
-                  InputFieldOption(
-                      code: 'Biological father', name: 'Biological father'),
-                  InputFieldOption(code: 'Aunt/Uncle', name: 'Aunt/Uncle'),
-                  InputFieldOption(code: 'Sibling', name: 'Sibling'),
-                  InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
                 ],
               ),
               InputField(
@@ -391,9 +432,6 @@ class OvcEnrollmentChild {
               InputFieldOption(code: 'OtherCauses', name: 'Other Causes'),
             ],
           ),
-          //
-          ////TODO add other for mother
-          ///
           InputField(
               id: 'R9e8v9r3lMM',
               name: 'Is mother alive?',
@@ -492,8 +530,7 @@ class OvcEnrollmentChild {
         inputFields: [
           InputField(
             id: 'wmKqYZML8GA',
-            name: '1. Child living with HIV ?',
-            translatedName: '1. Ke ngoana ea phelang le ts’oaetso ea HIV?',
+            name: '1. Child living with HIV?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',
@@ -501,44 +538,20 @@ class OvcEnrollmentChild {
           InputField(
             id: 'GMcljM7jbNG',
             name: '2. HIV exposed infants (HEI)?',
-            translatedName:
-                '2. O tlokotsing ea ts’oaetso ea HIV (mohlala, ngoana ea hlahileng ho ‘m’e ea phelang le ts’oaetso)?',
-            inputColor: const Color(0xFFB0C7EA),
-            labelColor: const Color(0xFF737373),
-            valueType: 'BOOLEAN',
-          ),
-          InputField(
-            id: 'br1xvwAQ6el',
-            name: '3. Child of a sex worker(FSW)?',
-            translatedName:
-                '3. Ke ngoana oa motsoali ea hoebang ka mmele (FSW)?',
-            inputColor: const Color(0xFFB0C7EA),
-            labelColor: const Color(0xFF737373),
-            valueType: 'BOOLEAN',
-          ),
-          InputField(
-            id: 'ZKMhrjWoXnD',
-            name: '4. Child of people living with HIV (PLHIV)?',
-            translatedName:
-                '4. Ke ngoana ea phelang lapeng le nang le motho ea phelang le t’soaetso ea HIV (PLHIV)?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',
           ),
           InputField(
             id: 'Gkjp5XZD70V',
-            name:
-                '5. Child exposed/experiencing violence and abuse (Survivors of Vac)?',
-            translatedName:
-                '5. Ke ngoana ea kileng a hlekefetsoa/tlokotsing ea tlhekefetso?',
+            name: '3. Child Exposed/Experiencing Violence and Abuse (CEVA)?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',
           ),
           InputField(
             id: 'Sa0KVprHUr7',
-            name: '5.1. When did the violence or abuse happen?',
-            translatedName: '5.1. Tlhekefetso e etsahetse neng?',
+            name: 'When did the violence or abuse happen?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'TEXT',
@@ -559,8 +572,7 @@ class OvcEnrollmentChild {
           ),
           InputField(
             id: 'wtrZQadTkOL',
-            name: '5.2. What type of violence /abuse did you experience?',
-            translatedName: '5.2. Ene ele Tlhekefetso ea mofuta ofe?',
+            name: 'What type of violence /abuse did child experience?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'CHECK_BOX',
@@ -585,16 +597,14 @@ class OvcEnrollmentChild {
           ),
           InputField(
             id: 'Mc3k3bSwXNe',
-            name: '5.3. Action taken?',
-            translatedName: '5.3. O nkile Bohato mabapi le tlhekefetso ee?',
+            name: 'Action taken?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',
           ),
           InputField(
             id: 'CePNVGSnj00',
-            name: '5.4. What type of action was taken?',
-            translatedName: '5.4. Ke methati efe ea Molao e latetsoeng?',
+            name: 'What type of action was taken?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'CHECK_BOX',
@@ -626,23 +636,36 @@ class OvcEnrollmentChild {
           InputField(
             id: 'GM2mJDlGZin',
             name: 'Specify other type of action taken',
-            translatedName: 'Tse ling  (hlalosa)',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'TEXT',
           ),
           InputField(
+            id: 'ZKMhrjWoXnD',
+            name: '4. Child of People Living with HIV (CPLHIV)?',
+            inputColor: const Color(0xFFB0C7EA),
+            labelColor: const Color(0xFF737373),
+            valueType: 'BOOLEAN',
+          ),
+          InputField(
+            id: 'br1xvwAQ6el',
+            name: '5. Child of a sex worker (CFSW)?',
+            inputColor: const Color(0xFFB0C7EA),
+            labelColor: const Color(0xFF737373),
+            valueType: 'BOOLEAN',
+          ),
+          InputField(
             id: 'UeF4OvjIIEK',
             name: '6. Is the child an orphan?',
-            translatedName: '6. Na Ngoana ke khutsana?',
+            translatedName: 'Na Ngoana ke khutsana?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',
           ),
           InputField(
             id: 'nOgf8LKXS4k',
-            name: 'Orphan status',
-            translatedName: 'Boemo ba likhutsana',
+            name: 'Orphan status?',
+            translatedName: 'Boemo ba likhutsana?',
             valueType: 'TEXT',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
@@ -663,8 +686,7 @@ class OvcEnrollmentChild {
           ),
           InputField(
             id: 'YR7Xxk14qoP',
-            name: '7. Is the child living with disabilities?',
-            translatedName: '7. Ngoana o phela le bokooa?',
+            name: '7. Is the Child Living with Disabilities (CLD)?',
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',
@@ -709,7 +731,7 @@ class OvcEnrollmentChild {
           ),
           InputField(
             id: 'mTv9eZZq0Nz',
-            name: '8. Which is the primary vulnerability?',
+            name: 'Which is the primary vulnerability?',
             translatedName: 'Tlokotsi ea mantlha ea ngoana ke e fe?',
             isReadOnly: true,
             inputColor: const Color(0xFFB0C7EA),
@@ -717,7 +739,10 @@ class OvcEnrollmentChild {
             valueType: 'TEXT',
             options: [
               InputFieldOption(
-                  code: 'Orphan', name: 'Orphan', translatedName: 'Khutsana'),
+                code: 'Orphan',
+                name: 'Orphan',
+                translatedName: 'Khutsana',
+              ),
               InputFieldOption(
                   code: 'Child living with disability',
                   name: 'Child living with disability',
@@ -752,7 +777,7 @@ class OvcEnrollmentChild {
           InputField(
               id: 'omUPOnb4JVp',
               name:
-                  '9. Are there other vulnerabilities? (Beyond the identified seven)',
+                  'Are there other vulnerabilities? (Beyond the identified seven)',
               translatedName:
                   'Na ngoana o na le litlokotsi tse ling? * (ka thoko ho tse ka holimo tse supileng)',
               inputColor: const Color(0xFFB0C7EA),
