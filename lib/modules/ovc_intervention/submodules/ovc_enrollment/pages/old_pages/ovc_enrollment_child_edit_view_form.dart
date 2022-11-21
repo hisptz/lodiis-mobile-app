@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic_old.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildEditViewForm extends StatefulWidget {
@@ -73,7 +73,7 @@ class _OvcEnrollmentChildEditViewFormState
       () async {
         Map dataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
-        await OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
+        await OvcChildEnrollmentSkipLogicOld.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,

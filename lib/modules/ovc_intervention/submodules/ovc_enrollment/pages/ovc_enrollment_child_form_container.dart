@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -12,6 +14,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentChildFormContainer extends StatefulWidget {
@@ -26,6 +29,7 @@ class _OvcEnrollmentChildFormContainerState
     extends State<OvcEnrollmentChildFormContainer> {
   List<FormSection> formSections = [];
   final List<Map> childrenMapObjects = [];
+  Map childrenMapObject = {};
   bool _isFormready = false;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -34,8 +38,27 @@ class _OvcEnrollmentChildFormContainerState
   void initState() {
     super.initState();
     _assignChildrenOnAutoSaving();
-    //TODO support yp reset child map object
+    _resetSkipLogicAndFormStateObjects();
     _setFormState();
+    _evaluateSkipLogics();
+  }
+
+  _resetSkipLogicAndFormStateObjects() {
+    childrenMapObject.clear();
+  }
+
+  _evaluateSkipLogics() {
+    Timer(
+      const Duration(milliseconds: 200),
+      () {
+        Map resultReponse = OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
+          context,
+          formSections,
+          childrenMapObject,
+        );
+        debugPrint("$resultReponse");
+      },
+    );
   }
 
   _setFormState() {
@@ -60,13 +83,14 @@ class _OvcEnrollmentChildFormContainerState
   }
 
   void onInputValueChange(String id, dynamic value) {
-    //TODO implement logics on change value
-    debugPrint('on value change $id => $value');
+    childrenMapObject[id] = value;
+    setState(() {});
+    _evaluateSkipLogics();
   }
 
   void onSaveAndContinue(BuildContext context) async {
     //TODO handling save and continues
-    debugPrint('on saving form');
+    debugPrint('on saving form $childrenMapObject');
   }
 
   @override
@@ -120,7 +144,7 @@ class _OvcEnrollmentChildFormContainerState
                           hiddenSections: const {},
                           hiddenInputFieldOptions: const {},
                           mandatoryFieldObject: mandatoryFieldObject,
-                          dataObject: const {},
+                          dataObject: childrenMapObject,
                           onInputValueChange: onInputValueChange,
                           unFilledMandatoryFields: const [],
                         ),

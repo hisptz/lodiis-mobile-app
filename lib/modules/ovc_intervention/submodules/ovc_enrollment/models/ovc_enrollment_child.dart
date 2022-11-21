@@ -668,7 +668,7 @@ class OvcEnrollmentChild {
                   translatedName: 'Setsi sa bophelo'),
               InputFieldOption(
                   code: 'ftRPTznAqUn',
-                  name: 'Police -CGPU',
+                  name: 'Police - CGPU',
                   translatedName: 'Mapoleseng'),
               InputFieldOption(
                   code: 'FVBsqRoLGYW', name: 'Chief', translatedName: 'Morena'),
