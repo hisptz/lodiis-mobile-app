@@ -69,15 +69,20 @@ class EntryFormContainer extends StatelessWidget {
                           child: MaterialCard(
                               elevation: elevation,
                               body: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                margin: formSection.name != ''
+                                    ? const EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      )
+                                    : const EdgeInsets.symmetric(),
                                 decoration: BoxDecoration(
-                                    border: Border(
-                                      left: BorderSide(
-                                          color: formSection.borderColor!,
-                                          width: 8.0),
+                                  border: Border(
+                                    left: BorderSide(
+                                      color: formSection.borderColor!,
+                                      width: 8.0,
                                     ),
-                                    color: formSection.backgroundColor),
+                                  ),
+                                  color: formSection.backgroundColor,
+                                ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -140,14 +145,21 @@ class EntryFormContainer extends StatelessWidget {
                                     Visibility(
                                       visible: formSection.name != '',
                                       child: LineSeparator(
-                                          color: formSection.color
-                                              .withOpacity(0.1)),
+                                        color:
+                                            formSection.color.withOpacity(0.1),
+                                      ),
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5.0, horizontal: 10.0),
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10.0, horizontal: 10.0),
+                                      margin: EdgeInsets.symmetric(
+                                        vertical:
+                                            formSection.name != '' ? 5.0 : 0.0,
+                                        horizontal: 10.0,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical:
+                                            formSection.name != '' ? 10.0 : 0.0,
+                                        horizontal: 10.0,
+                                      ),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
