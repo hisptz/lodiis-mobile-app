@@ -73,7 +73,9 @@ class EntryFormContainer extends StatelessWidget {
                                     ? const EdgeInsets.symmetric(
                                         vertical: 10.0,
                                       )
-                                    : const EdgeInsets.symmetric(),
+                                    : const EdgeInsets.only(
+                                        bottom: 10.0,
+                                      ),
                                 decoration: BoxDecoration(
                                   border: Border(
                                     left: BorderSide(
@@ -115,7 +117,9 @@ class EntryFormContainer extends StatelessWidget {
                                       visible: formSection.description != '',
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
-                                            vertical: 15.0, horizontal: 10.0),
+                                          vertical: 15.0,
+                                          horizontal: 10.0,
+                                        ),
                                         child: Row(
                                           children: [
                                             Expanded(
