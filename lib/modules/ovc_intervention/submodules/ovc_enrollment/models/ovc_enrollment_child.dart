@@ -407,6 +407,9 @@ class OvcEnrollmentChild {
             valueType: 'DATE',
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
+            minAgeInYear: 18,
+            hint: "Beneficiary's age should be 18 years and above",
+            translatedHint: "Lilemo tsa setho li be 18+",
           ),
           InputField(
             id: 'NzeeDnWJsNU',
@@ -508,6 +511,9 @@ class OvcEnrollmentChild {
             valueType: 'DATE',
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
+            minAgeInYear: 18,
+            hint: "Beneficiary's age should be 18 years and above",
+            translatedHint: "Lilemo tsa setho li be 18+",
           ),
           InputField(
             id: 'rP7oCRukLkq',
