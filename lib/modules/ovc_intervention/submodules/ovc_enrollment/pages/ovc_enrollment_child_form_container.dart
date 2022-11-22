@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -10,8 +11,10 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
@@ -29,6 +32,7 @@ class _OvcEnrollmentChildFormContainerState
     extends State<OvcEnrollmentChildFormContainer> {
   List<FormSection> formSections = [];
   final List<Map> childrenMapObjects = [];
+  List unFilledMandatoryFields = [];
   Map childrenMapObject = {};
   Map hiddenFields = {};
   Map hiddenSections = {};
@@ -47,6 +51,7 @@ class _OvcEnrollmentChildFormContainerState
   }
 
   _resetSkipLogicAndFormStateObjects() {
+    unFilledMandatoryFields = [];
     childrenMapObject.clear();
     hiddenFields.clear();
     hiddenSections.clear();
@@ -101,6 +106,16 @@ class _OvcEnrollmentChildFormContainerState
     }
   }
 
+  bool _isADuplicateChildObject(Map childrenMapObject) {
+    bool isDuplicate = false;
+    for (var child in childrenMapObjects) {
+      if (child['WTZ7GLTrE8Q'] == childrenMapObject['WTZ7GLTrE8Q']) {
+        isDuplicate = true;
+      }
+    }
+    return isDuplicate;
+  }
+
   void onInputValueChange(String id, dynamic value) {
     childrenMapObject[id] = value;
     setState(() {});
@@ -108,8 +123,43 @@ class _OvcEnrollmentChildFormContainerState
   }
 
   void onSaveAndContinue(BuildContext context) async {
-    //TODO handling save and continues
-    debugPrint('on saving form $childrenMapObject');
+    unFilledMandatoryFields = [];
+    setState(() {});
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      childrenMapObject,
+      hiddenFields: hiddenFields,
+    );
+    if (hadAllMandatoryFilled) {
+      bool isDuplicatedChild = _isADuplicateChildObject(childrenMapObject);
+      String childName = childrenMapObject['WTZ7GLTrE8Q'] ?? '';
+      if (isDuplicatedChild) {
+        AppUtil.showToastMessage(
+          message: 'Child with  name $childName have already been added',
+          position: ToastGravity.TOP,
+        );
+      } else {
+        Widget modal = AddChildConfirmation(name: childName);
+        bool shouldAddAnotherChild =
+            await AppUtil.showPopUpModal(context, modal, false);
+        if (shouldAddAnotherChild) {
+          //TODO updating state and suto saving values
+          debugPrint("On add into list");
+        } else {
+          // save the data andredirect to home page
+          // clear form state
+          debugPrint("On add into list and save th forms");
+        }
+      }
+    } else {
+      unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
+          mandatoryFields, childrenMapObject);
+      setState(() {});
+      AppUtil.showToastMessage(
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
+    }
   }
 
   @override
@@ -165,7 +215,7 @@ class _OvcEnrollmentChildFormContainerState
                           mandatoryFieldObject: mandatoryFieldObject,
                           dataObject: childrenMapObject,
                           onInputValueChange: onInputValueChange,
-                          unFilledMandatoryFields: const [],
+                          unFilledMandatoryFields: unFilledMandatoryFields,
                         ),
                         EntryFormSaveButton(
                           label: languageTranslationState.isSesothoLanguage
