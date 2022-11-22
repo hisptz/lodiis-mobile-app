@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/ovc_enrollment_form_saving_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,7 @@ class _OvcEnrollmentChildFormContainerState
   Map hiddenSections = {};
   Map hiddenInputFieldOptions = {};
   bool _isFormready = false;
+  bool _isSaving = false;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = {};
 
@@ -128,12 +130,11 @@ class _OvcEnrollmentChildFormContainerState
   void onSaveAndContinue(BuildContext context) async {
     unFilledMandatoryFields = [];
     setState(() {});
-    // bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-    //   mandatoryFields,
-    //   childrenMapObject,
-    //   hiddenFields: hiddenFields,
-    // );
-    bool hadAllMandatoryFilled = true;
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      childrenMapObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
       bool isDuplicatedChild = _isADuplicateChildObject(childrenMapObject);
       String childName = childrenMapObject['WTZ7GLTrE8Q'] ?? '';
@@ -154,15 +155,12 @@ class _OvcEnrollmentChildFormContainerState
             setState(() {});
           });
         } else {
-          //TODO save the data andredirect to home page
-          //TODO clear form state
           await _onUpdatingChildrenMapObjectsState(
             context,
             {...childrenMapObject},
             shouldSaveForm: true,
           );
         }
-        debugPrint("$childrenMapObjects");
       }
     } else {
       unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
@@ -197,7 +195,10 @@ class _OvcEnrollmentChildFormContainerState
         '${dataObject['WTZ7GLTrE8Q']} ${dataObject['rSP9c21JsfC']}';
     childrenMapObjects.add(dataObject);
     if (shouldSaveForm) {
-      //TODO handling other operaton for saving
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState('children', childrenMapObjects);
+      _isSaving = true;
+      setState(() {});
     }
   }
 
@@ -231,42 +232,46 @@ class _OvcEnrollmentChildFormContainerState
                   ? const Center(
                       child: CircularProcessLoader(color: Colors.blueGrey),
                     )
-                  : Column(
-                      children: [
-                        childrenMapObjects.isNotEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: 12.0,
-                                ),
-                                child: EnrolledChildrenList(
-                                  childrenList: childrenMapObjects.map((child) {
-                                    String fullName = child['fullName'] ?? '';
-                                    return fullName;
-                                  }).toList(),
-                                ),
-                              )
-                            : Container(),
-                        EntryFormContainer(
-                          formSections: formSections,
-                          hiddenFields: hiddenFields,
-                          hiddenSections: hiddenSections,
-                          hiddenInputFieldOptions: hiddenInputFieldOptions,
-                          mandatoryFieldObject: mandatoryFieldObject,
-                          dataObject: childrenMapObject,
-                          onInputValueChange: onInputValueChange,
-                          unFilledMandatoryFields: unFilledMandatoryFields,
+                  : _isSaving
+                      ? const OvcEnrollementFormSavingContaniner()
+                      : Column(
+                          children: [
+                            childrenMapObjects.isNotEmpty
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 12.0,
+                                    ),
+                                    child: EnrolledChildrenList(
+                                      childrenList:
+                                          childrenMapObjects.map((child) {
+                                        String fullName =
+                                            child['fullName'] ?? '';
+                                        return fullName;
+                                      }).toList(),
+                                    ),
+                                  )
+                                : Container(),
+                            EntryFormContainer(
+                              formSections: formSections,
+                              hiddenFields: hiddenFields,
+                              hiddenSections: hiddenSections,
+                              hiddenInputFieldOptions: hiddenInputFieldOptions,
+                              mandatoryFieldObject: mandatoryFieldObject,
+                              dataObject: childrenMapObject,
+                              onInputValueChange: onInputValueChange,
+                              unFilledMandatoryFields: unFilledMandatoryFields,
+                            ),
+                            EntryFormSaveButton(
+                              label: languageTranslationState.isSesothoLanguage
+                                  ? 'Boloka ebe u fetela pele'
+                                  : 'Save and Continue',
+                              labelColor: Colors.white,
+                              buttonColor: const Color(0xFF4B9F46),
+                              fontSize: 15.0,
+                              onPressButton: () => onSaveAndContinue(context),
+                            ),
+                          ],
                         ),
-                        EntryFormSaveButton(
-                          label: languageTranslationState.isSesothoLanguage
-                              ? 'Boloka ebe u fetela pele'
-                              : 'Save and Continue',
-                          labelColor: Colors.white,
-                          buttonColor: const Color(0xFF4B9F46),
-                          fontSize: 15.0,
-                          onPressButton: () => onSaveAndContinue(context),
-                        ),
-                      ],
-                    ),
             ),
           ),
           bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
