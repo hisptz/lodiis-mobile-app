@@ -11,7 +11,10 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
+import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
@@ -125,11 +128,12 @@ class _OvcEnrollmentChildFormContainerState
   void onSaveAndContinue(BuildContext context) async {
     unFilledMandatoryFields = [];
     setState(() {});
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-      mandatoryFields,
-      childrenMapObject,
-      hiddenFields: hiddenFields,
-    );
+    // bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    //   mandatoryFields,
+    //   childrenMapObject,
+    //   hiddenFields: hiddenFields,
+    // );
+    bool hadAllMandatoryFilled = true;
     if (hadAllMandatoryFilled) {
       bool isDuplicatedChild = _isADuplicateChildObject(childrenMapObject);
       String childName = childrenMapObject['WTZ7GLTrE8Q'] ?? '';
@@ -143,13 +147,22 @@ class _OvcEnrollmentChildFormContainerState
         bool shouldAddAnotherChild =
             await AppUtil.showPopUpModal(context, modal, false);
         if (shouldAddAnotherChild) {
-          //TODO updating state and suto saving values
-          debugPrint("On add into list");
+          await _onUpdatingChildrenMapObjectsState(
+              context, {...childrenMapObject});
+          Timer(const Duration(milliseconds: 100), () {
+            _resetSkipLogicAndFormStateObjects();
+            setState(() {});
+          });
         } else {
-          // save the data andredirect to home page
-          // clear form state
-          debugPrint("On add into list and save th forms");
+          //TODO save the data andredirect to home page
+          //TODO clear form state
+          await _onUpdatingChildrenMapObjectsState(
+            context,
+            {...childrenMapObject},
+            shouldSaveForm: true,
+          );
         }
+        debugPrint("$childrenMapObjects");
       }
     } else {
       unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
@@ -159,6 +172,32 @@ class _OvcEnrollmentChildFormContainerState
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
       );
+    }
+  }
+
+  Future _onUpdatingChildrenMapObjectsState(
+    BuildContext context,
+    Map dataObject, {
+    bool shouldSaveForm = false,
+  }) async {
+    CurrentUser? user = await UserService().getCurrentUser();
+    dataObject['PN92g65TkVI'] = 'Active';
+    dataObject[UserAccountReference.implementingPartnerAttribute] =
+        dataObject[UserAccountReference.implementingPartnerAttribute] ??
+            user!.implementingPartner;
+    dataObject[UserAccountReference.serviceProviderAtttribute] =
+        dataObject[UserAccountReference.serviceProviderAtttribute] ??
+            user!.username;
+    if (user!.subImplementingPartner != '') {
+      dataObject[UserAccountReference.subImplementingPartnerAttribute] =
+          dataObject[UserAccountReference.subImplementingPartnerAttribute] ??
+              user.subImplementingPartner;
+    }
+    dataObject['fullName'] =
+        '${dataObject['WTZ7GLTrE8Q']} ${dataObject['rSP9c21JsfC']}';
+    childrenMapObjects.add(dataObject);
+    if (shouldSaveForm) {
+      //TODO handling other operaton for saving
     }
   }
 
@@ -200,10 +239,10 @@ class _OvcEnrollmentChildFormContainerState
                                   bottom: 12.0,
                                 ),
                                 child: EnrolledChildrenList(
-                                  childrenList: childrenMapObjects
-                                      .map<String?>(
-                                          (child) => child['fullName'])
-                                      .toList(),
+                                  childrenList: childrenMapObjects.map((child) {
+                                    String fullName = child['fullName'] ?? '';
+                                    return fullName;
+                                  }).toList(),
                                 ),
                               )
                             : Container(),

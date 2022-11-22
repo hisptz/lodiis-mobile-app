@@ -429,16 +429,11 @@ class _OvcEnrollmentChildFormOldState extends State<OvcEnrollmentChildFormOld> {
                     : Column(
                         children: [
                           childMapObjects.isNotEmpty
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
+                              ? const Padding(
+                                  padding: EdgeInsets.only(
                                     bottom: 12.0,
                                   ),
-                                  child: EnrolledChildrenList(
-                                    childrenList: childMapObjects
-                                        .map<String?>(
-                                            (child) => child!['fullName'])
-                                        .toList(),
-                                  ),
+                                  child: EnrolledChildrenList(childrenList: []),
                                 )
                               : Container(),
                           EntryFormContainer(

@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class EnrolledChildrenList extends StatefulWidget {
-  final List<String?> childrenList;
+  final List<String> childrenList;
 
   const EnrolledChildrenList({Key? key, required this.childrenList})
       : super(key: key);
