@@ -100,8 +100,8 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : OvcRoutesConstant.ovcConcentFormNextPage
-          : OvcRoutesConstant.ovcConcentFormNextPage,
+              : OvcRoutesConstant.ovcCaregiverFormPage
+          : OvcRoutesConstant.ovcConcentFormPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);

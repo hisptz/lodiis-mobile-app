@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,11 +13,14 @@ import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/int
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
+import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
+import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/ovc_enrollment_form_saving_container.dart';
@@ -194,12 +198,36 @@ class _OvcEnrollmentChildFormContainerState
     dataObject['fullName'] =
         '${dataObject['WTZ7GLTrE8Q']} ${dataObject['rSP9c21JsfC']}';
     childrenMapObjects.add(dataObject);
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('children', childrenMapObjects);
+    _onUpdateFormAutoSaveState(context, isSaveForm: shouldSaveForm);
     if (shouldSaveForm) {
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState('children', childrenMapObjects);
       _isSaving = true;
       setState(() {});
     }
+  }
+
+  void _onUpdateFormAutoSaveState(
+    BuildContext context, {
+    bool isSaveForm = false,
+    String nextPageModule = "",
+  }) async {
+    String beneficiaryId = "";
+    Map dataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    String id = "${OvcRoutesConstant.ovcConcentFormPage}_$beneficiaryId";
+    FormAutoSave formAutoSave = FormAutoSave(
+      id: id,
+      beneficiaryId: beneficiaryId,
+      pageModule: OvcRoutesConstant.ovcChildEditFormPage,
+      nextPageModule: isSaveForm
+          ? nextPageModule != ""
+              ? nextPageModule
+              : OvcRoutesConstant.ovcChildRegisterFormNextPage
+          : OvcRoutesConstant.ovcChildRegisterFormPage,
+      data: jsonEncode(dataObject),
+    );
+    await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
   @override

@@ -155,19 +155,16 @@ class AppResumeRoute
         OvcRoutesConstant.ovcNoneParticipationFormPage) {
       redirectToOvcEnrollmentNoneParticipationForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.ovcConcentFormNextPage) {
-      redirectToOvcEnrollmentBasicInfoForm(context, formAutoSave);
-    } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.ovcBasicCaregiverInformationFormNextPage) {
-      redirectToOvcEnrollmentChildForm(context, formAutoSave);
-    } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.ovcChildVulnerabilityFormNextPage) {
+        OvcRoutesConstant.ovcCaregiverFormPage) {
       redirectToOvcEnrollmentHouseholdForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.ovcEnrollmentHouseholdEditFormNextPage) {
+        OvcRoutesConstant.ovcChildRegisterFormPage) {
+      redirectToOvcEnrollmentChildForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcCaregiverEditFormPage) {
       redirectToOvcEnrollmentHouseholdEditForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
-        OvcRoutesConstant.ovcChildVulnerabilityEditFormNextPage) {
+        OvcRoutesConstant.ovcChildEditFormPage) {
       redirectToOvcEnrollmentChildEditViewForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.houseHoldAssessmentFormPage) {

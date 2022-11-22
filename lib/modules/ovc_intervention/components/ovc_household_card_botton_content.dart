@@ -93,7 +93,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     updateEnrollmentFormStateData(context, child, true);
     String? beneficiaryId = child.id;
     String formAutoSaveId =
-        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+        "${OvcRoutesConstant.ovcChildEditFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
@@ -138,7 +138,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
     String beneficiaryId = "";
     String formAutoSaveId =
-        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+        "${OvcRoutesConstant.ovcChildEditFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()

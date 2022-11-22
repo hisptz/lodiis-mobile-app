@@ -152,7 +152,7 @@ class _OvcEnrollmentChildEditViewFormState
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
     String formAutoSaveId =
-        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+        "${OvcRoutesConstant.ovcChildEditFormPage}_$beneficiaryId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -163,17 +163,16 @@ class _OvcEnrollmentChildEditViewFormState
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id =
-        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+    String id = "${OvcRoutesConstant.ovcChildEditFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: OvcRoutesConstant.ovcChildVulnerabilityEditFormPage,
+      pageModule: OvcRoutesConstant.ovcChildEditFormPage,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : OvcRoutesConstant.ovcChildVulnerabilityEditFormNextPage
-          : OvcRoutesConstant.ovcChildVulnerabilityEditFormPage,
+              : OvcRoutesConstant.ovcChildEditFormNextPage
+          : OvcRoutesConstant.ovcChildEditFormPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);

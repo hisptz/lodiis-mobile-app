@@ -1,28 +1,15 @@
 class OvcRoutesConstant {
   static const String ovcConcentFormPage = "Consent Form";
-  static const String ovcConcentFormNextPage = "Basic caregiver information";
+  static const String ovcCaregiverFormPage = 'Household information';
+  static const String ovcCaregiverEditFormPage = 'Household information';
+  static const String ovcCaregiverFormNextPage = 'Child vulnerability form';
+  static const String ovcChildRegisterFormPage = 'Child vulnerability form';
+  static const String ovcChildRegisterFormNextPage = 'Child vulnerability form';
+  static const String ovcChildEditFormPage = 'Child vulnerability form.';
+  static const String ovcChildEditFormNextPage = 'Child vulnerability form.';
   static const String ovcNoneParticipationFormPage = "None Participation Form";
   static const String ovcNoneParticipationFormNextPage =
       "None Participation Form";
-  static const String ovcBasicCaregiverInformationFormPage =
-      "Basic caregiver information";
-  static const String ovcBasicCaregiverInformationFormNextPage =
-      "Child vulnerability form";
-  static const String ovcChildVulnerabilityFormPage =
-      "Child vulnerability form";
-  static const String ovcChildVulnerabilityFormNextPage =
-      "Household information";
-  static const String ovcChildVulnerabilityEditFormNextPage =
-      "Child vulnerability form.";
-  static const String ovcChildVulnerabilityEditFormPage =
-      "Child vulnerability form.";
-  static const String ovcHouseholdInformationFormPage = "Household information";
-  static const String ovcHouseholdInformationFormNextPage =
-      "Household information";
-  static const String ovcEnrollmentHouseholdEditFormPage =
-      "Household vulnerability and prioritization form";
-  static const String ovcEnrollmentHouseholdEditFormNextPage =
-      "Household vulnerability and prioritization form";
 
   static const String houseHoldAssessmentFormPage = 'Household Assessment Form';
   static const String houseHoldAssessmentFormNextPage =
