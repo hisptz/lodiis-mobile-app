@@ -10,7 +10,6 @@ class AddChildConfirmation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
       builder: (context, languageTranslationState, child) {
-        String? currentLanguage = languageTranslationState.currentLanguage;
         return Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 30.0,
@@ -39,7 +38,7 @@ class AddChildConfirmation extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text(
-                  currentLanguage == 'lesotho'
+                  languageTranslationState.isSesothoLanguage
                       ? 'Kenya ngoana e mong'
                       : 'Add Another Child?',
                   style: const TextStyle().copyWith(
@@ -55,7 +54,9 @@ class AddChildConfirmation extends StatelessWidget {
                   TextButton(
                     onPressed: () => Navigator.pop(context, false),
                     child: Text(
-                      currentLanguage == 'lesotho' ? 'Eseng joale' : 'Not Now',
+                      languageTranslationState.isSesothoLanguage
+                          ? 'Eseng joale'
+                          : 'Not Now',
                       style: const TextStyle().copyWith(
                         color: const Color(0xFF1A3518),
                         fontSize: 14.0,
@@ -66,7 +67,9 @@ class AddChildConfirmation extends StatelessWidget {
                   TextButton(
                     onPressed: () => Navigator.pop(context, true),
                     child: Text(
-                      currentLanguage == 'lesotho' ? 'Eea' : 'Yes',
+                      languageTranslationState.isSesothoLanguage
+                          ? 'Eea'
+                          : 'Yes',
                       style: const TextStyle().copyWith(
                         color: const Color(0xFF4B9F46),
                         fontSize: 14.0,

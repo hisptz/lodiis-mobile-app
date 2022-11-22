@@ -19,8 +19,8 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_consent_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_consent.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_none_participation_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form_container.dart';
 import 'package:provider/provider.dart';
 
 class OvcEnrollmentConsentForm extends StatefulWidget {
@@ -69,7 +69,7 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
         context,
         MaterialPageRoute(
           builder: (context) => hasConsent
-              ? const OvcEnrollmentBasicInfoForm()
+              ? const OvcEnrollmentHouseholdFormContainer()
               : const OvcEnrollmentNoneParticipationForm(),
         ),
       );
@@ -100,8 +100,8 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : OvcRoutesConstant.ovcConcentFormNextPage
-          : OvcRoutesConstant.ovcConcentFormNextPage,
+              : OvcRoutesConstant.ovcCaregiverFormPage
+          : OvcRoutesConstant.ovcConcentFormPage,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
