@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
@@ -67,7 +68,6 @@ class OvcHouseholdCard extends StatelessWidget {
           .setFormFieldState(
               BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
     }
-    //TODO updating count of ovc by sex
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
         Provider.of<EnrollmentFormState>(context, listen: false)
@@ -75,6 +75,16 @@ class OvcHouseholdCard extends StatelessWidget {
                 attributeObj['attribute'], attributeObj['value']);
       }
     }
+    int maleCount = ovcHousehold.children!
+        .where((OvcHouseholdChild child) => child.sex == 'Male')
+        .length;
+    int femaleCount = ovcHousehold.children!
+        .where((OvcHouseholdChild child) => child.sex == 'Female')
+        .length;
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('kQehaqmaygZ', maleCount.toString());
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('BXUNH6LXeGA', femaleCount.toString());
   }
 
   void onEditHousehold(BuildContext context) async {
