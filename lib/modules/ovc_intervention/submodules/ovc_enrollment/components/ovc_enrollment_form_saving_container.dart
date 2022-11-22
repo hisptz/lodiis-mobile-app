@@ -45,6 +45,8 @@ class _OvcEnrollementFormSavingContaninerState
   }
 
   _onInitateSaving() async {
+    int maleCount = 0;
+    int femaleCount = 0;
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
     dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
@@ -58,8 +60,16 @@ class _OvcEnrollementFormSavingContaninerState
     ];
     List<Map> childMapObjects = [];
     for (Map childObj in dataObject["children"]) {
+      String sexValue = childObj['vIX4GTSCX4P'] ?? '';
+      if (sexValue == 'Male') {
+        maleCount++;
+      } else if (sexValue == 'Female') {
+        femaleCount++;
+      }
       childMapObjects.add(childObj);
     }
+    dataObject['kQehaqmaygZ'] = maleCount.toString();
+    dataObject['BXUNH6LXeGA'] = femaleCount.toString();
     dataObject.remove('children');
     CurrentUser? user = await UserService().getCurrentUser();
     dataObject[UserAccountReference.implementingPartnerAttribute] =

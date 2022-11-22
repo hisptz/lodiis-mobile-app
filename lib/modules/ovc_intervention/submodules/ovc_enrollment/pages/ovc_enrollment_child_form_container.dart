@@ -202,7 +202,6 @@ class _OvcEnrollmentChildFormContainerState
         .setFormFieldState('children', childrenMapObjects);
     _onUpdateFormAutoSaveState(context, isSaveForm: shouldSaveForm);
     if (shouldSaveForm) {
-      //TODO updating count of ovcs by sex
       _isSaving = true;
       setState(() {});
     }
