@@ -39,7 +39,6 @@ class OvcEnrollmentChildViewEditContainer extends StatefulWidget {
 class _OvcEnrollmentChildViewEditContainerState
     extends State<OvcEnrollmentChildViewEditContainer> {
   List<FormSection> formSections = [];
-  final String label = 'Child vulnerability form';
   bool _isSaving = false;
   bool _isFormReady = false;
   List<String> mandatoryFields = [];
@@ -186,104 +185,107 @@ class _OvcEnrollmentChildViewEditContainerState
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
-        ),
-        body: SubPageBody(
-          body: Container(
-            child: !_isFormReady
-                ? Column(
-                    children: const [
-                      Center(
-                        child: CircularProcessLoader(
-                          color: Colors.blueGrey,
-                        ),
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(65.0),
+              child: Consumer<InterventionCardState>(
+                builder: (context, interventionCardState, child) {
+                  InterventionCard activeInterventionProgram =
+                      interventionCardState.currentInterventionProgram;
+                  return SubPageAppBar(
+                    label: languageTranslationState.isSesothoLanguage
+                        ? 'Foromo ea ngoliso ea ngoana'
+                        : 'Child Registration form',
+                    activeInterventionProgram: activeInterventionProgram,
+                  );
+                },
+              ),
+            ),
+            body: SubPageBody(
+              body: Container(
+                child: !_isFormReady
+                    ? Column(
+                        children: const [
+                          Center(
+                            child: CircularProcessLoader(
+                              color: Colors.blueGrey,
+                            ),
+                          )
+                        ],
                       )
-                    ],
-                  )
-                : Column(
-                    children: [
-                      Consumer<OvcHouseholdCurrentSelectionState>(
-                        builder: (context, ovcHouseholdCurrentSelectionState,
-                            child) {
-                          OvcHousehold? currentOvcHousehold =
-                              ovcHouseholdCurrentSelectionState
-                                  .currentOvcHousehold;
-                          return OvcHouseholdInfoTopHeader(
-                            currentOvcHousehold: currentOvcHousehold,
-                          );
-                        },
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 16.0,
-                          horizontal: 13.0,
-                        ),
-                        child: Consumer<LanguageTranslationState>(
-                          builder: (context, languageTranslationState, child) {
-                            return Consumer<EnrollmentFormState>(
-                              builder: (context, enrollmentFormState, child) {
-                                return Column(
-                                  children: [
-                                    EntryFormContainer(
-                                      hiddenFields:
-                                          enrollmentFormState.hiddenFields,
-                                      hiddenSections:
-                                          enrollmentFormState.hiddenSections,
-                                      hiddenInputFieldOptions:
-                                          enrollmentFormState
-                                              .hiddenInputFieldOptions,
-                                      formSections: formSections,
-                                      mandatoryFieldObject:
-                                          mandatoryFieldObject,
-                                      isEditableMode:
-                                          enrollmentFormState.isEditableMode,
-                                      dataObject: enrollmentFormState.formState,
-                                      onInputValueChange: onInputValueChange,
-                                      unFilledMandatoryFields:
-                                          unFilledMandatoryFields,
-                                    ),
-                                    Visibility(
-                                      visible:
-                                          enrollmentFormState.isEditableMode,
-                                      child: EntryFormSaveButton(
-                                        label: _isSaving
-                                            ? 'Saving ...'
-                                            : languageTranslationState
-                                                    .isSesothoLanguage
-                                                ? 'Boloka'
-                                                : 'Save',
-                                        labelColor: Colors.white,
-                                        buttonColor: const Color(0xFF4B9F46),
-                                        fontSize: 15.0,
-                                        onPressButton: () => onSaveForm(
-                                          enrollmentFormState.formState,
-                                        ),
+                    : Column(
+                        children: [
+                          Consumer<OvcHouseholdCurrentSelectionState>(
+                            builder: (context,
+                                ovcHouseholdCurrentSelectionState, child) {
+                              OvcHousehold? currentOvcHousehold =
+                                  ovcHouseholdCurrentSelectionState
+                                      .currentOvcHousehold;
+                              return OvcHouseholdInfoTopHeader(
+                                currentOvcHousehold: currentOvcHousehold,
+                              );
+                            },
+                          ),
+                          Container(
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 16.0,
+                                horizontal: 13.0,
+                              ),
+                              child: Consumer<EnrollmentFormState>(
+                                builder: (context, enrollmentFormState, child) {
+                                  return Column(
+                                    children: [
+                                      EntryFormContainer(
+                                        hiddenFields:
+                                            enrollmentFormState.hiddenFields,
+                                        hiddenSections:
+                                            enrollmentFormState.hiddenSections,
+                                        hiddenInputFieldOptions:
+                                            enrollmentFormState
+                                                .hiddenInputFieldOptions,
+                                        formSections: formSections,
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        isEditableMode:
+                                            enrollmentFormState.isEditableMode,
+                                        dataObject:
+                                            enrollmentFormState.formState,
+                                        onInputValueChange: onInputValueChange,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                       ),
-                                    )
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
+                                      Visibility(
+                                        visible:
+                                            enrollmentFormState.isEditableMode,
+                                        child: EntryFormSaveButton(
+                                          label: _isSaving
+                                              ? 'Saving ...'
+                                              : languageTranslationState
+                                                      .isSesothoLanguage
+                                                  ? 'Boloka'
+                                                  : 'Save',
+                                          labelColor: Colors.white,
+                                          buttonColor: const Color(0xFF4B9F46),
+                                          fontSize: 15.0,
+                                          onPressButton: () => onSaveForm(
+                                            enrollmentFormState.formState,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                },
+                              ))
+                        ],
                       ),
-                    ],
-                  ),
-          ),
-        ),
-        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
+              ),
+            ),
+            bottomNavigationBar:
+                const InterventionBottomNavigationBarContainer(),
+          );
+        },
       ),
     );
   }
