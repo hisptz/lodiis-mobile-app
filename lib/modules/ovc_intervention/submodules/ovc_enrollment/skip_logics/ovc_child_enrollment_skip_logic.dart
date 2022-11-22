@@ -208,7 +208,6 @@ class OvcChildEnrollmentSkipLogic {
           };
   }
 
-  //TODO Checking assignemt of this below
   static assignPrimaryVulnerability(
     BuildContext context,
     Map dataObject,
@@ -217,18 +216,18 @@ class OvcChildEnrollmentSkipLogic {
     List<String> vulnerabilities = [
       'wmKqYZML8GA',
       'GMcljM7jbNG',
-      'br1xvwAQ6el',
-      'ZKMhrjWoXnD',
       'Gkjp5XZD70V',
+      'ZKMhrjWoXnD',
+      'br1xvwAQ6el',
       'UeF4OvjIIEK',
       'YR7Xxk14qoP'
     ];
     List<String> primaryVulnerabilitiesOptions = [
       'Child living with HIV',
       'HIV exposed infants',
-      'Child of a sex worker (FSW)',
-      'Child of PLHIV',
       'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+      'Child of PLHIV',
+      'Child of a sex worker (FSW)',
       'Orphan',
       'Child living with disability'
     ];

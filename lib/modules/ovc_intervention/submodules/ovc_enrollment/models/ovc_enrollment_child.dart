@@ -804,33 +804,32 @@ class OvcEnrollmentChild {
               ),
               InputFieldOption(
                   code: 'Child living with disability',
-                  name: 'Child living with disability',
-                  translatedName: 'Ngoana ea phelang ka bokooa'),
+                  name: 'Child living with disability (CLD)',
+                  translatedName: 'Ngoana ea phelang ka bokooa (CLD)'),
               InputFieldOption(
                   code: 'Child living with HIV',
                   name: 'Child living with HIV',
                   translatedName: 'Ngoana ea phelang le HIV'),
               InputFieldOption(
                   code: 'Child of PLHIV',
-                  name: 'Child of PLHIV',
+                  name: 'Child of People Living with HIV (CPLHIV)?',
                   translatedName:
-                      'Ngoana ea phelang lapeng le nang le motho ea phelang le t’soaetso ea HIV'),
+                      "Na ke ngoana oa batsoali ba phelang le ts'oaetso ea HIV (CPLHIV)?"),
               InputFieldOption(
                   code: 'HIV exposed infants',
                   name: 'HIV exposed infants',
                   translatedName: 'HIV e pepesa masea'),
               InputFieldOption(
                   code: 'Child of a sex worker (FSW)',
-                  name: 'Child of a sex worker (FSW)',
+                  name: 'Child of a sex worker (CFSW)',
                   translatedName:
-                      'Ke ngoana oa motsoali ea hoebang ka mmele (FSW)'),
+                      "Na ke ngoana oa 'm'e ea hoebang ka 'mele (CFSW)"),
               InputFieldOption(
                   code:
                       'Child exposed/experiencing violence and abuse (Survivors of Vac)',
-                  name:
-                      'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+                  name: 'Child Exposed/Experiencing Violence and Abuse (CEVA)',
                   translatedName:
-                      'Ngoana ea kileng a hlekefetsoa/tlokotsing ea tlhekefetso'),
+                      'Na ke ngoana ea tobaneng/phelang ka hara pefo le tlhekefetso (CEVA)'),
             ],
           ),
           InputField(
