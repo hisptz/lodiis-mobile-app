@@ -19,6 +19,7 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -46,11 +47,24 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
     super.initState();
     formSections = OvcReferral.getFormSections();
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      isFormReady = true;
+      _autoPopulatingNextOfKinInfo();
+      evaluateSkipLogics();
+      setState(() {});
     });
+  }
+
+  void _autoPopulatingNextOfKinInfo() {
+    OvcHousehold currentOvcHousehold =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold!;
+    String phoneNumber = currentOvcHousehold.phoneNumber != 'N/A'
+        ? currentOvcHousehold.phoneNumber!
+        : '';
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('tRvDAZxam3P', currentOvcHousehold.toString());
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('qCu2f4kEfzW', phoneNumber);
   }
 
   void clearFormAutoSaveState(
