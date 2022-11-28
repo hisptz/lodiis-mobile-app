@@ -108,6 +108,28 @@ class OvchouseHoldAssessmentSkipLogic {
         hiddenFields['Icb6vUJXVDX'] = true;
       }
 
+      if (inputFieldId == 'vNeOE9abQBB' && value == 'Negative') {
+        hiddenFields['sLyfb45aLkl'] = true;
+        hiddenFields['aRNGDZcwWmS'] = true;
+        hiddenFields['KgLtXquRot3'] = true;
+        hiddenFields['why_choose_this_facility'] = true;
+        hiddenFields['WKT65kLT9AT'] = true;
+        hiddenFields['QgWzwLkRjul'] = true;
+        hiddenFields['I4M6NLNMbG3'] = true;
+        hiddenFields['FqLADURlSw6'] = true;
+        hiddenFields['NlWEhu1onQW'] = true;
+        hiddenFields['aUZ2HTFvI4A'] = true;
+        hiddenFields['WUwcEkmhaan'] = true;
+        hiddenFields['beztnfLGhxi'] = true;
+      }
+
+      if (inputFieldId == 'vNeOE9abQBB' && value == 'Positive') {
+        dynamic onArtToTreatHiv = dataObject['blod3xZ2dPP'] ?? '';
+        if ('$onArtToTreatHiv' == '0') {
+          hiddenFields['Icb6vUJXVDX'] = true;
+        }
+      }
+
       if (inputFieldId == 'Js9auywpL0O' && value != 'true') {
         hiddenFields['SQUodtvxYLs'] = true;
       }

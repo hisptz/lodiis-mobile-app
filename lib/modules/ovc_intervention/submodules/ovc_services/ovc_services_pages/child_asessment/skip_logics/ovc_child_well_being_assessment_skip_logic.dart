@@ -162,10 +162,30 @@ class OvcChildWellBeingAssessmentSkipLogic {
       String value = '${dataObject[inputFieldId]}';
       bool isFieldHidden = hiddenFields[inputFieldId] ?? false;
 
+      if (inputFieldId == 'puLHlflNeg6' && value != 'false') {
+        hiddenFields['ef1ixon3YBh'] = true;
+      }
+
+      if (inputFieldId == 'sHUjPZTqpy2' && value != 'Yes') {
+        hiddenFields['VFLlpMdPCTX'] = true;
+        hiddenFields['VFLlpMdPCTX_checkboxes'] = true;
+        hiddenFields['FeL9c9Grwlx'] = true;
+        hiddenFields['rh90PSJE7fD'] = true;
+        hiddenFields['CkbKlcJCkLE'] = true;
+        hiddenFields['zcKvVCd6d0c'] = true;
+        hiddenFields['sdQt641yVBS'] = true;
+        hiddenFields['sbgsFW299ND'] = true;
+        hiddenFields['PErwPNVDZl1'] = true;
+        hiddenFields['aRrET00WEbz'] = true;
+      }
+
+      if (inputFieldId == '' && value != '') {}
+
       if (!isFieldHidden) {
         if (inputFieldId == 'vCSvOI0d9M4' && value != 'true') {
           hiddenFields['NAqMo0LwqZR'] = true;
         }
+
         if (inputFieldId == 'TH3xvl6NZhi' && value != 'true') {
           hiddenFields['wOlSzC2ovZN'] = true;
         }
@@ -454,6 +474,8 @@ class OvcChildWellBeingAssessmentSkipLogic {
           hiddenFields['pU5ywj3cjSA'] = true;
           hiddenFields['HXk5d3kxy37'] = true;
           hiddenFields['ndK4JCMORL0'] = true;
+          hiddenFields['iZGQ4iWkWNu'] = true;
+          hiddenFields['kcG670LJt3J'] = true;
         }
         if (inputFieldId == 'MlcK6DAGoCx' && value != 'true') {
           hiddenFields['W91GgtMqWnl'] = true;

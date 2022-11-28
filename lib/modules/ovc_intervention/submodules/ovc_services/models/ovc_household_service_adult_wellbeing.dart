@@ -469,7 +469,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 ]),
             InputField(
                 id: '',
-                name: '11. What type of disability does s/he have?',
+                name: '11. What type of disability do you have?',
                 translatedName:
                     '11. Ke mofuta ofe oa bokooa bo u nang le bona?',
                 valueType: 'CHECK_BOX',
@@ -841,7 +841,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id: 'why_choose_this_facility',
                 name: '23. Why did you choose this health facility?',
                 translatedName: '23. Hobaneng u khethile setsi seo?',
                 valueType: 'CHECK_BOX',
