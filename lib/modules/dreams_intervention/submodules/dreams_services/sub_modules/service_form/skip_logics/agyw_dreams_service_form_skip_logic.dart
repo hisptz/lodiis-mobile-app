@@ -50,7 +50,7 @@ class AgywDreamsServiceFormSkipLogic {
 
     // skip logic as per implementing partner
     if (implementingPartner != 'Paralegal') {
-      hiddenOptions['HIV Prevention Education'] = true;
+      hiddenOptions['ViolencePreventionEducation'] = true;
     } else {
       hiddenOptions['LBSE'] = true;
       hiddenOptions['FinancialLiteracyEducation'] = true;
