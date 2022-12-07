@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_route_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_basic_info_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollement_none_participation_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_edit_view_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_view_edit_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_consent_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_edit_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_form_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_view_edit_container.dart';
 
 class OvcEnrollmentRoute {
   redirectToOvcEnrollmentConsentForm(
@@ -40,31 +39,16 @@ class OvcEnrollmentRoute {
     );
   }
 
-  redirectToOvcEnrollmentBasicInfoForm(
-    BuildContext context,
-    FormAutoSave formAutoSave,
-  ) {
-    redirectToOvcEnrollmentConsentForm(context, formAutoSave);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return const OvcEnrollmentBasicInfoForm();
-        },
-      ),
-    );
-  }
-
   redirectToOvcEnrollmentChildForm(
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
-    redirectToOvcEnrollmentBasicInfoForm(context, formAutoSave);
+    redirectToOvcEnrollmentHouseholdForm(context, formAutoSave);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const OvcEnrollmentChildForm();
+          return const OvcEnrollmentChildFormContainer();
         },
       ),
     );
@@ -74,12 +58,12 @@ class OvcEnrollmentRoute {
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {
-    redirectToOvcEnrollmentChildForm(context, formAutoSave);
+    redirectToOvcEnrollmentConsentForm(context, formAutoSave);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const OvcEnrollmentHouseholdForm();
+          return const OvcEnrollmentHouseholdFormContainer();
         },
       ),
     );
@@ -94,7 +78,9 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const OvcEnrollmentHouseholdEditForm();
+          return const OvcEnrollmentHouseholdViewEditContainer(
+            onViewHouseholdForm: false,
+          );
         },
       ),
     );
@@ -109,7 +95,7 @@ class OvcEnrollmentRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const OvcEnrollmentChildEditViewForm();
+          return const OvcEnrollmentChildViewEditContainer();
         },
       ),
     );

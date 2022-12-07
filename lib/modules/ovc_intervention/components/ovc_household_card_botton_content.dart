@@ -15,7 +15,7 @@ import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_edit_view_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_child_view_edit_container.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/ovc_child_exit_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/ovc_child_referral_home.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/ovc_child_service_home.dart';
@@ -93,7 +93,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     updateEnrollmentFormStateData(context, child, true);
     String? beneficiaryId = child.id;
     String formAutoSaveId =
-        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+        "${OvcRoutesConstant.ovcChildEditFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
@@ -108,7 +108,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const OvcEnrollmentChildEditViewForm(),
+          builder: (context) => const OvcEnrollmentChildViewEditContainer(),
         ),
       );
     }
@@ -120,7 +120,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const OvcEnrollmentChildEditViewForm(),
+        builder: (context) => const OvcEnrollmentChildViewEditContainer(),
       ),
     );
   }
@@ -134,11 +134,15 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         .setFormFieldState('parentTrackedEntityInstance', ovcHousehold.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', ovcHousehold.orgUnit);
-    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
-        BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
+    if (ovcHousehold.phoneNumber != 'N/A') {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(
+              BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
+    }
+
     String beneficiaryId = "";
     String formAutoSaveId =
-        "${OvcRoutesConstant.ovcChildVulnerabilityEditFormPage}_$beneficiaryId";
+        "${OvcRoutesConstant.ovcChildEditFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -149,7 +153,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const OvcEnrollmentChildEditViewForm(),
+          builder: (context) => const OvcEnrollmentChildViewEditContainer(),
         ),
       );
     }

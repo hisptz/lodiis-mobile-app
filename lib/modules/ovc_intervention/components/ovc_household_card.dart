@@ -7,11 +7,11 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_card_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_edit_form.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_view_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/pages/ovc_enrollment_household_view_edit_container.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCard extends StatelessWidget {
@@ -63,8 +63,11 @@ class OvcHouseholdCard extends StatelessWidget {
         .setFormFieldState('yk0OH9p09C1', ovcHousehold.primaryUIC);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('PN92g65TkVI', ovcHousehold.houseHoldStatus);
-    Provider.of<EnrollmentFormState>(context, listen: false).setFormFieldState(
-        BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
+    if (ovcHousehold.phoneNumber != 'N/A') {
+      Provider.of<EnrollmentFormState>(context, listen: false)
+          .setFormFieldState(
+              BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
+    }
     for (Map attributeObj in teiData.attributes) {
       if (attributeObj['value'] != '' && '${attributeObj['value']}' != 'null') {
         Provider.of<EnrollmentFormState>(context, listen: false)
@@ -72,6 +75,16 @@ class OvcHouseholdCard extends StatelessWidget {
                 attributeObj['attribute'], attributeObj['value']);
       }
     }
+    int maleCount = ovcHousehold.children!
+        .where((OvcHouseholdChild child) => child.sex == 'Male')
+        .length;
+    int femaleCount = ovcHousehold.children!
+        .where((OvcHouseholdChild child) => child.sex == 'Female')
+        .length;
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('kQehaqmaygZ', maleCount.toString());
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('BXUNH6LXeGA', femaleCount.toString());
   }
 
   void onEditHousehold(BuildContext context) async {
@@ -79,7 +92,7 @@ class OvcHouseholdCard extends StatelessWidget {
         .setCurrentHousehold(ovcHousehold);
     String? beneficiaryId = ovcHousehold.id;
     String formAutoSaveId =
-        "${OvcRoutesConstant.ovcEnrollmentHouseholdEditFormPage}_$beneficiaryId";
+        "${OvcRoutesConstant.ovcCaregiverEditFormPage}_$beneficiaryId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
@@ -95,7 +108,9 @@ class OvcHouseholdCard extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const OvcEnrollmentHouseholdEditForm(),
+          builder: (context) => const OvcEnrollmentHouseholdViewEditContainer(
+            onViewHouseholdForm: false,
+          ),
         ),
       );
     }
@@ -108,7 +123,7 @@ class OvcHouseholdCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const OvcEnrollmentHouseholdViewForm(),
+        builder: (context) => const OvcEnrollmentHouseholdViewEditContainer(),
       ),
     );
   }
