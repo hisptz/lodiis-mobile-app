@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class OvcServicesCasePlan {
   static List<FormSection> getFormSections() {
@@ -9,7 +10,7 @@ class OvcServicesCasePlan {
       FormSection(
           name: 'Household Categorization',
           color: const Color(0xFF4D9E49),
-          id: 'house_hold_categorization',
+          id: OvcCasePlanConstant.householdCategorizationSection,
           inputFields: [
             InputField(
               id: 'aEJnSplwvsw',
