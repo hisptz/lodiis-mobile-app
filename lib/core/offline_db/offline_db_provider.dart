@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class OfflineDbProvider {
-  final String databaseName = "lodiis_testing";
+  final String databaseName = "lodiis";
   Database? _db;
   // Script for migrations as well as initialization of tables
   final List<String> initialQuery = [
@@ -32,7 +33,11 @@ class OfflineDbProvider {
   ];
 
   final List<String> migrationQuery = [
-    "ALTER TABLE enrollment ADD shouldReAssess TEXT DEFAULT ''"
+    // Migration to add an extra field to checking Reassessment for the enrollments
+    "ALTER TABLE enrollment ADD shouldReAssess TEXT DEFAULT ''",
+
+    // Migrations to resolve the miss-added household categorization attribute for Caregiver/Household program
+    "UPDATE tracked_entity_instance_attribute SET value = '' WHERE attribute = '${BeneficiaryIdentification.householdCategorization}' AND value = '{}'"
   ];
   Future<Database?> get db async {
     if (_db != null) {

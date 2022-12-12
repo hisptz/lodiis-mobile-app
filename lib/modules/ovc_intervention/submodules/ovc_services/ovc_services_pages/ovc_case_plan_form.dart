@@ -96,7 +96,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       }
       // Removing the house categorization for child
       if (!widget.isHouseholdCasePlan &&
-          formSection.id == 'house_hold_categorization') {
+          formSection.id ==
+              OvcCasePlanConstant.householdCategorizationSection) {
         formSections.remove(formSection);
       }
     }
@@ -179,9 +180,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         orgUnit: beneficiary.orgUnit,
         dataObject: {
           BeneficiaryIdentification.householdCategorization:
-              dataObject['house_hold_categorization']
+              dataObject[OvcCasePlanConstant.householdCategorizationSection]
                       [houseHoldCategorizationDataElement] ??
-                  {}
+                  ''
         },
         inputFieldIds: [
           BeneficiaryIdentification.householdCategorization
@@ -204,7 +205,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       if ((domainDataObject['gaps'].length > 0 &&
               (domainDataObject[casePlanFirstGoal] != null ||
                   '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) ||
-          domainType == "house_hold_categorization") {
+          domainType == OvcCasePlanConstant.householdCategorizationSection) {
         try {
           List<String> hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
