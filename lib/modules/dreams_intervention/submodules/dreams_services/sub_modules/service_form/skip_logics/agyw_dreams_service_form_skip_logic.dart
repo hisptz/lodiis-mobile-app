@@ -61,6 +61,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
       hiddenOptions['SAVING GROUP'] = true;
+      hiddenOptions['HIV Prevention Education'] = true;
     }
     hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
 
