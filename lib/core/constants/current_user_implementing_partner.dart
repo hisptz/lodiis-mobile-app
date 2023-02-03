@@ -35,7 +35,8 @@ class CurrentUserImplementingPartner {
       "RoLA6GyxTlS": "Paralegal",
       "A5VS8GCyb8t": "JHPIEGO",
       "sSdwtoDAj0H": "PP_PREV/EDUCATION",
-      "pNg5CAXMtLP": "M2M"
+      "pNg5CAXMtLP": "M2M",
+      "DtCOQEoW52e": "CoHIP SEC",
     };
   }
 }
