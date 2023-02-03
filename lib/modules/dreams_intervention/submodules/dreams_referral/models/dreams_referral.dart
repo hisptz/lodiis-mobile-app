@@ -36,12 +36,30 @@ class DreamsReferral {
                     inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                     options: [
-                      InputFieldOption(code: 'EGPAF', name: 'EGPAF'),
-                      InputFieldOption(code: 'M2M', name: 'M2M'),
-                      InputFieldOption(code: 'JHPIEGO', name: 'JHPIEGO'),
                       InputFieldOption(
-                          code: 'KB-AGYW/DREAMS', name: 'KB-AGYW/DREAMS'),
-                      InputFieldOption(code: 'PSI', name: 'PSI'),
+                        code: 'EGPAF',
+                        name: 'EGPAF',
+                      ),
+                      InputFieldOption(
+                        code: 'M2M',
+                        name: 'M2M',
+                      ),
+                      InputFieldOption(
+                        code: 'JHPIEGO',
+                        name: 'JHPIEGO',
+                      ),
+                      InputFieldOption(
+                        code: 'KB-AGYW/DREAMS',
+                        name: 'KB-AGYW/DREAMS',
+                      ),
+                      InputFieldOption(
+                        code: 'PSI',
+                        name: 'PSI',
+                      ),
+                      InputFieldOption(
+                        code: 'CoHIP SEC',
+                        name: 'CoHIP SEC',
+                      ),
                     ])
               ],
             ),

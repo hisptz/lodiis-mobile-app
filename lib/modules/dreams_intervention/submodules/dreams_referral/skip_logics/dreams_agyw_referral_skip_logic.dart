@@ -95,6 +95,7 @@ class DreamsAgywReferralSkipLogic {
           implementingPartnerHiddenOptions['JHPIEGO'] = true;
           implementingPartnerHiddenOptions['KB-AGYW/DREAMS'] = true;
           implementingPartnerHiddenOptions['PSI'] = true;
+          implementingPartnerHiddenOptions['CoHIP SEC'] = true;
         }
         implementingPartnerHiddenOptions[currentImplementingPartner] = true;
         hiddenInputFieldOptions[inputFieldId] =
