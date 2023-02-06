@@ -13,7 +13,7 @@ class DeviceInfoUtil {
       'manufacturer': build.manufacturer,
       'model': build.model,
       'product': build.product,
-      'androidId': build.androidId,
+      'androidId': build.id,
     };
   }
 
