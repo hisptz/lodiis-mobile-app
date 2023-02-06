@@ -188,8 +188,8 @@ class _AgywDreamsEnrollmentEditFormState
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
               user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderAtttribute] =
-          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+      dataObject[UserAccountReference.serviceProviderAttribute] =
+          dataObject[UserAccountReference.serviceProviderAttribute] ??
               user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerAttribute] =
@@ -202,7 +202,7 @@ class _AgywDreamsEnrollmentEditFormState
         'PN92g65TkVI',
         UserAccountReference.implementingPartnerAttribute,
         UserAccountReference.subImplementingPartnerAttribute,
-        UserAccountReference.serviceProviderAtttribute
+        UserAccountReference.serviceProviderAttribute
       ];
       await AgywDreamsEnrollmentService().savingAgywBeneficiary(
         dataObject,

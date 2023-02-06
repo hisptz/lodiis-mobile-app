@@ -50,7 +50,7 @@ class OvcEnrollmentChildService {
     inputFieldIds.addAll(hiddenFields);
     inputFieldIds.addAll([
       UserAccountReference.implementingPartnerAttribute,
-      UserAccountReference.serviceProviderAtttribute,
+      UserAccountReference.serviceProviderAttribute,
       UserAccountReference.subImplementingPartnerAttribute
     ]);
     List childTeiReferences = [];
@@ -58,8 +58,8 @@ class OvcEnrollmentChildService {
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
               user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderAtttribute] =
-          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+      dataObject[UserAccountReference.serviceProviderAttribute] =
+          dataObject[UserAccountReference.serviceProviderAttribute] ??
               user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerAttribute] =

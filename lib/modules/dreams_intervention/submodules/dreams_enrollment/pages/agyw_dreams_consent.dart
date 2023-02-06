@@ -58,7 +58,7 @@ class _AgywEnrollmentConsentFormState extends State<AgywDreamsConsentForm> {
       mandatoryFieldObject[id] = true;
     }
     List<int> allowedSelectedLevels = UserAccountReference
-            .dreamsFacikityBasedIpNames
+            .dreamsFacilityBasedIpNames
             .contains(user?.implementingPartner)
         ? [4]
         : AgywDreamsEnrollmentConstant.allowedSelectedLevels;
