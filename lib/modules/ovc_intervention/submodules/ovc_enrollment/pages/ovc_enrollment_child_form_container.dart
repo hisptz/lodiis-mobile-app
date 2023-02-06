@@ -24,6 +24,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_cons
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/ovc_enrollment_form_saving_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,7 @@ class _OvcEnrollmentChildFormContainerState
   Map hiddenFields = {};
   Map hiddenSections = {};
   Map hiddenInputFieldOptions = {};
-  bool _isFormready = false;
+  bool _isFormReady = false;
   bool _isSaving = false;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -72,17 +73,17 @@ class _OvcEnrollmentChildFormContainerState
     Timer(
       const Duration(milliseconds: 200),
       () {
-        Map resultReponse = OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
+        Map resultResponse = OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           childrenMapObject,
           shouldSetEnrollmentState: false,
         );
-        hiddenFields = resultReponse['hiddenFields'] ?? {};
-        hiddenSections = resultReponse['hiddenSections'] ?? {};
+        hiddenFields = resultResponse['hiddenFields'] ?? {};
+        hiddenSections = resultResponse['hiddenSections'] ?? {};
         hiddenInputFieldOptions =
-            resultReponse['hiddenInputFieldOptions'] ?? {};
-        Map assignedFields = resultReponse['assignedFields'] ?? {};
+            resultResponse['hiddenInputFieldOptions'] ?? {};
+        Map assignedFields = resultResponse['assignedFields'] ?? {};
         for (String key in assignedFields.keys) {
           childrenMapObject[key] = assignedFields[key];
         }
@@ -99,7 +100,7 @@ class _OvcEnrollmentChildFormContainerState
       mandatoryFieldObject[id] = true;
     }
     formSections = OvcEnrollmentChild.getFormSections();
-    _isFormready = true;
+    _isFormReady = true;
     setState(() {});
   }
 
@@ -107,8 +108,8 @@ class _OvcEnrollmentChildFormContainerState
     try {
       Map dataObject =
           Provider.of<EnrollmentFormState>(context, listen: false).formState;
-      for (Map chilMapObject in dataObject["children"]) {
-        childrenMapObjects.add(chilMapObject);
+      for (Map childMapObject in dataObject["children"]) {
+        childrenMapObjects.add(childMapObject);
       }
     } catch (e) {
       //
@@ -182,13 +183,19 @@ class _OvcEnrollmentChildFormContainerState
     Map dataObject, {
     bool shouldSaveForm = false,
   }) async {
+    var parentDataObject =
+        Provider.of<EnrollmentFormState>(context, listen: false).formState;
+    var village = parentDataObject[OvcEnrollmentChildConstant.village] ?? '';
+    var subVillage =
+        parentDataObject[OvcEnrollmentChildConstant.subVillage] ?? '';
+
     CurrentUser? user = await UserService().getCurrentUser();
     dataObject['PN92g65TkVI'] = 'Active';
     dataObject[UserAccountReference.implementingPartnerAttribute] =
         dataObject[UserAccountReference.implementingPartnerAttribute] ??
             user!.implementingPartner;
-    dataObject[UserAccountReference.serviceProviderAtttribute] =
-        dataObject[UserAccountReference.serviceProviderAtttribute] ??
+    dataObject[UserAccountReference.serviceProviderAttribute] =
+        dataObject[UserAccountReference.serviceProviderAttribute] ??
             user!.username;
     if (user!.subImplementingPartner != '') {
       dataObject[UserAccountReference.subImplementingPartnerAttribute] =
@@ -197,6 +204,8 @@ class _OvcEnrollmentChildFormContainerState
     }
     dataObject['fullName'] =
         '${dataObject['WTZ7GLTrE8Q']} ${dataObject['rSP9c21JsfC']}';
+    dataObject[OvcEnrollmentChildConstant.village] = village;
+    dataObject[OvcEnrollmentChildConstant.subVillage] = subVillage;
     childrenMapObjects.add(dataObject);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('children', childrenMapObjects);
@@ -256,7 +265,7 @@ class _OvcEnrollmentChildFormContainerState
                 vertical: 16.0,
                 horizontal: 13.0,
               ),
-              child: !_isFormready
+              child: !_isFormReady
                   ? const Center(
                       child: CircularProcessLoader(color: Colors.blueGrey),
                     )
