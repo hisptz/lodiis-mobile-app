@@ -110,8 +110,8 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
               user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderAtttribute] =
-          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+      dataObject[UserAccountReference.serviceProviderAttribute] =
+          dataObject[UserAccountReference.serviceProviderAttribute] ??
               user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerAttribute] =
@@ -128,7 +128,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,
         UserAccountReference.implementingPartnerAttribute,
-        UserAccountReference.serviceProviderAtttribute,
+        UserAccountReference.serviceProviderAttribute,
         UserAccountReference.subImplementingPartnerAttribute
       ];
       try {

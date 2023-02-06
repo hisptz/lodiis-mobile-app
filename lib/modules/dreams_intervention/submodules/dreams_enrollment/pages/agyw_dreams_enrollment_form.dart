@@ -134,8 +134,8 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
               user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderAtttribute] =
-          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+      dataObject[UserAccountReference.serviceProviderAttribute] =
+          dataObject[UserAccountReference.serviceProviderAttribute] ??
               user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerAttribute] =
@@ -149,7 +149,7 @@ class _AgywDreamsEnrollmentFormState extends State<AgywDreamsEnrollmentForm> {
         'PN92g65TkVI',
         UserAccountReference.implementingPartnerAttribute,
         UserAccountReference.subImplementingPartnerAttribute,
-        UserAccountReference.serviceProviderAtttribute
+        UserAccountReference.serviceProviderAttribute
       ];
       String? orgUnit = dataObject['location'];
       await AgywDreamsEnrollmentService().savingAgywBeneficiary(

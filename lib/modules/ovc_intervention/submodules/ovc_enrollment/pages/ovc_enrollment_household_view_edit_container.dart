@@ -156,15 +156,15 @@ class _OvcEnrollmentHouseholdViewEditContainerState
         BeneficiaryIdentification.beneficiaryIndex,
         'PN92g65TkVI',
         UserAccountReference.implementingPartnerAttribute,
-        UserAccountReference.serviceProviderAtttribute,
+        UserAccountReference.serviceProviderAttribute,
         UserAccountReference.subImplementingPartnerAttribute
       ];
       CurrentUser? user = await UserService().getCurrentUser();
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
               user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderAtttribute] =
-          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+      dataObject[UserAccountReference.serviceProviderAttribute] =
+          dataObject[UserAccountReference.serviceProviderAttribute] ??
               user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerAttribute] =

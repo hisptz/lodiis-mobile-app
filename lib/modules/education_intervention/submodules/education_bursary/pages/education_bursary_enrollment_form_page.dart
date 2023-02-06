@@ -120,8 +120,8 @@ class _EducationBursaryEnrollmentFormPageState
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
               user!.implementingPartner;
-      dataObject[UserAccountReference.serviceProviderAtttribute] =
-          dataObject[UserAccountReference.serviceProviderAtttribute] ??
+      dataObject[UserAccountReference.serviceProviderAttribute] =
+          dataObject[UserAccountReference.serviceProviderAttribute] ??
               user!.username;
       if (user!.subImplementingPartner != '') {
         dataObject[UserAccountReference.subImplementingPartnerAttribute] =
@@ -136,7 +136,7 @@ class _EducationBursaryEnrollmentFormPageState
       String? incidentDate = dataObject['incidentDate'];
       List<String> hiddenFields = [
         UserAccountReference.implementingPartnerAttribute,
-        UserAccountReference.serviceProviderAtttribute,
+        UserAccountReference.serviceProviderAttribute,
         UserAccountReference.subImplementingPartnerAttribute,
       ];
       try {

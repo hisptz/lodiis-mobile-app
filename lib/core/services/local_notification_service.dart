@@ -11,7 +11,6 @@ class LocalNotificationService {
         InitializationSettings(android: initializationSettingsAndroid);
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: selectNotification,
     );
   }
 
