@@ -54,10 +54,10 @@ class _CasePlanGapServiceProvisionFormContainerState
   @override
   void initState() {
     super.initState();
-    setFormMetdata();
+    setFormMetadata();
   }
 
-  void setFormMetdata() {
+  void setFormMetadata() {
     mandatoryFieldObject.clear();
     formSections = widget.isHouseholdCasePlan
         ? HouseholdServiceProvision.getFormSections(
@@ -96,12 +96,12 @@ class _CasePlanGapServiceProvisionFormContainerState
   }
 
   void onSaveCasePlanServiceProvision() async {
-    bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+    bool hasAtLeastOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFields,
       formSections: formSections,
       dataObject: widget.gapServiceObject,
     );
-    if (hasAtLeasrOnFieldFilled) {
+    if (hasAtLeastOnFieldFilled) {
       Map<String, dynamic> sessionNumberValidation =
           OvcServiceProvisionUtil.getSessionNumberValidation(
               widget.gapServiceObject);

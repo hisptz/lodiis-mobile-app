@@ -21,7 +21,7 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class FormUtil {
-  static isAtleastOnFormField({
+  static hasAtLeastOnFieldFilled({
     required Map hiddenFields,
     required List<FormSection> formSections,
     required Map dataObject,

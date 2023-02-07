@@ -99,7 +99,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     bool isAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (isAllMandatoryFilled) {
-      bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+      bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
         hiddenFields: hiddenFields,
         formSections: widget.formSections,
         dataObject: dataObject,

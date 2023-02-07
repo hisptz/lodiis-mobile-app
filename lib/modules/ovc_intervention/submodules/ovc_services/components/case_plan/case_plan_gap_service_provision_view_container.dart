@@ -88,10 +88,10 @@ class _CasePlanGapServiceProvisionViewContainerState
               formSectionColor: widget.formSectionColor,
               domainId: widget.domainId,
               casePlanGap: widget.casePlanGap,
-              onEditCasePlanServive: (Map dataObject) =>
+              onEditCasePlanService: (Map dataObject) =>
                   onManageCasePlanGapServiceProvision(
                       gapServiceObject: dataObject),
-              onViewCasePlanServive: (Map dataObject) =>
+              onViewCasePlanService: (Map dataObject) =>
                   onManageCasePlanGapServiceProvision(
                       gapServiceObject: dataObject, isOnEditMode: false),
             ),
