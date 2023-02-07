@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_fo
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/agyw_dreams_service_form_sessions.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/constants/service_form_constant.dart';
 import 'package:provider/provider.dart';
 
 class AgywDreamsServiceFormSkipLogic {
@@ -30,6 +31,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['AFLATEEN/TOUN'] = true;
       hiddenOptions['PARENTING'] = true;
       hiddenOptions['SAVING GROUP'] = true;
+      hiddenOptions['VACLegalMessaging'] = true;
     }
     if (agywDreamAge < 10 || agywDreamAge > 19) {
       hiddenOptions['LBSE'] = true;
@@ -43,6 +45,11 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['Go Girls'] = true;
       hiddenOptions['SILC'] = true;
     }
+
+    if (agywDreamAge < 18 || agywDreamAge > 24) {
+      hiddenOptions['GBVLegalMessaging'] = true;
+    }
+
     if (agywDreamAge < 15) {
       hiddenOptions['STEPPING STONES'] = true;
       hiddenOptions['CondomEducationProvision'] = true;
@@ -50,6 +57,8 @@ class AgywDreamsServiceFormSkipLogic {
 
     // skip logic as per implementing partner
     if (implementingPartner != 'Paralegal') {
+      hiddenOptions['GBVLegalMessaging'] = true;
+      hiddenOptions['VACLegalMessaging'] = true;
       hiddenOptions['ViolencePreventionEducation'] = true;
     } else {
       hiddenOptions['LBSE'] = true;
@@ -78,10 +87,13 @@ class AgywDreamsServiceFormSkipLogic {
           hiddenFields['JjX25d72ume'] = true;
           hiddenFields['qxO13pu8vAk'] = true;
         }
-
         if (value != 'PARENTING') {
           hiddenFields['JT7pbPBJkoF'] = true;
           hiddenFields['QATqUC6i5x2'] = true;
+        }
+
+        if (ServiceFormConstant.oneOffServices.contains(value)) {
+          hiddenFields['vL6NpUA0rIU'] = true;
         }
       }
     }
@@ -106,19 +118,17 @@ class AgywDreamsServiceFormSkipLogic {
     String interventionType = dataObject['Eug4BXDFLym'] ?? '';
     Map sessionsPerInterventions = dataObject['interventionSessions'];
     String currentSession = '';
-    try {
-      currentSession = '${dataObject['vL6NpUA0rIU']}' != 'null'
-          ? '${dataObject['vL6NpUA0rIU']}'
-          : currentSession;
-    } catch (e) {
-      //
-    }
+    currentSession = '${dataObject['vL6NpUA0rIU']}' != 'null'
+        ? '${dataObject['vL6NpUA0rIU']}'
+        : currentSession;
 
     List interventionSessions =
         sessionsPerInterventions[interventionType] ?? [];
     return interventionType != ''
-        ? currentSession != '' &&
-            interventionSessions.contains(currentSession.toLowerCase())
+        ? ServiceFormConstant.oneOffServices.contains(interventionType)
+            ? interventionSessions.isNotEmpty
+            : currentSession != '' &&
+                interventionSessions.contains(currentSession.toLowerCase())
         : false;
   }
 
