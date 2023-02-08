@@ -9,6 +9,9 @@ class OvcCasePlanConstant {
   static const String casePlansSecondGoal = 'efNgDIqhlNs';
   static const String householdCategorizationSection =
       'house_hold_categorization';
+  static const List<String> paralegalServices = [
+    'AaqeRcyjbyS',
+  ];
   static const List<String> casePlanServiceProvisionResults = [
     'gwwUOs6yt6C',
     'gV77yUM8NK8',
