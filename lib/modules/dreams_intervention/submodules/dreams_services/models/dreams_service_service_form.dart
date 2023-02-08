@@ -26,33 +26,63 @@ class DreamsServiceForm {
               labelColor: const Color(0xFF737373),
             ),
             InputField(
-                id: 'Eug4BXDFLym',
-                name: 'Type of Intervention',
-                translatedName: 'Mofuta oa Tsebeletso',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'AFLATEEN/TOUN', name: 'AFLATEEN/TOUN'),
-                  InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
-                  InputFieldOption(code: 'PARENTING', name: 'PARENTING'),
-                  InputFieldOption(code: 'SILC', name: 'SILC'),
-                  InputFieldOption(code: 'SAVING GROUP', name: 'SAVING GROUP'),
-                  InputFieldOption(
-                      code: 'FinancialLiteracyEducation',
-                      name: 'Financial Literacy (Education)'),
-                  InputFieldOption(
-                      code: 'ViolencePreventionEducation',
-                      name: 'Violence Prevention Education (GBV/VAC)'),
-                  InputFieldOption(
-                      code: 'CondomEducationProvision',
-                      name: 'Condom Education/Provision'),
-                  InputFieldOption(code: 'LBSE', name: 'LBSE'),
-                  InputFieldOption(
-                      code: 'HIV Prevention Education',
-                      name: 'HIV Prevention Education'),
-                ]),
+              id: 'Eug4BXDFLym',
+              name: 'Type of Intervention',
+              translatedName: 'Mofuta oa Tsebeletso',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: 'AFLATEEN/TOUN',
+                  name: 'AFLATEEN/TOUN',
+                ),
+                InputFieldOption(
+                  code: 'Go Girls',
+                  name: 'Go Girls',
+                ),
+                InputFieldOption(
+                  code: 'PARENTING',
+                  name: 'PARENTING',
+                ),
+                InputFieldOption(
+                  code: 'SILC',
+                  name: 'SILC',
+                ),
+                InputFieldOption(
+                  code: 'SAVING GROUP',
+                  name: 'SAVING GROUP',
+                ),
+                InputFieldOption(
+                  code: 'FinancialLiteracyEducation',
+                  name: 'Financial Literacy (Education)',
+                ),
+                InputFieldOption(
+                  code: 'ViolencePreventionEducation',
+                  name: 'Violence Prevention Education (GBV/VAC)',
+                ),
+                InputFieldOption(
+                  code: 'CondomEducationProvision',
+                  name: 'Condom Education/Provision',
+                ),
+                InputFieldOption(
+                  code: 'LBSE',
+                  name: 'LBSE',
+                ),
+                InputFieldOption(
+                  code: 'VACLegalMessaging',
+                  name: 'VAC Legal Messaging',
+                ),
+                InputFieldOption(
+                  code: 'GBVLegalMessaging',
+                  name: 'GBV Legal Messaging',
+                ),
+                InputFieldOption(
+                  code: 'HIV Prevention Education',
+                  name: 'HIV Prevention Education',
+                ),
+              ],
+            ),
             InputField(
               id: 'O7sjTjxUmEa',
               name: 'Session date',

@@ -1,6 +1,15 @@
 class AgywDreamsServiceFormSessions {
   static final Map<String, List> sessionMapping = {
-    'CondomEducationProvision': ['1', '2', '4', '6', '7', '8', '9', '10'],
+    'CondomEducationProvision': [
+      '1',
+      '2',
+      '4',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+    ],
     'Go Girls': [
       '1',
       '2',
@@ -46,7 +55,12 @@ class AgywDreamsServiceFormSessions {
       '11',
       '12',
     ],
-    'FinancialLiteracyEducation': ['1', '2', '3', '4'],
+    'FinancialLiteracyEducation': [
+      '1',
+      '2',
+      '3',
+      '4',
+    ],
     'SAVING GROUP': [
       '1',
       '2',
@@ -72,7 +86,14 @@ class AgywDreamsServiceFormSessions {
       '8',
       '9',
     ],
-    'LBSE': ['1', '2', '3', '4', '5', '6'],
+    'LBSE': [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+    ],
     'PARENTING': [
       '1',
       '2',
@@ -89,6 +110,11 @@ class AgywDreamsServiceFormSessions {
       '13',
       '14'
     ],
-    'HIV Prevention Education': ['1', '2', '3', '4'],
+    'HIV Prevention Education': [
+      '1',
+      '2',
+      '3',
+      '4',
+    ],
   };
 }

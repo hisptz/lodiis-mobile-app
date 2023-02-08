@@ -56,9 +56,9 @@ class ServiceEvent {
     } else if (interventionType == 'PARENTING') {
       return 'PARENTING';
     } else if (interventionType == 'GBV Messaging' ||
-        interventionType == 'VAC Legal Messaging' ||
+        interventionType == 'VACLegalMessaging' ||
         interventionType == 'HIV Prevention Education' ||
-        interventionType == 'GBV Legal Messaging' ||
+        interventionType == 'GBVLegalMessaging' ||
         interventionType == 'VAC Messaging') {
       return 'HIV Prevention Education';
     } else {

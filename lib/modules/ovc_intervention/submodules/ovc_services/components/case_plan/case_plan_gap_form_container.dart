@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/skip_logics/ovc_case_plan_gap_skip_logic.dart';
@@ -54,6 +56,12 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     OvcHouseholdChild? currentHouseholdChild =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
+    CurrentUser? currentUser =
+        Provider.of<CurrentUserState>(context, listen: false).currentUser;
+    dataObject = {
+      ...dataObject,
+      "implementingPartner": currentUser!.implementingPartner ?? ""
+    };
     evaluateSkipLogics(context, widget.formSections, dataObject,
         currentHouseholdChild: currentHouseholdChild);
   }
@@ -63,7 +71,11 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     setState(() {});
     _evaluateSkipLogics();
     setState(() {});
-    setMandatoryFieldForVacLegalMessage();
+
+    ///
+    /// This is commented to disable the auto assignment of VAC legal messaging
+    ///
+    // setMandatoryFieldForVacLegalMessage();
   }
 
   void setMandatoryFieldForVacLegalMessage() {
@@ -72,11 +84,11 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       "Q7GxvZD6h99",
       "A4xYu8BYOg7"
     ];
-    bool isVacessageSelected = "${dataObject['aPmPhwm8Zln']}" == "true";
+    bool isVacMessageSelected = "${dataObject['aPmPhwm8Zln']}" == "true";
     bool isVacLegalMessageSelected = "${dataObject['AaqeRcyjbyS']}" == "true";
-    if (isVacessageSelected && !isVacLegalMessageSelected) {
+    if (isVacMessageSelected && !isVacLegalMessageSelected) {
       dataObject['AaqeRcyjbyS'] = true;
-    } else if (!isVacessageSelected) {
+    } else if (!isVacMessageSelected) {
       dataObject['AaqeRcyjbyS'] = '';
       for (String id in vacLegalMessagingMandatoryFields) {
         dataObject[id] = '';
@@ -86,7 +98,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     mandatoryFields = [];
     unFilledMandatoryFields = [];
     for (String id in vacLegalMessagingMandatoryFields) {
-      if (isVacLegalMessageSelected && isVacessageSelected) {
+      if (isVacLegalMessageSelected && isVacMessageSelected) {
         mandatoryFieldObject[id] = true;
         mandatoryFields.add(id);
       }
@@ -99,7 +111,7 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     bool isAllMandatoryFilled =
         AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
     if (isAllMandatoryFilled) {
-      bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+      bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
         hiddenFields: hiddenFields,
         formSections: widget.formSections,
         dataObject: dataObject,

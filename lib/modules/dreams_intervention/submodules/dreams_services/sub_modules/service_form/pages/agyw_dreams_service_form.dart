@@ -144,8 +144,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
             );
           } else if (sessionAlreadyExists) {
             AppUtil.showToastMessage(
-              message:
-                  "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+              message: ServiceFormConstant.oneOffServices
+                      .contains(dataObject[typeOfIntervention])
+                  ? '${dataObject[typeOfIntervention]} should only be offered once!'
+                  : "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
               position: ToastGravity.TOP,
             );
           }
@@ -175,8 +177,10 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
               .evaluateSkipLogicBySessionReoccurrence(dataObject);
           if (sessionAlreadyExists) {
             AppUtil.showToastMessage(
-              message:
-                  "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
+              message: ServiceFormConstant.oneOffServices
+                      .contains(dataObject[typeOfIntervention])
+                  ? '${dataObject[typeOfIntervention]} is already offered!'
+                  : "Sessions ${dataObject[sessionNumberInputField]} for ${dataObject[typeOfIntervention]} already exists",
               position: ToastGravity.TOP,
             );
           } else {

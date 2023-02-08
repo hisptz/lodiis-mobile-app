@@ -86,7 +86,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
   }
 
   void onSaveCasePlanMonitoring() async {
-    bool hasAtLeasrOnFieldFilled = FormUtil.isAtleastOnFormField(
+    bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFields,
       formSections: formSections,
       dataObject: widget.gapServiceMonitoringObject,

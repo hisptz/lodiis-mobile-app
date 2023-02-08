@@ -22,39 +22,39 @@ mixin OvcCasePlanGapSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+    String implementingPartner = dataObject['implementingPartner'];
 
     // Hiding gap based on the goal
     List<String> casPlanServiceGaps = OvcCasePlanConstant.casPlanServiceGaps;
     for (String gap in casPlanServiceGaps) {
-      if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'KnowledgeableAboutHIVEducation' ||
+      if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'KnowledgeableAboutHIVEducation' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'KnowledgeableAboutHIVEducation') &&
           ([
             "cx4xBY4jZXM",
             "XoSPWmpWXCy",
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'To adhere to ART' ||
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'To adhere to ART' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'To adhere to ART') &&
           ([
             "hJUuQ648wVF",
             "ylSjcj6cv42",
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Proper nutrition for my children' ||
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Proper nutrition for my children' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Proper nutrition for my children') &&
           ([
             "BJrrrqQqwQO",
             "d2vXxEPeCq7",
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Access to PMTCT services' ||
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Access to PMTCT services' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Access to PMTCT services') &&
           ([
@@ -73,21 +73,23 @@ mixin OvcCasePlanGapSkipLogic {
             "EaJTFrklMo5",
             "AxtahhoHcXV"
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Knowledgeable about food security' ||
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Knowledgeable about food security' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Knowledgeable about food security') &&
           ([
             'e6NV2ZAzFEh',
           ].contains(gap))) {
-        hiddenFields[gap] = false;
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
       } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
                   'Learn about food production and preservation' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Learn about food production and preservation') &&
           (['yPP7lkomNfK'].contains(gap))) {
-        hiddenFields[gap] = false;
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
       } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
                   'To improve my family financial status' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
@@ -96,9 +98,9 @@ mixin OvcCasePlanGapSkipLogic {
             'kvF996ugmMl',
             'WrjNxZBVHCL',
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Knowledgeable about VAC' ||
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Knowledgeable about VAC' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Knowledgeable about VAC') &&
           ([
@@ -107,11 +109,10 @@ mixin OvcCasePlanGapSkipLogic {
             'WdZ3PnW5yV6',
             'hS7aONLz2cq',
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Knowledgeable about child protection' ||
-              dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
-                  'Knowledgeable about child protection') &&
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Knowledgeable about child protection' ||
+              dataObject[OvcCasePlanConstant.casePlansSecondGoal] == 'Knowledgeable about child protection') &&
           ([
             'neF08iYV9Os',
             'PoxYSqq8Hgz',
@@ -120,20 +121,16 @@ mixin OvcCasePlanGapSkipLogic {
             'WdZ3PnW5yV6',
             'Ccp4Odlh3BE'
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Better school attendance and performance' ||
-              dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
-                  'Better school attendance and performance') &&
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Better school attendance and performance' || dataObject[OvcCasePlanConstant.casePlansSecondGoal] == 'Better school attendance and performance') &&
           ([
             'Cb8qzfdrg7d',
             'qraZh4n14S4',
           ].contains(gap))) {
-        hiddenFields[gap] = false;
-      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] ==
-                  'Equipped with social assets for better living' ||
-              dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
-                  'Equipped with social assets for better living') &&
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
+      } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Equipped with social assets for better living' || dataObject[OvcCasePlanConstant.casePlansSecondGoal] == 'Equipped with social assets for better living') &&
           ([
             'X47zxNAqMv0',
             'qraZh4n14S4',
@@ -141,7 +138,8 @@ mixin OvcCasePlanGapSkipLogic {
             'NcMANzhhphO',
             'TdReJf2LTXA',
           ].contains(gap))) {
-        hiddenFields[gap] = false;
+        hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
+            gap, implementingPartner);
       } else {
         hiddenFields[gap] = true;
       }
@@ -468,6 +466,24 @@ mixin OvcCasePlanGapSkipLogic {
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
+  }
+
+  ///
+  /// this function filter the services based on IP
+  /// It's implemented based on Paralegal
+  ///
+  bool shouldServiceBeHiddenByImplementingPartner(
+    String service,
+    String implementingPartner,
+  ) {
+    if (OvcCasePlanConstant.paralegalServices.contains(service)) {
+      var isCurrentUserParalegal = implementingPartner == 'Paralegal';
+      return !isCurrentUserParalegal;
+    } else if (implementingPartner == 'Paralegal') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   resetValuesForHiddenFields(BuildContext context, inputFieldIds) {

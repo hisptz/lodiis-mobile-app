@@ -20,8 +20,8 @@ class CasePlanGapServiceProvisionView extends StatefulWidget {
     required this.casePlanGap,
     required this.isHouseholdCasePlan,
     required this.hasEditAccess,
-    required this.onEditCasePlanServive,
-    required this.onViewCasePlanServive,
+    required this.onEditCasePlanService,
+    required this.onViewCasePlanService,
   }) : super(key: key);
 
   final String domainId;
@@ -30,8 +30,8 @@ class CasePlanGapServiceProvisionView extends StatefulWidget {
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
 
-  final Function onEditCasePlanServive;
-  final Function onViewCasePlanServive;
+  final Function onEditCasePlanService;
+  final Function onViewCasePlanService;
 
   @override
   State<CasePlanGapServiceProvisionView> createState() =>
@@ -121,7 +121,7 @@ class _CasePlanGapServiceProvisionViewState
                                 ),
                                 _getActionIcon(
                                   icon: 'assets/icons/expand_icon.svg',
-                                  onTap: () => widget.onViewCasePlanServive(
+                                  onTap: () => widget.onViewCasePlanService(
                                     OvcCasePlanUtil.getMappedEventObject(
                                         casePlanServiceProvision.eventData!),
                                   ),
@@ -130,7 +130,7 @@ class _CasePlanGapServiceProvisionViewState
                                   visible: widget.hasEditAccess,
                                   child: _getActionIcon(
                                     icon: 'assets/icons/edit-icon.svg',
-                                    onTap: () => widget.onEditCasePlanServive(
+                                    onTap: () => widget.onEditCasePlanService(
                                       OvcCasePlanUtil.getMappedEventObject(
                                           casePlanServiceProvision.eventData!),
                                     ),
