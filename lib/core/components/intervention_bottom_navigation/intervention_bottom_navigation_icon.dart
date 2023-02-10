@@ -17,18 +17,18 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Container(
-            alignment: Alignment.topCenter,
-            margin: const EdgeInsets.symmetric(
-              vertical: 9.0,
-            ),
-            child: SvgPicture.asset(
-              interventionBottomNavigation.svgIcon!,
-              color: currentInterventionBottomNavigation.id ==
-                      interventionBottomNavigation.id
-                  ? Colors.white
-                  : const Color(0xFF737373),
-            ),
-          ),
+        alignment: Alignment.topCenter,
+        margin: const EdgeInsets.symmetric(
+          vertical: 9.0,
+        ),
+        child: SvgPicture.asset(
+          interventionBottomNavigation.svgIcon!,
+          color: currentInterventionBottomNavigation.id ==
+                  interventionBottomNavigation.id
+              ? Colors.white
+              : const Color(0xFF737373),
+        ),
+      ),
     );
   }
 }

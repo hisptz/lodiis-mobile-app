@@ -159,95 +159,102 @@ class _OvcInterventionState extends State<OvcIntervention>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<InterventionCardState>(
-          builder: (context, interventionCardState, child) {
-            InterventionCard activeInterventionProgram =
-                interventionCardState.currentInterventionProgram;
-            return Consumer<InterventionBottomNavigationState>(
-                builder: (context, interventionBottomNavigationState, child) {
-              InterventionBottomNavigation currentInterventionBottomNavigation =
-                  interventionBottomNavigationState
-                      .getCurrentInterventionBottomNavigation(
-                          activeInterventionProgram);
-              return Scaffold(
-                appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(110),
-                    child: InterventionAppBar(
-                      tabController: tabController,
-                      tabs: tabsItems,
-                      hasTabs:
-                          currentInterventionBottomNavigation.id == 'records',
-                      activeInterventionProgram: activeInterventionProgram,
-                      onClickHome: onClickHome,
-                      onAddHousehold: () => onAddHousehold(context),
-                      onOpenMoreMenu: () =>
-                          onOpenMoreMenu(context, activeInterventionProgram),
-                    )),
-                body: Consumer<CurrentUserState>(
-                    builder: (context, currentUserState, child) {
-                  bool hasAccessToDataEntry =
-                      currentUserState.canCurrentUserDoDataEntry;
-                  return Container(
-                    child: !isViewReady
-                        ? Container(
-                            margin: const EdgeInsets.only(
-                              top: 20.0,
-                            ),
-                            child: const CircularProcessLoader(
-                              color: Colors.blueGrey,
-                            ),
-                          )
-                        : !hasAccessToDataEntry
-                            ? const AccessToDataEntryWarning()
-                            : Stack(
-                                fit: StackFit.expand,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color:
-                                          activeInterventionProgram.background,
-                                    ),
-                                  ),
-                                  Container(
-                                    child: currentInterventionBottomNavigation
-                                                .id ==
-                                            'services'
-                                        ? const OvcServicesPage()
-                                        : currentInterventionBottomNavigation
+        child: Consumer<CurrentUserState>(
+          builder: (context, currentUserState, child) {
+            return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+                InterventionCard activeInterventionProgram =
+                    interventionCardState.currentInterventionProgram;
+                return Consumer<InterventionBottomNavigationState>(builder:
+                    (context, interventionBottomNavigationState, child) {
+                  InterventionBottomNavigation
+                      currentInterventionBottomNavigation =
+                      interventionBottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                    activeInterventionProgram,
+                    currentUserState.implementingPartner,
+                  );
+                  return Scaffold(
+                    appBar: PreferredSize(
+                        preferredSize: const Size.fromHeight(110),
+                        child: InterventionAppBar(
+                          tabController: tabController,
+                          tabs: tabsItems,
+                          hasTabs: currentInterventionBottomNavigation.id ==
+                              'records',
+                          activeInterventionProgram: activeInterventionProgram,
+                          onClickHome: onClickHome,
+                          onAddHousehold: () => onAddHousehold(context),
+                          onOpenMoreMenu: () => onOpenMoreMenu(
+                              context, activeInterventionProgram),
+                        )),
+                    body: Consumer<CurrentUserState>(
+                        builder: (context, currentUserState, child) {
+                      bool hasAccessToDataEntry =
+                          currentUserState.canCurrentUserDoDataEntry;
+                      return Container(
+                        child: !isViewReady
+                            ? Container(
+                                margin: const EdgeInsets.only(
+                                  top: 20.0,
+                                ),
+                                child: const CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                ),
+                              )
+                            : !hasAccessToDataEntry
+                                ? const AccessToDataEntryWarning()
+                                : Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: activeInterventionProgram
+                                              .background,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: currentInterventionBottomNavigation
                                                     .id ==
-                                                'referral'
-                                            ? const OvcReferralPage()
+                                                'services'
+                                            ? const OvcServicesPage()
                                             : currentInterventionBottomNavigation
                                                         .id ==
-                                                    'enrollment'
-                                                ? const OvcEnrollmentPage()
+                                                    'referral'
+                                                ? const OvcReferralPage()
                                                 : currentInterventionBottomNavigation
                                                             .id ==
-                                                        'exit'
-                                                    ? const OvcExitPage()
+                                                        'enrollment'
+                                                    ? const OvcEnrollmentPage()
                                                     : currentInterventionBottomNavigation
                                                                 .id ==
-                                                            'records'
-                                                        ? OvcRecordsPage(
-                                                            tabsController:
-                                                                tabController!,
-                                                            tabsVieItems:
-                                                                tabsViews,
-                                                          )
-                                                        : RoutePageNotFound(
-                                                            pageTitle:
-                                                                currentInterventionBottomNavigation
-                                                                    .id,
-                                                          ),
+                                                            'exit'
+                                                        ? const OvcExitPage()
+                                                        : currentInterventionBottomNavigation
+                                                                    .id ==
+                                                                'records'
+                                                            ? OvcRecordsPage(
+                                                                tabsController:
+                                                                    tabController!,
+                                                                tabsVieItems:
+                                                                    tabsViews,
+                                                              )
+                                                            : RoutePageNotFound(
+                                                                pageTitle:
+                                                                    currentInterventionBottomNavigation
+                                                                        .id,
+                                                              ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                      );
+                    }),
+                    bottomNavigationBar:
+                        const InterventionBottomNavigationBarContainer(),
                   );
-                }),
-                bottomNavigationBar:
-                    const InterventionBottomNavigationBarContainer(),
-              );
-            });
+                });
+              },
+            );
           },
         ),
       ),
