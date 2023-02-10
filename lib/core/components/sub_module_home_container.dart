@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
@@ -40,9 +41,13 @@ class SubModuleHomeContainer extends StatelessWidget {
   int getCurrentInterventionFilterCount(
       BuildContext context, InterventionCard currentIntervention) {
     String? id = currentIntervention.id;
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     InterventionBottomNavigation currentBottomNavigation =
-        Provider.of<InterventionBottomNavigationState>(context)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+        Provider.of<InterventionBottomNavigationState>(context, listen: false)
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
     return id == 'education'
         ? currentBottomNavigation.id == 'lbse'
             ? Provider.of<EducationLbseInterventionState>(context,
@@ -115,6 +120,8 @@ class SubModuleHomeContainer extends StatelessWidget {
                               ),
                               filterCount != 0
                                   ? Positioned(
+                                      right: 11,
+                                      top: 11,
                                       child: InkWell(
                                         onTap: () => openFilters(context),
                                         child: Container(
@@ -139,8 +146,6 @@ class SubModuleHomeContainer extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      right: 11,
-                                      top: 11,
                                     )
                                   : Container(),
                             ],

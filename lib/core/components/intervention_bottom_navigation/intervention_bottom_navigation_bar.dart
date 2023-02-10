@@ -82,7 +82,9 @@ class InterventionBottomNavigationBar extends StatelessWidget {
                     currentInterventionBottomNavigation =
                     interventionBottomNavigationState
                         .getCurrentInterventionBottomNavigation(
-                            activeInterventionProgram);
+                  activeInterventionProgram,
+                  currentUserState.implementingPartner,
+                );
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,

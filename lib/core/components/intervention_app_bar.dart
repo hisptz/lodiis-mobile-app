@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/device_connectivity_state/device_connectivity_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
@@ -258,6 +259,8 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
             Visibility(
               visible: searchItemsCount > 0,
               child: Positioned(
+                right: 11,
+                top: 11,
                 child: InkWell(
                   onTap: () => onOpenOfflineSearchSheet(context),
                   child: Consumer<InterventionCardState>(
@@ -284,8 +287,6 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                         )),
                   ),
                 ),
-                right: 11,
-                top: 11,
               ),
             )
           ],
@@ -297,41 +298,51 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
             onPressed: () => onOpenOnlineSearchSheet(context),
           );
         }),
-        Consumer<InterventionBottomNavigationState>(
-          builder: (context, interventionBottomNavigationState, child) {
-            InterventionBottomNavigation currentInterventionBottomNavigation =
-                interventionBottomNavigationState
-                    .getCurrentInterventionBottomNavigation(
-              widget.activeInterventionProgram,
-            );
-            return Visibility(
-              visible: widget.activeInterventionProgram.id == 'pp_prev' ||
-                  widget.activeInterventionProgram.id == 'education' ||
-                  widget.activeInterventionProgram.id == 'ogac' ||
-                  (currentInterventionBottomNavigation.id == 'enrollment' ||
-                      currentInterventionBottomNavigation.id == 'noneAgyw'),
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  widget.activeInterventionProgram.enrollmentIcon!,
-                ),
-                onPressed: currentInterventionBottomNavigation.id == 'noneAgyw'
-                    ? widget.onAddNoneAgywBeneficiary
-                    : currentInterventionBottomNavigation.id == 'lbse'
-                        ? widget.onAddLbseBeneficiary
-                        : currentInterventionBottomNavigation.id == 'bursary'
-                            ? widget.onAddBursaryBeneficiary
-                            : widget.activeInterventionProgram.id == 'dreams'
-                                ? widget.onAddAgywBeneficiary
-                                : widget.activeInterventionProgram.id == 'ogac'
-                                    ? widget.onAddOgacBeneficiary
+        Consumer<CurrentUserState>(
+          builder: (context, currentUserState, child) {
+            return Consumer<InterventionBottomNavigationState>(
+              builder: (context, interventionBottomNavigationState, child) {
+                InterventionBottomNavigation
+                    currentInterventionBottomNavigation =
+                    interventionBottomNavigationState
+                        .getCurrentInterventionBottomNavigation(
+                            widget.activeInterventionProgram,
+                            currentUserState.implementingPartner);
+                return Visibility(
+                  visible: widget.activeInterventionProgram.id == 'pp_prev' ||
+                      widget.activeInterventionProgram.id == 'education' ||
+                      widget.activeInterventionProgram.id == 'ogac' ||
+                      (currentInterventionBottomNavigation.id == 'enrollment' ||
+                          currentInterventionBottomNavigation.id == 'noneAgyw'),
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      widget.activeInterventionProgram.enrollmentIcon!,
+                    ),
+                    onPressed: currentInterventionBottomNavigation.id ==
+                            'noneAgyw'
+                        ? widget.onAddNoneAgywBeneficiary
+                        : currentInterventionBottomNavigation.id == 'lbse'
+                            ? widget.onAddLbseBeneficiary
+                            : currentInterventionBottomNavigation.id ==
+                                    'bursary'
+                                ? widget.onAddBursaryBeneficiary
+                                : widget.activeInterventionProgram.id ==
+                                        'dreams'
+                                    ? widget.onAddAgywBeneficiary
                                     : widget.activeInterventionProgram.id ==
-                                            'pp_prev'
-                                        ? widget.onAddPpPrevBeneficiary
+                                            'ogac'
+                                        ? widget.onAddOgacBeneficiary
                                         : widget.activeInterventionProgram.id ==
-                                                "ovc"
-                                            ? widget.onAddHousehold
-                                            : () => {},
-              ),
+                                                'pp_prev'
+                                            ? widget.onAddPpPrevBeneficiary
+                                            : widget.activeInterventionProgram
+                                                        .id ==
+                                                    "ovc"
+                                                ? widget.onAddHousehold
+                                                : () => {},
+                  ),
+                );
+              },
             );
           },
         ),

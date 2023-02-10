@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
@@ -47,9 +48,13 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
   void onClearFilterItem(
       String filterId, InterventionCard currentIntervention) {
     String intervention = currentIntervention.id ?? '';
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     InterventionBottomNavigation interventionBottomNavigation =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
     String programId = intervention == 'education'
         ? interventionBottomNavigation.id!
         : intervention;
@@ -60,9 +65,13 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
 
   bool isFilterApplied(String filterId, InterventionCard currentIntervention) {
     String intervention = currentIntervention.id ?? '';
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     InterventionBottomNavigation currentTab =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
     List<Map<String, dynamic>> filters = intervention == 'education'
         ? Provider.of<BeneficiaryFilterState>(context, listen: false)
             .getFiltersByProgram(currentTab.id!)
@@ -102,9 +111,13 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
 
   void onApplyFilters(InterventionCard currentIntervention) {
     String intervention = currentIntervention.id ?? '';
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     InterventionBottomNavigation interventionBottomNavigation =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
     String programId = intervention == 'education'
         ? interventionBottomNavigation.id!
         : intervention;
@@ -142,11 +155,11 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
                 )
               ],
             ),
-            children: [filter.filterInput],
             iconColor: filterColor,
             textColor: filterColor,
             collapsedTextColor: isFilterSelected ? filterColor : null,
             collapsedIconColor: isFilterSelected ? filterColor : null,
+            children: [filter.filterInput],
           ),
         ));
   }
@@ -154,9 +167,13 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
   void onClearFilters(
       BuildContext context, InterventionCard currentIntervention) {
     String intervention = currentIntervention.id ?? '';
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     InterventionBottomNavigation currentTab =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
     String currentProgramId =
         intervention == 'education' ? currentTab.id! : intervention;
     Provider.of<BeneficiaryFilterState>(context, listen: false)

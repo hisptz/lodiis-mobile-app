@@ -28,14 +28,22 @@ class InterventionBottomNavigationState with ChangeNotifier {
       _currentInterventionBottomNavigationId;
 
   InterventionBottomNavigation getCurrentInterventionBottomNavigation(
-      InterventionCard activeInterventionProgram) {
+    InterventionCard activeInterventionProgram,
+    String implementingPartner,
+  ) {
     List<InterventionBottomNavigation> interventionBottomNavigations =
         InterventionBottomNavigation.getInterventionNavigationButtons(
       activeInterventionProgram,
     );
+    if (implementingPartner == 'Paralegal') {
+      interventionBottomNavigations = interventionBottomNavigations
+          .where((interventionBottomNavigation) =>
+              interventionBottomNavigation.id != 'enrollment')
+          .toList();
+    }
     InterventionBottomNavigation interventionBottomNavigation =
         interventionBottomNavigations.isNotEmpty
-            ? interventionBottomNavigations[0]
+            ? interventionBottomNavigations[0] // filter by user
             : InterventionBottomNavigation(id: "", name: "");
     if (_currentInterventionBottomNavigationId != null) {
       var filteredList = interventionBottomNavigations

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/beneficiary_filter_state/beneficiary_filter_state.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
@@ -31,9 +32,13 @@ class BeneficiaryFilter {
   static void onUpdateFilter(BuildContext context,
       InterventionCard currentIntervention, String id, String? value) {
     String interventionId = currentIntervention.id!;
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     InterventionBottomNavigation interventionBottomNavigation =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
     String programId = interventionId == 'education'
         ? interventionBottomNavigation.id!
         : interventionId;
@@ -66,10 +71,14 @@ class BeneficiaryFilter {
       InterventionCard currentIntervention,
       InterventionBottomNavigation currentBottomNavigation,
       String id) {
+    String implementingPartner =
+        Provider.of<CurrentUserState>(context, listen: false)
+            .implementingPartner;
     String interventionId = currentIntervention.id!;
     InterventionBottomNavigation interventionBottomNavigation =
         Provider.of<InterventionBottomNavigationState>(context, listen: false)
-            .getCurrentInterventionBottomNavigation(currentIntervention);
+            .getCurrentInterventionBottomNavigation(
+                currentIntervention, implementingPartner);
 
     String programId = interventionId == 'education'
         ? interventionBottomNavigation.id!
@@ -87,61 +96,69 @@ class BeneficiaryFilter {
         name: 'Select Implementing partner',
         valueType: 'TEXT',
         options: implementingPartners
-            .map((implementingPartner) => InputFieldOption(
-                code: implementingPartner, name: implementingPartner))
+            .map(
+              (implementingPartner) => InputFieldOption(
+                  code: implementingPartner, name: implementingPartner),
+            )
             .toList());
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) {
+        return Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+                InterventionCard currentInterventionProgram =
+                    interventionCardState.currentInterventionProgram;
+                return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: implementingPartnerInput.name,
+                              style: TextStyle(
+                                color: implementingPartnerInput.labelColor,
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.normal,
+                              ))),
+                      Consumer<InterventionBottomNavigationState>(
+                          builder: (context, bottomNavigationState, child) {
+                        InterventionBottomNavigation
+                            interventionBottomNavigation = bottomNavigationState
+                                .getCurrentInterventionBottomNavigation(
+                                    currentIntervention,
+                                    currentUserState.implementingPartner);
+                        String implementingPartner = getFilterValue(
+                            context,
+                            currentIntervention,
+                            interventionBottomNavigation,
+                            implementingPartnerInput.id);
 
-    return Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-      return Consumer<InterventionCardState>(
-        builder: (context, interventionCardState, child) {
-          InterventionCard currentInterventionProgram =
-              interventionCardState.currentInterventionProgram;
-          return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                    text: TextSpan(
-                        text: implementingPartnerInput.name,
-                        style: TextStyle(
-                          color: implementingPartnerInput.labelColor,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.normal,
-                        ))),
-                Consumer<InterventionBottomNavigationState>(
-                    builder: (context, bottomNavigationState, child) {
-                  InterventionBottomNavigation interventionBottomNavigation =
-                      bottomNavigationState
-                          .getCurrentInterventionBottomNavigation(
-                              currentIntervention);
-                  String implementingPartner = getFilterValue(
-                      context,
-                      currentIntervention,
-                      interventionBottomNavigation,
-                      implementingPartnerInput.id);
-
-                  return SelectInputField(
-                    hiddenInputFieldOptions: const {},
-                    selectedOption: implementingPartner,
-                    isReadOnly: false,
-                    currentLanguage: languageTranslationState.currentLanguage,
-                    color: currentInterventionProgram.primaryColor,
-                    renderAsRadio: implementingPartnerInput.renderAsRadio,
-                    onInputValueChange: (dynamic value) => onUpdateFilter(
-                        context,
-                        currentInterventionProgram,
-                        implementingPartnerInput.id,
-                        value),
-                    options: implementingPartnerInput.options,
-                  );
-                }),
-                LineSeparator(
-                    color: currentInterventionProgram.primaryColor!
-                        .withOpacity(0.3)),
-              ]);
-        },
-      );
-    });
+                        return SelectInputField(
+                          hiddenInputFieldOptions: const {},
+                          selectedOption: implementingPartner,
+                          isReadOnly: false,
+                          currentLanguage:
+                              languageTranslationState.currentLanguage,
+                          color: currentInterventionProgram.primaryColor,
+                          renderAsRadio: implementingPartnerInput.renderAsRadio,
+                          onInputValueChange: (dynamic value) => onUpdateFilter(
+                              context,
+                              currentInterventionProgram,
+                              implementingPartnerInput.id,
+                              value),
+                          options: implementingPartnerInput.options,
+                        );
+                      }),
+                      LineSeparator(
+                          color: currentInterventionProgram.primaryColor!
+                              .withOpacity(0.3)),
+                    ]);
+              },
+            );
+          },
+        );
+      },
+    );
   }
 
   static Widget getHouseholdCategorizationInput(
@@ -165,106 +182,101 @@ class BeneficiaryFilter {
           ),
         ]);
 
-    return Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-      return Consumer<InterventionCardState>(
-        builder: (context, interventionCardState, child) {
-          InterventionCard currentInterventionProgram =
-              interventionCardState.currentInterventionProgram;
-          return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                    text: TextSpan(
-                        text: householdCategorizationInput.name,
-                        style: TextStyle(
-                          color: householdCategorizationInput.labelColor,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.normal,
-                        ))),
-                Consumer<InterventionBottomNavigationState>(
-                    builder: (context, bottomNavigationState, child) {
-                  InterventionBottomNavigation interventionBottomNavigation =
-                      bottomNavigationState
-                          .getCurrentInterventionBottomNavigation(
-                              currentIntervention);
-                  String householdCategorization = getFilterValue(
-                      context,
-                      currentIntervention,
-                      interventionBottomNavigation,
-                      householdCategorizationInput.id);
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) {
+        return Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+                InterventionCard currentInterventionProgram =
+                    interventionCardState.currentInterventionProgram;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                        text: TextSpan(
+                            text: householdCategorizationInput.name,
+                            style: TextStyle(
+                              color: householdCategorizationInput.labelColor,
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.normal,
+                            ))),
+                    Consumer<InterventionBottomNavigationState>(
+                      builder: (context, bottomNavigationState, child) {
+                        InterventionBottomNavigation
+                            interventionBottomNavigation = bottomNavigationState
+                                .getCurrentInterventionBottomNavigation(
+                                    currentIntervention,
+                                    currentUserState.implementingPartner);
+                        String householdCategorization = getFilterValue(
+                            context,
+                            currentIntervention,
+                            interventionBottomNavigation,
+                            householdCategorizationInput.id);
 
-                  return SelectInputField(
-                    hiddenInputFieldOptions: const {},
-                    selectedOption: householdCategorization,
-                    isReadOnly: false,
-                    currentLanguage: languageTranslationState.currentLanguage,
-                    color: currentInterventionProgram.primaryColor,
-                    renderAsRadio: householdCategorizationInput.renderAsRadio,
-                    onInputValueChange: (dynamic value) => onUpdateFilter(
-                        context,
-                        currentInterventionProgram,
-                        householdCategorizationInput.id,
-                        value),
-                    options: householdCategorizationInput.options,
-                  );
-                }),
-                LineSeparator(
-                    color: currentInterventionProgram.primaryColor!
-                        .withOpacity(0.3)),
-              ]);
-        },
-      );
-    });
+                        return SelectInputField(
+                          hiddenInputFieldOptions: const {},
+                          selectedOption: householdCategorization,
+                          isReadOnly: false,
+                          currentLanguage:
+                              languageTranslationState.currentLanguage,
+                          color: currentInterventionProgram.primaryColor,
+                          renderAsRadio:
+                              householdCategorizationInput.renderAsRadio,
+                          onInputValueChange: (dynamic value) => onUpdateFilter(
+                              context,
+                              currentInterventionProgram,
+                              householdCategorizationInput.id,
+                              value),
+                          options: householdCategorizationInput.options,
+                        );
+                      },
+                    ),
+                    LineSeparator(
+                      color: currentInterventionProgram.primaryColor!
+                          .withOpacity(0.3),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        );
+      },
+    );
   }
 
   static Widget getGradeFilterInput(InterventionCard currentIntervention) {
-    return Consumer<InterventionBottomNavigationState>(
-      builder: (context, interventionBottomNavigationState, child) {
-        InterventionBottomNavigation interventionBottomNavigation =
-            interventionBottomNavigationState
-                .getCurrentInterventionBottomNavigation(currentIntervention);
-        InputField gradeInput = InputField(
-            id: 'grade',
-            name: 'Select Grade',
-            valueType: 'TEXT',
-            options: interventionBottomNavigation.id == 'lbse'
-                ? [
-                    InputFieldOption(
-                      code: "Grade 4",
-                      name: "Grade 4",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 5",
-                      name: "Grade 5",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 6",
-                      name: "Grade 6",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 7",
-                      name: "Grade 7",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 8",
-                      name: "Grade 8",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 9",
-                      name: "Grade 9",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 10",
-                      name: "Grade 10",
-                    ),
-                    InputFieldOption(
-                      code: "Grade 11",
-                      name: "Grade 11",
-                    ),
-                  ]
-                : interventionBottomNavigation.id == 'bursary'
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) {
+        return Consumer<InterventionBottomNavigationState>(
+          builder: (context, interventionBottomNavigationState, child) {
+            InterventionBottomNavigation interventionBottomNavigation =
+                interventionBottomNavigationState
+                    .getCurrentInterventionBottomNavigation(currentIntervention,
+                        currentUserState.implementingPartner);
+            InputField gradeInput = InputField(
+                id: 'grade',
+                name: 'Select Grade',
+                valueType: 'TEXT',
+                options: interventionBottomNavigation.id == 'lbse'
                     ? [
+                        InputFieldOption(
+                          code: "Grade 4",
+                          name: "Grade 4",
+                        ),
+                        InputFieldOption(
+                          code: "Grade 5",
+                          name: "Grade 5",
+                        ),
+                        InputFieldOption(
+                          code: "Grade 6",
+                          name: "Grade 6",
+                        ),
+                        InputFieldOption(
+                          code: "Grade 7",
+                          name: "Grade 7",
+                        ),
                         InputFieldOption(
                           code: "Grade 8",
                           name: "Grade 8",
@@ -282,48 +294,69 @@ class BeneficiaryFilter {
                           name: "Grade 11",
                         ),
                       ]
-                    : []);
-        return Consumer<LanguageTranslationState>(
-            builder: (context, languageTranslationState, child) {
-          return Consumer<InterventionCardState>(
-              builder: (context, interventionCardState, child) {
-            InterventionCard currentInterventionProgram =
-                interventionCardState.currentInterventionProgram;
+                    : interventionBottomNavigation.id == 'bursary'
+                        ? [
+                            InputFieldOption(
+                              code: "Grade 8",
+                              name: "Grade 8",
+                            ),
+                            InputFieldOption(
+                              code: "Grade 9",
+                              name: "Grade 9",
+                            ),
+                            InputFieldOption(
+                              code: "Grade 10",
+                              name: "Grade 10",
+                            ),
+                            InputFieldOption(
+                              code: "Grade 11",
+                              name: "Grade 11",
+                            ),
+                          ]
+                        : []);
+            return Consumer<LanguageTranslationState>(
+                builder: (context, languageTranslationState, child) {
+              return Consumer<InterventionCardState>(
+                  builder: (context, interventionCardState, child) {
+                InterventionCard currentInterventionProgram =
+                    interventionCardState.currentInterventionProgram;
+                String grade = getFilterValue(context, currentIntervention,
+                    interventionBottomNavigation, gradeInput.id);
 
-            String grade = getFilterValue(context, currentIntervention,
-                interventionBottomNavigation, gradeInput.id);
-
-            return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                      text: TextSpan(
-                          text: gradeInput.name,
-                          style: TextStyle(
-                            color: gradeInput.labelColor,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.normal,
-                          ))),
-                  SelectInputField(
-                    hiddenInputFieldOptions: const {},
-                    selectedOption: grade,
-                    isReadOnly: false,
-                    currentLanguage: languageTranslationState.currentLanguage,
-                    color: currentInterventionProgram.primaryColor,
-                    renderAsRadio: gradeInput.renderAsRadio,
-                    onInputValueChange: (dynamic value) => onUpdateFilter(
-                        context,
-                        currentInterventionProgram,
-                        gradeInput.id,
-                        value),
-                    options: gradeInput.options,
-                  ),
-                  LineSeparator(
-                      color: currentInterventionProgram.primaryColor!
-                          .withOpacity(0.1)),
-                ]);
-          });
-        });
+                return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: gradeInput.name,
+                              style: TextStyle(
+                                color: gradeInput.labelColor,
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.normal,
+                              ))),
+                      SelectInputField(
+                        hiddenInputFieldOptions: const {},
+                        selectedOption: grade,
+                        isReadOnly: false,
+                        currentLanguage:
+                            languageTranslationState.currentLanguage,
+                        color: currentInterventionProgram.primaryColor,
+                        renderAsRadio: gradeInput.renderAsRadio,
+                        onInputValueChange: (dynamic value) => onUpdateFilter(
+                            context,
+                            currentInterventionProgram,
+                            gradeInput.id,
+                            value),
+                        options: gradeInput.options,
+                      ),
+                      LineSeparator(
+                          color: currentInterventionProgram.primaryColor!
+                              .withOpacity(0.1)),
+                    ]);
+              });
+            });
+          },
+        );
       },
     );
   }
@@ -349,46 +382,59 @@ class BeneficiaryFilter {
                 InputFieldOption(code: 'Female', name: 'Female'),
               ]);
 
-    return Consumer<LanguageTranslationState>(
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) =>
+          Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-      return Consumer<InterventionCardState>(
-          builder: (context, interventionCardState, child) {
-        InterventionCard currentInterventionProgram =
-            interventionCardState.currentInterventionProgram;
-
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          RichText(
-              text: TextSpan(
-                  text: sexInput.name,
-                  style: TextStyle(
-                    color: sexInput.labelColor,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.normal,
-                  ))),
-          Consumer<InterventionBottomNavigationState>(
-              builder: (context, bottomNavigationState, child) {
-            InterventionBottomNavigation interventionBottomNavigation =
-                bottomNavigationState.getCurrentInterventionBottomNavigation(
-                    currentIntervention);
-            String sex = getFilterValue(context, currentIntervention,
-                interventionBottomNavigation, sexInput.id);
-            return SelectInputField(
-              hiddenInputFieldOptions: const {},
-              selectedOption: sex,
-              isReadOnly: false,
-              currentLanguage: languageTranslationState.currentLanguage,
-              color: currentInterventionProgram.primaryColor,
-              renderAsRadio: sexInput.renderAsRadio,
-              onInputValueChange: (dynamic value) => onUpdateFilter(
-                  context, currentInterventionProgram, sexInput.id, value),
-              options: sexInput.options,
+          return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+            InterventionCard currentInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                    text: TextSpan(
+                        text: sexInput.name,
+                        style: TextStyle(
+                          color: sexInput.labelColor,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.normal,
+                        ))),
+                Consumer<InterventionBottomNavigationState>(
+                    builder: (context, bottomNavigationState, child) {
+                  InterventionBottomNavigation interventionBottomNavigation =
+                      bottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                              currentIntervention,
+                              currentUserState.implementingPartner);
+                  String sex = getFilterValue(context, currentIntervention,
+                      interventionBottomNavigation, sexInput.id);
+                  return SelectInputField(
+                    hiddenInputFieldOptions: const {},
+                    selectedOption: sex,
+                    isReadOnly: false,
+                    currentLanguage: languageTranslationState.currentLanguage,
+                    color: currentInterventionProgram.primaryColor,
+                    renderAsRadio: sexInput.renderAsRadio,
+                    onInputValueChange: (dynamic value) => onUpdateFilter(
+                        context,
+                        currentInterventionProgram,
+                        sexInput.id,
+                        value),
+                    options: sexInput.options,
+                  );
+                }),
+                LineSeparator(
+                  color:
+                      currentInterventionProgram.primaryColor!.withOpacity(0.3),
+                ),
+              ],
             );
-          }),
-          LineSeparator(
-              color: currentInterventionProgram.primaryColor!.withOpacity(0.3)),
-        ]);
-      });
-    });
+          });
+        },
+      ),
+    );
   }
 
   static Widget getSchoolFilterInput(InterventionCard currentIntervention) {
@@ -398,36 +444,47 @@ class BeneficiaryFilter {
       inputColor: currentIntervention.primaryColor,
       valueType: 'TEXT',
     );
-    return Consumer<LanguageTranslationState>(
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) =>
+          Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-      return Consumer<InterventionCardState>(
-          builder: (context, interventionCardState, child) {
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Consumer<InterventionBottomNavigationState>(
-              builder: (context, bottomNavigationState, child) {
-            InterventionBottomNavigation interventionBottomNavigation =
-                bottomNavigationState.getCurrentInterventionBottomNavigation(
-                    currentIntervention);
-            String school = getFilterValue(context, currentIntervention,
-                interventionBottomNavigation, schoolInput.id);
-            Map dataObject = {schoolInput.id: school};
-            return InputFieldContainer(
-              currentUserCountryLevelReferences: const [],
-              hiddenFields: const {},
-              inputField: schoolInput,
-              hiddenInputFieldOptions: const {},
-              currentLanguage: languageTranslationState.currentLanguage,
-              isEditableMode: true,
-              showClearIcon: false,
-              mandatoryFieldObject: const {},
-              dataObject: dataObject,
-              onInputValueChange: (String id, dynamic value) => onUpdateFilter(
-                  context, currentIntervention, schoolInput.id, value),
-            );
-          }),
-        ]);
-      });
-    });
+          return Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Consumer<InterventionBottomNavigationState>(
+                      builder: (context, bottomNavigationState, child) {
+                    InterventionBottomNavigation interventionBottomNavigation =
+                        bottomNavigationState
+                            .getCurrentInterventionBottomNavigation(
+                                currentIntervention,
+                                currentUserState.implementingPartner);
+                    String school = getFilterValue(context, currentIntervention,
+                        interventionBottomNavigation, schoolInput.id);
+                    Map dataObject = {schoolInput.id: school};
+                    return InputFieldContainer(
+                      currentUserCountryLevelReferences: const [],
+                      hiddenFields: const {},
+                      inputField: schoolInput,
+                      hiddenInputFieldOptions: const {},
+                      currentLanguage: languageTranslationState.currentLanguage,
+                      isEditableMode: true,
+                      showClearIcon: false,
+                      mandatoryFieldObject: const {},
+                      dataObject: dataObject,
+                      onInputValueChange: (String id, dynamic value) =>
+                          onUpdateFilter(context, currentIntervention,
+                              schoolInput.id, value),
+                    );
+                  }),
+                ],
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 
   static Widget getAgeFilterInput(InterventionCard currentIntervention) {
@@ -437,40 +494,51 @@ class BeneficiaryFilter {
       inputColor: currentIntervention.primaryColor,
       valueType: 'NUMBER',
     );
-    return Consumer<LanguageTranslationState>(
+    return Consumer<CurrentUserState>(
+      builder: (context, currentUserState, child) =>
+          Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
-      return Consumer<InterventionCardState>(
-          builder: (context, interventionCardState, child) {
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Consumer<InterventionBottomNavigationState>(
-              builder: (context, bottomNavigationState, child) {
-            InterventionBottomNavigation interventionBottomNavigation =
-                bottomNavigationState.getCurrentInterventionBottomNavigation(
-                    currentIntervention);
-            String age = getFilterValue(context, currentIntervention,
-                interventionBottomNavigation, ageInput.id);
-            Map dataObject = {ageInput.id: age};
-            // ignore: avoid_unnecessary_containers
-            return Container(
-              child: InputFieldContainer(
-                currentUserCountryLevelReferences: const [],
-                hiddenFields: const {},
-                inputField: ageInput,
-                hiddenInputFieldOptions: const {},
-                currentLanguage: languageTranslationState.currentLanguage,
-                isEditableMode: true,
-                showClearIcon: false,
-                mandatoryFieldObject: const {},
-                dataObject: dataObject,
-                onInputValueChange: (String id, dynamic value) =>
-                    onUpdateFilter(
-                        context, currentIntervention, ageInput.id, value),
-              ),
-            );
-          }),
-        ]);
-      });
-    });
+          return Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Consumer<InterventionBottomNavigationState>(
+                      builder: (context, bottomNavigationState, child) {
+                    InterventionBottomNavigation interventionBottomNavigation =
+                        bottomNavigationState
+                            .getCurrentInterventionBottomNavigation(
+                                currentIntervention,
+                                currentUserState.implementingPartner);
+                    String age = getFilterValue(context, currentIntervention,
+                        interventionBottomNavigation, ageInput.id);
+                    Map dataObject = {ageInput.id: age};
+                    // ignore: avoid_unnecessary_containers
+                    return Container(
+                      child: InputFieldContainer(
+                        currentUserCountryLevelReferences: const [],
+                        hiddenFields: const {},
+                        inputField: ageInput,
+                        hiddenInputFieldOptions: const {},
+                        currentLanguage:
+                            languageTranslationState.currentLanguage,
+                        isEditableMode: true,
+                        showClearIcon: false,
+                        mandatoryFieldObject: const {},
+                        dataObject: dataObject,
+                        onInputValueChange: (String id, dynamic value) =>
+                            onUpdateFilter(context, currentIntervention,
+                                ageInput.id, value),
+                      ),
+                    );
+                  }),
+                ],
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 
   static List<BeneficiaryFilter> getBeneficiaryFilters(
