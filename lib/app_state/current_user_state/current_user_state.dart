@@ -9,6 +9,7 @@ class CurrentUserState with ChangeNotifier {
   // initiat state
   CurrentUser? _currentUser;
   String? _currentUserLocations;
+  String? _implementingPartner;
   List<String?>? _currentUserCountryLevelReferences;
   bool? _canCurrentUserDoDataEntry;
   bool? _canManageDreams;
@@ -38,6 +39,7 @@ class CurrentUserState with ChangeNotifier {
   bool? _canManageHIVPreventionEducation;
 
   // selectors
+  String get implementingPartner => _implementingPartner ?? '';
   CurrentUser? get currentUser => _currentUser;
   bool get canCurrentUserDoDataEntry =>
       _canCurrentUserDoDataEntry == null ? true : _canCurrentUserDoDataEntry!;
@@ -150,6 +152,7 @@ class CurrentUserState with ChangeNotifier {
   ) {
     _currentUser = user;
     String? implementingPartner = user.implementingPartner;
+    _implementingPartner = implementingPartner;
     updateUserAccessStatus(
       implementingPartner,
       userAccessConfigurations,
