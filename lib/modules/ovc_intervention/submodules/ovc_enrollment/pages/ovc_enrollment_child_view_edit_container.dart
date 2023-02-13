@@ -48,10 +48,10 @@ class _OvcEnrollmentChildViewEditContainerState
   @override
   void initState() {
     super.initState();
-    _setFormMetdata();
+    _setFormMetadata();
   }
 
-  void _setFormMetdata() {
+  void _setFormMetadata() {
     formSections = OvcEnrollmentChild.getFormSections();
     mandatoryFields = OvcEnrollmentChild.getMandatoryField();
     for (String id in mandatoryFields) {
