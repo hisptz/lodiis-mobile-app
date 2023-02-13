@@ -74,6 +74,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                 attributeObj['attribute'], attributeObj['value']);
       }
     }
+    setCaregiverDataAttributes(context);
   }
 
   void setOvcHouseholdCurrentSelection(
@@ -134,11 +135,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         .setFormFieldState('parentTrackedEntityInstance', ovcHousehold.id);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('orgUnit', ovcHousehold.orgUnit);
-    if (ovcHousehold.phoneNumber != 'N/A') {
-      Provider.of<EnrollmentFormState>(context, listen: false)
-          .setFormFieldState(
-              BeneficiaryIdentification.phoneNumber, ovcHousehold.phoneNumber);
-    }
+    setCaregiverDataAttributes(context);
 
     String beneficiaryId = "";
     String formAutoSaveId =
@@ -157,6 +154,11 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
         ),
       );
     }
+  }
+
+  void setCaregiverDataAttributes(BuildContext context) {
+    Provider.of<EnrollmentFormState>(context, listen: false)
+        .setFormFieldState('caregiver', ovcHousehold.dataObject ?? {});
   }
 
   void onViewChildService(BuildContext context, OvcHouseholdChild child) {

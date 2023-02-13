@@ -75,6 +75,7 @@ class _OvcEnrollmentChildViewEditContainerState
           context,
           formSections,
           dataObject,
+          caregiverDataObject: dataObject['caregiver'],
         );
       },
     );
@@ -91,6 +92,7 @@ class _OvcEnrollmentChildViewEditContainerState
       _isSaving = true;
       setState(() {});
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
+      dataObject.remove('caregiver');
       List<Map> childrenObjects = [];
       childrenObjects.add(dataObject);
       String? parentTrackedEntityInstance =

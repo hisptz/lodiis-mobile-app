@@ -73,11 +73,16 @@ class _OvcEnrollmentChildFormContainerState
     Timer(
       const Duration(milliseconds: 200),
       () {
+        Map caregiverDataObject =
+            Provider.of<EnrollmentFormState>(context, listen: false).formState;
+        caregiverDataObject.remove('children');
+
         Map resultResponse = OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
           childrenMapObject,
           shouldSetEnrollmentState: false,
+          caregiverDataObject: caregiverDataObject,
         );
         hiddenFields = resultResponse['hiddenFields'] ?? {};
         hiddenSections = resultResponse['hiddenSections'] ?? {};
@@ -183,12 +188,6 @@ class _OvcEnrollmentChildFormContainerState
     Map dataObject, {
     bool shouldSaveForm = false,
   }) async {
-    var parentDataObject =
-        Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    var village = parentDataObject[OvcEnrollmentChildConstant.village] ?? '';
-    var subVillage =
-        parentDataObject[OvcEnrollmentChildConstant.subVillage] ?? '';
-
     CurrentUser? user = await UserService().getCurrentUser();
     dataObject['PN92g65TkVI'] = 'Active';
     dataObject[UserAccountReference.implementingPartnerAttribute] =
@@ -204,8 +203,6 @@ class _OvcEnrollmentChildFormContainerState
     }
     dataObject['fullName'] =
         '${dataObject['WTZ7GLTrE8Q']} ${dataObject['rSP9c21JsfC']}';
-    dataObject[OvcEnrollmentChildConstant.village] = village;
-    dataObject[OvcEnrollmentChildConstant.subVillage] = subVillage;
     childrenMapObjects.add(dataObject);
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState('children', childrenMapObjects);
