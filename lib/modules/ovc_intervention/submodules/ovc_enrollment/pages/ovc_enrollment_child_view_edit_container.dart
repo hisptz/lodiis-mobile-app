@@ -81,13 +81,15 @@ class _OvcEnrollmentChildViewEditContainerState
     );
   }
 
-  void onSaveForm(
-    Map dataObject,
-  ) async {
+  void onSaveForm(Map dataObject, Map hiddenFields) async {
     unFilledMandatoryFields = [];
     setState(() {});
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
       _isSaving = true;
       setState(() {});
@@ -208,8 +210,8 @@ class _OvcEnrollmentChildViewEditContainerState
             body: SubPageBody(
               body: Container(
                 child: !_isFormReady
-                    ? Column(
-                        children: const [
+                    ? const Column(
+                        children: [
                           Center(
                             child: CircularProcessLoader(
                               color: Colors.blueGrey,
@@ -273,6 +275,7 @@ class _OvcEnrollmentChildViewEditContainerState
                                           fontSize: 15.0,
                                           onPressButton: () => onSaveForm(
                                             enrollmentFormState.formState,
+                                            enrollmentFormState.hiddenFields,
                                           ),
                                         ),
                                       )

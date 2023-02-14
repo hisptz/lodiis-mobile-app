@@ -24,7 +24,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_cons
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/add_child_confirmation.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/enrolled_children_list.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/components/ovc_enrollment_form_saving_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/skip_logics/ovc_child_enrollment_skip_logic.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +75,6 @@ class _OvcEnrollmentChildFormContainerState
         Map caregiverDataObject =
             Provider.of<EnrollmentFormState>(context, listen: false).formState;
         caregiverDataObject.remove('children');
-
         Map resultResponse = OvcChildEnrollmentSkipLogic.evaluateSkipLogics(
           context,
           formSections,
