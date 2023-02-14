@@ -47,7 +47,7 @@ class _OrganisationUnitInputFieldContainerState
     super.initState();
     Timer(
       const Duration(seconds: 1),
-      () => getUserOrganisationunits(),
+      () => getUserOrganisationUnits(),
     );
   }
 
@@ -57,12 +57,12 @@ class _OrganisationUnitInputFieldContainerState
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
       if (widget.inputValue == null || widget.inputValue == '') {
-        setOrganisationunit('');
+        setOrganisationUnit('');
       }
     }
   }
 
-  void getUserOrganisationunits() async {
+  void getUserOrganisationUnits() async {
     CurrentUser? user = await (UserService().getCurrentUser());
     userOrganisationUnits = user!.userOrgUnitIds;
     discoveringSelectedOrganisationUnit();
@@ -76,10 +76,10 @@ class _OrganisationUnitInputFieldContainerState
         : !widget.isEditableMode
             ? widget.inputValue
             : null;
-    setOrganisationunit(value);
+    setOrganisationUnit(value);
   }
 
-  void setOrganisationunit(String? value) {
+  void setOrganisationUnit(String? value) {
     organisationUnitController = TextEditingController(text: value);
     _value = value;
     isLoading = false;
@@ -114,7 +114,7 @@ class _OrganisationUnitInputFieldContainerState
     OrganisationUnit? organisationUnit =
         await AppUtil.showPopUpModal(context, modal, false);
     if (organisationUnit != null) {
-      setOrganisationunit(organisationUnit.name);
+      setOrganisationUnit(organisationUnit.name);
       widget.onInputValueChange(organisationUnit.id);
     }
   }

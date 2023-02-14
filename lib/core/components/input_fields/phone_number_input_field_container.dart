@@ -7,16 +7,18 @@ class PhoneNumberInputFieldContainer extends StatefulWidget {
   const PhoneNumberInputFieldContainer(
       {Key? key,
       required this.inputField,
+      this.lastUpdatedId,
       required this.onInputValueChange,
       this.inputValue})
       : super(key: key);
 
   final InputField inputField;
+  final String? lastUpdatedId;
   final Function onInputValueChange;
   final String? inputValue;
 
   @override
-  _PhoneNumberInputFieldContainerState createState() =>
+  State<PhoneNumberInputFieldContainer> createState() =>
       _PhoneNumberInputFieldContainerState();
 }
 
@@ -24,6 +26,7 @@ class _PhoneNumberInputFieldContainerState
     extends State<PhoneNumberInputFieldContainer> {
   TextEditingController? phoneNumberController;
   String? _value;
+  String? _lastInputValue = '';
 
   @override
   void initState() {
@@ -31,14 +34,37 @@ class _PhoneNumberInputFieldContainerState
     setState(() {
       _value = widget.inputValue;
     });
-    phoneNumberController = TextEditingController(text: widget.inputValue);
+    updatePhoneNumberValue(value: widget.inputValue);
+  }
+
+  updatePhoneNumberValue({String? value = ''}) {
+    _value = value;
+    setState(() {});
+    phoneNumberController = TextEditingController(text: value);
+  }
+
+  @override
+  void didUpdateWidget(covariant PhoneNumberInputFieldContainer oldWidget) {
+    super.didUpdateWidget(widget);
+    if (oldWidget.inputValue != widget.inputValue) {
+      if (widget.inputField.isReadOnly! ||
+          (widget.lastUpdatedId!.isNotEmpty &&
+              widget.lastUpdatedId != widget.inputField.id)) {
+        updatePhoneNumberValue(value: widget.inputValue);
+      }
+      if (widget.inputValue == null || widget.inputValue == '') {
+        updatePhoneNumberValue();
+      }
+    }
   }
 
   void onValueChange(String value) {
-    setState(() {
+    if (_lastInputValue != value) {
       _value = value;
-    });
-    widget.onInputValueChange(value.trim());
+      _lastInputValue = _value;
+      setState(() {});
+      widget.onInputValueChange(value.trim());
+    }
   }
 
   @override
@@ -51,7 +77,8 @@ class _PhoneNumberInputFieldContainerState
             controller: phoneNumberController,
             inputFormatters: [
               FilteringTextInputFormatter.allow(
-                  widget.inputField.regExpValidation as Pattern),
+                widget.inputField.regExpValidation as Pattern,
+              ),
               LengthLimitingTextInputFormatter(10),
             ],
             keyboardType: TextInputType.phone,

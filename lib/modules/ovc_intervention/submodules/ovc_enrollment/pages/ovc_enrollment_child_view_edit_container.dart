@@ -48,10 +48,10 @@ class _OvcEnrollmentChildViewEditContainerState
   @override
   void initState() {
     super.initState();
-    _setFormMetdata();
+    _setFormMetadata();
   }
 
-  void _setFormMetdata() {
+  void _setFormMetadata() {
     formSections = OvcEnrollmentChild.getFormSections();
     mandatoryFields = OvcEnrollmentChild.getMandatoryField();
     for (String id in mandatoryFields) {
@@ -75,22 +75,26 @@ class _OvcEnrollmentChildViewEditContainerState
           context,
           formSections,
           dataObject,
+          caregiverDataObject: dataObject['caregiver'],
         );
       },
     );
   }
 
-  void onSaveForm(
-    Map dataObject,
-  ) async {
+  void onSaveForm(Map dataObject, Map hiddenFields) async {
     unFilledMandatoryFields = [];
     setState(() {});
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
       _isSaving = true;
       setState(() {});
       dataObject['PN92g65TkVI'] = dataObject['PN92g65TkVI'] ?? 'Active';
+      dataObject.remove('caregiver');
       List<Map> childrenObjects = [];
       childrenObjects.add(dataObject);
       String? parentTrackedEntityInstance =
@@ -206,8 +210,8 @@ class _OvcEnrollmentChildViewEditContainerState
             body: SubPageBody(
               body: Container(
                 child: !_isFormReady
-                    ? Column(
-                        children: const [
+                    ? const Column(
+                        children: [
                           Center(
                             child: CircularProcessLoader(
                               color: Colors.blueGrey,
@@ -238,6 +242,8 @@ class _OvcEnrollmentChildViewEditContainerState
                                   return Column(
                                     children: [
                                       EntryFormContainer(
+                                        lastUpdatedId: enrollmentFormState
+                                            .lastUpdatedFieldId,
                                         hiddenFields:
                                             enrollmentFormState.hiddenFields,
                                         hiddenSections:
@@ -271,6 +277,7 @@ class _OvcEnrollmentChildViewEditContainerState
                                           fontSize: 15.0,
                                           onPressButton: () => onSaveForm(
                                             enrollmentFormState.formState,
+                                            enrollmentFormState.hiddenFields,
                                           ),
                                         ),
                                       )

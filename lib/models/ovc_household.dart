@@ -27,32 +27,35 @@ class OvcHousehold {
   bool? primaryChildExist;
   bool? primaryChildHasExited;
   List<OvcHouseholdChild>? children;
+  Map? dataObject;
   TrackedEntityInstance? teiData;
 
-  OvcHousehold(
-      {this.id,
-      this.firstName,
-      this.middleName,
-      this.surname,
-      this.ovcMaleCount,
-      this.children,
-      this.primaryUIC,
-      this.secondaryUIC,
-      this.location,
-      this.phoneNumber,
-      this.age,
-      this.village,
-      this.orgUnit,
-      this.createdDate,
-      this.ovcFemaleCount,
-      this.houseHoldStatus,
-      this.houseHoldCategorization,
-      this.searchableValue,
-      this.enrollmentOuAccessible,
-      this.implementingPartner,
-      this.teiData,
-      this.primaryChildExist,
-      this.primaryChildHasExited});
+  OvcHousehold({
+    this.id,
+    this.firstName,
+    this.middleName,
+    this.surname,
+    this.ovcMaleCount,
+    this.children,
+    this.primaryUIC,
+    this.secondaryUIC,
+    this.location,
+    this.phoneNumber,
+    this.age,
+    this.village,
+    this.orgUnit,
+    this.createdDate,
+    this.ovcFemaleCount,
+    this.houseHoldStatus,
+    this.houseHoldCategorization,
+    this.searchableValue,
+    this.enrollmentOuAccessible,
+    this.implementingPartner,
+    this.teiData,
+    this.primaryChildExist,
+    this.primaryChildHasExited,
+    this.dataObject,
+  });
 
   OvcHousehold fromTeiModel(
     TrackedEntityInstance tei,
@@ -83,7 +86,6 @@ class OvcHousehold {
     Map<String, dynamic> data = {};
     for (Map attributeObject in tei.attributes) {
       String? attribute = attributeObject['attribute'];
-     
 
       if (attribute != null && keys.contains(attribute)) {
         data[attribute] = '${attributeObject['value']}'.trim();
@@ -110,7 +112,7 @@ class OvcHousehold {
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
-      houseHoldCategorization:data['uetInX0KTfc']??'',
+      houseHoldCategorization: data['uetInX0KTfc'] ?? '',
       implementingPartner:
           data[UserAccountReference.implementingPartnerAttribute] ?? '',
       enrollmentOuAccessible: enrollmentOuAccessible,
@@ -121,6 +123,7 @@ class OvcHousehold {
       primaryChildHasExited: _hasPrimaryChildExited(children),
       children: children,
       teiData: tei,
+      dataObject: data,
     );
   }
 

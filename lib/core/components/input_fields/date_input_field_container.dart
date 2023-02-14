@@ -7,17 +7,20 @@ class DateInputFieldContainer extends StatefulWidget {
   const DateInputFieldContainer({
     Key? key,
     required this.inputField,
+    this.lastUpdatedId,
     required this.onInputValueChange,
     required this.currentLanguage,
     this.inputValue,
   }) : super(key: key);
+
   final InputField inputField;
+  final String? lastUpdatedId;
   final Function onInputValueChange;
   final String? currentLanguage;
   final String? inputValue;
 
   @override
-  _DateInputFieldContainerState createState() =>
+  State<DateInputFieldContainer> createState() =>
       _DateInputFieldContainerState();
 }
 
@@ -25,6 +28,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   TextEditingController? dateController;
 
   String? _date;
+  String _lastDateValue = '';
 
   @override
   void initState() {
@@ -35,10 +39,22 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
     });
   }
 
+  updateDateValue({String? value = ''}) {
+    _date = value;
+    _lastDateValue = value ?? '';
+    setState(() {});
+    dateController = TextEditingController(text: value);
+  }
+
   @override
   void didUpdateWidget(covariant DateInputFieldContainer oldWidget) {
     super.didUpdateWidget(widget);
     if (oldWidget.inputValue != widget.inputValue) {
+      if (widget.inputField.isReadOnly! ||
+          (widget.lastUpdatedId!.isNotEmpty &&
+              widget.lastUpdatedId != widget.inputField.id)) {
+        updateDateValue(value: widget.inputValue);
+      }
       if (widget.inputValue == null || widget.inputValue == '') {
         resetDate();
       }
@@ -48,6 +64,7 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   resetDate() {
     setState(() {
       _date = null;
+      _lastDateValue = '';
       dateController = TextEditingController(text: _date);
     });
   }
@@ -124,11 +141,8 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
     );
 
     if (date != null) {
-      setState(() {
-        _date = AppUtil.formattedDateTimeIntoString(date);
-        dateController = TextEditingController(text: _date);
-        widget.onInputValueChange(_date);
-      });
+      updateDateValue(value: AppUtil.formattedDateTimeIntoString(date));
+      widget.onInputValueChange(_date);
     }
   }
 

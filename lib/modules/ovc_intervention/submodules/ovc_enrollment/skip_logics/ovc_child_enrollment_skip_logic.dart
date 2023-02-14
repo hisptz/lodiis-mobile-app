@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildEnrollmentSkipLogic {
@@ -19,28 +18,44 @@ class OvcChildEnrollmentSkipLogic {
     List<FormSection> formSections,
     Map dataObject, {
     bool shouldSetEnrollmentState = true,
+    Map caregiverDataObject = const {},
   }) {
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
     assignedFields.clear();
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
-    OvcHousehold? ovcHousehold =
-        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHousehold;
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+
+    var caregiverFirstName =
+        caregiverDataObject[OvcInterventionConstant.firstName] ?? '';
+    var caregiverMiddleName =
+        caregiverDataObject[OvcInterventionConstant.middleName] ?? '';
+    var caregiverDateOfBirth =
+        caregiverDataObject[OvcInterventionConstant.dateOfBirth] ?? '';
+    var caregiverSurname =
+        caregiverDataObject[OvcInterventionConstant.surname] ?? '';
+    var caregiverPhoneNumber =
+        caregiverDataObject[OvcInterventionConstant.phoneNumber] ?? '';
+    var caregiverVillage =
+        caregiverDataObject[OvcInterventionConstant.phoneNumber] ?? '';
+    var caregiverSubVillage =
+        caregiverDataObject[OvcInterventionConstant.phoneNumber] ?? '';
+
+    assignedFields[OvcEnrollmentChildConstant.village] = caregiverVillage;
+    assignedFields[OvcEnrollmentChildConstant.subVillage] = caregiverSubVillage;
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'tNdoR0jYr7R') {
-        if (ovcHousehold?.phoneNumber != 'N/A') {
+        if (caregiverPhoneNumber != 'N/A') {
           if (shouldSetEnrollmentState) {
-            assignInputFieldValue(
-                context, 'tNdoR0jYr7R', ovcHousehold?.phoneNumber);
+            assignInputFieldValue(context, 'tNdoR0jYr7R', caregiverPhoneNumber);
           } else {
-            assignedFields['tNdoR0jYr7R'] = ovcHousehold?.phoneNumber;
+            assignedFields['tNdoR0jYr7R'] = caregiverPhoneNumber;
           }
         } else {
           hiddenFields['tNdoR0jYr7R'] = true;
@@ -158,6 +173,11 @@ class OvcChildEnrollmentSkipLogic {
       //assignment for father details
       if (inputFieldId == 'iS9mAp3jDaU' && value == 'Biological father') {
         assignedFields['cJl00w5DjIL'] = 'Yes';
+        assignedFields['ZPf4iCd2aw3'] = caregiverFirstName;
+        assignedFields['zKKeQ5pTCAd'] = caregiverMiddleName;
+        assignedFields['JMwIgMSUnlu'] = caregiverSurname;
+        assignedFields['PvLva3TSY9N'] = caregiverDateOfBirth;
+        assignedFields['NzeeDnWJsNU'] = caregiverPhoneNumber;
       }
       if (inputFieldId == 'tbpqNLJotOi' && value != 'Positive') {
         hiddenFields['xJfScNlfNS2'] = true;
@@ -170,6 +190,11 @@ class OvcChildEnrollmentSkipLogic {
       }
       if (inputFieldId == 'iS9mAp3jDaU' && value == 'Biological mother') {
         assignedFields['R9e8v9r3lMM'] = 'Yes';
+        assignedFields['d3HviODv676'] = caregiverFirstName;
+        assignedFields['Zv8FOfjPZzm'] = caregiverMiddleName;
+        assignedFields['FBdCMyESsdg'] = caregiverSurname;
+        assignedFields['or2YNqJqVqZ'] = caregiverDateOfBirth;
+        assignedFields['rP7oCRukLkq'] = caregiverPhoneNumber;
       }
       if (inputFieldId == 'nO38lKlKHYi' && value != 'Positive') {
         hiddenFields['PAv1sKQn2hO'] = true;
@@ -194,6 +219,7 @@ class OvcChildEnrollmentSkipLogic {
     }
     assignPrimaryVulnerability(context, dataObject, shouldSetEnrollmentState);
     if (shouldSetEnrollmentState) {
+      setAssignedValues(context, assignedFields);
       resetValuesForHiddenFields(context, hiddenFields.keys);
       resetValuesForHiddenSections(context, formSections);
       resetValuesForHiddenInputFieldOptions(context, formSections);
@@ -257,6 +283,12 @@ class OvcChildEnrollmentSkipLogic {
             null;
       }
     }
+  }
+
+  static void setAssignedValues(BuildContext context, Map assignedValues) {
+    assignedFields.forEach((key, value) {
+      assignInputFieldValue(context, key, value);
+    });
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
