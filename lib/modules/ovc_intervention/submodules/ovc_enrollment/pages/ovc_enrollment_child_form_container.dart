@@ -45,6 +45,7 @@ class _OvcEnrollmentChildFormContainerState
   Map hiddenFields = {};
   Map hiddenSections = {};
   Map hiddenInputFieldOptions = {};
+  String lastUpdatedId = '';
   bool _isFormReady = false;
   bool _isSaving = false;
   final List<String> mandatoryFields = OvcEnrollmentChild.getMandatoryField();
@@ -65,6 +66,7 @@ class _OvcEnrollmentChildFormContainerState
     hiddenFields.clear();
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
+    lastUpdatedId = '';
   }
 
   _evaluateSkipLogics() {
@@ -131,6 +133,7 @@ class _OvcEnrollmentChildFormContainerState
 
   void onInputValueChange(String id, dynamic value) {
     childrenMapObject[id] = value;
+    lastUpdatedId = id;
     setState(() {});
     _evaluateSkipLogics();
   }
@@ -286,6 +289,7 @@ class _OvcEnrollmentChildFormContainerState
                             EntryFormContainer(
                               formSections: formSections,
                               hiddenFields: hiddenFields,
+                              lastUpdatedId: lastUpdatedId,
                               hiddenSections: hiddenSections,
                               hiddenInputFieldOptions: hiddenInputFieldOptions,
                               mandatoryFieldObject: mandatoryFieldObject,

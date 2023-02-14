@@ -242,6 +242,8 @@ class _OvcEnrollmentChildViewEditContainerState
                                   return Column(
                                     children: [
                                       EntryFormContainer(
+                                        lastUpdatedId: enrollmentFormState
+                                            .lastUpdatedFieldId,
                                         hiddenFields:
                                             enrollmentFormState.hiddenFields,
                                         hiddenSections:

@@ -295,6 +295,8 @@ class _OvcEnrollmentHouseholdViewEditContainerState
                               Column(
                             children: [
                               EntryFormContainer(
+                                lastUpdatedId:
+                                    enrollmentFormState.lastUpdatedFieldId,
                                 formSections: formSections,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 hiddenFields: enrollmentFormState.hiddenFields,
