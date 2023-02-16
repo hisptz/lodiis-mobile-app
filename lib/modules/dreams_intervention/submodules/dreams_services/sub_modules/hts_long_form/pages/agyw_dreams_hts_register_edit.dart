@@ -29,7 +29,7 @@ class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
   const AgywDreamsHTSRegisterFormEdit({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSRegisterFormEditState createState() =>
+  State<AgywDreamsHTSRegisterFormEdit> createState() =>
       _AgywDreamsHTSRegisterFormEditState();
 }
 

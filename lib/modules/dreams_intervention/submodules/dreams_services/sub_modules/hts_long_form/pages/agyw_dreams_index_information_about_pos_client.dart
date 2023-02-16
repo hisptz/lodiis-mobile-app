@@ -30,7 +30,7 @@ class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AgywDreamsIndexInfoAboutPosClientState createState() =>
+  State<AgywDreamsIndexInfoAboutPosClient> createState() =>
       _AgywDreamsIndexInfoAboutPosClientState();
 }
 

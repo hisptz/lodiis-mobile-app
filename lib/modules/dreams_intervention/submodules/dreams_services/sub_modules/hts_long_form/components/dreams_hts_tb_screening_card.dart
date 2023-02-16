@@ -17,7 +17,7 @@ class DreamsHTSTBScreeningCard extends StatefulWidget {
   final DreamsHTSTBScreeningEvent? tbEvents;
 
   @override
-  _DreamsHTSTBScreeningCardState createState() =>
+  State<DreamsHTSTBScreeningCard> createState() =>
       _DreamsHTSTBScreeningCardState();
 }
 

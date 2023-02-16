@@ -36,7 +36,7 @@ class HTSSubHomePage extends StatefulWidget {
   final DreamsHTSEvent? htsIndexLinkage;
 
   @override
-  _HTSSubHomePageState createState() => _HTSSubHomePageState();
+  State<HTSSubHomePage> createState() => _HTSSubHomePageState();
 }
 
 class _HTSSubHomePageState extends State<HTSSubHomePage> {

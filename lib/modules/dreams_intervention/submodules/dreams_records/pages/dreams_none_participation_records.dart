@@ -14,7 +14,7 @@ class DreamsNoneParticipationRecordsPage extends StatefulWidget {
   const DreamsNoneParticipationRecordsPage({Key? key}) : super(key: key);
 
   @override
-  _DreamsNoneParticipationRecordsPageState createState() =>
+  State<DreamsNoneParticipationRecordsPage> createState() =>
       _DreamsNoneParticipationRecordsPageState();
 }
 

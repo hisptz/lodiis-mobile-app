@@ -26,7 +26,7 @@ class HTSShortFormHomePage extends StatefulWidget {
   const HTSShortFormHomePage({Key? key}) : super(key: key);
 
   @override
-  _HTSShortFormHomePageState createState() => _HTSShortFormHomePageState();
+  State<HTSShortFormHomePage> createState() => _HTSShortFormHomePageState();
 }
 
 class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {

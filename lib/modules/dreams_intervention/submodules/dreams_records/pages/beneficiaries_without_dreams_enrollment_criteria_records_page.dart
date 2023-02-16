@@ -16,8 +16,9 @@ class BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage
       : super(key: key);
 
   @override
-  _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState createState() =>
-      _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState();
+  State<BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage>
+      createState() =>
+          _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState();
 }
 
 class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState

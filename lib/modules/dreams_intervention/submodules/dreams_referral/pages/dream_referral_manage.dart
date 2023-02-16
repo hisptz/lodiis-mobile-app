@@ -31,7 +31,7 @@ class DreamsReferralManage extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _DreamsReferralManageState createState() => _DreamsReferralManageState();
+  State<DreamsReferralManage> createState() => _DreamsReferralManageState();
 }
 
 class _DreamsReferralManageState extends State<DreamsReferralManage> {

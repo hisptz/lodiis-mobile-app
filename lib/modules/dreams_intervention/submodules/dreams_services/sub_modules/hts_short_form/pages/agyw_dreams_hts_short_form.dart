@@ -34,7 +34,7 @@ class AgywDreamsHTSShortForm extends StatefulWidget {
   const AgywDreamsHTSShortForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSShortFormState createState() => _AgywDreamsHTSShortFormState();
+  State<AgywDreamsHTSShortForm> createState() => _AgywDreamsHTSShortFormState();
 }
 
 class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {

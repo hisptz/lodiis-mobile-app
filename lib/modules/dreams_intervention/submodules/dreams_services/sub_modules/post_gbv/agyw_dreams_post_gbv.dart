@@ -26,7 +26,7 @@ class AgywDreamsPostGBV extends StatefulWidget {
   const AgywDreamsPostGBV({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsPostGBVState createState() => _AgywDreamsPostGBVState();
+  State<AgywDreamsPostGBV> createState() => _AgywDreamsPostGBVState();
 }
 
 class _AgywDreamsPostGBVState extends State<AgywDreamsPostGBV> {

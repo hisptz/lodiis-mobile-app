@@ -31,7 +31,7 @@ class AgywDreamsHTSConsentFormSubpart extends StatefulWidget {
   final bool? isComingFromPrep;
 
   @override
-  _AgywDreamsHTSConsentFormSubpartState createState() =>
+  State<AgywDreamsHTSConsentFormSubpart> createState() =>
       _AgywDreamsHTSConsentFormSubpartState();
 }
 

@@ -32,7 +32,7 @@ class AgywDreamsConsentForm extends StatefulWidget {
   const AgywDreamsConsentForm({Key? key}) : super(key: key);
 
   @override
-  _AgywEnrollmentConsentFormState createState() =>
+  State<AgywDreamsConsentForm> createState() =>
       _AgywEnrollmentConsentFormState();
 }
 

@@ -23,7 +23,7 @@ class HTSLongFormHomePage extends StatefulWidget {
   const HTSLongFormHomePage({Key? key}) : super(key: key);
 
   @override
-  _HTSLongFormHomePageState createState() => _HTSLongFormHomePageState();
+  State<HTSLongFormHomePage> createState() => _HTSLongFormHomePageState();
 }
 
 class _HTSLongFormHomePageState extends State<HTSLongFormHomePage> {

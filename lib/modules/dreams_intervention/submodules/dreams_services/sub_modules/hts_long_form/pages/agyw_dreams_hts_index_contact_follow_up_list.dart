@@ -38,7 +38,7 @@ class AgywDreamsHTSIndexFollowUpList extends StatefulWidget {
   final AgywDreamsIndexInfoEvent? indexInfoEvent;
 
   @override
-  _AgywDreamsHTSIndexFollowUpListState createState() =>
+  State<AgywDreamsHTSIndexFollowUpList> createState() =>
       _AgywDreamsHTSIndexFollowUpListState();
 }
 

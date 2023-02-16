@@ -27,7 +27,7 @@ class AgywDreamsCondoms extends StatefulWidget {
   const AgywDreamsCondoms({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsCondomsState createState() => _AgywDreamsCondomsState();
+  State<AgywDreamsCondoms> createState() => _AgywDreamsCondomsState();
 }
 
 class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
@@ -163,7 +163,8 @@ class _AgywDreamsCondomsState extends State<AgywDreamsCondoms> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "Condom Education/Provision",
+                                                  visitName:
+                                                      "Condom Education/Provision",
                                                   onEdit: () =>
                                                       onEditCondomProvision(
                                                           context,
