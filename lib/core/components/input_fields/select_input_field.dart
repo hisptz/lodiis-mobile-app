@@ -86,7 +86,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
           )
         : SelectionOptionContainer(
             selectedOption: _selectedOption,
-            options: _options,
+            options: _options
+              ?..sort((firstOption, secondOption) =>
+                  firstOption.name.compareTo(secondOption.name)),
             onValueChange: onValueChange,
             color: widget.color,
             isReadOnly: widget.isReadOnly,
@@ -145,7 +147,7 @@ class SelectionOptionContainer extends StatelessWidget {
               _selectedOption ?? '',
               style: TextStyle(color: color),
             ),
-            items: _options!.map<DropdownMenuItem<dynamic>>(
+            items: _options!.toList().map<DropdownMenuItem<dynamic>>(
               (InputFieldOption option) {
                 return DropdownMenuItem<dynamic>(
                   value: option.code,
