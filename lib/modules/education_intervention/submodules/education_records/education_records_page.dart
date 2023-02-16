@@ -11,7 +11,7 @@ class EducationRecordsPage extends StatefulWidget {
   final TabController tabsController;
 
   @override
-  _EducationRecordsPageState createState() => _EducationRecordsPageState();
+  State<EducationRecordsPage> createState() => _EducationRecordsPageState();
 }
 
 class _EducationRecordsPageState extends State<EducationRecordsPage> {

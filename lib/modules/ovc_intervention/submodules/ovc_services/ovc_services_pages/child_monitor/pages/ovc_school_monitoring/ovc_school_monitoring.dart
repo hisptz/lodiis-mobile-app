@@ -16,7 +16,7 @@ class OvcSchoolMonitoring extends StatefulWidget {
   const OvcSchoolMonitoring({Key? key}) : super(key: key);
 
   @override
-  _OvcSchoolMonitoringState createState() => _OvcSchoolMonitoringState();
+  State<OvcSchoolMonitoring> createState() => _OvcSchoolMonitoringState();
 }
 
 class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {

@@ -27,7 +27,7 @@ class OvcChildReferralView extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _OvcChildReferralViewState createState() => _OvcChildReferralViewState();
+  State<OvcChildReferralView> createState() => _OvcChildReferralViewState();
 }
 
 class _OvcChildReferralViewState extends State<OvcChildReferralView> {

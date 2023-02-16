@@ -11,7 +11,7 @@ class OvcChildExitSelection extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OvcChildExitSelectionState createState() => _OvcChildExitSelectionState();
+  State<OvcChildExitSelection> createState() => _OvcChildExitSelectionState();
 }
 
 class _OvcChildExitSelectionState extends State<OvcChildExitSelection> {

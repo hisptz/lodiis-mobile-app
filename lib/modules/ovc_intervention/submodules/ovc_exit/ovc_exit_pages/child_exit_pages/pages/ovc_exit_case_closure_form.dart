@@ -32,7 +32,7 @@ class OvcExitCaseClosureForm extends StatefulWidget {
   const OvcExitCaseClosureForm({Key? key}) : super(key: key);
 
   @override
-  _OvcExitCaseClosureFormState createState() => _OvcExitCaseClosureFormState();
+  State<OvcExitCaseClosureForm> createState() => _OvcExitCaseClosureFormState();
 }
 
 class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>

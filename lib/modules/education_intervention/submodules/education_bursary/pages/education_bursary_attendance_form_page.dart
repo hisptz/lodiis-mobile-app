@@ -36,7 +36,7 @@ class EducationBursaryAttendanceFormPage extends StatefulWidget {
   final bool isSchoolAttendance;
 
   @override
-  _EducationBursaryAttendanceFormPageState createState() =>
+  State<EducationBursaryAttendanceFormPage> createState() =>
       _EducationBursaryAttendanceFormPageState();
 }
 

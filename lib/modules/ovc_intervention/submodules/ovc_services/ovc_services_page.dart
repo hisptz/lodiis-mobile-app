@@ -20,7 +20,7 @@ class OvcServicesPage extends StatefulWidget {
   const OvcServicesPage({Key? key}) : super(key: key);
 
   @override
-  _OvcServicesPageState createState() => _OvcServicesPageState();
+  State<OvcServicesPage> createState() => _OvcServicesPageState();
 }
 
 class _OvcServicesPageState extends State<OvcServicesPage> {

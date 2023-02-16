@@ -20,7 +20,7 @@ class AppLogsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AppLogsState createState() => _AppLogsState();
+  State<AppLogsPage> createState() => _AppLogsState();
 }
 
 class _AppLogsState extends State<AppLogsPage> {

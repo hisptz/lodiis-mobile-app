@@ -23,7 +23,7 @@ class EducationBursarySchoolAttendance extends StatefulWidget {
   const EducationBursarySchoolAttendance({Key? key}) : super(key: key);
 
   @override
-  _EducationBursarySchoolAttendanceState createState() =>
+  State<EducationBursarySchoolAttendance> createState() =>
       _EducationBursarySchoolAttendanceState();
 }
 

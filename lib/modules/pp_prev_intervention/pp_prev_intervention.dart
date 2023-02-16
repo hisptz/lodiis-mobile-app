@@ -26,7 +26,7 @@ class PpPrevIntervention extends StatefulWidget {
   const PpPrevIntervention({Key? key}) : super(key: key);
 
   @override
-  _PpPrevInterventionState createState() => _PpPrevInterventionState();
+  State<PpPrevIntervention> createState() => _PpPrevInterventionState();
 }
 
 class _PpPrevInterventionState extends State<PpPrevIntervention> {

@@ -32,7 +32,7 @@ class OvcHouseholdCaseClosure extends StatefulWidget {
   const OvcHouseholdCaseClosure({Key? key}) : super(key: key);
 
   @override
-  _OvcHouseholdCaseClosureState createState() =>
+  State<OvcHouseholdCaseClosure> createState() =>
       _OvcHouseholdCaseClosureState();
 }
 

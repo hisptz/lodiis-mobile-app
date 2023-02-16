@@ -17,7 +17,7 @@ class Synchronization extends StatefulWidget {
       : super(key: key);
   final String? synchronizationAction;
   @override
-  _SynchronizationState createState() => _SynchronizationState();
+  State<Synchronization> createState() => _SynchronizationState();
 }
 
 class _SynchronizationState extends State<Synchronization> {

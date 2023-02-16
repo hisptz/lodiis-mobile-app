@@ -19,7 +19,7 @@ class OvcEnrollmentPage extends StatefulWidget {
   const OvcEnrollmentPage({Key? key}) : super(key: key);
 
   @override
-  _OvcEnrollmentPageState createState() => _OvcEnrollmentPageState();
+  State<OvcEnrollmentPage> createState() => _OvcEnrollmentPageState();
 }
 
 class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {

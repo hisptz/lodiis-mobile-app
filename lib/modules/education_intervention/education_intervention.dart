@@ -37,7 +37,7 @@ class EducationIntervention extends StatefulWidget {
   const EducationIntervention({Key? key}) : super(key: key);
 
   @override
-  _EducationInterventionState createState() => _EducationInterventionState();
+  State<EducationIntervention> createState() => _EducationInterventionState();
 }
 
 class _EducationInterventionState extends State<EducationIntervention>

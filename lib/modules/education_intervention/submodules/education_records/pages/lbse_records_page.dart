@@ -12,7 +12,7 @@ class LbseRecordsPage extends StatefulWidget {
   const LbseRecordsPage({Key? key}) : super(key: key);
 
   @override
-  _LbseRecordsPageState createState() => _LbseRecordsPageState();
+  State<LbseRecordsPage> createState() => _LbseRecordsPageState();
 }
 
 class _LbseRecordsPageState extends State<LbseRecordsPage> {

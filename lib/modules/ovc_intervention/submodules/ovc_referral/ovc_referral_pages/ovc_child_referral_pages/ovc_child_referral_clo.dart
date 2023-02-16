@@ -23,7 +23,7 @@ class OvcChildCLOReferral extends StatefulWidget {
   const OvcChildCLOReferral({Key? key}) : super(key: key);
 
   @override
-  _OvcChildCLOReferralState createState() => _OvcChildCLOReferralState();
+  State<OvcChildCLOReferral> createState() => _OvcChildCLOReferralState();
 }
 
 class _OvcChildCLOReferralState extends State<OvcChildCLOReferral> {

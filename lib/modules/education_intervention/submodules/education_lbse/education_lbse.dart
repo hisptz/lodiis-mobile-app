@@ -21,7 +21,7 @@ class EducationLbse extends StatefulWidget {
   const EducationLbse({Key? key}) : super(key: key);
 
   @override
-  _EducationLbseState createState() => _EducationLbseState();
+  State<EducationLbse> createState() => _EducationLbseState();
 }
 
 class _EducationLbseState extends State<EducationLbse> {

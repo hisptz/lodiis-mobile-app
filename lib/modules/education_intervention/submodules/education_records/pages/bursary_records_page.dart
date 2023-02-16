@@ -12,7 +12,7 @@ class BursaryRecordsPage extends StatefulWidget {
   const BursaryRecordsPage({Key? key}) : super(key: key);
 
   @override
-  _BursaryRecordsPageState createState() => _BursaryRecordsPageState();
+  State<BursaryRecordsPage> createState() => _BursaryRecordsPageState();
 }
 
 class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
