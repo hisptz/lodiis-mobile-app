@@ -201,7 +201,10 @@ class _EducationBursaryState extends State<EducationBursary> {
           IconButton(
             icon: SvgPicture.asset(
               'assets/icons/add-beneficiary.svg',
-              color: Colors.blueGrey,
+              colorFilter: const ColorFilter.mode(
+                Colors.blueGrey,
+                BlendMode.srcIn,
+              ),
             ),
             onPressed: () => onAddBursaryBeneficiary(context),
           )
