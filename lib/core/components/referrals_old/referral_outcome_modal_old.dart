@@ -33,7 +33,7 @@ class ReferralOutcomeModalOld extends StatefulWidget {
   final List<String> referralOutcomeMandatoryFields;
 
   @override
-  _ReferralOutcomeModalOldState createState() =>
+  State<ReferralOutcomeModalOld> createState() =>
       _ReferralOutcomeModalOldState();
 }
 

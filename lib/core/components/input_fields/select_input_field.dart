@@ -27,7 +27,7 @@ class SelectInputField extends StatefulWidget {
   final Map hiddenInputFieldOptions;
 
   @override
-  _SelectInputFieldState createState() => _SelectInputFieldState();
+  State<SelectInputField> createState() => _SelectInputFieldState();
 }
 
 class _SelectInputFieldState extends State<SelectInputField> {

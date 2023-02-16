@@ -39,7 +39,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
   final Function onEditReferralOutCome;
 
   @override
-  _ReferralOutComeViewContainerState createState() =>
+  State<ReferralOutComeViewContainer> createState() =>
       _ReferralOutComeViewContainerState();
 }
 

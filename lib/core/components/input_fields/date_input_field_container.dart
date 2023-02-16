@@ -28,7 +28,6 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   TextEditingController? dateController;
 
   String? _date;
-  String _lastDateValue = '';
 
   @override
   void initState() {
@@ -41,7 +40,6 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
 
   updateDateValue({String? value = ''}) {
     _date = value;
-    _lastDateValue = value ?? '';
     setState(() {});
     dateController = TextEditingController(text: value);
   }
@@ -64,7 +62,6 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
   resetDate() {
     setState(() {
       _date = null;
-      _lastDateValue = '';
       dateController = TextEditingController(text: _date);
     });
   }

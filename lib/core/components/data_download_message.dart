@@ -12,7 +12,7 @@ class DataDownloadMessage extends StatefulWidget {
   const DataDownloadMessage({Key? key}) : super(key: key);
 
   @override
-  _DataDownloadMessageState createState() => _DataDownloadMessageState();
+  State<DataDownloadMessage> createState() => _DataDownloadMessageState();
 }
 
 class _DataDownloadMessageState extends State<DataDownloadMessage> {

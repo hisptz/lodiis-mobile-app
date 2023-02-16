@@ -52,7 +52,7 @@ class ReferralDetailedCard extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
+  State<ReferralDetailedCard> createState() => _ReferralDetailedCardState();
 }
 
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
