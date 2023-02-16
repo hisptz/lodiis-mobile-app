@@ -27,7 +27,7 @@ class AgywDreamsIndexFollowUp extends StatefulWidget {
   const AgywDreamsIndexFollowUp({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsIndexFollowUpState createState() =>
+  State<AgywDreamsIndexFollowUp> createState() =>
       _AgywDreamsIndexFollowUpState();
 }
 

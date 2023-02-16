@@ -35,7 +35,7 @@ class EducationBursarySchoolPerformanceFormPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EducationBursarySchoolPerformanceFormPageState createState() =>
+  State<EducationBursarySchoolPerformanceFormPage> createState() =>
       _EducationBursarySchoolPerformanceFormPageState();
 }
 

@@ -81,7 +81,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
     double modalRatio = 0.75;
     updateFormState(context, referralOutcomeEvent);
 
-    Widget modal = ReferralOutcomeModal(
+    Widget modal = BeneficiaryReferralOutcomeModal(
       enrollmentOuAccessible: enrollmentOuAccessible,
       beneficiary: beneficiary,
       isOvcIntervention: isOvcIntervention,

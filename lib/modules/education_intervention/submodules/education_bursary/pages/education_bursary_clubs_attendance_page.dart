@@ -31,7 +31,7 @@ class EducationBursaryClubsAttendancePage extends StatefulWidget {
   final String label = 'Clubs Attendance';
 
   @override
-  _EducationBursaryClubsAttendancePageState createState() =>
+  State<EducationBursaryClubsAttendancePage> createState() =>
       _EducationBursaryClubsAttendancePageState();
 }
 

@@ -31,7 +31,7 @@ class AgywDreamsHTSConsentForReleaseStatus extends StatefulWidget {
   const AgywDreamsHTSConsentForReleaseStatus({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentForReleaseStatusState createState() =>
+  State<AgywDreamsHTSConsentForReleaseStatus> createState() =>
       _AgywDreamsHTSConsentForReleaseStatusState();
 }
 

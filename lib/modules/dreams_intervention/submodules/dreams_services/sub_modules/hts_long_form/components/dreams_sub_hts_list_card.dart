@@ -34,7 +34,7 @@ class DreamsSubHTSListCard extends StatefulWidget {
   final DreamsHTSEvent eventData;
 
   @override
-  _DreamsSubHTSListCardState createState() => _DreamsSubHTSListCardState();
+  State<DreamsSubHTSListCard> createState() => _DreamsSubHTSListCardState();
 }
 
 class _DreamsSubHTSListCardState extends State<DreamsSubHTSListCard> {

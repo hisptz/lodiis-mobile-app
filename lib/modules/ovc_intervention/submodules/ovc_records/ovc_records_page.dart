@@ -11,7 +11,7 @@ class OvcRecordsPage extends StatefulWidget {
   final TabController tabsController;
 
   @override
-  _OvcRecordsPageState createState() => _OvcRecordsPageState();
+  State<OvcRecordsPage> createState() => _OvcRecordsPageState();
 }
 
 class _OvcRecordsPageState extends State<OvcRecordsPage> {

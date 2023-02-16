@@ -22,7 +22,7 @@ class OfflineBeneficiarySearch extends StatefulWidget {
       : super(key: key);
   final Map searchedAttributes;
   @override
-  _OfflineBeneficiarySearchState createState() =>
+  State<OfflineBeneficiarySearch> createState() =>
       _OfflineBeneficiarySearchState();
 }
 

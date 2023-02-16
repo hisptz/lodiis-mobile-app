@@ -17,7 +17,7 @@ class CLOReferralCardBodySummary extends StatefulWidget {
   final Color valueColor;
 
   @override
-  _CLOReferralCardBodySummaryState createState() =>
+  State<CLOReferralCardBodySummary> createState() =>
       _CLOReferralCardBodySummaryState();
 }
 

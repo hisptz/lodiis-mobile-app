@@ -33,7 +33,8 @@ class AgywDreamsPostGBVLegalForm extends StatefulWidget {
   const AgywDreamsPostGBVLegalForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsPostGBVFormState createState() => _AgywDreamsPostGBVFormState();
+  State<AgywDreamsPostGBVLegalForm> createState() =>
+      _AgywDreamsPostGBVFormState();
 }
 
 class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVLegalForm> {

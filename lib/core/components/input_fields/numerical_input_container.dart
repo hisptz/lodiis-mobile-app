@@ -19,7 +19,7 @@ class NumericalInputFieldContainer extends StatefulWidget {
   final String? inputValue;
 
   @override
-  _NumericalInputFieldContainerState createState() =>
+  State<NumericalInputFieldContainer> createState() =>
       _NumericalInputFieldContainerState();
 }
 
@@ -99,13 +99,13 @@ class _NumericalInputFieldContainerState
           ),
         ),
         Visibility(
+          visible: widget.inputField.suffixLabel != '' &&
+              _value != null &&
+              '$_value'.trim() != '',
           child: Text(widget.inputField.suffixLabel ?? '',
               style: const TextStyle().copyWith(
                 color: widget.inputField.inputColor,
               )),
-          visible: widget.inputField.suffixLabel != '' &&
-              _value != null &&
-              '$_value'.trim() != '',
         ),
         InputCheckedIcon(
           showTickedIcon: _value != null && '$_value'.trim() != '',

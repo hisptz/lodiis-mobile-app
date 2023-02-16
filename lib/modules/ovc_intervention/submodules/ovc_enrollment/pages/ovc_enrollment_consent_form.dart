@@ -27,7 +27,7 @@ class OvcEnrollmentConsentForm extends StatefulWidget {
   const OvcEnrollmentConsentForm({Key? key}) : super(key: key);
 
   @override
-  _OvcEnrollmentConsentFormState createState() =>
+  State<OvcEnrollmentConsentForm> createState() =>
       _OvcEnrollmentConsentFormState();
 }
 

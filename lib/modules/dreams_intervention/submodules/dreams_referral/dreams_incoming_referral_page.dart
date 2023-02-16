@@ -16,7 +16,7 @@ import 'pages/dream_referral_page_home.dart';
 class DreamsIncomingReferralPage extends StatefulWidget {
   const DreamsIncomingReferralPage({Key? key}) : super(key: key);
   @override
-  _DreamsIncomingReferralPageState createState() =>
+  State<DreamsIncomingReferralPage> createState() =>
       _DreamsIncomingReferralPageState();
 }
 

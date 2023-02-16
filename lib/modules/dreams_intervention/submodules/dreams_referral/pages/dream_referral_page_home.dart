@@ -41,7 +41,7 @@ class DreamsAgywReferralPage extends StatefulWidget {
 
   final bool isIncomingReferral;
   @override
-  _DreamsAgywReferralPageState createState() => _DreamsAgywReferralPageState();
+  State<DreamsAgywReferralPage> createState() => _DreamsAgywReferralPageState();
 }
 
 class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {

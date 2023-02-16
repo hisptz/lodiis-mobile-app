@@ -11,7 +11,7 @@ class DreamsEnrollmentRecords extends StatefulWidget {
   const DreamsEnrollmentRecords({Key? key}) : super(key: key);
 
   @override
-  _DreamsEnrollmentRecordsState createState() =>
+  State<DreamsEnrollmentRecords> createState() =>
       _DreamsEnrollmentRecordsState();
 }
 

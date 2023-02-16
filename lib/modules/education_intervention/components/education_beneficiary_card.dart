@@ -16,7 +16,6 @@ class EducationBeneficiaryCard extends StatelessWidget {
     required this.canExpand,
     required this.isExpanded,
     required this.isLbseLearningOutcomeVisible,
-    required this.isLbseReferralVisible,
     required this.isBursarySchoolVisible,
     required this.isBursaryClubVisible,
     required this.educationBeneficiary,
@@ -34,7 +33,6 @@ class EducationBeneficiaryCard extends StatelessWidget {
   final bool canExpand;
   final bool isExpanded;
   final bool isLbseLearningOutcomeVisible;
-  final bool isLbseReferralVisible;
   final bool isBursarySchoolVisible;
   final bool isBursaryClubVisible;
   final EducationBeneficiary educationBeneficiary;
@@ -99,15 +97,12 @@ class EducationBeneficiaryCard extends StatelessWidget {
             Visibility(
               visible: isBursaryClubVisible ||
                   isBursarySchoolVisible ||
-                  isLbseLearningOutcomeVisible ||
-                  isLbseReferralVisible,
+                  isLbseLearningOutcomeVisible,
               child: EducationBeneficiaryBottonAction(
                 isLbseLearningOutcomeVisible: isLbseLearningOutcomeVisible,
-                isLbseReferralVisible: isLbseReferralVisible,
                 isBursarySchoolVisible: isBursarySchoolVisible,
                 isBursaryClubVisible: isBursaryClubVisible,
                 onOpenLbseLearningOutcome: onOpenLbseLearningOutcome,
-                onOpenLbseReferral: onOpenLbseReferral,
                 onOpenBursarySchool: onOpenBursarySchool,
                 onOpenBursaryClub: onOpenBursaryClub,
               ),

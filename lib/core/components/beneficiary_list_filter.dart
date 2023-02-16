@@ -20,7 +20,7 @@ class BeneficiaryListFilter extends StatefulWidget {
   const BeneficiaryListFilter({Key? key}) : super(key: key);
 
   @override
-  _BeneficiaryListFilterState createState() => _BeneficiaryListFilterState();
+  State<BeneficiaryListFilter> createState() => _BeneficiaryListFilterState();
 }
 
 class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {

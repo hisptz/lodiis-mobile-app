@@ -32,7 +32,7 @@ class OvcHouseholdAddReferralForm extends StatefulWidget {
   const OvcHouseholdAddReferralForm({Key? key}) : super(key: key);
 
   @override
-  _OvcHouseholdAddReferralFormState createState() =>
+  State<OvcHouseholdAddReferralForm> createState() =>
       _OvcHouseholdAddReferralFormState();
 }
 

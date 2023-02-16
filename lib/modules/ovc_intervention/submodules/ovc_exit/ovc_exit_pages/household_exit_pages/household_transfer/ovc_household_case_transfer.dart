@@ -31,7 +31,7 @@ class OvcHouseholdCaseTransfer extends StatefulWidget {
   const OvcHouseholdCaseTransfer({Key? key}) : super(key: key);
 
   @override
-  _OvcHouseholdCaseTransferState createState() =>
+  State<OvcHouseholdCaseTransfer> createState() =>
       _OvcHouseholdCaseTransferState();
 }
 

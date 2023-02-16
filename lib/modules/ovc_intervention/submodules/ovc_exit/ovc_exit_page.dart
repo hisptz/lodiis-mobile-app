@@ -24,7 +24,7 @@ class OvcExitPage extends StatefulWidget {
   const OvcExitPage({Key? key}) : super(key: key);
 
   @override
-  _OvcExitPageState createState() => _OvcExitPageState();
+  State<OvcExitPage> createState() => _OvcExitPageState();
 }
 
 class _OvcExitPageState extends State<OvcExitPage> {

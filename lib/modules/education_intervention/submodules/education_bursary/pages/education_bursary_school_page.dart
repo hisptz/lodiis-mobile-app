@@ -18,7 +18,7 @@ class EducationBursarySchoolPage extends StatefulWidget {
   const EducationBursarySchoolPage({Key? key}) : super(key: key);
 
   @override
-  _EducationBursarySchoolPageState createState() =>
+  State<EducationBursarySchoolPage> createState() =>
       _EducationBursarySchoolPageState();
 }
 

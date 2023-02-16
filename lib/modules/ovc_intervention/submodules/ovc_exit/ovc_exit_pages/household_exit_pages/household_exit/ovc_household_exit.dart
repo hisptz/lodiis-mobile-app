@@ -32,7 +32,7 @@ class OvcHouseholdExit extends StatefulWidget {
   const OvcHouseholdExit({Key? key}) : super(key: key);
 
   @override
-  _OvcHouseholdExitState createState() => _OvcHouseholdExitState();
+  State<OvcHouseholdExit> createState() => _OvcHouseholdExitState();
 }
 
 class _OvcHouseholdExitState extends State<OvcHouseholdExit> {

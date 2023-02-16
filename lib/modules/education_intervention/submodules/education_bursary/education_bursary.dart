@@ -23,7 +23,7 @@ class EducationBursary extends StatefulWidget {
   const EducationBursary({Key? key}) : super(key: key);
 
   @override
-  _EducationBursaryState createState() => _EducationBursaryState();
+  State<EducationBursary> createState() => _EducationBursaryState();
 }
 
 class _EducationBursaryState extends State<EducationBursary> {
@@ -201,7 +201,10 @@ class _EducationBursaryState extends State<EducationBursary> {
           IconButton(
             icon: SvgPicture.asset(
               'assets/icons/add-beneficiary.svg',
-              color: Colors.blueGrey,
+              colorFilter: const ColorFilter.mode(
+                Colors.blueGrey,
+                BlendMode.srcIn,
+              ),
             ),
             onPressed: () => onAddBursaryBeneficiary(context),
           )
@@ -224,7 +227,6 @@ class _EducationBursaryState extends State<EducationBursary> {
               canExpand: canExpand,
               isExpanded: toggleCardId == bursaryBeneficiary.id,
               isLbseLearningOutcomeVisible: false,
-              isLbseReferralVisible: false,
               isBursarySchoolVisible: true,
               isBursaryClubVisible: true,
               educationBeneficiary: bursaryBeneficiary,

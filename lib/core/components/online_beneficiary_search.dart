@@ -17,7 +17,7 @@ class OnlineBeneficiarySearch extends StatefulWidget {
   const OnlineBeneficiarySearch({Key? key}) : super(key: key);
 
   @override
-  _OnlineBeneficiarySearchState createState() =>
+  State<OnlineBeneficiarySearch> createState() =>
       _OnlineBeneficiarySearchState();
 }
 

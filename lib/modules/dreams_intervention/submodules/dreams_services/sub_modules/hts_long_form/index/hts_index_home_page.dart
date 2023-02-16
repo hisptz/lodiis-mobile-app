@@ -26,7 +26,7 @@ class HTSIndexHomePage extends StatefulWidget {
   final IndexContact? people;
 
   @override
-  _HTSIndexHomePageState createState() => _HTSIndexHomePageState();
+  State<HTSIndexHomePage> createState() => _HTSIndexHomePageState();
 }
 
 class _HTSIndexHomePageState extends State<HTSIndexHomePage> {

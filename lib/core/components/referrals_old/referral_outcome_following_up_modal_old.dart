@@ -32,7 +32,7 @@ class ReferralOutComeFollowUpModalOld extends StatefulWidget {
   final String referralProgram;
 
   @override
-  _ReferralOutComeFollowUpModalOldState createState() =>
+  State<ReferralOutComeFollowUpModalOld> createState() =>
       _ReferralOutComeFollowUpModalOldState();
 }
 

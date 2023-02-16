@@ -26,7 +26,7 @@ class AgywDreamsArtRefill extends StatefulWidget {
   const AgywDreamsArtRefill({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsArtRefillState createState() => _AgywDreamsArtRefillState();
+  State<AgywDreamsArtRefill> createState() => _AgywDreamsArtRefillState();
 }
 
 class _AgywDreamsArtRefillState extends State<AgywDreamsArtRefill> {

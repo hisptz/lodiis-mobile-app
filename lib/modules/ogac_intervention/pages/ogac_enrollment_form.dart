@@ -31,7 +31,7 @@ class OgacEnrollmentForm extends StatefulWidget {
   const OgacEnrollmentForm({Key? key}) : super(key: key);
 
   @override
-  _OgacEnrollmentFormState createState() => _OgacEnrollmentFormState();
+  State<OgacEnrollmentForm> createState() => _OgacEnrollmentFormState();
 }
 
 class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
