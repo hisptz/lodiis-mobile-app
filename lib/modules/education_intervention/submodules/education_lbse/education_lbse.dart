@@ -210,7 +210,6 @@ class _EducationLbseState extends State<EducationLbse> {
               canExpand: canExpand,
               isExpanded: toggleCardId == lbseBeneficiary.id,
               isLbseLearningOutcomeVisible: true,
-              isLbseReferralVisible: true,
               isBursarySchoolVisible: false,
               isBursaryClubVisible: false,
               educationBeneficiary: lbseBeneficiary,
@@ -219,8 +218,6 @@ class _EducationLbseState extends State<EducationLbse> {
               onCardToggle: () => onCardToggle(context, lbseBeneficiary.id),
               onOpenLbseLearningOutcome: () =>
                   onOpenBeneficiaryLearningOutcome(context, lbseBeneficiary),
-              onOpenLbseReferral: () =>
-                  onOpenBeneficiaryReferrals(context, lbseBeneficiary),
             ),
             pagingController: educationLbseInterventionState.pagingController!,
             emptyListWidget: _getEmptyListContainer(context),

@@ -98,7 +98,6 @@ class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
               canExpand: canExpand,
               isExpanded: toggleCardId == bursaryBeneficiary.id,
               isLbseLearningOutcomeVisible: false,
-              isLbseReferralVisible: false,
               isBursarySchoolVisible: false,
               isBursaryClubVisible: false,
               educationBeneficiary: bursaryBeneficiary,

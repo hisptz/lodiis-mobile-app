@@ -224,7 +224,6 @@ class _EducationBursaryState extends State<EducationBursary> {
               canExpand: canExpand,
               isExpanded: toggleCardId == bursaryBeneficiary.id,
               isLbseLearningOutcomeVisible: false,
-              isLbseReferralVisible: false,
               isBursarySchoolVisible: true,
               isBursaryClubVisible: true,
               educationBeneficiary: bursaryBeneficiary,

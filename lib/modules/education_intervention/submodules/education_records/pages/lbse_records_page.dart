@@ -116,7 +116,6 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
               canExpand: canExpand,
               isExpanded: toggleCardId == lbseBeneficiary.id,
               isLbseLearningOutcomeVisible: false,
-              isLbseReferralVisible: false,
               isBursarySchoolVisible: false,
               isBursaryClubVisible: false,
               educationBeneficiary: lbseBeneficiary,
