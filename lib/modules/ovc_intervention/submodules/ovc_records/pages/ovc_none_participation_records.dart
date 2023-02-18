@@ -103,9 +103,9 @@ class _OvcNoneParticipationRecordsState
               right: 13.0,
               left: 13.0,
             ),
-            child: const Center(
+            child: Center(
               child: Column(
-                children: [
+                children: const [
                   Text(
                     'There is no OVC none participants at moment',
                     textAlign: TextAlign.center,
