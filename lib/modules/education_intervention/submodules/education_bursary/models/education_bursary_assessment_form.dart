@@ -8,6 +8,7 @@ class EducationBursaryAssessment {
   static List<String> getMandatoryField() {
     return [
       "location",
+      "RB8Wx75hGa4",
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
       'qZP982qpSPS',

@@ -16,7 +16,7 @@ class TrueOnlyInputFieldContainer extends StatefulWidget {
   final dynamic inputValue;
 
   @override
-  _TrueOnlyInputFieldContainerState createState() =>
+  State<TrueOnlyInputFieldContainer> createState() =>
       _TrueOnlyInputFieldContainerState();
 }
 

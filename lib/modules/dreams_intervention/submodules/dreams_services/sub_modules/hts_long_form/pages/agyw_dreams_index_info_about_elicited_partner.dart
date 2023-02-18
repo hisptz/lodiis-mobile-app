@@ -27,7 +27,7 @@ class AgywDreamsIndexInfoAboutElicitedPartner extends StatefulWidget {
   const AgywDreamsIndexInfoAboutElicitedPartner({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsIndexInfoAboutElicitedPartnerState createState() =>
+  State<AgywDreamsIndexInfoAboutElicitedPartner> createState() =>
       _AgywDreamsIndexInfoAboutElicitedPartnerState();
 }
 

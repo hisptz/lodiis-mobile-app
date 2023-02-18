@@ -13,7 +13,7 @@ class OvcNoneParticipationRecords extends StatefulWidget {
   const OvcNoneParticipationRecords({Key? key}) : super(key: key);
 
   @override
-  _OvcNoneParticipationRecordsState createState() =>
+  State<OvcNoneParticipationRecords> createState() =>
       _OvcNoneParticipationRecordsState();
 }
 
@@ -26,8 +26,8 @@ class _OvcNoneParticipationRecordsState
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Consumer<OvcInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
-            String header = 'OVC none participants'.toUpperCase() +
-                ': ${ovcInterventionListState.numberOfOvcNoneParticipants}';
+            String header =
+                '${'OVC none participants'.toUpperCase()}: ${ovcInterventionListState.numberOfOvcNoneParticipants}';
             return SubModuleHomeContainer(
               header: header,
               bodyContents: _buildBody(currentLanguage),

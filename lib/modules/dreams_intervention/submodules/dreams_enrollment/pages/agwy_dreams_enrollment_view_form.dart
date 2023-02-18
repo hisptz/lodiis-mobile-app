@@ -21,7 +21,7 @@ class AgywDreamsEnrollmentViewForm extends StatefulWidget {
   const AgywDreamsEnrollmentViewForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsEnrollmentViewFormState createState() =>
+  State<AgywDreamsEnrollmentViewForm> createState() =>
       _AgywDreamsEnrollmentViewFormState();
 }
 

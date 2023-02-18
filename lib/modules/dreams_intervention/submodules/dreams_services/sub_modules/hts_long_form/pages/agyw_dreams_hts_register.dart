@@ -32,7 +32,7 @@ class AgywDreamsHTSRegisterForm extends StatefulWidget {
   final bool? isComingFromPrep;
 
   @override
-  _AgywDreamsHTSRegisterFormState createState() =>
+  State<AgywDreamsHTSRegisterForm> createState() =>
       _AgywDreamsHTSRegisterFormState();
 }
 

@@ -55,7 +55,7 @@ class InterventionAppBar extends StatefulWidget {
   final bool hasTabs;
 
   @override
-  _InterventionAppBarState createState() => _InterventionAppBarState();
+  State<InterventionAppBar> createState() => _InterventionAppBarState();
 }
 
 class _InterventionAppBarState extends State<InterventionAppBar> {

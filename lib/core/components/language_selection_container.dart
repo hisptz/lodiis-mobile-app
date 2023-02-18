@@ -21,7 +21,7 @@ class LanguageSelectionContainer extends StatefulWidget {
   final Function? onSetSelectedLanguage;
 
   @override
-  _LanguageSelectionContainerState createState() =>
+  State<LanguageSelectionContainer> createState() =>
       _LanguageSelectionContainerState();
 }
 

@@ -20,7 +20,7 @@ class OrganisationUnitTreeList extends StatefulWidget {
   final List<String>? filteredPrograms;
 
   @override
-  _OrganisationUnitTreeListState createState() =>
+  State<OrganisationUnitTreeList> createState() =>
       _OrganisationUnitTreeListState();
 }
 

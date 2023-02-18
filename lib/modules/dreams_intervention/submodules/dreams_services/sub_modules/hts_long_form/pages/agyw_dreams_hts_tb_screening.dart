@@ -32,7 +32,7 @@ class AgywDreamsHTSTBForm extends StatefulWidget {
   final String? htsToTBLinkageValue;
 
   @override
-  _AgywDreamsHTSTBFormState createState() => _AgywDreamsHTSTBFormState();
+  State<AgywDreamsHTSTBForm> createState() => _AgywDreamsHTSTBFormState();
 }
 
 class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {

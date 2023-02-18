@@ -27,7 +27,7 @@ class AgywDreamsIndexContact extends StatefulWidget {
   const AgywDreamsIndexContact({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsIndexContactState createState() => _AgywDreamsIndexContactState();
+  State<AgywDreamsIndexContact> createState() => _AgywDreamsIndexContactState();
 }
 
 class _AgywDreamsIndexContactState extends State<AgywDreamsIndexContact> {

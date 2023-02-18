@@ -27,7 +27,7 @@ class AgywDreamsHTSConsentFormEdit extends StatefulWidget {
   const AgywDreamsHTSConsentFormEdit({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSConsentFormEditState createState() =>
+  State<AgywDreamsHTSConsentFormEdit> createState() =>
       _AgywDreamsHTSConsentFormEditState();
 }
 

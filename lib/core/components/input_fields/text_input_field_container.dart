@@ -24,7 +24,7 @@ class TextInputFieldContainer extends StatefulWidget {
   final bool showInputSearchIcon;
 
   @override
-  _TextInputFieldContainerState createState() =>
+  State<TextInputFieldContainer> createState() =>
       _TextInputFieldContainerState();
 }
 
@@ -43,18 +43,16 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
   }
 
   updateTextValue({String? value = ''}) {
-    setState(() {
-      _value = value;
-    });
+    _value = value;
+    setState(() {});
     textController = TextEditingController(text: value);
   }
 
   onValueChange(String value) {
     if (_lastInputValue != value) {
-      setState(() {
-        _value = value;
-        _lastInputValue = _value;
-      });
+      _value = value;
+      _lastInputValue = _value;
+      setState(() {});
       widget.onInputValueChange!(value.trim());
     }
   }
@@ -110,13 +108,13 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
           ),
         ),
         Visibility(
+          visible: widget.inputField.suffixLabel != '' &&
+              _value != null &&
+              '$_value'.trim() != '',
           child: Text(widget.inputField.suffixLabel ?? '',
               style: const TextStyle().copyWith(
                 color: widget.inputField.inputColor,
               )),
-          visible: widget.inputField.suffixLabel != '' &&
-              _value != null &&
-              '$_value'.trim() != '',
         ),
         InputCheckedIcon(
           showTickedIcon: widget.showInputCheckedIcon &&
@@ -125,15 +123,15 @@ class _TextInputFieldContainerState extends State<TextInputFieldContainer> {
           color: widget.inputField.inputColor,
         ),
         Visibility(
-          child: const InputSearchIcon(),
           visible: widget.showInputSearchIcon && _value == '',
+          child: const InputSearchIcon(),
         ),
         Visibility(
+          visible: widget.showInputSearchIcon && _value != '',
           child: GestureDetector(
             child: const InputSearchClearIcon(),
             onTap: () => clearSearchValue(),
           ),
-          visible: widget.showInputSearchIcon && _value != '',
         )
       ],
     );

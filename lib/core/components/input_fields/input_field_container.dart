@@ -315,6 +315,7 @@ class InputFieldContainer extends StatelessWidget {
                                   : inputField.valueType == 'PHONE_NUMBER'
                                       ? PhoneNumberInputFieldContainer(
                                           inputField: inputField,
+                                          lastUpdatedId: lastUpdatedId,
                                           inputValue:
                                               dataObject![inputField.id],
                                           onInputValueChange: (dynamic value) =>
@@ -348,6 +349,8 @@ class InputFieldContainer extends StatelessWidget {
                                               : inputField.valueType == 'DATE'
                                                   ? DateInputFieldContainer(
                                                       inputField: inputField,
+                                                      lastUpdatedId:
+                                                          lastUpdatedId,
                                                       currentLanguage:
                                                           currentLanguage,
                                                       inputValue: dataObject![

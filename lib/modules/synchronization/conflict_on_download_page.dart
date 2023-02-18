@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class ConflictOnDownloadPage extends StatefulWidget {
   const ConflictOnDownloadPage({Key? key}) : super(key: key);
   @override
-  _ConflictOnDownloadPageState createState() => _ConflictOnDownloadPageState();
+  State<ConflictOnDownloadPage> createState() => _ConflictOnDownloadPageState();
 }
 
 class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {

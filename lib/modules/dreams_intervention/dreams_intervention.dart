@@ -39,7 +39,7 @@ class DreamsIntervention extends StatefulWidget {
   const DreamsIntervention({Key? key}) : super(key: key);
 
   @override
-  _DreamsInterventionState createState() => _DreamsInterventionState();
+  State<DreamsIntervention> createState() => _DreamsInterventionState();
 }
 
 class _DreamsInterventionState extends State<DreamsIntervention>

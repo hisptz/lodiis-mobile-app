@@ -22,7 +22,7 @@ class CheckBoxListInputField extends StatefulWidget {
   final bool isReadOnly;
 
   @override
-  _CheckBoxListInputFieldState createState() => _CheckBoxListInputFieldState();
+  State<CheckBoxListInputField> createState() => _CheckBoxListInputFieldState();
 }
 
 class _CheckBoxListInputFieldState extends State<CheckBoxListInputField> {

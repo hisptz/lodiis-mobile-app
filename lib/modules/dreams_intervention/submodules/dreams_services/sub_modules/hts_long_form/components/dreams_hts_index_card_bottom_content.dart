@@ -24,7 +24,7 @@ class DreamsHTSIndexCardButtonContent extends StatefulWidget {
   final AgywDreamsIndexInfoEvent? event;
 
   @override
-  _DreamsHTSIndexCardButtonContentState createState() =>
+  State<DreamsHTSIndexCardButtonContent> createState() =>
       _DreamsHTSIndexCardButtonContentState();
 }
 

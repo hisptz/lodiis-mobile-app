@@ -24,7 +24,6 @@ import 'package:kb_mobile_app/modules/education_intervention/components/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_outcome_form.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/skip_logics/education_lbse_learning_outcome_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -91,25 +90,17 @@ class _EducationLbseLearningOutcomeFormPageState
                 listen: false)
             .currentBeneficiciary!;
     defaultFormSections = EducationLbseLearningOutcomeForm.getFormSections();
-    if (widget.isNewLearningOutcomeForm) {
-      defaultFormSections!.addAll(
-          EducationLbseLearningOutcomeForm.getReferralCheckFormSections());
-      defaultFormSections!.addAll(EducationLbseReferralForm.getFormSections());
-      mandatoryFields.addAll(EducationLbseReferralForm.getMandatoryField());
-      mandatoryFields
-          .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
-    }
     if (lbseBeneficiary.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
       FormSection serviceProvisionForm =
           AppUtil.getServiceProvisionLocationSection(
-        inputColor: LbseInterventionConstant.inputColor,
-        labelColor: LbseInterventionConstant.labelColor,
-        sectionLabelColor: LbseInterventionConstant.inputColor,
-        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
-        program: LbseInterventionConstant.program,
-      );
+              inputColor: LbseInterventionConstant.inputColor,
+              labelColor: LbseInterventionConstant.labelColor,
+              sectionLabelColor: LbseInterventionConstant.inputColor,
+              allowedSelectedLevels:
+                  LbseInterventionConstant.allowedSelectedLevels,
+              program: LbseInterventionConstant.program);
       formSections = [serviceProvisionForm, ...defaultFormSections!];
       mandatoryFields.addAll(FormUtil.getFormFieldIds(
         [serviceProvisionForm],
@@ -128,20 +119,10 @@ class _EducationLbseLearningOutcomeFormPageState
     onUpdateFormAutoSaveState(context);
   }
 
-  bool isLearningOutcomeReferralNeeded(Map dataObject) {
-    String inputFieldId =
-        EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck;
-    String value = '${dataObject[inputFieldId]}';
-    return widget.isNewLearningOutcomeForm && value == 'true';
-  }
-
-  List<String> getMandatoryFielOnFormSubmission(bool isReferralNeed) {
-    List<String> allMandatoryFields =
-        widget.isNewLearningOutcomeForm && isReferralNeed
-            ? mandatoryFields
-            : EducationLbseLearningOutcomeForm.getMandatoryField();
-    allMandatoryFields
-        .add(EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck);
+  List<String> getMandatoryFielOnFormSubmission() {
+    List<String> allMandatoryFields = widget.isNewLearningOutcomeForm
+        ? mandatoryFields
+        : EducationLbseLearningOutcomeForm.getMandatoryField();
     return allMandatoryFields.toSet().toList();
   }
 
@@ -151,9 +132,7 @@ class _EducationLbseLearningOutcomeFormPageState
     EducationBeneficiary lbseBeneficiary,
   ) async {
     setMandatoryFields(dataObject);
-    bool isReferralNeed = isLearningOutcomeReferralNeeded(dataObject);
-    List<String> allMandatoryFields =
-        getMandatoryFielOnFormSubmission(isReferralNeed);
+    List<String> allMandatoryFields = getMandatoryFielOnFormSubmission();
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
         allMandatoryFields, dataObject,
         hiddenFields:
@@ -162,20 +141,9 @@ class _EducationLbseLearningOutcomeFormPageState
       setState(() {
         isSaving = true;
       });
-      String learningOutcomeToReferralLinkage =
-          LbseInterventionConstant.learningOutcomeToReferralLinkage;
-      String referralToReferralOutcomeLinkage =
-          LbseInterventionConstant.referralToReferralOutcomeLinkage;
-      dataObject[learningOutcomeToReferralLinkage] =
-          dataObject[learningOutcomeToReferralLinkage] ?? AppUtil.getUid();
-      dataObject[referralToReferralOutcomeLinkage] =
-          dataObject[referralToReferralOutcomeLinkage] ?? AppUtil.getUid();
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [
-        EducationLbseLearningOutcomeForm.learningOutComeToReferralCheck,
-        learningOutcomeToReferralLinkage
-      ];
+      List<String> hiddenFields = [];
       String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
@@ -188,48 +156,41 @@ class _EducationLbseLearningOutcomeFormPageState
           lbseBeneficiary.id,
           eventId,
           hiddenFields,
-        );
-        if (isReferralNeed) {
-          hiddenFields = [
-            learningOutcomeToReferralLinkage,
-            referralToReferralOutcomeLinkage
-          ];
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            LbseInterventionConstant.program,
-            LbseInterventionConstant.referralProgamStage,
-            orgUnit,
-            defaultFormSections!,
-            dataObject,
-            eventDate,
-            lbseBeneficiary.id,
-            eventId,
-            hiddenFields,
-          );
-        }
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(lbseBeneficiary.id);
-        Timer(const Duration(seconds: 1), () {
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
-          );
-          clearFormAutoSaveState(
-            context,
-            lbseBeneficiary.id,
-            eventId ?? '',
-          );
-          Navigator.pop(context);
+        ).then((response) {
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(lbseBeneficiary.id);
+          Timer(const Duration(seconds: 1), () {
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
+            AppUtil.showToastMessage(
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
+            );
+            clearFormAutoSaveState(
+              context,
+              lbseBeneficiary.id,
+              eventId ?? '',
+            );
+            Navigator.pop(context);
+          });
+        }).catchError((error) {
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                message: error.toString(),
+                position: ToastGravity.BOTTOM,
+              );
+            });
+          });
         });
-      } catch (e) {
+      } catch (error) {
         Timer(const Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-              message: e.toString(),
+              message: error.toString(),
               position: ToastGravity.BOTTOM,
             );
           });

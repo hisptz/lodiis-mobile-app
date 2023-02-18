@@ -27,7 +27,7 @@ class NonAgywDreamsHTSClientInformation extends StatefulWidget {
   final bool? isComingFromPrep;
 
   @override
-  _NonAgywDreamsHTSClientInformationState createState() =>
+  State<NonAgywDreamsHTSClientInformation> createState() =>
       _NonAgywDreamsHTSClientInformationState();
 }
 

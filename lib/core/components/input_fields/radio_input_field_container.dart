@@ -20,7 +20,7 @@ class RadioInputFieldContainer extends StatefulWidget {
   final bool? isReadOnly;
 
   @override
-  _RadioInputFieldContainerState createState() =>
+  State<RadioInputFieldContainer> createState() =>
       _RadioInputFieldContainerState();
 }
 

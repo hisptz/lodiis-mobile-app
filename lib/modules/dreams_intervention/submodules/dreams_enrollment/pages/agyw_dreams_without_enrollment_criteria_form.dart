@@ -27,7 +27,7 @@ class AgywDreamsWithoutEnrollmentCriteriaForm extends StatefulWidget {
   const AgywDreamsWithoutEnrollmentCriteriaForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsWithoutEnrollmentCriteriaFormState createState() =>
+  State<AgywDreamsWithoutEnrollmentCriteriaForm> createState() =>
       _AgywDreamsWithoutEnrollmentCriteriaFormState();
 }
 

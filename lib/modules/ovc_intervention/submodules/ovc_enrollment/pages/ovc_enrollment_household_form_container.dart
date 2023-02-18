@@ -71,8 +71,7 @@ class _OvcEnrollmentHouseholdFormContainerState
     );
   }
 
-  void onUpdateFormAutoSaveState(
-    BuildContext context, {
+  void onUpdateFormAutoSaveState({
     bool isSaveForm = false,
     String nextPageModule = "",
   }) async {
@@ -98,17 +97,20 @@ class _OvcEnrollmentHouseholdFormContainerState
     Provider.of<EnrollmentFormState>(context, listen: false)
         .setFormFieldState(id, value);
     evaluateSkipLogics();
-    onUpdateFormAutoSaveState(context);
+    onUpdateFormAutoSaveState();
   }
 
   void onSaveAndContinue(
-    BuildContext context,
     Map dataObject,
+    Map hiddenFields,
   ) async {
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
-      onUpdateFormAutoSaveState(context, isSaveForm: true);
+      onUpdateFormAutoSaveState(isSaveForm: true);
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -190,8 +192,8 @@ class _OvcEnrollmentHouseholdFormContainerState
                               buttonColor: const Color(0xFF4B9F46),
                               fontSize: 15.0,
                               onPressButton: () => onSaveAndContinue(
-                                context,
                                 enrollmentFormState.formState,
+                                enrollmentFormState.hiddenFields,
                               ),
                             ),
                           ],

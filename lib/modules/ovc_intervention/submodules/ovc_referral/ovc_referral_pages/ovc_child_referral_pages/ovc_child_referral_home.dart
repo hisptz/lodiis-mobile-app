@@ -22,7 +22,7 @@ class OvcChildReferralHome extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _OvcChildReferralHomeState createState() => _OvcChildReferralHomeState();
+  State<OvcChildReferralHome> createState() => _OvcChildReferralHomeState();
 }
 
 class _OvcChildReferralHomeState extends State<OvcChildReferralHome> {

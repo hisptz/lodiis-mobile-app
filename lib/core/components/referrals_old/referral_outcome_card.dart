@@ -43,7 +43,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _ReferralOutComeCardState createState() => _ReferralOutComeCardState();
+  State<ReferralOutComeCard> createState() => _ReferralOutComeCardState();
 }
 
 class _ReferralOutComeCardState extends State<ReferralOutComeCard> {

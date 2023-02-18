@@ -22,7 +22,7 @@ class NoneAgywEnrollmentViewForm extends StatefulWidget {
   const NoneAgywEnrollmentViewForm({Key? key}) : super(key: key);
 
   @override
-  _NoneAgywEnrollmentViewFormState createState() =>
+  State<NoneAgywEnrollmentViewForm> createState() =>
       _NoneAgywEnrollmentViewFormState();
 }
 

@@ -11,7 +11,7 @@ class NonAgywRecords extends StatefulWidget {
   const NonAgywRecords({Key? key}) : super(key: key);
 
   @override
-  _NonAgywRecordsState createState() => _NonAgywRecordsState();
+  State<NonAgywRecords> createState() => _NonAgywRecordsState();
 }
 
 class _NonAgywRecordsState extends State<NonAgywRecords> {

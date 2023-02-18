@@ -138,11 +138,17 @@ class _OvcEnrollmentHouseholdViewEditContainerState
     onUpdateFormAutoSaveState();
   }
 
-  void onSaveForm(Map dataObject) async {
+  void onSaveForm(
+    Map dataObject,
+    Map hiddenFields,
+  ) async {
     unFilledMandatoryFields = [];
     setState(() {});
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+    );
     if (hadAllMandatoryFilled) {
       _isSaving = true;
       setState(() {});
@@ -289,6 +295,8 @@ class _OvcEnrollmentHouseholdViewEditContainerState
                               Column(
                             children: [
                               EntryFormContainer(
+                                lastUpdatedId:
+                                    enrollmentFormState.lastUpdatedFieldId,
                                 formSections: formSections,
                                 mandatoryFieldObject: mandatoryFieldObject,
                                 hiddenFields: enrollmentFormState.hiddenFields,
@@ -314,6 +322,7 @@ class _OvcEnrollmentHouseholdViewEditContainerState
                                       ? null
                                       : onSaveForm(
                                           enrollmentFormState.formState,
+                                          enrollmentFormState.hiddenFields,
                                         ),
                                 ),
                               )

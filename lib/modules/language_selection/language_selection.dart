@@ -19,7 +19,7 @@ class LanguageSelection extends StatefulWidget {
   final bool showLanguageSettingAppBar;
 
   @override
-  _LanguageSelectionState createState() => _LanguageSelectionState();
+  State<LanguageSelection> createState() => _LanguageSelectionState();
 }
 
 class _LanguageSelectionState extends State<LanguageSelection> {

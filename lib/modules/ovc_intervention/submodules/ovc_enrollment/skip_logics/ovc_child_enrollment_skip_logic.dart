@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
-import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_enrollment_child_form_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
 import 'package:provider/provider.dart';
@@ -223,7 +219,6 @@ class OvcChildEnrollmentSkipLogic {
     }
     assignPrimaryVulnerability(context, dataObject, shouldSetEnrollmentState);
     if (shouldSetEnrollmentState) {
-      // TODO fix the values not being seen on the form
       setAssignedValues(context, assignedFields);
       resetValuesForHiddenFields(context, hiddenFields.keys);
       resetValuesForHiddenSections(context, formSections);

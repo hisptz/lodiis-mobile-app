@@ -18,7 +18,7 @@ class BooleanInputFieldContainer extends StatefulWidget {
   final dynamic inputValue;
 
   @override
-  _BooleanInputFieldContainerState createState() =>
+  State<BooleanInputFieldContainer> createState() =>
       _BooleanInputFieldContainerState();
 }
 

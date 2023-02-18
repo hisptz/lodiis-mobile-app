@@ -19,7 +19,7 @@ class AgywDreamsOutgoingReferralsOutcome extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _AgywDreamsOutgoingReferralsOutcomeState createState() =>
+  State<AgywDreamsOutgoingReferralsOutcome> createState() =>
       _AgywDreamsOutgoingReferralsOutcomeState();
 }
 

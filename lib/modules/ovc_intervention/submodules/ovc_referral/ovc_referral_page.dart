@@ -21,7 +21,7 @@ class OvcReferralPage extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _OvcReferralPageState createState() => _OvcReferralPageState();
+  State<OvcReferralPage> createState() => _OvcReferralPageState();
 }
 
 class _OvcReferralPageState extends State<OvcReferralPage> {

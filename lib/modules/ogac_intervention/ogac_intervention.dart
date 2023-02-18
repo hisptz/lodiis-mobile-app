@@ -27,7 +27,7 @@ class OgacIntervention extends StatefulWidget {
   const OgacIntervention({Key? key}) : super(key: key);
 
   @override
-  _OgacInterventionState createState() => _OgacInterventionState();
+  State<OgacIntervention> createState() => _OgacInterventionState();
 }
 
 class _OgacInterventionState extends State<OgacIntervention> {

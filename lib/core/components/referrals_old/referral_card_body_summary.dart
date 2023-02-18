@@ -21,7 +21,7 @@ class ReferralCardBodySummary extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _ReferralCardBodySummaryState createState() =>
+  State<ReferralCardBodySummary> createState() =>
       _ReferralCardBodySummaryState();
 }
 

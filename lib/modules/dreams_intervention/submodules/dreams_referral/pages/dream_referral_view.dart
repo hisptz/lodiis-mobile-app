@@ -25,7 +25,7 @@ class DreamsReferralView extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _DreamsReferralViewState createState() => _DreamsReferralViewState();
+  State<DreamsReferralView> createState() => _DreamsReferralViewState();
 }
 
 class _DreamsReferralViewState extends State<DreamsReferralView> {

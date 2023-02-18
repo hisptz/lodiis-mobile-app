@@ -132,6 +132,10 @@ class InterventionSelectionCard extends StatelessWidget {
                     margin: const EdgeInsets.all(15.0),
                     child: SvgPicture.asset(
                       interventionProgram!.svgIcon!,
+                      colorFilter: ColorFilter.mode(
+                        interventionProgram!.primaryColor!,
+                        BlendMode.srcATop,
+                      ),
                     ),
                   ),
                 ),
@@ -197,9 +201,11 @@ class InterventionSelectionCard extends StatelessWidget {
                   top: 10.0,
                   bottom: 10.0,
                 ),
-                child: SvgPicture.asset(
-                  'assets/icons/tick-icon.svg',
-                ),
+                child: SvgPicture.asset('assets/icons/tick-icon.svg',
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcATop,
+                    )),
               ),
             ),
           )

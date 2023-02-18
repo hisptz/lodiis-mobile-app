@@ -78,101 +78,102 @@ class SubModuleHomeContainer extends StatelessWidget {
     BuildContext context,
   ) {
     return Scaffold(
-        appBar: header != null && header != ''
-            ? AppBar(
-                title: Row(
-                  children: [
-                    Expanded(
-                        child: Text(
-                      header!,
-                      style: const TextStyle().copyWith(
-                          color: const Color(0xFF82898D),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                    Visibility(
-                        visible: hasInfo,
-                        child: InkWell(
-                          onTap: onOpenInfo as void Function()?,
-                          child: const Icon(
-                            Icons.info_outline,
-                            color: Color(0xFF82898D),
-                            size: 24.0,
-                          ),
-                        )),
-                    Visibility(
-                      visible: showFilter,
-                      child: Consumer<InterventionCardState>(
-                        builder: (context, interventionCardState, child) {
-                          int filterCount = getCurrentInterventionFilterCount(
-                              context,
-                              interventionCardState.currentInterventionProgram);
-                          return Stack(
-                            children: [
-                              IconButton(
-                                onPressed: () => openFilters(context),
-                                icon: Icon(
-                                  Icons.filter_list_outlined,
-                                  color: interventionCardState
-                                      .currentInterventionProgram.primaryColor,
-                                  size: 24.0,
-                                ),
+      appBar: header != null && header != ''
+          ? AppBar(
+              title: Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                    header!,
+                    style: const TextStyle().copyWith(
+                        color: const Color(0xFF82898D),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold),
+                  )),
+                  Visibility(
+                      visible: hasInfo,
+                      child: InkWell(
+                        onTap: onOpenInfo as void Function()?,
+                        child: const Icon(
+                          Icons.info_outline,
+                          color: Color(0xFF82898D),
+                          size: 24.0,
+                        ),
+                      )),
+                  Visibility(
+                    visible: showFilter,
+                    child: Consumer<InterventionCardState>(
+                      builder: (context, interventionCardState, child) {
+                        int filterCount = getCurrentInterventionFilterCount(
+                            context,
+                            interventionCardState.currentInterventionProgram);
+                        return Stack(
+                          children: [
+                            IconButton(
+                              onPressed: () => openFilters(context),
+                              icon: Icon(
+                                Icons.filter_list_outlined,
+                                color: interventionCardState
+                                    .currentInterventionProgram.primaryColor,
+                                size: 24.0,
                               ),
-                              filterCount != 0
-                                  ? Positioned(
-                                      right: 11,
-                                      top: 11,
-                                      child: InkWell(
-                                        onTap: () => openFilters(context),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(2.0),
-                                          decoration: BoxDecoration(
-                                              color: interventionCardState
-                                                  .currentInterventionProgram
-                                                  .primaryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0)),
-                                          constraints: const BoxConstraints(
-                                            minWidth: 14,
-                                            minHeight: 14,
-                                          ),
-                                          child: Text(
-                                            "$filterCount",
-                                            style: const TextStyle().copyWith(
-                                                color: Colors.white,
-                                                fontSize: 10.0,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
-                                          ),
+                            ),
+                            filterCount != 0
+                                ? Positioned(
+                                    right: 11,
+                                    top: 11,
+                                    child: InkWell(
+                                      onTap: () => openFilters(context),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2.0),
+                                        decoration: BoxDecoration(
+                                            color: interventionCardState
+                                                .currentInterventionProgram
+                                                .primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(12.0)),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 14,
+                                          minHeight: 14,
+                                        ),
+                                        child: Text(
+                                          "$filterCount",
+                                          style: const TextStyle().copyWith(
+                                              color: Colors.white,
+                                              fontSize: 10.0,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
-                                    )
-                                  : Container(),
-                            ],
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                backgroundColor: const Color(0xFFFFFFFF),
-                elevation: 1,
-              )
-            : null,
-        body: Stack(
-          children: [
-            Consumer<InterventionCardState>(
-              builder: (context, interventionCardState, child) {
-                InterventionCard activeInterventionProgram =
-                    interventionCardState.currentInterventionProgram;
-                return Container(
-                  decoration: BoxDecoration(
-                      color: activeInterventionProgram.background),
-                );
-              },
-            ),
-            Container(child: bodyContents)
-          ],
-        ));
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+              backgroundColor: const Color(0xFFFFFFFF),
+              elevation: 1,
+            )
+          : null,
+      body: Stack(
+        children: [
+          Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  interventionCardState.currentInterventionProgram;
+              return Container(
+                decoration:
+                    BoxDecoration(color: activeInterventionProgram.background),
+              );
+            },
+          ),
+          Container(child: bodyContents)
+        ],
+      ),
+    );
   }
 }

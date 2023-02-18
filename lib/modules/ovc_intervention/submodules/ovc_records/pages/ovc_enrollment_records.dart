@@ -12,7 +12,7 @@ class OvcEnrollmentRecords extends StatefulWidget {
   const OvcEnrollmentRecords({Key? key}) : super(key: key);
 
   @override
-  _OvcEnrollmentRecordsState createState() => _OvcEnrollmentRecordsState();
+  State<OvcEnrollmentRecords> createState() => _OvcEnrollmentRecordsState();
 }
 
 class _OvcEnrollmentRecordsState extends State<OvcEnrollmentRecords> {
