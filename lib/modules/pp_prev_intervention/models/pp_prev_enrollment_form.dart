@@ -99,19 +99,6 @@ class PpPrevEnrollmentForm {
             ],
           ),
           InputField(
-            id: 'j5iIE2kifv4',
-            name: 'Client Type',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF9B2BAE),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(code: "F", name: "F"),
-              InputFieldOption(code: "M", name: "M"),
-              InputFieldOption(code: "CF", name: "CF"),
-              InputFieldOption(code: "AGYW", name: "AGYW"),
-            ],
-          ),
-          InputField(
             id: 'tNdoR0jYr7R',
             name: 'Phone number',
             translatedName: 'Nomoro ea mohala',
