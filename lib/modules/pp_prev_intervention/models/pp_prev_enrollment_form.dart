@@ -124,7 +124,100 @@ class PpPrevEnrollmentForm {
             ],
           ),
         ],
-      )
+      ),
+      FormSection(
+        name: "HIV Screening Questions",
+        color: const Color(0xFF9B2BAE),
+        inputFields: [
+          InputField(
+            id: 'agg0eUd8Wwo',
+            name: 'Have you ever been tested for HIV?',
+            translatedName: 'U kile oa hlahlobela HIV?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'ZxXscC5W9qb',
+            name: 'When was the last test?',
+            translatedName: 'Fana ka khoeli le selemo sa tlhatlhobo?',
+            valueType: 'DATE',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'muAZsONb53n',
+            name:
+                'If you don’t mind telling me, what were the results of your last HIV test?',
+            translatedName: 'Na u ka mpolella sephetho sa hau?',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+            options: [
+              InputFieldOption(
+                code: 'Positive',
+                name: 'HIV Positive',
+                translatedName: 'Tsoaetso e teng',
+              ),
+              InputFieldOption(
+                code: 'Negative',
+                name: 'HIV Negative',
+                translatedName: 'Tsoaetso ha e eo',
+              ),
+              InputFieldOption(
+                code: 'Declined to disclose',
+                name: 'Did not disclose',
+                translatedName: 'Ha a bolele',
+              )
+            ],
+          ),
+          InputField(
+            id: 'fSQY2z3L0lp',
+            name: 'Have you ever had sex?',
+            translatedName: 'U kile oa etsa thoabalano?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'qCEK4EQvSbL',
+            name:
+                'In the past 12 months, Have you ever had sex with more than one person?',
+            translatedName: 'U kile oa etsa thoabalano?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'hZxlBQQlYLP',
+            name: 'Have you ever had sex with someone who is HIV+?',
+            translatedName: 'U kile oa etsa thobalano le motho ea HIV+?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'F2OyvIDdUFG',
+            name:
+                'Have you ever had sex with someone that you didn\'t know their HIV status?',
+            translatedName:
+                'U kile oa etsa thobalano le motho eo u sa tsebeng boemo ba hae ba HIV?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'rAFWYJuAxTS',
+            name:
+                'Have you ever had sores or unusual discharge on your genitals?',
+            translatedName:
+                'U kile oa ba le liso kapa u na le liso bothong ba hao kapa lero le sa tloaelehang?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+          ),
+        ],
+      ),
     ];
   }
 }
