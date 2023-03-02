@@ -94,7 +94,6 @@ class DreamsAgywReferralSkipLogic {
         } else if (referralLevel == 'Facility') {
           implementingPartnerHiddenOptions['JHPIEGO'] = true;
           implementingPartnerHiddenOptions['KB-AGYW/DREAMS'] = true;
-          implementingPartnerHiddenOptions['PSI'] = true;
           implementingPartnerHiddenOptions['CoHIP SEC'] = true;
         }
         implementingPartnerHiddenOptions[currentImplementingPartner] = true;
