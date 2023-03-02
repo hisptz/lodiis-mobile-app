@@ -54,6 +54,7 @@ class PpPrevEnrollmentForm {
           InputField(
             id: 'qZP982qpSPS',
             name: 'Date of Birth',
+            minAgeInYear: 15,
             translatedName: 'Letsatsi la tsoalo',
             regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'DATE',

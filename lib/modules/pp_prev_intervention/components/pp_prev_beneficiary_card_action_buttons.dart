@@ -28,7 +28,9 @@ class PpPrevBeneficiaryCardActionButtons extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             InkWell(
-              onTap: () => onOpenServiceForm,
+              onTap: () {
+                onOpenServiceForm!();
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 5.0,
@@ -52,7 +54,9 @@ class PpPrevBeneficiaryCardActionButtons extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () => onOpenReferralForm,
+              onTap: () {
+                onOpenReferralForm!();
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 5.0,
@@ -88,7 +92,9 @@ class PpPrevBeneficiaryCardActionButtons extends StatelessWidget {
                   beneficiaryAge >= 20 &&
                   beneficiaryAge <= 49,
               child: InkWell(
-                onTap: () => onOpenGenderNormsForm,
+                onTap: () {
+                  onOpenGenderNormsForm!();
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     vertical: 5.0,
