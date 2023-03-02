@@ -10,7 +10,9 @@ class OvcCasePlanConstant {
   static const String householdCategorizationSection =
       'house_hold_categorization';
   static const List<String> paralegalServices = [
-    'AaqeRcyjbyS',
+    'AaqeRcyjbyS', // VAC Legal messaging case plan
+    'QDFZ03HbjGj', // VAC Legal messaging service provision
+    'x3FxC6Bw139', // VAC Legal messaging service monitoring
   ];
   static const List<String> casePlanServiceProvisionResults = [
     'gwwUOs6yt6C',
