@@ -38,6 +38,20 @@ class PpPrevServiceFormSkipLogic {
         hiddenFields['LIDzWRHXgIt'] = false;
         hiddenFields['Z4D3jEwXO1I'] = false;
       }
+      if (inputFieldId == 'Nr7UJVA1CZE' && value != 'true') {
+        hiddenFields['mFxyT39XSE4'] = true;
+        hiddenFields['type_of_violence'] = true;
+        hiddenFields['pY4J9Z90qhb'] = true;
+        hiddenFields['action_taken'] = true;
+        hiddenFields['HwGBP9iNl1g'] = true;
+      }
+      if (inputFieldId == 'pY4J9Z90qhb' && value != 'true') {
+        hiddenFields['action_taken'] = true;
+        hiddenFields['HwGBP9iNl1g'] = true;
+      }
+      if (inputFieldId == 'Ma0avVN9N2C' && value != 'true') {
+        hiddenFields['HwGBP9iNl1g'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
