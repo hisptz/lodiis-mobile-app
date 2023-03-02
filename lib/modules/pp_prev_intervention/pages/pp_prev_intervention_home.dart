@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
@@ -13,8 +15,7 @@ import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_enrollment_form.dart';
-import 'package:provider/provider.dart';
-
+import 'pp_prev_gender_norms/pp_prev_intervention_gender_norms_home.dart';
 import 'pp_prev_services/pp_prev_intervention_service_home.dart';
 
 class PpPrevInterventionHome extends StatelessWidget {
@@ -164,7 +165,7 @@ class PpPrevInterventionHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const PpPrevInterventionServiceHome();
+          return const PpPrevInterventionGenderNormsHome();
         },
       ),
     );

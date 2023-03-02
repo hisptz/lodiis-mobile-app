@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -18,34 +22,35 @@ import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_be
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
-import 'package:provider/provider.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_gender_norms/pp_prev_intervention_gender_norms_form.dart';
 
-import 'pp_prev_intervention_service_provision_form.dart';
+class PpPrevInterventionGenderNormsHome extends StatelessWidget {
+  const PpPrevInterventionGenderNormsHome({Key? key}) : super(key: key);
 
-class PpPrevInterventionServiceHome extends StatelessWidget {
-  const PpPrevInterventionServiceHome({Key? key}) : super(key: key);
-  final String label = "PP Prev Service Provision";
+  final String title = 'PP Prev Gender Norms';
 
-  void redirectToPpPrevServiceForm(BuildContext context) {
+  void redirectToPpPrevGenderNormsForm(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const PpPrevInterventionServiceProvisionForm();
+          return const PpPrevInterventionGenderNormsForm();
         },
       ),
     );
   }
 
-  onAddNewPpPrevService(
+  onAddNewPpPrevGenderNorms(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
+    List<Events> allEvents,
   ) async {
     bool isEditableMode = true;
     String? beneficiaryId = ppPrevBeneficiary.id;
     String eventId = '';
     String formAutoSaveId =
-        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
+        "${PpPrevRoutesConstant.genderNormsFormPageModule}_${beneficiaryId}_$eventId";
+    updateFormState(context, isEditableMode, allEvents, null);
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -54,31 +59,32 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      FormUtil.updateServiceFormState(context, isEditableMode, null);
-      redirectToPpPrevServiceForm(context);
+      redirectToPpPrevGenderNormsForm(context);
     }
   }
 
-  onViewPpPrevService(
+  onViewPpPrevGenderNorms(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
     Events eventData,
   ) {
     bool isEditableMode = false;
-    FormUtil.updateServiceFormState(context, isEditableMode, eventData);
-    redirectToPpPrevServiceForm(context);
+    updateFormState(context, isEditableMode, null, eventData);
+    redirectToPpPrevGenderNormsForm(context);
   }
 
-  onEditPpPrevService(
+  onEditPpPrevGenderNorms(
     BuildContext context,
     PpPrevBeneficiary ppPrevBeneficiary,
     Events eventData,
+    List<Events> allEvents,
   ) async {
     bool isEditableMode = true;
     String? beneficiaryId = ppPrevBeneficiary.id;
     String eventId = eventData.event!;
+    updateFormState(context, isEditableMode, allEvents, eventData);
     String formAutoSaveId =
-        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
+        "${PpPrevRoutesConstant.genderNormsFormPageModule}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -87,15 +93,74 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      FormUtil.updateServiceFormState(context, isEditableMode, eventData);
-      redirectToPpPrevServiceForm(context);
+      redirectToPpPrevGenderNormsForm(context);
+    }
+  }
+
+  Map<String?, List<String?>> getSessionsPerIntervention(
+    Events? currentEvent,
+    List<Events>? events,
+  ) {
+    String sessionNumberDataElement = 'vL6NpUA0rIU';
+    List<String> servicesOfConcern = [
+      "fkYHRd1KrWO",
+    ];
+    Map<String?, List<String>> interventionSessions = {};
+
+    String currentEventId =
+        currentEvent != null ? currentEvent.event ?? '' : '';
+    (events ?? [])
+        .removeWhere((eventData) => eventData.event == currentEventId);
+
+    for (Events event in (events ?? [])) {
+      Map<String, String> data = {};
+      for (Map dataValues in (event.dataValues ?? [])) {
+        String? dataElement = dataValues['dataElement'];
+        if (dataElement != null &&
+            [sessionNumberDataElement, ...servicesOfConcern]
+                .contains(dataElement)) {
+          data[dataElement] = '${dataValues['value']}'.trim();
+        }
+      }
+      var sessionNumber = data[sessionNumberDataElement] ?? '';
+      for (var dataElement in servicesOfConcern) {
+        if (data[dataElement]!.isNotEmpty && data[dataElement] != 'null') {
+          interventionSessions[dataElement] = [
+            ...(interventionSessions[dataElement] ?? []),
+            sessionNumber,
+          ];
+        }
+      }
+    }
+
+    return interventionSessions;
+  }
+
+  void updateFormState(
+    BuildContext context,
+    bool isEditableMode,
+    List<Events>? events,
+    Events? currentEvent,
+  ) {
+    FormUtil.updateServiceFormState(context, isEditableMode, currentEvent);
+    Map<String?, List<String?>> interventionSessions =
+        getSessionsPerIntervention(currentEvent, events);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('interventionSessions', interventionSessions);
+    if (isEditableMode) {
+      var currentUser =
+          Provider.of<CurrentUserState>(context, listen: false).currentUser;
+      var currentUserName = currentUser!.name;
+      String youthMentorNameField = 'W79837fEI3C';
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState(youthMentorNameField, currentUserName);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     List<String> programStageIds = [
-      PpPrevInterventionConstant.servicesProgramStage
+      PpPrevInterventionConstant.genderNormsProgramStage
     ];
     return SafeArea(
       child: Scaffold(
@@ -106,7 +171,7 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
               InterventionCard activeInterventionProgram =
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
-                label: label,
+                label: title,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -114,11 +179,11 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
         ),
         body: SubPageBody(
           body: Consumer<PpPrevInterventionCurrentSelectionState>(
-            builder: (context, dreamBeneficiarySelectionState, child) {
+            builder: (context, ppPrevInterventionCurrentSelectionState, child) {
               return Consumer<ServiceEventDataState>(
                 builder: (context, serviceEventDataState, child) {
                   PpPrevBeneficiary? ppPrevBeneficiary =
-                      dreamBeneficiarySelectionState.currentPpPrev;
+                      ppPrevInterventionCurrentSelectionState.currentPpPrev;
                   bool isLoading = serviceEventDataState.isLoading;
                   Map<String?, List<Events>> eventListByProgramStage =
                       serviceEventDataState.eventListByProgramStage;
@@ -145,7 +210,7 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                                     ),
                                     child: events.isEmpty
                                         ? const Text(
-                                            'There is no Services at a moment',
+                                            'There is no Gender Norms services at a moment',
                                           )
                                         : Container(
                                             margin: const EdgeInsets.symmetric(
@@ -159,29 +224,36 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                                                 return PpPrevServiceVisitCard(
                                                   eventData: eventData,
                                                   visitName:
-                                                      "Service $serviceIndex",
+                                                      "Gender norms Service $serviceIndex",
                                                   onEdit: () =>
-                                                      onEditPpPrevService(
-                                                          context,
-                                                          ppPrevBeneficiary,
-                                                          eventData),
+                                                      onEditPpPrevGenderNorms(
+                                                    context,
+                                                    ppPrevBeneficiary,
+                                                    eventData,
+                                                    events,
+                                                  ),
                                                   onView: () =>
-                                                      onViewPpPrevService(
-                                                          context,
-                                                          ppPrevBeneficiary,
-                                                          eventData),
+                                                      onViewPpPrevGenderNorms(
+                                                    context,
+                                                    ppPrevBeneficiary,
+                                                    eventData,
+                                                  ),
                                                 );
                                               }).toList(),
                                             ),
                                           ),
                                   ),
                                   EntryFormSaveButton(
-                                    label: 'ADD Service',
+                                    label: 'ADD Gender Norms',
                                     labelColor: Colors.white,
                                     buttonColor: const Color(0xFF9B2BAE),
                                     fontSize: 15.0,
-                                    onPressButton: () => onAddNewPpPrevService(
-                                        context, ppPrevBeneficiary),
+                                    onPressButton: () =>
+                                        onAddNewPpPrevGenderNorms(
+                                      context,
+                                      ppPrevBeneficiary,
+                                      events,
+                                    ),
                                   )
                                 ],
                               ),
