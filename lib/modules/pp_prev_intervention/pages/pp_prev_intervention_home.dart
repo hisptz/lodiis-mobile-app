@@ -13,8 +13,9 @@ import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_enrollment_form.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_service_home.dart';
 import 'package:provider/provider.dart';
+
+import 'pp_prev_services/pp_prev_intervention_service_home.dart';
 
 class PpPrevInterventionHome extends StatelessWidget {
   const PpPrevInterventionHome({Key? key}) : super(key: key);
@@ -133,6 +134,42 @@ class PpPrevInterventionHome extends StatelessWidget {
     );
   }
 
+  void onOpenBeneficiaryReferrals(
+    BuildContext context,
+    PpPrevBeneficiary ppPrevBeneficiary,
+  ) {
+    Provider.of<PpPrevInterventionCurrentSelectionState>(context, listen: false)
+        .setCurrentAgywDream(ppPrevBeneficiary);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ppPrevBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const PpPrevInterventionServiceHome();
+        },
+      ),
+    );
+  }
+
+  void onOpenBeneficiaryGenderNorms(
+    BuildContext context,
+    PpPrevBeneficiary ppPrevBeneficiary,
+  ) {
+    Provider.of<PpPrevInterventionCurrentSelectionState>(context, listen: false)
+        .setCurrentAgywDream(ppPrevBeneficiary);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ppPrevBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const PpPrevInterventionServiceHome();
+        },
+      ),
+    );
+  }
+
   Consumer<PpPrevInterventionState> _buildBody() {
     return Consumer<PpPrevInterventionState>(
       builder: (context, ppPrevInterventionState, child) {
@@ -152,6 +189,14 @@ class PpPrevInterventionHome extends StatelessWidget {
                 ppPrevBeneficiary,
               ),
               onOpenBeneficiaryServices: () => onOpenBeneficiaryServices(
+                context,
+                ppPrevBeneficiary,
+              ),
+              onOpenBeneficiaryGenderNorms: () => onOpenBeneficiaryGenderNorms(
+                context,
+                ppPrevBeneficiary,
+              ),
+              onOpenBeneficiaryReferrals: () => onOpenBeneficiaryReferrals(
                 context,
                 ppPrevBeneficiary,
               ),
