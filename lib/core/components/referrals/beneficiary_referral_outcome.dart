@@ -23,7 +23,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     required this.labelColor,
     required this.onEditReferralOutcome,
     required this.referralOutcomeFollowingUpProgramStage,
-    required this.referralOutcomeFollowingUplinkage,
+    required this.referralOutcomeFollowingUpLinkage,
     required this.beneficiary,
     required this.enrollmentOuAccessible,
     required this.referralProgram,
@@ -37,7 +37,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
   final ReferralOutcomeEvent referralOutcomeEvent;
   final Color labelColor;
   final String referralOutcomeFollowingUpProgramStage;
-  final String referralOutcomeFollowingUplinkage;
+  final String referralOutcomeFollowingUpLinkage;
   final TrackedEntityInstance beneficiary;
   final bool enrollmentOuAccessible;
   final String referralProgram;
@@ -62,7 +62,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('location', location);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        referralOutcomeFollowingUplinkage,
+        referralOutcomeFollowingUpLinkage,
         referralOutcomeEvent.referralFollowUpReference);
     if (referralOutcomeFollowUpEvent != null) {
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
@@ -88,7 +88,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     updateFormState(context, referralOutcomeFollowUpEvent);
     double modalRatio = 0.65;
     Widget modal = BeneficiaryReferralFollowUpModal(
-      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       formSections: isOvcIntervention
           ? OvcReferralFollowUp.getFormSections(
               firstDate: referralOutcomeEvent.dateClientReachStation!,
@@ -97,7 +97,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
               firstDate: referralOutcomeEvent.dateClientReachStation!,
             ),
       hiddenFields: [
-        referralOutcomeFollowingUplinkage,
+        referralOutcomeFollowingUpLinkage,
       ],
       mandatoryFields: isOvcIntervention
           ? OvcReferralFollowUp.getMandatoryFields()
@@ -270,7 +270,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
       ReferralOutcomeFollowUpEvent referralOutcomeFollowUpEvent =
           ReferralOutcomeFollowUpEvent().fromTeiModel(
         eventData: eventData,
-        referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+        referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       );
       return referralOutcomeFollowUpEvent.referralReference ==
           referralOutcomeEvent.referralFollowUpReference;
@@ -278,7 +278,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     return events
         .map((Events eventData) => ReferralOutcomeFollowUpEvent().fromTeiModel(
               eventData: eventData,
-              referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+              referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
             ))
         .toList();
   }
