@@ -140,44 +140,48 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
           ),
           child: _getReferralOutcomeDetails(),
         ),
-        Consumer<ServiceEventDataState>(
-          builder: (context, serviceEventDataState, child) {
-            List<ReferralOutcomeFollowUpEvent> referralOutcomeFollowUpEvents =
-                _getReferralOutcomFollowUps(
-                    eventListByProgramStage:
-                        serviceEventDataState.eventListByProgramStage);
-            List<ReferralOutcomeFollowUpEvent> completedReferrals =
-                referralOutcomeFollowUpEvents
-                    .where((followUp) => followUp.isCompleted!)
-                    .toList();
-            return Column(
-              children: [
-                Visibility(
-                  visible: referralOutcomeFollowUpEvents.isNotEmpty,
-                  child: BeneficiaryReferralFollowUpContainer(
-                    valueColor: valueColor,
-                    isOnEditMode: isOnEditMode,
-                    referralOutcomeFollowUpEvents:
-                        referralOutcomeFollowUpEvents,
-                    labelColor: labelColor,
-                    onEditReferralFollowUp: (ReferralOutcomeFollowUpEvent
-                            referralOutcomeFollowUpEvent) =>
-                        onAddOrEditReferralFollowUp(
-                            context, referralOutcomeFollowUpEvent),
+        Visibility(
+          visible: referralOutcomeFollowingUpProgramStage.isNotEmpty &&
+              referralOutcomeFollowingUpLinkage.isNotEmpty,
+          child: Consumer<ServiceEventDataState>(
+            builder: (context, serviceEventDataState, child) {
+              List<ReferralOutcomeFollowUpEvent> referralOutcomeFollowUpEvents =
+                  _getReferralOutcomFollowUps(
+                      eventListByProgramStage:
+                          serviceEventDataState.eventListByProgramStage);
+              List<ReferralOutcomeFollowUpEvent> completedReferrals =
+                  referralOutcomeFollowUpEvents
+                      .where((followUp) => followUp.isCompleted!)
+                      .toList();
+              return Column(
+                children: [
+                  Visibility(
+                    visible: referralOutcomeFollowUpEvents.isNotEmpty,
+                    child: BeneficiaryReferralFollowUpContainer(
+                      valueColor: valueColor,
+                      isOnEditMode: isOnEditMode,
+                      referralOutcomeFollowUpEvents:
+                          referralOutcomeFollowUpEvents,
+                      labelColor: labelColor,
+                      onEditReferralFollowUp: (ReferralOutcomeFollowUpEvent
+                              referralOutcomeFollowUpEvent) =>
+                          onAddOrEditReferralFollowUp(
+                              context, referralOutcomeFollowUpEvent),
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: referralOutcomeEvent.requiredFollowUp! &&
-                      completedReferrals.isEmpty &&
-                      isOnEditMode,
-                  child: Visibility(
-                    visible: referralOutcomeEvent.referralServiceProvided!,
-                    child: _getAddFollowUpButton(context),
+                  Visibility(
+                    visible: referralOutcomeEvent.requiredFollowUp! &&
+                        completedReferrals.isEmpty &&
+                        isOnEditMode,
+                    child: Visibility(
+                      visible: referralOutcomeEvent.referralServiceProvided!,
+                      child: _getAddFollowUpButton(context),
+                    ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         )
       ],
     );

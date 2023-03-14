@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_referral/pp_prev_intervention_referral_home.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
@@ -147,7 +148,7 @@ class PpPrevInterventionHome extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const PpPrevInterventionServiceHome();
+          return const PpPrevInterventionReferralHome();
         },
       ),
     );
