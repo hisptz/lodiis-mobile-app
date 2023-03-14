@@ -50,6 +50,12 @@ class AppResumeRoute
         PpPrevRoutesConstant.genderNormsFormPageModule) {
       redirectToPpPrevGenderNormsForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
+        PpPrevRoutesConstant.referralFormPageModule) {
+      redirectToPpPrevReferralForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        PpPrevRoutesConstant.referralOutcomeFormPageModule) {
+      redirectToPpPrevReferralOutcomeForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
         BursaryRoutesConstant.assessmentPageModule) {
       redirectToBursaryAssessment(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
