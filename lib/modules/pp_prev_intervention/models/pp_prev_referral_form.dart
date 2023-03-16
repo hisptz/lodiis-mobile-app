@@ -74,11 +74,7 @@ class PpPrevReferralForm {
                 name: 'JHPIEGO',
               ),
               InputFieldOption(
-                code: 'KBPrEP',
-                name: 'KBPrEP',
-              ),
-              InputFieldOption(
-                code: 'CoHIPSEC',
+                code: 'CoHIP SEC',
                 name: 'CoHIP SEC',
               ),
               InputFieldOption(
@@ -88,11 +84,20 @@ class PpPrevReferralForm {
             ],
           ),
           InputField(
+            id: 'ud6oZeP3SKv',
+            name: 'Specify other',
+            inputColor: const Color(0xFF9B2BAE),
+            labelColor: const Color(0xFF737373),
+            valueType: 'TEXT',
+          ),
+          InputField(
             id: 'k3nt1Qkxat0',
             name: 'Location',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'ORGANISATION_UNIT',
+            showCountryLevelTree: true,
+            allowedSelectedLevels: [3, 4],
           ),
         ],
       ),
