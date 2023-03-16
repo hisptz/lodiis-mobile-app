@@ -67,19 +67,4 @@ class PpPrevRoute {
       ),
     );
   }
-
-  redirectToPpPrevReferralOutcomeForm(
-    BuildContext context,
-    FormAutoSave formAutoSave,
-  ) {
-    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return const PpPrevInterventionReferralOutcomeForm();
-        },
-      ),
-    );
-  }
 }

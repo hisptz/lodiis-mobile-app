@@ -10,26 +10,26 @@ import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
 import 'package:provider/provider.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
-import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
-import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
-import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_referral_outcome_form.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/skip_logics/pp_prev_referral_outcome_form_skip_logic.dart';
 
 class PpPrevInterventionReferralOutcomeForm extends StatefulWidget {
-  const PpPrevInterventionReferralOutcomeForm({Key? key}) : super(key: key);
+  const PpPrevInterventionReferralOutcomeForm({
+    Key? key,
+    required this.referralOutcomeLinkage,
+  }) : super(key: key);
+
+  final String referralOutcomeLinkage;
 
   @override
   State<PpPrevInterventionReferralOutcomeForm> createState() =>
@@ -131,7 +131,6 @@ class _PpPrevInterventionReferralOutcomeFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    PpPrevBeneficiary ppPrevBeneficiary,
   ) async {
     bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
@@ -141,15 +140,19 @@ class _PpPrevInterventionReferralOutcomeFormState
     );
 
     if (hadAllMandatoryFilled) {
+      PpPrevBeneficiary beneficiary =
+          Provider.of<PpPrevInterventionCurrentSelectionState>(context,
+                  listen: false)
+              .currentPpPrev!;
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {
           isSaving = true;
         });
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
-        List<String> hiddenFields = [];
-        String orgUnit = dataObject['location'] ?? ppPrevBeneficiary.orgUnit;
-        // TODO add linkage
+        List<String> hiddenFields = [widget.referralOutcomeLinkage];
+        String orgUnit = dataObject['location'] ?? beneficiary.orgUnit;
+
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PpPrevInterventionConstant.program,
@@ -158,12 +161,13 @@ class _PpPrevInterventionReferralOutcomeFormState
             formSections!,
             dataObject,
             eventDate,
-            ppPrevBeneficiary.id,
+            beneficiary.id,
             eventId,
             hiddenFields,
-          );
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(ppPrevBeneficiary.id);
+          ).then((_) =>
+              Provider.of<ServiceEventDataState>(context, listen: false)
+                  .resetServiceEventDataState(beneficiary.id));
+
           Timer(const Duration(seconds: 1), () {
             setState(() {
               String? currentLanguage =
@@ -177,7 +181,7 @@ class _PpPrevInterventionReferralOutcomeFormState
               );
               clearFormAutoSaveState(
                 context,
-                ppPrevBeneficiary.id,
+                beneficiary.id,
                 eventId ?? '',
               );
               Navigator.pop(context);
@@ -207,99 +211,63 @@ class _PpPrevInterventionReferralOutcomeFormState
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
-        ),
-        body: SubPageBody(
-          body: Consumer<LanguageTranslationState>(
-              builder: (context, languageTranslationState, child) {
-            String? currentLanguage = languageTranslationState.currentLanguage;
-            return Consumer<PpPrevInterventionCurrentSelectionState>(
-              builder:
-                  (context, ppPrevInterventionCurrentSelectionState, child) {
-                return Consumer<ServiceFormState>(
-                  builder: (context, serviceFormState, child) {
-                    PpPrevBeneficiary? ppPrevBeneficiary =
-                        ppPrevInterventionCurrentSelectionState.currentPpPrev;
-                    return Column(
-                      children: [
-                        PpPrevBeneficiaryTopHeader(
-                          ppPrevBeneficiary: ppPrevBeneficiary!,
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: 20.0,
+        horizontal: 13.0,
+      ),
+      child: !isFormReady
+          ? const CircularProcessLoader(
+              color: Colors.blueGrey,
+            )
+          : Consumer<ServiceFormState>(
+              builder: (context, serviceFormState, child) {
+                return Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 10.0,
+                        left: 13.0,
+                        right: 13.0,
+                      ),
+                      child: EntryFormContainer(
+                        hiddenFields: serviceFormState.hiddenFields,
+                        hiddenInputFieldOptions:
+                            serviceFormState.hiddenInputFieldOptions,
+                        hiddenSections: serviceFormState.hiddenSections,
+                        formSections: formSections,
+                        mandatoryFieldObject: mandatoryFieldObject,
+                        unFilledMandatoryFields: unFilledMandatoryFields,
+                        isEditableMode: serviceFormState.isEditableMode,
+                        dataObject: serviceFormState.formState,
+                        onInputValueChange: onInputValueChange,
+                      ),
+                    ),
+                    Consumer<LanguageTranslationState>(
+                        builder: (context, languageTranslationState, child) {
+                      return Visibility(
+                        visible: serviceFormState.isEditableMode,
+                        child: EntryFormSaveButton(
+                          label: isSaving
+                              ? 'Saving ...'
+                              : languageTranslationState.currentLanguage ==
+                                      'lesotho'
+                                  ? 'Boloka'
+                                  : 'Save',
+                          labelColor: Colors.white,
+                          buttonColor: const Color(0xFF9B2BAE),
+                          fontSize: 15.0,
+                          onPressButton: () => onSaveForm(
+                            context,
+                            serviceFormState.formState,
+                          ),
                         ),
-                        Container(
-                          child: !isFormReady
-                              ? const CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                )
-                              : Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                        top: 10.0,
-                                        left: 13.0,
-                                        right: 13.0,
-                                      ),
-                                      child: EntryFormContainer(
-                                        hiddenFields:
-                                            serviceFormState.hiddenFields,
-                                        hiddenInputFieldOptions:
-                                            serviceFormState
-                                                .hiddenInputFieldOptions,
-                                        hiddenSections:
-                                            serviceFormState.hiddenSections,
-                                        formSections: formSections,
-                                        mandatoryFieldObject:
-                                            mandatoryFieldObject,
-                                        unFilledMandatoryFields:
-                                            unFilledMandatoryFields,
-                                        isEditableMode:
-                                            serviceFormState.isEditableMode,
-                                        dataObject: serviceFormState.formState,
-                                        onInputValueChange: onInputValueChange,
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: serviceFormState.isEditableMode,
-                                      child: EntryFormSaveButton(
-                                        label: isSaving
-                                            ? 'Saving ...'
-                                            : currentLanguage == 'lesotho'
-                                                ? 'Boloka'
-                                                : 'Save',
-                                        labelColor: Colors.white,
-                                        buttonColor: const Color(0xFF9B2BAE),
-                                        fontSize: 15.0,
-                                        onPressButton: () => onSaveForm(
-                                          context,
-                                          serviceFormState.formState,
-                                          ppPrevBeneficiary,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                        ),
-                      ],
-                    );
-                  },
+                      );
+                    }),
+                  ],
                 );
               },
-            );
-          }),
-        ),
-      ),
+            ),
     );
   }
 }

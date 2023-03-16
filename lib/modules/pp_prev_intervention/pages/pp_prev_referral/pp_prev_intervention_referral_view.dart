@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
-import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_referral/pp_prev_referral_card_container.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -36,37 +37,59 @@ class PpPrevInterventionReferralView extends StatelessWidget {
           },
         ),
       ),
-      body: Consumer<PpPrevInterventionCurrentSelectionState>(
-          builder: (context, pPrevBeneficiarySelectionState, child) {
-        var ppPrevBeneficiary = pPrevBeneficiarySelectionState.currentPpPrev!;
-        return Container(
-          margin: const EdgeInsets.symmetric(
-            vertical: 15.0,
-            horizontal: 13.0,
-          ),
-          child: BeneficiaryReferralCardContainer(
-            referralIndex: referralIndex,
-            titleColor: PpPrevInterventionConstant.referralCardTitleColor,
-            labelColor: PpPrevInterventionConstant.labelColor,
-            valueColor: PpPrevInterventionConstant.referralCardValueColor,
-            themeColor: PpPrevInterventionConstant.inputColor,
-            referralEventData: eventData,
-            referralOutcomeProgramStage:
-                PpPrevInterventionConstant.referralOutcomeProgramStage,
-            referralOutcomeLinkage:
-                PpPrevInterventionConstant.referralOutcomeLinkage,
-            beneficiary: ppPrevBeneficiary.trackedEntityInstanceData!,
-            enrollmentOuAccessible: ppPrevBeneficiary.enrollmentOuAccessible!,
-            referralProgram: PpPrevInterventionConstant.program,
-            isOvcIntervention: false,
-            isIncomingReferral: true,
-            isOnViewOrManage: true,
-            onManage: () {},
-            onView: () => {},
-            onEditReferral: () {},
-          ),
-        );
-      }),
+      body: Consumer<InterventionCardState>(
+        builder: (context, interventionCardState, child) {
+          InterventionCard activeInterventionProgram =
+              interventionCardState.currentInterventionProgram;
+          return Consumer<PpPrevInterventionCurrentSelectionState>(
+            builder: (context, pPrevBeneficiarySelectionState, child) {
+              var ppPrevBeneficiary =
+                  pPrevBeneficiarySelectionState.currentPpPrev;
+              return Container(
+                decoration: BoxDecoration(
+                  color: activeInterventionProgram.background,
+                ),
+                child: Column(
+                  children: [
+                    PpPrevBeneficiaryTopHeader(
+                      ppPrevBeneficiary: ppPrevBeneficiary!,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 15.0,
+                        horizontal: 13.0,
+                      ),
+                      child: PpPrevReferralCardContainer(
+                        referralIndex: referralIndex,
+                        titleColor:
+                            PpPrevInterventionConstant.referralCardTitleColor,
+                        labelColor: PpPrevInterventionConstant.labelColor,
+                        valueColor:
+                            PpPrevInterventionConstant.referralCardValueColor,
+                        themeColor: PpPrevInterventionConstant.inputColor,
+                        referralEventData: eventData,
+                        referralOutcomeProgramStage: PpPrevInterventionConstant
+                            .referralOutcomeProgramStage,
+                        referralOutcomeLinkage:
+                            PpPrevInterventionConstant.referralOutcomeLinkage,
+                        beneficiary: ppPrevBeneficiary,
+                        enrollmentOuAccessible:
+                            ppPrevBeneficiary.enrollmentOuAccessible!,
+                        referralProgram: PpPrevInterventionConstant.program,
+                        canEdit: false,
+                        isOnView: true,
+                        onManage: () {},
+                        onView: () => {},
+                        onEditReferral: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

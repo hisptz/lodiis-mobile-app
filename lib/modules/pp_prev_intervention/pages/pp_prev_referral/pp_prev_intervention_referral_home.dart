@@ -5,7 +5,6 @@ import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_car
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
@@ -17,6 +16,7 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_referral/pp_prev_referral_card_container.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_referral/pp_prev_intervention_referral_form.dart';
@@ -167,7 +167,7 @@ class PpPrevInterventionReferralHome extends StatelessWidget {
                                               children: events.map(
                                                   (Events referralEventData) {
                                                 serviceIndex--;
-                                                return BeneficiaryReferralCardContainer(
+                                                return PpPrevReferralCardContainer(
                                                   referralIndex: serviceIndex,
                                                   titleColor:
                                                       PpPrevInterventionConstant
@@ -189,24 +189,21 @@ class PpPrevInterventionReferralHome extends StatelessWidget {
                                                   referralOutcomeLinkage:
                                                       PpPrevInterventionConstant
                                                           .referralOutcomeLinkage,
-                                                  beneficiary: ppPrevBeneficiary
-                                                      .trackedEntityInstanceData!,
-                                                  isIncomingReferral: true,
+                                                  beneficiary:
+                                                      ppPrevBeneficiary,
                                                   enrollmentOuAccessible:
                                                       ppPrevBeneficiary
                                                           .enrollmentOuAccessible!,
                                                   referralProgram:
                                                       PpPrevInterventionConstant
                                                           .program,
-                                                  isOvcIntervention: false,
                                                   onManage: () =>
                                                       onManageReferral(
                                                     context,
                                                     referralEventData,
                                                     serviceIndex,
                                                   ),
-                                                  onView: () =>
-                                                      onManageReferral(
+                                                  onView: () => onViewReferral(
                                                     context,
                                                     referralEventData,
                                                     serviceIndex,

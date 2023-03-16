@@ -149,7 +149,7 @@ class _PpPrevInterventionReferralFormState
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
         String orgUnit = dataObject['location'] ?? ppPrevBeneficiary.orgUnit;
-        // TODO add linkage
+
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             PpPrevInterventionConstant.program,
