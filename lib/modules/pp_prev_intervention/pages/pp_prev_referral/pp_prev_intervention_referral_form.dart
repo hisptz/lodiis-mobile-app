@@ -76,6 +76,11 @@ class _PpPrevInterventionReferralFormState
         Provider.of<ImplementingPartnerReferralServiceState>(context,
                 listen: false)
             .implementingPartnerServices;
+
+    PpPrevBeneficiary currentPpPrev =
+        Provider.of<PpPrevInterventionCurrentSelectionState>(context,
+                listen: false)
+            .currentPpPrev!;
     Timer(
       const Duration(milliseconds: 200),
       () async {
@@ -86,6 +91,7 @@ class _PpPrevInterventionReferralFormState
           formSections!,
           dataObject,
           implementingPartnerReferralServices,
+          currentPpPrev,
         );
       },
     );
