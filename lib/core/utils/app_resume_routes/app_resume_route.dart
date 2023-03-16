@@ -47,6 +47,12 @@ class AppResumeRoute
         PpPrevRoutesConstant.serviceFormPageModule) {
       redirectToPpPrevServiceForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
+        PpPrevRoutesConstant.genderNormsFormPageModule) {
+      redirectToPpPrevGenderNormsForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        PpPrevRoutesConstant.referralFormPageModule) {
+      redirectToPpPrevReferralForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
         BursaryRoutesConstant.assessmentPageModule) {
       redirectToBursaryAssessment(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==

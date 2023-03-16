@@ -172,6 +172,7 @@ class OvcEnrollmentHousehold {
             translatedName:
                 "Haeba a noa litlhare, Setsi sa bophelo moo mohlokomeli a fumanang litlhare tsa ART ke se fe?",
             allowedSelectedLevels: [4],
+            showCountryLevelTree: true,
             valueType: 'ORGANISATION_UNIT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373),

@@ -217,7 +217,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                   children: events.map((Events
                                                       referralEventData) {
                                                     int count = referralIndex--;
-                                                    return BeneficiaryRefereralCardContainer(
+                                                    return BeneficiaryReferralCardContainer(
                                                       referralIndex: count,
                                                       titleColor:
                                                           AgywDreamsCommonConstant
@@ -242,7 +242,7 @@ class _DreamsAgywReferralPageState extends State<DreamsAgywReferralPage> {
                                                       referralOutcomeLinkage:
                                                           DreamsAgywReferralConstant
                                                               .referralToOutcomeLinkage,
-                                                      referralOutcomeFollowingUplinkage:
+                                                      referralOutcomeFollowingUpLinkage:
                                                           DreamsAgywReferralConstant
                                                               .referralToFollowUpLinkage,
                                                       isIncomingReferral: widget

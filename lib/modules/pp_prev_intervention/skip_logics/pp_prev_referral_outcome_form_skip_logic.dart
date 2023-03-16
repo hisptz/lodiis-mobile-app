@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:provider/provider.dart';
 
-class PpPrevServiceFormSkipLogic {
+class PpPrevReferralOutcomeFormSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
 
@@ -23,19 +24,17 @@ class PpPrevServiceFormSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if (inputFieldId == 'Nr7UJVA1CZE' && value != 'true') {
-        hiddenFields['mFxyT39XSE4'] = true;
-        hiddenFields['type_of_violence'] = true;
-        hiddenFields['pY4J9Z90qhb'] = true;
-        hiddenFields['action_taken'] = true;
-        hiddenFields['HwGBP9iNl1g'] = true;
-      }
-      if (inputFieldId == 'pY4J9Z90qhb' && value != 'true') {
-        hiddenFields['action_taken'] = true;
-        hiddenFields['HwGBP9iNl1g'] = true;
-      }
-      if (inputFieldId == 'Ma0avVN9N2C' && value != 'true') {
-        hiddenFields['HwGBP9iNl1g'] = true;
+      if (inputFieldId == 'hXyqgOWZ17b') {
+        if (value != 'true') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+        }
+        if (value != 'false') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        }
+      } else if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
+      } else if (inputFieldId == 'Ep3atnNQGTY' && value != 'true') {
+        hiddenFields['DPf5mUDoZMy'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

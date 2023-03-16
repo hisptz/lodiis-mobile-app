@@ -289,6 +289,7 @@ class OvcEnrollmentChild {
               InputField(
                 id: 'iBws3HMjiUT',
                 name: 'Facility obtaining ART',
+                showCountryLevelTree: true,
                 translatedName:
                     'Setsi seo ngoana a fumanang litlhare ART ke se fe?',
                 allowedSelectedLevels: [4],
@@ -449,6 +450,7 @@ class OvcEnrollmentChild {
                 'Setsi sa bophelo moo ntate a fumanang litlhare tsa ART ke se fe?',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [4],
+            showCountryLevelTree: true,
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
           ),
@@ -553,6 +555,7 @@ class OvcEnrollmentChild {
                 "Setsi sa bophelo moo 'm'e a fumanang litlhare tsa ART ke se fe?",
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [4],
+            showCountryLevelTree: true,
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
           ),
