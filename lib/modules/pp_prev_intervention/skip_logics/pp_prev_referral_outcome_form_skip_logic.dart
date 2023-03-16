@@ -23,6 +23,19 @@ class PpPrevReferralOutcomeFormSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+
+      if (inputFieldId == 'hXyqgOWZ17b') {
+        if (value != 'true') {
+          hiddenFields['lvT9gfpHIlT'] = true;
+        }
+        if (value != 'false') {
+          hiddenFields['gEjigBuBTmh'] = true;
+        }
+      } else if (inputFieldId == 'gEjigBuBTmh' && value != 'Other(s)') {
+        hiddenFields['oTTL6vEpKok'] = true;
+      } else if (inputFieldId == 'Ep3atnNQGTY' && value != 'true') {
+        hiddenFields['DPf5mUDoZMy'] = true;
+      }
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
