@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BeneficiaryRefereralCardButton extends StatelessWidget {
-  const BeneficiaryRefereralCardButton({
+class BeneficiaryReferralCardButton extends StatelessWidget {
+  const BeneficiaryReferralCardButton({
     Key? key,
     required this.themeColor,
     required this.onManage,

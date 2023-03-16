@@ -3,8 +3,8 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:provider/provider.dart';
 
-class BeneficiaryRefereralCardBody extends StatelessWidget {
-  const BeneficiaryRefereralCardBody({
+class BeneficiaryReferralCardBody extends StatelessWidget {
+  const BeneficiaryReferralCardBody({
     Key? key,
     required this.referralEvent,
     required this.labelColor,

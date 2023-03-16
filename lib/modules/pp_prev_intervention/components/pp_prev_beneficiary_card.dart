@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_st
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card_action_buttons.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card_body.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card_top.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +15,16 @@ class PpPrevBeneficiaryCard extends StatelessWidget {
     this.onViewBeneficiary,
     this.onEditBeneficiary,
     this.onOpenBeneficiaryServices,
+    this.onOpenBeneficiaryReferrals,
+    this.onOpenBeneficiaryGenderNorms,
   }) : super(key: key);
 
   final PpPrevBeneficiary ppPrevBeneficiary;
   final VoidCallback? onViewBeneficiary;
   final VoidCallback? onEditBeneficiary;
   final VoidCallback? onOpenBeneficiaryServices;
+  final VoidCallback? onOpenBeneficiaryReferrals;
+  final VoidCallback? onOpenBeneficiaryGenderNorms;
 
   bool _syncStatusOfPpPrev(
     PpPrevBeneficiary ppPrevBeneficiary,
@@ -66,16 +71,11 @@ class PpPrevBeneficiaryCard extends StatelessWidget {
                   LineSeparator(
                     color: const Color(0xFF9B2BAE).withOpacity(0.4),
                   ),
-                  MaterialButton(
-                    onPressed: onOpenBeneficiaryServices,
-                    child: Text(
-                      'Services',
-                      style: const TextStyle().copyWith(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.normal,
-                        color: const Color(0xFF9B2BAE),
-                      ),
-                    ),
+                  PpPrevBeneficiaryCardActionButtons(
+                    ppPrevBeneficiary: ppPrevBeneficiary,
+                    onOpenServiceForm: onOpenBeneficiaryServices,
+                    onOpenReferralForm: onOpenBeneficiaryReferrals,
+                    onOpenGenderNormsForm: onOpenBeneficiaryGenderNorms,
                   )
                 ],
               )

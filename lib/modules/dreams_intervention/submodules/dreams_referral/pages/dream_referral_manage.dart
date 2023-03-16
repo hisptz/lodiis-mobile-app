@@ -105,7 +105,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                     vertical: 15.0,
                     horizontal: 13.0,
                   ),
-                  child: BeneficiaryRefereralCardContainer(
+                  child: BeneficiaryReferralCardContainer(
                     referralIndex: widget.referralIndex,
                     titleColor: AgywDreamsCommonConstant.referralCardTitleColor,
                     labelColor: AgywDreamsCommonConstant.referralCardLabelColor,
@@ -122,7 +122,7 @@ class _DreamsReferralManageState extends State<DreamsReferralManage> {
                         DreamsAgywReferralConstant.referralFollowUpStage,
                     referralOutcomeLinkage:
                         DreamsAgywReferralConstant.referralToOutcomeLinkage,
-                    referralOutcomeFollowingUplinkage:
+                    referralOutcomeFollowingUpLinkage:
                         DreamsAgywReferralConstant.referralToFollowUpLinkage,
                     referralEventData: widget.eventData,
                     isIncomingReferral: widget.isIncomingReferral,

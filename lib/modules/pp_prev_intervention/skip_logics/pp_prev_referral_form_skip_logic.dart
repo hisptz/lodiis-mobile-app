@@ -1,41 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:provider/provider.dart';
 
-class PpPrevServiceFormSkipLogic {
+class PpPrevReferralFormSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
+  static Map hiddenInputFieldOptions = {};
 
   static Future evaluateSkipLogics(
     BuildContext context,
     List<FormSection> formSections,
     Map dataObject,
+    Map<String, dynamic> implementingPartnerReferralServices,
+    PpPrevBeneficiary currentPpPrev,
   ) async {
     hiddenFields.clear();
     hiddenSections.clear();
+    hiddenInputFieldOptions.clear();
+
+    var sex = currentPpPrev.sex;
+
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
+
+    // TODO hide service by gender
+    Map hiddenServicesByGender = {};
+    if (sex == 'Male') {
+      hiddenServicesByGender['FP_SRH'] = true;
+    } else if (sex == 'Female') {
+      hiddenServicesByGender['VMMC'] = true;
+    }
+    hiddenInputFieldOptions['IEdBgx4vn1J'] = hiddenServicesByGender;
+
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-
-      if (inputFieldId == 'Nr7UJVA1CZE' && value != 'true') {
-        hiddenFields['mFxyT39XSE4'] = true;
-        hiddenFields['type_of_violence'] = true;
-        hiddenFields['pY4J9Z90qhb'] = true;
-        hiddenFields['action_taken'] = true;
-        hiddenFields['HwGBP9iNl1g'] = true;
-      }
-      if (inputFieldId == 'pY4J9Z90qhb' && value != 'true') {
-        hiddenFields['action_taken'] = true;
-        hiddenFields['HwGBP9iNl1g'] = true;
-      }
-      if (inputFieldId == 'Ma0avVN9N2C' && value != 'true') {
-        hiddenFields['HwGBP9iNl1g'] = true;
+      if (inputFieldId == 'IEdBgx4vn1J' && value.isNotEmpty) {
+        var hiddenImplementingPartners =
+            getAllImplementingPartnerHiddenServices(
+                implementingPartnerReferralServices, value);
+        hiddenInputFieldOptions['h4PRnqfEOCL'] = hiddenImplementingPartners;
+      } else if (inputFieldId == 'h4PRnqfEOCL' && value != 'Other') {
+        hiddenFields['ud6oZeP3SKv'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {
@@ -50,7 +62,25 @@ class PpPrevServiceFormSkipLogic {
       }
     }
     resetValuesForHiddenFields(context, hiddenFields.keys);
+    resetValuesForHiddenInputFieldOptions(context);
     resetValuesForHiddenSections(context, formSections);
+  }
+
+  static Map getAllImplementingPartnerHiddenServices(
+      Map<String, dynamic> referralServicesByImplementingPartners,
+      String service) {
+    List<String> partnersToHide = [];
+    referralServicesByImplementingPartners
+        .forEach((implementingPartner, services) {
+      if (!(services).contains(service)) {
+        partnersToHide.add(implementingPartner);
+      }
+    });
+    Map hiddenReferralServices = {};
+    for (var service in partnersToHide) {
+      hiddenReferralServices[service] = true;
+    }
+    return hiddenReferralServices;
   }
 
   static resetValuesForHiddenFields(BuildContext context, inputFieldIds) {
@@ -61,6 +91,11 @@ class PpPrevServiceFormSkipLogic {
     }
     Provider.of<ServiceFormState>(context, listen: false)
         .setHiddenFields(hiddenFields);
+  }
+
+  static resetValuesForHiddenInputFieldOptions(BuildContext context) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setHiddenInputFieldOptions(hiddenInputFieldOptions);
   }
 
   static resetValuesForHiddenSections(

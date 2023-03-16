@@ -53,10 +53,6 @@ class DreamsReferral {
                         name: 'KB-AGYW/DREAMS',
                       ),
                       InputFieldOption(
-                        code: 'PSI',
-                        name: 'PSI',
-                      ),
-                      InputFieldOption(
                         code: 'CoHIP SEC',
                         name: 'CoHIP SEC',
                       ),

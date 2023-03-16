@@ -1,37 +1,37 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
-import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_body.dart';
 import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_button.dart';
-import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_card_edit_icon.dart';
-import 'package:kb_mobile_app/core/components/referrals/beneficiary_referral_outcome_container.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/referral_event.dart';
-import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_referral/pp_prev_referral_card_body.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_referral/pp_prev_referral_outcome_container.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_referral_event.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_referral_outcome_event.dart';
+import 'package:provider/provider.dart';
 
-class BeneficiaryReferralCardContainer extends StatefulWidget {
-  const BeneficiaryReferralCardContainer({
+class PpPrevReferralCardContainer extends StatefulWidget {
+  const PpPrevReferralCardContainer({
     Key? key,
     required this.referralIndex,
     required this.themeColor,
     required this.titleColor,
     required this.labelColor,
     required this.valueColor,
-    required this.isIncomingReferral,
     required this.referralEventData,
     required this.beneficiary,
     required this.enrollmentOuAccessible,
     required this.referralProgram,
     required this.referralOutcomeProgramStage,
     required this.referralOutcomeLinkage,
-    this.referralOutcomeFollowingUpProgramStage = '',
-    this.referralOutcomeFollowingUpLinkage = '',
-    this.isOvcIntervention = false,
-    this.isHouseHoldReferral = false,
-    this.isOnViewOrManage = false,
-    this.isOnEditMode = false,
+    this.isOnView = false,
+    this.isOnManage = false,
+    this.canEdit = false,
     this.prefixReferralTitle = 'Referral',
     required this.onManage,
     required this.onView,
@@ -40,37 +40,33 @@ class BeneficiaryReferralCardContainer extends StatefulWidget {
 
   final Events referralEventData;
   final bool enrollmentOuAccessible;
-  final TrackedEntityInstance beneficiary;
+  final PpPrevBeneficiary beneficiary;
   final String referralProgram;
   final String referralOutcomeProgramStage;
-  final String referralOutcomeFollowingUpProgramStage;
   final String referralOutcomeLinkage;
-  final String referralOutcomeFollowingUpLinkage;
-  final bool isIncomingReferral;
-  final bool isOnEditMode;
   final String prefixReferralTitle;
   final Color themeColor;
   final Color titleColor;
   final Color labelColor;
   final Color valueColor;
   final int referralIndex;
-  final bool isOnViewOrManage;
-  final bool isHouseHoldReferral;
-  final bool isOvcIntervention;
+  final bool isOnView;
+  final bool isOnManage;
+  final bool canEdit;
 
   final VoidCallback onView;
   final VoidCallback onManage;
   final VoidCallback onEditReferral;
 
   @override
-  State<BeneficiaryReferralCardContainer> createState() =>
-      _BeneficiaryReferralCardContainerState();
+  State<PpPrevReferralCardContainer> createState() =>
+      _PpPrevReferralCardContainerState();
 }
 
-class _BeneficiaryReferralCardContainerState
-    extends State<BeneficiaryReferralCardContainer> {
+class _PpPrevReferralCardContainerState
+    extends State<PpPrevReferralCardContainer> {
   bool _isLoading = true;
-  late ReferralEvent referralEvent;
+  late PpPrevReferralEvent referralEvent;
 
   @override
   void initState() {
@@ -80,7 +76,7 @@ class _BeneficiaryReferralCardContainerState
 
   void setReferralEventDataModel() async {
     referralEvent =
-        await ReferralEvent().fromTeiModel(widget.referralEventData);
+        await PpPrevReferralEvent().fromEventModel(widget.referralEventData);
     _isLoading = false;
     Timer(const Duration(milliseconds: 100), () {
       setState(() {});
@@ -123,56 +119,71 @@ class _BeneficiaryReferralCardContainerState
                           ),
                         ),
                       ),
-                      BeneficiaryReferralCardEditIcon(
-                        onEditReferral: widget.onEditReferral,
-                        isIncomingReferral: widget.isIncomingReferral,
-                        referralEvent: referralEvent,
-                        referralOutcomeProgramStage:
-                            widget.referralOutcomeProgramStage,
-                        referralOutcomeLinkage: widget.referralOutcomeLinkage,
-                        referralOutcomeFollowingUpLinkage:
-                            widget.referralOutcomeFollowingUpLinkage,
-                        isOnEditMode:
-                            referralEvent.eventData!.enrollmentOuAccessible! &&
-                                widget.isOnEditMode,
-                        color: widget.themeColor,
-                      ),
+                      Consumer<ServiceEventDataState>(
+                          builder: (context, serviceEventDataState, child) {
+                        var isReferralHavingOutcome = TrackedEntityInstanceUtil
+                            .getAllEventListFromServiceDataStateByProgramStages(
+                          serviceEventDataState.eventListByProgramStage,
+                          [widget.referralOutcomeProgramStage],
+                          shouldSortByDate: true,
+                        ).any((Events eventData) {
+                          PpPrevReferralOutcomeEvent referralOutComeEvent =
+                              PpPrevReferralOutcomeEvent().fromEventModel(
+                            eventData: eventData,
+                            referralToOutcomeReference:
+                                widget.referralOutcomeLinkage,
+                          );
+                          return referralOutComeEvent.referralReference ==
+                              referralEvent.id;
+                        });
+                        return Visibility(
+                          visible: widget.canEdit && !isReferralHavingOutcome,
+                          child: InkWell(
+                            onTap: widget.onEditReferral,
+                            child: Container(
+                              height: 20.0,
+                              width: 20.0,
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 10.0,
+                              ),
+                              child: SvgPicture.asset(
+                                'assets/icons/edit-icon.svg',
+                                color: widget.themeColor,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
                     ],
                   ),
                   LineSeparator(
                     color: widget.themeColor.withOpacity(0.2),
                     height: 2.0,
                   ),
-                  BeneficiaryReferralCardBody(
+                  PpPrevReferralCardBody(
                     referralEvent: referralEvent,
                     labelColor: widget.labelColor,
                     valueColor: widget.valueColor,
-                    isIncomingReferral: widget.isIncomingReferral,
                   ),
                   Visibility(
-                    visible: widget.isOnViewOrManage,
-                    child: BeneficiaryReferralOutcomeContainer(
+                    visible: widget.isOnManage || widget.isOnView,
+                    child: PpPrevReferralOutcomeContainer(
+                      canEditOutcome: widget.isOnManage,
                       enrollmentOuAccessible: widget.enrollmentOuAccessible,
                       beneficiary: widget.beneficiary,
-                      isOnEditMode: widget.isOnEditMode,
                       referralProgram: widget.referralProgram,
                       referralOutcomeProgramStage:
                           widget.referralOutcomeProgramStage,
-                      referralOutcomeFollowingUpProgramStage:
-                          widget.referralOutcomeFollowingUpProgramStage,
                       referralOutcomeLinkage: widget.referralOutcomeLinkage,
-                      referralOutcomeFollowingUpLinkage:
-                          widget.referralOutcomeFollowingUpLinkage,
                       referralEvent: referralEvent,
                       labelColor: widget.themeColor,
                       valueColor: widget.valueColor,
-                      isIncomingReferral: widget.isIncomingReferral,
-                      isHouseholdReferral: widget.isHouseHoldReferral,
-                      isOvcIntervention: widget.isOvcIntervention,
+                      canAddViewOutcome: referralEvent.id != null,
                     ),
                   ),
                   Visibility(
-                    visible: !widget.isOnViewOrManage,
+                    visible: !(widget.isOnView || widget.isOnManage),
                     child: BeneficiaryReferralCardButton(
                       themeColor: widget.themeColor,
                       onManage: widget.onManage,
