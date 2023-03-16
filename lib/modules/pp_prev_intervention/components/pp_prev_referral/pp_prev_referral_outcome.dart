@@ -11,6 +11,7 @@ class PpPrevReferralOutcome extends StatelessWidget {
     required this.referralProgram,
     required this.valueColor,
     required this.onEditReferralOutcome,
+    required this.canEdit,
   }) : super(key: key);
 
   final Color valueColor;
@@ -18,6 +19,7 @@ class PpPrevReferralOutcome extends StatelessWidget {
   final Color labelColor;
   final String referralProgram;
   final VoidCallback onEditReferralOutcome;
+  final bool canEdit;
 
   final double editIconHeight = 20.0;
 
@@ -112,18 +114,21 @@ class PpPrevReferralOutcome extends StatelessWidget {
             ),
           ),
         ),
-        InkWell(
-          onTap: onEditReferralOutcome,
-          child: Container(
-            height: editIconHeight,
-            width: editIconHeight,
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 10.0,
-            ),
-            child: SvgPicture.asset(
-              'assets/icons/edit-icon.svg',
-              color: labelColor,
+        Visibility(
+          visible: canEdit,
+          child: InkWell(
+            onTap: onEditReferralOutcome,
+            child: Container(
+              height: editIconHeight,
+              width: editIconHeight,
+              margin: const EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 10.0,
+              ),
+              child: SvgPicture.asset(
+                'assets/icons/edit-icon.svg',
+                color: labelColor,
+              ),
             ),
           ),
         )
@@ -133,27 +138,35 @@ class PpPrevReferralOutcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 15.0,
-            vertical: 5.0,
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: valueColor.withOpacity(0.3),
           ),
-          child: _getReferralOutcomeHeader(),
-        ),
-        LineSeparator(
-          color: valueColor.withOpacity(0.3),
-          height: 1,
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 15.0,
-            vertical: 5.0,
+          borderRadius: BorderRadius.circular(16.0)),
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 15.0,
+              vertical: 5.0,
+            ),
+            child: _getReferralOutcomeHeader(),
           ),
-          child: _getReferralOutcomeDetails(),
-        ),
-      ],
+          LineSeparator(
+            color: valueColor.withOpacity(0.3),
+            height: 1,
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 15.0,
+              vertical: 5.0,
+            ),
+            child: _getReferralOutcomeDetails(),
+          ),
+        ],
+      ),
     );
   }
 }

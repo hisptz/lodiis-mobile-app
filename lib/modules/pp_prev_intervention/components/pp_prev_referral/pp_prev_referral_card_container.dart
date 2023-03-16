@@ -167,8 +167,9 @@ class _PpPrevReferralCardContainerState
                     valueColor: widget.valueColor,
                   ),
                   Visibility(
-                    visible: widget.isOnManage,
+                    visible: widget.isOnManage || widget.isOnView,
                     child: PpPrevReferralOutcomeContainer(
+                      canEditOutcome: widget.isOnManage,
                       enrollmentOuAccessible: widget.enrollmentOuAccessible,
                       beneficiary: widget.beneficiary,
                       referralProgram: widget.referralProgram,

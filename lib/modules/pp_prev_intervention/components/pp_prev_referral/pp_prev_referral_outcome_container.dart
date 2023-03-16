@@ -25,6 +25,7 @@ class PpPrevReferralOutcomeContainer extends StatelessWidget {
     required this.referralOutcomeProgramStage,
     required this.referralOutcomeLinkage,
     required this.canAddViewOutcome,
+    required this.canEditOutcome,
   }) : super(key: key);
 
   final String referralOutcomeProgramStage;
@@ -32,6 +33,7 @@ class PpPrevReferralOutcomeContainer extends StatelessWidget {
   final PpPrevBeneficiary beneficiary;
   final bool enrollmentOuAccessible;
   final bool canAddViewOutcome;
+  final bool canEditOutcome;
   final PpPrevReferralEvent referralEvent;
   final String referralProgram;
   final Color valueColor;
@@ -173,17 +175,21 @@ class PpPrevReferralOutcomeContainer extends StatelessWidget {
               ),
             )
           : !hasReferralOutcome && canAddViewOutcome
-              ? _getReferralButton(
-                  color: labelColor,
-                  onTap: () => onAddOrEditReferralOutcome(
-                    context,
-                    null,
-                    beneficiary,
+              ? Visibility(
+                  visible: canEditOutcome,
+                  child: _getReferralButton(
+                    color: labelColor,
+                    onTap: () => onAddOrEditReferralOutcome(
+                      context,
+                      null,
+                      beneficiary,
+                    ),
                   ),
                 )
               : Visibility(
                   visible: hasReferralOutcome,
                   child: PpPrevReferralOutcome(
+                    canEdit: canEditOutcome,
                     labelColor: labelColor,
                     referralOutcomeEvent: referralOutcomeEvent,
                     referralProgram: referralProgram,
