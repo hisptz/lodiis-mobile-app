@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/implementing_partner_referral_service_state/implementing_partner_referral_service_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
@@ -71,6 +72,10 @@ class _PpPrevInterventionReferralFormState
   }
 
   evaluateSkipLogics() {
+    Map<String, dynamic> implementingPartnerReferralServices =
+        Provider.of<ImplementingPartnerReferralServiceState>(context,
+                listen: false)
+            .implementingPartnerServices;
     Timer(
       const Duration(milliseconds: 200),
       () async {
@@ -80,6 +85,7 @@ class _PpPrevInterventionReferralFormState
           context,
           formSections!,
           dataObject,
+          implementingPartnerReferralServices,
         );
       },
     );
