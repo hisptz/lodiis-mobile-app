@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -141,10 +142,14 @@ class _OvcEnrollmentChildFormContainerState
   void onSaveAndContinue(BuildContext context) async {
     unFilledMandatoryFields = [];
     setState(() {});
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       childrenMapObject,
       hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections,
+      ),
     );
     if (hadAllMandatoryFilled) {
       bool isDuplicatedChild = _isADuplicateChildObject(childrenMapObject);
@@ -174,8 +179,14 @@ class _OvcEnrollmentChildFormContainerState
         }
       }
     } else {
-      unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-          mandatoryFields, childrenMapObject);
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        childrenMapObject,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections,
+        ),
+      );
       setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

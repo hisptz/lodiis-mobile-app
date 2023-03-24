@@ -149,9 +149,15 @@ class _NoneAgywEnrollmentEditFormState
 
   void onSaveForm(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: hiddenFields);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -213,8 +219,14 @@ class _NoneAgywEnrollmentEditFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

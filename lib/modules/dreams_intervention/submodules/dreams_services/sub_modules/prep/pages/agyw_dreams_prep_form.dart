@@ -59,10 +59,16 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -124,10 +130,14 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
     AgywDream? agywDream, {
     hiddenFields = const {},
   }) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
     );
     if (hadAllMandatoryFilled) {
       setState(() {
@@ -179,10 +189,16 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
-                .hiddenFields);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

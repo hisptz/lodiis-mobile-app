@@ -64,67 +64,6 @@ class AppUtil {
     return AppSemanticVersion(major: major, minor: minor, patch: patch);
   }
 
-  static bool hasAllMandatoryFieldsFilled(List mandatoryFields, Map dataDynamic,
-      {Map hiddenFields = const {}}) {
-    bool hasFilled = true;
-    List fieldIds = dataDynamic.keys.toList();
-    List hiddenFieldsIds = hiddenFields.keys.toList();
-    List filteredMandatoryFields = mandatoryFields
-        .where((field) => !hiddenFieldsIds.contains(field))
-        .toList();
-    for (var mandatoryField in filteredMandatoryFields) {
-      if (!fieldIds.contains(mandatoryField)) {
-        hasFilled = false;
-      } else {
-        if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
-            '${dataDynamic[mandatoryField]}'.trim() == 'null') {
-          hasFilled = false;
-        }
-      }
-    }
-    return hasFilled;
-  }
-
-  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataDynamic,
-      {Map hiddenFields = const {}}) {
-    List unFilledMandatoryFields = [];
-    List fieldIds = dataDynamic.keys.toList();
-    List hiddenFieldsIds = hiddenFields.keys.toList();
-    List filteredMandatoryFields = mandatoryFields
-        .where((field) => !hiddenFieldsIds.contains(field))
-        .toList();
-    for (var mandatoryField in filteredMandatoryFields) {
-      if (!fieldIds.contains(mandatoryField)) {
-        unFilledMandatoryFields.add(mandatoryField);
-      } else {
-        if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
-            '${dataDynamic[mandatoryField]}'.trim() == 'null') {
-          unFilledMandatoryFields.add(mandatoryField);
-        }
-      }
-    }
-    return unFilledMandatoryFields;
-  }
-
-  static bool getAtLeastOneFormFieldsFilledStatus(
-    List fields,
-    Map dataDynamic,
-  ) {
-    List unFilledFields = [];
-    List fieldIds = dataDynamic.keys.toList();
-    for (var field in fields) {
-      if (!fieldIds.contains(field)) {
-        unFilledFields.add(field);
-      } else {
-        if ('${dataDynamic[field]}'.trim() == '' ||
-            '${dataDynamic[field]}'.trim() == 'null') {
-          unFilledFields.add(field);
-        }
-      }
-    }
-    return unFilledFields.length < fields.length;
-  }
-
   static void setStatusBarColor(Color? color) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -175,7 +114,10 @@ class AppUtil {
     return position;
   }
 
-  static int getAgeInYear(String? dateOfBirth, {DateTime? currentDate}) {
+  static int getAgeInYear(
+    String? dateOfBirth, {
+    DateTime? currentDate,
+  }) {
     int age = 0;
     try {
       currentDate = currentDate ?? DateTime.now();
