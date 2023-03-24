@@ -20,7 +20,10 @@ class InputCheckedIcon extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 'assets/icons/checked-icon.svg',
-                color: color ?? Colors.black,
+                colorFilter: ColorFilter.mode(
+                  color ?? Colors.black,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
     );

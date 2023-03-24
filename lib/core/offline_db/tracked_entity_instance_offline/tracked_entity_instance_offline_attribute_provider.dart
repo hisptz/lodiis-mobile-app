@@ -125,7 +125,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       );
       if (maps.isNotEmpty) {
         for (Map map in maps) {
-          searchableValue = searchableValue + '${map[value]} ';
+          searchableValue = '$searchableValue${map[value]} ';
         }
       }
     } catch (e) {

@@ -83,8 +83,8 @@ class _DreamsEnrollmentRecordsState extends State<DreamsEnrollmentRecords> {
               cardButtonContent: Container(),
             ),
             pagingController: dreamInterventionListState.agywPagingController,
-            emptyListWidget: Column(
-              children: const [
+            emptyListWidget: const Column(
+              children: [
                 Center(
                   child: Text(
                     'There is no beneficiary list at a moment',

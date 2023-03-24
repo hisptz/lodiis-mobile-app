@@ -28,7 +28,6 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
   final String femaleSvgIcon = 'assets/icons/female-education-beneficiary.svg';
   final String maleSvgIcon = 'assets/icons/male-education-beneficiary.svg';
 
-
   @override
   Widget build(BuildContext context) {
     double iconHeight = 25;
@@ -66,7 +65,10 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                             beneficiary.isMaleBeneficiary!
                                 ? maleSvgIcon
                                 : femaleSvgIcon,
-                            color: currentIntervention.primaryColor,
+                            colorFilter: ColorFilter.mode(
+                              currentIntervention.primaryColor!,
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),
@@ -112,7 +114,10 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                             ),
                             child: SvgPicture.asset(
                               'assets/icons/expand_icon.svg',
-                              color: currentIntervention.primaryColor,
+                              colorFilter: ColorFilter.mode(
+                                currentIntervention.primaryColor!,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                         ),
@@ -133,7 +138,10 @@ class NoneParticipantBeneficiaryCard extends StatelessWidget {
                             ),
                             child: SvgPicture.asset(
                               'assets/icons/edit-icon.svg',
-                              color: currentIntervention.primaryColor,
+                              colorFilter: ColorFilter.mode(
+                                currentIntervention.primaryColor!,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                         ),

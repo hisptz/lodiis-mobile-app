@@ -281,8 +281,8 @@ class _OvcEnrollmentHouseholdViewEditContainerState
                 ),
                 child: Container(
                   child: !_isFormReady
-                      ? Column(
-                          children: const [
+                      ? const Column(
+                          children: [
                             Center(
                               child: CircularProcessLoader(
                                 color: Colors.blueGrey,

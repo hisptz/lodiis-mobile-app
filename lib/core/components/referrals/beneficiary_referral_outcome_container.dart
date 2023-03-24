@@ -191,7 +191,7 @@ class BeneficiaryReferralOutcomeContainer extends StatelessWidget {
           eventListByProgramStage:
               serviceEventDataState.eventListByProgramStage,
         );
-        bool _hasReferralOutcome =
+        bool hasReferralOutcome =
             referralOutcomeEvent.dateClientReachStation != "";
         return serviceEventDataState.isLoading
             ? Container(
@@ -200,13 +200,13 @@ class BeneficiaryReferralOutcomeContainer extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               )
-            : !_hasReferralOutcome && isIncomingReferral && isOnEditMode
+            : !hasReferralOutcome && isIncomingReferral && isOnEditMode
                 ? _getReferralButton(
                     onTap: () => onAddOrEditReferralOutcome(context, null),
                     color: labelColor,
                   )
                 : Visibility(
-                    visible: _hasReferralOutcome,
+                    visible: hasReferralOutcome,
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(

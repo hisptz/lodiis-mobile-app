@@ -52,7 +52,7 @@ class PpPrevServiceVisitCard extends StatelessWidget {
                           TextSpan(
                             text: visitCount == null || visitCount == 0
                                 ? "      $visitName "
-                                : "      $visitName " + visitCount.toString(),
+                                : "      $visitName $visitCount",
                             style: const TextStyle().copyWith(
                               color: const Color(0xFF05131B),
                               fontSize: 14.0,
@@ -78,7 +78,10 @@ class PpPrevServiceVisitCard extends StatelessWidget {
                         ),
                         child: SvgPicture.asset(
                           'assets/icons/expand_icon.svg',
-                          color: const Color(0xFF9B2BAE),
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFF9B2BAE),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
@@ -102,7 +105,10 @@ class PpPrevServiceVisitCard extends StatelessWidget {
                           ),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: const Color(0xFF9B2BAE),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF9B2BAE),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),

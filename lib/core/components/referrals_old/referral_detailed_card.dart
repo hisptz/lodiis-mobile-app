@@ -191,7 +191,10 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                   ),
                                   child: SvgPicture.asset(
                                     'assets/icons/edit-icon.svg',
-                                    color: buttonLabelColor,
+                                    colorFilter: ColorFilter.mode(
+                                      buttonLabelColor!,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ),
                               ),

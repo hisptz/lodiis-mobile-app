@@ -189,8 +189,8 @@ class _AgywDreamForReAssessmentState extends State<AgywDreamForReAssessment> {
                                   ),
                                   pagingController: dreamsRaAssessmentListState
                                       .pagingController,
-                                  emptyListWidget: Column(
-                                    children: const [
+                                  emptyListWidget: const Column(
+                                    children: [
                                       Center(
                                         child: Text(
                                           'There is no beneficiary list at a moment',

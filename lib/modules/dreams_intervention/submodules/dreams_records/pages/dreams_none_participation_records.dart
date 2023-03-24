@@ -80,8 +80,8 @@ class _DreamsNoneParticipationRecordsPageState
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Consumer<DreamsInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
-            String header = 'AGYW/DREAMS none participants'.toUpperCase() +
-                ': ${ovcInterventionListState.numberOfNoneParticipants}';
+            String header =
+                '${'AGYW/DREAMS none participants'.toUpperCase()}: ${ovcInterventionListState.numberOfNoneParticipants}';
             return SubModuleHomeContainer(
               header: header,
               bodyContents: _buildBody(currentLanguage),
@@ -130,8 +130,8 @@ class _DreamsNoneParticipationRecordsPageState
                 right: 13.0,
                 left: 13.0,
               ),
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   Text(
                     'There is no AGYW/DREAMS none participants at moment',
                     textAlign: TextAlign.center,

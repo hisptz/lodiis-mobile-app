@@ -147,7 +147,10 @@ class CasePlanHomeList extends StatelessWidget {
             icon,
             height: iconHeight,
             width: iconHeight,
-            color: const Color(0xFF4B9F46),
+            colorFilter: const ColorFilter.mode(
+              Color(0xFF4B9F46),
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ),

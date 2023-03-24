@@ -137,7 +137,7 @@ class AppUtil {
   static String getUid() {
     Random rnd = Random();
     const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const allowedChars = '0123456789' + letters;
+    const allowedChars = '0123456789$letters';
     const numberOfCodePoints = allowedChars.length;
     const codeSize = 11;
     String uid;
