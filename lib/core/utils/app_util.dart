@@ -9,8 +9,10 @@ import 'package:kb_mobile_app/models/app_semantic_version.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class AppUtil {
+  //TODO harmonize form releated utils to form utils functions
   static FormSection getServiceProvisionLocationSection({
     required Color inputColor,
     required Color labelColor,
@@ -64,38 +66,100 @@ class AppUtil {
     return AppSemanticVersion(major: major, minor: minor, patch: patch);
   }
 
-  static bool hasAllMandatoryFieldsFilled(List mandatoryFields, Map dataDynamic,
-      {Map hiddenFields = const {}}) {
-    bool hasFilled = true;
-    List fieldIds = dataDynamic.keys.toList();
+  static bool hasAllMandatoryFieldsFilled(
+    List mandatoryFields,
+    Map dataDynamic, {
+    List<InputField> checkBoxInputFields = const [],
+    Map hiddenFields = const {},
+  }) {
+    bool hasMandoryFieldCheckPass = true;
+    List inputFieldWithData = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
+    List checkBoxInputFieldIds = checkBoxInputFields
+        .map((InputField inputField) => inputField.id)
+        .toSet()
+        .toList();
     List filteredMandatoryFields = mandatoryFields
         .where((field) => !hiddenFieldsIds.contains(field))
         .toList();
     for (var mandatoryField in filteredMandatoryFields) {
-      if (!fieldIds.contains(mandatoryField)) {
-        hasFilled = false;
+      if (!inputFieldWithData.contains(mandatoryField)) {
+        if (checkBoxInputFieldIds.contains(mandatoryField)) {
+          bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
+            checkBoxInputFields
+                .where(
+                    (InputField inputField) => inputField.id == mandatoryField)
+                .toList(),
+            dataDynamic,
+          );
+          if (!hasAtLeastOneInputFieldFilled) {
+            hasMandoryFieldCheckPass = false;
+          }
+        } else {
+          hasMandoryFieldCheckPass = false;
+        }
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
             '${dataDynamic[mandatoryField]}'.trim() == 'null') {
-          hasFilled = false;
+          hasMandoryFieldCheckPass = false;
         }
       }
     }
-    return hasFilled;
+    return hasMandoryFieldCheckPass;
   }
 
-  static List getUnFilledMandatoryFields(List mandatoryFields, Map dataDynamic,
-      {Map hiddenFields = const {}}) {
+  static bool isAtLeastOneCheckBoxTicked(
+    List<InputField> checkBoxInputFields,
+    Map dataDynamic,
+  ) {
+    bool hasAtLeastOneInputFieldFilled = false;
+    List<String> ids = [];
+    for (InputField inputField in checkBoxInputFields) {
+      ids.addAll((inputField.options ?? [])
+          .map((InputFieldOption option) => '${option.code}')
+          .toList());
+    }
+    for (String key in dataDynamic.keys.where((key) => ids.contains(key))) {
+      dynamic value = dataDynamic[key];
+      if ("$value".trim().isNotEmpty && "$value".trim() != 'null') {
+        hasAtLeastOneInputFieldFilled = true;
+      }
+    }
+    return hasAtLeastOneInputFieldFilled;
+  }
+
+  static List getUnFilledMandatoryFields(
+    List mandatoryFields,
+    Map dataDynamic, {
+    List<InputField> checkBoxInputFields = const [],
+    Map hiddenFields = const {},
+  }) {
     List unFilledMandatoryFields = [];
     List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
+    List checkBoxInputFieldIds = checkBoxInputFields
+        .map((InputField inputField) => inputField.id)
+        .toSet()
+        .toList();
     List filteredMandatoryFields = mandatoryFields
         .where((field) => !hiddenFieldsIds.contains(field))
         .toList();
     for (var mandatoryField in filteredMandatoryFields) {
       if (!fieldIds.contains(mandatoryField)) {
-        unFilledMandatoryFields.add(mandatoryField);
+        if (checkBoxInputFieldIds.contains(mandatoryField)) {
+          bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
+            checkBoxInputFields
+                .where(
+                    (InputField inputField) => inputField.id == mandatoryField)
+                .toList(),
+            dataDynamic,
+          );
+          if (!hasAtLeastOneInputFieldFilled) {
+            unFilledMandatoryFields.add(mandatoryField);
+          }
+        } else {
+          unFilledMandatoryFields.add(mandatoryField);
+        }
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
             '${dataDynamic[mandatoryField]}'.trim() == 'null') {
@@ -175,7 +239,10 @@ class AppUtil {
     return position;
   }
 
-  static int getAgeInYear(String? dateOfBirth, {DateTime? currentDate}) {
+  static int getAgeInYear(
+    String? dateOfBirth, {
+    DateTime? currentDate,
+  }) {
     int age = 0;
     try {
       currentDate = currentDate ?? DateTime.now();

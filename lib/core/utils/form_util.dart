@@ -21,12 +21,35 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class FormUtil {
+  //
+
+  static List<InputField> getInputFieldByValueType({
+    required String valueType,
+    required List<FormSection> formSections,
+  }) {
+    List<InputField> inputFields = [];
+    for (FormSection formSection in formSections) {
+      if (formSection.inputFields!.isNotEmpty) {
+        inputFields.addAll(formSection.inputFields!
+            .where((InputField inputField) => inputField.valueType == valueType)
+            .toList());
+      }
+      if (formSection.subSections!.isNotEmpty) {
+        inputFields.addAll(getInputFieldByValueType(
+          valueType: valueType,
+          formSections: formSection.subSections!,
+        ));
+      }
+    }
+    return inputFields;
+  }
+
   static hasAtLeastOnFieldFilled({
     required Map hiddenFields,
     required List<FormSection> formSections,
     required Map dataObject,
   }) {
-    bool hasAtLeasrOnFieldFilled = false;
+    bool hasAtLeastOneInputFieldFilled = false;
     List hiddenFieldIds = [];
     for (String key in hiddenFields.keys) {
       if (hiddenFields[key]) {
@@ -39,10 +62,10 @@ class FormUtil {
     for (String key in dataObject.keys.where((key) => ids.contains(key))) {
       dynamic value = dataObject[key];
       if ("$value".trim().isNotEmpty) {
-        hasAtLeasrOnFieldFilled = true;
+        hasAtLeastOneInputFieldFilled = true;
       }
     }
-    return hasAtLeasrOnFieldFilled;
+    return hasAtLeastOneInputFieldFilled;
   }
 
   static updateServiceFormState(
