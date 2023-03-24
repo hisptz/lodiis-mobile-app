@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -90,10 +91,16 @@ class _AgywEnrollmentNoneParticipationFormState
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
-            .hiddenFields);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<EnrollmentFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -124,11 +131,16 @@ class _AgywEnrollmentNoneParticipationFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields:
-                Provider.of<EnrollmentFormState>(context, listen: false)
-                    .hiddenFields);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

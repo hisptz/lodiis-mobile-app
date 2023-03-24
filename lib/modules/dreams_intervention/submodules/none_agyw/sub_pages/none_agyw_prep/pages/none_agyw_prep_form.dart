@@ -58,8 +58,14 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -155,10 +161,14 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
     hiddenFields = const {},
   }) async {
     setMandatoryFields(dataObject);
-    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hasAllMandatoryFieldsFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
     );
     if (hasAllMandatoryFieldsFilled) {
       setState(() {
