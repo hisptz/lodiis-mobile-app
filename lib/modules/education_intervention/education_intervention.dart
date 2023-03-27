@@ -30,7 +30,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_records/education_records_page.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 
 class EducationIntervention extends StatefulWidget {

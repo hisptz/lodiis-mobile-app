@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/Intervention_bottom_navigation.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kb_mobile_app/app_state/app_info_state/app_info_state.dart';
