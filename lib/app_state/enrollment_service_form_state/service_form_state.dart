@@ -13,6 +13,7 @@ class ServiceFormState with ChangeNotifier {
   Map _hiddenSections = {};
   Map _hiddenInputFieldOptions = {};
   bool _isEditableMode = true;
+  String _lastUpdatedFieldId = '';
 
   // selector
   Map get formState => _formState;
@@ -20,6 +21,7 @@ class ServiceFormState with ChangeNotifier {
   Map get hiddenSections => _hiddenSections;
   Map get hiddenInputFieldOptions => _hiddenInputFieldOptions;
   bool get isEditableMode => _isEditableMode;
+  String get lastUpdatedFieldId => _lastUpdatedFieldId;
 
   //reducers
   void resetFormState() {
@@ -65,9 +67,8 @@ class ServiceFormState with ChangeNotifier {
     bool isChangesBasedOnSkipLogic = false,
   }) {
     if (!isChangesBasedOnSkipLogic) {
-      debugPrint("$id => $isChangesBasedOnSkipLogic");
+      _lastUpdatedFieldId = id!;
     }
-
     _formState[id] = value ?? '';
     notifyListeners();
   }

@@ -19,6 +19,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.isHouseholdCasePlan,
     required this.hasEditAccess,
     required this.isEditableMode,
+    required this.canAddDomainGaps,
     required this.domainId,
     required this.onInputValueChange,
     required this.isOnCasePlanServiceProvision,
@@ -28,6 +29,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
   final bool isEditableMode;
+  final bool canAddDomainGaps;
+
   final bool isOnCasePlanServiceProvision;
   final bool isOnCasePlanServiceMonitoring;
   final Map dataObject;
@@ -46,6 +49,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
     Map? gapDataObject,
     bool isOnEdit = false,
   }) async {
+    String caseToGapLinkageValue =
+        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     String casePlanFirstGoal =
         dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
     String casePlansSecondGoal =
@@ -66,8 +71,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
       gapDataObject[OvcCasePlanConstant.casePlanFirstGoal] = casePlanFirstGoal;
       gapDataObject[OvcCasePlanConstant.casePlansSecondGoal] =
           casePlansSecondGoal;
-      gapDataObject[caseToGapLinkage] =
-          dataObject[caseToGapLinkage] ?? AppUtil.getUid();
+      gapDataObject[caseToGapLinkage] = caseToGapLinkageValue;
       List<FormSection> formSections = isHouseholdCasePlan
           ? OvcHouseholdServicesCasePlanGaps.getFormSections(
               firstDate: gapDataObject['eventDate'] ??
@@ -99,7 +103,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
       if (response != null) {
         var eventId = response['eventId'] ?? '';
         if (isOnEdit) {
-          dataObject['gaps'] = dataObject['gaps']
+          dataObject['gaps'] = (dataObject['gaps'] ?? [])
               .where((dynamic gap) => gap['eventId'] != eventId)
               .toList();
         }
@@ -141,7 +145,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
             domainId: domainId,
             formSectionColor: formSectionColor,
             isHouseholdCasePlan: isHouseholdCasePlan,
-            casePlanGapObjects: dataObject['gaps'],
+            casePlanGapObjects: dataObject['gaps'] ?? [],
             onEdiCasePlanGap: (dynamic gapDataObject) => onAddOrEditCasePlanGap(
               context,
               gapDataObject: gapDataObject,
@@ -149,7 +153,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: _hasCasPlanGaps(dataObject['gaps']),
+            visible: _hasCasPlanGaps(dataObject['gaps'] ?? []),
             child: Container(
               margin: const EdgeInsets.symmetric(),
               child: Column(
@@ -159,7 +163,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
                     child: CasePlanGapServiceProvisionViewContainer(
                       domainId: domainId,
                       formSectionColor: formSectionColor,
-                      casePlanGap: _getCasePlanGapObjects(dataObject['gaps']),
+                      casePlanGap:
+                          _getCasePlanGapObjects(dataObject['gaps'] ?? []),
                       isHouseholdCasePlan: isHouseholdCasePlan,
                       hasEditAccess: hasEditAccess,
                     ),
@@ -169,7 +174,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
                     child: CasePlanGapServiceMonitoringViewContainer(
                       domainId: domainId,
                       formSectionColor: formSectionColor,
-                      casePlanGap: _getCasePlanGapObjects(dataObject['gaps']),
+                      casePlanGap:
+                          _getCasePlanGapObjects(dataObject['gaps'] ?? []),
                       isHouseholdCasePlan: isHouseholdCasePlan,
                       hasEditAccess: hasEditAccess,
                     ),
@@ -179,7 +185,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: isEditableMode &&
+            visible: (isEditableMode && canAddDomainGaps) &&
                 !(isOnCasePlanServiceMonitoring ||
                     isOnCasePlanServiceProvision),
             child: Container(

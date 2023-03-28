@@ -39,95 +39,113 @@ class CasePlanHomeContainer extends StatelessWidget {
   final bool isOnCasePlanServiceProvision;
   final bool isOnCasePlanServiceMonitoring;
 
-  void _updateFormState(
-      List<Events> casePlanEvents,
-      List<String> casePlanDates,
-      BuildContext context,
-      bool isEditMode,
-      Map<String?, List<Events>> eventListByProgramStage) {
+  bool _updateFormState({
+    required BuildContext context,
+    required List<Events> casePlanEvents,
+    required List<String> casePlanDates,
+    required bool isEditMode,
+    required bool onAddCasePlan,
+    required Map<String?, List<Events>> eventListByProgramStage,
+  }) {
+    bool shouldContinue = true;
     String eventDate = AppUtil.formattedDateTimeIntoString(DateTime.now());
-    if (casePlanEvents.isEmpty && casePlanDates.contains(eventDate)) {
-      AppUtil.showToastMessage(
-        message: 'There is exiting case plan that has already created',
-      );
-    } else {
-      Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-      Provider.of<ServiceFormState>(context, listen: false)
-          .updateFormEditabilityState(isEditableMode: isEditMode);
-      Map casePlanDataObject = {};
-      if (casePlanEvents.isNotEmpty) {
-        eventDate = casePlanEvents.first.eventDate ?? eventDate;
-        List<Events> casePlanGapsEvents =
-            eventListByProgramStage[casePlanGapProgramStage] ?? [];
-        casePlanDataObject = OvcCasePlanUtil.getMappedCasePlanWithGapsByDomain(
-          casePlanEvents: casePlanEvents,
-          casePlanGapsEvents: casePlanGapsEvents,
+    if (casePlanDates.contains(eventDate)) {
+      if (onAddCasePlan) {
+        AppUtil.showToastMessage(
+          message:
+              'There is exiting case plan that has already created on $eventDate',
         );
-      }
-      for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-        String formSectionId = formSection.id!;
-        Map map = casePlanDataObject.containsKey(formSectionId)
-            ? casePlanDataObject[formSectionId]
-            : {};
-        map['gaps'] = map['gaps'] ?? [];
-        map['eventDate'] = map['eventDate'] ?? eventDate;
-        map[OvcCasePlanConstant.casePlanToGapLinkage] =
-            map[OvcCasePlanConstant.casePlanToGapLinkage] ?? AppUtil.getUid();
-        map[OvcCasePlanConstant.casePlanDomainType] = formSectionId;
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(formSectionId, map);
+        shouldContinue = false;
       }
     }
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditMode);
+    Map casePlanDataObject = {};
+    if (casePlanEvents.isNotEmpty) {
+      eventDate = casePlanEvents.first.eventDate ?? eventDate;
+      List<Events> casePlanGapsEvents =
+          eventListByProgramStage[casePlanGapProgramStage] ?? [];
+      casePlanDataObject = OvcCasePlanUtil.getMappedCasePlanWithGapsByDomain(
+        casePlanEvents: casePlanEvents,
+        casePlanGapsEvents: casePlanGapsEvents,
+      );
+    }
+    for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+      String formSectionId = formSection.id!;
+      String casePlanToGapLinkage = AppUtil.getUid();
+      Map map = casePlanDataObject.containsKey(formSectionId)
+          ? casePlanDataObject[formSectionId]
+          : {};
+      map['gaps'] = map['gaps'] ?? [];
+      map['eventDate'] = map['eventDate'] ?? eventDate;
+      map[OvcCasePlanConstant.casePlanToGapLinkage] =
+          map[OvcCasePlanConstant.casePlanToGapLinkage] ?? casePlanToGapLinkage;
+      map[OvcCasePlanConstant.casePlanDomainType] = formSectionId;
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState(formSectionId, map);
+    }
+    return shouldContinue;
   }
 
   onManageCasePlan({
     required BuildContext context,
     required List<String> casePlanDates,
     bool isEditMode = true,
+    bool onAddCasePlan = false,
     List<Events> casePlanEvents = const [],
     Map<String?, List<Events>> eventListByProgramStage = const {},
     String currentCasePlanDate = '',
   }) {
-    _updateFormState(casePlanEvents, casePlanDates, context, isEditMode,
-        eventListByProgramStage);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Consumer<LanguageTranslationState>(
-          builder: (context, languageTranslationState, child) {
-            String? currentLanguage = languageTranslationState.currentLanguage;
-            return OvcCasePlanForm(
-              currentCasePlanDate: currentCasePlanDate,
-              casePlanLabel: isHouseholdCasePlan
-                  ? isOnCasePlanServiceProvision
-                      ? currentLanguage == 'lesotho'
-                          ? 'Litsebeletso tsa lelapa'
-                          : 'Household Service Provision'
-                      : isOnCasePlanServiceMonitoring
-                          ? 'Household Service monitoring tool'
-                          : 'Household Case Plan Form'
-                  : isOnCasePlanServiceProvision
-                      ? currentLanguage == 'lesotho'
-                          ? 'Phano ea Litsebeletso'
-                          : 'Service Provision'
-                      : isOnCasePlanServiceMonitoring
-                          ? 'Service monitoring tool'
-                          : 'Child Case Plan Form',
-              isOnCasePlanPage: isOnCasePlanPage,
-              isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
-              isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-              hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
-              isHouseholdCasePlan: isHouseholdCasePlan,
-              casePlanProgram: casePlanProgram,
-              casePlanProgramStage: casePlanProgramStage,
-              casePlanGapProgramStage: casePlanGapProgramStage,
-              casePlanServiceProgramStage: casePlanServiceProgramStage,
-              casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
-            );
-          },
-        ),
-      ),
+    bool shouldContinue = _updateFormState(
+      context: context,
+      casePlanEvents: casePlanEvents,
+      casePlanDates: casePlanDates,
+      isEditMode: isEditMode,
+      onAddCasePlan: onAddCasePlan,
+      eventListByProgramStage: eventListByProgramStage,
     );
+    if (shouldContinue) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return OvcCasePlanForm(
+                currentCasePlanDate: currentCasePlanDate,
+                casePlanLabel: isHouseholdCasePlan
+                    ? isOnCasePlanServiceProvision
+                        ? currentLanguage == 'lesotho'
+                            ? 'Litsebeletso tsa lelapa'
+                            : 'Household Service Provision'
+                        : isOnCasePlanServiceMonitoring
+                            ? 'Household Service monitoring tool'
+                            : 'Household Case Plan Form'
+                    : isOnCasePlanServiceProvision
+                        ? currentLanguage == 'lesotho'
+                            ? 'Phano ea Litsebeletso'
+                            : 'Service Provision'
+                        : isOnCasePlanServiceMonitoring
+                            ? 'Service monitoring tool'
+                            : 'Child Case Plan Form',
+                isOnCasePlanPage: isOnCasePlanPage,
+                isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
+                isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+                hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+                isHouseholdCasePlan: isHouseholdCasePlan,
+                casePlanProgram: casePlanProgram,
+                casePlanProgramStage: casePlanProgramStage,
+                casePlanGapProgramStage: casePlanGapProgramStage,
+                casePlanServiceProgramStage: casePlanServiceProgramStage,
+                casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
+              );
+            },
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -213,6 +231,7 @@ class CasePlanHomeContainer extends StatelessWidget {
                           onPressButton: () => onManageCasePlan(
                             context: context,
                             casePlanDates: casePlanDates,
+                            onAddCasePlan: true,
                             currentCasePlanDate:
                                 AppUtil.formattedDateTimeIntoString(
                                     DateTime.now()),

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/services/app_info_service.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -12,7 +12,7 @@ class AppInfoState with ChangeNotifier {
   String? _currentAppVersion;
   String? _currentAppId;
   VersionStatus? _versionStatus;
-  NewVersion _newVersion = NewVersion();
+  NewVersionPlus _newVersion = NewVersionPlus();
   bool? _showWarningToAppUpdate;
   bool? _shouldUpdateTheApp;
 
@@ -21,7 +21,7 @@ class AppInfoState with ChangeNotifier {
   bool get shouldUpdateTheApp => _shouldUpdateTheApp ?? false;
   String get currentAppVersion => _currentAppVersion ?? '';
   String get currentAppId => _currentAppId ?? '';
-  NewVersion get newVersion => _newVersion;
+  NewVersionPlus get newVersion => _newVersion;
   VersionStatus? get versionStatus => _versionStatus;
 
   Future<void> setCurrentAppInfo() async {
@@ -29,7 +29,7 @@ class AppInfoState with ChangeNotifier {
     _currentAppName = AppInfoReference.currentAppName;
     _currentAppVersion = AppInfoReference.currentAppVersion;
     try {
-      _newVersion = NewVersion(
+      _newVersion = NewVersionPlus(
         androidId: AppInfoReference.androidId,
       );
       final status = await _newVersion.getVersionStatus();
