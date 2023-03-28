@@ -51,8 +51,6 @@ class FormUtil {
           if (!hasAtLeastOneInputFieldFilled) {
             hasMandoryFieldCheckPass = false;
           }
-        } else {
-          hasMandoryFieldCheckPass = false;
         }
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
@@ -61,6 +59,9 @@ class FormUtil {
         }
       }
     }
+
+    print({"hasMandoryFieldCheckPass": hasMandoryFieldCheckPass});
+
     return hasMandoryFieldCheckPass;
   }
 
@@ -113,8 +114,6 @@ class FormUtil {
           if (!hasAtLeastOneInputFieldFilled) {
             unFilledMandatoryFields.add(mandatoryField);
           }
-        } else {
-          unFilledMandatoryFields.add(mandatoryField);
         }
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
@@ -346,6 +345,7 @@ class FormUtil {
           String value = dataObject.keys.toList().contains(attribute)
               ? '${dataObject[attribute]}'.trim()
               : '';
+          value = value == "null" ? '' : value;
           return attribute != ''
               ? '{"attribute": "$attribute", "value": "$value"}'
               : '';
@@ -434,6 +434,7 @@ class FormUtil {
           String value = dataObject!.keys.toList().contains(dataElement)
               ? '${dataObject[dataElement]}'.trim()
               : '';
+          value = value == "null" ? '' : value;
           return dataElement != ''
               ? '{"dataElement": "$dataElement", "value": "$value"}'
               : '';

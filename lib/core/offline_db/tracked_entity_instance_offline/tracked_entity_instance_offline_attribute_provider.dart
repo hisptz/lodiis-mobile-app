@@ -22,8 +22,7 @@ class TrackedEntityInstanceOfflineAttributeProvider extends OfflineDbProvider {
       String? trackedEntityInstance =
           trackedEntityInstanceData.trackedEntityInstance;
       for (Map attributeObj in attributes) {
-        if ('${attributeObj[value]}'.isNotEmpty &&
-            '${attributeObj[value]}' != 'null') {
+        if ('${attributeObj[value]}' != 'null') {
           String? attribute = attributeObj['attribute'];
           Map data = <String, dynamic>{};
           data['id'] = '$trackedEntityInstance-$attribute';
