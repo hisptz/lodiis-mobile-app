@@ -5,10 +5,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_home_list.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/ovc_case_plan_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_util.dart';
 import 'package:provider/provider.dart';
@@ -39,45 +36,50 @@ class CasePlanHomeContainer extends StatelessWidget {
   final bool isOnCasePlanServiceProvision;
   final bool isOnCasePlanServiceMonitoring;
 
-  void _updateFormState(
-      List<Events> casePlanEvents,
-      List<String> casePlanDates,
-      BuildContext context,
-      bool isEditMode,
-      Map<String?, List<Events>> eventListByProgramStage) {
+  bool _updateFormState(
+    List<Events> casePlanEvents,
+    List<String> casePlanDates,
+    BuildContext context,
+    bool isEditMode,
+    Map<String?, List<Events>> eventListByProgramStage,
+  ) {
+    bool shouldContinue = true;
     String eventDate = AppUtil.formattedDateTimeIntoString(DateTime.now());
-    if (casePlanEvents.isEmpty && casePlanDates.contains(eventDate)) {
+    if (casePlanEvents.isNotEmpty && casePlanDates.contains(eventDate)) {
       AppUtil.showToastMessage(
         message: 'There is exiting case plan that has already created',
       );
+      shouldContinue = false;
     } else {
       Provider.of<ServiceFormState>(context, listen: false).resetFormState();
       Provider.of<ServiceFormState>(context, listen: false)
           .updateFormEditabilityState(isEditableMode: isEditMode);
-      Map casePlanDataObject = {};
-      if (casePlanEvents.isNotEmpty) {
-        eventDate = casePlanEvents.first.eventDate ?? eventDate;
-        List<Events> casePlanGapsEvents =
-            eventListByProgramStage[casePlanGapProgramStage] ?? [];
-        casePlanDataObject = OvcCasePlanUtil.getMappedCasePlanWithGapsByDomain(
-          casePlanEvents: casePlanEvents,
-          casePlanGapsEvents: casePlanGapsEvents,
-        );
-      }
-      for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
-        String formSectionId = formSection.id!;
-        Map map = casePlanDataObject.containsKey(formSectionId)
-            ? casePlanDataObject[formSectionId]
-            : {};
-        map['gaps'] = map['gaps'] ?? [];
-        map['eventDate'] = map['eventDate'] ?? eventDate;
-        map[OvcCasePlanConstant.casePlanToGapLinkage] =
-            map[OvcCasePlanConstant.casePlanToGapLinkage] ?? AppUtil.getUid();
-        map[OvcCasePlanConstant.casePlanDomainType] = formSectionId;
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(formSectionId, map);
-      }
+      //   Map casePlanDataObject = {};
+      //   if (casePlanEvents.isNotEmpty) {
+      //     eventDate = casePlanEvents.first.eventDate ?? eventDate;
+      //     List<Events> casePlanGapsEvents =
+      //         eventListByProgramStage[casePlanGapProgramStage] ?? [];
+      //     casePlanDataObject = OvcCasePlanUtil.getMappedCasePlanWithGapsByDomain(
+      //       casePlanEvents: casePlanEvents,
+      //       casePlanGapsEvents: casePlanGapsEvents,
+      //     );
+      //   }
+      //   for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+      //     String formSectionId = formSection.id!;
+      //     Map map = casePlanDataObject.containsKey(formSectionId)
+      //         ? casePlanDataObject[formSectionId]
+      //         : {};
+      //     map['gaps'] = map['gaps'] ?? [];
+      //     map['eventDate'] = map['eventDate'] ?? eventDate;
+      //     map[OvcCasePlanConstant.casePlanToGapLinkage] =
+      //         map[OvcCasePlanConstant.casePlanToGapLinkage] ?? AppUtil.getUid();
+      //     map[OvcCasePlanConstant.casePlanDomainType] = formSectionId;
+      //     Provider.of<ServiceFormState>(context, listen: false)
+      //         .setFormFieldState(formSectionId, map);
+      //   }
     }
+
+    return shouldContinue;
   }
 
   onManageCasePlan({
@@ -88,46 +90,54 @@ class CasePlanHomeContainer extends StatelessWidget {
     Map<String?, List<Events>> eventListByProgramStage = const {},
     String currentCasePlanDate = '',
   }) {
-    _updateFormState(casePlanEvents, casePlanDates, context, isEditMode,
-        eventListByProgramStage);
-    Navigator.push(
+    bool shouldContinue = _updateFormState(
+      casePlanEvents,
+      casePlanDates,
       context,
-      MaterialPageRoute(
-        builder: (context) => Consumer<LanguageTranslationState>(
-          builder: (context, languageTranslationState, child) {
-            String? currentLanguage = languageTranslationState.currentLanguage;
-            return OvcCasePlanForm(
-              currentCasePlanDate: currentCasePlanDate,
-              casePlanLabel: isHouseholdCasePlan
-                  ? isOnCasePlanServiceProvision
-                      ? currentLanguage == 'lesotho'
-                          ? 'Litsebeletso tsa lelapa'
-                          : 'Household Service Provision'
-                      : isOnCasePlanServiceMonitoring
-                          ? 'Household Service monitoring tool'
-                          : 'Household Case Plan Form'
-                  : isOnCasePlanServiceProvision
-                      ? currentLanguage == 'lesotho'
-                          ? 'Phano ea Litsebeletso'
-                          : 'Service Provision'
-                      : isOnCasePlanServiceMonitoring
-                          ? 'Service monitoring tool'
-                          : 'Child Case Plan Form',
-              isOnCasePlanPage: isOnCasePlanPage,
-              isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
-              isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-              hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
-              isHouseholdCasePlan: isHouseholdCasePlan,
-              casePlanProgram: casePlanProgram,
-              casePlanProgramStage: casePlanProgramStage,
-              casePlanGapProgramStage: casePlanGapProgramStage,
-              casePlanServiceProgramStage: casePlanServiceProgramStage,
-              casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
-            );
-          },
-        ),
-      ),
+      isEditMode,
+      eventListByProgramStage,
     );
+    if (shouldContinue) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+              String? currentLanguage =
+                  languageTranslationState.currentLanguage;
+              return OvcCasePlanForm(
+                currentCasePlanDate: currentCasePlanDate,
+                casePlanLabel: isHouseholdCasePlan
+                    ? isOnCasePlanServiceProvision
+                        ? currentLanguage == 'lesotho'
+                            ? 'Litsebeletso tsa lelapa'
+                            : 'Household Service Provision'
+                        : isOnCasePlanServiceMonitoring
+                            ? 'Household Service monitoring tool'
+                            : 'Household Case Plan Form'
+                    : isOnCasePlanServiceProvision
+                        ? currentLanguage == 'lesotho'
+                            ? 'Phano ea Litsebeletso'
+                            : 'Service Provision'
+                        : isOnCasePlanServiceMonitoring
+                            ? 'Service monitoring tool'
+                            : 'Child Case Plan Form',
+                isOnCasePlanPage: isOnCasePlanPage,
+                isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
+                isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
+                hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+                isHouseholdCasePlan: isHouseholdCasePlan,
+                casePlanProgram: casePlanProgram,
+                casePlanProgramStage: casePlanProgramStage,
+                casePlanGapProgramStage: casePlanGapProgramStage,
+                casePlanServiceProgramStage: casePlanServiceProgramStage,
+                casePlanMonitoringProgramStage: casePlanMonitoringProgramStage,
+              );
+            },
+          ),
+        ),
+      );
+    }
   }
 
   @override
