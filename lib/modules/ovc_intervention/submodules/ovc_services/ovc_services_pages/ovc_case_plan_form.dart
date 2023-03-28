@@ -14,7 +14,6 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
@@ -28,8 +27,6 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_gap_household_to_ovc_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_util.dart';
 import 'package:provider/provider.dart';
@@ -108,6 +105,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   onInputValueChange(String? formSectionId, dynamic value) {
+    print({"formSectionId": formSectionId, "value": value});
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }
@@ -129,6 +127,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   listen: false)
               .currentOvcHouseholdChild!
               .teiData!;
+
+      //TODO checking saving of this domains for case of household on editing
       await savingDomainsAndGaps(
         dataObject: dataObject,
         beneficiary: beneficiary,
@@ -175,7 +175,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     Map<dynamic, dynamic> dataObject,
   ) async {
     String houseHoldCategorizationDataElement = 'aEJnSplwvsw';
-    await OvcEnrollmentHouseholdService().updateHouseholdStatus(
+    OvcEnrollmentHouseholdService().updateHouseholdStatus(
         trackedEntityInstance: beneficiary.trackedEntityInstance,
         orgUnit: beneficiary.orgUnit,
         dataObject: {
@@ -186,13 +186,14 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         },
         inputFieldIds: [
           BeneficiaryIdentification.householdCategorization
-        ]);
-    Provider.of<OvcInterventionListState>(context, listen: false)
-        .refreshOvcList();
-    Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-        .refetchCurrentHousehold();
-    Provider.of<ServiceEventDataState>(context, listen: false)
-        .resetServiceEventDataState(beneficiary.trackedEntityInstance);
+        ]).then((value) {
+      Provider.of<OvcInterventionListState>(context, listen: false)
+          .refreshOvcList();
+      Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+          .refetchCurrentHousehold();
+      Provider.of<ServiceEventDataState>(context, listen: false)
+          .resetServiceEventDataState(beneficiary.trackedEntityInstance);
+    }).catchError((error) {});
   }
 
   Future<void> savingDomainsAndGaps({
@@ -225,47 +226,45 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            widget.isHouseholdCasePlan
-                ? OvcHouseholdCasePlanConstant.program
-                : OvcChildCasePlanConstant.program,
-            widget.isHouseholdCasePlan
-                ? OvcHouseholdCasePlanConstant.casePlanProgramStage
-                : OvcChildCasePlanConstant.casePlanProgramStage,
-            beneficiary.orgUnit,
-            domainFormSections,
-            domainDataObject,
-            domainDataObject['eventDate'],
-            beneficiary.trackedEntityInstance,
-            domainDataObject['eventId'],
-            hiddenFields,
-          );
+          // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+          //   widget.isHouseholdCasePlan
+          //       ? OvcHouseholdCasePlanConstant.program
+          //       : OvcChildCasePlanConstant.program,
+          //   widget.isHouseholdCasePlan
+          //       ? OvcHouseholdCasePlanConstant.casePlanProgramStage
+          //       : OvcChildCasePlanConstant.casePlanProgramStage,
+          //   beneficiary.orgUnit,
+          //   domainFormSections,
+          //   domainDataObject,
+          //   domainDataObject['eventDate'],
+          //   beneficiary.trackedEntityInstance,
+          //   domainDataObject['eventId'],
+          //   hiddenFields,
+          // );
+          //print(domainDataObject);
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
             OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
             OvcCasePlanConstant.casePlanGapToMonitoringLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
-            await TrackedEntityInstanceUtil
-                .savingTrackedEntityInstanceEventData(
-              widget.isHouseholdCasePlan
-                  ? OvcHouseholdCasePlanConstant.program
-                  : OvcChildCasePlanConstant.program,
-              widget.isHouseholdCasePlan
-                  ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
-                  : OvcChildCasePlanConstant.casePlanGapProgramStage,
-              beneficiary.orgUnit,
-              domainGapFormSections,
-              domainGapDataObject,
-              domainGapDataObject['eventDate'],
-              beneficiary.trackedEntityInstance,
-              domainGapDataObject['eventId'],
-              [
-                OvcCasePlanConstant.casePlanToGapLinkage,
-                OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
-                OvcCasePlanConstant.casePlanGapToMonitoringLinkage
-              ],
-            );
+            // print(domainGapDataObject);
+            // await TrackedEntityInstanceUtil
+            //     .savingTrackedEntityInstanceEventData(
+            //   widget.isHouseholdCasePlan
+            //       ? OvcHouseholdCasePlanConstant.program
+            //       : OvcChildCasePlanConstant.program,
+            //   widget.isHouseholdCasePlan
+            //       ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
+            //       : OvcChildCasePlanConstant.casePlanGapProgramStage,
+            //   beneficiary.orgUnit,
+            //   domainGapFormSections,
+            //   domainGapDataObject,
+            //   domainGapDataObject['eventDate'],
+            //   beneficiary.trackedEntityInstance,
+            //   domainGapDataObject['eventId'],
+            //   hiddenFields,
+            // );
           }
         } catch (e) {
           //
@@ -338,13 +337,16 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                       (formSection) => Container(
                                         margin: const EdgeInsets.symmetric(),
                                         child: CasePlanFormContainer(
+                                          canAddDomainGaps: formSection.id !=
+                                              OvcCasePlanConstant
+                                                  .householdCategorizationSection,
                                           formSectionColor:
                                               borderColors[formSection.id],
                                           formSection: formSection,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
                                           dataObject:
-                                              dataObject[formSection.id],
+                                              dataObject[formSection.id] ?? {},
                                           onInputValueChange: (
                                             dynamic value,
                                           ) =>

@@ -61,6 +61,7 @@ class OvcCasePlanUtil {
         map[dataValue['dataElement']] = dataValue['value'];
       }
     }
+    print(map);
     return map;
   }
 
