@@ -84,7 +84,6 @@ class CasePlanHomeContainer extends StatelessWidget {
       map[OvcCasePlanConstant.casePlanDomainType] = formSectionId;
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState(formSectionId, map);
-      print(map);
     }
     return shouldContinue;
   }

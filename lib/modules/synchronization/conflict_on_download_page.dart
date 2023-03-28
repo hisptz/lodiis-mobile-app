@@ -22,9 +22,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstance);
   }
 
-  void onDiscardConflict() {
-    // print("accept offline data");
-  }
+  void onDiscardConflict() {}
 
   @override
   Widget build(BuildContext context) {

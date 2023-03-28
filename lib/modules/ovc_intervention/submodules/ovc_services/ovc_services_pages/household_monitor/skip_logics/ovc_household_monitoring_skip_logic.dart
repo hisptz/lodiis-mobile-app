@@ -20,10 +20,6 @@ class OvcHouseholdMonitoringSkipLogic {
       inputFieldIds.add('$key');
     }
     inputFieldIds = inputFieldIds.toSet().toList();
-    // for (String inputFieldId in inputFieldIds) {
-    //   String value = '${dataObject[inputFieldId]}';
-    //   // print(value);
-    // }
     dataObject.forEach((key, value) {
       if (key == 'kEa51XegbF1' && value == 'false') {
         hiddenFields['whQroZXYFXl'] = false;

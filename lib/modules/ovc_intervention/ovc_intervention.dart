@@ -130,9 +130,7 @@ class _OvcInterventionState extends State<OvcIntervention>
     });
   }
 
-  void onClickHome() {
-    // print('on onClickHome');
-  }
+  void onClickHome() {}
 
   void onAddHousehold(BuildContext context) async {
     String beneficiaryId = "";
