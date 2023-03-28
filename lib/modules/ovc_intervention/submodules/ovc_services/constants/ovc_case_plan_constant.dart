@@ -7,6 +7,7 @@ class OvcCasePlanConstant {
   static const String casePlanDomainType = 'vexrPNgPBYg';
   static const String casePlanFirstGoal = 'ADc3clrQRl4';
   static const String casePlansSecondGoal = 'efNgDIqhlNs';
+  static const String houseHoldCategorizationDataElement = 'aEJnSplwvsw';
   static const String householdCategorizationSection =
       'house_hold_categorization';
   static const List<String> paralegalServices = [

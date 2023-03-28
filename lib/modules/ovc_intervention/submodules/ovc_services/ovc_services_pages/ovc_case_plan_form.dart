@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
@@ -27,6 +28,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/c
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_case_plan.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_case_plan/constants/ovc_household_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_gap_household_to_ovc_util.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/utils/ovc_case_plan_util.dart';
 import 'package:provider/provider.dart';
@@ -105,7 +108,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   onInputValueChange(String? formSectionId, dynamic value) {
-    print({"formSectionId": formSectionId, "value": value});
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(formSectionId, value);
   }
@@ -118,6 +120,11 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     if (isAllDomainFilled) {
       _isSaving = true;
       setState(() {});
+      List<OvcHouseholdChild> childrens =
+          Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+                  .currentOvcHousehold
+                  ?.children ??
+              [];
       TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
           ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
                   listen: false)
@@ -127,8 +134,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   listen: false)
               .currentOvcHouseholdChild!
               .teiData!;
-
-      //TODO checking saving of this domains for case of household on editing
       await savingDomainsAndGaps(
         dataObject: dataObject,
         beneficiary: beneficiary,
@@ -137,11 +142,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         await updateHouseholdCategorization(beneficiary, dataObject);
         await OvcCasePlanGapHouseholdToOvcUtil.autoSyncOvcsCasPlanGaps(
           currentCasePlanDate: widget.currentCasePlanDate,
-          childrens: Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                      listen: false)
-                  .currentOvcHousehold!
-                  .children ??
-              [],
+          childrens: childrens,
           dataObject: dataObject,
         );
       }
@@ -157,9 +158,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                 ? 'Fomo e bolokeile'
                 : 'Form has been saved successfully',
           );
-          setState(() {
-            _isSaving = false;
-          });
+          _isSaving = false;
+          setState(() {});
           Navigator.pop(context);
         }
       });
@@ -174,15 +174,14 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     TrackedEntityInstance beneficiary,
     Map<dynamic, dynamic> dataObject,
   ) async {
-    String houseHoldCategorizationDataElement = 'aEJnSplwvsw';
     OvcEnrollmentHouseholdService().updateHouseholdStatus(
         trackedEntityInstance: beneficiary.trackedEntityInstance,
         orgUnit: beneficiary.orgUnit,
         dataObject: {
-          BeneficiaryIdentification.householdCategorization:
-              dataObject[OvcCasePlanConstant.householdCategorizationSection]
-                      [houseHoldCategorizationDataElement] ??
-                  ''
+          BeneficiaryIdentification.householdCategorization: dataObject[
+                      OvcCasePlanConstant.householdCategorizationSection]
+                  [OvcCasePlanConstant.houseHoldCategorizationDataElement] ??
+              ''
         },
         inputFieldIds: [
           BeneficiaryIdentification.householdCategorization
@@ -226,45 +225,43 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   .where(
                       (FormSection formSection) => formSection.id == domainType)
                   .toList();
-          // await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          //   widget.isHouseholdCasePlan
-          //       ? OvcHouseholdCasePlanConstant.program
-          //       : OvcChildCasePlanConstant.program,
-          //   widget.isHouseholdCasePlan
-          //       ? OvcHouseholdCasePlanConstant.casePlanProgramStage
-          //       : OvcChildCasePlanConstant.casePlanProgramStage,
-          //   beneficiary.orgUnit,
-          //   domainFormSections,
-          //   domainDataObject,
-          //   domainDataObject['eventDate'],
-          //   beneficiary.trackedEntityInstance,
-          //   domainDataObject['eventId'],
-          //   hiddenFields,
-          // );
-          //print(domainDataObject);
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            widget.isHouseholdCasePlan
+                ? OvcHouseholdCasePlanConstant.program
+                : OvcChildCasePlanConstant.program,
+            widget.isHouseholdCasePlan
+                ? OvcHouseholdCasePlanConstant.casePlanProgramStage
+                : OvcChildCasePlanConstant.casePlanProgramStage,
+            beneficiary.orgUnit,
+            domainFormSections,
+            domainDataObject,
+            domainDataObject['eventDate'],
+            beneficiary.trackedEntityInstance,
+            domainDataObject['eventId'],
+            hiddenFields,
+          );
           hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
             OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
             OvcCasePlanConstant.casePlanGapToMonitoringLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
-            // print(domainGapDataObject);
-            // await TrackedEntityInstanceUtil
-            //     .savingTrackedEntityInstanceEventData(
-            //   widget.isHouseholdCasePlan
-            //       ? OvcHouseholdCasePlanConstant.program
-            //       : OvcChildCasePlanConstant.program,
-            //   widget.isHouseholdCasePlan
-            //       ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
-            //       : OvcChildCasePlanConstant.casePlanGapProgramStage,
-            //   beneficiary.orgUnit,
-            //   domainGapFormSections,
-            //   domainGapDataObject,
-            //   domainGapDataObject['eventDate'],
-            //   beneficiary.trackedEntityInstance,
-            //   domainGapDataObject['eventId'],
-            //   hiddenFields,
-            // );
+            await TrackedEntityInstanceUtil
+                .savingTrackedEntityInstanceEventData(
+              widget.isHouseholdCasePlan
+                  ? OvcHouseholdCasePlanConstant.program
+                  : OvcChildCasePlanConstant.program,
+              widget.isHouseholdCasePlan
+                  ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
+                  : OvcChildCasePlanConstant.casePlanGapProgramStage,
+              beneficiary.orgUnit,
+              domainGapFormSections,
+              domainGapDataObject,
+              domainGapDataObject['eventDate'],
+              beneficiary.trackedEntityInstance,
+              domainGapDataObject['eventId'],
+              hiddenFields,
+            );
           }
         } catch (e) {
           //

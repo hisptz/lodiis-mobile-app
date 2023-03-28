@@ -49,6 +49,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
     Map? gapDataObject,
     bool isOnEdit = false,
   }) async {
+    String caseToGapLinkageValue =
+        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     String casePlanFirstGoal =
         dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
     String casePlansSecondGoal =
@@ -69,8 +71,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
       gapDataObject[OvcCasePlanConstant.casePlanFirstGoal] = casePlanFirstGoal;
       gapDataObject[OvcCasePlanConstant.casePlansSecondGoal] =
           casePlansSecondGoal;
-      gapDataObject[caseToGapLinkage] =
-          dataObject[caseToGapLinkage] ?? AppUtil.getUid();
+      gapDataObject[caseToGapLinkage] = caseToGapLinkageValue;
       List<FormSection> formSections = isHouseholdCasePlan
           ? OvcHouseholdServicesCasePlanGaps.getFormSections(
               firstDate: gapDataObject['eventDate'] ??
