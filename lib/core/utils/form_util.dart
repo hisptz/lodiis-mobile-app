@@ -51,17 +51,29 @@ class FormUtil {
           if (!hasAtLeastOneInputFieldFilled) {
             hasMandoryFieldCheckPass = false;
           }
+        } else {
+          hasMandoryFieldCheckPass = false;
         }
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
             '${dataDynamic[mandatoryField]}'.trim() == 'null') {
-          hasMandoryFieldCheckPass = false;
+          if (checkBoxInputFieldIds.contains(mandatoryField)) {
+            bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
+              checkBoxInputFields
+                  .where((InputField inputField) =>
+                      inputField.id == mandatoryField)
+                  .toList(),
+              dataDynamic,
+            );
+            if (!hasAtLeastOneInputFieldFilled) {
+              hasMandoryFieldCheckPass = false;
+            }
+          } else {
+            hasMandoryFieldCheckPass = false;
+          }
         }
       }
     }
-
-    print({"hasMandoryFieldCheckPass": hasMandoryFieldCheckPass});
-
     return hasMandoryFieldCheckPass;
   }
 
@@ -114,11 +126,26 @@ class FormUtil {
           if (!hasAtLeastOneInputFieldFilled) {
             unFilledMandatoryFields.add(mandatoryField);
           }
+        } else {
+          unFilledMandatoryFields.add(mandatoryField);
         }
       } else {
         if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
             '${dataDynamic[mandatoryField]}'.trim() == 'null') {
-          unFilledMandatoryFields.add(mandatoryField);
+          if (checkBoxInputFieldIds.contains(mandatoryField)) {
+            bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
+              checkBoxInputFields
+                  .where((InputField inputField) =>
+                      inputField.id == mandatoryField)
+                  .toList(),
+              dataDynamic,
+            );
+            if (!hasAtLeastOneInputFieldFilled) {
+              unFilledMandatoryFields.add(mandatoryField);
+            }
+          } else {
+            unFilledMandatoryFields.add(mandatoryField);
+          }
         }
       }
     }
