@@ -80,9 +80,6 @@ class OvcCasePlanUtil {
         if (casePlanFirstGoal.isEmpty) {
           if (casePlansSecondGoal.isEmpty) {
             isAllDomainFilled = false;
-            // print(domainType);
-            // print(domainDataObject['gaps']);
-            // print("\n");
           }
         }
       } else if (isHouseholdCasePlan &&
@@ -92,9 +89,6 @@ class OvcCasePlanUtil {
             '';
         if (houseHoldCategorization.isEmpty) {
           isAllDomainFilled = false;
-          print(domainType);
-          print(domainDataObject['gaps']);
-          print("\n");
         }
       }
     }
