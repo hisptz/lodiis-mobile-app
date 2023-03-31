@@ -114,14 +114,20 @@ class _DreamsHTSIndexCardButtonContentState
           color: Color(0xFFECF5EC),
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 10.0),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 13.0,
+            vertical: 10.0,
+          ),
           child: Row(
             children: [
               Container(
                   margin: const EdgeInsets.only(right: 10.0),
                   child: SvgPicture.asset(
                     'assets/icons/children_ovc_icon.svg',
-                    color: const Color(0xFF258DCC),
+                    colorFilter: const ColorFilter.mode(
+                      Color(0xFF258DCC),
+                      BlendMode.srcIn,
+                    ),
                   )),
               Expanded(
                 child: Text('Index Contact List',

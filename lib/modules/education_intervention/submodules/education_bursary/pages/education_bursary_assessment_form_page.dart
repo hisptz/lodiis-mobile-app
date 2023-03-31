@@ -100,10 +100,16 @@ class _EducationBursaryAssessmentFormPageState
   }
 
   void onSaveAndContinue(BuildContext context, Map dataObject) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
-            .hiddenFields);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<EnrollmentFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -150,11 +156,16 @@ class _EducationBursaryAssessmentFormPageState
       );
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields:
-                Provider.of<EnrollmentFormState>(context, listen: false)
-                    .hiddenFields);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
@@ -186,8 +197,8 @@ class _EducationBursaryAssessmentFormPageState
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? Column(
-                    children: const [
+                ? const Column(
+                    children: [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

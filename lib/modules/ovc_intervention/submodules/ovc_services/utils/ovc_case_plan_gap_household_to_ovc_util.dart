@@ -16,6 +16,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required Map dataObject,
   }) async {
     try {
+      //TODO later refactor merge with existing case plans for children if exist
       List<FormSection> formSections = OvcServicesCasePlan.getFormSections();
       Map<String, dynamic> sanitizedDataObjects =
           getSanitizedCaregiverDataObjects(dataObject);
@@ -27,6 +28,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
         );
         for (String domainType in childDataObject.keys.toList()) {
           Map domainDataObject = dataObject[domainType];
+          domainDataObject.remove('eventId');
           List<String> hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
             OvcCasePlanConstant.casePlanDomainType
@@ -51,6 +53,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
             hiddenFields,
           );
           for (Map domainGapDataObject in domainDataObject['gaps']) {
+            domainGapDataObject.remove('eventId');
             hiddenFields = [
               OvcCasePlanConstant.casePlanToGapLinkage,
               OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,

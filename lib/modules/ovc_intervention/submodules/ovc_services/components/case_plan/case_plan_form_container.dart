@@ -13,6 +13,7 @@ class CasePlanFormContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.formSection,
     required this.isEditableMode,
+    required this.canAddDomainGaps,
     required this.dataObject,
     required this.onInputValueChange,
     required this.isHouseholdCasePlan,
@@ -26,6 +27,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final Color formSectionColor;
   final FormSection formSection;
   final bool isEditableMode;
+  final bool canAddDomainGaps;
   final Map dataObject;
   final Function onInputValueChange;
   final bool isHouseholdCasePlan;
@@ -51,7 +53,7 @@ class CasePlanFormContainer extends StatelessWidget {
 
   bool _hasAtLeasOneGoalAndGap() {
     bool status = true;
-    dynamic gaps = dataObject['gaps'];
+    dynamic gaps = dataObject['gaps'] ?? [];
     String firstGoal = dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
     String secondGoal =
         dataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
@@ -98,6 +100,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                   domainId: formSection.id!,
                   hasEditAccess: hasEditAccess,
+                  canAddDomainGaps: canAddDomainGaps,
                   isEditableMode: isEditableMode && isOnCasePlanPage,
                   dataObject: dataObject,
                   formSectionColor: formSectionColor,

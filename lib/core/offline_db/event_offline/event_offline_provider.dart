@@ -25,13 +25,17 @@ class EventOfflineProvider extends OfflineDbProvider {
   final String syncStatus = 'syncStatus';
 
   addOrUpdateEvent(Events event) async {
-    var dbClient = await db;
-    Map data = Events().toOffline(event);
-    data['id'] = data['event'];
-    data.remove('dataValues');
-    await dbClient!.insert(table, data as Map<String, Object?>,
-        conflictAlgorithm: ConflictAlgorithm.replace);
-    await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
+    try {
+      var dbClient = await db;
+      Map data = Events().toOffline(event);
+      data['id'] = data['event'];
+      data.remove('dataValues');
+      await dbClient!.insert(table, data as Map<String, Object?>,
+          conflictAlgorithm: ConflictAlgorithm.replace);
+      await EventOfflineDataValueProvider().addOrUpdateEventDataValues(event);
+    } catch (e) {
+      ///
+    }
   }
 
   addOrUpdateMultipleEvents(List<dynamic> events) async {

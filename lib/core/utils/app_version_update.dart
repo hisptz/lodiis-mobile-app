@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/services/app_info_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 
 class AppVersionUpdate {
   static showAppUpdateWarning(

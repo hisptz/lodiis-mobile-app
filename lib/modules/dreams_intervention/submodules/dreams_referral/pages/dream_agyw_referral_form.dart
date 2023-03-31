@@ -70,8 +70,14 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -145,10 +151,14 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
     Map hiddenFieldsObject = const {},
   }) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFieldsObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
     );
     if (hadAllMandatoryFilled) {
       setState(() {

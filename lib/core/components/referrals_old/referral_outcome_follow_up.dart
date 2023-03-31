@@ -88,7 +88,10 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                           ),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: themeColor,
+                            colorFilter: ColorFilter.mode(
+                              themeColor!,
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),

@@ -221,7 +221,10 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                       children: [
                         SvgPicture.asset(
                           widget.activeInterventionProgram.svgIcon!,
-                          color: widget.activeInterventionProgram.svgIconColor,
+                          colorFilter: ColorFilter.mode(
+                            widget.activeInterventionProgram.svgIconColor!,
+                            BlendMode.srcIn,
+                          ),
                           height: 19.2,
                           width: 19.2,
                         ),

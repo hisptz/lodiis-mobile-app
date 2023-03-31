@@ -76,10 +76,8 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
         return Consumer<OvcInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
             String header = currentLanguage == 'lesotho'
-                ? 'Lethathamo la malapa'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                : 'Household list'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+                ? '${'Lethathamo la malapa'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : '${'Household list'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} households';
             return SubModuleHomeContainer(
               header: header,
               showFilter: true,
@@ -139,7 +137,10 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                 IconButton(
                   icon: SvgPicture.asset(
                     'assets/icons/add-house-hold.svg',
-                    color: Colors.blueGrey,
+                    colorFilter: const ColorFilter.mode(
+                      Colors.blueGrey,
+                      BlendMode.srcIn,
+                    ),
                   ),
                   onPressed: () => onAddHousehold(context),
                 )

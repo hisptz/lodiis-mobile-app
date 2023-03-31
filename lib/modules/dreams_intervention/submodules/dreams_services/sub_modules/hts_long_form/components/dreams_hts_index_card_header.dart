@@ -67,7 +67,10 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                               vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
-                            color: const Color(0xFF258DCC),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF258DCC),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         )),
                   )),
@@ -85,7 +88,10 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                               vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: const Color(0xFF258DCC),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF258DCC),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         )),
                   )),
@@ -104,7 +110,10 @@ class DreamsHTSIndexCardHeader extends StatelessWidget {
                             isExpanded
                                 ? 'assets/icons/chevron_up.svg'
                                 : 'assets/icons/chevron_down.svg',
-                            color: const Color(0xFF05131B),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF05131B),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         )),
                   )),

@@ -146,10 +146,8 @@ class _OvcExitPageState extends State<OvcExitPage> {
         return Consumer<OvcInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
             String header = currentLanguage == 'lesotho'
-                ? 'Lethathamo la malapa'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                : 'Household list'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+                ? '${'Lethathamo la malapa'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : '${'Household list'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} households';
             return SubModuleHomeContainer(
               header: header,
               showFilter: true,

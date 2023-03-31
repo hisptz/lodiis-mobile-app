@@ -71,11 +71,6 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     setState(() {});
     _evaluateSkipLogics();
     setState(() {});
-
-    ///
-    /// This is commented to disable the auto assignment of VAC legal messaging
-    ///
-    // setMandatoryFieldForVacLegalMessage();
   }
 
   void setMandatoryFieldForVacLegalMessage() {
@@ -108,8 +103,14 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
   }
 
   onSaveGapForm(BuildContext context) {
-    bool isAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: widget.formSections,
+      ),
+    );
     if (isAllMandatoryFilled) {
       bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
         hiddenFields: hiddenFields,
@@ -124,8 +125,14 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
         );
       }
     } else {
-      unFilledMandatoryFields =
-          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: widget.formSections,
+        ),
+      );
       setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill  all mandatory fields',

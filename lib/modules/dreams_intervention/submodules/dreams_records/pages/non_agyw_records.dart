@@ -45,9 +45,9 @@ class _NonAgywRecordsState extends State<NonAgywRecords> {
           refreshBeneficiaryList(dreamInterventionListState);
         },
         child: CustomPaginatedListView(
-          emptyListWidget: Center(
+          emptyListWidget: const Center(
             child: Column(
-              children: const [
+              children: [
                 Text(
                   'There is no beneficiary list at a moment',
                 ),

@@ -145,11 +145,15 @@ class _PpPrevInterventionReferralFormState
     Map dataObject,
     PpPrevBeneficiary ppPrevBeneficiary,
   ) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields:
           Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
     );
 
     if (hadAllMandatoryFilled) {

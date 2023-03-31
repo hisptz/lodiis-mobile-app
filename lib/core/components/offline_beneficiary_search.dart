@@ -292,6 +292,8 @@ class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
                                             )),
                                           ],
                                         ),
+                                        iconColor: primaryColor,
+                                        textColor: primaryColor,
                                         children: [
                                           InputFieldContainer(
                                               currentUserCountryLevelReferences: const [],
@@ -310,8 +312,6 @@ class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
                                                       dynamic value) =>
                                                   searchInputChange(id, value))
                                         ],
-                                        iconColor: primaryColor,
-                                        textColor: primaryColor,
                                       ),
                                     ));
                               }).toList(),

@@ -13,7 +13,7 @@ class OvcServicesCasePlan {
           id: OvcCasePlanConstant.householdCategorizationSection,
           inputFields: [
             InputField(
-              id: 'aEJnSplwvsw',
+              id: OvcCasePlanConstant.houseHoldCategorizationDataElement,
               name: 'Household categorization/prioritization',
               valueType: 'TEXT',
               inputColor: const Color(0xFF4A9F46),

@@ -230,7 +230,10 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
                     ),
                     child: SvgPicture.asset(
                       'assets/icons/edit-icon.svg',
-                      color: labelColor,
+                      colorFilter: ColorFilter.mode(
+                        labelColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),

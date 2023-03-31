@@ -159,7 +159,10 @@ class _ReferralOutComeViewContainerState
                             ),
                             child: SvgPicture.asset(
                               'assets/icons/edit-icon.svg',
-                              color: widget.themeColor,
+                              colorFilter: ColorFilter.mode(
+                                widget.themeColor!,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                         ),

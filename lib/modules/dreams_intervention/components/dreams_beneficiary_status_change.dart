@@ -56,10 +56,14 @@ class _DreamsBeneficiaryStatusChangeState
     updateFormSavingState(true);
     dataObject.removeWhere(((key, value) => value == null || value == ''));
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: dreamsStatusChangeForm,
+      ),
     );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, dreamsStatusChangeForm)) {
@@ -132,8 +136,14 @@ class _DreamsBeneficiaryStatusChangeState
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
     setState(() {
-      unFilledMandatoryFields =
-          AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: dreamsStatusChangeForm,
+        ),
+      );
     });
   }
 

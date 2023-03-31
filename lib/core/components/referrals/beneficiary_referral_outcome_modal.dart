@@ -133,8 +133,14 @@ class _BeneficiaryReferralOutcomeModalState
     unFilledMandatoryFields = [];
     setState(() {});
     List mandatoryFields = _mandatoryFieldsObject.keys.toList();
-    bool isAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: widget.formSections,
+      ),
+    );
     if (isAllMandatoryFilled) {
       try {
         _isSaving = true;
@@ -182,8 +188,14 @@ class _BeneficiaryReferralOutcomeModalState
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: widget.formSections,
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

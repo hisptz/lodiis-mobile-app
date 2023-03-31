@@ -56,7 +56,10 @@ class OvcHouseholdCardHeader extends StatelessWidget {
             ),
             child: SvgPicture.asset(
               svgIcon,
-              color: iconColor,
+              colorFilter: ColorFilter.mode(
+                iconColor,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),

@@ -70,11 +70,11 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
             eventListByProgramStage:
                 serviceEventDataState.eventListByProgramStage,
           );
-          bool _hasReferralOutcome =
+          bool hasReferralOutcome =
               referralOutComeEvent.dateClientReachStation != "";
           return Visibility(
             visible: isOnEditMode &&
-                !_hasReferralOutcome &&
+                !hasReferralOutcome &&
                 referralEvent.enrollmentOuAccessible! &&
                 !isIncomingReferral,
             child: InkWell(
@@ -88,7 +88,10 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/edit-icon.svg',
-                  color: color,
+                  colorFilter: ColorFilter.mode(
+                    color,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),

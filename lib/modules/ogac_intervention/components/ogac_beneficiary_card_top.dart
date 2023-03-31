@@ -59,7 +59,10 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 'assets/icons/expand_icon.svg',
-                color: const Color(0xFFF05A2A),
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFFF05A2A),
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),
@@ -76,7 +79,10 @@ class OgacBeneficiaryCardTop extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/edit-icon.svg',
-                  color: const Color(0xFFF05A2A),
+                  colorFilter: const ColorFilter.mode(
+                    Color(0xFFF05A2A),
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),

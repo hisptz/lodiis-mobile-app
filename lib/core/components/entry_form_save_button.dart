@@ -90,7 +90,10 @@ class EntryFormSaveButton extends StatelessWidget {
                                 ),
                                 child: SvgPicture.asset(
                                   svgIconPath!,
-                                  color: labelColor,
+                                  colorFilter: ColorFilter.mode(
+                                    labelColor,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                               )
                             ],

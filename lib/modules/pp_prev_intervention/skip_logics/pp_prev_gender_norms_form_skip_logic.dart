@@ -25,7 +25,6 @@ class PpPrevGenderNormsFormSkipLogic {
 
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
-      String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'fkYHRd1KrWO') {
         dataObject[inputFieldId] = 'true';
       }

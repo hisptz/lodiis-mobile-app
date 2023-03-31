@@ -79,7 +79,10 @@ class DreamsServiceVisitCard extends StatelessWidget {
                         ),
                         child: SvgPicture.asset(
                           'assets/icons/expand_icon.svg',
-                          color: const Color(0xFF1F8ECE),
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFF1F8ECE),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
@@ -107,7 +110,10 @@ class DreamsServiceVisitCard extends StatelessWidget {
                           ),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: const Color(0xFF1F8ECE),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF1F8ECE),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),

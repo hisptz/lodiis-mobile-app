@@ -15,18 +15,162 @@ import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 import 'package:kb_mobile_app/models/tei_relationship.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class FormUtil {
+  static bool hasAllMandatoryFieldsFilled(
+    List mandatoryFields,
+    Map dataDynamic, {
+    required List<InputField> checkBoxInputFields,
+    Map hiddenFields = const {},
+  }) {
+    bool hasMandoryFieldCheckPass = true;
+    List inputFieldWithData = dataDynamic.keys.toList();
+    List hiddenFieldsIds = hiddenFields.keys.toList();
+    List checkBoxInputFieldIds = checkBoxInputFields
+        .map((InputField inputField) => inputField.id)
+        .toSet()
+        .toList();
+    List filteredMandatoryFields = mandatoryFields
+        .where((field) => !hiddenFieldsIds.contains(field))
+        .toList();
+    for (var mandatoryField in filteredMandatoryFields) {
+      if (!inputFieldWithData.contains(mandatoryField)) {
+        if (checkBoxInputFieldIds.contains(mandatoryField)) {
+          bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
+            checkBoxInputFields
+                .where(
+                    (InputField inputField) => inputField.id == mandatoryField)
+                .toList(),
+            dataDynamic,
+          );
+          if (!hasAtLeastOneInputFieldFilled) {
+            hasMandoryFieldCheckPass = false;
+          }
+        }
+      } else {
+        if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
+            '${dataDynamic[mandatoryField]}'.trim() == 'null') {
+          hasMandoryFieldCheckPass = false;
+        }
+      }
+    }
+
+    print({"hasMandoryFieldCheckPass": hasMandoryFieldCheckPass});
+
+    return hasMandoryFieldCheckPass;
+  }
+
+  static bool isAtLeastOneCheckBoxTicked(
+    List<InputField> checkBoxInputFields,
+    Map dataDynamic,
+  ) {
+    bool hasAtLeastOneInputFieldFilled = false;
+    List<String> ids = [];
+    for (InputField inputField in checkBoxInputFields) {
+      ids.addAll((inputField.options ?? [])
+          .map((InputFieldOption option) => '${option.code}')
+          .toList());
+    }
+    for (String key in dataDynamic.keys.where((key) => ids.contains(key))) {
+      dynamic value = dataDynamic[key];
+      if ("$value".trim().isNotEmpty && "$value".trim() != 'null') {
+        hasAtLeastOneInputFieldFilled = true;
+      }
+    }
+    return hasAtLeastOneInputFieldFilled;
+  }
+
+  static List getUnFilledMandatoryFields(
+    List mandatoryFields,
+    Map dataDynamic, {
+    required List<InputField> checkBoxInputFields,
+    Map hiddenFields = const {},
+  }) {
+    List unFilledMandatoryFields = [];
+    List fieldIds = dataDynamic.keys.toList();
+    List hiddenFieldsIds = hiddenFields.keys.toList();
+    List checkBoxInputFieldIds = checkBoxInputFields
+        .map((InputField inputField) => inputField.id)
+        .toSet()
+        .toList();
+    List filteredMandatoryFields = mandatoryFields
+        .where((field) => !hiddenFieldsIds.contains(field))
+        .toList();
+    for (var mandatoryField in filteredMandatoryFields) {
+      if (!fieldIds.contains(mandatoryField)) {
+        if (checkBoxInputFieldIds.contains(mandatoryField)) {
+          bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
+            checkBoxInputFields
+                .where(
+                    (InputField inputField) => inputField.id == mandatoryField)
+                .toList(),
+            dataDynamic,
+          );
+          if (!hasAtLeastOneInputFieldFilled) {
+            unFilledMandatoryFields.add(mandatoryField);
+          }
+        }
+      } else {
+        if ('${dataDynamic[mandatoryField]}'.trim() == '' ||
+            '${dataDynamic[mandatoryField]}'.trim() == 'null') {
+          unFilledMandatoryFields.add(mandatoryField);
+        }
+      }
+    }
+    return unFilledMandatoryFields;
+  }
+
+  static bool getAtLeastOneFormFieldsFilledStatus(
+    List fields,
+    Map dataDynamic,
+  ) {
+    List unFilledFields = [];
+    List fieldIds = dataDynamic.keys.toList();
+    for (var field in fields) {
+      if (!fieldIds.contains(field)) {
+        unFilledFields.add(field);
+      } else {
+        if ('${dataDynamic[field]}'.trim() == '' ||
+            '${dataDynamic[field]}'.trim() == 'null') {
+          unFilledFields.add(field);
+        }
+      }
+    }
+    return unFilledFields.length < fields.length;
+  }
+
+  static List<InputField> getInputFieldByValueType({
+    required String valueType,
+    required List<FormSection> formSections,
+  }) {
+    List<InputField> inputFields = [];
+    for (FormSection formSection in formSections) {
+      if (formSection.inputFields!.isNotEmpty) {
+        inputFields.addAll(formSection.inputFields!
+            .where((InputField inputField) => inputField.valueType == valueType)
+            .toList());
+      }
+      if (formSection.subSections!.isNotEmpty) {
+        inputFields.addAll(getInputFieldByValueType(
+          valueType: valueType,
+          formSections: formSection.subSections!,
+        ));
+      }
+    }
+    return inputFields;
+  }
+
   static hasAtLeastOnFieldFilled({
     required Map hiddenFields,
     required List<FormSection> formSections,
     required Map dataObject,
   }) {
-    bool hasAtLeasrOnFieldFilled = false;
+    bool hasAtLeastOneInputFieldFilled = false;
     List hiddenFieldIds = [];
     for (String key in hiddenFields.keys) {
       if (hiddenFields[key]) {
@@ -39,10 +183,10 @@ class FormUtil {
     for (String key in dataObject.keys.where((key) => ids.contains(key))) {
       dynamic value = dataObject[key];
       if ("$value".trim().isNotEmpty) {
-        hasAtLeasrOnFieldFilled = true;
+        hasAtLeastOneInputFieldFilled = true;
       }
     }
-    return hasAtLeasrOnFieldFilled;
+    return hasAtLeastOneInputFieldFilled;
   }
 
   static updateServiceFormState(
@@ -201,6 +345,7 @@ class FormUtil {
           String value = dataObject.keys.toList().contains(attribute)
               ? '${dataObject[attribute]}'.trim()
               : '';
+          value = value == "null" ? '' : value;
           return attribute != ''
               ? '{"attribute": "$attribute", "value": "$value"}'
               : '';
@@ -289,6 +434,7 @@ class FormUtil {
           String value = dataObject!.keys.toList().contains(dataElement)
               ? '${dataObject[dataElement]}'.trim()
               : '';
+          value = value == "null" ? '' : value;
           return dataElement != ''
               ? '{"dataElement": "$dataElement", "value": "$value"}'
               : '';

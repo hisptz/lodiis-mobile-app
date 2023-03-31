@@ -1,11 +1,11 @@
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
 import 'package:kb_mobile_app/core/services/preference_provider.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 
 class AppInfoService {
   static Future<void> updateAppStoreVersion() async {
     try {
-      var newVersion = NewVersion(
+      var newVersion = NewVersionPlus(
         androidId: AppInfoReference.androidId,
       );
       final status = await newVersion.getVersionStatus();

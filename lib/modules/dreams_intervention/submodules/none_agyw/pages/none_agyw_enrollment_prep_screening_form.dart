@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -114,9 +115,15 @@ class _NoneAgywEnrollmentPrepScreeningFormState
 
   void onSaveAndContinue(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: hiddenFields);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
@@ -177,8 +184,14 @@ class _NoneAgywEnrollmentPrepScreeningFormState
       );
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -206,8 +219,8 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         ),
         body: SubPageBody(
           body: !isFormReady
-              ? Column(
-                  children: const [
+              ? const Column(
+                  children: [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,

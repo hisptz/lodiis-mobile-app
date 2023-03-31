@@ -164,7 +164,10 @@ class _CasePlanGapServiceProvisionViewState
         ),
         child: SvgPicture.asset(
           icon,
-          color: widget.formSectionColor,
+          colorFilter: ColorFilter.mode(
+            widget.formSectionColor,
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );

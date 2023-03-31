@@ -218,7 +218,10 @@ class PpPrevInterventionHome extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/icons/add-beneficiary.svg',
-                      color: Colors.blueGrey,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.blueGrey,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     onPressed: () => onAddPpPrevBeneficiary(context),
                   )
@@ -239,7 +242,10 @@ class PpPrevInterventionHome extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/icons/add-beneficiary.svg',
-                      color: Colors.blueGrey,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.blueGrey,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     onPressed: () => onAddPpPrevBeneficiary(context),
                   )
