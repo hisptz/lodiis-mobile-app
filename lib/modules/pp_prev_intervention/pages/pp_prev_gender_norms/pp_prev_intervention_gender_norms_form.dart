@@ -24,21 +24,26 @@ import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_service_form.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/skip_logics/pp_prev_service_form_skip_logic.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_gender_norms_form.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/skip_logics/pp_prev_gender_norms_form_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class PpPrevInterventionServiceProvisionForm extends StatefulWidget {
-  const PpPrevInterventionServiceProvisionForm({Key? key}) : super(key: key);
+class PpPrevInterventionGenderNormsForm extends StatefulWidget {
+  const PpPrevInterventionGenderNormsForm({Key? key}) : super(key: key);
 
   @override
-  State<PpPrevInterventionServiceProvisionForm> createState() =>
-      _PpPrevInterventionServiceProvisionFormState();
+  State<PpPrevInterventionGenderNormsForm> createState() =>
+      _PpPrevInterventionGenderNormsFormState();
 }
 
-class _PpPrevInterventionServiceProvisionFormState
-    extends State<PpPrevInterventionServiceProvisionForm> {
-  final String label = "PP Prev Service Provision Form";
+class _PpPrevInterventionGenderNormsFormState
+    extends State<PpPrevInterventionGenderNormsForm> {
+  final String label = "PP Prev Gender Norms Form";
+  final String sessionNumberInputField = 'vL6NpUA0rIU';
+  final List<String> offeredServices = [
+    "fkYHRd1KrWO",
+  ];
+
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -60,8 +65,14 @@ class _PpPrevInterventionServiceProvisionFormState
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -70,7 +81,7 @@ class _PpPrevInterventionServiceProvisionFormState
       context,
       listen: false,
     ).currentPpPrev;
-    defaultFormSections = PpPrevServiceForm.getFormSections(
+    defaultFormSections = PpPrevGenderNormsForm.getFormSections(
       firstDate: currentPpPrev!.createdDate!,
     );
     if (currentPpPrev.enrollmentOuAccessible!) {
@@ -101,7 +112,7 @@ class _PpPrevInterventionServiceProvisionFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await PpPrevServiceFormSkipLogic.evaluateSkipLogics(
+        await PpPrevGenderNormsFormSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -115,86 +126,48 @@ class _PpPrevInterventionServiceProvisionFormState
         .setFormFieldState(id, value);
     evaluateSkipLogics();
     onUpdateFormAutoSaveState(context);
-  }
-
-  void onSaveForm(
-    BuildContext context,
-    Map dataObject,
-    PpPrevBeneficiary ppPrevBeneficiary,
-  ) async {
-    setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
-    if (hadAllMandatoryFilled) {
-      if (FormUtil.geFormFilledStatus(dataObject, defaultFormSections)) {
-        setState(() {
-          isSaving = true;
-        });
-        String? eventDate = dataObject['eventDate'];
-        String? eventId = dataObject['eventId'];
-        List<String> hiddenFields = [];
-        String orgUnit = dataObject['location'] ?? ppPrevBeneficiary.orgUnit;
-        try {
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            PpPrevInterventionConstant.program,
-            PpPrevInterventionConstant.programStage,
-            orgUnit,
-            defaultFormSections!,
-            dataObject,
-            eventDate,
-            ppPrevBeneficiary.id,
-            eventId,
-            hiddenFields,
-          );
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(ppPrevBeneficiary.id);
-          Timer(const Duration(seconds: 1), () {
-            setState(() {
-              String? currentLanguage =
-                  Provider.of<LanguageTranslationState>(context, listen: false)
-                      .currentLanguage;
-              AppUtil.showToastMessage(
-                message: currentLanguage == 'lesotho'
-                    ? 'Fomo e bolokeile'
-                    : 'Form has been saved successfully',
-                position: ToastGravity.TOP,
+    if (id == sessionNumberInputField || offeredServices.contains(id)) {
+      for (var serviceId in offeredServices) {
+        Timer(
+          const Duration(milliseconds: 200),
+          () async {
+            Map dataObject =
+                Provider.of<ServiceFormState>(context, listen: false).formState;
+            if (dataObject[sessionNumberInputField] != null) {
+              bool allowedNumberOfSessions =
+                  PpPrevGenderNormsFormSkipLogic.evaluateSkipLogicBySessions(
+                dataObject,
+                serviceId,
               );
-              clearFormAutoSaveState(
-                context,
-                ppPrevBeneficiary.id,
-                eventId ?? '',
+              bool sessionAlreadyExists = PpPrevGenderNormsFormSkipLogic
+                  .evaluateSkipLogicBySessionReoccurrence(
+                dataObject,
+                serviceId,
               );
-              Navigator.pop(context);
-            });
-          });
-        } catch (e) {
-          Timer(const Duration(seconds: 1), () {
-            setState(() {
-              AppUtil.showToastMessage(
-                  message: e.toString(), position: ToastGravity.BOTTOM);
-            });
-          });
-        }
-      } else {
-        AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP,
+              if (!allowedNumberOfSessions) {
+                AppUtil.showToastMessage(
+                  message:
+                      "Sessions ${dataObject[sessionNumberInputField]} is not valid for the offered Service!",
+                  position: ToastGravity.BOTTOM,
+                );
+              } else if (sessionAlreadyExists) {
+                AppUtil.showToastMessage(
+                  message:
+                      "Sessions ${dataObject[sessionNumberInputField]} already exists for this service!",
+                  position: ToastGravity.BOTTOM,
+                );
+              }
+            }
+          },
         );
       }
-    } else {
-      AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
-        position: ToastGravity.TOP,
-      );
     }
   }
 
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
+        "${PpPrevRoutesConstant.genderNormsFormPageModule}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -212,19 +185,113 @@ class _PpPrevInterventionServiceProvisionFormState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
+        "${PpPrevRoutesConstant.genderNormsFormPageModule}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: PpPrevRoutesConstant.serviceFormPageModule,
+      pageModule: PpPrevRoutesConstant.genderNormsFormPageModule,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : PpPrevRoutesConstant.serviceFormNextPageModule
-          : PpPrevRoutesConstant.serviceFormPageModule,
+              : PpPrevRoutesConstant.genderNormsFormNextPageModule
+          : PpPrevRoutesConstant.genderNormsFormPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
+  }
+
+  void onSaveForm(
+    BuildContext context,
+    Map dataObject,
+    PpPrevBeneficiary ppPrevBeneficiary,
+  ) async {
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, defaultFormSections)) {
+        bool sessionExists = offeredServices.any((String service) =>
+            PpPrevGenderNormsFormSkipLogic
+                .evaluateSkipLogicBySessionReoccurrence(dataObject, service));
+        if (sessionExists) {
+          AppUtil.showToastMessage(
+            message:
+                "Sessions ${dataObject[sessionNumberInputField]} already exists for this service!",
+            position: ToastGravity.BOTTOM,
+          );
+        } else {
+          setState(() {
+            isSaving = true;
+          });
+          String? eventDate = dataObject['eventDate'];
+          String? eventId = dataObject['eventId'];
+          List<String> hiddenFields = [];
+          String orgUnit = dataObject['location'] ?? ppPrevBeneficiary.orgUnit;
+          try {
+            await TrackedEntityInstanceUtil
+                .savingTrackedEntityInstanceEventData(
+              PpPrevInterventionConstant.program,
+              PpPrevInterventionConstant.genderNormsProgramStage,
+              orgUnit,
+              defaultFormSections!,
+              dataObject,
+              eventDate,
+              ppPrevBeneficiary.id,
+              eventId,
+              hiddenFields,
+              skippedFields: ['interventionSessions'],
+            );
+            Provider.of<ServiceEventDataState>(context, listen: false)
+                .resetServiceEventDataState(ppPrevBeneficiary.id);
+            Timer(const Duration(seconds: 1), () {
+              setState(() {
+                String? currentLanguage = Provider.of<LanguageTranslationState>(
+                        context,
+                        listen: false)
+                    .currentLanguage;
+                AppUtil.showToastMessage(
+                  message: currentLanguage == 'lesotho'
+                      ? 'Fomo e bolokeile'
+                      : 'Form has been saved successfully',
+                  position: ToastGravity.TOP,
+                );
+                clearFormAutoSaveState(
+                  context,
+                  ppPrevBeneficiary.id,
+                  eventId ?? '',
+                );
+                Navigator.pop(context);
+              });
+            });
+          } catch (e) {
+            Timer(const Duration(seconds: 1), () {
+              setState(() {
+                AppUtil.showToastMessage(
+                    message: e.toString(), position: ToastGravity.BOTTOM);
+              });
+            });
+          }
+        }
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
+      }
+    } else {
+      AppUtil.showToastMessage(
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
+    }
   }
 
   @override

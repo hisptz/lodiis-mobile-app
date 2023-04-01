@@ -23,10 +23,13 @@ class InterventionBottomNavigationIcon extends StatelessWidget {
         ),
         child: SvgPicture.asset(
           interventionBottomNavigation.svgIcon!,
-          color: currentInterventionBottomNavigation.id ==
-                  interventionBottomNavigation.id
-              ? Colors.white
-              : const Color(0xFF737373),
+          colorFilter: ColorFilter.mode(
+            currentInterventionBottomNavigation.id ==
+                    interventionBottomNavigation.id
+                ? Colors.white
+                : const Color(0xFF737373),
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );

@@ -1012,7 +1012,6 @@ class OvcServicesChildCasePlanGap {
                 allowFuturePeriod: true,
                 name: '(BIRTHCERT) Projected date for completion',
                 translatedName: 'Letsatsi la BIRTHCERT le tla phetheloa',
-                isReadOnly: true,
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),
@@ -1046,7 +1045,6 @@ class OvcServicesChildCasePlanGap {
                 name: '(LEGAL PROTECTION) Projected date for completion',
                 translatedName:
                     'Letsatsi la LEGAL PROTECTION  le tla phetheloa',
-                isReadOnly: true,
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF0F9587),

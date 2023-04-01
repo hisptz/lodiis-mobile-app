@@ -35,7 +35,7 @@ class OvcExitInformationForm extends StatefulWidget {
   const OvcExitInformationForm({Key? key}) : super(key: key);
 
   @override
-  _OvcExitInformationFormState createState() => _OvcExitInformationFormState();
+  State<OvcExitInformationForm> createState() => _OvcExitInformationFormState();
 }
 
 class _OvcExitInformationFormState extends State<OvcExitInformationForm>

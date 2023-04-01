@@ -12,7 +12,7 @@ class BursaryRecordsPage extends StatefulWidget {
   const BursaryRecordsPage({Key? key}) : super(key: key);
 
   @override
-  _BursaryRecordsPageState createState() => _BursaryRecordsPageState();
+  State<BursaryRecordsPage> createState() => _BursaryRecordsPageState();
 }
 
 class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
@@ -98,7 +98,6 @@ class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
               canExpand: canExpand,
               isExpanded: toggleCardId == bursaryBeneficiary.id,
               isLbseLearningOutcomeVisible: false,
-              isLbseReferralVisible: false,
               isBursarySchoolVisible: false,
               isBursaryClubVisible: false,
               educationBeneficiary: bursaryBeneficiary,

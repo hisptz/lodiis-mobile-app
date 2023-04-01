@@ -16,8 +16,9 @@ class BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage
       : super(key: key);
 
   @override
-  _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState createState() =>
-      _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState();
+  State<BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPage>
+      createState() =>
+          _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState();
 }
 
 class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
@@ -78,9 +79,8 @@ class _BeneficiariesWithoutDreamsEnrollmentCriteriaRecordsPageState
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Consumer<DreamsInterventionListState>(
           builder: (context, dreamsInterventionListState, child) {
-            String header = 'Beneficiaries without Enrollment criteria'
-                    .toUpperCase() +
-                ': ${dreamsInterventionListState.numberOfBeneficiariesWithoutAgywDreamsCriteria}';
+            String header =
+                '${'Beneficiaries without Enrollment criteria'.toUpperCase()}: ${dreamsInterventionListState.numberOfBeneficiariesWithoutAgywDreamsCriteria}';
             return SubModuleHomeContainer(
               header: header,
               bodyContents: _buildBody(currentLanguage),

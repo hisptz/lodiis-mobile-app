@@ -154,7 +154,10 @@ class _CasePlanGapServiceMonitoringViewState
         ),
         child: SvgPicture.asset(
           icon,
-          color: widget.formSectionColor,
+          colorFilter: ColorFilter.mode(
+            widget.formSectionColor,
+            BlendMode.srcIn,
+          ),
         ),
       ),
     );

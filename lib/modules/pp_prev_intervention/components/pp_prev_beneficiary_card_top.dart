@@ -53,7 +53,10 @@ class PpPrevBeneficiaryCardTop extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 'assets/icons/expand_icon.svg',
-                color: const Color(0xFF9B2BAE),
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF9B2BAE),
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),
@@ -70,7 +73,10 @@ class PpPrevBeneficiaryCardTop extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/edit-icon.svg',
-                  color: const Color(0xFF9B2BAE),
+                  colorFilter: const ColorFilter.mode(
+                    Color(0xFF9B2BAE),
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),

@@ -26,7 +26,7 @@ class AgywDreamHIVMessage extends StatefulWidget {
   const AgywDreamHIVMessage({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamHIVMessageState createState() => _AgywDreamHIVMessageState();
+  State<AgywDreamHIVMessage> createState() => _AgywDreamHIVMessageState();
 }
 
 class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
@@ -165,7 +165,8 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                                   bottom: 15.0,
                                                 ),
                                                 child: DreamsServiceVisitCard(
-                                                  visitName: "HIV Risk Assessment",
+                                                  visitName:
+                                                      "HIV Risk Assessment",
                                                   onEdit: () =>
                                                       onEditHIVMessageForm(
                                                     context,

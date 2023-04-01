@@ -4,27 +4,8 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationLbseLearningOutcomeForm {
-  static const String learningOutComeToReferralCheck = 'CQ3GZFbzv5N';
   static List<String> getMandatoryField() {
     return ['kuMzFGnDULh', 'mm5ZvlsZ6Sx', 'pKF9sVeUuuE'];
-  }
-
-  static List<FormSection> getReferralCheckFormSections() {
-    return [
-      FormSection(
-        name: "",
-        color: const Color(0xFF009688),
-        inputFields: [
-          InputField(
-            id: learningOutComeToReferralCheck,
-            name: 'Referral offered?',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF009688),
-            labelColor: const Color(0xFF737373),
-          ),
-        ],
-      ),
-    ];
   }
 
   static List<FormSection> getFormSections() {

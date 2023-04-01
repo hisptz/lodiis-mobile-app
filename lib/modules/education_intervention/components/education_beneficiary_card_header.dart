@@ -96,7 +96,10 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                       ),
                       child: SvgPicture.asset(
                         'assets/icons/expand_icon.svg',
-                        color: const Color(0xFF009688),
+                        colorFilter: const ColorFilter.mode(
+                          Color(0xFF009688),
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),
@@ -117,7 +120,10 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                       ),
                       child: SvgPicture.asset(
                         'assets/icons/edit-icon.svg',
-                        color: const Color(0xFF009688),
+                        colorFilter: const ColorFilter.mode(
+                          Color(0xFF009688),
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),
@@ -140,7 +146,10 @@ class EducationBeneficiaryCardHeader extends StatelessWidget {
                         isExpanded
                             ? 'assets/icons/chevron_up.svg'
                             : 'assets/icons/chevron_down.svg',
-                        color: const Color(0xFF05131B),
+                        colorFilter: const ColorFilter.mode(
+                          Color(0xFF05131B),
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),

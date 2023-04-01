@@ -19,14 +19,14 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_enrollment_form.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_home.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 
 class PpPrevIntervention extends StatefulWidget {
   const PpPrevIntervention({Key? key}) : super(key: key);
 
   @override
-  _PpPrevInterventionState createState() => _PpPrevInterventionState();
+  State<PpPrevIntervention> createState() => _PpPrevInterventionState();
 }
 
 class _PpPrevInterventionState extends State<PpPrevIntervention> {

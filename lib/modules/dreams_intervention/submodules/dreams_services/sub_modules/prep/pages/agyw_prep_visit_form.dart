@@ -34,7 +34,7 @@ class AgywPrepVisitForm extends StatefulWidget {
   const AgywPrepVisitForm({Key? key}) : super(key: key);
 
   @override
-  _AgywPrepVisitFormState createState() => _AgywPrepVisitFormState();
+  State<AgywPrepVisitForm> createState() => _AgywPrepVisitFormState();
 }
 
 class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
@@ -60,10 +60,16 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -126,9 +132,15 @@ class _AgywPrepVisitFormState extends State<AgywPrepVisitForm> {
     hiddenFields = const {},
   }) async {
     setMandatoryFields(dataObject);
-    bool hasAllMandatoryFieldsFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields: hiddenFields);
+    bool hasAllMandatoryFieldsFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hasAllMandatoryFieldsFilled) {
       setState(() {
         isSaving = true;

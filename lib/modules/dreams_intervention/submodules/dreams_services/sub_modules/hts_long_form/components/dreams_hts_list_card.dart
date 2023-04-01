@@ -34,7 +34,7 @@ class DreamsHTSListCard extends StatelessWidget {
                   Expanded(
                     child: RichText(
                       text: TextSpan(
-                        text: "HTS " + sessionCount.toString(),
+                        text: "HTS $sessionCount",
                         style: const TextStyle().copyWith(
                           color: const Color(0xFF05131B),
                           fontSize: 14.0,
@@ -66,7 +66,10 @@ class DreamsHTSListCard extends StatelessWidget {
                               vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
-                            color: const Color(0xFF1F8ECE),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF1F8ECE),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         )),
                   ),

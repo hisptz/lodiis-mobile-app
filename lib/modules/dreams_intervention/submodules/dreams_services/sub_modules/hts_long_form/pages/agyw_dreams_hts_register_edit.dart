@@ -29,7 +29,7 @@ class AgywDreamsHTSRegisterFormEdit extends StatefulWidget {
   const AgywDreamsHTSRegisterFormEdit({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSRegisterFormEditState createState() =>
+  State<AgywDreamsHTSRegisterFormEdit> createState() =>
       _AgywDreamsHTSRegisterFormEditState();
 }
 
@@ -81,10 +81,16 @@ class _AgywDreamsHTSRegisterFormEditState
 
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream? agywDream) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {
@@ -152,10 +158,16 @@ class _AgywDreamsHTSRegisterFormEditState
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
-                .hiddenFields);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

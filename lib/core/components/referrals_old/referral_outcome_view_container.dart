@@ -39,7 +39,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
   final Function onEditReferralOutCome;
 
   @override
-  _ReferralOutComeViewContainerState createState() =>
+  State<ReferralOutComeViewContainer> createState() =>
       _ReferralOutComeViewContainerState();
 }
 
@@ -159,7 +159,10 @@ class _ReferralOutComeViewContainerState
                             ),
                             child: SvgPicture.asset(
                               'assets/icons/edit-icon.svg',
-                              color: widget.themeColor,
+                              colorFilter: ColorFilter.mode(
+                                widget.themeColor!,
+                                BlendMode.srcIn,
+                              ),
                             ),
                           ),
                         ),

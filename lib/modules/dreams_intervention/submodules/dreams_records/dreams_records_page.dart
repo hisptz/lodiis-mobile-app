@@ -11,7 +11,7 @@ class DreamsRecordsPage extends StatefulWidget {
   final TabController tabsController;
 
   @override
-  _DreamsRecordsPageState createState() => _DreamsRecordsPageState();
+  State<DreamsRecordsPage> createState() => _DreamsRecordsPageState();
 }
 
 class _DreamsRecordsPageState extends State<DreamsRecordsPage> {

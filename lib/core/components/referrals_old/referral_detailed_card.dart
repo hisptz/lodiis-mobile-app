@@ -52,7 +52,7 @@ class ReferralDetailedCard extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _ReferralDetailedCardState createState() => _ReferralDetailedCardState();
+  State<ReferralDetailedCard> createState() => _ReferralDetailedCardState();
 }
 
 class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
@@ -191,7 +191,10 @@ class _ReferralDetailedCardState extends State<ReferralDetailedCard> {
                                   ),
                                   child: SvgPicture.asset(
                                     'assets/icons/edit-icon.svg',
-                                    color: buttonLabelColor,
+                                    colorFilter: ColorFilter.mode(
+                                      buttonLabelColor!,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ),
                               ),

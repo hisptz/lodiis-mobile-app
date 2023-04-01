@@ -30,14 +30,14 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/education_lbse.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/pages/education_lbse_enrollment_form_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_records/education_records_page.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 
 class EducationIntervention extends StatefulWidget {
   const EducationIntervention({Key? key}) : super(key: key);
 
   @override
-  _EducationInterventionState createState() => _EducationInterventionState();
+  State<EducationIntervention> createState() => _EducationInterventionState();
 }
 
 class _EducationInterventionState extends State<EducationIntervention>
@@ -187,100 +187,103 @@ class _EducationInterventionState extends State<EducationIntervention>
               InterventionCard activeInterventionProgram =
                   interventionCardState.currentInterventionProgram;
               return Consumer<InterventionBottomNavigationState>(
-                  builder: (context, interventionBottomNavigationState, child) {
-                InterventionBottomNavigation
-                    currentInterventionBottomNavigation =
-                    interventionBottomNavigationState
-                        .getCurrentInterventionBottomNavigation(
-                            activeInterventionProgram,
-                            currentUserState.implementingPartner);
-                return Scaffold(
-                  appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(110),
-                    child: InterventionAppBar(
-                      activeInterventionProgram: activeInterventionProgram,
-                      onClickHome: onClickHome,
-                      tabController: tabController,
-                      tabs: tabsItems,
-                      hasTabs:
-                          currentInterventionBottomNavigation.id == 'records',
-                      onAddLbseBeneficiary: () => onAddLbseBeneficiary(context),
-                      onAddBursaryBeneficiary: () =>
-                          onAddBursaryBeneficiary(context),
-                      onOpenMoreMenu: () =>
-                          onOpenMoreMenu(context, activeInterventionProgram),
+                builder: (context, interventionBottomNavigationState, child) {
+                  InterventionBottomNavigation
+                      currentInterventionBottomNavigation =
+                      interventionBottomNavigationState
+                          .getCurrentInterventionBottomNavigation(
+                              activeInterventionProgram,
+                              currentUserState.implementingPartner);
+                  return Scaffold(
+                    appBar: PreferredSize(
+                      preferredSize: const Size.fromHeight(110),
+                      child: InterventionAppBar(
+                        activeInterventionProgram: activeInterventionProgram,
+                        onClickHome: onClickHome,
+                        tabController: tabController,
+                        tabs: tabsItems,
+                        hasTabs:
+                            currentInterventionBottomNavigation.id == 'records',
+                        onAddLbseBeneficiary: () =>
+                            onAddLbseBeneficiary(context),
+                        onAddBursaryBeneficiary: () =>
+                            onAddBursaryBeneficiary(context),
+                        onOpenMoreMenu: () =>
+                            onOpenMoreMenu(context, activeInterventionProgram),
+                      ),
                     ),
-                  ),
-                  body: Consumer<CurrentUserState>(
+                    body: Consumer<CurrentUserState>(
                       builder: (context, currentUserState, child) {
-                    bool hasAccessToDataEntry =
-                        currentUserState.canCurrentUserDoDataEntry;
-                    return Container(
-                      child: !isViewReady
-                          ? Container(
-                              margin: const EdgeInsets.only(
-                                top: 20.0,
-                              ),
-                              child: const CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              ),
-                            )
-                          : !hasAccessToDataEntry
-                              ? const AccessToDataEntryWarning()
-                              : Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: activeInterventionProgram
-                                            .background,
-                                      ),
-                                    ),
-                                    Consumer<InterventionBottomNavigationState>(
-                                      builder: (context,
-                                          interventionBottomNavigationState,
-                                          child) {
-                                        InterventionBottomNavigation
-                                            currentInterventionBottomNavigation =
-                                            interventionBottomNavigationState
-                                                .getCurrentInterventionBottomNavigation(
-                                                    activeInterventionProgram,
-                                                    currentUserState
-                                                        .implementingPartner);
-                                        return Container(
-                                          child: currentInterventionBottomNavigation
-                                                      .id ==
-                                                  'lbse'
-                                              ? const EducationLbse()
-                                              : currentInterventionBottomNavigation
+                        bool hasAccessToDataEntry =
+                            currentUserState.canCurrentUserDoDataEntry;
+                        return Container(
+                          child: !isViewReady
+                              ? Container(
+                                  margin: const EdgeInsets.only(
+                                    top: 20.0,
+                                  ),
+                                  child: const CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  ),
+                                )
+                              : !hasAccessToDataEntry
+                                  ? const AccessToDataEntryWarning()
+                                  : Stack(
+                                      fit: StackFit.expand,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: activeInterventionProgram
+                                                .background,
+                                          ),
+                                        ),
+                                        Consumer<
+                                            InterventionBottomNavigationState>(
+                                          builder: (context,
+                                              interventionBottomNavigationState,
+                                              child) {
+                                            InterventionBottomNavigation
+                                                currentInterventionBottomNavigation =
+                                                interventionBottomNavigationState
+                                                    .getCurrentInterventionBottomNavigation(
+                                                        activeInterventionProgram,
+                                                        currentUserState
+                                                            .implementingPartner);
+                                            return Container(
+                                              child: currentInterventionBottomNavigation
                                                           .id ==
-                                                      'bursary'
-                                                  ? const EducationBursary()
+                                                      'lbse'
+                                                  ? const EducationLbse()
                                                   : currentInterventionBottomNavigation
                                                               .id ==
-                                                          'records'
-                                                      ? EducationRecordsPage(
-                                                          tabsController:
-                                                              tabController!,
-                                                          tabsVieItems:
-                                                              tabsViews,
-                                                        )
-                                                      : RoutePageNotFound(
-                                                          pageTitle:
-                                                              currentInterventionBottomNavigation
-                                                                  .id,
-                                                        ),
-                                        );
-                                      },
+                                                          'bursary'
+                                                      ? const EducationBursary()
+                                                      : currentInterventionBottomNavigation
+                                                                  .id ==
+                                                              'records'
+                                                          ? EducationRecordsPage(
+                                                              tabsController:
+                                                                  tabController!,
+                                                              tabsVieItems:
+                                                                  tabsViews,
+                                                            )
+                                                          : RoutePageNotFound(
+                                                              pageTitle:
+                                                                  currentInterventionBottomNavigation
+                                                                      .id),
+                                            );
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                    );
-                  }),
-                  bottomNavigationBar:
-                      const InterventionBottomNavigationBarContainer(),
-                );
-              });
+                        );
+                      },
+                    ),
+                    bottomNavigationBar:
+                        const InterventionBottomNavigationBarContainer(),
+                  );
+                },
+              );
             },
           );
         },

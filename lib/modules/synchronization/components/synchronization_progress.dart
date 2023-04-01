@@ -30,7 +30,7 @@ class SynchronizationProgress extends StatefulWidget {
   final double? notificationSyncProgress;
 
   @override
-  _SynchronizationProgressState createState() =>
+  State<SynchronizationProgress> createState() =>
       _SynchronizationProgressState();
 }
 

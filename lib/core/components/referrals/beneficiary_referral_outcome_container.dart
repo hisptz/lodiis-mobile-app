@@ -15,8 +15,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
-class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
-  const BeneficiaryRefereralOutcomeContainer({
+class BeneficiaryReferralOutcomeContainer extends StatelessWidget {
+  const BeneficiaryReferralOutcomeContainer({
     Key? key,
     required this.enrollmentOuAccessible,
     required this.beneficiary,
@@ -27,7 +27,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
     required this.referralOutcomeProgramStage,
     required this.referralOutcomeFollowingUpProgramStage,
     required this.referralOutcomeLinkage,
-    required this.referralOutcomeFollowingUplinkage,
+    required this.referralOutcomeFollowingUpLinkage,
     required this.isOvcIntervention,
     required this.isIncomingReferral,
     required this.isOnEditMode,
@@ -36,7 +36,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
   final String referralOutcomeProgramStage;
   final String referralOutcomeFollowingUpProgramStage;
   final String referralOutcomeLinkage;
-  final String referralOutcomeFollowingUplinkage;
+  final String referralOutcomeFollowingUpLinkage;
   final TrackedEntityInstance beneficiary;
   final bool enrollmentOuAccessible;
   final bool isOnEditMode;
@@ -81,7 +81,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
     double modalRatio = 0.75;
     updateFormState(context, referralOutcomeEvent);
 
-    Widget modal = ReferralOutcomeModal(
+    Widget modal = BeneficiaryReferralOutcomeModal(
       enrollmentOuAccessible: enrollmentOuAccessible,
       beneficiary: beneficiary,
       isOvcIntervention: isOvcIntervention,
@@ -92,7 +92,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
           : DreamsReferralOutCome.getFormSections(
               firstDate: referralEvent.date!,
             ),
-      hiddenFields: [referralOutcomeFollowingUplinkage, referralOutcomeLinkage],
+      hiddenFields: [referralOutcomeFollowingUpLinkage, referralOutcomeLinkage],
       mandatoryFields: isOvcIntervention
           ? OvcReferralOutCome.getMandatoryFields()
           : DreamsReferralOutCome.getMandatoryFields(),
@@ -100,7 +100,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
       themeColor:
           isOvcIntervention ? const Color(0xFF4B9F46) : const Color(0xFF1F8ECE),
       referralProgramStage: referralOutcomeProgramStage,
-      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       referralOutcomeLinkage: referralOutcomeLinkage,
     );
     AppUtil.showActionSheetModal(
@@ -124,7 +124,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
           ReferralOutcomeEvent().fromTeiModel(
         eventData: eventData,
         referralToComeReference: referralOutcomeLinkage,
-        referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+        referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       );
       return referralOutComeEvent.referralReference == referralEvent.id;
     }).toList();
@@ -132,7 +132,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
         ReferralOutcomeEvent().fromTeiModel(
       eventData: events.isEmpty ? Events(dataValues: []) : events.first,
       referralToComeReference: referralOutcomeLinkage,
-      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
     );
     return referralOutComeEvent;
   }
@@ -191,7 +191,7 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
           eventListByProgramStage:
               serviceEventDataState.eventListByProgramStage,
         );
-        bool _hasReferralOutcome =
+        bool hasReferralOutcome =
             referralOutcomeEvent.dateClientReachStation != "";
         return serviceEventDataState.isLoading
             ? Container(
@@ -200,13 +200,13 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               )
-            : !_hasReferralOutcome && isIncomingReferral && isOnEditMode
+            : !hasReferralOutcome && isIncomingReferral && isOnEditMode
                 ? _getReferralButton(
                     onTap: () => onAddOrEditReferralOutcome(context, null),
                     color: labelColor,
                   )
                 : Visibility(
-                    visible: _hasReferralOutcome,
+                    visible: hasReferralOutcome,
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -229,8 +229,8 @@ class BeneficiaryRefereralOutcomeContainer extends StatelessWidget {
                         referralProgram: referralProgram,
                         referralOutcomeFollowingUpProgramStage:
                             referralOutcomeFollowingUpProgramStage,
-                        referralOutcomeFollowingUplinkage:
-                            referralOutcomeFollowingUplinkage,
+                        referralOutcomeFollowingUpLinkage:
+                            referralOutcomeFollowingUpLinkage,
                         referralOutcomeEvent: referralOutcomeEvent,
                         labelColor: labelColor,
                         onEditReferralOutcome: () => onAddOrEditReferralOutcome(

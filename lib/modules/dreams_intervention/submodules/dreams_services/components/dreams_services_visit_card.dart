@@ -56,7 +56,7 @@ class DreamsServiceVisitCard extends StatelessWidget {
                         text: TextSpan(
                       text: visitCount == null || visitCount == 0
                           ? visitName
-                          : visitName + " ${visitCount.toString()}",
+                          : "$visitName ${visitCount.toString()}",
                       style: const TextStyle().copyWith(
                         color: const Color(0xFF05131B),
                         fontSize: 14.0,
@@ -79,7 +79,10 @@ class DreamsServiceVisitCard extends StatelessWidget {
                         ),
                         child: SvgPicture.asset(
                           'assets/icons/expand_icon.svg',
-                          color: const Color(0xFF1F8ECE),
+                          colorFilter: const ColorFilter.mode(
+                            Color(0xFF1F8ECE),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
@@ -107,7 +110,10 @@ class DreamsServiceVisitCard extends StatelessWidget {
                           ),
                           child: SvgPicture.asset(
                             'assets/icons/edit-icon.svg',
-                            color: const Color(0xFF1F8ECE),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF1F8ECE),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),

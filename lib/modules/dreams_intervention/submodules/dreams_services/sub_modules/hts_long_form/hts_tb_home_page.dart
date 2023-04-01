@@ -20,7 +20,7 @@ class HTSTBHomePage extends StatefulWidget {
   final String? hivResultStatus;
 
   @override
-  _HTSTBHomePageState createState() => _HTSTBHomePageState();
+  State<HTSTBHomePage> createState() => _HTSTBHomePageState();
 }
 
 class _HTSTBHomePageState extends State<HTSTBHomePage> {

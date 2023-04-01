@@ -36,9 +36,10 @@ class LanguageSelectionCard extends StatelessWidget {
                   : appLanguage.name!),
           SvgPicture.asset(
             'assets/icons/tick-icon.svg',
-            color: appLanguage.id == selectionLanguage
-                ? color
-                : Colors.transparent,
+            colorFilter: ColorFilter.mode(
+              appLanguage.id == selectionLanguage ? color! : Colors.transparent,
+              BlendMode.srcIn,
+            ),
           )
         ],
       ),

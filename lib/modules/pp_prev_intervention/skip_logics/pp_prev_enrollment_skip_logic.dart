@@ -28,17 +28,13 @@ class PpPrevEnrollmentSkipLogic {
       if (inputFieldId == 'qZP982qpSPS') {
         int age = AppUtil.getAgeInYear(value);
         assignInputFieldValue(context, 'ls9hlz2tyol', age.toString());
-      } else if (inputFieldId == 'vIX4GTSCX4P') {
-        String gender = '${dataObject[inputFieldId]}';
-        Map hiddenOptions = {};
-        hiddenOptions['F'] = true;
-        hiddenOptions['CF'] = true;
-        if (gender == 'Female') {
-          hiddenOptions['M'] = true;
-        } else if (gender == 'Male') {
-          hiddenOptions['AGYW'] = true;
-        }
-        hiddenInputFieldOptions['j5iIE2kifv4'] = hiddenOptions;
+      } else if (inputFieldId == 'agg0eUd8Wwo' && value != 'true') {
+        hiddenFields['ZxXscC5W9qb'] = true;
+        hiddenFields['muAZsONb53n'] = true;
+      } else if (inputFieldId == 'fSQY2z3L0lp' && value != 'true') {
+        hiddenFields['F2OyvIDdUFG'] = true;
+        hiddenFields['hZxlBQQlYLP'] = true;
+        hiddenFields['qCEK4EQvSbL'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

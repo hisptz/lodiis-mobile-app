@@ -35,7 +35,7 @@ class OvcExitCaseTransferForm extends StatefulWidget {
   const OvcExitCaseTransferForm({Key? key}) : super(key: key);
 
   @override
-  _OvcExitCaseTransferFormState createState() =>
+  State<OvcExitCaseTransferForm> createState() =>
       _OvcExitCaseTransferFormState();
 }
 

@@ -80,9 +80,8 @@ class _DreamsEnrollmentNotEligibleState
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Consumer<DreamsInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
-            String header = 'AGYW/DREAMS Eligible but not Enrolled '
-                    .toUpperCase() +
-                ': ${ovcInterventionListState.numberOfEnrolledNotEligibleParticipant}';
+            String header =
+                '${'AGYW/DREAMS Eligible but not Enrolled '.toUpperCase()}: ${ovcInterventionListState.numberOfEnrolledNotEligibleParticipant}';
             return SubModuleHomeContainer(
               header: header,
               bodyContents: _buildBody(currentLanguage),
@@ -132,8 +131,8 @@ class _DreamsEnrollmentNotEligibleState
                 right: 13.0,
                 left: 13.0,
               ),
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   Text(
                     'There is no AGYW/DREAMS Eligible but not Enroll  participants at moment',
                     textAlign: TextAlign.center,

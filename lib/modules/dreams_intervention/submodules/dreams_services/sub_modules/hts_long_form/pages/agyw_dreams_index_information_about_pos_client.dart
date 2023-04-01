@@ -30,7 +30,7 @@ class AgywDreamsIndexInfoAboutPosClient extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AgywDreamsIndexInfoAboutPosClientState createState() =>
+  State<AgywDreamsIndexInfoAboutPosClient> createState() =>
       _AgywDreamsIndexInfoAboutPosClientState();
 }
 
@@ -82,7 +82,6 @@ class _AgywDreamsIndexInfoAboutPosClientState
       setState(() {
         isSaving = true;
       });
-      // print(dataObject.keys.length);
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       dataObject[AgywDreamsIndexPositiveConstant

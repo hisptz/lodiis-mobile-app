@@ -35,7 +35,7 @@ class AgywDreamsEnrollmentEditForm extends StatefulWidget {
   const AgywDreamsEnrollmentEditForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsEnrollmentEditFormState createState() =>
+  State<AgywDreamsEnrollmentEditForm> createState() =>
       _AgywDreamsEnrollmentEditFormState();
 }
 
@@ -170,10 +170,14 @@ class _AgywDreamsEnrollmentEditFormState
 
   void onSaveForm(BuildContext context, Map dataObject,
       {Map hiddenFields = const {}}) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
     );
     if (hadAllMandatoryFilled) {
       setState(() {
@@ -235,11 +239,16 @@ class _AgywDreamsEnrollmentEditFormState
       });
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields:
-                Provider.of<EnrollmentFormState>(context, listen: false)
-                    .hiddenFields);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

@@ -19,7 +19,7 @@ class AgywDreamsOutgoingReferralsOutcome extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _AgywDreamsOutgoingReferralsOutcomeState createState() =>
+  State<AgywDreamsOutgoingReferralsOutcome> createState() =>
       _AgywDreamsOutgoingReferralsOutcomeState();
 }
 
@@ -64,13 +64,13 @@ class _AgywDreamsOutgoingReferralsOutcomeState
           height: 10,
         ),
         Visibility(
-          child: const Text('Searched Beneficiary not found!'),
           visible: searchedValue != '' &&
               widget.agywList
                   .where((agyw) => '${agyw.toString()} ${agyw.primaryUIC}'
                       .toLowerCase()
                       .contains(searchedValue))
                   .isEmpty,
+          child: const Text('Searched Beneficiary not found!'),
         ),
         ...(widget.agywList.where((agyw) =>
                 '${agyw.toString()} ${agyw.primaryUIC}'

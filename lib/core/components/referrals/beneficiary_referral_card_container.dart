@@ -11,8 +11,8 @@ import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_event.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 
-class BeneficiaryRefereralCardContainer extends StatefulWidget {
-  const BeneficiaryRefereralCardContainer({
+class BeneficiaryReferralCardContainer extends StatefulWidget {
+  const BeneficiaryReferralCardContainer({
     Key? key,
     required this.referralIndex,
     required this.themeColor,
@@ -25,9 +25,9 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
     required this.enrollmentOuAccessible,
     required this.referralProgram,
     required this.referralOutcomeProgramStage,
-    required this.referralOutcomeFollowingUpProgramStage,
     required this.referralOutcomeLinkage,
-    required this.referralOutcomeFollowingUplinkage,
+    this.referralOutcomeFollowingUpProgramStage = '',
+    this.referralOutcomeFollowingUpLinkage = '',
     this.isOvcIntervention = false,
     this.isHouseHoldReferral = false,
     this.isOnViewOrManage = false,
@@ -45,7 +45,7 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
   final String referralOutcomeProgramStage;
   final String referralOutcomeFollowingUpProgramStage;
   final String referralOutcomeLinkage;
-  final String referralOutcomeFollowingUplinkage;
+  final String referralOutcomeFollowingUpLinkage;
   final bool isIncomingReferral;
   final bool isOnEditMode;
   final String prefixReferralTitle;
@@ -63,12 +63,12 @@ class BeneficiaryRefereralCardContainer extends StatefulWidget {
   final VoidCallback onEditReferral;
 
   @override
-  State<BeneficiaryRefereralCardContainer> createState() =>
-      _BeneficiaryRefereralCardContainerState();
+  State<BeneficiaryReferralCardContainer> createState() =>
+      _BeneficiaryReferralCardContainerState();
 }
 
-class _BeneficiaryRefereralCardContainerState
-    extends State<BeneficiaryRefereralCardContainer> {
+class _BeneficiaryReferralCardContainerState
+    extends State<BeneficiaryReferralCardContainer> {
   bool _isLoading = true;
   late ReferralEvent referralEvent;
 
@@ -130,8 +130,8 @@ class _BeneficiaryRefereralCardContainerState
                         referralOutcomeProgramStage:
                             widget.referralOutcomeProgramStage,
                         referralOutcomeLinkage: widget.referralOutcomeLinkage,
-                        referralOutcomeFollowingUplinkage:
-                            widget.referralOutcomeFollowingUplinkage,
+                        referralOutcomeFollowingUpLinkage:
+                            widget.referralOutcomeFollowingUpLinkage,
                         isOnEditMode:
                             referralEvent.eventData!.enrollmentOuAccessible! &&
                                 widget.isOnEditMode,
@@ -143,7 +143,7 @@ class _BeneficiaryRefereralCardContainerState
                     color: widget.themeColor.withOpacity(0.2),
                     height: 2.0,
                   ),
-                  BeneficiaryRefereralCardBody(
+                  BeneficiaryReferralCardBody(
                     referralEvent: referralEvent,
                     labelColor: widget.labelColor,
                     valueColor: widget.valueColor,
@@ -151,7 +151,7 @@ class _BeneficiaryRefereralCardContainerState
                   ),
                   Visibility(
                     visible: widget.isOnViewOrManage,
-                    child: BeneficiaryRefereralOutcomeContainer(
+                    child: BeneficiaryReferralOutcomeContainer(
                       enrollmentOuAccessible: widget.enrollmentOuAccessible,
                       beneficiary: widget.beneficiary,
                       isOnEditMode: widget.isOnEditMode,
@@ -161,8 +161,8 @@ class _BeneficiaryRefereralCardContainerState
                       referralOutcomeFollowingUpProgramStage:
                           widget.referralOutcomeFollowingUpProgramStage,
                       referralOutcomeLinkage: widget.referralOutcomeLinkage,
-                      referralOutcomeFollowingUplinkage:
-                          widget.referralOutcomeFollowingUplinkage,
+                      referralOutcomeFollowingUpLinkage:
+                          widget.referralOutcomeFollowingUpLinkage,
                       referralEvent: referralEvent,
                       labelColor: widget.themeColor,
                       valueColor: widget.valueColor,
@@ -173,7 +173,7 @@ class _BeneficiaryRefereralCardContainerState
                   ),
                   Visibility(
                     visible: !widget.isOnViewOrManage,
-                    child: BeneficiaryRefereralCardButton(
+                    child: BeneficiaryReferralCardButton(
                       themeColor: widget.themeColor,
                       onManage: widget.onManage,
                       onView: widget.onView,

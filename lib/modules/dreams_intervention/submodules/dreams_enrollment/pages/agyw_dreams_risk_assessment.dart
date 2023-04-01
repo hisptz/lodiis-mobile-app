@@ -15,6 +15,7 @@ import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_without_enrollment_criteria.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
@@ -31,7 +32,7 @@ import 'agyw_dreams_enrollment_form.dart';
 class AgywDreamsRiskAssessment extends StatefulWidget {
   const AgywDreamsRiskAssessment({Key? key}) : super(key: key);
   @override
-  _AgywDreamsRiskAssessmentState createState() =>
+  State<AgywDreamsRiskAssessment> createState() =>
       _AgywDreamsRiskAssessmentState();
 }
 
@@ -229,10 +230,14 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
     Map dataObject, {
     Map hiddenFields = const {},
   }) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
       hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
     );
     if (hadAllMandatoryFilled) {
       onUpdateFormAutoSaveState(context, isSaveForm: true);
@@ -270,11 +275,16 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-            mandatoryFields, dataObject,
-            hiddenFields:
-                Provider.of<EnrollmentFormState>(context, listen: false)
-                    .hiddenFields);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections ?? [],
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
@@ -307,8 +317,8 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? Column(
-                    children: const [
+                ? const Column(
+                    children: [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class EntryFormSaveButton extends StatelessWidget {
-  const EntryFormSaveButton(
-      {Key? key,
-      this.width = double.infinity,
-      required this.label,
-      required this.labelColor,
-      required this.buttonColor,
-      this.marginLeft = 65.0,
-      this.marginRight = 64.0,
-      this.fontSize = 15.0,
-      this.horizontal = 10.0,
-      this.vertical = 15.0,
-      this.borderColor,
-      this.onPressButton,
-      this.svgIconPath,
-      this.svgIconHeight = 20.0,
-      this.svgIconWidth = 20.0})
-      : super(key: key);
+  const EntryFormSaveButton({
+    Key? key,
+    this.width = double.infinity,
+    required this.label,
+    required this.labelColor,
+    required this.buttonColor,
+    this.marginLeft = 65.0,
+    this.marginRight = 64.0,
+    this.fontSize = 15.0,
+    this.horizontal = 10.0,
+    this.vertical = 15.0,
+    this.borderColor,
+    this.onPressButton,
+    this.svgIconPath,
+    this.svgIconHeight = 20.0,
+    this.svgIconWidth = 20.0,
+  }) : super(key: key);
 
   final String label;
   final Color labelColor;
@@ -90,7 +90,10 @@ class EntryFormSaveButton extends StatelessWidget {
                                 ),
                                 child: SvgPicture.asset(
                                   svgIconPath!,
-                                  color: labelColor,
+                                  colorFilter: ColorFilter.mode(
+                                    labelColor,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                               )
                             ],

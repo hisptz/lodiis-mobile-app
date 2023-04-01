@@ -33,7 +33,8 @@ class AgywDreamsParentingForm extends StatefulWidget {
   const AgywDreamsParentingForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsParentingFormState createState() => _AgywDreamsParentingFormState();
+  State<AgywDreamsParentingForm> createState() =>
+      _AgywDreamsParentingFormState();
 }
 
 class _AgywDreamsParentingFormState extends State<AgywDreamsParentingForm> {
@@ -59,8 +60,14 @@ class _AgywDreamsParentingFormState extends State<AgywDreamsParentingForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -122,8 +129,14 @@ class _AgywDreamsParentingFormState extends State<AgywDreamsParentingForm> {
     AgywDream? agywDream,
   ) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {

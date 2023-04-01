@@ -16,14 +16,14 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
     required this.isIncomingReferral,
     required this.color,
     required this.referralOutcomeLinkage,
-    required this.referralOutcomeFollowingUplinkage,
+    required this.referralOutcomeFollowingUpLinkage,
     required this.onEditReferral,
   }) : super(key: key);
 
   final ReferralEvent referralEvent;
   final String referralOutcomeProgramStage;
   final String referralOutcomeLinkage;
-  final String referralOutcomeFollowingUplinkage;
+  final String referralOutcomeFollowingUpLinkage;
   final bool isOnEditMode;
   final bool isIncomingReferral;
   final Color color;
@@ -45,7 +45,7 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
           ReferralOutcomeEvent().fromTeiModel(
         eventData: eventData,
         referralToComeReference: referralOutcomeLinkage,
-        referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+        referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       );
       return referralOutComeEvent.referralReference == referralEvent.id;
     }).toList();
@@ -53,7 +53,7 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
         ReferralOutcomeEvent().fromTeiModel(
       eventData: events.isEmpty ? Events(dataValues: []) : events.first,
       referralToComeReference: referralOutcomeLinkage,
-      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
     );
     return referralOutComeEvent;
   }
@@ -70,11 +70,11 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
             eventListByProgramStage:
                 serviceEventDataState.eventListByProgramStage,
           );
-          bool _hasReferralOutcome =
+          bool hasReferralOutcome =
               referralOutComeEvent.dateClientReachStation != "";
           return Visibility(
             visible: isOnEditMode &&
-                !_hasReferralOutcome &&
+                !hasReferralOutcome &&
                 referralEvent.enrollmentOuAccessible! &&
                 !isIncomingReferral,
             child: InkWell(
@@ -88,7 +88,10 @@ class BeneficiaryReferralCardEditIcon extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   'assets/icons/edit-icon.svg',
-                  color: color,
+                  colorFilter: ColorFilter.mode(
+                    color,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),

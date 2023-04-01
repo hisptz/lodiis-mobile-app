@@ -69,7 +69,10 @@ class OvcExitListCard extends StatelessWidget {
                               vertical: 5, horizontal: 5),
                           child: SvgPicture.asset(
                             'assets/icons/expand_icon.svg',
-                            color: const Color(0xFF4B9F46),
+                            colorFilter: const ColorFilter.mode(
+                              Color(0xFF4B9F46),
+                              BlendMode.srcIn,
+                            ),
                           ),
                         )),
                   ),
@@ -88,7 +91,10 @@ class OvcExitListCard extends StatelessWidget {
                                 vertical: 5, horizontal: 5),
                             child: SvgPicture.asset(
                               'assets/icons/edit-icon.svg',
-                              color: const Color(0xFF4B9F46),
+                              colorFilter: const ColorFilter.mode(
+                                Color(0xFF4B9F46),
+                                BlendMode.srcIn,
+                              ),
                             ),
                           )),
                     ),

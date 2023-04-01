@@ -21,7 +21,7 @@ class OvcReferralPage extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _OvcReferralPageState createState() => _OvcReferralPageState();
+  State<OvcReferralPage> createState() => _OvcReferralPageState();
 }
 
 class _OvcReferralPageState extends State<OvcReferralPage> {
@@ -76,10 +76,8 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
         return Consumer<OvcInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
             String header = currentLanguage == 'lesotho'
-                ? 'Lethathamo la malapa'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                : 'Household list'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+                ? '${'Lethathamo la malapa'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : '${'Household list'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} households';
             return SubModuleHomeContainer(
               header: header,
               bodyContents: _buildBody(currentLanguage),

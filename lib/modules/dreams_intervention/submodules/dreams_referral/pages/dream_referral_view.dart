@@ -25,7 +25,7 @@ class DreamsReferralView extends StatefulWidget {
   final bool isIncomingReferral;
 
   @override
-  _DreamsReferralViewState createState() => _DreamsReferralViewState();
+  State<DreamsReferralView> createState() => _DreamsReferralViewState();
 }
 
 class _DreamsReferralViewState extends State<DreamsReferralView> {
@@ -61,7 +61,7 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                     vertical: 15.0,
                     horizontal: 13.0,
                   ),
-                  child: BeneficiaryRefereralCardContainer(
+                  child: BeneficiaryReferralCardContainer(
                     referralIndex: widget.referralIndex,
                     titleColor: AgywDreamsCommonConstant.referralCardTitleColor,
                     labelColor: AgywDreamsCommonConstant.referralCardLabelColor,
@@ -75,7 +75,7 @@ class _DreamsReferralViewState extends State<DreamsReferralView> {
                         DreamsAgywReferralConstant.referralFollowUpStage,
                     referralOutcomeLinkage:
                         DreamsAgywReferralConstant.referralToOutcomeLinkage,
-                    referralOutcomeFollowingUplinkage:
+                    referralOutcomeFollowingUpLinkage:
                         DreamsAgywReferralConstant.referralToFollowUpLinkage,
                     isIncomingReferral: widget.isIncomingReferral,
                     beneficiary:

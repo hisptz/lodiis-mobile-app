@@ -21,7 +21,7 @@ class LanguageSelectionContainer extends StatefulWidget {
   final Function? onSetSelectedLanguage;
 
   @override
-  _LanguageSelectionContainerState createState() =>
+  State<LanguageSelectionContainer> createState() =>
       _LanguageSelectionContainerState();
 }
 
@@ -54,7 +54,7 @@ class _LanguageSelectionContainerState
         InterventionCard currentInterventionProgram =
             interventionCardState.currentInterventionProgram;
         Color? color = currentInterventionProgram.id == null
-            ? const Color(0xFF4B9F46) //Color(0XFF14A337)
+            ? const Color(0xFF4B9F46)
             : currentInterventionProgram.primaryColor;
         return Stack(
           fit: StackFit.passthrough,

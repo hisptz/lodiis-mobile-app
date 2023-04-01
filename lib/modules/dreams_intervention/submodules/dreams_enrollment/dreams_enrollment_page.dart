@@ -21,7 +21,7 @@ class DreamsEnrollmentPage extends StatefulWidget {
   const DreamsEnrollmentPage({Key? key}) : super(key: key);
 
   @override
-  _DreamsEnrollmentPageState createState() => _DreamsEnrollmentPageState();
+  State<DreamsEnrollmentPage> createState() => _DreamsEnrollmentPageState();
 }
 
 class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
@@ -147,7 +147,10 @@ class _DreamsEnrollmentPageState extends State<DreamsEnrollmentPage> {
                   child: IconButton(
                     icon: SvgPicture.asset(
                       'assets/icons/add-beneficiary.svg',
-                      color: Colors.blueGrey,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.blueGrey,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     onPressed: () => onAddAgywBeneficiary(context),
                   ),

@@ -27,7 +27,7 @@ class AgywDreamsHTSClientInformationEdit extends StatefulWidget {
   const AgywDreamsHTSClientInformationEdit({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsHTSClientInformationEditState createState() =>
+  State<AgywDreamsHTSClientInformationEdit> createState() =>
       _AgywDreamsHTSClientInformationEditState();
 }
 

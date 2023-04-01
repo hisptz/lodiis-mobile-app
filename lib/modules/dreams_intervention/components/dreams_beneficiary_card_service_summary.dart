@@ -64,7 +64,10 @@ class DreamsBeneficiaryCardServiceSummary extends StatelessWidget {
                                                   ),
                                               child: SvgPicture.asset(
                                                 'assets/icons/tick-icon.svg',
-                                                color: labelColor,
+                                                colorFilter: ColorFilter.mode(
+                                                  labelColor,
+                                                  BlendMode.srcIn,
+                                                ),
                                                 height: 10,
                                               ),
                                             ),

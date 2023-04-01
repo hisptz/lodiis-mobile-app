@@ -1,12 +1,12 @@
 import 'package:kb_mobile_app/core/constants/app_info_reference.dart';
 import 'package:kb_mobile_app/core/utils/device_info_util.dart';
-import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 
 class AppInfoUtil {
   static Future<String> getAppVersionInfo() async {
     String currentAppVersion = AppInfoReference.currentAppVersion;
     try {
-      NewVersion newVersion = NewVersion(
+      NewVersionPlus newVersion = NewVersionPlus(
         androidId: AppInfoReference.androidId,
       );
       final status = await newVersion.getVersionStatus();

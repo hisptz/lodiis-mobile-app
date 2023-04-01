@@ -33,7 +33,7 @@ class ReferralOutcomeModalOld extends StatefulWidget {
   final List<String> referralOutcomeMandatoryFields;
 
   @override
-  _ReferralOutcomeModalOldState createState() =>
+  State<ReferralOutcomeModalOld> createState() =>
       _ReferralOutcomeModalOldState();
 }
 
@@ -83,8 +83,14 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
     Events eventData,
   ) async {
     if (getReferralOutComeStatus(dataObject)) {
-      bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-          widget.referralOutcomeMandatoryFields, dataObject);
+      bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+        widget.referralOutcomeMandatoryFields,
+        dataObject,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: widget.referralOutcomeFormSections ?? [],
+        ),
+      );
       if (hadAllMandatoryFilled) {
         setState(() {
           isSaving = true;
@@ -141,8 +147,14 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
         }
       } else {
         setState(() {
-          unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-              widget.referralOutcomeMandatoryFields, dataObject);
+          unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+            widget.referralOutcomeMandatoryFields,
+            dataObject,
+            checkBoxInputFields: FormUtil.getInputFieldByValueType(
+              valueType: 'CHECK_BOX',
+              formSections: widget.referralOutcomeFormSections ?? [],
+            ),
+          );
         });
         AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',

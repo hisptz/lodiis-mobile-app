@@ -69,13 +69,12 @@ class OvcEnrollmentHouseholdService {
     Map dataObject = const {},
     List<String>? inputFieldIds,
   }) async {
-    List<String> _inputFieldIds = inputFieldIds ?? [];
     TrackedEntityInstance trackedEntityInstanceData =
         await FormUtil.geTrackedEntityInstanceEnrollmentPayLoad(
       trackedEntityInstance,
       trackedEntityType,
       orgUnit,
-      _inputFieldIds,
+      inputFieldIds ?? [],
       dataObject,
       hasBeneficiaryId: false,
     );

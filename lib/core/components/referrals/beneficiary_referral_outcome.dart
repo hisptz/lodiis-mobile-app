@@ -23,7 +23,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     required this.labelColor,
     required this.onEditReferralOutcome,
     required this.referralOutcomeFollowingUpProgramStage,
-    required this.referralOutcomeFollowingUplinkage,
+    required this.referralOutcomeFollowingUpLinkage,
     required this.beneficiary,
     required this.enrollmentOuAccessible,
     required this.referralProgram,
@@ -37,7 +37,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
   final ReferralOutcomeEvent referralOutcomeEvent;
   final Color labelColor;
   final String referralOutcomeFollowingUpProgramStage;
-  final String referralOutcomeFollowingUplinkage;
+  final String referralOutcomeFollowingUpLinkage;
   final TrackedEntityInstance beneficiary;
   final bool enrollmentOuAccessible;
   final String referralProgram;
@@ -62,7 +62,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('location', location);
     Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-        referralOutcomeFollowingUplinkage,
+        referralOutcomeFollowingUpLinkage,
         referralOutcomeEvent.referralFollowUpReference);
     if (referralOutcomeFollowUpEvent != null) {
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
@@ -88,7 +88,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     updateFormState(context, referralOutcomeFollowUpEvent);
     double modalRatio = 0.65;
     Widget modal = BeneficiaryReferralFollowUpModal(
-      referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+      referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       formSections: isOvcIntervention
           ? OvcReferralFollowUp.getFormSections(
               firstDate: referralOutcomeEvent.dateClientReachStation!,
@@ -97,7 +97,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
               firstDate: referralOutcomeEvent.dateClientReachStation!,
             ),
       hiddenFields: [
-        referralOutcomeFollowingUplinkage,
+        referralOutcomeFollowingUpLinkage,
       ],
       mandatoryFields: isOvcIntervention
           ? OvcReferralFollowUp.getMandatoryFields()
@@ -140,44 +140,48 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
           ),
           child: _getReferralOutcomeDetails(),
         ),
-        Consumer<ServiceEventDataState>(
-          builder: (context, serviceEventDataState, child) {
-            List<ReferralOutcomeFollowUpEvent> referralOutcomeFollowUpEvents =
-                _getReferralOutcomFollowUps(
-                    eventListByProgramStage:
-                        serviceEventDataState.eventListByProgramStage);
-            List<ReferralOutcomeFollowUpEvent> completedReferrals =
-                referralOutcomeFollowUpEvents
-                    .where((followUp) => followUp.isCompleted!)
-                    .toList();
-            return Column(
-              children: [
-                Visibility(
-                  visible: referralOutcomeFollowUpEvents.isNotEmpty,
-                  child: BeneficiaryReferralFollowUpContainer(
-                    valueColor: valueColor,
-                    isOnEditMode: isOnEditMode,
-                    referralOutcomeFollowUpEvents:
-                        referralOutcomeFollowUpEvents,
-                    labelColor: labelColor,
-                    onEditReferralFollowUp: (ReferralOutcomeFollowUpEvent
-                            referralOutcomeFollowUpEvent) =>
-                        onAddOrEditReferralFollowUp(
-                            context, referralOutcomeFollowUpEvent),
+        Visibility(
+          visible: referralOutcomeFollowingUpProgramStage.isNotEmpty &&
+              referralOutcomeFollowingUpLinkage.isNotEmpty,
+          child: Consumer<ServiceEventDataState>(
+            builder: (context, serviceEventDataState, child) {
+              List<ReferralOutcomeFollowUpEvent> referralOutcomeFollowUpEvents =
+                  _getReferralOutcomFollowUps(
+                      eventListByProgramStage:
+                          serviceEventDataState.eventListByProgramStage);
+              List<ReferralOutcomeFollowUpEvent> completedReferrals =
+                  referralOutcomeFollowUpEvents
+                      .where((followUp) => followUp.isCompleted!)
+                      .toList();
+              return Column(
+                children: [
+                  Visibility(
+                    visible: referralOutcomeFollowUpEvents.isNotEmpty,
+                    child: BeneficiaryReferralFollowUpContainer(
+                      valueColor: valueColor,
+                      isOnEditMode: isOnEditMode,
+                      referralOutcomeFollowUpEvents:
+                          referralOutcomeFollowUpEvents,
+                      labelColor: labelColor,
+                      onEditReferralFollowUp: (ReferralOutcomeFollowUpEvent
+                              referralOutcomeFollowUpEvent) =>
+                          onAddOrEditReferralFollowUp(
+                              context, referralOutcomeFollowUpEvent),
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: referralOutcomeEvent.requiredFollowUp! &&
-                      completedReferrals.isEmpty &&
-                      isOnEditMode,
-                  child: Visibility(
-                    visible: referralOutcomeEvent.referralServiceProvided!,
-                    child: _getAddFollowUpButton(context),
+                  Visibility(
+                    visible: referralOutcomeEvent.requiredFollowUp! &&
+                        completedReferrals.isEmpty &&
+                        isOnEditMode,
+                    child: Visibility(
+                      visible: referralOutcomeEvent.referralServiceProvided!,
+                      child: _getAddFollowUpButton(context),
+                    ),
                   ),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         )
       ],
     );
@@ -226,7 +230,10 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
                     ),
                     child: SvgPicture.asset(
                       'assets/icons/edit-icon.svg',
-                      color: labelColor,
+                      colorFilter: ColorFilter.mode(
+                        labelColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),
@@ -270,7 +277,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
       ReferralOutcomeFollowUpEvent referralOutcomeFollowUpEvent =
           ReferralOutcomeFollowUpEvent().fromTeiModel(
         eventData: eventData,
-        referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+        referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
       );
       return referralOutcomeFollowUpEvent.referralReference ==
           referralOutcomeEvent.referralFollowUpReference;
@@ -278,7 +285,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
     return events
         .map((Events eventData) => ReferralOutcomeFollowUpEvent().fromTeiModel(
               eventData: eventData,
-              referralToFollowUpLinkage: referralOutcomeFollowingUplinkage,
+              referralToFollowUpLinkage: referralOutcomeFollowingUpLinkage,
             ))
         .toList();
   }

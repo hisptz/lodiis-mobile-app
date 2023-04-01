@@ -21,7 +21,7 @@ class AgywDreamsEnrollmentViewForm extends StatefulWidget {
   const AgywDreamsEnrollmentViewForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsEnrollmentViewFormState createState() =>
+  State<AgywDreamsEnrollmentViewForm> createState() =>
       _AgywDreamsEnrollmentViewFormState();
 }
 
@@ -96,8 +96,8 @@ class _AgywDreamsEnrollmentViewFormState
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: Container(
               child: !isFormReady
-                  ? Column(
-                      children: const [
+                  ? const Column(
+                      children: [
                         Center(
                           child: CircularProcessLoader(
                             color: Colors.blueGrey,

@@ -20,7 +20,7 @@ class OvcServicesPage extends StatefulWidget {
   const OvcServicesPage({Key? key}) : super(key: key);
 
   @override
-  _OvcServicesPageState createState() => _OvcServicesPageState();
+  State<OvcServicesPage> createState() => _OvcServicesPageState();
 }
 
 class _OvcServicesPageState extends State<OvcServicesPage> {
@@ -104,10 +104,8 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
         return Consumer<OvcInterventionListState>(
           builder: (context, ovcInterventionListState, child) {
             String header = currentLanguage == 'lesotho'
-                ? 'Lethathamo la malapa'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} Malapa'
-                : 'Household list'.toUpperCase() +
-                    ': ${ovcInterventionListState.numberOfHouseholds} households';
+                ? '${'Lethathamo la malapa'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} Malapa'
+                : '${'Household list'.toUpperCase()}: ${ovcInterventionListState.numberOfHouseholds} households';
             return SubModuleHomeContainer(
               header: header,
               bodyContents: _buildBody(currentLanguage),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_referral/pp_prev_intervention_referral_home.dart';
+import 'package:provider/provider.dart';
+
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
@@ -13,8 +16,8 @@ import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_enrollment_form.dart';
-import 'package:kb_mobile_app/modules/pp_prev_intervention/pages/pp_prev_intervention_service_home.dart';
-import 'package:provider/provider.dart';
+import 'pp_prev_gender_norms/pp_prev_intervention_gender_norms_home.dart';
+import 'pp_prev_services/pp_prev_intervention_service_home.dart';
 
 class PpPrevInterventionHome extends StatelessWidget {
   const PpPrevInterventionHome({Key? key}) : super(key: key);
@@ -133,6 +136,42 @@ class PpPrevInterventionHome extends StatelessWidget {
     );
   }
 
+  void onOpenBeneficiaryReferrals(
+    BuildContext context,
+    PpPrevBeneficiary ppPrevBeneficiary,
+  ) {
+    Provider.of<PpPrevInterventionCurrentSelectionState>(context, listen: false)
+        .setCurrentAgywDream(ppPrevBeneficiary);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ppPrevBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const PpPrevInterventionReferralHome();
+        },
+      ),
+    );
+  }
+
+  void onOpenBeneficiaryGenderNorms(
+    BuildContext context,
+    PpPrevBeneficiary ppPrevBeneficiary,
+  ) {
+    Provider.of<PpPrevInterventionCurrentSelectionState>(context, listen: false)
+        .setCurrentAgywDream(ppPrevBeneficiary);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(ppPrevBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const PpPrevInterventionGenderNormsHome();
+        },
+      ),
+    );
+  }
+
   Consumer<PpPrevInterventionState> _buildBody() {
     return Consumer<PpPrevInterventionState>(
       builder: (context, ppPrevInterventionState, child) {
@@ -155,6 +194,14 @@ class PpPrevInterventionHome extends StatelessWidget {
                 context,
                 ppPrevBeneficiary,
               ),
+              onOpenBeneficiaryGenderNorms: () => onOpenBeneficiaryGenderNorms(
+                context,
+                ppPrevBeneficiary,
+              ),
+              onOpenBeneficiaryReferrals: () => onOpenBeneficiaryReferrals(
+                context,
+                ppPrevBeneficiary,
+              ),
             ),
             pagingController: ppPrevInterventionState.pagingController!,
             emptyListWidget: Center(
@@ -171,7 +218,10 @@ class PpPrevInterventionHome extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/icons/add-beneficiary.svg',
-                      color: Colors.blueGrey,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.blueGrey,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     onPressed: () => onAddPpPrevBeneficiary(context),
                   )
@@ -192,7 +242,10 @@ class PpPrevInterventionHome extends StatelessWidget {
                   IconButton(
                     icon: SvgPicture.asset(
                       'assets/icons/add-beneficiary.svg',
-                      color: Colors.blueGrey,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.blueGrey,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     onPressed: () => onAddPpPrevBeneficiary(context),
                   )

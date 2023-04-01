@@ -18,8 +18,8 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_refe
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/skip_logics/ovc_referral_outcome.dart';
 import 'package:provider/provider.dart';
 
-class ReferralOutcomeModal extends StatefulWidget {
-  const ReferralOutcomeModal({
+class BeneficiaryReferralOutcomeModal extends StatefulWidget {
+  const BeneficiaryReferralOutcomeModal({
     Key? key,
     required this.enrollmentOuAccessible,
     required this.beneficiary,
@@ -47,10 +47,12 @@ class ReferralOutcomeModal extends StatefulWidget {
   final bool isOvcIntervention;
 
   @override
-  State<ReferralOutcomeModal> createState() => _ReferralOutcomeModalState();
+  State<BeneficiaryReferralOutcomeModal> createState() =>
+      _BeneficiaryReferralOutcomeModalState();
 }
 
-class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
+class _BeneficiaryReferralOutcomeModalState
+    extends State<BeneficiaryReferralOutcomeModal> {
   bool _isFormReady = false;
   bool _isSaving = false;
   final Map _mandatoryFieldsObject = {};
@@ -131,8 +133,14 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
     unFilledMandatoryFields = [];
     setState(() {});
     List mandatoryFields = _mandatoryFieldsObject.keys.toList();
-    bool isAllMandatoryFilled =
-        AppUtil.hasAllMandatoryFieldsFilled(mandatoryFields, dataObject);
+    bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: widget.formSections,
+      ),
+    );
     if (isAllMandatoryFilled) {
       try {
         _isSaving = true;
@@ -180,8 +188,14 @@ class _ReferralOutcomeModalState extends State<ReferralOutcomeModal> {
       }
     } else {
       setState(() {
-        unFilledMandatoryFields =
-            AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: widget.formSections,
+          ),
+        );
       });
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',

@@ -72,7 +72,7 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
                 children: [
                   RichText(
                     text: TextSpan(
-                      text: "Follow Up " + followUpNo.toString(),
+                      text: "Follow Up $followUpNo",
                       style: const TextStyle().copyWith(
                         color: const Color(0xFF05131B),
                         fontSize: 14.0,
@@ -106,7 +106,10 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
                                     vertical: 5, horizontal: 5),
                                 child: SvgPicture.asset(
                                   'assets/icons/edit_icon.svg',
-                                  color: const Color(0xFF1F8ECE),
+                                  colorFilter: const ColorFilter.mode(
+                                    Color(0xFF1F8ECE),
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                               )),
                         ),
@@ -124,7 +127,10 @@ class DreamsHTSIndexContactFollowUpListCard extends StatelessWidget {
                                   vertical: 5, horizontal: 5),
                               child: SvgPicture.asset(
                                 'assets/icons/expand_icon.svg',
-                                color: const Color(0xFF1F8ECE),
+                                colorFilter: const ColorFilter.mode(
+                                  Color(0xFF1F8ECE),
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             )),
                       ),

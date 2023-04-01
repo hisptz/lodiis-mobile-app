@@ -27,7 +27,7 @@ class NonAgywDreamsHTSConsentForm extends StatefulWidget {
   final bool? isComingFromPrep;
 
   @override
-  _NonAgywDreamsHTSConsentFormState createState() =>
+  State<NonAgywDreamsHTSConsentForm> createState() =>
       _NonAgywDreamsHTSConsentFormState();
 }
 

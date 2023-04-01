@@ -33,7 +33,7 @@ class AgywDreamsANCForm extends StatefulWidget {
   const AgywDreamsANCForm({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsANCFormState createState() => _AgywDreamsANCFormState();
+  State<AgywDreamsANCForm> createState() => _AgywDreamsANCFormState();
 }
 
 class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
@@ -74,10 +74,16 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -121,10 +127,16 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
   void onSaveForm(
       BuildContext context, Map dataObject, AgywDream? agywDream) async {
     setMandatoryFields(dataObject);
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
         setState(() {

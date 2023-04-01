@@ -27,7 +27,7 @@ class SelectInputField extends StatefulWidget {
   final Map hiddenInputFieldOptions;
 
   @override
-  _SelectInputFieldState createState() => _SelectInputFieldState();
+  State<SelectInputField> createState() => _SelectInputFieldState();
 }
 
 class _SelectInputFieldState extends State<SelectInputField> {
@@ -86,7 +86,9 @@ class _SelectInputFieldState extends State<SelectInputField> {
           )
         : SelectionOptionContainer(
             selectedOption: _selectedOption,
-            options: _options,
+            options: _options
+              ?..sort((firstOption, secondOption) =>
+                  firstOption.name.compareTo(secondOption.name)),
             onValueChange: onValueChange,
             color: widget.color,
             isReadOnly: widget.isReadOnly,
@@ -131,7 +133,10 @@ class SelectionOptionContainer extends StatelessWidget {
               height: 20.0,
               child: SvgPicture.asset(
                 'assets/icons/chevron_down.svg',
-                color: color ?? Colors.black,
+                colorFilter: ColorFilter.mode(
+                  color ?? Colors.black,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
             elevation: 16,
@@ -145,7 +150,7 @@ class SelectionOptionContainer extends StatelessWidget {
               _selectedOption ?? '',
               style: TextStyle(color: color),
             ),
-            items: _options!.map<DropdownMenuItem<dynamic>>(
+            items: _options!.toList().map<DropdownMenuItem<dynamic>>(
               (InputFieldOption option) {
                 return DropdownMenuItem<dynamic>(
                   value: option.code,

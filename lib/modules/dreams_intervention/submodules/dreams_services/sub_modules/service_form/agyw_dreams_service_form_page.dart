@@ -29,7 +29,8 @@ class AgywDreamsServiceFormPage extends StatefulWidget {
   const AgywDreamsServiceFormPage({Key? key}) : super(key: key);
 
   @override
-  _AgywDreamsServiceFormPage createState() => _AgywDreamsServiceFormPage();
+  State<AgywDreamsServiceFormPage> createState() =>
+      _AgywDreamsServiceFormPage();
 }
 
 class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
@@ -165,7 +166,6 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      updateFormState(context, true, eventData, agywDream, serviceEvents);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('W79837fEI3C', youthMentorName);
       Navigator.push(

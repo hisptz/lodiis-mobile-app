@@ -17,7 +17,7 @@ class OnlineBeneficiarySearch extends StatefulWidget {
   const OnlineBeneficiarySearch({Key? key}) : super(key: key);
 
   @override
-  _OnlineBeneficiarySearchState createState() =>
+  State<OnlineBeneficiarySearch> createState() =>
       _OnlineBeneficiarySearchState();
 }
 
@@ -287,6 +287,8 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                             )),
                                           ],
                                         ),
+                                        iconColor: primaryColor,
+                                        textColor: primaryColor,
                                         children: [
                                           InputFieldContainer(
                                               currentUserCountryLevelReferences: const [],
@@ -305,8 +307,6 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                                       dynamic value) =>
                                                   searchInputChange(id, value))
                                         ],
-                                        iconColor: primaryColor,
-                                        textColor: primaryColor,
                                       ),
                                     ));
                               }).toList(),
@@ -335,13 +335,13 @@ class _OnlineBeneficiarySearchState extends State<OnlineBeneficiarySearch> {
                                     ),
                                   )),
                               Visibility(
+                                  visible: searchResultMessage.isNotEmpty,
                                   child: Container(
                                       alignment: Alignment.center,
                                       margin:
                                           const EdgeInsets.only(bottom: 15.0),
                                       padding: const EdgeInsets.only(top: 10.0),
-                                      child: Text(searchResultMessage)),
-                                  visible: searchResultMessage.isNotEmpty),
+                                      child: Text(searchResultMessage))),
                               ...searchResults.map((result) {
                                 return OnlineBeneficiarySearchResultCard(
                                   searchResult: result,

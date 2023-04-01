@@ -11,7 +11,7 @@ class NonAgywRecords extends StatefulWidget {
   const NonAgywRecords({Key? key}) : super(key: key);
 
   @override
-  _NonAgywRecordsState createState() => _NonAgywRecordsState();
+  State<NonAgywRecords> createState() => _NonAgywRecordsState();
 }
 
 class _NonAgywRecordsState extends State<NonAgywRecords> {
@@ -45,9 +45,9 @@ class _NonAgywRecordsState extends State<NonAgywRecords> {
           refreshBeneficiaryList(dreamInterventionListState);
         },
         child: CustomPaginatedListView(
-          emptyListWidget: Center(
+          emptyListWidget: const Center(
             child: Column(
-              children: const [
+              children: [
                 Text(
                   'There is no beneficiary list at a moment',
                 ),

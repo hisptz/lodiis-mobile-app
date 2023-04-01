@@ -113,7 +113,10 @@ class CasePlanGapView extends StatelessWidget {
                                   ),
                                   child: SvgPicture.asset(
                                     'assets/icons/edit-icon.svg',
-                                    color: formSectionColor,
+                                    colorFilter: ColorFilter.mode(
+                                      formSectionColor,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ),
                               ),

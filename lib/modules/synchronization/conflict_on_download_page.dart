@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class ConflictOnDownloadPage extends StatefulWidget {
   const ConflictOnDownloadPage({Key? key}) : super(key: key);
   @override
-  _ConflictOnDownloadPageState createState() => _ConflictOnDownloadPageState();
+  State<ConflictOnDownloadPage> createState() => _ConflictOnDownloadPageState();
 }
 
 class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
@@ -22,9 +22,7 @@ class _ConflictOnDownloadPageState extends State<ConflictOnDownloadPage> {
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstance);
   }
 
-  void onDiscardConflict() {
-    // print("accept offline data");
-  }
+  void onDiscardConflict() {}
 
   @override
   Widget build(BuildContext context) {

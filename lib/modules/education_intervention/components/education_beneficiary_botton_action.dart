@@ -5,11 +5,9 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
   const EducationBeneficiaryBottonAction({
     Key? key,
     required this.isLbseLearningOutcomeVisible,
-    required this.isLbseReferralVisible,
     required this.isBursarySchoolVisible,
     required this.isBursaryClubVisible,
     this.onOpenLbseLearningOutcome,
-    this.onOpenLbseReferral,
     this.onOpenBursarySchool,
     this.onOpenBursaryClub,
   }) : super(key: key);
@@ -17,12 +15,10 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
   final double height = 50.0;
 
   final bool isLbseLearningOutcomeVisible;
-  final bool isLbseReferralVisible;
   final bool isBursarySchoolVisible;
   final bool isBursaryClubVisible;
 
   final VoidCallback? onOpenLbseLearningOutcome;
-  final VoidCallback? onOpenLbseReferral;
   final VoidCallback? onOpenBursarySchool;
   final VoidCallback? onOpenBursaryClub;
 
@@ -44,14 +40,8 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
               EducationBeneficiaryButton(
                 label: 'LEARNING OUTCOME',
                 isVisible: isLbseLearningOutcomeVisible,
-                hasSplitBorder: isLbseReferralVisible,
+                hasSplitBorder: false,
                 onTap: onOpenLbseLearningOutcome,
-              ),
-              EducationBeneficiaryButton(
-                label: 'REFERRAL',
-                isVisible: isLbseReferralVisible,
-                hasSplitBorder: isBursarySchoolVisible,
-                onTap: onOpenLbseReferral,
               ),
               EducationBeneficiaryButton(
                 label: 'SCHOOL',

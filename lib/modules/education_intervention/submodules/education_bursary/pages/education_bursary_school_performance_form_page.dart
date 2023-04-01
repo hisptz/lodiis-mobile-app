@@ -35,7 +35,7 @@ class EducationBursarySchoolPerformanceFormPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EducationBursarySchoolPerformanceFormPageState createState() =>
+  State<EducationBursarySchoolPerformanceFormPage> createState() =>
       _EducationBursarySchoolPerformanceFormPageState();
 }
 
@@ -64,8 +64,14 @@ class _EducationBursarySchoolPerformanceFormPageState
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
@@ -120,10 +126,16 @@ class _EducationBursarySchoolPerformanceFormPageState
     EducationBeneficiary bursaryBeneficiary,
   ) async {
     setMandatoryFields(dataObject);
-    bool hasAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    bool hasAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       setState(() {
         isSaving = true;

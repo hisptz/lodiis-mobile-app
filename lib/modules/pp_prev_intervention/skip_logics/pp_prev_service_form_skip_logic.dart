@@ -7,11 +7,6 @@ import 'package:provider/provider.dart';
 class PpPrevServiceFormSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
-  static List<String> referralReferences = [
-    "iHExrhttHRG",
-    'FrrHVBvLfq5',
-    'mXUZFx1p6VG'
-  ];
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -24,19 +19,23 @@ class PpPrevServiceFormSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
-    hiddenFields['OIUDljKyNgy'] = true;
-    hiddenFields['h4PRnqfEOCL'] = true;
-    hiddenFields['LIDzWRHXgIt'] = true;
-    hiddenFields['Z4D3jEwXO1I'] = true;
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (referralReferences.contains(inputFieldId) &&
-          value.toLowerCase() == 'true') {
-        hiddenFields['OIUDljKyNgy'] = false;
-        hiddenFields['h4PRnqfEOCL'] = false;
-        hiddenFields['LIDzWRHXgIt'] = false;
-        hiddenFields['Z4D3jEwXO1I'] = false;
+
+      if (inputFieldId == 'Nr7UJVA1CZE' && value != 'true') {
+        hiddenFields['mFxyT39XSE4'] = true;
+        hiddenFields['type_of_violence'] = true;
+        hiddenFields['pY4J9Z90qhb'] = true;
+        hiddenFields['action_taken'] = true;
+        hiddenFields['HwGBP9iNl1g'] = true;
+      }
+      if (inputFieldId == 'pY4J9Z90qhb' && value != 'true') {
+        hiddenFields['action_taken'] = true;
+        hiddenFields['HwGBP9iNl1g'] = true;
+      }
+      if (inputFieldId == 'Ma0avVN9N2C' && value != 'true') {
+        hiddenFields['HwGBP9iNl1g'] = true;
       }
     }
     for (String sectionId in hiddenSections.keys) {

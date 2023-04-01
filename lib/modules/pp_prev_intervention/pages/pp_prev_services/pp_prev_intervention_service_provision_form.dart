@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
+import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -16,162 +17,185 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
-import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
-import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_referral_form.dart';
+import 'package:kb_mobile_app/models/pp_prev_beneficiary.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/components/pp_prev_beneficiary_top_header.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/constants/pp_prev_routes_constant.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_service_form.dart';
+import 'package:kb_mobile_app/modules/pp_prev_intervention/skip_logics/pp_prev_service_form_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class EducationLbseReferralFormPage extends StatefulWidget {
-  const EducationLbseReferralFormPage({
-    Key? key,
-  }) : super(key: key);
+class PpPrevInterventionServiceProvisionForm extends StatefulWidget {
+  const PpPrevInterventionServiceProvisionForm({Key? key}) : super(key: key);
 
   @override
-  State<EducationLbseReferralFormPage> createState() =>
-      _EducationLbseReferralFormPageState();
+  State<PpPrevInterventionServiceProvisionForm> createState() =>
+      _PpPrevInterventionServiceProvisionFormState();
 }
 
-class _EducationLbseReferralFormPageState
-    extends State<EducationLbseReferralFormPage> {
-  final String label = "Referral Form";
+class _PpPrevInterventionServiceProvisionFormState
+    extends State<PpPrevInterventionServiceProvisionForm> {
+  final String label = "PP Prev Service Provision Form";
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
-  List<String> mandatoryFields = EducationLbseReferralForm.getMandatoryField();
-  final Map mandatoryFieldObject = {};
-  List unFilledMandatoryFields = [];
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
     setFormSections();
     Timer(const Duration(seconds: 1), () {
-      isFormReady = true;
-      setState(() {});
+      setState(() {
+        isFormReady = true;
+        evaluateSkipLogics();
+      });
     });
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
-    unFilledMandatoryFields =
-        AppUtil.getUnFilledMandatoryFields(mandatoryFields, dataObject);
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     setState(() {});
   }
 
   setFormSections() {
-    EducationBeneficiary lbseBeneficiary =
-        Provider.of<EducationInterventionCurrentSelectionState>(context,
-                listen: false)
-            .currentBeneficiciary!;
-    defaultFormSections = EducationLbseReferralForm.getFormSections();
-    if (lbseBeneficiary.enrollmentOuAccessible!) {
+    var currentPpPrev = Provider.of<PpPrevInterventionCurrentSelectionState>(
+      context,
+      listen: false,
+    ).currentPpPrev;
+    defaultFormSections = PpPrevServiceForm.getFormSections(
+      firstDate: currentPpPrev!.createdDate!,
+    );
+    if (currentPpPrev.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
       FormSection serviceProvisionForm =
           AppUtil.getServiceProvisionLocationSection(
-        inputColor: LbseInterventionConstant.inputColor,
-        labelColor: LbseInterventionConstant.labelColor,
-        sectionLabelColor: LbseInterventionConstant.inputColor,
-        allowedSelectedLevels: LbseInterventionConstant.allowedSelectedLevels,
-        program: LbseInterventionConstant.program,
+        inputColor: PpPrevInterventionConstant.inputColor,
+        sectionLabelColor: PpPrevInterventionConstant.inputColor,
+        labelColor: PpPrevInterventionConstant.labelColor,
+        allowedSelectedLevels: PpPrevInterventionConstant.allowedSelectedLevels,
+        program: PpPrevInterventionConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields.addAll(FormUtil.getFormFieldIds(
+      mandatoryFields = FormUtil.getFormFieldIds(
         [serviceProvisionForm],
         includeLocationId: true,
-      ));
+      );
       for (String fieldId in mandatoryFields) {
         mandatoryFieldObject[fieldId] = true;
       }
     }
   }
 
+  evaluateSkipLogics() {
+    Timer(
+      const Duration(milliseconds: 200),
+      () async {
+        Map dataObject =
+            Provider.of<ServiceFormState>(context, listen: false).formState;
+        await PpPrevServiceFormSkipLogic.evaluateSkipLogics(
+          context,
+          formSections!,
+          dataObject,
+        );
+      },
+    );
+  }
+
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
+    evaluateSkipLogics();
     onUpdateFormAutoSaveState(context);
   }
 
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    EducationBeneficiary lbseBeneficiary,
+    PpPrevBeneficiary ppPrevBeneficiary,
   ) async {
-    bool hadAllMandatoryFilled = AppUtil.hasAllMandatoryFieldsFilled(
-        mandatoryFields, dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields);
+    setMandatoryFields(dataObject);
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
     if (hadAllMandatoryFilled) {
-      setState(() {
-        isSaving = true;
-      });
-      String learningOutcomeToReferralLinkage =
-          LbseInterventionConstant.learningOutcomeToReferralLinkage;
-      String referralToReferralOutcomeLinkage =
-          LbseInterventionConstant.referralToReferralOutcomeLinkage;
-      dataObject[learningOutcomeToReferralLinkage] =
-          dataObject[learningOutcomeToReferralLinkage] ?? AppUtil.getUid();
-      dataObject[referralToReferralOutcomeLinkage] =
-          dataObject[referralToReferralOutcomeLinkage] ?? AppUtil.getUid();
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [
-        learningOutcomeToReferralLinkage,
-        referralToReferralOutcomeLinkage
-      ];
-      String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          LbseInterventionConstant.program,
-          LbseInterventionConstant.referralProgamStage,
-          orgUnit,
-          formSections!,
-          dataObject,
-          eventDate,
-          lbseBeneficiary.id,
-          eventId,
-          hiddenFields,
-        );
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(lbseBeneficiary.id);
-        Timer(const Duration(seconds: 1), () {
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
-          );
-          clearFormAutoSaveState(
-            context,
-            lbseBeneficiary.id,
-            eventId ?? '',
-          );
-          Navigator.pop(context);
+      if (FormUtil.geFormFilledStatus(dataObject, defaultFormSections)) {
+        setState(() {
+          isSaving = true;
         });
-      } catch (e) {
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            AppUtil.showToastMessage(
-              message: e.toString(),
-              position: ToastGravity.BOTTOM,
-            );
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        String orgUnit = dataObject['location'] ?? ppPrevBeneficiary.orgUnit;
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            PpPrevInterventionConstant.program,
+            PpPrevInterventionConstant.servicesProgramStage,
+            orgUnit,
+            defaultFormSections!,
+            dataObject,
+            eventDate,
+            ppPrevBeneficiary.id,
+            eventId,
+            hiddenFields,
+          );
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(ppPrevBeneficiary.id);
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              String? currentLanguage =
+                  Provider.of<LanguageTranslationState>(context, listen: false)
+                      .currentLanguage;
+              AppUtil.showToastMessage(
+                message: currentLanguage == 'lesotho'
+                    ? 'Fomo e bolokeile'
+                    : 'Form has been saved successfully',
+                position: ToastGravity.TOP,
+              );
+              clearFormAutoSaveState(
+                context,
+                ppPrevBeneficiary.id,
+                eventId ?? '',
+              );
+              Navigator.pop(context);
+            });
           });
-        });
+        } catch (e) {
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+            });
+          });
+        }
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one form field',
+          position: ToastGravity.TOP,
+        );
       }
     } else {
-      unFilledMandatoryFields = AppUtil.getUnFilledMandatoryFields(
-          mandatoryFields, dataObject,
-          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
-              .hiddenFields);
-      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -182,7 +206,7 @@ class _EducationLbseReferralFormPageState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
+        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -191,25 +215,25 @@ class _EducationLbseReferralFormPageState
     bool isSaveForm = false,
     String nextPageModule = "",
   }) async {
-    var lbseBeneficiary =
-        Provider.of<EducationInterventionCurrentSelectionState>(context,
-                listen: false)
-            .currentBeneficiciary;
-    String? beneficiaryId = lbseBeneficiary!.id;
+    var currentPpPrev = Provider.of<PpPrevInterventionCurrentSelectionState>(
+            context,
+            listen: false)
+        .currentPpPrev;
+    String? beneficiaryId = currentPpPrev!.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${LbseRoutesConstant.referralPageModule}_${beneficiaryId}_$eventId";
+        "${PpPrevRoutesConstant.serviceFormPageModule}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: LbseRoutesConstant.referralPageModule,
+      pageModule: PpPrevRoutesConstant.serviceFormPageModule,
       nextPageModule: isSaveForm
           ? nextPageModule != ""
               ? nextPageModule
-              : LbseRoutesConstant.referralNextPageModule
-          : LbseRoutesConstant.referralPageModule,
+              : PpPrevRoutesConstant.serviceFormNextPageModule
+          : PpPrevRoutesConstant.serviceFormPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
@@ -236,18 +260,17 @@ class _EducationLbseReferralFormPageState
           body: Consumer<LanguageTranslationState>(
               builder: (context, languageTranslationState, child) {
             String? currentLanguage = languageTranslationState.currentLanguage;
-            return Consumer<EducationInterventionCurrentSelectionState>(
+            return Consumer<PpPrevInterventionCurrentSelectionState>(
               builder:
-                  (context, educationInterventionCurrentSelectionState, child) {
+                  (context, ppPrevInterventionCurrentSelectionState, child) {
                 return Consumer<ServiceFormState>(
                   builder: (context, serviceFormState, child) {
-                    EducationBeneficiary? lbseBeneficiary =
-                        educationInterventionCurrentSelectionState
-                            .currentBeneficiciary;
+                    PpPrevBeneficiary? ppPrevBeneficiary =
+                        ppPrevInterventionCurrentSelectionState.currentPpPrev;
                     return Column(
                       children: [
-                        EducationBeneficiaryTopHeader(
-                          educationBeneficiary: lbseBeneficiary!,
+                        PpPrevBeneficiaryTopHeader(
+                          ppPrevBeneficiary: ppPrevBeneficiary!,
                         ),
                         Container(
                           child: !isFormReady
@@ -265,14 +288,14 @@ class _EducationLbseReferralFormPageState
                                       child: EntryFormContainer(
                                         hiddenFields:
                                             serviceFormState.hiddenFields,
+                                        hiddenInputFieldOptions:
+                                            serviceFormState
+                                                .hiddenInputFieldOptions,
                                         hiddenSections:
                                             serviceFormState.hiddenSections,
                                         formSections: formSections,
                                         mandatoryFieldObject:
                                             mandatoryFieldObject,
-                                        hiddenInputFieldOptions:
-                                            serviceFormState
-                                                .hiddenInputFieldOptions,
                                         unFilledMandatoryFields:
                                             unFilledMandatoryFields,
                                         isEditableMode:
@@ -290,15 +313,13 @@ class _EducationLbseReferralFormPageState
                                                 ? 'Boloka'
                                                 : 'Save',
                                         labelColor: Colors.white,
-                                        buttonColor: const Color(0xFF009688),
+                                        buttonColor: const Color(0xFF9B2BAE),
                                         fontSize: 15.0,
-                                        onPressButton: () => !isSaving
-                                            ? onSaveForm(
-                                                context,
-                                                serviceFormState.formState,
-                                                lbseBeneficiary,
-                                              )
-                                            : null,
+                                        onPressButton: () => onSaveForm(
+                                          context,
+                                          serviceFormState.formState,
+                                          ppPrevBeneficiary,
+                                        ),
                                       ),
                                     )
                                   ],

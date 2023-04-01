@@ -20,7 +20,7 @@ class AppLogsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AppLogsState createState() => _AppLogsState();
+  State<AppLogsPage> createState() => _AppLogsState();
 }
 
 class _AppLogsState extends State<AppLogsPage> {
@@ -134,7 +134,7 @@ class _AppLogsState extends State<AppLogsPage> {
                                     activeInterventionProgram.countLabelColor,
                               )),
                           pagingController: appLogsState.pagingController,
-                          emptyListWidget: Column(children: const [
+                          emptyListWidget: const Column(children: [
                             Center(
                               child: Text(
                                 'There are no application logs at a moment.',

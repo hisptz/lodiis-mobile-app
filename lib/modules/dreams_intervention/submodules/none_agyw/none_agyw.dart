@@ -23,7 +23,7 @@ class NoneAgyw extends StatefulWidget {
   const NoneAgyw({Key? key}) : super(key: key);
 
   @override
-  _NoneAgywState createState() => _NoneAgywState();
+  State<NoneAgyw> createState() => _NoneAgywState();
 }
 
 class _NoneAgywState extends State<NoneAgyw> {

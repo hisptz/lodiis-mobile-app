@@ -108,6 +108,23 @@ class EducationBursaryEnrollmentForm {
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
           ),
+          InputField(
+            id: 'c1AYkJztLVA',
+            name: 'Type of enrollment',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
+            options: [
+              InputFieldOption(
+                code: 'New',
+                name: 'New',
+              ),
+              InputFieldOption(
+                code: 'Replacement',
+                name: 'Replacement',
+              )
+            ],
+          ),
           // Nearby School
           InputField(
             id: 'EwZil0AnlYo',

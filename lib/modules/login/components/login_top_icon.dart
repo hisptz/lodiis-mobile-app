@@ -37,7 +37,10 @@ class LoginTopIcon extends StatelessWidget {
           child: SvgPicture.asset(
             'assets/icons/login-top-user.svg',
             fit: BoxFit.contain,
-            color: const Color(0xFFB3EFA0),
+            colorFilter: const ColorFilter.mode(
+              Color(0xFFB3EFA0),
+              BlendMode.srcIn,
+            ),
           ),
         ),
         const SizedBox(
