@@ -115,8 +115,10 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   void onSaveCasePlan({
     required Map dataObject,
   }) async {
-    bool isAllDomainFilled =
-        OvcCasePlanUtil.isAllDomainGoalAndGapFilled(dataObject);
+    bool isAllDomainFilled = OvcCasePlanUtil.isAllDomainGoalAndGapFilled(
+      dataObject,
+      isHouseholdCasePlan: widget.isHouseholdCasePlan,
+    );
     if (isAllDomainFilled) {
       _isSaving = true;
       setState(() {});
