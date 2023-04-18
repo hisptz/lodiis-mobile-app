@@ -8,7 +8,6 @@ class PpPrevInterventionConstant {
   static const String referralOutcomeProgramStage = 'c55q5iW9SvX';
   static const String referralOutcomeLinkage = 'Z5EqipAAPAF';
   static const String genderNormsProgramStage = 'rnDEcnRsLF8';
-  static final List<int> allowedSelectedLevels = [3];
   static const Color inputColor = Color(0xFF9B2BAE);
   static const Color labelColor = Color(0xFF737373);
   static const Color referralCardTitleColor = Color(0xFF05131B);

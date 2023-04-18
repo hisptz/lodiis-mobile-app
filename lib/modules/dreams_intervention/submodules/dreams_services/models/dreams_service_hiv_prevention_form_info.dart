@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -45,7 +46,10 @@ class DreamsServiceHivPreventionInfo {
                   'District (where sessions/activities/meetings are completed)',
               valueType: 'ORGANISATION_UNIT',
               showCountryLevelTree: true,
-              allowedSelectedLevels: [3, 4],
+              allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+                AppHierarchyReference.facilityLevel
+              ],
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
             ),
@@ -56,7 +60,10 @@ class DreamsServiceHivPreventionInfo {
                 name:
                     'Council (where sessions/activities/meetings are completed)',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [
+                  AppHierarchyReference.communityLevel,
+                  AppHierarchyReference.facilityLevel
+                ],
                 valueType: 'ORGANISATION_UNIT'),
             InputField(
                 id: 'BJYUYd4JnuB',

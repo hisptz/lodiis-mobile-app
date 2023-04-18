@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -77,8 +78,10 @@ class _HIVPreventionEducationFormState
         inputColor: AgywDreamsEnrollmentConstant.inputColor,
         labelColor: AgywDreamsEnrollmentConstant.labelColor,
         sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
-        allowedSelectedLevels:
-            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        allowedSelectedLevels: [
+          AppHierarchyReference.communityLevel,
+          AppHierarchyReference.facilityLevel
+        ],
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
