@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -885,7 +886,7 @@ class OvcServicesWellbeingAssessment {
                 translatedName: '17.U nka litlhare setsing sefe sa bophelo?',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
                 inputColor: const Color(0xFF2895F0),
                 labelColor: const Color(0xFF1A3518)),
             InputField(
@@ -996,7 +997,7 @@ class OvcServicesWellbeingAssessment {
                     '66. U mo isa setsing sefe sa bophelo bakeng sa litlharo?',
                 valueType: 'ORGANISATION_UNIT',
                 showCountryLevelTree: true,
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
                 inputColor: const Color(0xFF2895F0),
                 labelColor: const Color(0xFF1A3518)),
             InputField(

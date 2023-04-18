@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -28,7 +29,9 @@ class EducationBursaryAssessment {
             name: '1. Location',
             translatedName: '1 Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3],
+            allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+              ],
             filteredPrograms: [BursaryInterventionConstant.program],
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),

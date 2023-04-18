@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -46,7 +47,10 @@ class NonAgywHTSClientInformation {
                 name: 'Location',
                 translatedName: 'Sebaka',
                 valueType: 'ORGANISATION_UNIT',
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [
+                  AppHierarchyReference.communityLevel,
+                  AppHierarchyReference.facilityLevel
+                ],
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
@@ -770,7 +774,10 @@ class NonAgywHTSClientInformation {
                 id: 'ZZBWYb9jzHE',
                 name: 'Name of referral DNA PCR or ART facility',
                 valueType: 'ORGANISATION_UNIT',
-                allowedSelectedLevels: [3, 4],
+                allowedSelectedLevels: [
+                  AppHierarchyReference.communityLevel,
+                  AppHierarchyReference.facilityLevel
+                ],
                 showCountryLevelTree: true,
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),

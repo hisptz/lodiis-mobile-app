@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -97,7 +98,10 @@ class PpPrevReferralForm {
             labelColor: const Color(0xFF737373),
             valueType: 'ORGANISATION_UNIT',
             showCountryLevelTree: true,
-            allowedSelectedLevels: [3, 4],
+            allowedSelectedLevels: [
+              AppHierarchyReference.communityLevel,
+              AppHierarchyReference.facilityLevel
+            ],
           ),
         ],
       ),
