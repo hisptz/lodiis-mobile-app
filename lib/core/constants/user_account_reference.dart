@@ -8,7 +8,8 @@ class UserAccountReference {
   static const String subImplementingPartnerAttribute = 'fQInK8s2RNR';
   static const String serviceProviderAttribute = 'DdnlE8kmIkT';
   static const List<String> superUserIpNames = ['Super user'];
-  static const List<String> dreamsFacilityBasedIpNames = ['EGPAF'];
+  static const List<String> dreamsFacilityBasedIpNames = ['EGPAF', 'M2M'];
+  static const List<String> dreamsCommunityBasedIpNames = ['CoHIP SEC'];
   static final List<String> allowedGroupsForDataEntry = [
     "IglDe1pjI7z",
     "EMBwDfkD2G8",
