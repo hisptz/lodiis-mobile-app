@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -104,8 +105,7 @@ class _EducationLbseLearningOutcomeFormPageState
               inputColor: LbseInterventionConstant.inputColor,
               labelColor: LbseInterventionConstant.labelColor,
               sectionLabelColor: LbseInterventionConstant.inputColor,
-              allowedSelectedLevels:
-                  LbseInterventionConstant.allowedSelectedLevels,
+              allowedSelectedLevels: [AppHierarchyReference.communityLevel],
               program: LbseInterventionConstant.program);
       formSections = [serviceProvisionForm, ...defaultFormSections!];
       mandatoryFields.addAll(FormUtil.getFormFieldIds(
