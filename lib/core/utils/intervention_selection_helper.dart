@@ -28,9 +28,13 @@ class InterventionSelectionHelper {
           .toList());
     }
     if (currentUserState.canManagePpPrev) {
-      interventionPrograms.addAll(interventionProgramList
-          .where((interventionProgram) => interventionProgram.id == 'pp_prev')
-          .toList());
+      String subImplementingPartner =
+          currentUserState.currentUser?.subImplementingPartner ?? '';
+      if (subImplementingPartner == 'PP_PREV') {
+        interventionPrograms.addAll(interventionProgramList
+            .where((interventionProgram) => interventionProgram.id == 'pp_prev')
+            .toList());
+      }
     }
     return interventionPrograms;
   }
