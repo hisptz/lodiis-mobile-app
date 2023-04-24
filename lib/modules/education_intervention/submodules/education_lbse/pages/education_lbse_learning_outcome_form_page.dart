@@ -42,7 +42,7 @@ class EducationLbseLearningOutcomeFormPage extends StatefulWidget {
 
 class _EducationLbseLearningOutcomeFormPageState
     extends State<EducationLbseLearningOutcomeFormPage> {
-  final String label = "Learning Outcome Form";
+  final String label = 'Learning Outcome Form';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   List<String> mandatoryFields =
@@ -219,14 +219,14 @@ class _EducationLbseLearningOutcomeFormPageState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onUpdateFormAutoSaveState(
     BuildContext context, {
     bool isSaveForm = false,
-    String nextPageModule = "",
+    String nextPageModule = '',
   }) async {
     var lbseBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
@@ -237,13 +237,13 @@ class _EducationLbseLearningOutcomeFormPageState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
       pageModule: LbseRoutesConstant.learningOutcomePageModule,
       nextPageModule: isSaveForm
-          ? nextPageModule != ""
+          ? nextPageModule != ''
               ? nextPageModule
               : LbseRoutesConstant.learningOutcomeNextPageModule
           : LbseRoutesConstant.learningOutcomePageModule,

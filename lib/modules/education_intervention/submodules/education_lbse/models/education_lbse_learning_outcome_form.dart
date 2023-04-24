@@ -11,7 +11,7 @@ class EducationLbseLearningOutcomeForm {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-        name: "Learning Outcome",
+        name: 'Learning Outcome',
         color: const Color(0xFF009688),
         inputFields: [
           InputField(
