@@ -35,7 +35,9 @@ class _EducationBursarySchoolAttendanceState
       MaterialPageRoute(
         builder: (context) {
           return const EducationBursaryAttendanceFormPage(
-              isSchoolAttendance: true);
+            isSchoolAttendance: true,
+            isNewClubAttendance: false,
+          );
         },
       ),
     );
@@ -58,7 +60,7 @@ class _EducationBursarySchoolAttendanceState
     String? beneficiaryId = educationBeneficiary.id;
     String eventId = '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.schoolsAttendancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.schoolsAttendancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -82,7 +84,7 @@ class _EducationBursarySchoolAttendanceState
     String? beneficiaryId = educationBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        "${BursaryRoutesConstant.schoolsAttendancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.schoolsAttendancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
