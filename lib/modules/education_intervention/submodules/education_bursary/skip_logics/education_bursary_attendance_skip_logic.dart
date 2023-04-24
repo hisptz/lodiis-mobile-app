@@ -26,12 +26,15 @@ class EducationBursaryAttendanceSKipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+      if (inputFieldId == 'CQ3GZFbzv5N' && value != 'true') {
+        hiddenSections['bursary_club_referral'] = true;
+        hiddenFields['KzIw7RMGZ9c'] = true;
+        hiddenFields['hpuu3TCZkKx'] = true;
+        hiddenFields['OIUDljKyNgy'] = true;
+      }
       if (inputFieldId == 'WvYI4dliZyk') {
         if (value != 'false') {
-          hiddenFields['hpuu3TCZkKx'] = true;
-          hiddenFields['KzIw7RMGZ9c'] = true;
           hiddenFields['EokvDGvXkOk'] = true;
-          hiddenFields['OIUDljKyNgy'] = true;
         } else {
           hiddenFields['GKBZYfIj2s1'] = true;
         }
