@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
 
 class EducationLbseLearningOutcomeForm {
   static List<String> getMandatoryField() {
@@ -14,6 +15,14 @@ class EducationLbseLearningOutcomeForm {
         name: 'Learning Outcome',
         color: const Color(0xFF009688),
         inputFields: [
+          InputField(
+            id: LbseInterventionConstant.serviceProvider,
+            name: "Name of Service Provider",
+            isReadOnly: true,
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
+          ),
           InputField(
             id: 'kuMzFGnDULh',
             name: 'Theme',
