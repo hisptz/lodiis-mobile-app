@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_assessment_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_club_referral_home.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_clubs_attendance_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_form_edit_page.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_enrollment_view_page.dart';
@@ -74,9 +75,9 @@ class _EducationBursaryState extends State<EducationBursary> {
   }
 
   void onAddBursaryBeneficiary(BuildContext context) async {
-    String beneficiaryId = "";
+    String beneficiaryId = '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+        '${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -118,7 +119,7 @@ class _EducationBursaryState extends State<EducationBursary> {
   ) async {
     String beneficiaryId = bursaryBeneficiary.id!;
     String formAutoSaveId =
-        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
+        '${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
@@ -181,6 +182,25 @@ class _EducationBursaryState extends State<EducationBursary> {
     );
   }
 
+  void onOpenBursaryClubReferral(
+    BuildContext context,
+    EducationBeneficiary bursaryBeneficiary,
+  ) {
+    Provider.of<EducationInterventionCurrentSelectionState>(context,
+            listen: false)
+        .setCurrentBeneficiary(bursaryBeneficiary);
+    Provider.of<ServiceEventDataState>(context, listen: false)
+        .resetServiceEventDataState(bursaryBeneficiary.id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const EducationBursaryClubReferralHome();
+        },
+      ),
+    );
+  }
+
   void refreshBeneficiaryList(
       EducationBursaryInterventionState educationBursaryInterventionState) {
     educationBursaryInterventionState.refreshEducationBursaryNumber();
@@ -222,22 +242,27 @@ class _EducationBursaryState extends State<EducationBursary> {
           child: CustomPaginatedListView(
             childBuilder: (context, bursaryBeneficiary, child) =>
                 EducationBeneficiaryCard(
-              canEdit: canEdit,
-              canView: canView,
-              canExpand: canExpand,
-              isExpanded: toggleCardId == bursaryBeneficiary.id,
-              isLbseLearningOutcomeVisible: false,
-              isBursarySchoolVisible: true,
-              isBursaryClubVisible: true,
-              educationBeneficiary: bursaryBeneficiary,
-              onEdit: () => onEditBeneficiary(context, bursaryBeneficiary),
-              onView: () => onViewBeneficiary(context, bursaryBeneficiary),
-              onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),
-              onOpenBursarySchool: () =>
-                  onOpenBeneficiarySchool(context, bursaryBeneficiary),
-              onOpenBursaryClub: () =>
-                  onOpenBeneficiaryClub(context, bursaryBeneficiary),
-            ),
+                    canEdit: canEdit,
+                    canView: canView,
+                    canExpand: canExpand,
+                    isExpanded: toggleCardId == bursaryBeneficiary.id,
+                    isLbseLearningOutcomeVisible: false,
+                    isBursarySchoolVisible: true,
+                    isBursaryClubVisible: true,
+                    isBursaryClubReferralVisible: true,
+                    educationBeneficiary: bursaryBeneficiary,
+                    onEdit: () =>
+                        onEditBeneficiary(context, bursaryBeneficiary),
+                    onView: () =>
+                        onViewBeneficiary(context, bursaryBeneficiary),
+                    onCardToggle: () =>
+                        onCardToggle(context, bursaryBeneficiary.id),
+                    onOpenBursarySchool: () =>
+                        onOpenBeneficiarySchool(context, bursaryBeneficiary),
+                    onOpenBursaryClub: () =>
+                        onOpenBeneficiaryClub(context, bursaryBeneficiary),
+                    onOpenBursaryClubReferral: () =>
+                        onOpenBursaryClubReferral(context, bursaryBeneficiary)),
             pagingController:
                 educationBursaryInterventionState.pagingController!,
             emptyListWidget: _getEmptyListContainer(context),
