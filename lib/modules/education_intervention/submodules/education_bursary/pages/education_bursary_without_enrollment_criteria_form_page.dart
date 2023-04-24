@@ -60,9 +60,9 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
   }
 
   void clearFormAutoSaveState(BuildContext context) async {
-    String beneficiaryId = "";
+    String beneficiaryId = '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+        '${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -85,10 +85,10 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
     BuildContext context, {
     bool isSaveForm = false,
   }) async {
-    String beneficiaryId = "";
+    String beneficiaryId = '';
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    String id = '${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,

@@ -176,7 +176,7 @@ class _EducationBursarySchoolPerformanceFormPageState
               position: ToastGravity.TOP,
             );
             clearFormAutoSaveState(
-                context, bursaryBeneficiary.id, eventId ?? "");
+                context, bursaryBeneficiary.id, eventId ?? '');
             Navigator.pop(context);
           });
         } catch (e) {
@@ -213,7 +213,7 @@ class _EducationBursarySchoolPerformanceFormPageState
   void onUpdateFormAutoSaveState(
     BuildContext context, {
     bool isSaveForm = false,
-    String nextPageModule = "",
+    String nextPageModule = '',
   }) async {
     var bursaryBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
@@ -224,13 +224,13 @@ class _EducationBursarySchoolPerformanceFormPageState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
       pageModule: BursaryRoutesConstant.schoolsPerformancePageModule,
       nextPageModule: isSaveForm
-          ? nextPageModule != ""
+          ? nextPageModule != ''
               ? nextPageModule
               : BursaryRoutesConstant.schoolsPerformanceNextPageModule
           : BursaryRoutesConstant.schoolsPerformancePageModule,
@@ -242,7 +242,7 @@ class _EducationBursarySchoolPerformanceFormPageState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
