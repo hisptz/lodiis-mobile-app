@@ -4,8 +4,27 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationBursaryAttendanceForm {
+  static const String bursaryClubAttendanceToReferralCheck = 'CQ3GZFbzv5N';
   static List<String> getMandatoryField() {
     return ['eventDate', 'WvYI4dliZyk'];
+  }
+
+  static List<FormSection> getReferralCheckFormSections() {
+    return [
+      FormSection(
+        name: '',
+        color: const Color(0xFF009688),
+        inputFields: [
+          InputField(
+            id: bursaryClubAttendanceToReferralCheck,
+            name: 'Referral offered?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
+          ),
+        ],
+      ),
+    ];
   }
 
   static List<FormSection> getFormSections({

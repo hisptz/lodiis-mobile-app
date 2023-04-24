@@ -30,8 +30,8 @@ class EducationBursaryAssessment {
             translatedName: '1 Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [
-                AppHierarchyReference.communityLevel,
-              ],
+              AppHierarchyReference.communityLevel,
+            ],
             filteredPrograms: [BursaryInterventionConstant.program],
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
