@@ -10,10 +10,10 @@ class EducationLbseEnrollmentSkipLogic {
   static Map hiddenSections = {};
   static Map hiddenInputFieldOptions = {};
 
-  static String schoolGradeReference = "BUPSEpJySPR";
-  static String schoolLevelReference = "UhZhN6s0SNg";
-  static String dobReference = "qZP982qpSPS";
-  static String ageReference = "ls9hlz2tyol";
+  static String schoolGradeReference = 'BUPSEpJySPR';
+  static String schoolLevelReference = 'UhZhN6s0SNg';
+  static String dobReference = 'qZP982qpSPS';
+  static String ageReference = 'ls9hlz2tyol';
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -37,15 +37,15 @@ class EducationLbseEnrollmentSkipLogic {
         String schoolLevel = '${dataObject[inputFieldId]}';
         Map hiddenGrades = {};
         if (schoolLevel == 'Primary') {
-          hiddenGrades["Grade 8"] = true;
-          hiddenGrades["Grade 9"] = true;
-          hiddenGrades["Grade 10"] = true;
-          hiddenGrades["Grade 11"] = true;
+          hiddenGrades['Grade 8'] = true;
+          hiddenGrades['Grade 9'] = true;
+          hiddenGrades['Grade 10'] = true;
+          hiddenGrades['Grade 11'] = true;
         } else if (schoolLevel == 'Post primary') {
-          hiddenGrades["Grade 4"] = true;
-          hiddenGrades["Grade 5"] = true;
-          hiddenGrades["Grade 6"] = true;
-          hiddenGrades["Grade 7"] = true;
+          hiddenGrades['Grade 4'] = true;
+          hiddenGrades['Grade 5'] = true;
+          hiddenGrades['Grade 6'] = true;
+          hiddenGrades['Grade 7'] = true;
         } else {
           assignInputFieldValue(context, schoolGradeReference, null);
         }

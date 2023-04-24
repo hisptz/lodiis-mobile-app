@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -7,22 +8,22 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 class EducationLbseEnrollmentForm {
   static List<String> getMandatoryField() {
     return [
-      "location",
-      "EwZil0AnlYo",
-      "UhZhN6s0SNg",
-      "BUPSEpJySPR",
-      "WTZ7GLTrE8Q",
-      "rSP9c21JsfC",
-      "qZP982qpSPS",
-      "vIX4GTSCX4P",
-      "RB8Wx75hGa4"
+      'location',
+      'EwZil0AnlYo',
+      'UhZhN6s0SNg',
+      'BUPSEpJySPR',
+      'WTZ7GLTrE8Q',
+      'rSP9c21JsfC',
+      'qZP982qpSPS',
+      'vIX4GTSCX4P',
+      'RB8Wx75hGa4'
     ];
   }
 
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-        name: "Location",
+        name: 'Location',
         color: const Color(0xFF009688),
         inputFields: [
           InputField(
@@ -30,8 +31,7 @@ class EducationLbseEnrollmentForm {
             name: 'Location',
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels:
-                LbseInterventionConstant.allowedSelectedLevels,
+            allowedSelectedLevels: [AppHierarchyReference.communityLevel],
             filteredPrograms: [LbseInterventionConstant.program],
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -46,7 +46,7 @@ class EducationLbseEnrollmentForm {
         ],
       ),
       FormSection(
-        name: "School information",
+        name: 'School information',
         color: const Color(0xFF009688),
         inputFields: [
           InputField(
@@ -64,12 +64,12 @@ class EducationLbseEnrollmentForm {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: "Primary",
-                name: "Primary",
+                code: 'Primary',
+                name: 'Primary',
               ),
               InputFieldOption(
-                code: "Post primary",
-                name: "Post primary",
+                code: 'Post primary',
+                name: 'Post primary',
               ),
             ],
           ),
@@ -81,36 +81,36 @@ class EducationLbseEnrollmentForm {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: "Grade 4",
-                name: "Grade 4",
+                code: 'Grade 4',
+                name: 'Grade 4',
               ),
               InputFieldOption(
-                code: "Grade 5",
-                name: "Grade 5",
+                code: 'Grade 5',
+                name: 'Grade 5',
               ),
               InputFieldOption(
-                code: "Grade 6",
-                name: "Grade 6",
+                code: 'Grade 6',
+                name: 'Grade 6',
               ),
               InputFieldOption(
-                code: "Grade 7",
-                name: "Grade 7",
+                code: 'Grade 7',
+                name: 'Grade 7',
               ),
               InputFieldOption(
-                code: "Grade 8",
-                name: "Grade 8",
+                code: 'Grade 8',
+                name: 'Grade 8',
               ),
               InputFieldOption(
-                code: "Grade 9",
-                name: "Grade 9",
+                code: 'Grade 9',
+                name: 'Grade 9',
               ),
               InputFieldOption(
-                code: "Grade 10",
-                name: "Grade 10",
+                code: 'Grade 10',
+                name: 'Grade 10',
               ),
               InputFieldOption(
-                code: "Grade 11",
-                name: "Grade 11",
+                code: 'Grade 11',
+                name: 'Grade 11',
               ),
             ],
           ),
@@ -131,7 +131,7 @@ class EducationLbseEnrollmentForm {
         ],
       ),
       FormSection(
-        name: "Client Bio",
+        name: 'Client Bio',
         color: const Color(0xFF009688),
         inputFields: [
           InputField(
@@ -180,13 +180,13 @@ class EducationLbseEnrollmentForm {
             renderAsRadio: true,
             options: [
               InputFieldOption(
-                code: "Male",
-                name: "Male",
+                code: 'Male',
+                name: 'Male',
                 translatedName: 'Botona',
               ),
               InputFieldOption(
-                code: "Female",
-                name: "Female",
+                code: 'Female',
+                name: 'Female',
                 translatedName: 'Botsehali',
               ),
             ],

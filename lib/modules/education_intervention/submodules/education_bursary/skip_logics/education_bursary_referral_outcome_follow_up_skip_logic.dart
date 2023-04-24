@@ -4,7 +4,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:provider/provider.dart';
 
-class EducationLbseReferralOutcomeSkipLogic {
+class EducationBursaryReferralOutcomeFollowUpSkipLogic {
   static Map hiddenFields = {};
   static Map hiddenSections = {};
   static Map hiddenInputFieldOptions = {};
@@ -18,9 +18,9 @@ class EducationLbseReferralOutcomeSkipLogic {
     hiddenSections.clear();
     hiddenInputFieldOptions.clear();
 
-    hiddenFields['lvT9gfpHIlT'] = true;
-    hiddenFields['Ep3atnNQGTY'] = true;
-    hiddenFields['DPf5mUDoZMy'] = true;
+    hiddenFields['VHe4ctA0bqU'] = true;
+    hiddenFields['BzkeBAxdEVT'] = true;
+    hiddenFields['Yp3zlQ779fk'] = true;
     hiddenFields['LcG4J82PM4Z'] = true;
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
@@ -29,14 +29,18 @@ class EducationLbseReferralOutcomeSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'hXyqgOWZ17b' && value == 'true') {
-        hiddenFields['lvT9gfpHIlT'] = false;
-        hiddenFields['Ep3atnNQGTY'] = false;
+      if (inputFieldId == 'DPf5mUDoZMy' && value != '' && value != 'null') {
+        hiddenFields['VHe4ctA0bqU'] = false;
         hiddenFields['LcG4J82PM4Z'] = false;
-      } else if (inputFieldId == 'hXyqgOWZ17b' && value == 'false') {
-        hiddenFields['LcG4J82PM4Z'] = false;
-      } else if (inputFieldId == 'Ep3atnNQGTY' && value == 'true') {
-        hiddenFields['DPf5mUDoZMy'] = false;
+      } else if (inputFieldId == 'VHe4ctA0bqU' &&
+          value != 'Complete' &&
+          value != '' &&
+          value != 'null') {
+        hiddenFields['BzkeBAxdEVT'] = false;
+      } else if (inputFieldId == 'BzkeBAxdEVT' &&
+          value == 'true' &&
+          value != 'null') {
+        hiddenFields['Yp3zlQ779fk'] = false;
       }
     }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
@@ -12,7 +13,6 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
-import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -22,31 +22,28 @@ import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_intervention_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/constants/lbse_routes_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/models/education_lbse_learning_outcome_form.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_lbse/skip_logics/education_lbse_learning_outcome_skip_logic.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_referral_form.dart';
 import 'package:provider/provider.dart';
 
-class EducationLbseLearningOutcomeFormPage extends StatefulWidget {
-  const EducationLbseLearningOutcomeFormPage({
+class EducationBursaryReferralFormPage extends StatefulWidget {
+  const EducationBursaryReferralFormPage({
     Key? key,
-    required this.isNewLearningOutcomeForm,
   }) : super(key: key);
-  final bool isNewLearningOutcomeForm;
 
   @override
-  State<EducationLbseLearningOutcomeFormPage> createState() =>
-      _EducationLbseLearningOutcomeFormPageState();
+  State<EducationBursaryReferralFormPage> createState() =>
+      _EducationBursaryReferralFormPageState();
 }
 
-class _EducationLbseLearningOutcomeFormPageState
-    extends State<EducationLbseLearningOutcomeFormPage> {
-  final String label = 'Learning Outcome Form';
+class _EducationBursaryReferralFormPageState
+    extends State<EducationBursaryReferralFormPage> {
+  final String label = 'Referral Form';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   List<String> mandatoryFields =
-      EducationLbseLearningOutcomeForm.getMandatoryField();
+      EducationBursaryReferralForm.getMandatoryField();
   final Map mandatoryFieldObject = {};
   List unFilledMandatoryFields = [];
   bool isFormReady = false;
@@ -57,26 +54,9 @@ class _EducationLbseLearningOutcomeFormPageState
     super.initState();
     setFormSections();
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      isFormReady = true;
+      setState(() {});
     });
-  }
-
-  evaluateSkipLogics() {
-    Timer(
-      const Duration(milliseconds: 200),
-      () async {
-        Map dataObject =
-            Provider.of<ServiceFormState>(context, listen: false).formState;
-        await EducationLbseLearningOutcomeSkipLogic.evaluateSkipLogics(
-          context,
-          formSections!,
-          dataObject,
-        );
-      },
-    );
   }
 
   void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
@@ -96,40 +76,34 @@ class _EducationLbseLearningOutcomeFormPageState
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
             .currentBeneficiciary!;
-    defaultFormSections = EducationLbseLearningOutcomeForm.getFormSections();
+    defaultFormSections = EducationBursaryReferralForm.getFormSections();
     if (lbseBeneficiary.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
       FormSection serviceProvisionForm =
           AppUtil.getServiceProvisionLocationSection(
-              inputColor: LbseInterventionConstant.inputColor,
-              labelColor: LbseInterventionConstant.labelColor,
-              sectionLabelColor: LbseInterventionConstant.inputColor,
-              allowedSelectedLevels: [AppHierarchyReference.communityLevel],
-              program: LbseInterventionConstant.program);
+        inputColor: BursaryInterventionConstant.inputColor,
+        labelColor: BursaryInterventionConstant.labelColor,
+        sectionLabelColor: BursaryInterventionConstant.inputColor,
+        allowedSelectedLevels:
+            BursaryInterventionConstant.allowedSelectedLevels,
+        program: BursaryInterventionConstant.program,
+      );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
       mandatoryFields.addAll(FormUtil.getFormFieldIds(
         [serviceProvisionForm],
         includeLocationId: true,
       ));
-    }
-    for (String fieldId in mandatoryFields) {
-      mandatoryFieldObject[fieldId] = true;
+      for (String fieldId in mandatoryFields) {
+        mandatoryFieldObject[fieldId] = true;
+      }
     }
   }
 
   void onInputValueChange(String id, dynamic value) {
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState(id, value);
-    evaluateSkipLogics();
     onUpdateFormAutoSaveState(context);
-  }
-
-  List<String> getMandatoryFielOnFormSubmission() {
-    List<String> allMandatoryFields = widget.isNewLearningOutcomeForm
-        ? mandatoryFields
-        : EducationLbseLearningOutcomeForm.getMandatoryField();
-    return allMandatoryFields.toSet().toList();
   }
 
   void onSaveForm(
@@ -137,10 +111,8 @@ class _EducationLbseLearningOutcomeFormPageState
     Map dataObject,
     EducationBeneficiary lbseBeneficiary,
   ) async {
-    setMandatoryFields(dataObject);
-    List<String> allMandatoryFields = getMandatoryFielOnFormSubmission();
     bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
-      allMandatoryFields,
+      mandatoryFields,
       dataObject,
       hiddenFields:
           Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
@@ -153,62 +125,74 @@ class _EducationLbseLearningOutcomeFormPageState
       setState(() {
         isSaving = true;
       });
+      String clubAttendanceToReferralLinkage =
+          BursaryInterventionConstant.clubAttendanceToReferralLinkage;
+      String referralToReferralOutcomeLinkage = BursaryInterventionConstant
+          .clubAttendanceReferralToReferralOutcomeLinkage;
+      dataObject[clubAttendanceToReferralLinkage] =
+          dataObject[clubAttendanceToReferralLinkage] ?? AppUtil.getUid();
+      dataObject[referralToReferralOutcomeLinkage] =
+          dataObject[referralToReferralOutcomeLinkage] ?? AppUtil.getUid();
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
-      List<String> hiddenFields = [];
+      List<String> hiddenFields = [
+        clubAttendanceToReferralLinkage,
+        referralToReferralOutcomeLinkage
+      ];
       String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          LbseInterventionConstant.program,
-          LbseInterventionConstant.learningOutcomeProgamStage,
+          BursaryInterventionConstant.program,
+          BursaryInterventionConstant.clubAttendanceReferralProgamStage,
           orgUnit,
-          defaultFormSections!,
+          formSections!,
           dataObject,
           eventDate,
           lbseBeneficiary.id,
           eventId,
           hiddenFields,
-        ).then((response) {
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(lbseBeneficiary.id);
-          Timer(const Duration(seconds: 1), () {
-            String? currentLanguage =
-                Provider.of<LanguageTranslationState>(context, listen: false)
-                    .currentLanguage;
-            AppUtil.showToastMessage(
-              message: currentLanguage == 'lesotho'
-                  ? 'Fomo e bolokeile'
-                  : 'Form has been saved successfully',
-              position: ToastGravity.TOP,
-            );
-            clearFormAutoSaveState(
-              context,
-              lbseBeneficiary.id,
-              eventId ?? '',
-            );
-            Navigator.pop(context);
-          });
-        }).catchError((error) {
-          Timer(const Duration(seconds: 1), () {
-            setState(() {
-              AppUtil.showToastMessage(
-                message: error.toString(),
-                position: ToastGravity.BOTTOM,
-              );
-            });
-          });
+        );
+        Provider.of<ServiceEventDataState>(context, listen: false)
+            .resetServiceEventDataState(lbseBeneficiary.id);
+        Timer(const Duration(seconds: 1), () {
+          String? currentLanguage =
+              Provider.of<LanguageTranslationState>(context, listen: false)
+                  .currentLanguage;
+          AppUtil.showToastMessage(
+            message: currentLanguage == 'lesotho'
+                ? 'Fomo e bolokeile'
+                : 'Form has been saved successfully',
+            position: ToastGravity.TOP,
+          );
+          clearFormAutoSaveState(
+            context,
+            lbseBeneficiary.id,
+            eventId ?? '',
+          );
+          Navigator.pop(context);
         });
-      } catch (error) {
+      } catch (e) {
         Timer(const Duration(seconds: 1), () {
           setState(() {
             AppUtil.showToastMessage(
-              message: error.toString(),
+              message: e.toString(),
               position: ToastGravity.BOTTOM,
             );
           });
         });
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
@@ -219,7 +203,7 @@ class _EducationLbseLearningOutcomeFormPageState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
+        '${BursaryRoutesConstant.clubReferralPageModule}_${beneficiaryId}_$eventId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -228,25 +212,25 @@ class _EducationLbseLearningOutcomeFormPageState
     bool isSaveForm = false,
     String nextPageModule = '',
   }) async {
-    var lbseBeneficiary =
+    var bursaryBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
                 listen: false)
             .currentBeneficiciary;
-    String? beneficiaryId = lbseBeneficiary!.id;
+    String? beneficiaryId = bursaryBeneficiary!.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
+        '${BursaryRoutesConstant.clubReferralPageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
-      pageModule: LbseRoutesConstant.learningOutcomePageModule,
+      pageModule: BursaryRoutesConstant.clubReferralPageModule,
       nextPageModule: isSaveForm
           ? nextPageModule != ''
               ? nextPageModule
-              : LbseRoutesConstant.learningOutcomeNextPageModule
-          : LbseRoutesConstant.learningOutcomePageModule,
+              : BursaryRoutesConstant.clubReferralNextPageModule
+          : BursaryRoutesConstant.clubReferralPageModule,
       data: jsonEncode(dataObject),
     );
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);

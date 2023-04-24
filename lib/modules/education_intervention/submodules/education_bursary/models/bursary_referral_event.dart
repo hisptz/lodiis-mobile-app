@@ -1,29 +1,36 @@
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
 
-class BursaryAttendanceEvent {
+class BursaryReferralEvent {
   String? id;
-  bool attended;
   String? date;
-  bool? enrollmentOuAccessible;
+  String? referral;
+  String? referralTo;
+  String? referralToReferralOutcomeLinkage;
   String? attendanceTorefrralLinkage;
+  bool? enrollmentOuAccessible;
   Events? eventData;
 
-  BursaryAttendanceEvent({
+  BursaryReferralEvent({
     this.id,
-    this.attended = false,
     this.date,
-    this.enrollmentOuAccessible,
+    this.referral,
+    this.referralTo,
+    this.referralToReferralOutcomeLinkage,
     this.attendanceTorefrralLinkage,
+    this.enrollmentOuAccessible,
     this.eventData,
   });
 
-  BursaryAttendanceEvent fromTeiModel(
+  BursaryReferralEvent fromTeiModel(
     Events eventData,
   ) {
     List keys = [
-      'WvYI4dliZyk',
+      'KzIw7RMGZ9c',
+      'hpuu3TCZkKx',
+      'OIUDljKyNgy',
       BursaryInterventionConstant.clubAttendanceToReferralLinkage,
+      BursaryInterventionConstant.clubAttendanceReferralToReferralOutcomeLinkage
     ];
     Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
@@ -32,13 +39,17 @@ class BursaryAttendanceEvent {
         data[attribute] = '${detailObj['value']}'.trim();
       }
     }
-    return BursaryAttendanceEvent(
+    return BursaryReferralEvent(
       id: eventData.event,
-      attended: data['WvYI4dliZyk'] == 'true',
-      date: eventData.eventDate,
+      date: data['OIUDljKyNgy'] ?? eventData.eventDate,
+      referral: data['KzIw7RMGZ9c'] ?? '',
+      referralTo: data['hpuu3TCZkKx'] ?? '',
       attendanceTorefrralLinkage:
           data[BursaryInterventionConstant.clubAttendanceToReferralLinkage] ??
               '',
+      referralToReferralOutcomeLinkage: data[BursaryInterventionConstant
+              .clubAttendanceReferralToReferralOutcomeLinkage] ??
+          '',
       enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
@@ -46,6 +57,6 @@ class BursaryAttendanceEvent {
 
   @override
   String toString() {
-    return '$date ${attended ? 'Attended' : 'Not Attended'}';
+    return 'referral => $referral referralTop => $referralTo';
   }
 }

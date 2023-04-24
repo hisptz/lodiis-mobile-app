@@ -25,7 +25,7 @@ import 'package:provider/provider.dart';
 class EducationLbseLearningOutcomeHome extends StatelessWidget {
   const EducationLbseLearningOutcomeHome({Key? key}) : super(key: key);
 
-  final String label = "LBSE Learning Outcomes";
+  final String label = 'LBSE Learning Outcomes';
 
   void updateFormState(
     BuildContext context,
@@ -80,7 +80,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
     String? beneficiaryId = lbseBeneficiary.id;
     String eventId = '';
     String formAutoSaveId =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -112,7 +112,7 @@ class EducationLbseLearningOutcomeHome extends StatelessWidget {
     String? beneficiaryId = lbseBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()

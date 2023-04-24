@@ -4,117 +4,99 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
-import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_top_header.dart';
-import 'package:kb_mobile_app/modules/education_intervention/components/education_list_card.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/components/education_bursary_referral_container.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/bursary_attendance_event.dart';
-import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_attendance_form_page.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/bursary_referral_event.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_club_referral_form_page.dart';
 import 'package:provider/provider.dart';
 
-class EducationBursaryClubsAttendancePage extends StatefulWidget {
-  const EducationBursaryClubsAttendancePage({Key? key}) : super(key: key);
+class EducationBursaryClubReferralHome extends StatelessWidget {
+  const EducationBursaryClubReferralHome({Key? key}) : super(key: key);
 
-  final String label = 'Clubs Attendance';
+  final String label = 'Bursary Referral';
 
-  @override
-  State<EducationBursaryClubsAttendancePage> createState() =>
-      _EducationBursaryClubsAttendancePageState();
-}
+  void updateFormState(
+    BuildContext context,
+    bool isEditableMode,
+    Events? eventData,
+  ) {
+    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
+    Provider.of<ServiceFormState>(context, listen: false)
+        .updateFormEditabilityState(isEditableMode: isEditableMode);
+    if (eventData != null) {
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventDate', eventData.eventDate);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
+      for (Map dataValue in eventData.dataValues) {
+        if (dataValue['value'] != '') {
+          Provider.of<ServiceFormState>(context, listen: false)
+              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
+        }
+      }
+    }
+  }
 
-class _EducationBursaryClubsAttendancePageState
-    extends State<EducationBursaryClubsAttendancePage> {
-  void redirectToAttendanceForm(
-    BuildContext context, {
-    bool isNewClubAttendance = false,
-  }) {
+  void redirectToReferralForm(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return EducationBursaryAttendanceFormPage(
-            isNewClubAttendance: isNewClubAttendance,
-          );
+          return const EducationBursaryReferralFormPage();
         },
       ),
     );
   }
 
-  onViewAttendance(
+  onViewReferral(
     BuildContext context,
     Events eventData,
   ) {
     bool isEditableMode = false;
-    FormUtil.updateServiceFormState(context, isEditableMode, eventData);
-    redirectToAttendanceForm(context);
+    updateFormState(context, isEditableMode, eventData);
+    redirectToReferralForm(context);
   }
 
-  onAddAttendance(
+  onEditReferral(
     BuildContext context,
-    EducationBeneficiary educationBeneficiary,
-  ) async {
-    bool isEditableMode = true;
-    String? beneficiaryId = educationBeneficiary.id;
-    String eventId = '';
-    String formAutoSaveId =
-        '${BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId';
-    FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
-    bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
-        .shouldResumeWithUnSavedChanges(context, formAutoSave);
-    if (shouldResumeWithUnSavedChanges) {
-      AppResumeRoute().redirectToPages(context, formAutoSave);
-    } else {
-      FormUtil.updateServiceFormState(context, isEditableMode, null);
-      Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
-          'eventDate', AppUtil.formattedDateTimeIntoString(DateTime.now()));
-      redirectToAttendanceForm(
-        context,
-        isNewClubAttendance: true,
-      );
-    }
-  }
-
-  onEditAttendance(
-    BuildContext context,
-    EducationBeneficiary educationBeneficiary,
+    EducationBeneficiary bursaryBeneficiary,
     Events eventData,
   ) async {
     bool isEditableMode = true;
-    String? beneficiaryId = educationBeneficiary.id;
+    String? beneficiaryId = bursaryBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        '${BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId';
+        '${BursaryRoutesConstant.clubReferralPageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave,
-            beneficiaryName: educationBeneficiary.toString());
+            beneficiaryName: bursaryBeneficiary.toString());
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
-      FormUtil.updateServiceFormState(context, isEditableMode, eventData);
-      redirectToAttendanceForm(context);
+      updateFormState(context, isEditableMode, eventData);
+      redirectToReferralForm(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     List<String> programStageIds = [
-      BursaryInterventionConstant.clubsAttendanceProgramStage
+      BursaryInterventionConstant.clubAttendanceReferralProgamStage
     ];
     return SafeArea(
       child: Scaffold(
@@ -125,7 +107,7 @@ class _EducationBursaryClubsAttendancePageState
               InterventionCard activeInterventionProgram =
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
-                label: widget.label,
+                label: label,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -145,12 +127,13 @@ class _EducationBursaryClubsAttendancePageState
                       serviceEventDataState.eventListByProgramStage;
                   List<Events> events = TrackedEntityInstanceUtil
                       .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds)
-                    ..sort((a, b) => b.eventDate!.compareTo(a.eventDate!));
-                  List<BursaryAttendanceEvent> attendances = events
-                      .map((Events event) =>
-                          BursaryAttendanceEvent().fromTeiModel(event))
-                      .toList();
+                          eventListByProgramStage, programStageIds);
+                  List<BursaryReferralEvent> lbseReferrals = events
+                      .map((Events eventData) =>
+                          BursaryReferralEvent().fromTeiModel(eventData))
+                      .toList()
+                    ..sort((b, a) => a.date!.compareTo(b.date!));
+                  int referralIndex = lbseReferrals.length + 1;
                   return Column(
                     children: [
                       EducationBeneficiaryTopHeader(
@@ -169,7 +152,7 @@ class _EducationBursaryClubsAttendancePageState
                                     ),
                                     child: events.isEmpty
                                         ? const Text(
-                                            'There is no clubs attendance at a moment',
+                                            'There is no referral at a moment',
                                           )
                                         : Container(
                                             margin: const EdgeInsets.symmetric(
@@ -177,39 +160,27 @@ class _EducationBursaryClubsAttendancePageState
                                               horizontal: 13.0,
                                             ),
                                             child: Column(
-                                              children: attendances.map(
-                                                  (BursaryAttendanceEvent
-                                                      attendance) {
-                                                return EducationListCard(
-                                                  date: attendance.date!,
-                                                  title: attendance.attended
-                                                      ? 'Attended'
-                                                      : 'Not Attended',
-                                                  canEdit: attendance
-                                                      .enrollmentOuAccessible!,
-                                                  onEdit: () =>
-                                                      onEditAttendance(
-                                                    context,
-                                                    bursaryBeneficiary,
-                                                    attendance.eventData!,
-                                                  ),
-                                                  onView: () =>
-                                                      onViewAttendance(
-                                                    context,
-                                                    attendance.eventData!,
-                                                  ),
+                                              children: lbseReferrals.map(
+                                                  (BursaryReferralEvent
+                                                      bursaryReferral) {
+                                                referralIndex--;
+                                                return EducationBursaryReferralContainer(
+                                                  bursaryReferral:
+                                                      bursaryReferral,
+                                                  referralIndex: referralIndex,
+                                                  onView: () => onViewReferral(
+                                                      context,
+                                                      bursaryReferral
+                                                          .eventData!),
+                                                  onEdit: () => onEditReferral(
+                                                      context,
+                                                      bursaryBeneficiary,
+                                                      bursaryReferral
+                                                          .eventData!),
                                                 );
                                               }).toList(),
                                             ),
                                           ),
-                                  ),
-                                  EntryFormSaveButton(
-                                    label: 'ADD CLUB ATTENDANCE',
-                                    labelColor: Colors.white,
-                                    buttonColor: const Color(0xFF009688),
-                                    fontSize: 15.0,
-                                    onPressButton: () => onAddAttendance(
-                                        context, bursaryBeneficiary),
                                   ),
                                 ],
                               ),
@@ -221,7 +192,6 @@ class _EducationBursaryClubsAttendancePageState
             },
           ),
         ),
-        bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
       ),
     );
   }

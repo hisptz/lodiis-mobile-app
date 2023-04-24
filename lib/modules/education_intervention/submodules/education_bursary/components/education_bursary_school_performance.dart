@@ -56,7 +56,7 @@ class _EducationBursarySchoolPerformanceState
     String? beneficiaryId = educationBeneficiary.id;
     String eventId = '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -80,7 +80,7 @@ class _EducationBursarySchoolPerformanceState
     String? beneficiaryId = educationBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        "${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.schoolsPerformancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()

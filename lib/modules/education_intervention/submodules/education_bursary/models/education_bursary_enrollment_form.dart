@@ -7,7 +7,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 class EducationBursaryEnrollmentForm {
   static List<String> getMandatoryField() {
     return [
-      "location",
+      'location',
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
       'qZP982qpSPS',
@@ -20,7 +20,7 @@ class EducationBursaryEnrollmentForm {
   static List<FormSection> getFormSections() {
     return [
       FormSection(
-        name: "Student Information",
+        name: 'Student Information',
         color: const Color(0xFF009688),
         inputFields: [
           InputField(
@@ -89,13 +89,13 @@ class EducationBursaryEnrollmentForm {
             renderAsRadio: true,
             options: [
               InputFieldOption(
-                code: "Male",
-                name: "Male",
+                code: 'Male',
+                name: 'Male',
                 translatedName: 'Botona',
               ),
               InputFieldOption(
-                code: "Female",
-                name: "Female",
+                code: 'Female',
+                name: 'Female',
                 translatedName: 'Botsehali',
               ),
             ],
@@ -141,20 +141,20 @@ class EducationBursaryEnrollmentForm {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: "Grade 8",
-                name: "Grade 8",
+                code: 'Grade 8',
+                name: 'Grade 8',
               ),
               InputFieldOption(
-                code: "Grade 9",
-                name: "Grade 9",
+                code: 'Grade 9',
+                name: 'Grade 9',
               ),
               InputFieldOption(
-                code: "Grade 10",
-                name: "Grade 10",
+                code: 'Grade 10',
+                name: 'Grade 10',
               ),
               InputFieldOption(
-                code: "Grade 11",
-                name: "Grade 11",
+                code: 'Grade 11',
+                name: 'Grade 11',
               ),
             ],
           ),

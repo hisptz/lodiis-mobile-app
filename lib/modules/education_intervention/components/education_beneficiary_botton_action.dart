@@ -7,9 +7,11 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
     required this.isLbseLearningOutcomeVisible,
     required this.isBursarySchoolVisible,
     required this.isBursaryClubVisible,
+    required this.isBursaryClubReferralVisible,
     this.onOpenLbseLearningOutcome,
     this.onOpenBursarySchool,
     this.onOpenBursaryClub,
+    this.onOpenBursaryClubReferral,
   }) : super(key: key);
 
   final double height = 50.0;
@@ -17,10 +19,12 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
   final bool isLbseLearningOutcomeVisible;
   final bool isBursarySchoolVisible;
   final bool isBursaryClubVisible;
+  final bool isBursaryClubReferralVisible;
 
   final VoidCallback? onOpenLbseLearningOutcome;
   final VoidCallback? onOpenBursarySchool;
   final VoidCallback? onOpenBursaryClub;
+  final VoidCallback? onOpenBursaryClubReferral;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +56,14 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
               EducationBeneficiaryButton(
                 label: 'CLUB',
                 isVisible: isBursaryClubVisible,
-                hasSplitBorder: false,
+                hasSplitBorder: isBursaryClubReferralVisible,
                 onTap: onOpenBursaryClub,
+              ),
+              EducationBeneficiaryButton(
+                label: 'CLUB RERERRAL',
+                isVisible: isBursaryClubReferralVisible,
+                hasSplitBorder: false,
+                onTap: onOpenBursaryClubReferral,
               ),
             ],
           ),
