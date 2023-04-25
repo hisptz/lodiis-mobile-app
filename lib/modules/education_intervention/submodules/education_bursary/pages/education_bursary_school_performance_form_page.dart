@@ -67,6 +67,8 @@ class _EducationBursarySchoolPerformanceFormPageState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -137,10 +139,9 @@ class _EducationBursarySchoolPerformanceFormPageState
       ),
     );
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
       if (hasAllMandatoryFilled) {
+        isSaving = true;
+        setState(() {});
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];

@@ -64,6 +64,8 @@ class _PpPrevInterventionServiceProvisionFormState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -142,9 +144,8 @@ class _PpPrevInterventionServiceProvisionFormState
     );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, defaultFormSections)) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];

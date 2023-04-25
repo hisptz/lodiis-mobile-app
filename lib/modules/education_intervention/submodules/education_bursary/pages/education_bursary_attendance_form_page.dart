@@ -72,6 +72,8 @@ class _EducationBursaryAttendanceFormPageState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -120,7 +122,6 @@ class _EducationBursaryAttendanceFormPageState
     }
   }
 
-//TODO add logics for referrals
   evaluateSkipLogics() {
     Timer(
       const Duration(milliseconds: 200),
@@ -162,9 +163,8 @@ class _EducationBursaryAttendanceFormPageState
     );
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       if (hasAllMandatoryFilled) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
         String clubAttendanceToReferralLinkage =
             BursaryInterventionConstant.clubAttendanceToReferralLinkage;
         String referralToReferralOutcomeLinkage = BursaryInterventionConstant

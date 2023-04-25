@@ -5,7 +5,23 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationBursarySchoolPerformanceForm {
   static List<String> getMandatoryFields() {
-    return [];
+    return [
+      "Uw2Z1XNFgXI",
+      "vigylZN5Wjz",
+      "t6kN1SwgMSs",
+      "yYuNppDTRji",
+      "vci20we0Ypg",
+      "O8VSN74kSJx",
+      "na5YEZYwY0l",
+      "sCR0ebG3UWX",
+      "AGBBacBaorC",
+      "fZEQ0wIyB5h",
+      "iBanzhFYlRN",
+      "asG0ls9Qfp2",
+      "uEeaGfuxHyV",
+      "lwLEpwalIlG",
+      "zpykd7zvLsC"
+    ];
   }
 
   static List<FormSection> getFormSections() {

@@ -118,9 +118,8 @@ class _EducationLbseEnrollmentFormPageState
       ),
     );
     if (hadAllMandatoryFilled) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
       CurrentUser? user = await (UserService().getCurrentUser());
       dataObject[UserAccountReference.implementingPartnerAttribute] =
           dataObject[UserAccountReference.implementingPartnerAttribute] ??
