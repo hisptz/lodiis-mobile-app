@@ -4,7 +4,16 @@ import 'package:kb_mobile_app/models/input_field.dart';
 
 class PpPrevGenderNormsForm {
   static List<String> getMandatoryField() {
-    return [];
+    return [
+      "W79837fEI3C",
+      "fkYHRd1KrWO",
+      "O7sjTjxUmEa",
+      "vL6NpUA0rIU",
+      "FoLeDcnocv4",
+      "JjX25d72ume",
+      "qxO13pu8vAk",
+      "JGgGQZPZH4n"
+    ];
   }
 
   static List<FormSection> getFormSections({

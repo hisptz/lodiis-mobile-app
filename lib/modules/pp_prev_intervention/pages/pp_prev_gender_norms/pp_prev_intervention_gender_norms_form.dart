@@ -69,6 +69,8 @@ class _PpPrevInterventionGenderNormsFormState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -229,9 +231,8 @@ class _PpPrevInterventionGenderNormsFormState
             position: ToastGravity.BOTTOM,
           );
         } else {
-          setState(() {
-            isSaving = true;
-          });
+          isSaving = true;
+          setState(() {});
           String? eventDate = dataObject['eventDate'];
           String? eventId = dataObject['eventId'];
           List<String> hiddenFields = [];

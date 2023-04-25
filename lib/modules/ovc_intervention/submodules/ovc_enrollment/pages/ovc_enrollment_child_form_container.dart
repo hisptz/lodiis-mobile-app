@@ -182,6 +182,7 @@ class _OvcEnrollmentChildFormContainerState
       unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
         mandatoryFields,
         childrenMapObject,
+        hiddenFields: hiddenFields,
         checkBoxInputFields: FormUtil.getInputFieldByValueType(
           valueType: 'CHECK_BOX',
           formSections: formSections,

@@ -115,9 +115,8 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
       ),
     );
     if (hadAllMandatoryFilled) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
       String eventId = dataObject['eventId'] ?? AppUtil.getUid();
       await EducationBursaryEnrollmentService()
           .saveBursaryWithoutVulnerabilityCriteria(

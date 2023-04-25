@@ -63,6 +63,8 @@ class _EducationBursaryReferralFormPageState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],

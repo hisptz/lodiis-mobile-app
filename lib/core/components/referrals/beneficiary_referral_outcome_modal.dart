@@ -142,6 +142,8 @@ class _BeneficiaryReferralOutcomeModalState
     bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: widget.formSections,
@@ -197,6 +199,8 @@ class _BeneficiaryReferralOutcomeModalState
         unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
           mandatoryFields,
           dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields,
           checkBoxInputFields: FormUtil.getInputFieldByValueType(
             valueType: 'CHECK_BOX',
             formSections: widget.formSections,

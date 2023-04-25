@@ -6,4 +6,5 @@ class LbseInterventionConstant {
   static const String learningOutcomeProgamStage = 'dEnBak74Hj7';
   static const Color inputColor = Color(0xFF009688);
   static const Color labelColor = Color(0xFF737373);
+  static const String serviceProvider = 'W79837fEI3C';
 }

@@ -16,7 +16,8 @@ class EducationLbseEnrollmentForm {
       'rSP9c21JsfC',
       'qZP982qpSPS',
       'vIX4GTSCX4P',
-      'RB8Wx75hGa4'
+      'RB8Wx75hGa4',
+      'mmY2WLON5MF'
     ];
   }
 
@@ -157,6 +158,7 @@ class EducationLbseEnrollmentForm {
             name: 'Date of Birth',
             translatedName: 'Letsatsi la tsoalo',
             regExpValidation: RegExp('^[A-Za-z]{0,}'),
+            minAgeInYear: 8,
             valueType: 'DATE',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),

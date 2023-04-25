@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -17,6 +18,7 @@ import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart'
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -57,11 +59,29 @@ class _EducationLbseLearningOutcomeFormPageState
     super.initState();
     setFormSections();
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      _setCurrentServiceProvider();
+      isFormReady = true;
+      evaluateSkipLogics();
+      setState(() {});
     });
+  }
+
+  _setCurrentServiceProvider() {
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String currentServiceProvider =
+        dataObject[LbseInterventionConstant.serviceProvider] ?? '';
+    if (currentServiceProvider.isEmpty) {
+      CurrentUser? user =
+          Provider.of<CurrentUserState>(context, listen: false).currentUser;
+      currentServiceProvider = user?.name ?? currentServiceProvider;
+      if (currentServiceProvider.isNotEmpty) {
+        onInputValueChange(
+          LbseInterventionConstant.serviceProvider,
+          currentServiceProvider,
+        );
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -83,6 +103,8 @@ class _EducationLbseLearningOutcomeFormPageState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],

@@ -149,9 +149,8 @@ class _HIVPreventionEducationFormState
     );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];

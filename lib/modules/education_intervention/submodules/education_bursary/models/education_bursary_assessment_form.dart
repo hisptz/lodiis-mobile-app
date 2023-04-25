@@ -14,6 +14,56 @@ class EducationBursaryAssessment {
       'rSP9c21JsfC',
       'qZP982qpSPS',
       'vIX4GTSCX4P',
+      "fEPLlRZiwve",
+      "pJ5NAEmwnDq",
+      "WXhb5L2Zisd",
+      "OL0bjS9XQsh",
+      "why_not_schooling",
+      "tbzi0t27D8l",
+      "Ze2W9vkrfrL",
+      "type_of_disability",
+      "dxp3qM2TgUc",
+      "C524HuWqRyt",
+      "KGjZfijhdiR",
+      "FxGSw7Yueyc",
+      "t4DbaeAK16P",
+      "IVjlzXHizyT",
+      "nXvf0gcppF5",
+      "occupation",
+      "vQ7hj9nTgo7",
+      "KiTvHDkvi8J",
+      "not_enrolled_reason",
+      "forms_of_assistance",
+      "guardian_contribution",
+      "x7HZOLCazVg",
+      "PyAH5nY83o3",
+      "om8s3kpQnjI",
+      "ZhNIc0pp5IC",
+      "illness",
+      "used_for_cooking",
+      "oaVHpFUuIOw",
+      "type_of_toilet",
+      "household_items",
+      "z4z7ow7yriM",
+      "BnYxw1cOirn",
+      "l9thzEZzGrK",
+      "rzeyShjMVHO",
+      "FMLuCvm2yTI",
+      "ziBNi3VfdQU",
+      "o4Bi74oylwo",
+      "Z0XaEgRPvkM",
+      "household_animals",
+      "yKUVT2msSLT",
+      "QBxpDou3jlE",
+      "pkVU7LVIO9W",
+      "WoSdTNgH4Mz",
+      "LtyzmIBWl7w",
+      "VQbVQea2s7n",
+      "household_properties",
+      "ykg7pxiVcSc",
+      "BjIO7hTeor3",
+      "OgtRbjHVRsL",
+      "source_of_food"
     ];
   }
 
@@ -117,6 +167,8 @@ class EducationBursaryAssessment {
               name: '4. Date of Birth',
               translatedName: 'Letsatsi la tsoalo',
               valueType: 'DATE',
+              maxAgeInYear: 24,
+              minAgeInYear: 12,
               inputColor: const Color(0xFF009688),
               labelColor: const Color(0xFF737373),
             ),
@@ -540,6 +592,7 @@ class EducationBursaryAssessment {
                   InputFieldOption(code: 'loM6wymz0Qf', name: 'School feeding'),
                   InputFieldOption(
                       code: 'lf7iwYX0ZvE', name: 'Old age pension'),
+                  InputFieldOption(code: 'UVdJ0idZ0OK', name: "None")
                 ]),
             InputField(
                 id: 'guardian_contribution',
@@ -802,6 +855,10 @@ class EducationBursaryAssessment {
                   code: "DZWBn9lpEVu",
                   name: "Motorised vehicle",
                 ),
+                InputFieldOption(
+                  code: "szK8gsQVXfZ",
+                  name: "None",
+                )
               ],
             ),
             InputField(
@@ -892,6 +949,10 @@ class EducationBursaryAssessment {
                   code: "o67RKCxvNCy",
                   name: "Donkey",
                 ),
+                InputFieldOption(
+                  code: "W5FItGM8Ceq",
+                  name: "None",
+                )
               ],
             ),
             InputField(
@@ -937,22 +998,27 @@ class EducationBursaryAssessment {
               labelColor: const Color(0xFF737373),
             ),
             InputField(
-                id: 'household_properties',
-                name:
-                    '6. Does the household own any of the following properties?',
-                valueType: 'CHECK_BOX',
-                inputColor: const Color(0xFF009688),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                    code: "OeEHpwWkzgf",
-                    name: "Rental Houses",
-                  ),
-                  InputFieldOption(
-                    code: "dUwwS3Gp7OU",
-                    name: "Residential House",
-                  ),
-                ]),
+              id: 'household_properties',
+              name:
+                  '6. Does the household own any of the following properties?',
+              valueType: 'CHECK_BOX',
+              inputColor: const Color(0xFF009688),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: "OeEHpwWkzgf",
+                  name: "Rental Houses",
+                ),
+                InputFieldOption(
+                  code: "dUwwS3Gp7OU",
+                  name: "Residential House",
+                ),
+                InputFieldOption(
+                  code: "FbVD6cQzc9V",
+                  name: "None",
+                )
+              ],
+            ),
             InputField(
               id: 'ykg7pxiVcSc',
               name: 'Number of Rental Houses',
