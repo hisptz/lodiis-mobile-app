@@ -25,6 +25,7 @@ class EducationLbseEnrollmentForm {
     return [
       FormSection(
         name: 'Location',
+        translatedName: 'Sebaka',
         color: const Color(0xFF009688),
         inputFields: [
           InputField(
@@ -40,6 +41,7 @@ class EducationLbseEnrollmentForm {
           InputField(
             id: 'RB8Wx75hGa4',
             name: 'Village of Residence',
+            translatedName: 'Motse',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -53,6 +55,7 @@ class EducationLbseEnrollmentForm {
           InputField(
             id: 'EwZil0AnlYo',
             name: 'School Name',
+            translatedName: 'Lebitso la Sekolo',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -60,6 +63,7 @@ class EducationLbseEnrollmentForm {
           InputField(
             id: 'UhZhN6s0SNg',
             name: 'School Level',
+            translatedName: 'Boemo ba sekolo',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -77,6 +81,7 @@ class EducationLbseEnrollmentForm {
           InputField(
             id: 'BUPSEpJySPR',
             name: 'Grade',
+            translatedName: 'Sehlopha',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -118,6 +123,7 @@ class EducationLbseEnrollmentForm {
           InputField(
             id: 'ZyNCDMbB2Yx',
             name: 'Stream',
+            translatedName: 'Karolo',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -125,6 +131,7 @@ class EducationLbseEnrollmentForm {
           InputField(
             id: 'mmY2WLON5MF',
             name: 'Centre Name',
+            translatedName: 'Lebitso la setsi moo sekolo se ngolisitsoeng',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),

@@ -38,6 +38,7 @@ class EducationBursaryAttendanceForm {
           InputField(
             id: 'eventDate',
             name: 'Date',
+            translatedName: 'Letsatsi',
             valueType: 'DATE',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -45,6 +46,7 @@ class EducationBursaryAttendanceForm {
           InputField(
             id: 'WvYI4dliZyk',
             name: 'Attended',
+            translatedName: 'O bile teng',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -52,6 +54,7 @@ class EducationBursaryAttendanceForm {
           InputField(
               id: 'GKBZYfIj2s1',
               name: 'Mode of monitoring',
+              translatedName: 'Mokhoa oa ho hlahloba',
               valueType: 'TEXT',
               inputColor: const Color(0xFF009688),
               labelColor: const Color(0xFF737373),
@@ -62,6 +65,7 @@ class EducationBursaryAttendanceForm {
           InputField(
             id: 'EokvDGvXkOk',
             name: 'Reasons for non attendance',
+            translatedName: 'Mabaka a ho lofa',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
