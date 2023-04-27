@@ -26,6 +26,7 @@ class EducationLbseLearningOutcomeForm {
           InputField(
             id: 'kuMzFGnDULh',
             name: 'Theme',
+            translatedName: 'Sehlooho',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -59,6 +60,7 @@ class EducationLbseLearningOutcomeForm {
           InputField(
             id: 'mm5ZvlsZ6Sx',
             name: 'Learning outcome',
+            translatedName: 'Sephetho sa boithuto',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -156,6 +158,7 @@ class EducationLbseLearningOutcomeForm {
           InputField(
             id: 'pKF9sVeUuuE',
             name: 'Mode',
+            translatedName: 'Mokhoa oa ho hlahloba',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -173,6 +176,7 @@ class EducationLbseLearningOutcomeForm {
           InputField(
             id: 'WJOfRtIYU2p',
             name: 'Comment',
+            translatedName: 'Maikutlo',
             valueType: 'LONG_TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
