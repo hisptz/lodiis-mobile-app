@@ -185,7 +185,8 @@ class PpPrevEnrollmentForm {
             id: 'qCEK4EQvSbL',
             name:
                 'In the past 12 months, Have you ever had sex with more than one person?',
-            translatedName: 'U kile oa etsa thoabalano?',
+            translatedName:
+                'Likohoeling tse 12 tse fetileng, ukile oa etsa thobalano le bath oba fetang bonngoe?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),

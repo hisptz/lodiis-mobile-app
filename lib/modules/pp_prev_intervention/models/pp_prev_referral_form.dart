@@ -22,6 +22,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'IEdBgx4vn1J',
             name: 'Referral Services',
+            translatedName: 'Phetisetso ea Lits’ebeletso',
             valueType: 'TEXT',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -55,6 +56,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'OIUDljKyNgy',
             name: 'Date of referral',
+            translatedName: 'Letsatsi la Phetisetso',
             valueType: 'DATE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -62,6 +64,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'h4PRnqfEOCL',
             name: 'Referral Point',
+            translatedName: 'Sebaka sa phetisetso',
             valueType: 'TEXT',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -94,6 +97,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'k3nt1Qkxat0',
             name: 'Location',
+            translatedName: 'Setsi kapa council ea phetisetso',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'ORGANISATION_UNIT',

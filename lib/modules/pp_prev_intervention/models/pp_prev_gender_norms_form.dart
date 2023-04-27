@@ -27,6 +27,7 @@ class PpPrevGenderNormsForm {
           InputField(
             id: 'W79837fEI3C',
             name: 'Name of Youth Mentor/Paralegal',
+            translatedName: 'Lebitso la moafani oa litshebeletso',
             valueType: 'TEXT',
             isReadOnly: true,
             inputColor: const Color(0xFF9B2BAE),
@@ -43,6 +44,7 @@ class PpPrevGenderNormsForm {
           InputField(
             id: 'O7sjTjxUmEa',
             name: 'Session Date',
+            translatedName: 'Letsatsi la kopano/leo litsebeletso li fanoeng',
             valueType: 'DATE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -50,6 +52,7 @@ class PpPrevGenderNormsForm {
           InputField(
             id: 'vL6NpUA0rIU',
             name: 'Number of session',
+            translatedName: 'Nomoro ea lenane thuto',
             valueType: 'TEXT',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -57,6 +60,7 @@ class PpPrevGenderNormsForm {
           InputField(
             id: 'FoLeDcnocv4',
             name: 'Number of Female condoms distributed',
+            translatedName: 'Palo ea likhohlopo tsa basali tse fanoeng',
             valueType: 'INTEGER_ZERO_OR_POSITIVE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -64,13 +68,15 @@ class PpPrevGenderNormsForm {
           InputField(
             id: 'JjX25d72ume',
             name: 'Number of Male condoms distributed',
+            translatedName: 'Palo ea likhohlopo tsa banna tse fanoeng',
             valueType: 'INTEGER_ZERO_OR_POSITIVE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'qxO13pu8vAk',
-            name: 'Number of lubricants distributed"',
+            name: 'Number of lubricants distributed',
+            translatedName: 'Palo ea lingobetsi e fanoeng',
             valueType: 'INTEGER_ZERO_OR_POSITIVE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -78,6 +84,7 @@ class PpPrevGenderNormsForm {
           InputField(
             id: 'JGgGQZPZH4n',
             name: 'IEC Material Distributed',
+            translatedName: 'Palo ea lithusa thuto tse fanoeng',
             valueType: 'INTEGER_ZERO_OR_POSITIVE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
