@@ -10,9 +10,9 @@ class EducationLbseLearningOutcomeSkipLogic {
   static Map hiddenSections = {};
   static Map hiddenInputFieldOptions = {};
 
-  static String beneficairyGradeReference = "beneficiary_grade";
-  static String themeReference = "kuMzFGnDULh";
-  static String learningOutcomeReference = "mm5ZvlsZ6Sx";
+  static String beneficairyGradeReference = 'beneficiary_grade';
+  static String themeReference = 'kuMzFGnDULh';
+  static String learningOutcomeReference = 'mm5ZvlsZ6Sx';
 
   static Future evaluateSkipLogics(
     BuildContext context,
@@ -40,26 +40,26 @@ class EducationLbseLearningOutcomeSkipLogic {
     }
     String beneficairyGrade = '${dataObject[beneficairyGradeReference]}';
     String selectedTheme = '${dataObject[themeReference]}';
-    String learningOutComeFilterKey = "$beneficairyGrade $selectedTheme"
-        .split(" ")
-        .join("_")
+    String learningOutComeFilterKey = '$beneficairyGrade $selectedTheme'
+        .split(' ')
+        .join('_')
         .trim()
         .toLowerCase();
-    if (beneficairyGrade == "Grade 4") {
+    if (beneficairyGrade == 'Grade 4') {
       hiddenThemes['Theme 4'] = true;
       hiddenThemes['Theme 6'] = true;
       hiddenInputFieldOptions[themeReference] = hiddenThemes;
-    } else if (beneficairyGrade == "Grade 6") {
+    } else if (beneficairyGrade == 'Grade 6') {
       hiddenThemes['Theme 1'] = true;
       hiddenThemes['Theme 2'] = true;
       hiddenThemes['Theme 5'] = true;
       hiddenThemes['Theme 6'] = true;
       hiddenInputFieldOptions[themeReference] = hiddenThemes;
-    } else if (beneficairyGrade == "Grade 10") {
+    } else if (beneficairyGrade == 'Grade 10') {
       hiddenThemes['Theme 6'] = true;
       hiddenInputFieldOptions[themeReference] = hiddenThemes;
     }
-    if (selectedTheme == "null" || selectedTheme == "") {
+    if (selectedTheme == 'null' || selectedTheme == '') {
       assignInputFieldValue(context, learningOutcomeReference, null);
       for (String key in hiddenLearningOutcomeOptionsMap.keys) {
         for (String id in hiddenLearningOutcomeOptionsMap[key] ?? []) {

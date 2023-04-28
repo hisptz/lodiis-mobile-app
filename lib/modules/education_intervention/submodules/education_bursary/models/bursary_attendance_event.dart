@@ -1,10 +1,12 @@
 import 'package:kb_mobile_app/models/events.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
 
 class BursaryAttendanceEvent {
   String? id;
   bool attended;
   String? date;
   bool? enrollmentOuAccessible;
+  String? attendanceTorefrralLinkage;
   Events? eventData;
 
   BursaryAttendanceEvent({
@@ -12,6 +14,7 @@ class BursaryAttendanceEvent {
     this.attended = false,
     this.date,
     this.enrollmentOuAccessible,
+    this.attendanceTorefrralLinkage,
     this.eventData,
   });
 
@@ -20,6 +23,7 @@ class BursaryAttendanceEvent {
   ) {
     List keys = [
       'WvYI4dliZyk',
+      BursaryInterventionConstant.clubAttendanceToReferralLinkage,
     ];
     Map<String, dynamic> data = {};
     for (Map detailObj in eventData.dataValues) {
@@ -32,6 +36,9 @@ class BursaryAttendanceEvent {
       id: eventData.event,
       attended: data['WvYI4dliZyk'] == 'true',
       date: eventData.eventDate,
+      attendanceTorefrralLinkage:
+          data[BursaryInterventionConstant.clubAttendanceToReferralLinkage] ??
+              '',
       enrollmentOuAccessible: eventData.enrollmentOuAccessible,
       eventData: eventData,
     );
@@ -39,6 +46,6 @@ class BursaryAttendanceEvent {
 
   @override
   String toString() {
-    return '$date ${attended ? "Attended" : "Not Attended"}';
+    return '$date ${attended ? 'Attended' : 'Not Attended'}';
   }
 }

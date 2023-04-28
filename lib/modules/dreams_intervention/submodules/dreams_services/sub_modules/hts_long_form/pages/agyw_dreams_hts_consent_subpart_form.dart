@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_cu
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -95,8 +96,10 @@ class _AgywDreamsHTSConsentFormSubpartState
         inputColor: AgywDreamsEnrollmentConstant.inputColor,
         labelColor: AgywDreamsEnrollmentConstant.labelColor,
         sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
-        allowedSelectedLevels:
-            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        allowedSelectedLevels: [
+          AppHierarchyReference.communityLevel,
+          AppHierarchyReference.facilityLevel
+        ],
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];

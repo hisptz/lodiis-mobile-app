@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -102,8 +103,10 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
         inputColor: AgywDreamsEnrollmentConstant.inputColor,
         labelColor: AgywDreamsEnrollmentConstant.labelColor,
         sectionLabelColor: AgywDreamsEnrollmentConstant.labelColor,
-        allowedSelectedLevels:
-            AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+        allowedSelectedLevels: [
+          AppHierarchyReference.communityLevel,
+          AppHierarchyReference.facilityLevel
+        ],
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
@@ -139,9 +142,8 @@ class _AgywDreamsANCFormState extends State<AgywDreamsANCForm> {
     );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];

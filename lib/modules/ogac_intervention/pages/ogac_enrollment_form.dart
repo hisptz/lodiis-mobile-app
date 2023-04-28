@@ -103,15 +103,16 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
     bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<EnrollmentFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
       ),
     );
     if (hadAllMandatoryFilled) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
 
       CurrentUser? user = await (UserService().getCurrentUser());
       dataObject[UserAccountReference.implementingPartnerAttribute] =
@@ -176,16 +177,17 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
             message: e.toString(), position: ToastGravity.BOTTOM);
       }
     } else {
-      setState(() {
-        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
-          mandatoryFields,
-          dataObject,
-          checkBoxInputFields: FormUtil.getInputFieldByValueType(
-            valueType: 'CHECK_BOX',
-            formSections: formSections ?? [],
-          ),
-        );
-      });
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+            .hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
           message: 'Please fill all mandatory field',
           position: ToastGravity.TOP);

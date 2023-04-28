@@ -64,7 +64,10 @@ class OvcCasePlanUtil {
     return map;
   }
 
-  static bool isAllDomainGoalAndGapFilled(Map dataObject) {
+  static bool isAllDomainGoalAndGapFilled(
+    Map dataObject, {
+    required bool isHouseholdCasePlan,
+  }) {
     bool isAllDomainFilled = true;
     for (String? domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
@@ -72,14 +75,15 @@ class OvcCasePlanUtil {
           domainDataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
       String casePlansSecondGoal =
           domainDataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
+
       if (domainDataObject['gaps'].length > 0) {
         if (casePlanFirstGoal.isEmpty) {
           if (casePlansSecondGoal.isEmpty) {
             isAllDomainFilled = false;
           }
         }
-      } else if (domainType ==
-          OvcCasePlanConstant.householdCategorizationSection) {
+      } else if (isHouseholdCasePlan &&
+          domainType == OvcCasePlanConstant.householdCategorizationSection) {
         String houseHoldCategorization = domainDataObject[
                 OvcCasePlanConstant.houseHoldCategorizationDataElement] ??
             '';

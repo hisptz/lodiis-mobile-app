@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -48,7 +49,9 @@ class NoneAgywEnrollmentPrepScreening {
                       name: 'Facility Name',
                       valueType: 'ORGANISATION_UNIT',
                       inputColor: const Color(0xFF258DCC),
-                      allowedSelectedLevels: [4],
+                      allowedSelectedLevels: [
+                        AppHierarchyReference.facilityLevel
+                      ],
                       labelColor: const Color(0xFF737373)),
                   InputField(
                       id: 'yuOiCMwlOlb',
@@ -278,7 +281,9 @@ class NoneAgywEnrollmentPrepScreening {
                   InputField(
                       id: 'X2m9v2E5WaI',
                       name: 'Name of facility PrEP referred',
-                      allowedSelectedLevels: [4],
+                      allowedSelectedLevels: [
+                        AppHierarchyReference.facilityLevel
+                      ],
                       valueType: 'ORGANISATION_UNIT',
                       inputColor: const Color(0xFF258DCC),
                       labelColor: const Color(0xFF737373)),

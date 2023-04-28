@@ -4,8 +4,27 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class EducationBursaryAttendanceForm {
+  static const String bursaryClubAttendanceToReferralCheck = 'CQ3GZFbzv5N';
   static List<String> getMandatoryField() {
     return ['eventDate', 'WvYI4dliZyk'];
+  }
+
+  static List<FormSection> getReferralCheckFormSections() {
+    return [
+      FormSection(
+        name: '',
+        color: const Color(0xFF009688),
+        inputFields: [
+          InputField(
+            id: bursaryClubAttendanceToReferralCheck,
+            name: 'Referral offered?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF009688),
+            labelColor: const Color(0xFF737373),
+          ),
+        ],
+      ),
+    ];
   }
 
   static List<FormSection> getFormSections({
@@ -19,6 +38,7 @@ class EducationBursaryAttendanceForm {
           InputField(
             id: 'eventDate',
             name: 'Date',
+            translatedName: 'Letsatsi',
             valueType: 'DATE',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -26,6 +46,7 @@ class EducationBursaryAttendanceForm {
           InputField(
             id: 'WvYI4dliZyk',
             name: 'Attended',
+            translatedName: 'O bile teng',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -33,6 +54,7 @@ class EducationBursaryAttendanceForm {
           InputField(
               id: 'GKBZYfIj2s1',
               name: 'Mode of monitoring',
+              translatedName: 'Mokhoa oa ho hlahloba',
               valueType: 'TEXT',
               inputColor: const Color(0xFF009688),
               labelColor: const Color(0xFF737373),
@@ -43,6 +65,7 @@ class EducationBursaryAttendanceForm {
           InputField(
             id: 'EokvDGvXkOk',
             name: 'Reasons for non attendance',
+            translatedName: 'Mabaka a ho lofa',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),

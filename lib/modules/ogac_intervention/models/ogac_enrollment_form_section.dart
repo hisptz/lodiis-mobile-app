@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -65,7 +66,10 @@ class OgacInterventionFormSection {
             name: 'Location',
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [3, 4],
+            allowedSelectedLevels: [
+              AppHierarchyReference.communityLevel,
+              AppHierarchyReference.facilityLevel
+            ],
             filteredPrograms: [OgacInterventionConstant.program],
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),

@@ -142,6 +142,16 @@ class EducationBursaryEnrollmentSkipLogic {
         hiddenInputFieldOptions['C524HuWqRyt'] = hiddenRelationshipsWithChild;
       }
 
+      if (inputFieldId == 'vQ7hj9nTgo7') {
+        if ([
+          "Dropped out plan to return",
+          "Dropped out no plan to return",
+          "Never enrolled"
+        ].contains(value)) {
+          hiddenFields['KiTvHDkvi8J'] = true;
+        }
+      }
+
       // Vulnerability Criteria
       if (inputFieldId == 'Ne8BaB6rCZX') {
         String caregiverStatus = '${dataObject['nXvf0gcppF5']}';

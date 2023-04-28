@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -160,7 +161,9 @@ class DreamsReferral {
                     name: 'Service Provider/Referred Organization at community',
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
-                    allowedSelectedLevels: [3],
+                    allowedSelectedLevels: [
+                      AppHierarchyReference.communityLevel
+                    ],
                     inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),
@@ -273,7 +276,9 @@ class DreamsReferral {
                     name: 'Service Provider/Referred Organization at facility',
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
-                    allowedSelectedLevels: [4],
+                    allowedSelectedLevels: [
+                      AppHierarchyReference.facilityLevel
+                    ],
                     inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
                   ),

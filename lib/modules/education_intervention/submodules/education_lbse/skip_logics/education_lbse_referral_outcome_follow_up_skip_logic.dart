@@ -34,8 +34,8 @@ class EducationLbseReferralOutcomeFollowUpSkipLogic {
         hiddenFields['LcG4J82PM4Z'] = false;
       } else if (inputFieldId == 'VHe4ctA0bqU' &&
           value != 'Complete' &&
-          value != "" &&
-          value != "null") {
+          value != '' &&
+          value != 'null') {
         hiddenFields['BzkeBAxdEVT'] = false;
       } else if (inputFieldId == 'BzkeBAxdEVT' &&
           value == 'true' &&

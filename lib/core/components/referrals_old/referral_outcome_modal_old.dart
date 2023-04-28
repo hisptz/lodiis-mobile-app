@@ -86,15 +86,16 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
       bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
         widget.referralOutcomeMandatoryFields,
         dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
         checkBoxInputFields: FormUtil.getInputFieldByValueType(
           valueType: 'CHECK_BOX',
           formSections: widget.referralOutcomeFormSections ?? [],
         ),
       );
       if (hadAllMandatoryFilled) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
         try {
           bool isCompleted = true;
           bool isViewed = false;
@@ -150,6 +151,8 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
           unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
             widget.referralOutcomeMandatoryFields,
             dataObject,
+            hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+                .hiddenFields,
             checkBoxInputFields: FormUtil.getInputFieldByValueType(
               valueType: 'CHECK_BOX',
               formSections: widget.referralOutcomeFormSections ?? [],

@@ -38,7 +38,7 @@ class EducationBursaryEnrollmentFormPage extends StatefulWidget {
 
 class _EducationBursaryEnrollmentFormPageState
     extends State<EducationBursaryEnrollmentFormPage> {
-  final String label = "Bursary Enrollment Form";
+  final String label = 'Bursary Enrollment Form';
 
   final List<String> mandatoryFields =
       EducationBursaryEnrollmentForm.getMandatoryField();
@@ -65,8 +65,8 @@ class _EducationBursaryEnrollmentFormPageState
   void onUpdateFormAutoSaveState(BuildContext context) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? '';
+    String id = '${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
@@ -102,9 +102,9 @@ class _EducationBursaryEnrollmentFormPageState
   void clearFormAutoSaveState(BuildContext context) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+        '${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 

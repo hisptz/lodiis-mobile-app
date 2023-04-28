@@ -219,6 +219,7 @@ class _OvcEnrollmentHouseholdViewEditContainerState
       unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
         mandatoryFields,
         dataObject,
+        hiddenFields: hiddenFields,
         checkBoxInputFields: FormUtil.getInputFieldByValueType(
           valueType: 'CHECK_BOX',
           formSections: formSections,

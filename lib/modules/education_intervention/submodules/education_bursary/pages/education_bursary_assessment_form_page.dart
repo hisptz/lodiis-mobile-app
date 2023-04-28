@@ -36,7 +36,7 @@ class EducationBursaryAssessmentFormPage extends StatefulWidget {
 
 class _EducationBursaryAssessmentFormPageState
     extends State<EducationBursaryAssessmentFormPage> {
-  final String label = "Bursary Assessment Form";
+  final String label = 'Bursary Assessment Form';
 
   final List<String> mandatoryFields =
       EducationBursaryAssessment.getMandatoryField();
@@ -78,8 +78,8 @@ class _EducationBursaryAssessmentFormPageState
       {bool isSaveForm = false}) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
-    String id = "${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId";
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? '';
+    String id = '${BursaryRoutesConstant.assessmentPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,

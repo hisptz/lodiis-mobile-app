@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -12,10 +13,12 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
+import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
@@ -41,7 +44,7 @@ class EducationLbseLearningOutcomeFormPage extends StatefulWidget {
 
 class _EducationLbseLearningOutcomeFormPageState
     extends State<EducationLbseLearningOutcomeFormPage> {
-  final String label = "Learning Outcome Form";
+  final String label = 'Learning Outcome Form';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   List<String> mandatoryFields =
@@ -56,11 +59,29 @@ class _EducationLbseLearningOutcomeFormPageState
     super.initState();
     setFormSections();
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      _setCurrentServiceProvider();
+      isFormReady = true;
+      evaluateSkipLogics();
+      setState(() {});
     });
+  }
+
+  _setCurrentServiceProvider() {
+    Map dataObject =
+        Provider.of<ServiceFormState>(context, listen: false).formState;
+    String currentServiceProvider =
+        dataObject[LbseInterventionConstant.serviceProvider] ?? '';
+    if (currentServiceProvider.isEmpty) {
+      CurrentUser? user =
+          Provider.of<CurrentUserState>(context, listen: false).currentUser;
+      currentServiceProvider = user?.name ?? currentServiceProvider;
+      if (currentServiceProvider.isNotEmpty) {
+        onInputValueChange(
+          LbseInterventionConstant.serviceProvider,
+          currentServiceProvider,
+        );
+      }
+    }
   }
 
   evaluateSkipLogics() {
@@ -82,6 +103,8 @@ class _EducationLbseLearningOutcomeFormPageState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -104,8 +127,7 @@ class _EducationLbseLearningOutcomeFormPageState
               inputColor: LbseInterventionConstant.inputColor,
               labelColor: LbseInterventionConstant.labelColor,
               sectionLabelColor: LbseInterventionConstant.inputColor,
-              allowedSelectedLevels:
-                  LbseInterventionConstant.allowedSelectedLevels,
+              allowedSelectedLevels: [AppHierarchyReference.communityLevel],
               program: LbseInterventionConstant.program);
       formSections = [serviceProvisionForm, ...defaultFormSections!];
       mandatoryFields.addAll(FormUtil.getFormFieldIds(
@@ -219,14 +241,14 @@ class _EducationLbseLearningOutcomeFormPageState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
   void onUpdateFormAutoSaveState(
     BuildContext context, {
     bool isSaveForm = false,
-    String nextPageModule = "",
+    String nextPageModule = '',
   }) async {
     var lbseBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
@@ -237,13 +259,13 @@ class _EducationLbseLearningOutcomeFormPageState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId";
+        '${LbseRoutesConstant.learningOutcomePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
       pageModule: LbseRoutesConstant.learningOutcomePageModule,
       nextPageModule: isSaveForm
-          ? nextPageModule != ""
+          ? nextPageModule != ''
               ? nextPageModule
               : LbseRoutesConstant.learningOutcomeNextPageModule
           : LbseRoutesConstant.learningOutcomePageModule,

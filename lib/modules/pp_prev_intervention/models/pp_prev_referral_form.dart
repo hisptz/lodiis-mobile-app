@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -21,6 +22,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'IEdBgx4vn1J',
             name: 'Referral Services',
+            translatedName: 'Phetisetso ea Lits’ebeletso',
             valueType: 'TEXT',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -54,6 +56,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'OIUDljKyNgy',
             name: 'Date of referral',
+            translatedName: 'Letsatsi la Phetisetso',
             valueType: 'DATE',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -61,6 +64,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'h4PRnqfEOCL',
             name: 'Referral Point',
+            translatedName: 'Sebaka sa phetisetso',
             valueType: 'TEXT',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -93,11 +97,15 @@ class PpPrevReferralForm {
           InputField(
             id: 'k3nt1Qkxat0',
             name: 'Location',
+            translatedName: 'Setsi kapa council ea phetisetso',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'ORGANISATION_UNIT',
             showCountryLevelTree: true,
-            allowedSelectedLevels: [3, 4],
+            allowedSelectedLevels: [
+              AppHierarchyReference.communityLevel,
+              AppHierarchyReference.facilityLevel
+            ],
           ),
         ],
       ),
