@@ -27,9 +27,9 @@ class LoginFormContainer extends StatelessWidget {
       width: size.width * 0.8,
       child: Column(
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 'Login',
                 style: TextStyle(
@@ -43,10 +43,10 @@ class LoginFormContainer extends StatelessWidget {
           const SizedBox(
             height: 10.0,
           ),
-          const Column(
+          Column(
             children: [
               Column(
-                children: [
+                children: const [
                   Text(
                     'Please enter your account details in order to login to the app',
                     style: TextStyle(

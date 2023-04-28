@@ -9,28 +9,28 @@ class DataDownloadConflictPageHeader extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: const Column(
+        child: Column(
           children: [
-            LineSeparator(
+            const LineSeparator(
               color: Colors.grey,
               height: 1,
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
+              children: const [
                 Text("Label"),
                 Text("Offline Value"),
                 Text("Online Value"),
                 Text("Action")
               ],
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
             ),
-            LineSeparator(
+            const LineSeparator(
               color: Colors.grey,
               height: 1,
             )

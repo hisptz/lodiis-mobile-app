@@ -134,7 +134,7 @@ class _AppLogsState extends State<AppLogsPage> {
                                     activeInterventionProgram.countLabelColor,
                               )),
                           pagingController: appLogsState.pagingController,
-                          emptyListWidget: const Column(children: [
+                          emptyListWidget: Column(children: const [
                             Center(
                               child: Text(
                                 'There are no application logs at a moment.',

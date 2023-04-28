@@ -221,8 +221,8 @@ class _OvcEnrollmentChildViewEditContainerState
             body: SubPageBody(
               body: Container(
                 child: !_isFormReady
-                    ? const Column(
-                        children: [
+                    ? Column(
+                        children: const [
                           Center(
                             child: CircularProcessLoader(
                               color: Colors.blueGrey,

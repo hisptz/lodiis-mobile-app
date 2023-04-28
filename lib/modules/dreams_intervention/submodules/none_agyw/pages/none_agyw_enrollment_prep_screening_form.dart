@@ -220,8 +220,8 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         ),
         body: SubPageBody(
           body: !isFormReady
-              ? const Column(
-                  children: [
+              ? Column(
+                  children: const [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,
