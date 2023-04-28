@@ -59,6 +59,8 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
     bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<EnrollmentFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -84,6 +86,8 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
       unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
         mandatoryFields,
         dataObject,
+        hiddenFields: Provider.of<EnrollmentFormState>(context, listen: false)
+            .hiddenFields,
         checkBoxInputFields: FormUtil.getInputFieldByValueType(
           valueType: 'CHECK_BOX',
           formSections: formSections ?? [],
@@ -150,8 +154,8 @@ class _OvcEnrollmentConsentFormState extends State<OvcEnrollmentConsentForm> {
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? const Column(
-                    children: [
+                ? Column(
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

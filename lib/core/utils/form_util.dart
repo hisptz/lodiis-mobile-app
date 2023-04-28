@@ -26,7 +26,7 @@ class FormUtil {
     List mandatoryFields,
     Map dataDynamic, {
     required List<InputField> checkBoxInputFields,
-    Map hiddenFields = const {},
+    required Map hiddenFields,
   }) {
     bool hasMandoryFieldCheckPass = true;
     List inputFieldWithData = dataDynamic.keys.toList();
@@ -101,7 +101,7 @@ class FormUtil {
     List mandatoryFields,
     Map dataDynamic, {
     required List<InputField> checkBoxInputFields,
-    Map hiddenFields = const {},
+    required Map hiddenFields,
   }) {
     List unFilledMandatoryFields = [];
     List fieldIds = dataDynamic.keys.toList();

@@ -187,6 +187,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
           mandatoryFields,
           dataObject,
+          hiddenFields: hiddenFields,
           checkBoxInputFields: FormUtil.getInputFieldByValueType(
             valueType: 'CHECK_BOX',
             formSections: formSections ?? [],
@@ -219,8 +220,8 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         ),
         body: SubPageBody(
           body: !isFormReady
-              ? const Column(
-                  children: [
+              ? Column(
+                  children: const [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,

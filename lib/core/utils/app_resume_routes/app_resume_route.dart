@@ -68,6 +68,9 @@ class AppResumeRoute
         BursaryRoutesConstant.clubsAttendancePageModule) {
       redirectToBursaryClubsAttendance(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
+        BursaryRoutesConstant.clubReferralNextPageModule) {
+      redirectToBursaryClubsAttendanceReferral(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
         BursaryRoutesConstant.schoolsAttendancePageModule) {
       redirectToBursarySchoolAttendance(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==

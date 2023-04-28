@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -175,7 +176,10 @@ class OvcReferral {
                     name: 'Service Provider/Referred Organization at community',
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
-                    allowedSelectedLevels: [3, 4],
+                    allowedSelectedLevels: [
+                      AppHierarchyReference.communityLevel,
+                      AppHierarchyReference.facilityLevel
+                    ],
                     inputColor: const Color(0xFF4B9F46),
                     labelColor: const Color(0xFF737373),
                   ),
@@ -343,7 +347,10 @@ class OvcReferral {
                         'Lebitso la setsi seo a fetisetsoang ho sona',
                     valueType: 'ORGANISATION_UNIT',
                     showCountryLevelTree: true,
-                    allowedSelectedLevels: [3, 4],
+                    allowedSelectedLevels: [
+                      AppHierarchyReference.communityLevel,
+                      AppHierarchyReference.facilityLevel
+                    ],
                     inputColor: const Color(0xFF4B9F46),
                     labelColor: const Color(0xFF737373),
                   ),

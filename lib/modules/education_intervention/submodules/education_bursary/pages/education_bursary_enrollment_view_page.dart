@@ -23,7 +23,7 @@ class EducationBursaryEnrollmentViewPage extends StatefulWidget {
 
 class _EducationBursaryEnrollmentViewPageState
     extends State<EducationBursaryEnrollmentViewPage> {
-  final String label = "Bursary Enrollment Form";
+  final String label = 'Bursary Enrollment Form';
 
   final List<String> mandatoryFields =
       EducationBursaryEnrollmentForm.getMandatoryField();
@@ -74,8 +74,8 @@ class _EducationBursaryEnrollmentViewPageState
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? const Column(
-                    children: [
+                ? Column(
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

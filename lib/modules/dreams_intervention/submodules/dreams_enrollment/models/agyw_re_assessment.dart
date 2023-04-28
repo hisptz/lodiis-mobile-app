@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -1480,7 +1481,7 @@ class AgywReAssessment {
             translatedName:
                 'Nakong ea joale ke tleleniki efe moo u fumanang litšebeletso tsa HIV?',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [4],
+            allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
             showCountryLevelTree: true,
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -1894,7 +1895,7 @@ class AgywReAssessment {
             translatedName:
                 'U tsamaea tleleniking efe ho fumana litšebeletso tsa bokhachane?',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [4],
+            allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
             inputColor: const Color(0xFF258DCC),
             showCountryLevelTree: true,
             labelColor: const Color(0xFF737373),

@@ -108,9 +108,8 @@ class _AgywDreamsReAssessmentFormState
     );
     if (hadAllMandatoryFilled) {
       if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
@@ -173,6 +172,7 @@ class _AgywDreamsReAssessmentFormState
         unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
           mandatoryFields,
           dataObject,
+          hiddenFields: hiddenFields,
           checkBoxInputFields: FormUtil.getInputFieldByValueType(
             valueType: 'CHECK_BOX',
             formSections: formSections ?? [],
@@ -210,8 +210,8 @@ class _AgywDreamsReAssessmentFormState
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? const Column(
-                    children: [
+                ? Column(
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

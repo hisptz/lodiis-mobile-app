@@ -130,8 +130,8 @@ class _DreamsNoneParticipationRecordsPageState
                 right: 13.0,
                 left: 13.0,
               ),
-              child: const Column(
-                children: [
+              child: Column(
+                children: const [
                   Text(
                     'There is no AGYW/DREAMS none participants at moment',
                     textAlign: TextAlign.center,

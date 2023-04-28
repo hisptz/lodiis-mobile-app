@@ -8,6 +8,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/app_state/referral_notification_state/referral_notification_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -71,7 +72,12 @@ class _BeneficiaryReferralOutcomeModalState
       FormSection serviceProvisionForm =
           AppUtil.getServiceProvisionLocationSection(
         inputColor: widget.themeColor,
-        allowedSelectedLevels: widget.isOvcIntervention ? [2] : [4, 3],
+        allowedSelectedLevels: widget.isOvcIntervention
+            ? [AppHierarchyReference.communityLevel]
+            : [
+                AppHierarchyReference.communityLevel,
+                AppHierarchyReference.facilityLevel
+              ],
         program: widget.referralEvent.eventData!.program!,
         labelColor: const Color(0xFF737373),
         sectionLabelColor: const Color(0xFF737373),
@@ -136,6 +142,8 @@ class _BeneficiaryReferralOutcomeModalState
     bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: widget.formSections,
@@ -191,6 +199,8 @@ class _BeneficiaryReferralOutcomeModalState
         unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
           mandatoryFields,
           dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields,
           checkBoxInputFields: FormUtil.getInputFieldByValueType(
             valueType: 'CHECK_BOX',
             formSections: widget.formSections,

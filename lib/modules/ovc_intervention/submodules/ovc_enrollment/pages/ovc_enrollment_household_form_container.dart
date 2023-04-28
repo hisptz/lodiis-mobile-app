@@ -127,6 +127,7 @@ class _OvcEnrollmentHouseholdFormContainerState
         unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
           mandatoryFields,
           dataObject,
+          hiddenFields: hiddenFields,
           checkBoxInputFields: FormUtil.getInputFieldByValueType(
             valueType: 'CHECK_BOX',
             formSections: formSections,
@@ -168,8 +169,8 @@ class _OvcEnrollmentHouseholdFormContainerState
                   horizontal: 13.0,
                 ),
                 child: !isFormReady
-                    ? const Column(
-                        children: [
+                    ? Column(
+                        children: const [
                           Center(
                             child: CircularProcessLoader(
                               color: Colors.blueGrey,

@@ -38,7 +38,7 @@ class EducationBursaryEnrollmentEditFormPage extends StatefulWidget {
 
 class _EducationBursaryEnrollmentEditFormPageState
     extends State<EducationBursaryEnrollmentEditFormPage> {
-  final String label = "Bursary Enrollment Form";
+  final String label = 'Bursary Enrollment Form';
 
   final List<String> mandatoryFields =
       EducationBursaryEnrollmentForm.getMandatoryField();
@@ -65,9 +65,9 @@ class _EducationBursaryEnrollmentEditFormPageState
   void onUpdateFormAutoSaveState(BuildContext context) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? '';
     String id =
-        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
+        '${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
@@ -103,9 +103,9 @@ class _EducationBursaryEnrollmentEditFormPageState
   void clearFormAutoSaveState(BuildContext context) async {
     Map dataObject =
         Provider.of<EnrollmentFormState>(context, listen: false).formState;
-    String beneficiaryId = dataObject['trackedEntityInstance'] ?? "";
+    String beneficiaryId = dataObject['trackedEntityInstance'] ?? '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId";
+        '${BursaryRoutesConstant.enrollmentEditPageModule}_$beneficiaryId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 
@@ -218,8 +218,8 @@ class _EducationBursaryEnrollmentEditFormPageState
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? const Column(
-                    children: [
+                ? Column(
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

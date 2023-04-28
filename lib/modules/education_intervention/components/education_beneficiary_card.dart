@@ -18,6 +18,7 @@ class EducationBeneficiaryCard extends StatelessWidget {
     required this.isLbseLearningOutcomeVisible,
     required this.isBursarySchoolVisible,
     required this.isBursaryClubVisible,
+    required this.isBursaryClubReferralVisible,
     required this.educationBeneficiary,
     this.onCardToggle,
     this.onView,
@@ -26,6 +27,7 @@ class EducationBeneficiaryCard extends StatelessWidget {
     this.onOpenLbseReferral,
     this.onOpenBursarySchool,
     this.onOpenBursaryClub,
+    this.onOpenBursaryClubReferral,
   }) : super(key: key);
 
   final bool canEdit;
@@ -35,6 +37,7 @@ class EducationBeneficiaryCard extends StatelessWidget {
   final bool isLbseLearningOutcomeVisible;
   final bool isBursarySchoolVisible;
   final bool isBursaryClubVisible;
+  final bool isBursaryClubReferralVisible;
   final EducationBeneficiary educationBeneficiary;
   final VoidCallback? onCardToggle;
   final VoidCallback? onView;
@@ -44,6 +47,7 @@ class EducationBeneficiaryCard extends StatelessWidget {
   final VoidCallback? onOpenLbseReferral;
   final VoidCallback? onOpenBursarySchool;
   final VoidCallback? onOpenBursaryClub;
+  final VoidCallback? onOpenBursaryClubReferral;
   final String femaleSvgIcon = 'assets/icons/female-education-beneficiary.svg';
   final String maleSvgIcon = 'assets/icons/male-education-beneficiary.svg';
 
@@ -102,9 +106,11 @@ class EducationBeneficiaryCard extends StatelessWidget {
                 isLbseLearningOutcomeVisible: isLbseLearningOutcomeVisible,
                 isBursarySchoolVisible: isBursarySchoolVisible,
                 isBursaryClubVisible: isBursaryClubVisible,
+                isBursaryClubReferralVisible: isBursaryClubReferralVisible,
                 onOpenLbseLearningOutcome: onOpenLbseLearningOutcome,
                 onOpenBursarySchool: onOpenBursarySchool,
                 onOpenBursaryClub: onOpenBursaryClub,
+                onOpenBursaryClubReferral: onOpenBursaryClubReferral,
               ),
             )
           ],

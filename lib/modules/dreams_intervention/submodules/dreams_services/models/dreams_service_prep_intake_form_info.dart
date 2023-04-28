@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -50,7 +51,7 @@ class DreamsServicePrepIntakeInfo {
                 id: 'BrcTtRhrxXp',
                 inputColor: const Color(0xFF1F8ECE),
                 labelColor: const Color(0xFF737373),
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
                 name: 'Facility Name',
                 showCountryLevelTree: true,
                 valueType: 'ORGANISATION_UNIT'),
@@ -332,7 +333,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: const Color(0xFF1F8ECE),
                 labelColor: const Color(0xFF737373),
                 name: 'Name of facility PrEP referred',
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
                 showCountryLevelTree: true,
                 valueType: 'ORGANISATION_UNIT'),
           ]),

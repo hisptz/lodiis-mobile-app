@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -13,6 +14,7 @@ class PpPrevEnrollmentForm {
       "qZP982qpSPS",
       "vIX4GTSCX4P",
       "RB8Wx75hGa4",
+      "m9WYpQhuIu4"
     ];
   }
 
@@ -27,8 +29,7 @@ class PpPrevEnrollmentForm {
             name: 'Location',
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels:
-                PpPrevInterventionConstant.allowedSelectedLevels,
+            allowedSelectedLevels: [AppHierarchyReference.communityLevel],
             filteredPrograms: [PpPrevInterventionConstant.program],
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -184,7 +185,8 @@ class PpPrevEnrollmentForm {
             id: 'qCEK4EQvSbL',
             name:
                 'In the past 12 months, Have you ever had sex with more than one person?',
-            translatedName: 'U kile oa etsa thoabalano?',
+            translatedName:
+                'Likohoeling tse 12 tse fetileng, ukile oa etsa thobalano le bath oba fetang bonngoe?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),

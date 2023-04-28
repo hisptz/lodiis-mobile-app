@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -17,8 +18,10 @@ class AgywEnrollmentConcent {
   }
 
   static List<FormSection> getFormSections({
-    List<int> allowedSelectedLevels =
-        AgywDreamsEnrollmentConstant.allowedSelectedLevels,
+    List<int> allowedSelectedLevels = const [
+      AppHierarchyReference.communityLevel,
+      AppHierarchyReference.facilityLevel
+    ],
   }) {
     return [
       FormSection(
