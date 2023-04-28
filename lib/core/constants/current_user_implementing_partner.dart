@@ -21,6 +21,7 @@ class CurrentUserImplementingPartner {
       "pQqafIBx2vk": "CRS - LIRAC",
       "IuPPi2GpRMV": "CRS - SWAALES",
       "hmGY74BllyO": "CRS - Sentebale",
+      "bcS6xVqOXxF": "PP_PREV",
     };
   }
 
@@ -34,7 +35,7 @@ class CurrentUserImplementingPartner {
       "NuxoYkqopE2": "CLO",
       "RoLA6GyxTlS": "Paralegal",
       "A5VS8GCyb8t": "JHPIEGO",
-      "sSdwtoDAj0H": "PP_PREV/EDUCATION",
+      "cGenMNiLKqM": "EDUCATION",
       "pNg5CAXMtLP": "M2M",
       "DtCOQEoW52e": "CoHIP SEC",
     };

@@ -26,14 +26,18 @@ import 'package:kb_mobile_app/modules/education_intervention/components/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/constants/bursary_routes_constant.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_attendance_form.dart';
+import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/models/education_bursary_referral_form.dart';
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/skip_logics/education_bursary_attendance_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class EducationBursaryAttendanceFormPage extends StatefulWidget {
-  const EducationBursaryAttendanceFormPage(
-      {Key? key, this.isSchoolAttendance = false})
-      : super(key: key);
+  const EducationBursaryAttendanceFormPage({
+    Key? key,
+    this.isSchoolAttendance = false,
+    this.isNewClubAttendance = false,
+  }) : super(key: key);
   final bool isSchoolAttendance;
+  final bool isNewClubAttendance;
 
   @override
   State<EducationBursaryAttendanceFormPage> createState() =>
@@ -68,6 +72,8 @@ class _EducationBursaryAttendanceFormPageState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -84,6 +90,15 @@ class _EducationBursaryAttendanceFormPageState
     defaultFormSections = EducationBursaryAttendanceForm.getFormSections(
       firstDate: bursaryBeneficiary.createdDate!,
     );
+    if (widget.isNewClubAttendance) {
+      defaultFormSections!.addAll(
+          EducationBursaryAttendanceForm.getReferralCheckFormSections());
+      defaultFormSections!
+          .addAll(EducationBursaryReferralForm.getFormSections());
+      mandatoryFields.addAll(EducationBursaryReferralForm.getMandatoryField());
+      mandatoryFields.add(
+          EducationBursaryAttendanceForm.bursaryClubAttendanceToReferralCheck);
+    }
     if (bursaryBeneficiary.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -122,12 +137,20 @@ class _EducationBursaryAttendanceFormPageState
     );
   }
 
+  bool isClubAttendanceReferralNeeded(Map dataObject) {
+    String inputFieldId =
+        EducationBursaryAttendanceForm.bursaryClubAttendanceToReferralCheck;
+    String value = '${dataObject[inputFieldId]}';
+    return widget.isNewClubAttendance && value == 'true';
+  }
+
   void onSaveForm(
     BuildContext context,
     Map dataObject,
     EducationBeneficiary bursaryBeneficiary,
   ) async {
     setMandatoryFields(dataObject);
+    bool isReferralNeed = isClubAttendanceReferralNeeded(dataObject);
     bool hasAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
@@ -140,12 +163,18 @@ class _EducationBursaryAttendanceFormPageState
     );
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
       if (hasAllMandatoryFilled) {
-        setState(() {
-          isSaving = true;
-        });
+        isSaving = true;
+        setState(() {});
+        String clubAttendanceToReferralLinkage =
+            BursaryInterventionConstant.clubAttendanceToReferralLinkage;
+        String referralToReferralOutcomeLinkage = BursaryInterventionConstant
+            .clubAttendanceReferralToReferralOutcomeLinkage;
         String? eventDate = dataObject['eventDate'];
         String? eventId = dataObject['eventId'];
-        List<String> hiddenFields = [];
+        List<String> hiddenFields = [
+          clubAttendanceToReferralLinkage,
+          EducationBursaryAttendanceForm.bursaryClubAttendanceToReferralCheck,
+        ];
         String programStage = widget.isSchoolAttendance
             ? BursaryInterventionConstant.schoolAttendanceProgramStage
             : BursaryInterventionConstant.clubsAttendanceProgramStage;
@@ -163,6 +192,24 @@ class _EducationBursaryAttendanceFormPageState
             eventId,
             hiddenFields,
           );
+          if (isReferralNeed) {
+            hiddenFields = [
+              clubAttendanceToReferralLinkage,
+              referralToReferralOutcomeLinkage
+            ];
+            await TrackedEntityInstanceUtil
+                .savingTrackedEntityInstanceEventData(
+              BursaryInterventionConstant.program,
+              BursaryInterventionConstant.clubAttendanceReferralProgamStage,
+              orgUnit,
+              defaultFormSections!,
+              dataObject,
+              eventDate,
+              bursaryBeneficiary.id,
+              eventId,
+              hiddenFields,
+            );
+          }
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(bursaryBeneficiary.id);
           Timer(const Duration(seconds: 1), () {
@@ -179,7 +226,7 @@ class _EducationBursaryAttendanceFormPageState
               position: ToastGravity.TOP,
             );
             clearFormAutoSaveState(
-                context, bursaryBeneficiary.id, eventId ?? "");
+                context, bursaryBeneficiary.id, eventId ?? '');
             Navigator.pop(context);
           });
         } catch (e) {
@@ -215,7 +262,7 @@ class _EducationBursaryAttendanceFormPageState
   void onUpdateFormAutoSaveState(
     BuildContext context, {
     bool isSaveForm = false,
-    String nextPageModule = "",
+    String nextPageModule = '',
   }) async {
     var bursaryBeneficiary =
         Provider.of<EducationInterventionCurrentSelectionState>(context,
@@ -226,13 +273,13 @@ class _EducationBursaryAttendanceFormPageState
         Provider.of<ServiceFormState>(context, listen: false).formState;
     String eventId = dataObject['eventId'] ?? '';
     String id =
-        "${widget.isSchoolAttendance ? BursaryRoutesConstant.schoolsAttendancePageModule : BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId";
+        '${widget.isSchoolAttendance ? BursaryRoutesConstant.schoolsAttendancePageModule : BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave = FormAutoSave(
       id: id,
       beneficiaryId: beneficiaryId,
       pageModule: BursaryRoutesConstant.clubsAttendancePageModule,
       nextPageModule: isSaveForm
-          ? nextPageModule != ""
+          ? nextPageModule != ''
               ? nextPageModule
               : widget.isSchoolAttendance
                   ? BursaryRoutesConstant.schoolsAttendanceNextPageModule
@@ -248,7 +295,7 @@ class _EducationBursaryAttendanceFormPageState
   void clearFormAutoSaveState(
       BuildContext context, String? beneficiaryId, String eventId) async {
     String formAutoSaveId =
-        "${widget.isSchoolAttendance ? BursaryRoutesConstant.schoolsAttendancePageModule : BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId";
+        '${widget.isSchoolAttendance ? BursaryRoutesConstant.schoolsAttendancePageModule : BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId';
     await FormAutoSaveOfflineService().deleteSavedFormAutoData(formAutoSaveId);
   }
 

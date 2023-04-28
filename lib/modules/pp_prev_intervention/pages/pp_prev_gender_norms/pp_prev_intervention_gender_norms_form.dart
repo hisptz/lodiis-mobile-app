@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -68,6 +69,8 @@ class _PpPrevInterventionGenderNormsFormState
     unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections ?? [],
@@ -92,7 +95,7 @@ class _PpPrevInterventionGenderNormsFormState
         inputColor: PpPrevInterventionConstant.inputColor,
         sectionLabelColor: PpPrevInterventionConstant.inputColor,
         labelColor: PpPrevInterventionConstant.labelColor,
-        allowedSelectedLevels: PpPrevInterventionConstant.allowedSelectedLevels,
+        allowedSelectedLevels: [AppHierarchyReference.communityLevel],
         program: PpPrevInterventionConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
@@ -228,9 +231,8 @@ class _PpPrevInterventionGenderNormsFormState
             position: ToastGravity.BOTTOM,
           );
         } else {
-          setState(() {
-            isSaving = true;
-          });
+          isSaving = true;
+          setState(() {});
           String? eventDate = dataObject['eventDate'];
           String? eventId = dataObject['eventId'];
           List<String> hiddenFields = [];

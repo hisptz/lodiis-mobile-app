@@ -37,12 +37,17 @@ class EducationBursaryClubsAttendancePage extends StatefulWidget {
 
 class _EducationBursaryClubsAttendancePageState
     extends State<EducationBursaryClubsAttendancePage> {
-  void redirectToAttendanceForm(BuildContext context) {
+  void redirectToAttendanceForm(
+    BuildContext context, {
+    bool isNewClubAttendance = false,
+  }) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const EducationBursaryAttendanceFormPage();
+          return EducationBursaryAttendanceFormPage(
+            isNewClubAttendance: isNewClubAttendance,
+          );
         },
       ),
     );
@@ -65,7 +70,7 @@ class _EducationBursaryClubsAttendancePageState
     String? beneficiaryId = educationBeneficiary.id;
     String eventId = '';
     String formAutoSaveId =
-        "${BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -76,7 +81,10 @@ class _EducationBursaryClubsAttendancePageState
       FormUtil.updateServiceFormState(context, isEditableMode, null);
       Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
           'eventDate', AppUtil.formattedDateTimeIntoString(DateTime.now()));
-      redirectToAttendanceForm(context);
+      redirectToAttendanceForm(
+        context,
+        isNewClubAttendance: true,
+      );
     }
   }
 
@@ -89,7 +97,7 @@ class _EducationBursaryClubsAttendancePageState
     String? beneficiaryId = educationBeneficiary.id;
     String eventId = eventData.event!;
     String formAutoSaveId =
-        "${BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId";
+        '${BursaryRoutesConstant.clubsAttendancePageModule}_${beneficiaryId}_$eventId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()

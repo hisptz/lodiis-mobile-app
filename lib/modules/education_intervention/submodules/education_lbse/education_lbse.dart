@@ -69,9 +69,9 @@ class _EducationLbseState extends State<EducationLbse> {
   }
 
   void onAddLbseBeneficiary(BuildContext context) async {
-    String beneficiaryId = "";
+    String beneficiaryId = '';
     String formAutoSaveId =
-        "${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+        '${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -110,7 +110,7 @@ class _EducationLbseState extends State<EducationLbse> {
   ) async {
     String beneficiaryId = lbseBeneficiary.id!;
     String formAutoSaveId =
-        "${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId";
+        '${LbseRoutesConstant.enrollmentPageModule}_$beneficiaryId';
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges =
@@ -195,6 +195,7 @@ class _EducationLbseState extends State<EducationLbse> {
                     isLbseLearningOutcomeVisible: true,
                     isBursarySchoolVisible: false,
                     isBursaryClubVisible: false,
+                    isBursaryClubReferralVisible: false,
                     educationBeneficiary: lbseBeneficiary,
                     onEdit: () => onEditBeneficiary(context, lbseBeneficiary),
                     onView: () => onViewBeneficiary(context, lbseBeneficiary),

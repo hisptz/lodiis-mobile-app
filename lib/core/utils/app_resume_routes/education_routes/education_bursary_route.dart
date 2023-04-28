@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/utils/app_resume_routes/utils/app_resume_route_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
@@ -9,6 +11,7 @@ import 'package:kb_mobile_app/modules/education_intervention/submodules/educatio
 import 'package:kb_mobile_app/modules/education_intervention/submodules/education_bursary/pages/education_bursary_without_enrollment_criteria_form_page.dart';
 
 class EducationBursaryRoute {
+  //TODO add routes to referral forms
   redirectToBursaryAssessment(
     BuildContext context,
     FormAutoSave formAutoSave,
@@ -63,6 +66,23 @@ class EducationBursaryRoute {
   }
 
   redirectToBursaryClubsAttendance(
+    BuildContext context,
+    FormAutoSave formAutoSave,
+  ) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Map<String, dynamic> dataObject = jsonDecode(formAutoSave.data!);
+    String eventId = dataObject['eventId'] ?? '';
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EducationBursaryAttendanceFormPage(
+          isNewClubAttendance: eventId.isEmpty,
+        ),
+      ),
+    );
+  }
+
+  redirectToBursaryClubsAttendanceReferral(
     BuildContext context,
     FormAutoSave formAutoSave,
   ) {

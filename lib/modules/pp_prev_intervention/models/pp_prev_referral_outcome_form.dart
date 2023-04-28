@@ -87,6 +87,8 @@ class PpPrevReferralOutcomeForm {
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'DATE',
+            disablePastPeriod: true,
+            allowFuturePeriod: true,
           ),
           InputField(
             id: 'LcG4J82PM4Z',

@@ -8,19 +8,19 @@ class UserAccountReference {
   static const String subImplementingPartnerAttribute = 'fQInK8s2RNR';
   static const String serviceProviderAttribute = 'DdnlE8kmIkT';
   static const List<String> superUserIpNames = ['Super user'];
-  static const List<String> dreamsFacilityBasedIpNames = ['EGPAF'];
+  static const List<String> dreamsFacilityBasedIpNames = ['EGPAF', 'M2M'];
+  static const List<String> dreamsCommunityBasedIpNames = ['CoHIP SEC'];
   static final List<String> allowedGroupsForDataEntry = [
-    "IglDe1pjI7z",
-    "EMBwDfkD2G8",
-    "wkRssCmB3b3",
-    "n9IRclFsAOl",
-    "eBbZoZngMhm",
-    "UylymhxQpF0",
-    "PlJ5pqCnu1H",
-    "YagDv6GW3Nb",
-    "JmtPXIJ36L6",
-    "bY48ipgY4y0",
-    "nt8E25HoIe8",
-    "GaFCOVIUQ4G"
+    'GaFCOVIUQ4G',
+    'HgNG3NZcRuR',
+    'YagDv6GW3Nb',
+    'PlJ5pqCnu1H',
+    'UylymhxQpF0',
+    'eBbZoZngMhm',
+    'n9IRclFsAOl',
+    'nt8E25HoIe8',
+    'wkRssCmB3b3',
+    'bY48ipgY4y0',
+    'JmtPXIJ36L6'
   ];
 }

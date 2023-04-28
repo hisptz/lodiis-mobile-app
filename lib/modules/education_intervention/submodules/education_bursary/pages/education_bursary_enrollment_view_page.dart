@@ -23,7 +23,7 @@ class EducationBursaryEnrollmentViewPage extends StatefulWidget {
 
 class _EducationBursaryEnrollmentViewPageState
     extends State<EducationBursaryEnrollmentViewPage> {
-  final String label = "Bursary Enrollment Form";
+  final String label = 'Bursary Enrollment Form';
 
   final List<String> mandatoryFields =
       EducationBursaryEnrollmentForm.getMandatoryField();

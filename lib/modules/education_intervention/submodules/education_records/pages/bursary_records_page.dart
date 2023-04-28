@@ -100,6 +100,7 @@ class _BursaryRecordsPageState extends State<BursaryRecordsPage> {
               isLbseLearningOutcomeVisible: false,
               isBursarySchoolVisible: false,
               isBursaryClubVisible: false,
+              isBursaryClubReferralVisible: false,
               educationBeneficiary: bursaryBeneficiary,
               onView: () => onViewBeneficiary(context, bursaryBeneficiary),
               onCardToggle: () => onCardToggle(context, bursaryBeneficiary.id),

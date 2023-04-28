@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -292,7 +293,7 @@ class OvcEnrollmentChild {
                 showCountryLevelTree: true,
                 translatedName:
                     'Setsi seo ngoana a fumanang litlhare ART ke se fe?',
-                allowedSelectedLevels: [4],
+                allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 valueType: 'ORGANISATION_UNIT',
@@ -449,7 +450,7 @@ class OvcEnrollmentChild {
             translatedName:
                 'Setsi sa bophelo moo ntate a fumanang litlhare tsa ART ke se fe?',
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [4],
+            allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
             showCountryLevelTree: true,
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
@@ -554,7 +555,7 @@ class OvcEnrollmentChild {
             translatedName:
                 "Setsi sa bophelo moo 'm'e a fumanang litlhare tsa ART ke se fe?",
             valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [4],
+            allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
             showCountryLevelTree: true,
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),

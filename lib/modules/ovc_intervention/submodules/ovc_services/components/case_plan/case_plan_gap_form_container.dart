@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
@@ -106,6 +107,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
     bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: widget.formSections,
@@ -128,6 +131,8 @@ class _CasePlanGapFormContainerState extends State<CasePlanGapFormContainer>
       unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
         mandatoryFields,
         dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
         checkBoxInputFields: FormUtil.getInputFieldByValueType(
           valueType: 'CHECK_BOX',
           formSections: widget.formSections,
