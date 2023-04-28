@@ -131,8 +131,8 @@ class _DreamsEnrollmentNotEligibleState
                 right: 13.0,
                 left: 13.0,
               ),
-              child: const Column(
-                children: [
+              child: Column(
+                children: const [
                   Text(
                     'There is no AGYW/DREAMS Eligible but not Enroll  participants at moment',
                     textAlign: TextAlign.center,

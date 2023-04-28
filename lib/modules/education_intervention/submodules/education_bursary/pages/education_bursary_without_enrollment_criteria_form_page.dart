@@ -186,8 +186,8 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
             horizontal: 13.0,
           ),
           child: !isFormReady
-              ? const Column(
-                  children: [
+              ? Column(
+                  children: const [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,
