@@ -14,7 +14,7 @@ class HttpService {
   }
 
   Uri getApiUrl(String url, {Map<String, dynamic>? queryParameters}) {
-    return Uri.https(baseUrl, 'kbtraining/$url', queryParameters);
+    return Uri.https(baseUrl, '$url', queryParameters);
   }
 
   Future<http.Response> httpPost(

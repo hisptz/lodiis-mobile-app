@@ -223,8 +223,8 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
             margin:
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: !isFormReady
-                ? const Column(
-                    children: [
+                ? Column(
+                    children: const [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,

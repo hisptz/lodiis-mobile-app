@@ -258,8 +258,8 @@ class _NoneAgywEnrollmentEditFormState
                     vertical: 16.0, horizontal: 13.0),
                 child: Container(
                   child: !isFormReady
-                      ? const Column(
-                          children: [
+                      ? Column(
+                          children: const [
                             Center(
                               child: CircularProcessLoader(
                                 color: Colors.blueGrey,
