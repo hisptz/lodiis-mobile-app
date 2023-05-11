@@ -59,7 +59,6 @@ class AgywDreamsServiceFormSkipLogic {
     if (implementingPartner != 'Paralegal') {
       hiddenOptions['GBVLegalMessaging'] = true;
       hiddenOptions['VACLegalMessaging'] = true;
-      hiddenOptions['ViolencePreventionEducation'] = true;
     } else {
       hiddenOptions['LBSE'] = true;
       hiddenOptions['FinancialLiteracyEducation'] = true;
@@ -71,6 +70,7 @@ class AgywDreamsServiceFormSkipLogic {
       hiddenOptions['PARENTING'] = true;
       hiddenOptions['SAVING GROUP'] = true;
       hiddenOptions['HIV Prevention Education'] = true;
+      hiddenOptions['ViolencePreventionEducation'] = true;
     }
     hiddenInputFieldOptions['Eug4BXDFLym'] = hiddenOptions;
 
