@@ -54,7 +54,7 @@ class AgywDreamsServiceSummaryConstant {
         },
         {
           'name': 'Violence Prevention Education (GBV/VAC)',
-          'programStage': ['bDJq2JWVTbC']
+          'programStage': ['bDJq2JWVTbC', 'pbav4aU666s']
         },
       ],
       [
