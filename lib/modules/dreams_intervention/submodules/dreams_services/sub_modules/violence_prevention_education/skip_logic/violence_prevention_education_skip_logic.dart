@@ -23,11 +23,15 @@ class ViolencePreventionEducationSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
       if (inputFieldId == 'u91LWo6Lz5E') {
-        if (value != 'true') {
+        if (value == 'true') {
           hiddenFields['gEjigBuBTmh'] = true;
           hiddenFields['oTTL6vEpKok'] = true;
-        } else {
+        } else if (value == "false") {
           hiddenFields['lvT9gfpHIlT'] = true;
+        } else {
+          hiddenFields['gEjigBuBTmh'] = true;
+          hiddenFields['lvT9gfpHIlT'] = true;
+          hiddenFields['oTTL6vEpKok'] = true;
         }
       } else if (inputFieldId == 'gEjigBuBTmh') {
         hiddenFields['oTTL6vEpKok'] = value != 'Other(s)';
