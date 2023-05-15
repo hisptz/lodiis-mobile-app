@@ -25,20 +25,18 @@ class DreamsServiceHivPreventionInfo {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'oSOCIAL ASSETS', name: 'oSOCIAL ASSETS'),
-                  InputFieldOption(code: 'oPARENTING', name: 'oPARENTING'),
-                  InputFieldOption(code: 'oSILC', name: 'oSILC'),
+                      code: 'SOCIAL ASSETS', name: 'SOCIAL ASSETS'),
+                  InputFieldOption(code: 'PARENTING', name: 'PARENTING'),
+                  InputFieldOption(code: 'SILC', name: 'SILC'),
+                  InputFieldOption(code: 'SAVING GROUP', name: 'SAVING GROUP'),
                   InputFieldOption(
-                      code: 'oSAVING GROUP', name: 'oSAVING GROUP'),
+                      code: 'FINANCIAL EDUCATION', name: 'FINANCIAL EDUCATION'),
                   InputFieldOption(
-                      code: 'oFINANCIAL EDUCATION',
-                      name: 'oFINANCIAL EDUCATION'),
+                      code: 'HIV MESSAGING', name: 'HIV MESSAGING'),
                   InputFieldOption(
-                      code: 'oHIV MESSAGING', name: 'oHIV MESSAGING'),
-                  InputFieldOption(
-                      code: 'oSTEPPING STONES', name: 'oSTEPPING STONES'),
-                  InputFieldOption(code: 'oVAC', name: 'oVAC'),
-                  InputFieldOption(code: 'oIPC', name: 'oIPC')
+                      code: 'STEPPING STONES', name: 'STEPPING STONES'),
+                  InputFieldOption(code: 'VAC', name: 'VAC'),
+                  InputFieldOption(code: 'IPC', name: 'IPC')
                 ]),
             InputField(
               id: 'InvIBsm9DiQ',

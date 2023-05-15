@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/pages/agyw_prep_visit_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/pages/agyw_dreams_prep_short_form.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/pages/agyw_dreams_service_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/pages/violence_prevention_education_form.dart';
 
 class DreamsServicesRoute {
   redirectToAgywDreamsANCForm(
@@ -44,6 +45,19 @@ class DreamsServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) => const AgywDreamsARTRefillForm(),
+      ),
+    );
+  }
+
+  redirectToAgywDreamsViolencePreventionEducation(
+    BuildContext context,
+    FormAutoSave formAutoSave,
+  ) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ViolencePreventionEducationForm(),
       ),
     );
   }
