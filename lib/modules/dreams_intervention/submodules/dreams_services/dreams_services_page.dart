@@ -29,7 +29,7 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/agyw_dreams_prep_short_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/agyw_dreams_service_form_page.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/violence_prevention_education_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/agyw_dreams_violence_prevention_education_page.dart';
 import 'package:provider/provider.dart';
 
 class DreamsServicesPage extends StatefulWidget {
@@ -272,7 +272,7 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ViolencePreventionEducationPage(),
+        builder: (context) => AgywDreamsViolencePreventionEducationPage(),
       ),
     );
   }

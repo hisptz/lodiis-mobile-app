@@ -19,11 +19,11 @@ import 'package:kb_mobile_app/modules/dreams_intervention/components/dreams_bene
 import 'package:kb_mobile_app/modules/dreams_intervention/constants/dreams_routes_constant.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/components/dreams_services_visit_card.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/constants/violence_prevention_education_constants.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/pages/violence_prevention_education_form.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/pages/agyw_dreams_violence_prevention_education_form.dart';
 import 'package:provider/provider.dart';
 
-class ViolencePreventionEducationPage extends StatelessWidget {
-  ViolencePreventionEducationPage({Key? key}) : super(key: key);
+class AgywDreamsViolencePreventionEducationPage extends StatelessWidget {
+  AgywDreamsViolencePreventionEducationPage({Key? key}) : super(key: key);
 
   final String label = 'Violence Prevention Education';
   final List<String> programStageIds = [
@@ -52,7 +52,8 @@ class ViolencePreventionEducationPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ViolencePreventionEducationForm(),
+              builder: (context) =>
+                  const AgywDreamsViolencePreventionEducationForm(),
             ),
           );
         }
@@ -66,7 +67,7 @@ class ViolencePreventionEducationPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ViolencePreventionEducationForm(),
+        builder: (context) => const AgywDreamsViolencePreventionEducationForm(),
       ),
     );
   }
@@ -91,7 +92,8 @@ class ViolencePreventionEducationPage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ViolencePreventionEducationForm(),
+              builder: (context) =>
+                  const AgywDreamsViolencePreventionEducationForm(),
             ),
           );
         }
