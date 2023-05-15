@@ -6,7 +6,7 @@ import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/organisation_unit.dart';
 
 class CurrentUserState with ChangeNotifier {
-  // initiat state
+  // initial state
   CurrentUser? _currentUser;
   String? _currentUserLocations;
   String? _implementingPartner;
@@ -37,6 +37,7 @@ class CurrentUserState with ChangeNotifier {
   bool? _canManagePOSTGBVLegal;
   bool? _canManageParenting;
   bool? _canManageHIVPreventionEducation;
+  bool? _canManageViolencePreventionEducation;
 
   // selectors
   String get implementingPartner => _implementingPartner ?? '';
@@ -73,6 +74,8 @@ class CurrentUserState with ChangeNotifier {
   bool get canManageManageParenting => _canManageParenting ?? false;
   bool get canManageHIVPreventionEducation =>
       _canManageHIVPreventionEducation ?? false;
+  bool get canManageViolencePreventionEducation =>
+      _canManageViolencePreventionEducation ?? false;
 
   void updateUserAccessStatus(
     String? implementingPartner,
@@ -139,6 +142,9 @@ class CurrentUserState with ChangeNotifier {
       _canManageHIVPreventionEducation =
           userAccesses.containsKey('canManageHIVPreventionEducation') &&
               userAccesses['canManageHIVPreventionEducation'] == true;
+      _canManageViolencePreventionEducation =
+          userAccesses.containsKey('canManageViolencePreventionEducation') &&
+              userAccesses['canManageViolencePreventionEducation'] == true;
     } catch (error) {
       //
     }
