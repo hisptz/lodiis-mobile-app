@@ -4,6 +4,17 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcGraduationReadinessForm {
+  static List<String> getBenchMarkQuestions() {
+    return [
+      'wE7and4EnCR',
+      'R71zksHtVNn',
+      'rPSpAEnnVS4',
+      "XxioqueCXcn",
+      "OcbE9kN8Dcp",
+      "YdqDLYSE4qr"
+    ];
+  }
+
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
