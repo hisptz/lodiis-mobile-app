@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/input_field_option.dart';
 
-class OvcExitCasePlanGraduationReadiness {
+class OvcGraduationReadinessForm {
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
     return [
       FormSection(
-        id: "jZHYkQntXh9",
+        id: "DXmPLZhKQVp",
         name: 'Benchmark 1: Known HIV status',
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
@@ -40,8 +41,8 @@ class OvcExitCasePlanGraduationReadiness {
         ],
       ),
       FormSection(
-        id: 'lMG85SRv6nS',
-        name: 'Benchmark 2: Virally suppressed',
+        id: 'R4OiU8dHKDe',
+        name: 'Benchmark 2: Adherent / Virally suppressed',
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
         inputFields: [
@@ -71,142 +72,202 @@ class OvcExitCasePlanGraduationReadiness {
           ),
           InputField(
             id: 'R71zksHtVNn',
-            name: 'Has Benchmark 2 been met? ',
+            name: 'Has Benchmark 2 been met for this beneficiary? ',
             valueType: 'BOOLEAN',
-            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
         ],
       ),
       FormSection(
-        id: 'wt4kydQK4OV',
-        name: 'Benchmark 3: Food Security and Nutrition',
+        id: 'A5NBGrJWy1z',
+        name: 'Benchmark 3: Knowledgeable about HIV prevention',
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
         inputFields: [
           InputField(
-            id: 'LxhULNWvXMw',
+            id: 'XzMu3wYywiy',
             name:
-                '3.1 Have all the children in the household eaten at least two meals per day in the past six months?',
+                '3.1. Can you tell me how a young person your age living in your community might become infected with HIV?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'gYudLSw0eUU',
+              id: 'hiv_risks',
+              name:
+                  'Can you tell me any other ways a young person in your community might become infected with HIV?',
+              valueType: 'CHECK_BOX',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: 'Yk4nznsVVME',
+                  name: 'Early sex (starting sex young)',
+                ),
+                InputFieldOption(
+                  code: 'SgnvNELORR5',
+                  name: 'Sex without a condom',
+                ),
+                InputFieldOption(
+                  code: 'RfunopzHoeR',
+                  name: 'Sex with an older partner',
+                ),
+                InputFieldOption(
+                  code: 'jWYwiTRNvoF',
+                  name: 'Being sexually abused or raped',
+                ),
+                InputFieldOption(
+                  code: 'z2COmFwfABt',
+                  name: 'Sex with multiple partners',
+                ),
+                InputFieldOption(
+                  code: 'SJAEzQgVP1U',
+                  name:
+                      'Sex for money or gifts (transactional sex, having a sugar daddy)',
+                ),
+              ]),
+          InputField(
+            id: 'hxLZDtNtn3p',
+            name: '3.1 Has the adolescent identified at least two HIV risks?',
+            valueType: 'BOOLEAN',
+            isReadOnly: true,
+            inputColor: const Color(0xFF4D9E49),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'prevention_strategy',
             name:
-                '3.2  Are you able to provide your child with a range of nutritious (at least 2 food groups) foods on a regular basis, please describe?',
+                'Can you tell me any other ways a young person might help protect himself or herself against HIV?',
+            valueType: 'CHECK_BOX',
+            options: [
+              InputFieldOption(
+                code: 'c4vr8GntTrC',
+                name: 'Having one sexual partner',
+              ),
+              InputFieldOption(
+                code: 'McOkGzQ2uUN',
+                name: 'Delaying sex or abstinence',
+              ),
+              InputFieldOption(
+                code: 'L6VKKm5xtPz',
+                name: 'Having a sexual partner',
+              ),
+              InputFieldOption(
+                code: 'r4TVMVvmSCp',
+                name: 'Using a condom during',
+              ),
+              InputFieldOption(
+                code: 'rkaToQeb3M1',
+                name: 'Having a partner who does not have other sexual partner',
+              ),
+              InputFieldOption(
+                code: 'I1T85k6muns',
+                name: 'Not having sex for money or gifts, or transactional sex',
+              ),
+            ],
+            inputColor: const Color(0xFF4D9E49),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'ApextZUIUcC',
+            name:
+                '3.2 Has the adolescent identified at least one HIV prevention strategy?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'rPSpAEnnVS4',
-            name: 'Has Benchmark 3 been met for this household?',
+            name: 'Has Benchmark 3 been met for this beneficiary?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
-          )
+          ),
         ],
       ),
       FormSection(
-        id: 'f410nsa35Jw',
-        name: 'Benchmark 4: Financially stable',
+        id: 'ceYTaM00pTh',
+        name: 'Benchmark 4: Not malnourished',
+        description:
+            "Assess the child’s MUAC and bipedal edema if you have been trained in how to conduct these assessments. If you have not received this training, request that the MUAC be measured by a health worker or caseworker who has been trained in assessing the MUAC and bipedal edema.",
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
         inputFields: [
           InputField(
-            id: 'UwWV44GogSL',
-            name:
-                '4.1. Were you or another caregiver in the household able to pay school fees for the last school year for all children and adolescents in your household under the age of 18?',
+            id: 'htotfutRcVF',
+            name: '4.1. Is the child’s MUAC more than 12.5 cm?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'l4Xysq5ZfL9',
-            name:
-                '4.2. Were you able to pay these school fees without using a cash transfer, grant, or scholarship from [name of CBO or KB OVC project]? ',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF4D9E49),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'jRWqOcwnNkb',
-            name:
-                '4.3. Were you able to pay for these school fees without selling something used to generate income that you did not plan or want to sell, such as livestock, land for agriculture, tools, or equipment for a business?',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF4D9E49),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'C65Ca8Oel2w',
-            name:
-                '4.4. Were you or another caregiver in the household able to pay all medical costs in the past 6 months for all children and adolescents in your household under the age of 18? Medical costs include medicine, clinic fees, and transport to medical appointments.',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF4D9E49),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: '4.5. Were you able to pay for these medical costs without using a cash transfer or grant from [name of CBO or OVC project]? ',
-            name: 'WE3SRhYYZT5',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF4D9E49),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'OeqFCpXjRCm',
-            name:
-                '4.6. Were you able to pay for these medical costs without selling something used to generate income that you did not plan or want to sell, such as livestock, land for agriculture, tools, or equipment for a business?',
+            id: 'F7HWBfHN6tQ',
+            name: '4.2. Is the child free of any signs of bipedal edema?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'XxioqueCXcn',
-            name: 'Has Benchmark 4 been met?',
+            name: 'Has Benchmark 4 been met for this beneficiary? ',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
-          )
+          ),
         ],
       ),
       FormSection(
-        id: 'Ol19OWE8uDF',
-        name: 'Benchmark 5: No violence reported',
+        id: 'P90kJechZJT',
+        name: 'Benchmark 5: Prevention of Mother To Child Transmission',
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
         inputFields: [
           InputField(
-            id: 'jJzwnW4XyMy',
+            id: 'zPggDcmT4zt',
             name:
-                '5.1. In the past 6 months, have you been punched, kicked, choked or beaten by a spouse or partner, or any other adult?',
+                '5.1 Has the Pregnant adolescent or woman in the household been tested for HIV?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'oPGYBk5RXif',
+            id: 'UxPgBn3JRBQ',
             name:
-                '5.2. In the past 6 months, are you aware of any child, adolescent, or youth in your household being punched, kicked, choked or beaten by an adult?',
+                '5.2 Is the HIV positive pregnant woman currently attending ANC services?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'BV5IywMXKhe',
+            id: 'fffETOzhGsU',
             name:
-                '5.3. In the past 6 months, are you aware of any child, adolescent, or youth in your household being touched in a sexual way or forced to have sex against his or her will? Touching in a sexual way could include fondling, pinching, grabbing, or touching a child, adolescent, or youth on or around his or her sexual body parts',
+                '5.3 Has the infant born from an HIV positive adolescent or woman in the household been tested for HIV?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
+          InputField(
+              id: 'If the infant has been tested for HIV, what is the Child HIV status?',
+              name: 'wGeVdyVO5hE',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                ),
+                InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                ),
+              ]),
           InputField(
             id: 'OcbE9kN8Dcp',
-            name: 'Has Benchmark 5 been met? ',
+            name: 'Has Benchmark 5 been met for this household?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
@@ -215,31 +276,47 @@ class OvcExitCasePlanGraduationReadiness {
         ],
       ),
       FormSection(
-        id: 'BA3VEvk4tLo',
-        name: 'Benchmark 6: Not in a child-headed household',
+        id: 'AScHzfI40br',
+        name: 'Benchmark 6: Children in school',
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
         inputFields: [
           InputField(
-            id: 'SdUYosM4meg',
+            id: 'PkvK39frchD',
             name:
-                '6.1. During the past 12 months, have all children and adolescents in the household been under the care of a stable adult caregiver?',
+                '6.1 Are all children and adolescents in the household ages 6–17* enrolled in school? ',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF4D9E49),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'RVGFbzbEGmY',
+            name:
+                '6.2 Have all children and adolescents in the household ages 6–17* attended school regularly over the past year (at least 4 days a week on average)?',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF4D9E49),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'HzUAxTw1nZs',
+            name:
+                '6.3. Did all children and adolescents in the household ages 6–17* progress to the next level or grade, from last school year to this school year?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
           InputField(
             id: 'YdqDLYSE4qr',
-            name: 'Has Benchmark 6 been met?',
+            name: 'Has Benchmark 6 been met? ',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
-          )
+          ),
         ],
       ),
       FormSection(
-        id: 'BITMHHBQDM7',
+        id: 'YsPKdNobVFD',
         name: 'Graduation Benchmarks Assessment',
         color: const Color(0xFF4D9E49),
         borderColor: const Color(0xFF4D9E49),
