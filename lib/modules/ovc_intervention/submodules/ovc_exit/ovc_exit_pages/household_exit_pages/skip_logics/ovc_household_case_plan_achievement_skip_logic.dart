@@ -22,6 +22,45 @@ class OvcHouseholdCasePlanAchievementSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+      // Benchmark 1
+      if (inputFieldId == 'wE7and4EnCR') {
+        bool isBenchmarkMet = '${dataObject["WFjzAp3wQ8M"]}' == 'true' &&
+            '${dataObject["aoGIcQaTXjh"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      }
+      // Benchmark 2
+      else if (inputFieldId == 'R71zksHtVNn') {
+        bool isBenchmarkMet = '${dataObject["WFjzAp3wQ8M"]}' == 'true' ||
+            ('${dataObject["FOimOq843Ly"]}' == 'true' &&
+                '${dataObject["q8HfJgKMqrM"]}' == 'true');
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      }
+      // Benchmark 3
+      else if (inputFieldId == 'rPSpAEnnVS4') {
+        bool isBenchmarkMet = '${dataObject["gYudLSw0eUU"]}' == 'true' &&
+            '${dataObject["LxhULNWvXMw"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Benchmark 4
+      else if (inputFieldId == 'XxioqueCXcn') {
+        bool isBenchmarkMet = '${dataObject["UwWV44GogSL"]}' == 'true' &&
+            '${dataObject["l4Xysq5ZfL9"]}' == 'true' &&
+            '${dataObject["jRWqOcwnNkb"]}' == 'true' &&
+            '${dataObject["C65Ca8Oel2w"]}' == 'true' &&
+            '${dataObject["WE3SRhYYZT5"]}' == 'true' &&
+            '${dataObject["OeqFCpXjRCm"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Benchmark 5
+      else if (inputFieldId == 'OcbE9kN8Dcp') {
+        bool isBenchmarkMet = '${dataObject["jJzwnW4XyMy"]}' == 'true' &&
+            '${dataObject["oPGYBk5RXif"]}' == 'true' &&
+            '${dataObject["BV5IywMXKhe"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Benchmark 6
+      else if (inputFieldId == 'YdqDLYSE4qr') {
+        bool isBenchmarkMet = '${dataObject["SdUYosM4meg"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Final Assessment
+      else if (inputFieldId == '') {}
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =

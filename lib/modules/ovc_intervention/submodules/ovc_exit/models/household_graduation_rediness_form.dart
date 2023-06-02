@@ -50,6 +50,7 @@ class HouseholdGraduationReadinessForm {
           ),
         ],
       ),
+      // TODO see how to classify this as per instructions of the documents
       FormSection(
         id: 'lMG85SRv6nS',
         name: 'Benchmark 2: Virally suppressed',
@@ -114,7 +115,7 @@ class HouseholdGraduationReadinessForm {
           ),
           InputField(
             id: 'rPSpAEnnVS4',
-            name: 'Has Benchmark 3 been met for this household?',
+            name: 'Has Benchmark 3 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
