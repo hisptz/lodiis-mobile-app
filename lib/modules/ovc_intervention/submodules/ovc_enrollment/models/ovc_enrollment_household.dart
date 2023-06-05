@@ -189,12 +189,31 @@ class OvcEnrollmentHousehold {
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Primary level', name: 'Primary level'),
                 InputFieldOption(
-                    code: 'Secondary level', name: 'Secondary level'),
-                InputFieldOption(code: 'Tertiary level', name: 'Tertiary'),
-                InputFieldOption(code: 'Vocational level', name: 'Vocational'),
-                InputFieldOption(code: 'None', name: 'Never been to School'),
+                  code: 'Primary level',
+                  name: 'Primary level',
+                  translatedName: 'Boemo ba sekolo sa mathomo',
+                ),
+                InputFieldOption(
+                  code: 'Secondary level',
+                  name: 'Secondary level',
+                  translatedName: 'Boemo ba sekolo se phahameng',
+                ),
+                InputFieldOption(
+                  code: 'Tertiary level',
+                  name: 'Tertiary',
+                  translatedName: 'Boemo ba college/university',
+                ),
+                InputFieldOption(
+                  code: 'Vocational level',
+                  name: 'Vocational',
+                  translatedName: 'Boemo ba sekolo sa matsoho',
+                ),
+                InputFieldOption(
+                  code: 'None',
+                  name: 'Never been to School',
+                  translatedName: 'Ha a kena sekolo',
+                ),
               ]),
           InputField(
             id: 'l9tcZ2TNgx6',
