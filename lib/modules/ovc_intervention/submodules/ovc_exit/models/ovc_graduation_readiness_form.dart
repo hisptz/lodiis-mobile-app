@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -13,6 +14,17 @@ class OvcGraduationReadinessForm {
       "P90kJechZJT": 'OcbE9kN8Dcp',
       "AScHzfI40br": 'YdqDLYSE4qr',
     };
+  }
+
+  static List<InputFieldOption> getInputFieldOptions(
+    String formSectionId,
+    String inputFieldId,
+  ) {
+    return FormUtil.getFormFieldOptions(
+      getFormSections(firstDate: ''),
+      formSectionId,
+      inputFieldId,
+    );
   }
 
   static List<FormSection> getFormSections({
@@ -144,6 +156,7 @@ class OvcGraduationReadinessForm {
             id: 'hxLZDtNtn3p',
             name: '3.1 Has the adolescent identified at least two HIV risks?',
             valueType: 'BOOLEAN',
+            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
@@ -186,6 +199,7 @@ class OvcGraduationReadinessForm {
             name:
                 '3.2 Has the adolescent identified at least one HIV prevention strategy?',
             valueType: 'BOOLEAN',
+            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),

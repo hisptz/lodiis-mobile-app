@@ -25,7 +25,7 @@ class OvcChildCasePlanGraduationSkipLogic {
     var hivStatus = dataObject['hivStatus'];
 
     // Hidden sections by age
-    if (age > 17 || age < 10) {
+    if (age < 10 || age > 17) {
       hiddenSections['A5NBGrJWy1z'] = true;
     }
     if (age < 6 || age > 17) {
@@ -52,6 +52,30 @@ class OvcChildCasePlanGraduationSkipLogic {
         hiddenFields['UxPgBn3JRBQ'] = true;
       } else if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
         hiddenFields['wGeVdyVO5hE'] = true;
+      } else if (inputFieldId == 'hiv_risks') {
+        var options = OvcGraduationReadinessForm.getInputFieldOptions(
+          'A5NBGrJWy1z',
+          inputFieldId,
+        );
+        var selectedOptions =
+            options.where((option) => '${dataObject[option.code]}' == 'true');
+        assignInputFieldValue(
+          context,
+          'hxLZDtNtn3p',
+          '${selectedOptions.length >= 2}',
+        );
+      } else if (inputFieldId == 'prevention_strategy') {
+        var options = OvcGraduationReadinessForm.getInputFieldOptions(
+          'A5NBGrJWy1z',
+          inputFieldId,
+        );
+        var selectedOptions =
+            options.where((option) => '${dataObject[option.code]}' == 'true');
+        assignInputFieldValue(
+          context,
+          'ApextZUIUcC',
+          '${selectedOptions.isNotEmpty}',
+        );
       }
 
       // Benchmarks skip logics
