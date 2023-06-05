@@ -28,9 +28,12 @@ class OvcChildCasePlanGraduationSkipLogic {
     if (age > 17 || age < 10) {
       hiddenSections['A5NBGrJWy1z'] = true;
     }
-    if (age < 0 || age > 4) {
+    if (age < 6 || age > 17) {
       hiddenSections['ceYTaM00pTh'] = true;
       hiddenSections['P90kJechZJT'] = true;
+    }
+    if (age < 0 || age > 4) {
+      hiddenSections['AScHzfI40br'] = true;
     }
 
     // Hidden sections by HIV status
@@ -42,7 +45,14 @@ class OvcChildCasePlanGraduationSkipLogic {
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
 
-      if (inputFieldId == '') {}
+      if (inputFieldId == 'naaNy5zLz3I' && value != 'false') {
+        hiddenFields['FOimOq843Ly'] = true;
+        hiddenFields['q8HfJgKMqrM'] = true;
+      } else if (inputFieldId == 'zPggDcmT4zt' && value != 'true') {
+        hiddenFields['UxPgBn3JRBQ'] = true;
+      } else if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
+        hiddenFields['wGeVdyVO5hE'] = true;
+      }
 
       // Benchmarks skip logics
       // for Benchmark 1
@@ -64,6 +74,8 @@ class OvcChildCasePlanGraduationSkipLogic {
         bool isBenchmarkMet = '${dataObject["hxLZDtNtn3p"]}' == 'true' &&
             '${dataObject["ApextZUIUcC"]}' == 'true';
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } else if (inputFieldId == 'hxLZDtNtn3p') {
+      } else if (inputFieldId == 'ApextZUIUcC') {
       }
       // for Benchmark 4
       else if (inputFieldId == 'XxioqueCXcn') {
@@ -85,7 +97,7 @@ class OvcChildCasePlanGraduationSkipLogic {
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
       }
       // for overall assessment
-      else if (inputFieldId == 'YsPKdNobVFD') {
+      else if (inputFieldId == 'S5bMqu2LyKJ') {
         Map<String, String> benchmarkQuestionsMapping =
             OvcGraduationReadinessForm.getBenchMarkAchievementQuestions();
         bool areAllBenchmarksMet = benchmarkQuestionsMapping.keys
