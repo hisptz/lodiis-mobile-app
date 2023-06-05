@@ -31,6 +31,18 @@ class OvcHouseholdCasePlanAchievementSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+
+      if (inputFieldId == 'naaNy5zLz3I' && value != 'false') {
+        hiddenFields['FOimOq843Ly'] = true;
+        hiddenFields['q8HfJgKMqrM'] = true;
+      } else if (inputFieldId == 'UwWV44GogSL' && value != 'true') {
+        hiddenFields['l4Xysq5ZfL9'] = true;
+        hiddenFields['jRWqOcwnNkb'] = true;
+      } else if (inputFieldId == 'C65Ca8Oel2w' && value != 'true') {
+        hiddenFields['WE3SRhYYZT5'] = true;
+        hiddenFields['OeqFCpXjRCm'] = true;
+      }
+
       // Benchmark 1
       if (inputFieldId == 'wE7and4EnCR') {
         bool isBenchmarkMet = '${dataObject["WFjzAp3wQ8M"]}' == 'true' &&
