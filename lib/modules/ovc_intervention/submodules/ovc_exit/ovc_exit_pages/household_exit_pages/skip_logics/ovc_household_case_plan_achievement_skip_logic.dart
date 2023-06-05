@@ -19,6 +19,14 @@ class OvcHouseholdCasePlanAchievementSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+
+    var hivStatus = dataObject['hivStatus'];
+
+    // Hide sections based on HIV status
+    if (hivStatus != 'Positive') {
+      hiddenSections['lMG85SRv6nS'] = true;
+    }
+
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';

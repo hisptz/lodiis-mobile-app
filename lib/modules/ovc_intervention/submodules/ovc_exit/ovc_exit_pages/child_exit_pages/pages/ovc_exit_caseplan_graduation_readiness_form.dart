@@ -62,6 +62,14 @@ class _HouseholdGraduationReadinessFormFormState
     formSections = OvcGraduationReadinessForm.getFormSections(
       firstDate: child!.createdDate!,
     );
+    addChildNeededAttributesForGraduation(child);
+  }
+
+  void addChildNeededAttributesForGraduation(OvcHouseholdChild child) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('age', child.age);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('hivStatus', child.hivStatus);
   }
 
   evaluateSkipLogics() {

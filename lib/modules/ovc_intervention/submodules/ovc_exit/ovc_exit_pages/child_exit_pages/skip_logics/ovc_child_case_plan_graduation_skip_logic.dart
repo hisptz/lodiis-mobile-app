@@ -19,9 +19,31 @@ class OvcChildCasePlanGraduationSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+
+    var age = int.parse("${dataObject['age']}");
+    var hivStatus = dataObject['hivStatus'];
+
+    // Hidden sections by age
+    if (age > 17 || age < 10) {
+      hiddenSections['A5NBGrJWy1z'] = true;
+    }
+    if (age < 0 || age > 4) {
+      hiddenSections['ceYTaM00pTh'] = true;
+      hiddenSections['P90kJechZJT'] = true;
+    }
+
+    // Hidden sections by HIV status
+    if (hivStatus != 'Positive') {
+      hiddenSections['R4OiU8dHKDe'] = true;
+    }
+
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
+
+      if (inputFieldId == '') {}
+
+      // Benchmarks skip logics
       // for Benchmark 1
       if (inputFieldId == 'wE7and4EnCR') {
         bool isBenchmarkMet = '${dataObject["WFjzAp3wQ8M"]}' == 'true' &&
