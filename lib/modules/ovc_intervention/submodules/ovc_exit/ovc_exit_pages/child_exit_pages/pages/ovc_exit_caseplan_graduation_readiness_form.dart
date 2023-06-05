@@ -23,22 +23,22 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_caseplan_graduation_rediness.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_graduation_readiness_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_plan_graduation_readiness_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/skip_logics/ovc_child_case_plan_graduation_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcExitCasePlanGraduationReadinessForm extends StatefulWidget {
-  const OvcExitCasePlanGraduationReadinessForm({Key? key}) : super(key: key);
+class HouseholdGraduationReadinessFormForm extends StatefulWidget {
+  const HouseholdGraduationReadinessFormForm({Key? key}) : super(key: key);
 
   @override
-  State<OvcExitCasePlanGraduationReadinessForm> createState() =>
-      _OvcExitCasePlanGraduationReadinessFormState();
+  State<HouseholdGraduationReadinessFormForm> createState() =>
+      _HouseholdGraduationReadinessFormFormState();
 }
 
-class _OvcExitCasePlanGraduationReadinessFormState
-    extends State<OvcExitCasePlanGraduationReadinessForm> {
-  final String label = 'Case plan Graduation Readiness';
+class _HouseholdGraduationReadinessFormFormState
+    extends State<HouseholdGraduationReadinessFormForm> {
+  final String label = 'Case Plan Graduation Readiness';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -59,9 +59,17 @@ class _OvcExitCasePlanGraduationReadinessFormState
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
-    formSections = OvcExitCasePlanGraduationReadiness.getFormSections(
+    formSections = OvcGraduationReadinessForm.getFormSections(
       firstDate: child!.createdDate!,
     );
+    addChildNeededAttributesForGraduation(child);
+  }
+
+  void addChildNeededAttributesForGraduation(OvcHouseholdChild child) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('age', child.age);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('hivStatus', child.hivStatus);
   }
 
   evaluateSkipLogics() {
@@ -134,8 +142,8 @@ class _OvcExitCasePlanGraduationReadinessFormState
       String? eventId = dataObject['eventId'];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcExitCasePlanGraduationReadinessConstant.program,
-            OvcExitCasePlanGraduationReadinessConstant.programStage,
+            HouseholdGraduationReadinessFormConstant.program,
+            HouseholdGraduationReadinessFormConstant.programStage,
             currentOvcHouseholdChild!.orgUnit,
             formSections!,
             dataObject,

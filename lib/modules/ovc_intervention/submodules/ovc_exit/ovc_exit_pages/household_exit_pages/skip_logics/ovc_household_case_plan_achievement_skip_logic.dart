@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/household_graduation_rediness_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcHouseholdCasePlanAchievementSkipLogic {
@@ -19,21 +20,77 @@ class OvcHouseholdCasePlanAchievementSkipLogic {
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
     }
+
+    var hivStatus = dataObject['hivStatus'];
+
+    // Hide sections based on HIV status
+    if (hivStatus != 'Positive') {
+      hiddenSections['lMG85SRv6nS'] = true;
+    }
+
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       String value = '${dataObject[inputFieldId]}';
-      if (inputFieldId == 'DFPZI9TQLo1' && value != 'true') {
-        hiddenFields['DoltSbENAuc'] = true;
+
+      if (inputFieldId == 'naaNy5zLz3I' && value != 'false') {
+        hiddenFields['FOimOq843Ly'] = true;
+        hiddenFields['q8HfJgKMqrM'] = true;
+      } else if (inputFieldId == 'UwWV44GogSL' && value != 'true') {
+        hiddenFields['l4Xysq5ZfL9'] = true;
+        hiddenFields['jRWqOcwnNkb'] = true;
+      } else if (inputFieldId == 'C65Ca8Oel2w' && value != 'true') {
+        hiddenFields['WE3SRhYYZT5'] = true;
+        hiddenFields['OeqFCpXjRCm'] = true;
       }
-      if (inputFieldId == 'rumwEfp1ztg' && value != 'true') {
-        hiddenFields['a10M4Wqw7U3'] = true;
+
+      // Benchmark 1
+      if (inputFieldId == 'wE7and4EnCR') {
+        bool isBenchmarkMet = '${dataObject["WFjzAp3wQ8M"]}' == 'true' &&
+            '${dataObject["aoGIcQaTXjh"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
       }
-      if (inputFieldId == 'PnoBb14W732' && value != 'true') {
-        hiddenFields['SP8w6AiVGCF'] = true;
+      // Benchmark 2
+      else if (inputFieldId == 'R71zksHtVNn') {
+        bool isBenchmarkMet = '${dataObject["naaNy5zLz3I"]}' == 'true' ||
+            ('${dataObject["FOimOq843Ly"]}' == 'true' &&
+                '${dataObject["q8HfJgKMqrM"]}' == 'true');
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
       }
-      if (inputFieldId == 'fpVryquRrCV' && value != 'true') {
-        hiddenFields['k5BHccZLAJL'] = true;
-        hiddenFields['R71zksHtVNn'] = true;
+      // Benchmark 3
+      else if (inputFieldId == 'rPSpAEnnVS4') {
+        bool isBenchmarkMet = '${dataObject["gYudLSw0eUU"]}' == 'true' &&
+            '${dataObject["LxhULNWvXMw"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Benchmark 4
+      else if (inputFieldId == 'XxioqueCXcn') {
+        bool isBenchmarkMet = '${dataObject["UwWV44GogSL"]}' == 'true' &&
+            '${dataObject["l4Xysq5ZfL9"]}' == 'true' &&
+            '${dataObject["jRWqOcwnNkb"]}' == 'true' &&
+            '${dataObject["C65Ca8Oel2w"]}' == 'true' &&
+            '${dataObject["WE3SRhYYZT5"]}' == 'true' &&
+            '${dataObject["OeqFCpXjRCm"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Benchmark 5
+      else if (inputFieldId == 'OcbE9kN8Dcp') {
+        bool isBenchmarkMet = '${dataObject["jJzwnW4XyMy"]}' == 'true' &&
+            '${dataObject["oPGYBk5RXif"]}' == 'true' &&
+            '${dataObject["BV5IywMXKhe"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Benchmark 6
+      else if (inputFieldId == 'YdqDLYSE4qr') {
+        bool isBenchmarkMet = '${dataObject["SdUYosM4meg"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } // Final Assessment
+      else if (inputFieldId == 'S5bMqu2LyKJ') {
+        Map<String, String> benchmarkQuestionsMapping =
+            HouseholdGraduationReadinessForm.getBenchMarkAchievementQuestions();
+        bool areAllBenchmarksMet = benchmarkQuestionsMapping.keys
+            .where((benchmarkSession) =>
+                !hiddenSections.containsKey(benchmarkSession))
+            .every((benchmarkSession) =>
+                '${dataObject[benchmarkQuestionsMapping[benchmarkSession]]}' ==
+                'true');
+        assignInputFieldValue(context, inputFieldId, '$areAllBenchmarksMet');
       }
     }
     for (String sectionId in hiddenSections.keys) {

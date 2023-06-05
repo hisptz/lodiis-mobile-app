@@ -24,7 +24,7 @@ import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_plan_graduation_readiness_form_info.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/household_graduation_rediness_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/household_graduation/constants/ovc_household_graduation_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/household_exit_pages/skip_logics/ovc_household_case_plan_achievement_skip_logic.dart';
 import 'package:provider/provider.dart';
@@ -60,9 +60,15 @@ class _OvcHouseholdGraduationFormState
     OvcHousehold? household =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHousehold;
-    formSections = OvcExitCasePlanGraduationFormInfo.getFormSections(
+    formSections = HouseholdGraduationReadinessForm.getFormSections(
       firstDate: household!.createdDate!,
     );
+    addCaregiverAttributesNeededForGraduation(household);
+  }
+
+  void addCaregiverAttributesNeededForGraduation(OvcHousehold ovcHousehold) {
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('hivStatus', ovcHousehold.hivStatus);
   }
 
   evaluateSkipLogics() {

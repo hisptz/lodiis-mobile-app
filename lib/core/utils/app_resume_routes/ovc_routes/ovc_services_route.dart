@@ -130,7 +130,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const OvcExitCasePlanGraduationReadinessForm();
+          return const HouseholdGraduationReadinessFormForm();
         },
       ),
     );
