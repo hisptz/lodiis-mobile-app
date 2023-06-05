@@ -51,7 +51,6 @@ class OvcGraduationReadinessForm {
           ),
         ],
       ),
-
       // TODO see how to classify this as per instructions of the documents
       FormSection(
         id: 'R4OiU8dHKDe',
@@ -87,6 +86,7 @@ class OvcGraduationReadinessForm {
             id: 'R71zksHtVNn',
             name: 'Has Benchmark 2 been met for this beneficiary? ',
             valueType: 'BOOLEAN',
+            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
@@ -144,7 +144,6 @@ class OvcGraduationReadinessForm {
             id: 'hxLZDtNtn3p',
             name: '3.1 Has the adolescent identified at least two HIV risks?',
             valueType: 'BOOLEAN',
-            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
@@ -187,7 +186,6 @@ class OvcGraduationReadinessForm {
             name:
                 '3.2 Has the adolescent identified at least one HIV prevention strategy?',
             valueType: 'BOOLEAN',
-            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
@@ -338,7 +336,7 @@ class OvcGraduationReadinessForm {
         inputFields: [
           InputField(
             id: 'S5bMqu2LyKJ',
-            name: 'Have all applicable benchmarks been met? ',
+            name: 'Have all applicable benchmarks been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),

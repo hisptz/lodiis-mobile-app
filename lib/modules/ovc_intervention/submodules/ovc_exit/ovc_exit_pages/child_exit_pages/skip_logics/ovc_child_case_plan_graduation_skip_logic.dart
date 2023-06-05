@@ -30,7 +30,7 @@ class OvcChildCasePlanGraduationSkipLogic {
       }
       // Benchmark 2
       else if (inputFieldId == 'R71zksHtVNn') {
-        bool isBenchmarkMet = '${dataObject["WFjzAp3wQ8M"]}' == 'true' ||
+        bool isBenchmarkMet = '${dataObject["naaNy5zLz3I"]}' == 'true' ||
             ('${dataObject["FOimOq843Ly"]}' == 'true' &&
                 '${dataObject["q8HfJgKMqrM"]}' == 'true');
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
@@ -38,8 +38,8 @@ class OvcChildCasePlanGraduationSkipLogic {
       // for Benchmark 3
       else if (inputFieldId == 'rPSpAEnnVS4') {
         // TODO needs closer look
-        bool isBenchmarkMet = '${dataObject["ApextZUIUcC"]}' == 'true' &&
-            '${dataObject["hxLZDtNtn3p"]}' == 'true';
+        bool isBenchmarkMet = '${dataObject["hxLZDtNtn3p"]}' == 'true' &&
+            '${dataObject["ApextZUIUcC"]}' == 'true';
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
       }
       // for Benchmark 4
@@ -60,6 +60,14 @@ class OvcChildCasePlanGraduationSkipLogic {
             '${dataObject["RVGFbzbEGmY"]}' == 'true' &&
             '${dataObject["HzUAxTw1nZs"]}' == 'true';
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
+      } else if (inputFieldId == 'YsPKdNobVFD') {
+        bool areAllBenchmarksMet = '${dataObject["wE7and4EnCR"]}' == 'true' &&
+            '${dataObject["R71zksHtVNn"]}' == 'true' &&
+            '${dataObject["rPSpAEnnVS4"]}' == 'true' &&
+            '${dataObject["XxioqueCXcn"]}' == 'true' &&
+            '${dataObject["OcbE9kN8Dcp"]}' == 'true' &&
+            '${dataObject["S5bMqu2LyKJ"]}' == 'true';
+        assignInputFieldValue(context, inputFieldId, '$areAllBenchmarksMet');
       }
     }
     for (String sectionId in hiddenSections.keys) {
