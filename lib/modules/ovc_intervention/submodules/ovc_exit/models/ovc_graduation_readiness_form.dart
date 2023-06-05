@@ -51,6 +51,8 @@ class OvcGraduationReadinessForm {
           ),
         ],
       ),
+
+      // TODO see how to classify this as per instructions of the documents
       FormSection(
         id: 'R4OiU8dHKDe',
         name: 'Benchmark 2: Adherent / Virally suppressed',
@@ -185,6 +187,7 @@ class OvcGraduationReadinessForm {
             name:
                 '3.2 Has the adolescent identified at least one HIV prevention strategy?',
             valueType: 'BOOLEAN',
+            isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
           ),
@@ -261,8 +264,9 @@ class OvcGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-              id: 'If the infant has been tested for HIV, what is the Child HIV status?',
-              name: 'wGeVdyVO5hE',
+              id: 'wGeVdyVO5hE',
+              name:
+                  'If the infant has been tested for HIV, what is the Child HIV status?',
               valueType: 'TEXT',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
