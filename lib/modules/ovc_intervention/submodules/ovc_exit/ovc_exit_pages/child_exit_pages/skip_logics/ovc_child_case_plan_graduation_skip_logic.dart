@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_graduation_readiness_form.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildCasePlanGraduationSkipLogic {
@@ -82,13 +83,17 @@ class OvcChildCasePlanGraduationSkipLogic {
             '${dataObject["RVGFbzbEGmY"]}' == 'true' &&
             '${dataObject["HzUAxTw1nZs"]}' == 'true';
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
-      } else if (inputFieldId == 'YsPKdNobVFD') {
-        bool areAllBenchmarksMet = '${dataObject["wE7and4EnCR"]}' == 'true' &&
-            '${dataObject["R71zksHtVNn"]}' == 'true' &&
-            '${dataObject["rPSpAEnnVS4"]}' == 'true' &&
-            '${dataObject["XxioqueCXcn"]}' == 'true' &&
-            '${dataObject["OcbE9kN8Dcp"]}' == 'true' &&
-            '${dataObject["S5bMqu2LyKJ"]}' == 'true';
+      }
+      // for overall assessment
+      else if (inputFieldId == 'YsPKdNobVFD') {
+        Map<String, String> benchmarkQuestionsMapping =
+            OvcGraduationReadinessForm.getBenchMarkAchievementQuestions();
+        bool areAllBenchmarksMet = benchmarkQuestionsMapping.keys
+            .where((benchmarkSession) =>
+                !hiddenSections.containsKey(benchmarkSession))
+            .every((benchmarkSession) =>
+                '${dataObject[benchmarkQuestionsMapping[benchmarkSession]]}' ==
+                'true');
         assignInputFieldValue(context, inputFieldId, '$areAllBenchmarksMet');
       }
     }
