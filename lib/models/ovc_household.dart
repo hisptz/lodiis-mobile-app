@@ -16,6 +16,7 @@ class OvcHousehold {
   String? orgUnit;
   String? createdDate;
   String? primaryUIC;
+  String? hivStatus;
   String? secondaryUIC;
   String? ovcMaleCount;
   String? ovcFemaleCount;
@@ -39,6 +40,7 @@ class OvcHousehold {
     this.children,
     this.primaryUIC,
     this.secondaryUIC,
+    this.hivStatus,
     this.location,
     this.phoneNumber,
     this.age,
@@ -78,6 +80,7 @@ class OvcHousehold {
       'PN92g65TkVI',
       'RB8Wx75hGa4',
       'qZP982qpSPS',
+      'oSKX8fFQdWc',
       BeneficiaryIdentification.householdCategorization,
       UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.primaryUIC,
@@ -92,6 +95,7 @@ class OvcHousehold {
       }
     }
     String village = data['RB8Wx75hGa4'] ?? '';
+    String hivStatus = data['oSKX8fFQdWc'] ?? '';
     String phoneNumber = getPhoneNumbers(data, phoneNumberIds);
     int maleCount = getChildCountBySex(children, 'male');
     int femaleCount = getChildCountBySex(children, 'female');
@@ -109,6 +113,7 @@ class OvcHousehold {
       createdDate: createdDate,
       ovcMaleCount: '$maleCount',
       ovcFemaleCount: '$femaleCount',
+      hivStatus: hivStatus,
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',

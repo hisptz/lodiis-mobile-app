@@ -239,6 +239,7 @@ class OvcChildEnrollmentSkipLogic {
     Map dataObject,
     bool shouldSetEnrollmentState,
   ) {
+    const String defaultVulnerability = 'Sibling';
     List<String> vulnerabilities = [
       'wmKqYZML8GA',
       'GMcljM7jbNG',
@@ -259,8 +260,11 @@ class OvcChildEnrollmentSkipLogic {
     ];
     for (var vulnerabilityKey in vulnerabilities) {
       if (dataObject[vulnerabilityKey] == true) {
-        String value = primaryVulnerabilitiesOptions[
-            vulnerabilities.indexOf(vulnerabilityKey)];
+        var vulnerabilityIndex = vulnerabilities.indexOf(vulnerabilityKey);
+        String value = vulnerabilityIndex >= 0
+            ? primaryVulnerabilitiesOptions[
+                vulnerabilities.indexOf(vulnerabilityKey)]
+            : defaultVulnerability;
         if (shouldSetEnrollmentState) {
           assignInputFieldValue(context,
               OvcEnrollmentChildConstant.primaryVulnerabilityKey, value);
@@ -277,10 +281,12 @@ class OvcChildEnrollmentSkipLogic {
         (dataObject[element] == false || dataObject[element] == null))) {
       if (shouldSetEnrollmentState) {
         assignInputFieldValue(
-            context, OvcEnrollmentChildConstant.primaryVulnerabilityKey, null);
+            context,
+            OvcEnrollmentChildConstant.primaryVulnerabilityKey,
+            defaultVulnerability);
       } else {
         assignedFields[OvcEnrollmentChildConstant.primaryVulnerabilityKey] =
-            null;
+            defaultVulnerability;
       }
     }
   }

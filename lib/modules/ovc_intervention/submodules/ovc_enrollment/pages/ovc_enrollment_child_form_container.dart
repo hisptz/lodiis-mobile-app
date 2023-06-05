@@ -71,7 +71,6 @@ class _OvcEnrollmentChildFormContainerState
   }
 
   _evaluateSkipLogics() {
-    //TODO add support for getting caregiver additional data tp be autopopulated
     Timer(
       const Duration(milliseconds: 200),
       () {
