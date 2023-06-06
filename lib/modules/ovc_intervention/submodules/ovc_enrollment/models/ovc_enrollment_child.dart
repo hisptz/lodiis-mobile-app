@@ -198,8 +198,16 @@ class OvcEnrollmentChild {
                 labelColor: const Color(0xFF737373),
                 renderAsRadio: true,
                 options: [
-                  InputFieldOption(code: 'Formal', name: 'Formal'),
-                  InputFieldOption(code: 'Informal', name: 'Informal'),
+                  InputFieldOption(
+                    code: 'Formal',
+                    name: 'Formal',
+                    translatedName: 'Se ngolisitsoeng',
+                  ),
+                  InputFieldOption(
+                    code: 'Informal',
+                    name: 'Informal',
+                    translatedName: 'Se sa ngolisoang',
+                  ),
                 ],
               ),
               InputField(
@@ -325,10 +333,25 @@ class OvcEnrollmentChild {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'FullyImmunized', name: 'Fully Immunized'),
-                  InputFieldOption(code: 'NotCompleted', name: 'Not Completed'),
-                  InputFieldOption(code: 'NotImmunized', name: 'Not Immunized'),
-                  InputFieldOption(code: 'NotKnown', name: 'Not Known'),
+                    code: 'FullyImmunized',
+                    name: 'Fully Immunized',
+                    translatedName: 'O qetile li ente',
+                  ),
+                  InputFieldOption(
+                    code: 'NotCompleted',
+                    name: 'Not Completed',
+                    translatedName: 'Ha a qeta li ente',
+                  ),
+                  InputFieldOption(
+                    code: 'NotImmunized',
+                    name: 'Not Immunized',
+                    translatedName: 'Ha aso ente',
+                  ),
+                  InputFieldOption(
+                    code: 'NotKnown',
+                    name: 'Not Known',
+                    translatedName: 'Ha ke tsebe',
+                  ),
                 ],
               ),
               InputField(
@@ -463,9 +486,20 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'HIVRelated', name: 'HIV Related'),
-              InputFieldOption(code: 'DoNotKnow', name: 'Do Not Know'),
-              InputFieldOption(code: 'OtherCauses', name: 'Other Causes'),
+              InputFieldOption(
+                code: 'HIVRelated',
+                name: 'HIV Related',
+                translatedName: 'Mafu a amahanngoang le HIV',
+              ),
+              InputFieldOption(
+                  code: 'DoNotKnow',
+                  name: 'Do Not Know',
+                  translatedName: 'Ha ke tsebe'),
+              InputFieldOption(
+                code: 'OtherCauses',
+                name: 'Other Causes',
+                translatedName: 'Mafu a mang',
+              ),
             ],
           ),
           InputField(
@@ -568,9 +602,20 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'HIVRelated', name: 'HIV Related'),
-              InputFieldOption(code: 'DoNotKnow', name: 'Do Not Know'),
-              InputFieldOption(code: 'OtherCauses', name: 'Other Causes'),
+              InputFieldOption(
+                code: 'HIVRelated',
+                name: 'HIV Related',
+                translatedName: 'Mafu a amahanngoang le HIV',
+              ),
+              InputFieldOption(
+                  code: 'DoNotKnow',
+                  name: 'Do Not Know',
+                  translatedName: 'Ha ke tsebe'),
+              InputFieldOption(
+                code: 'OtherCauses',
+                name: 'Other Causes',
+                translatedName: 'Mafu a mang',
+              ),
             ],
           ),
         ],
