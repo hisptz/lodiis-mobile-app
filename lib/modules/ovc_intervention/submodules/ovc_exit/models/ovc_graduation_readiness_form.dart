@@ -111,17 +111,9 @@ class OvcGraduationReadinessForm {
         borderColor: const Color(0xFF4D9E49),
         inputFields: [
           InputField(
-            id: 'XzMu3wYywiy',
-            name:
-                '3.1. Can you tell me how a young person your age living in your community might become infected with HIV?',
-            valueType: 'BOOLEAN',
-            inputColor: const Color(0xFF4D9E49),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
               id: 'hiv_risks',
               name:
-                  'Can you tell me any other ways a young person in your community might become infected with HIV?',
+                  'Can you tell me how a young person your age living in your community might become infected with HIV?',
               valueType: 'CHECK_BOX',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
