@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/o
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/ovc_child_monitor.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_service/ovc_service_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/ovc_service_child_card.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/clhiv_art_card/clhiv_art_card.dart';
 import 'package:provider/provider.dart';
 
 class OvcChildServiceHome extends StatefulWidget {
@@ -62,6 +63,15 @@ class _OvcChildServiceHomeState extends State<OvcChildServiceHome> {
       context,
       MaterialPageRoute(
         builder: (context) => const OvcServiceSubPageChildView(),
+      ),
+    );
+  }
+
+  void onOpenClhivArtCardService(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ClhivArtCard(),
       ),
     );
   }
@@ -174,7 +184,12 @@ class _OvcChildServiceHomeState extends State<OvcChildServiceHome> {
                                                           'monitor'
                                                       ? onOpenChildMonitor(
                                                           context)
-                                                      : null,
+                                                      : ovcChildServiceHomeCard
+                                                                  .id ==
+                                                              'clhiv_art'
+                                                          ? onOpenClhivArtCardService(
+                                                              context)
+                                                          : null,
                                     ),
                                   );
                                 },
