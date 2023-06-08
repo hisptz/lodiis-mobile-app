@@ -19,22 +19,22 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_hiv_screening.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_hiv_assessment_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/skip_logics/ovc_child_hiv_assessment_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_tbscreening.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/constants/ovc_service_tb_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_tb_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceHIVAssessmentForm extends StatefulWidget {
-  const OvcServiceHIVAssessmentForm({Key? key}) : super(key: key);
+class OvcServiceTBAssessmentForm extends StatefulWidget {
+  const OvcServiceTBAssessmentForm({Key? key}) : super(key: key);
 
   @override
-  State<OvcServiceHIVAssessmentForm> createState() =>
-      _OvcServiceHIVAssessmentFormState();
+  State<OvcServiceTBAssessmentForm> createState() =>
+      _OvcServiceTBAssessmentFormState();
 }
 
-class _OvcServiceHIVAssessmentFormState
-    extends State<OvcServiceHIVAssessmentForm> {
-  final String label = 'Child HIV Assessment';
+class _OvcServiceTBAssessmentFormState
+    extends State<OvcServiceTBAssessmentForm> {
+  final String label = 'Child TB Assessemnt';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -42,7 +42,7 @@ class _OvcServiceHIVAssessmentFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcServicesHivScreening.getFormSections();
+    formSections = OvcServicesTbscreening.getFormSections();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -57,7 +57,7 @@ class _OvcServiceHIVAssessmentFormState
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildHivAssessmentSkipLogic.evaluateSkipLogics(
+        await OvcChildTBAssessmentSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -83,23 +83,17 @@ class _OvcServiceHIVAssessmentFormState
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
-
-      List<String> skippedFields = [
-        'hivriskres',
-      ];
-
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcServiceHIVAssessmentConstant.program,
-            OvcServiceHIVAssessmentConstant.programStage,
+            OvcServiceTBAssessmentConstant.program,
+            OvcServiceTBAssessmentConstant.programStage,
             currentOvcHouseholdChild!.orgUnit,
             formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
             eventId,
-            null,
-            skippedFields: skippedFields);
+            null);
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseholdChild.id);
         Timer(const Duration(seconds: 1), () {

@@ -19,22 +19,22 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_tbscreening.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_tb_assessment_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/skip_logics/ovc_child_tb_assessment_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/constants/ovc_service_well_being_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_well_being_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
-class OvcServiceTBAssessmentForm extends StatefulWidget {
-  const OvcServiceTBAssessmentForm({Key? key}) : super(key: key);
+class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
+  const OvcServiceWellBeingAssessmentForm({Key? key}) : super(key: key);
 
   @override
-  State<OvcServiceTBAssessmentForm> createState() =>
-      _OvcServiceTBAssessmentFormState();
+  State<OvcServiceWellBeingAssessmentForm> createState() =>
+      _OvcServiceWellBeingAssessmentFormState();
 }
 
-class _OvcServiceTBAssessmentFormState
-    extends State<OvcServiceTBAssessmentForm> {
-  final String label = 'Child TB Assessemnt';
+class _OvcServiceWellBeingAssessmentFormState
+    extends State<OvcServiceWellBeingAssessmentForm> {
+  final String label = 'Child Well-being Assessment';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -42,7 +42,7 @@ class _OvcServiceTBAssessmentFormState
   @override
   void initState() {
     super.initState();
-    formSections = OvcServicesTbscreening.getFormSections();
+    setFormSection();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -51,13 +51,21 @@ class _OvcServiceTBAssessmentFormState
     });
   }
 
+  void setFormSection() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections = OvcServicesWellbeingAssessment.getFormSections(
+        firstDate: child!.createdDate!);
+  }
+
   evaluateSkipLogics() {
     Timer(
       const Duration(milliseconds: 200),
       () async {
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildTBAssessmentSkipLogic.evaluateSkipLogics(
+        await OvcChildWellBeingAssessmentSkipLogic.evaluateSkipLogics(
           context,
           formSections!,
           dataObject,
@@ -78,24 +86,35 @@ class _OvcServiceTBAssessmentFormState
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+      if (dataObject['ADc3clrQRl4'] == null &&
+          dataObject['efNgDIqhlNs'] == null) {
+        AppUtil.showToastMessage(message: "Fill atleast one goal");
+      }
       setState(() {
         isSaving = true;
       });
+
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
+
+      List<String> skippedFields = [
+        'Wstcittf',
+      ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcServiceTBAssessmentConstant.program,
-            OvcServiceTBAssessmentConstant.programStage,
+            OvcServiceWellBeingAssessmentConstant.program,
+            OvcServiceWellBeingAssessmentConstant.programStage,
             currentOvcHouseholdChild!.orgUnit,
             formSections!,
             dataObject,
             eventDate,
             currentOvcHouseholdChild.id,
             eventId,
-            null);
+            null,
+            skippedFields: skippedFields);
         Provider.of<ServiceEventDataState>(context, listen: false)
             .resetServiceEventDataState(currentOvcHouseholdChild.id);
+
         Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
@@ -177,6 +196,9 @@ class _OvcServiceTBAssessmentFormState
                                               serviceFormState.hiddenSections,
                                           hiddenFields:
                                               serviceFormState.hiddenFields,
+                                          hiddenInputFieldOptions:
+                                              serviceFormState
+                                                  .hiddenInputFieldOptions,
                                           formSections: formSections,
                                           mandatoryFieldObject: const {},
                                           dataObject:
