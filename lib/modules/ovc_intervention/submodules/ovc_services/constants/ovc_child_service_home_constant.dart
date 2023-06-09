@@ -46,8 +46,8 @@ class OvcChildServiceHomeConstant {
         id: 'clhiv_art',
         title: 'CLHIV ART Card Service',
         icon: 'assets/icons/clhiv_art_ovc_icon.svg',
-        groupByDate: true,
         programStages: ['q5A4SXKzKV1'],
+        groupingProgramStages: ['q5A4SXKzKV1'],
       ),
       OvcChildServiceHomeConstant(
         id: 'monitor',
