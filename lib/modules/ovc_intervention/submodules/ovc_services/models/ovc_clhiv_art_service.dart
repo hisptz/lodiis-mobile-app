@@ -66,7 +66,7 @@ class OvcClhivArtService {
           InputField(
             id: 'QkoJ1afnMMK',
             name: 'CLHIV ART CARD: Reason for VL Non-Eligibility',
-            valueType: 'BOOLEAN',
+            valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF1A3518),
           ),
@@ -103,6 +103,10 @@ class OvcClhivArtService {
                 code: '6 Months',
                 name: '6 Months',
               ),
+              InputFieldOption(
+                code: 'Other (Specify)',
+                name: 'Other (Specify)',
+              )
             ],
           ),
           InputField(
