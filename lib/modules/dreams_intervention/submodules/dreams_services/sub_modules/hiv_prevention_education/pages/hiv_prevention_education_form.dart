@@ -266,8 +266,8 @@ class _HIVPreventionEducationFormState
               String? currentLanguage =
                   languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
-                builder: (context, nonAgywState, child) {
-                  AgywDream? agywDream = nonAgywState.currentAgywDream;
+                builder: (context, agywState, child) {
+                  AgywDream? agywDream = agywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Column(

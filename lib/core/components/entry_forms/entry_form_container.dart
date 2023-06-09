@@ -62,7 +62,6 @@ class EntryFormContainer extends StatelessWidget {
                 currentUserState.currentUserCountryLevelReferences;
             return Column(
               children: formSections!.map((FormSection formSection) {
-                print(formSection.name);
                 return Visibility(
                   visible: hiddenSections == null ||
                       '${hiddenSections![formSection.id]}'.trim() != 'true' &&

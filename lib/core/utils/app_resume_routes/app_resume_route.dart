@@ -220,6 +220,9 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.householdTransferFormPage) {
       redirectToOvcHouseholdTransferForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcClhivArtCardServiceFormPage) {
+      redirectToClhivArtCardServiceForm(context, formAutoSave);
     }
   }
 
