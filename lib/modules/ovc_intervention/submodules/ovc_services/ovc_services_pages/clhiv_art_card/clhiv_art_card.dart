@@ -15,7 +15,6 @@ import 'package:kb_mobile_app/core/utils/app_resume_routes/app_resume_route.dart
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/events.dart';
-import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
