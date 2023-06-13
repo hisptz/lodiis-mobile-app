@@ -94,7 +94,7 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
               top: 10.0,
             ),
             child: const Text(
-              'There is no LBSE beneficiaries enrolled at moment',
+              'There is no LBSE beneficiaries enrolled at the moment',
             ),
           ),
         ],

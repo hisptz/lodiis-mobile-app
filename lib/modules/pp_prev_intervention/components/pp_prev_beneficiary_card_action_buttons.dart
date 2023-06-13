@@ -28,9 +28,7 @@ class PpPrevBeneficiaryCardActionButtons extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: [
             InkWell(
-              onTap: () {
-                onOpenServiceForm!();
-              },
+              onTap: onOpenServiceForm!,
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 5.0,
@@ -42,7 +40,7 @@ class PpPrevBeneficiaryCardActionButtons extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Service',
+                      'Services',
                       style: const TextStyle().copyWith(
                         fontSize: 14.0,
                         fontWeight: FontWeight.normal,
@@ -54,9 +52,7 @@ class PpPrevBeneficiaryCardActionButtons extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-                onOpenReferralForm!();
-              },
+              onTap: onOpenReferralForm!,
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 5.0,

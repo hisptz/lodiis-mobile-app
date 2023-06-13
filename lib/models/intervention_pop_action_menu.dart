@@ -36,9 +36,9 @@ class InterventionPopActionMenu {
         translatedName: 'Khetha Puo',
       ),
       InterventionPopActionMenu(
-          id: 'application_logs', name: 'Application Logs'),
-      // InterventionPopActionMenu(id: 'report', name: 'Report'),
-      // InterventionPopActionMenu(id: 'profile', name: 'Profiles'),
+        id: 'application_logs',
+        name: 'Application Logs',
+      ),
     ];
   }
 

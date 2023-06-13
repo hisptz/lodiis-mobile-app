@@ -235,14 +235,14 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
             child: Text(
               currentLanguage == 'lesotho'
                   ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                  : 'There is no household enrolled at moment',
+                  : 'There is no household enrolled at the moment',
             ),
           ),
           errorWidget: Center(
             child: Text(
               currentLanguage == 'lesotho'
                   ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                  : 'There is no household enrolled at moment',
+                  : 'There is no household enrolled at the moment',
             ),
           ),
         ),

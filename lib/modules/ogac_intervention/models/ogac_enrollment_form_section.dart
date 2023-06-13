@@ -77,6 +77,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'RB8Wx75hGa4',
             name: 'Village',
+            translatedName: 'Motse',
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),
@@ -90,6 +91,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
+            translatedName: 'Lebitso la pele',
             regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
@@ -98,6 +100,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 's1HaiT6OllL',
             name: 'Middle Name',
+            translatedName: 'Lebitso le mahareng',
             regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
@@ -106,6 +109,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'rSP9c21JsfC',
             name: 'Surname',
+            translatedName: 'Le Fane',
             regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
@@ -114,6 +118,7 @@ class OgacInterventionFormSection {
           InputField(
               id: 'qZP982qpSPS',
               name: 'Date of Birth',
+              translatedName: 'Letsatsi la tsoalo',
               valueType: 'DATE',
               inputColor: const Color(0xFFF05A2A),
               labelColor: const Color(0xFF737373),
@@ -132,20 +137,30 @@ class OgacInterventionFormSection {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-              id: 'vIX4GTSCX4P',
-              name: 'Sex',
-              translatedName: 'Boleng',
-              valueType: 'TEXT',
-              renderAsRadio: true,
-              inputColor: const Color(0xFFF05A2A),
-              labelColor: const Color(0xFF737373),
-              options: [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female'),
-              ]),
+            id: 'vIX4GTSCX4P',
+            name: 'Sex',
+            translatedName: 'Boleng',
+            valueType: 'TEXT',
+            renderAsRadio: true,
+            inputColor: const Color(0xFFF05A2A),
+            labelColor: const Color(0xFF737373),
+            options: [
+              InputFieldOption(
+                code: 'Male',
+                name: 'Male',
+                translatedName: 'Botona',
+              ),
+              InputFieldOption(
+                code: 'Female',
+                name: 'Female',
+                translatedName: 'Botsehali',
+              ),
+            ],
+          ),
           InputField(
             id: 'tNdoR0jYr7R',
             name: 'Phone number',
+            translatedName: 'Nomoro ea mohala',
             valueType: 'PHONE_NUMBER',
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),
@@ -153,6 +168,7 @@ class OgacInterventionFormSection {
           InputField(
             id: 'EwZil0AnlYo',
             name: 'School name',
+            translatedName: 'Lebitso la Sekolo',
             valueType: 'TEXT',
             inputColor: const Color(0xFFF05A2A),
             labelColor: const Color(0xFF737373),
