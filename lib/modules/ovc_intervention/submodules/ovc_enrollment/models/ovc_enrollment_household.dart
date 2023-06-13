@@ -184,7 +184,7 @@ class OvcEnrollmentHousehold {
           InputField(
               id: 'qAivZumsnJ2',
               name: 'Caregiver education level',
-              translatedName: '',
+              translatedName: 'Boemo ba thuto ba mohlokomeli ke bofe?',
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
