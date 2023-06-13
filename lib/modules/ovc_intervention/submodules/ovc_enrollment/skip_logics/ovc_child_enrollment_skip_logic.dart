@@ -71,6 +71,9 @@ class OvcChildEnrollmentSkipLogic {
         if (age > 2) {
           hiddenFields['GMcljM7jbNG'] = true;
         }
+        if (age > 5) {
+          hiddenFields['isPgJvbU8tT'] = true;
+        }
       }
       if (inputFieldId == 'iS9mAp3jDaU') {
         if (value == 'Biological mother' || value == 'Biological father') {
@@ -118,6 +121,7 @@ class OvcChildEnrollmentSkipLogic {
         int age = AppUtil.getAgeInYear('${dataObject["qZP982qpSPS"]}');
         var isOvcHIVExposedInfant = (age >= 0 && age <= 2) &&
             '${dataObject["nO38lKlKHYi"]}' == 'Positive';
+
         assignedFields[inputFieldId] = '$isOvcHIVExposedInfant';
       }
       if (inputFieldId == 'Mc3k3bSwXNe' &&
