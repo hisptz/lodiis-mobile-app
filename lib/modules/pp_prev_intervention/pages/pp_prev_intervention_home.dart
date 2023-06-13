@@ -212,7 +212,7 @@ class PpPrevInterventionHome extends StatelessWidget {
                       top: 10.0,
                     ),
                     child: const Text(
-                      'There is no PP PREV beneficiaries enrolled at moment',
+                      'There is no PP PREV beneficiaries enrolled at the moment',
                     ),
                   ),
                   IconButton(
@@ -236,7 +236,7 @@ class PpPrevInterventionHome extends StatelessWidget {
                       top: 10.0,
                     ),
                     child: const Text(
-                      'There is no PP PREV beneficiaries enrolled at moment',
+                      'There is no PP PREV beneficiaries enrolled at the moment',
                     ),
                   ),
                   IconButton(

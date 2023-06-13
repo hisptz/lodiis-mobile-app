@@ -98,7 +98,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
             child: Text(
               currentLanguage == 'lesotho'
                   ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                  : 'There is no household enrolled at moment',
+                  : 'There is no household enrolled at the moment',
             ),
           ),
           pagingController: ovcState.pagingController,
@@ -132,7 +132,7 @@ class _OvcEnrollmentPageState extends State<OvcEnrollmentPage> {
                 Text(
                   currentLanguage == 'lesotho'
                       ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                      : 'There is no household enrolled at moment',
+                      : 'There is no household enrolled at the moment',
                 ),
                 IconButton(
                   icon: SvgPicture.asset(

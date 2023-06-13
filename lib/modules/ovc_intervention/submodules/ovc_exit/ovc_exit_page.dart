@@ -290,14 +290,14 @@ class _OvcExitPageState extends State<OvcExitPage> {
                   child: Text(
                     currentLanguage == 'lesotho'
                         ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                        : 'There is no household enrolled at moment',
+                        : 'There is no household enrolled at the moment',
                   ),
                 ),
                 emptyListWidget: Center(
                   child: Text(
                     currentLanguage == 'lesotho'
                         ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                        : 'There is no household enrolled at moment',
+                        : 'There is no household enrolled at the moment',
                   ),
                 ),
               ),

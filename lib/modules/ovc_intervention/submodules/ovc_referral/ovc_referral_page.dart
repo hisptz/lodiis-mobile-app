@@ -99,14 +99,14 @@ class _OvcReferralPageState extends State<OvcReferralPage> {
             child: Text(
               currentLanguage == 'lesotho'
                   ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                  : 'There is no household enrolled at moment',
+                  : 'There is no household enrolled at the moment',
             ),
           ),
           emptyListWidget: Center(
             child: Text(
               currentLanguage == 'lesotho'
                   ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                  : 'There is no household enrolled at moment',
+                  : 'There is no household enrolled at the moment',
             ),
           ),
           childBuilder: (context, ovcHousehold, index) => OvcHouseholdCard(

@@ -159,7 +159,7 @@ class OgacInterventionHome extends StatelessWidget {
                       top: 10.0,
                     ),
                     child: const Text(
-                      'There is no OGAC beneficiaries enrolled at moment',
+                      'There is no OGAC beneficiaries enrolled at the moment',
                     ),
                   ),
                   IconButton(
@@ -183,7 +183,7 @@ class OgacInterventionHome extends StatelessWidget {
                       top: 10.0,
                     ),
                     child: const Text(
-                      'There is no OGAC beneficiaries enrolled at moment',
+                      'There is no OGAC beneficiaries enrolled at the moment',
                     ),
                   ),
                   IconButton(
