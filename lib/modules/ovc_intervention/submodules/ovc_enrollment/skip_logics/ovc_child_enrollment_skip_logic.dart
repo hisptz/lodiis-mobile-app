@@ -273,7 +273,7 @@ class OvcChildEnrollmentSkipLogic {
       'Child living with disability'
     ];
     for (var vulnerabilityKey in vulnerabilities) {
-      if (dataObject[vulnerabilityKey] == true) {
+      if ('${dataObject[vulnerabilityKey]}' == 'true') {
         var vulnerabilityIndex = vulnerabilities.indexOf(vulnerabilityKey);
         String value = vulnerabilityIndex >= 0
             ? primaryVulnerabilitiesOptions[
