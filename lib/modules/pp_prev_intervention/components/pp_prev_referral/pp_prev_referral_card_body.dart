@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_referral_event.dart';
+import 'package:provider/provider.dart';
 
 class PpPrevReferralCardBody extends StatelessWidget {
   const PpPrevReferralCardBody({
@@ -61,25 +63,38 @@ class PpPrevReferralCardBody extends StatelessWidget {
         horizontal: 13.0,
         vertical: 10.0,
       ),
-      child: Column(
-        children: [
-          _getReferralDetails(
-            key: 'Referral service',
-            value: referralEvent.referralService!,
-          ),
-          _getReferralDetails(
-            key: 'Referral point',
-            value: referralEvent.referralPoint!,
-          ),
-          _getReferralDetails(
-            key: 'Location',
-            value: referralEvent.referredTo!,
-          ),
-          _getReferralDetails(
-            key: 'Referral Date',
-            value: referralEvent.referralDate!,
-          ),
-        ],
+      child: Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String? currentLanguage = languageTranslationState.currentLanguage;
+          return Column(
+            children: [
+              _getReferralDetails(
+                key: currentLanguage == 'lesotho'
+                    ? 'Phetisetso ea Lits’ebeletso'
+                    : 'Referral service',
+                value: referralEvent.referralService!,
+              ),
+              _getReferralDetails(
+                key: currentLanguage == 'lesotho'
+                    ? 'Sebaka sa phetisetso'
+                    : 'Referral point',
+                value: referralEvent.referralPoint!,
+              ),
+              _getReferralDetails(
+                key: currentLanguage == 'lesotho'
+                    ? 'Setsi kapa council ea phetisetso'
+                    : 'Location',
+                value: referralEvent.referredTo!,
+              ),
+              _getReferralDetails(
+                key: currentLanguage == 'lesotho'
+                    ? 'Letsatsi la Phetisetso'
+                    : 'Referral Date',
+                value: referralEvent.referralDate!,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
