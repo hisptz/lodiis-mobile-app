@@ -226,14 +226,31 @@ class OvcEnrollmentChild {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Preschool', name: 'Pre-School'),
-                  InputFieldOption(code: 'PrimaryLevel', name: 'Primary Level'),
                   InputFieldOption(
-                      code: 'SecondaryLevel', name: 'Secondary Level'),
+                    code: 'Preschool',
+                    name: 'Pre-School',
+                    translatedName: 'Sekolo sa mathomo',
+                  ),
                   InputFieldOption(
-                      code: 'TertiaryLevel', name: 'Tertiary Level'),
+                    code: 'PrimaryLevel',
+                    name: 'Primary Level',
+                    translatedName: 'Sekolo se mahareng',
+                  ),
                   InputFieldOption(
-                      code: 'VocationalLevel', name: 'Vocational Level'),
+                    code: 'SecondaryLevel',
+                    name: 'Secondary Level',
+                    translatedName: 'Sekolo se phahameng (college/university)',
+                  ),
+                  InputFieldOption(
+                    code: 'TertiaryLevel',
+                    name: 'Tertiary Level',
+                    translatedName: 'Sekolo sa mosebetsi oa matsoho',
+                  ),
+                  InputFieldOption(
+                    code: 'VocationalLevel',
+                    name: 'Vocational Level',
+                    translatedName: 'Sekolo se seng',
+                  ),
                 ],
               ),
               InputField(
