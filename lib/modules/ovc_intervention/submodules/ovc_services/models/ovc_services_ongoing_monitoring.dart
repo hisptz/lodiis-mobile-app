@@ -446,146 +446,137 @@ class OvcServicesOngoingMonitoring {
                 labelColor: const Color(0xFF737373)),
           ]),
       FormSection(
-          id: 'Schooled',
-          name: 'DOMAIN SCHOOLED',
-          translatedName: 'TSA SEKOLO',
-          color: const Color(0xFF9B2BAE),
-          borderColor: const Color(0xFF9B2BAE),
-          inputFields: [
-            InputField(
-                id: 'AKjlaqY2VFZ',
-                name: 'Aflatoun/teen Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa Aflatoun/teen',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
-                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
-                  InputFieldOption(code: 'Completed', name: 'Completed')
-                ],
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'I4vmREMJZug',
-                name: 'HOMEWORK CLUB Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa HWCLUB',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
-                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
-                  InputFieldOption(code: 'Completed', name: 'Completed')
-                ],
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'wJergsqzGLz',
-                name: 'BURSARY Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa BURSARY',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
-                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
-                  InputFieldOption(code: 'Completed', name: 'Completed')
-                ],
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ks2bazFqWHo',
-                name: 'SMATERIAL Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SMATERIAL',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
-                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
-                  InputFieldOption(code: 'Completed', name: 'Completed')
-                ],
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'T51fsJaITSM',
-                name: 'REENROL Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa REENROL',
-                options: [
-                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
-                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
-                  InputFieldOption(code: 'Completed', name: 'Completed')
-                ],
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'V8IMX0zD0Of',
-                name: 'SFEES Service progress',
-                translatedName: 'Tsoelo-pele ea litšebeletso tsa SFEES',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
-                  InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
-                  InputFieldOption(code: 'Completed', name: 'Completed')
-                ],
-                inputColor: const Color(0xFF9B2BAE),
-                labelColor: const Color(0xFF737373))
-          ]),
+        id: 'Schooled',
+        name: 'DOMAIN SCHOOLED',
+        translatedName: 'TSA SEKOLO',
+        color: const Color(0xFF9B2BAE),
+        borderColor: const Color(0xFF9B2BAE),
+        inputFields: [
+          InputField(
+              id: 'AKjlaqY2VFZ',
+              name: 'Aflatoun/teen Service progress',
+              translatedName: 'Tsoelo-pele ea litšebeletso tsa Aflatoun/teen',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                InputFieldOption(code: 'Completed', name: 'Completed')
+              ],
+              inputColor: const Color(0xFF9B2BAE),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'I4vmREMJZug',
+              name: 'HOMEWORK CLUB Service progress',
+              translatedName: 'Tsoelo-pele ea litšebeletso tsa HWCLUB',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                InputFieldOption(code: 'Completed', name: 'Completed')
+              ],
+              inputColor: const Color(0xFF9B2BAE),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'wJergsqzGLz',
+              name: 'BURSARY Service progress',
+              translatedName: 'Tsoelo-pele ea litšebeletso tsa BURSARY',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                InputFieldOption(code: 'Completed', name: 'Completed')
+              ],
+              inputColor: const Color(0xFF9B2BAE),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'ks2bazFqWHo',
+              name: 'SMATERIAL Service progress',
+              translatedName: 'Tsoelo-pele ea litšebeletso tsa SMATERIAL',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                InputFieldOption(code: 'Completed', name: 'Completed')
+              ],
+              inputColor: const Color(0xFF9B2BAE),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'T51fsJaITSM',
+              name: 'REENROL Service progress',
+              translatedName: 'Tsoelo-pele ea litšebeletso tsa REENROL',
+              options: [
+                InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                InputFieldOption(code: 'Completed', name: 'Completed')
+              ],
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF9B2BAE),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'V8IMX0zD0Of',
+              name: 'SFEES Service progress',
+              translatedName: 'Tsoelo-pele ea litšebeletso tsa SFEES',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Incomplete', name: 'Incomplete'),
+                InputFieldOption(code: 'Inprogress', name: 'Inprogress'),
+                InputFieldOption(code: 'Completed', name: 'Completed')
+              ],
+              inputColor: const Color(0xFF9B2BAE),
+              labelColor: const Color(0xFF737373))
+        ],
+      ),
       FormSection(
-          name: 'Other activities',
-          color: const Color(0xFF4D9E49),
-          borderColor: const Color(0xFF4D9E49),
-          inputFields: [
-            InputField(
-                id: 'C06k1O4qrjw',
-                name: 'Other activities progress',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373))
-          ]),
-      FormSection(
-          id: '',
-          name: 'For those who were referred and changing HIV status',
-          translatedName:
-              'Bakeng sa ba fetiselitsoeng litsing tsa bophelo le bao boemo ba bona ba tšoaetso bo fetohileng',
-          color: const Color(0xFF4D9E49),
-          inputFields: [
-            InputField(
-                id: 'gdbL3fKWwXn',
-                name: 'Tested for HIV?',
-                translatedName: 'Hlahlobile HIV?',
-                valueType: 'BOOLEAN',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'uRsImCXXDXe',
-                name: 'HIV status',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'No Response', name: 'No Response'),
-                ],
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'jiS3es770I1',
-                name: 'Has the child been referred for ART?',
-                translatedName: 'Has the child been referred for ART?',
-                valueType: 'BOOLEAN',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'ywYdzitJvSi',
-                name: 'Was the referred child enrolled for ART services?',
-                translatedName:
-                    'Na ngoana o ile a fumana litšebeletso tsa kalafo?',
-                valueType: 'BOOLEAN',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'KgLtXquRot3',
-                name: 'Health facility',
-                valueType: 'ORGANISATION_UNIT',
-                allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
-                filteredPrograms: [OvcInterventionConstant.program],
-                inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF737373)),
-          ]),
+        id: '',
+        name: 'For those who were referred and changing HIV status',
+        translatedName:
+            'Bakeng sa ba fetiselitsoeng litsing tsa bophelo le bao boemo ba bona ba tšoaetso bo fetohileng',
+        color: const Color(0xFF4D9E49),
+        inputFields: [
+          InputField(
+              id: 'gdbL3fKWwXn',
+              name: 'Tested for HIV?',
+              translatedName: 'Hlahlobile HIV?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'uRsImCXXDXe',
+              name: 'HIV status',
+              translatedName: 'Sephetho sa tsoaetso ea HIV',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Positive', name: 'Positive'),
+                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(code: 'No Response', name: 'No Response'),
+              ],
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'jiS3es770I1',
+              name: 'Has the child been referred for ART?',
+              translatedName: 'Has the child been referred for ART?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'ywYdzitJvSi',
+              name: 'Was the referred child enrolled for ART services?',
+              translatedName:
+                  'Na ngoana o ile a fumana litšebeletso tsa kalafo?',
+              valueType: 'BOOLEAN',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'KgLtXquRot3',
+              name: 'Health facility',
+              valueType: 'ORGANISATION_UNIT',
+              allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
+              filteredPrograms: [OvcInterventionConstant.program],
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373)),
+        ],
+      ),
     ];
   }
 }
