@@ -55,9 +55,18 @@ class AgywDreamsShortForm {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Negative', name: 'Negative'),
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
+                InputFieldOption(
+                    code: 'Unknown',
+                    name: 'Unknown',
+                    translatedName: 'Tse sa tsejoeng'),
               ],
             ),
             InputField(

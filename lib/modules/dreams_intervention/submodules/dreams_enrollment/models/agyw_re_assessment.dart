@@ -2678,14 +2678,10 @@ class AgywReAssessment {
                 InputFieldOption(
                   code: 'zq24EQYpsGV',
                   name: 'Go Girls: Sepheo Adopted Curriculum: Married Women',
-                  translatedName:
-                      'Go Girls: Sepheo Adopted Curriculum: Married Women',
                 ),
                 InputFieldOption(
                   code: 'qClMmewbJzu',
                   name:
-                      'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
-                  translatedName:
                       'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
                 ),
                 InputFieldOption(
@@ -2696,19 +2692,14 @@ class AgywReAssessment {
                 InputFieldOption(
                   code: 'u8ij6OqwVtl',
                   name: 'Financial Education',
-                  translatedName: 'Financial Education',
                 ),
                 InputFieldOption(
                   code: 'RHsrPq4uV2s',
                   name: 'Savings and Internal Lending Communities (SILC)',
-                  translatedName:
-                      'Savings and Internal Lending Communities (SILC)',
                 ),
                 InputFieldOption(
                   code: 'ZjZGAUghgNj',
                   name: 'Condom Social Marketing CSM Toolkit (Pusha love)',
-                  translatedName:
-                      'Condom Social Marketing CSM Toolkit (Pusha love)',
                 ),
               ]),
           InputField(

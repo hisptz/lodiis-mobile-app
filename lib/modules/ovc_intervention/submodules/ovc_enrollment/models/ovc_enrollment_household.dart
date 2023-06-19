@@ -156,9 +156,18 @@ class OvcEnrollmentHousehold {
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
-                InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
+                InputFieldOption(
+                    code: 'Unknown',
+                    name: 'Unknown',
+                    translatedName: 'Tse sa tsejoeng'),
                 InputFieldOption(code: 'No Response', name: 'No Response'),
               ]),
           InputField(

@@ -314,9 +314,18 @@ class OvcEnrollmentChild {
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
+                  InputFieldOption(
+                      code: 'Unknown',
+                      name: 'Unknown',
+                      translatedName: 'Tse sa tsejoeng'),
                   InputFieldOption(code: 'No Response', name: 'No Response'),
                 ],
               ),
@@ -486,9 +495,18 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Unknown', name: 'Unknown'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
+              InputFieldOption(
+                  code: 'Unknown',
+                  name: 'Unknown',
+                  translatedName: 'Tse sa tsejoeng'),
               InputFieldOption(code: 'No Response', name: 'No Response'),
             ],
           ),
@@ -602,9 +620,18 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Unknown', name: 'Unknown'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
+              InputFieldOption(
+                  code: 'Unknown',
+                  name: 'Unknown',
+                  translatedName: 'Tse sa tsejoeng'),
               InputFieldOption(code: 'No Response', name: 'No Response'),
             ],
           ),

@@ -2044,37 +2044,27 @@ class AgywEnrollmentFormSection {
                 InputFieldOption(
                   code: 'Hn0P1sGIKe1',
                   name: 'Go Girls: Sepheo Adopted Curriculum: Married Women',
-                  translatedName:
-                      'Go Girls: Sepheo Adopted Curriculum: Married Women',
                 ),
                 InputFieldOption(
                   code: 'SaAW6b6glDZ',
                   name:
                       'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
-                  translatedName:
-                      'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
                 ),
                 InputFieldOption(
                   code: 'hGzsAgaBPSY',
                   name: 'Aflatoun Non Formal Education',
-                  translatedName: 'Aflatoun Non Formal Education',
                 ),
                 InputFieldOption(
                   code: 'iFFZOpnvyDp',
                   name: 'Financial Education',
-                  translatedName: 'Financial Education',
                 ),
                 InputFieldOption(
                   code: 'Ue7KBKNtUzO',
                   name: 'Savings and Internal Lending Communities (SILC)',
-                  translatedName:
-                      'Savings and Internal Lending Communities (SILC)',
                 ),
                 InputFieldOption(
                   code: 'uEl5YpDbqnb',
                   name: 'Condom Social Marketing CSM Toolkit (Pusha love)',
-                  translatedName:
-                      'Condom Social Marketing CSM Toolkit (Pusha love)',
                 ),
               ]),
           InputField(

@@ -380,8 +380,14 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
               InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               InputFieldOption(code: 'Didn\'t collect', name: 'Didn\'t collect')
             ],
@@ -615,8 +621,14 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
               InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
             ],
           ),
@@ -634,8 +646,14 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
               InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
             ],
           ),
@@ -653,8 +671,14 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
               InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
             ],
           ),
@@ -677,8 +701,14 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
               InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
             ],
           ),
