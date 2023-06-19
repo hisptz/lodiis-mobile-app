@@ -73,10 +73,26 @@ class OvcEnrollmentChild {
                       code: 'Biological mother', name: 'Biological mother'),
                   InputFieldOption(
                       code: 'Biological father', name: 'Biological father'),
-                  InputFieldOption(code: 'Aunt/Uncle', name: 'Aunt/Uncle'),
-                  InputFieldOption(code: 'Sibling', name: 'Sibling'),
-                  InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
-                  InputFieldOption(code: 'Other', name: 'Other')
+                  InputFieldOption(
+                    code: 'Aunt/Uncle',
+                    name: 'Aunt/Uncle',
+                    translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane',
+                  ),
+                  InputFieldOption(
+                    code: 'Sibling',
+                    name: 'Sibling',
+                    translatedName: 'Ke ngoaneso',
+                  ),
+                  InputFieldOption(
+                    code: 'Grandparent',
+                    name: 'Grandparent',
+                    translatedName: 'Ke Nkhono/Ntate-moholo',
+                  ),
+                  InputFieldOption(
+                    code: 'Other',
+                    name: 'Other',
+                    translatedName: 'E mong',
+                  )
                 ],
               ),
               InputField(
