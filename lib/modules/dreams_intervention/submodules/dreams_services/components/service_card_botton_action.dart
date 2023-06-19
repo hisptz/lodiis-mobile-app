@@ -11,7 +11,6 @@ class ServiceCardButtonAction extends StatelessWidget {
     this.onOpenPrepLongForm,
     this.onOpenPrepShortForm,
     this.onOpenHTSShortForm,
-    this.onOpenHTSLongForm,
     this.onOpenCondomForm,
     this.onOpenContraceptivesForm,
     this.onOpenMSGHIVForm,
@@ -30,7 +29,6 @@ class ServiceCardButtonAction extends StatelessWidget {
   final VoidCallback? onOpenPrepLongForm;
   final VoidCallback? onOpenPrepShortForm;
   final VoidCallback? onOpenHTSShortForm;
-  final VoidCallback? onOpenHTSLongForm;
   final VoidCallback? onOpenMSGHIVForm;
   final VoidCallback? onOpenCondomForm;
   final VoidCallback? onOpenContraceptivesForm;
@@ -67,12 +65,9 @@ class ServiceCardButtonAction extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     children: [
                       Visibility(
-                        visible: currentUserState.canManageHtsLongForm ||
-                            currentUserState.canManageHtsShortForm,
+                        visible: currentUserState.canManageHtsShortForm,
                         child: InkWell(
-                          onTap: currentUserState.canManageHtsShortForm
-                              ? onOpenHTSShortForm
-                              : onOpenHTSLongForm,
+                          onTap: onOpenHTSShortForm,
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 5.0,
