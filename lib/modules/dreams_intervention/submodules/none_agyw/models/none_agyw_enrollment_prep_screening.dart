@@ -79,8 +79,10 @@ class NoneAgywEnrollmentPrepScreening {
                       inputColor: const Color(0xFF258DCC),
                       labelColor: const Color(0xFF737373),
                       options: [
-                        InputFieldOption(code: 'Yes', name: 'Yes'),
-                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(
+                            code: 'Yes', name: 'Yes', translatedName: 'E'),
+                        InputFieldOption(
+                            code: 'No', name: 'No', translatedName: 'Che'),
                         InputFieldOption(
                             code: 'Don\'t Know', name: 'Don\'t Know')
                       ]),
@@ -97,8 +99,10 @@ class NoneAgywEnrollmentPrepScreening {
                       inputColor: const Color(0xFF258DCC),
                       labelColor: const Color(0xFF737373),
                       options: [
-                        InputFieldOption(code: 'Yes', name: 'Yes'),
-                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(
+                            code: 'Yes', name: 'Yes', translatedName: 'E'),
+                        InputFieldOption(
+                            code: 'No', name: 'No', translatedName: 'Che'),
                         InputFieldOption(
                             code: 'Don\'t Know', name: 'Don\'t Know')
                       ]),
@@ -110,8 +114,10 @@ class NoneAgywEnrollmentPrepScreening {
                       inputColor: const Color(0xFF258DCC),
                       labelColor: const Color(0xFF737373),
                       options: [
-                        InputFieldOption(code: 'Yes', name: 'Yes'),
-                        InputFieldOption(code: 'No', name: 'No'),
+                        InputFieldOption(
+                            code: 'Yes', name: 'Yes', translatedName: 'E'),
+                        InputFieldOption(
+                            code: 'No', name: 'No', translatedName: 'Che'),
                         InputFieldOption(
                             code: 'Don\'t Know', name: 'Don\'t Know')
                       ]),

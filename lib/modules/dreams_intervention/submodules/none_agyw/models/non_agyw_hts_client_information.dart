@@ -56,12 +56,14 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'RB8Wx75hGa4',
                 name: 'Village',
+                translatedName: 'Motse',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'WTZ7GLTrE8Q',
                 name: 'First Name',
+                translatedName: 'Lebitso la pele',
                 regExpValidation: RegExp('^[A-Za-z]{0,}'),
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
@@ -69,6 +71,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 's1HaiT6OllL',
                 name: 'Middle Name',
+                translatedName: 'Lebitso le mahareng',
                 regExpValidation: RegExp('^[A-Za-z]{0,}'),
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
@@ -76,6 +79,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'rSP9c21JsfC',
                 name: 'Surname',
+                translatedName: 'Le Fane',
                 regExpValidation: RegExp('^[A-Za-z]{0,}'),
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
@@ -88,13 +92,22 @@ class NonAgywHTSClientInformation {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female')
+                InputFieldOption(
+                  code: 'Male',
+                  name: 'Male',
+                  translatedName: 'Botona',
+                ),
+                InputFieldOption(
+                  code: 'Female',
+                  name: 'Female',
+                  translatedName: 'Botsehali',
+                ),
               ],
             ),
             InputField(
               id: 'qZP982qpSPS',
               name: 'Date of Birth',
+              translatedName: 'Letsatsi la tsoalo ',
               valueType: 'DATE',
               minAgeInYear: 15,
               numberOfMonth: 11,
@@ -231,7 +244,10 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                   InputFieldOption(
                       code: 'Positive on ART', name: 'Positive on ART'),
                   InputFieldOption(
@@ -257,7 +273,7 @@ class NonAgywHTSClientInformation {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'LZFhD0N9Zj5',
-                name: "what's your partner HIV status",
+                name: "What's your partner HIV status",
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
@@ -363,6 +379,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'rh881j2vfvT',
                 name: 'STIs (Past or Present)',
+                translatedName: 'Mafu a likobo',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -377,6 +394,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'p33MrrhsQRz',
                 name: 'Transactional Sex',
+                translatedName: 'Thobalano u shebile menyetla e itseng',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -398,6 +416,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'yc3BlUIEup3',
                 name: 'Experience of Violence',
+                translatedName: 'Tlhekefetso',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -412,6 +431,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'HJIHPjOf5s1',
                 name: 'Alcohol Use',
+                translatedName: 'Tsebeliso ea tai',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -511,7 +531,7 @@ class NonAgywHTSClientInformation {
               options: [
                 InputFieldOption(
                     code: 'Employment or Self employmed',
-                    name: 'Employment or Self employmed'),
+                    name: 'Employment or Self employed'),
                 InputFieldOption(code: 'Student', name: 'Student'),
                 InputFieldOption(code: 'Unemployed', name: 'Unemployed')
               ]),
