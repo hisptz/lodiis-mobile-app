@@ -133,8 +133,16 @@ class AgywEnrollmentRiskAssessment {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female'),
+              InputFieldOption(
+                code: 'Male',
+                name: 'Male',
+                translatedName: 'Botona',
+              ),
+              InputFieldOption(
+                code: 'Female',
+                name: 'Female',
+                translatedName: 'Botsehali',
+              ),
               InputFieldOption(
                   code: 'Transgender (male to female)',
                   name: 'Transgender (male to female)'),
@@ -531,7 +539,7 @@ class AgywEnrollmentRiskAssessment {
               ),
               InputField(
                 id: 'x9CWVcy9CZ2',
-                name: 'b. Were they treated?',
+                name: 'b. If yes, were they treated',
                 translatedName:
                     'b. Haeba karabo e le “E”, na mafu ao a ile a alafuoa?',
                 valueType: 'BOOLEAN',
@@ -897,13 +905,14 @@ class AgywEnrollmentRiskAssessment {
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                      code: 'School',
-                      name: 'School',
-                      translatedName: 'Sekolo se tloaelehileng'),
+                    code: 'School',
+                    name: 'School',
+                    translatedName: 'Sekolo se tloaelehileng',
+                  ),
                   InputFieldOption(
                       code: 'Vocational',
                       name: 'Vocational',
-                      translatedName: 'ekolo sa mosebetsi oa matsoho ')
+                      translatedName: 'ekolo sa mosebetsi oa matsoho ,')
                 ],
               ),
               InputField(
@@ -1004,17 +1013,20 @@ class AgywEnrollmentRiskAssessment {
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                      code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother Died)',
-                      translatedName: 'Khutsana Khulu (ntate le mme)'),
+                    code: 'Single Orphan(Mother)',
+                    name: 'Single Orphan(Mother Died)',
+                    translatedName: 'Khutsana Khulu (ntate le mme)',
+                  ),
                   InputFieldOption(
-                      code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father Died)',
-                      translatedName: 'Khutsana ka Motsoali a le mong (ntate)'),
+                    code: 'Single Orphan(Father)',
+                    name: 'Single Orphan(Father Died)',
+                    translatedName: 'Khutsana ka Motsoali a le mong (ntate)',
+                  ),
                   InputFieldOption(
-                      code: 'Double Orphan',
-                      name: 'Double Orphan (Father & Mother Died)',
-                      translatedName: 'Khutsana Khulu (ntate le mme)'),
+                    code: 'Double Orphan',
+                    name: 'Double Orphan (Father & Mother Died)',
+                    translatedName: 'Khutsana Khulu (ntate le mme)',
+                  ),
                 ],
               ),
               InputField(

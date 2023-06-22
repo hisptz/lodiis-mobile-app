@@ -92,14 +92,17 @@ class PpPrevServiceForm {
               InputFieldOption(
                 code: '0-3 months ago',
                 name: '0-3 months ago',
+                translatedName: '0-3 likhoeli tse fetileng',
               ),
               InputFieldOption(
                 code: '4-6 months ago',
                 name: '4-6 months ago',
+                translatedName: '4-6 likhoeli tse fetileng',
               ),
               InputFieldOption(
                 code: '7-12 months ago',
                 name: '7-12 months ago',
+                translatedName: '4-6 likhoeli tse fetileng',
               ),
               InputFieldOption(
                 code: 'Above 12 months ago',

@@ -382,8 +382,14 @@ class HouseholdServicesOngoingMonitoring {
                 translatedName: 'Sephetho sa tsoaetso ea HIV',
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                   InputFieldOption(code: 'No Response', name: 'No Response'),
                 ],
                 inputColor: const Color(0xFF4D9E49),

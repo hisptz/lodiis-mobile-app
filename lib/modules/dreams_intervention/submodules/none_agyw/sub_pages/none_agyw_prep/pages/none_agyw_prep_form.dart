@@ -37,7 +37,7 @@ class NoneAgywPrepForm extends StatefulWidget {
 }
 
 class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
-  final String label = 'PREP VISIT-yes';
+  final String label = 'PREP VISIT';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   late List<String> mandatoryFields;

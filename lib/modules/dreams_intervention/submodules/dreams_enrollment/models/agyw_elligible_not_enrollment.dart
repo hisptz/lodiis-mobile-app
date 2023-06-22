@@ -92,8 +92,16 @@ class AgywElligibleNotEnrollment {
               labelColor: const Color(0xFF737373),
               renderAsRadio: true,
               options: [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female'),
+                InputFieldOption(
+                  code: 'Male',
+                  name: 'Male',
+                  translatedName: 'Botona',
+                ),
+                InputFieldOption(
+                  code: 'Female',
+                  name: 'Female',
+                  translatedName: 'Botsehali',
+                ),
                 InputFieldOption(
                     code: 'Transgender (male to female)',
                     name: 'Transgender (male to female)'),

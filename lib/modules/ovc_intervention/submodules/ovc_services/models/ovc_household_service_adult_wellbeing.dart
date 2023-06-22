@@ -651,13 +651,24 @@ class OvcHouseholdServiceAdultWellbeing {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: '0-3 months ago', name: '0-3 months ago'),
+                    code: '0-3 months ago',
+                    name: '0-3 months ago',
+                    translatedName: '0-3 likhoeli tse fetileng',
+                  ),
                   InputFieldOption(
-                      code: '4-6 months ago', name: '4-6 months ago'),
+                    code: '4-6 months ago',
+                    name: '4-6 months ago',
+                    translatedName: '4-6 likhoeli tse fetileng',
+                  ),
                   InputFieldOption(
-                      code: '7-12 months ago', name: '7-12 months ago'),
+                    code: '7-12 months ago',
+                    name: '7-12 months ago',
+                    translatedName: '4-6 likhoeli tse fetileng',
+                  ),
                   InputFieldOption(
-                      code: 'Above 12 months ago', name: 'Above 12 months ago'),
+                    code: 'Above 12 months ago',
+                    name: 'Above 12 months ago',
+                  ),
                 ],
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),

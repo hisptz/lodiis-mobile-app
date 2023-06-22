@@ -56,12 +56,14 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'RB8Wx75hGa4',
                 name: 'Village',
+                translatedName: 'Motse',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'WTZ7GLTrE8Q',
                 name: 'First Name',
+                translatedName: 'Lebitso la pele',
                 regExpValidation: RegExp('^[A-Za-z]{0,}'),
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
@@ -69,6 +71,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 's1HaiT6OllL',
                 name: 'Middle Name',
+                translatedName: 'Lebitso le mahareng',
                 regExpValidation: RegExp('^[A-Za-z]{0,}'),
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
@@ -76,6 +79,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'rSP9c21JsfC',
                 name: 'Surname',
+                translatedName: 'Le Fane',
                 regExpValidation: RegExp('^[A-Za-z]{0,}'),
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
@@ -88,13 +92,22 @@ class NonAgywHTSClientInformation {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female')
+                InputFieldOption(
+                  code: 'Male',
+                  name: 'Male',
+                  translatedName: 'Botona',
+                ),
+                InputFieldOption(
+                  code: 'Female',
+                  name: 'Female',
+                  translatedName: 'Botsehali',
+                ),
               ],
             ),
             InputField(
               id: 'qZP982qpSPS',
               name: 'Date of Birth',
+              translatedName: 'Letsatsi la tsoalo ',
               valueType: 'DATE',
               minAgeInYear: 15,
               numberOfMonth: 11,
@@ -231,7 +244,10 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                   InputFieldOption(
                       code: 'Positive on ART', name: 'Positive on ART'),
                   InputFieldOption(
@@ -257,14 +273,23 @@ class NonAgywHTSClientInformation {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'LZFhD0N9Zj5',
-                name: "what's your partner HIV status",
+                name: "What's your partner HIV status",
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
+                  InputFieldOption(
+                      code: 'Unknown',
+                      name: 'Unknown',
+                      translatedName: 'Tse sa tsejoeng'),
                   InputFieldOption(code: 'No Response', name: 'No Response')
                 ]),
             InputField(
@@ -354,6 +379,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'rh881j2vfvT',
                 name: 'STIs (Past or Present)',
+                translatedName: 'Mafu a likobo',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -368,6 +394,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'p33MrrhsQRz',
                 name: 'Transactional Sex',
+                translatedName: 'Thobalano u shebile menyetla e itseng',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -389,6 +416,7 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'yc3BlUIEup3',
                 name: 'Experience of Violence',
+                translatedName: 'Tlhekefetso',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
@@ -403,195 +431,147 @@ class NonAgywHTSClientInformation {
             InputField(
                 id: 'HJIHPjOf5s1',
                 name: 'Alcohol Use',
+                translatedName: 'Tsebeliso ea tai',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 isReadOnly: false,
                 labelColor: const Color(0xFF737373)),
           ]),
       FormSection(
-          name: "Today's HIV test",
-          description:
-              'Date: ${AppUtil.formattedDateTimeIntoString(DateTime.now())}',
-          color: const Color(0xFF737373),
-          inputFields: [
-            InputField(
-                id: 'sJ35hsF6Lf9',
-                name: 'Client Type',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(code: 'Individual', name: 'Individual'),
-                  InputFieldOption(code: 'Couple', name: 'Couple')
-                ]),
-            InputField(
-                id: 'XjHuTmtsXsz',
-                name: 'Couple UIC',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Lam6bSq1Zgk',
-                name: 'Testing channel',
-                valueType: 'TEXT',
-                options: [
-                  InputFieldOption(code: 'Index', name: 'Index'),
-                  InputFieldOption(
-                      code: 'New Start clinic', name: 'New Start clinic'),
-                  InputFieldOption(code: 'VCT', name: 'VCT'),
-                  InputFieldOption(
-                      code: 'Mobile testing', name: 'Mobile testing'),
-                  InputFieldOption(code: 'Home-based', name: 'Home-based'),
-                  InputFieldOption(
-                      code: 'Community PrEP', name: 'Community PrEP'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
-                ],
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'w6kNR0e4G6V',
-              name: 'Other community platforms',
+        name: "Today's HIV test",
+        description:
+            'Date: ${AppUtil.formattedDateTimeIntoString(DateTime.now())}',
+        color: const Color(0xFF737373),
+        inputFields: [
+          InputField(
+              id: 'sJ35hsF6Lf9',
+              name: 'Client Type',
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'J53jgfHiufC',
-                name: 'Layering',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Assist/ Sentebale', name: 'Assist/ Sentebale'),
-                  InputFieldOption(code: 'IPC', name: 'IPC'),
-                  InputFieldOption(code: 'M2M', name: 'M2M'),
-                  InputFieldOption(code: 'CRS or Caritas', name: 'CRS or KB'),
-                  InputFieldOption(code: 'Promo', name: 'Promo'),
-                  InputFieldOption(code: 'WVI', name: 'WVI'),
-                  InputFieldOption(
-                      code: 'Care for Lesotho', name: 'Care for Lesotho'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
-                ]),
-            InputField(
-                id: 'ybq5BQOdMG6',
-                name: 'Other layering',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'uQLJ4S06kfR',
-                name: 'How far did you go to school',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(code: 'None', name: 'None'),
-                  InputFieldOption(code: 'Primary', name: 'Primary'),
-                  InputFieldOption(
-                      code: 'Secondary school', name: 'Secondary school'),
-                  InputFieldOption(code: 'High school', name: 'High school'),
-                  InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
-                ]),
-            InputField(
-                id: 'UXHDCoIaOsH',
-                name: 'Your work',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                      code: 'Employment or Self employmed',
-                      name: 'Employment or Self employmed'),
-                  InputFieldOption(code: 'Student', name: 'Student'),
-                  InputFieldOption(code: 'Unemployed', name: 'Unemployed')
-                ]),
-            InputField(
-                id: 'G86T8BY1eVL',
-                name: 'What made you decide to get tested for HIV today',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(code: 'Index', name: 'Index'),
-                  InputFieldOption(
-                      code: 'Other health worker', name: 'Other health worker'),
-                  InputFieldOption(
-                      code: 'Self motivated', name: 'Self motivated'),
-                  InputFieldOption(code: 'Radio or TV', name: 'Radio or TV'),
-                  InputFieldOption(
-                      code: 'Positive self-test', name: 'Positive self-test'),
-                  InputFieldOption(
-                      code: 'KB Field staff', name: 'KB Field staff'),
-                  InputFieldOption(
-                      code: 'PSI field or New Start staff',
-                      name: 'PSI field or New Start staff'),
-                  InputFieldOption(
-                      code: 'Billboard or Poster', name: 'Billboard or Poster'),
-                  InputFieldOption(
-                      code: 'Partner notification',
-                      name: 'Partner notification'),
-                  InputFieldOption(
-                      code: 'Other friends or relatives',
-                      name: 'Other friends or relatives'),
-                  InputFieldOption(code: 'Other', name: 'Other'),
-                ]),
-            InputField(
-                id: 'YzPuEq2nAIh',
-                name: 'Other reasons why decided to get tested',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373)),
-          ]),
-      // FormSection(
-      //     name: 'Non-communicable diseases',
-      //     color: Color(0xFF737373),
-      //     inputFields: [
-      //       InputField(
-      //           id: 'qsujYWhB0DP',
-      //           name: 'Height (m)',
-      //           description: 'Decimal values are allowed. e.g 1.4',
-      //           valueType: 'NUMBER',
-      //           suffixLabel: 'm',
-      //           inputColor: Color(0xFF258DCC),
-      //           labelColor: Color(0xFF737373)),
-      //       InputField(
-      //           id: 'eXp9ASOufpR',
-      //           name: 'Weight(kg)',
-      //           suffixLabel: 'Kg',
-      //           description: 'Decimal values are allowed. e.g 4.1',
-      //           valueType: 'NUMBER',
-      //           inputColor: Color(0xFF258DCC),
-      //           labelColor: Color(0xFF737373)),
-      //       InputField(
-      //           id: 'eXp9ASOufpR_bmi',
-      //           name: 'BMI',
-      //           isReadOnly: true,
-      //           valueType: 'NUMBER',
-      //           inputColor: Color(0xFF258DCC),
-      //           labelColor: Color(0xFF737373)),
-      //       InputField(
-      //           id: 'ziQGNfxLkf4',
-      //           name: 'Blood Pressure Systolic (mmHg)',
-      //           suffixLabel: 'mmHg',
-      //           valueType: 'NUMBER',
-      //           inputColor: Color(0xFF258DCC),
-      //           labelColor: Color(0xFF737373)),
-      //       InputField(
-      //         id: 'nXbbRF4eD6Q',
-      //         name: 'Blood Pressure Diastolic (mmHg)',
-      //         suffixLabel: 'mmHg',
-      //         valueType: 'NUMBER',
-      //         inputColor: Color(0xFF258DCC),
-      //         labelColor: Color(0xFF737373),
-      //       ),
-      //       InputField(
-      //           id: 'QLVCKYKBVZ7',
-      //           name: 'Glucose',
-      //           valueType: 'NUMBER',
-      //           inputColor: Color(0xFF258DCC),
-      //           labelColor: Color(0xFF737373)),
-      //     ]),
+              options: [
+                InputFieldOption(code: 'Individual', name: 'Individual'),
+                InputFieldOption(code: 'Couple', name: 'Couple')
+              ]),
+          InputField(
+              id: 'XjHuTmtsXsz',
+              name: 'Couple UIC',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'Lam6bSq1Zgk',
+              name: 'Testing channel',
+              valueType: 'TEXT',
+              options: [
+                InputFieldOption(code: 'Index', name: 'Index'),
+                InputFieldOption(
+                    code: 'New Start clinic', name: 'New Start clinic'),
+                InputFieldOption(code: 'VCT', name: 'VCT'),
+                InputFieldOption(
+                    code: 'Mobile testing', name: 'Mobile testing'),
+                InputFieldOption(code: 'Home-based', name: 'Home-based'),
+                InputFieldOption(
+                    code: 'Community PrEP', name: 'Community PrEP'),
+                InputFieldOption(code: 'Other', name: 'Other'),
+              ],
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+            id: 'w6kNR0e4G6V',
+            name: 'Other community platforms',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF258DCC),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+              id: 'J53jgfHiufC',
+              name: 'Layering',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                    code: 'Assist/ Sentebale', name: 'Assist/ Sentebale'),
+                InputFieldOption(code: 'IPC', name: 'IPC'),
+                InputFieldOption(code: 'M2M', name: 'M2M'),
+                InputFieldOption(code: 'CRS or Caritas', name: 'CRS or KB'),
+                InputFieldOption(code: 'Promo', name: 'Promo'),
+                InputFieldOption(code: 'WVI', name: 'WVI'),
+                InputFieldOption(
+                    code: 'Care for Lesotho', name: 'Care for Lesotho'),
+                InputFieldOption(code: 'Other', name: 'Other'),
+              ]),
+          InputField(
+              id: 'ybq5BQOdMG6',
+              name: 'Other layering',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'uQLJ4S06kfR',
+              name: 'How far did you go to school',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'None', name: 'None'),
+                InputFieldOption(code: 'Primary', name: 'Primary'),
+                InputFieldOption(
+                    code: 'Secondary school', name: 'Secondary school'),
+                InputFieldOption(code: 'High school', name: 'High school'),
+                InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
+              ]),
+          InputField(
+              id: 'UXHDCoIaOsH',
+              name: 'Your work',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                    code: 'Employment or Self employmed',
+                    name: 'Employment or Self employed'),
+                InputFieldOption(code: 'Student', name: 'Student'),
+                InputFieldOption(code: 'Unemployed', name: 'Unemployed')
+              ]),
+          InputField(
+              id: 'G86T8BY1eVL',
+              name: 'What made you decide to get tested for HIV today',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(code: 'Index', name: 'Index'),
+                InputFieldOption(
+                    code: 'Other health worker', name: 'Other health worker'),
+                InputFieldOption(
+                    code: 'Self motivated', name: 'Self motivated'),
+                InputFieldOption(code: 'Radio or TV', name: 'Radio or TV'),
+                InputFieldOption(
+                    code: 'Positive self-test', name: 'Positive self-test'),
+                InputFieldOption(
+                    code: 'KB Field staff', name: 'KB Field staff'),
+                InputFieldOption(
+                    code: 'PSI field or New Start staff',
+                    name: 'PSI field or New Start staff'),
+                InputFieldOption(
+                    code: 'Billboard or Poster', name: 'Billboard or Poster'),
+                InputFieldOption(
+                    code: 'Partner notification', name: 'Partner notification'),
+                InputFieldOption(
+                    code: 'Other friends or relatives',
+                    name: 'Other friends or relatives'),
+                InputFieldOption(code: 'Other', name: 'Other'),
+              ]),
+          InputField(
+              id: 'YzPuEq2nAIh',
+              name: 'Other reasons why decided to get tested',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+        ],
+      ),
       FormSection(
           name: 'HIV test',
           color: const Color(0xFF737373),
@@ -603,8 +583,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative')
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                 ]),
             InputField(
                 id: 'gNp7fK7mFen',
@@ -613,8 +599,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative')
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                 ]),
             InputField(
                 id: 'scYHe712W08',
@@ -623,8 +615,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative')
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                 ]),
             InputField(
                 id: 'nkHSb9XNR2W',
@@ -633,8 +631,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative')
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                 ]),
             InputField(
                 id: 'BjcJiQkXgUj',
@@ -643,8 +647,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                   InputFieldOption(code: 'Out of stock', name: 'Out of stock')
                 ]),
             InputField(
@@ -654,8 +664,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                 ]),
             InputField(
                 id: 'mA1IUgJSWf8',
@@ -664,8 +680,14 @@ class NonAgywHTSClientInformation {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
                   InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
                 ]),
             InputField(

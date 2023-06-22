@@ -114,7 +114,10 @@ class _NoneAgywState extends State<NoneAgyw> {
                 IconButton(
                   icon: SvgPicture.asset(
                     'assets/icons/add-beneficiary.svg',
-                    color: Colors.blueGrey,
+                    colorFilter: const ColorFilter.mode(
+                      Colors.blueGrey,
+                      BlendMode.srcIn,
+                    ),
                   ),
                   onPressed: () => onAddNoneAgywBeneficiary(context),
                 )

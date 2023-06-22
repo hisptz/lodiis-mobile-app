@@ -19,14 +19,12 @@ class AgywDreamsShortForm {
             InputField(
                 id: 'zbHpXUjGv5H',
                 name: 'HIV test provided',
-                translatedName: '',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'lvT9gfpHIlT',
                 name: 'Date service was provided',
-                translatedName: '',
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF258DCC),
@@ -34,28 +32,41 @@ class AgywDreamsShortForm {
             InputField(
               id: 'GHfoqXKlK6o',
               name: 'Type of Test',
-              translatedName: '',
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(
-                    code: 'PDHTS', name: 'PDHTS', translatedName: 'PDHTS'),
+                  code: 'PDHTS',
+                  name: 'PDHTS',
+                  translatedName: 'PDHTS',
+                ),
                 InputFieldOption(
-                    code: 'HIVST', name: 'HIVST', translatedName: 'HIVST'),
+                  code: 'HIVST',
+                  name: 'HIVST',
+                  translatedName: 'HIVST',
+                ),
               ],
             ),
             InputField(
               id: 'rJUdBXiukaI',
               name: 'HIV test results',
-              translatedName: '',
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Negative', name: 'Negative'),
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
+                InputFieldOption(
+                    code: 'Unknown',
+                    name: 'Unknown',
+                    translatedName: 'Tse sa tsejoeng'),
               ],
             ),
             InputField(

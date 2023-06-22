@@ -21,7 +21,7 @@ class OvcClhivArtService {
         inputFields: [
           InputField(
             id: 'Yu00G1uhiYN',
-            name: 'Name of FBSW"',
+            name: 'Name of FBSW',
             isReadOnly: true,
             valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
@@ -94,6 +94,7 @@ class OvcClhivArtService {
               InputFieldOption(
                 code: 'No',
                 name: 'No',
+                translatedName: 'Che',
               ),
               InputFieldOption(
                 code: '3 Months',

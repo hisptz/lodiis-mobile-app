@@ -79,9 +79,15 @@ class AgywWithoutEnrollmentCriteria {
             renderAsRadio: true,
             options: [
               InputFieldOption(
-                  code: 'Male', name: 'Male', translatedName: 'Botona'),
+                code: 'Male',
+                name: 'Male',
+                translatedName: 'Botona',
+              ),
               InputFieldOption(
-                  code: 'Female', name: 'Female', translatedName: 'Botsehali'),
+                code: 'Female',
+                name: 'Female',
+                translatedName: 'Botsehali',
+              ),
             ],
           ),
         ],

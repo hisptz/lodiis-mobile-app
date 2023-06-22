@@ -326,109 +326,72 @@ class OvcHouseholdServicesCasePlanGaps {
                 labelColor: const Color(0xFF737373)),
           ]),
       FormSection(
-          id: 'Safe',
-          name: 'DOMAIN SAFE',
-          translatedName: 'TSIRELETSO',
-          color: const Color(0xFF0F9587),
-          borderColor: const Color(0xFF0F9587),
-          inputFields: [
-            InputField(
-                id: 'WdZ3PnW5yV6',
-                name: 'LEGAL PROTECTION',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'dJR6GJyHCTr',
-                name: '(LEGAL PROTECTION) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho  LEGAL PROTECTION',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'cu1UkUUTbME',
-                name: '(LEGAL PROTECTION) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho  LEGAL PROTECTION',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'OIw6D3I6BmY',
-                allowFuturePeriod: true,
-                name: '(LEGAL PROTECTION) Projected date for completion',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'hS7aONLz2cq',
-                name: 'BIRTHCERT',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'LDH3TLjHUYK',
-                name: '(BIRTHCERT) Name of responsible internal person',
-                translatedName: 'Motho ea ikarabellang ka hare ho BIRTHCERT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Pd5CyDu2Z54',
-                name: '(BIRTHCERT) Name of responsible external person',
-                translatedName: 'Motho ea ikarabellang ka ntle ho BIRTHCERT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'SvkvfRNqyh2',
-                allowFuturePeriod: true,
-                name: '(BIRTHCERT) Projected date for completion',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373))
-          ]),
-      FormSection(
-          name: 'Other Activities',
-          color: const Color(0xFF4D9E49),
-          borderColor: const Color(0xFF4D9E49),
-          inputFields: [
-            InputField(
-                id: 'ksc7ov3MihX',
-                name: 'OTHER ACTIVITIES',
-                translatedName: 'Mesebetsi e meng',
-                valueType: 'TRUE_ONLY',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'Mq7g4k4lk44',
-                name: '(Other activities) Name of responsible internal person',
-                translatedName:
-                    'Motho ea ikarabellang ka hare ho Mesebetsi e meng',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'XSTUvAjvijB',
-                name: '(Other activities) Name of responsible external person',
-                translatedName:
-                    'Motho ea ikarabellang ka ntle ho Other activities',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'LGsvIyYkrP8',
-                allowFuturePeriod: true,
-                name: '(Other activities) Projected date for completion ',
-                translatedName: 'Letsatsi la Mesebetsi e meng le tla phetheloa',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-          ])
+        id: 'Safe',
+        name: 'DOMAIN SAFE',
+        translatedName: 'TSIRELETSO',
+        color: const Color(0xFF0F9587),
+        borderColor: const Color(0xFF0F9587),
+        inputFields: [
+          InputField(
+              id: 'WdZ3PnW5yV6',
+              name: 'LEGAL PROTECTION',
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'dJR6GJyHCTr',
+              name: '(LEGAL PROTECTION) Name of responsible internal person',
+              translatedName:
+                  'Motho ea ikarabellang ka hare ho  LEGAL PROTECTION',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'cu1UkUUTbME',
+              name: '(LEGAL PROTECTION) Name of responsible external person',
+              translatedName:
+                  'Motho ea ikarabellang ka ntle ho  LEGAL PROTECTION',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'OIw6D3I6BmY',
+              allowFuturePeriod: true,
+              name: '(LEGAL PROTECTION) Projected date for completion',
+              valueType: 'DATE',
+              firstDate: firstDate,
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'hS7aONLz2cq',
+              name: 'BIRTHCERT',
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'LDH3TLjHUYK',
+              name: '(BIRTHCERT) Name of responsible internal person',
+              translatedName: 'Motho ea ikarabellang ka hare ho BIRTHCERT',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'Pd5CyDu2Z54',
+              name: '(BIRTHCERT) Name of responsible external person',
+              translatedName: 'Motho ea ikarabellang ka ntle ho BIRTHCERT',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'SvkvfRNqyh2',
+              allowFuturePeriod: true,
+              name: '(BIRTHCERT) Projected date for completion',
+              valueType: 'DATE',
+              firstDate: firstDate,
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373))
+        ],
+      ),
     ];
   }
 }

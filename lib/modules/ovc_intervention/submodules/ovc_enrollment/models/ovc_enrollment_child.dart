@@ -73,10 +73,26 @@ class OvcEnrollmentChild {
                       code: 'Biological mother', name: 'Biological mother'),
                   InputFieldOption(
                       code: 'Biological father', name: 'Biological father'),
-                  InputFieldOption(code: 'Aunt/Uncle', name: 'Aunt/Uncle'),
-                  InputFieldOption(code: 'Sibling', name: 'Sibling'),
-                  InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
-                  InputFieldOption(code: 'Other', name: 'Other')
+                  InputFieldOption(
+                    code: 'Aunt/Uncle',
+                    name: 'Aunt/Uncle',
+                    translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane',
+                  ),
+                  InputFieldOption(
+                    code: 'Sibling',
+                    name: 'Sibling',
+                    translatedName: 'Ke ngoaneso',
+                  ),
+                  InputFieldOption(
+                    code: 'Grandparent',
+                    name: 'Grandparent',
+                    translatedName: 'Ke Nkhono/Ntate-moholo',
+                  ),
+                  InputFieldOption(
+                    code: 'Other',
+                    name: 'Other',
+                    translatedName: 'E mong',
+                  )
                 ],
               ),
               InputField(
@@ -298,9 +314,18 @@ class OvcEnrollmentChild {
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'Unknown', name: 'Unknown'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
+                  InputFieldOption(
+                      code: 'Unknown',
+                      name: 'Unknown',
+                      translatedName: 'Tse sa tsejoeng'),
                   InputFieldOption(code: 'No Response', name: 'No Response'),
                 ],
               ),
@@ -470,9 +495,18 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Unknown', name: 'Unknown'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
+              InputFieldOption(
+                  code: 'Unknown',
+                  name: 'Unknown',
+                  translatedName: 'Tse sa tsejoeng'),
               InputFieldOption(code: 'No Response', name: 'No Response'),
             ],
           ),
@@ -586,9 +620,18 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Unknown', name: 'Unknown'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
+              InputFieldOption(
+                  code: 'Unknown',
+                  name: 'Unknown',
+                  translatedName: 'Tse sa tsejoeng'),
               InputFieldOption(code: 'No Response', name: 'No Response'),
             ],
           ),
@@ -677,17 +720,20 @@ class OvcEnrollmentChild {
             valueType: 'TEXT',
             options: [
               InputFieldOption(
-                  code: '0-3 months ago',
-                  name: '0-3 months ago',
-                  translatedName: '0-3 likhoeli tse fetileng'),
+                code: '0-3 months ago',
+                name: '0-3 months ago',
+                translatedName: '0-3 likhoeli tse fetileng',
+              ),
               InputFieldOption(
-                  code: '4-6 months ago',
-                  name: '4-6 months ago',
-                  translatedName: '4-6 likhoeli tse fetileng'),
+                code: '4-6 months ago',
+                name: '4-6 months ago',
+                translatedName: '4-6 likhoeli tse fetileng',
+              ),
               InputFieldOption(
-                  code: '7-12 months ago',
-                  name: '7-12 months ago',
-                  translatedName: '7-12 likhoeli tse fetileng'),
+                code: '7-12 months ago',
+                name: '7-12 months ago',
+                translatedName: '7-12 likhoeli tse fetileng',
+              ),
             ],
           ),
           InputField(
