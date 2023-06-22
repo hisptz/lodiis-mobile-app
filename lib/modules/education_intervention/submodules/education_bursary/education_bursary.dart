@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/education_intervention_state/education_b
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_intervention_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
@@ -275,13 +276,26 @@ class _EducationBursaryState extends State<EducationBursary> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EducationBursaryInterventionState>(
-      builder: (context, educationBursaryInterventionState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${educationBursaryInterventionState.numberOfEducationBursaryBySex}',
-          showFilter: true,
-          bodyContents: _buildBody(),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        bool isSesotho = languageTranslationState.currentLanguage == 'lesotho';
+        return Consumer<EducationBursaryInterventionState>(
+          builder: (context, educationBursaryInterventionState, child) {
+            int maleCount = educationBursaryInterventionState
+                    .numberOfEducationBursaryBySex["male"] ??
+                0;
+            int femaleCount = educationBursaryInterventionState
+                    .numberOfEducationBursaryBySex["female"] ??
+                0;
+            String sexCountLabel = isSesotho
+                ? '$maleCount Botona  $femaleCount Botsehali'
+                : '$maleCount Male  $femaleCount Female';
+            return SubModuleHomeContainer(
+              header: '$title : $sexCountLabel',
+              showFilter: true,
+              bodyContents: _buildBody(),
+            );
+          },
         );
       },
     );
