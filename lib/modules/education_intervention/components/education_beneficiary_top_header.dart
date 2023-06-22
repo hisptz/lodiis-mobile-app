@@ -22,7 +22,7 @@ class EducationBeneficiaryTopHeader extends StatelessWidget {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(
-          horizontal: 10.0,
+          horizontal: 5.0,
           vertical: 5.0,
         ),
         child: RichText(
@@ -117,7 +117,8 @@ class EducationBeneficiaryTopHeader extends StatelessWidget {
                         fontSize: 12.0,
                       ),
                       _getBeneficiaryDetailsWidget(
-                        key: currentLanguage == 'lesotho' ? 'Grade' : 'Grade',
+                        key:
+                            currentLanguage == 'lesotho' ? 'Sehlopha' : 'Grade',
                         value: educationBeneficiary.grade!,
                         keyColor: const Color(0xFF82898D),
                         valueColor: const Color(0xFF009688),

@@ -77,7 +77,7 @@ class EducationBursaryAssessment {
           InputField(
             id: 'location',
             name: '1. Location',
-            translatedName: '1 Sebaka',
+            translatedName: '1. Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [
               AppHierarchyReference.communityLevel,
@@ -89,6 +89,7 @@ class EducationBursaryAssessment {
           InputField(
             id: 'RB8Wx75hGa4',
             name: '2. Village',
+            translatedName: '2. Motse',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -377,7 +378,7 @@ class EducationBursaryAssessment {
           inputFields: [
             InputField(
               id: 'dxp3qM2TgUc',
-              name: '1. Name of the caregive',
+              name: '1. Name of the caregiver',
               valueType: 'TEXT',
               inputColor: const Color(0xFF009688),
               labelColor: const Color(0xFF737373),
@@ -660,7 +661,11 @@ class EducationBursaryAssessment {
                 options: [
                   InputFieldOption(
                       code: 'Myself (caregiver)', name: 'Myself (caregiver)'),
-                  InputFieldOption(code: 'Sibling', name: 'Sibling'),
+                  InputFieldOption(
+                    code: 'Sibling',
+                    name: 'Sibling',
+                    translatedName: 'Ke ngoaneso',
+                  ),
                   InputFieldOption(
                       code: 'Another household member',
                       name: 'Another household member'),
@@ -742,7 +747,7 @@ class EducationBursaryAssessment {
             InputField(
               id: 'oaVHpFUuIOw',
               name: '2. How many rooms does the house have?',
-              hint: 'including kitchen, bathroom and stand-alone rooms',
+              hint: 'Including kitchen, bathroom and stand-alone rooms',
               valueType: 'TEXT',
               inputColor: const Color(0xFF009688),
               labelColor: const Color(0xFF737373),

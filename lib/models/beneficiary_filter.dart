@@ -16,6 +16,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:provider/provider.dart';
 
+//TODO Apply stranslations for each fields in filters
 class BeneficiaryFilter {
   String id;
   String name;
@@ -363,24 +364,32 @@ class BeneficiaryFilter {
 
   static Widget getSexFilterInput(InterventionCard currentIntervention) {
     InputField sexInput = InputField(
-        id: 'sex',
-        name: 'Select sex',
-        valueType: 'TEXT',
-        options: currentIntervention.id == 'dreams'
-            ? [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female'),
-                InputFieldOption(
-                    code: 'Transgender (male to female)',
-                    name: 'Transgender (male to female)'),
-                InputFieldOption(
-                    code: 'Transgender (female to male)',
-                    name: 'Transgender (female to male)'),
-              ]
-            : [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female'),
-              ]);
+      id: 'sex',
+      name: 'Select sex',
+      valueType: 'TEXT',
+      options: currentIntervention.id == 'dreams'
+          ? [
+              InputFieldOption(
+                  code: 'Male', name: 'Male', translatedName: 'Botona'),
+              InputFieldOption(
+                  code: 'Female', name: 'Female', translatedName: 'Botsehali'),
+              InputFieldOption(
+                  code: 'Transgender (male to female)',
+                  name: 'Transgender (male to female)'),
+              InputFieldOption(
+                  code: 'Transgender (female to male)',
+                  name: 'Transgender (female to male)'),
+            ]
+          : [
+              InputFieldOption(
+                code: 'Male',
+                name: 'Male',
+                translatedName: 'Botona',
+              ),
+              InputFieldOption(
+                  code: 'Female', name: 'Female', translatedName: 'Botsehali'),
+            ],
+    );
 
     return Consumer<CurrentUserState>(
       builder: (context, currentUserState, child) =>
@@ -541,6 +550,7 @@ class BeneficiaryFilter {
     );
   }
 
+  //TODO transalation for filters lables input fields support
   static List<BeneficiaryFilter> getBeneficiaryFilters(
       InterventionCard currentIntervention) {
     return [

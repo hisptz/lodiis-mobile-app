@@ -103,6 +103,7 @@ class EducationBursaryEnrollmentForm {
           InputField(
             id: 'RB8Wx75hGa4',
             name: 'Village',
+            translatedName: 'Motse',
             isReadOnly: true,
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
@@ -129,6 +130,7 @@ class EducationBursaryEnrollmentForm {
           InputField(
             id: 'EwZil0AnlYo',
             name: 'School',
+            translatedName: 'Sekolo se tloaelehileng',
             valueType: 'TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),

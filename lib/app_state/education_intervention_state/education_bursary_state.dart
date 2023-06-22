@@ -37,8 +37,9 @@ class EducationBursaryInterventionState with ChangeNotifier {
       _bursaryWithoutVulnerabilitySearchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationBursary => _numberOfEducationBursary;
-  String get numberOfEducationBursaryBySex =>
-      '${_numberOfEducationBursaryBySex['male'] ?? 0} Male  ${_numberOfEducationBursaryBySex['female'] ?? 0} Female';
+
+  Map<String, int> get numberOfEducationBursaryBySex =>
+      _numberOfEducationBursaryBySex;
   int get numberOfEducationBursaryWithoutVulnerability =>
       _bursaryWithoutVulnerabilitySearchedAttributes.isEmpty
           ? _numberOfEducationBursaryWithoutVulnerability
