@@ -122,8 +122,16 @@ class DreamsPrepFollowUpVisit {
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Male', name: 'Male'),
-                  InputFieldOption(code: 'Female', name: 'Female')
+                  InputFieldOption(
+                    code: 'Male',
+                    name: 'Male',
+                    translatedName: 'Botona',
+                  ),
+                  InputFieldOption(
+                    code: 'Female',
+                    name: 'Female',
+                    translatedName: 'Botsehali',
+                  ),
                 ]),
             InputField(
                 id: 'wBG1kmHK6kJ',
@@ -187,7 +195,7 @@ class DreamsPrepFollowUpVisit {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'lNCc9aHUtil',
-                name: 'Type of ransfer',
+                name: 'Type of transfer',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373),
@@ -220,6 +228,7 @@ class DreamsPrepFollowUpVisit {
             InputField(
                 id: 'WJOfRtIYU2p',
                 name: 'Comment',
+                translatedName: 'Maikutlo',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373))
