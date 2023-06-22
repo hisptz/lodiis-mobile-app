@@ -216,7 +216,7 @@ class _EducationBursaryState extends State<EducationBursary> {
               top: 10.0,
             ),
             child: const Text(
-              'There is no LBSE beneficiaries enrolled at the moment',
+              'There is no Bursary beneficiaries enrolled at the moment',
             ),
           ),
           IconButton(
