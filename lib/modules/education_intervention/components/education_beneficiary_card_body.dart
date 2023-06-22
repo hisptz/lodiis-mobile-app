@@ -110,7 +110,7 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                     ),
                     _getVerticalRowCardData(
                       label: currentLanguage == 'lesotho'
-                          ? 'School Name'
+                          ? 'Lebitso la Sekolo'
                           : 'School Name',
                       value: educationBeneficiary.schoolName,
                       labelColor: labelColor,
@@ -123,15 +123,15 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
-                      label: currentLanguage == 'lesotho' ? 'Grade' : 'Grade',
+                      label:
+                          currentLanguage == 'lesotho' ? 'Sehlopha' : 'Grade',
                       value: educationBeneficiary.grade,
                       labelColor: labelColor,
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
-                      label: currentLanguage == 'lesotho'
-                          ? 'Sebaka'
-                          : 'Location',
+                      label:
+                          currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
                       value: educationBeneficiary.location,
                       labelColor: labelColor,
                       valueColor: valueColor,
@@ -191,10 +191,9 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                                               valueColor: valueColor,
                                               label:
                                                   currentLanguage == 'lesotho'
-                                                      ? 'Grade'
+                                                      ? 'Sehlopha'
                                                       : 'Grade',
-                                              value:
-                                                  educationBeneficiary.grade,
+                                              value: educationBeneficiary.grade,
                                             )
                                           ],
                                         ),
