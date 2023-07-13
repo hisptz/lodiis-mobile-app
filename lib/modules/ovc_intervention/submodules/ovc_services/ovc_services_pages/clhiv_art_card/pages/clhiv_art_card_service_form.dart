@@ -20,6 +20,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_auto_save.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
@@ -232,6 +233,32 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
     }
   }
 
+  List<FormSection> getSanitizedFormSections(
+    List<FormSection> formSections,
+    Map dataObject,
+  ) {
+    List<FormSection> sanitizedFormSections = [];
+    var currentOvc = Provider.of<OvcHouseholdCurrentSelectionState>(
+      context,
+      listen: false,
+    ).currentOvcHouseholdChild;
+    for (FormSection formSection in formSections) {
+      List<InputField> inputFields = [];
+      for (InputField inputField in formSection.inputFields ?? []) {
+        if (inputField.id == 'uVmlqLmHYpD' || inputField.id == 'WKdeD28Oyn7') {
+          inputField.firstDate = currentOvc != null
+              ? currentOvc.artInitiationDate ?? currentOvc.createdDate ?? ''
+              : '';
+        }
+        inputFields.add(inputField);
+      }
+
+      formSection.inputFields = inputFields;
+      sanitizedFormSections.add(formSection);
+    }
+    return sanitizedFormSections;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,6 +285,10 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
                     agywState.currentOvcHouseholdChild;
                 return Consumer<ServiceFormState>(
                   builder: (context, serviceFormState, child) {
+                    var sanitizedFormSections = getSanitizedFormSections(
+                      formSections ?? [],
+                      serviceFormState.formState,
+                    );
                     return Column(
                       children: [
                         !isFormReady
@@ -277,7 +308,7 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
                                           serviceFormState.hiddenFields,
                                       hiddenSections:
                                           serviceFormState.hiddenSections,
-                                      formSections: formSections,
+                                      formSections: sanitizedFormSections,
                                       mandatoryFieldObject:
                                           mandatoryFieldObject,
                                       unFilledMandatoryFields:
