@@ -81,12 +81,6 @@ class OvcChildEnrollmentSkipLogic {
             assignedFields['xJfScNlfNS2'] = caregiverArtStatus;
             assignedFields['IWFLOoEtisa'] = caregiverArtFacility;
           }
-          if (shouldSetEnrollmentState) {
-            assignInputFieldValue(context, 'UeF4OvjIIEK', 'false');
-          } else {
-            assignedFields['UeF4OvjIIEK'] = 'false';
-          }
-          hiddenFields['nOgf8LKXS4k'] = true;
         }
       } else if (inputFieldId == 'tNdoR0jYr7R') {
         if (caregiverPhoneNumber != 'N/A') {
