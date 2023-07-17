@@ -18,6 +18,7 @@ class OvcHouseholdChild {
   bool? enrollmentOuAccessible;
   String? ovcStatus;
   bool? isChildPrimary;
+  String? artInitiationDate;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -37,12 +38,13 @@ class OvcHouseholdChild {
     this.isChildPrimary,
     this.ovcStatus,
     this.teiData,
+    this.artInitiationDate,
   });
 
   Map toMap({
     required String parentId,
   }) {
-    Map dataOject = {
+    Map dataObject = {
       "parentTrackedEntityInstance": parentId,
       "orgUnit": orgUnit,
       "enrollmentDate": createdDate,
@@ -50,9 +52,9 @@ class OvcHouseholdChild {
       "trackedEntityInstance": id,
     };
     for (Map attributeObj in teiData!.attributes ?? []) {
-      dataOject[attributeObj['attribute']] = attributeObj['value'];
+      dataObject[attributeObj['attribute']] = attributeObj['value'];
     }
-    return dataOject;
+    return dataObject;
   }
 
   OvcHouseholdChild fromTeiModel(
@@ -71,6 +73,7 @@ class OvcHouseholdChild {
       'PN92g65TkVI',
       'KO5NC4pfBmv',
       'qZP982qpSPS',
+      'EIMgHQW61kx',
       BeneficiaryIdentification.phoneNumber,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC
@@ -94,6 +97,7 @@ class OvcHouseholdChild {
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
+        artInitiationDate: data['EIMgHQW61kx'],
         hivStatus: data['wmKqYZML8GA'] != null
             ? data['wmKqYZML8GA'] == 'true'
                 ? 'Positive'
