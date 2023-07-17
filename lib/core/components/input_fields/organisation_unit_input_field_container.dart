@@ -59,6 +59,7 @@ class _OrganisationUnitInputFieldContainerState
       if (widget.inputValue == null || widget.inputValue == '') {
         setOrganisationUnit('');
       }
+      discoveringSelectedOrganisationUnit();
     }
   }
 
