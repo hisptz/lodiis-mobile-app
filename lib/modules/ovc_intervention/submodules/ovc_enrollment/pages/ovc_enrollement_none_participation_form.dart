@@ -183,8 +183,8 @@ class _OvcEnrollmentNoneParticipationFormState
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ?  Column(
-                    children: const [
+                ? const Column(
+                    children: [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
