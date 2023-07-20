@@ -401,6 +401,8 @@ class FormUtil {
               : '';
         })
         .toList()
+        .where((String attributeObj) => attributeObj.isNotEmpty)
+        .toList()
         .join(',');
     dynamic trackedEntityInstanceJson =
         '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] }';
