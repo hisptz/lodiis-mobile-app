@@ -492,6 +492,8 @@ class FormUtil {
               : '';
         })
         .toList()
+        .where((String dataElementObj) => dataElementObj.isNotEmpty)
+        .toList()
         .join(',');
     dynamic eventJson =
         '{"event" : "$event", "eventDate":"$eventDate",  "program":"$program", "programStage":"$programStage", "trackedEntityInstance":"$trackedEntityInstance", "status":"COMPLETED", "orgUnit":"$orgUnit", "syncStatus":"not-synced", "dataValues":[$dataValues] }';
