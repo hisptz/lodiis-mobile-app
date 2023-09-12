@@ -720,6 +720,7 @@ class OvcServicesWellbeingAssessment {
                 name: '62. Do you know child’s HIV status?',
                 translatedName: '62. Na u tseba boemo ba ngoana ba HIV?',
                 valueType: 'BOOLEAN',
+                isReadOnly: true,
                 inputColor: const Color(0xFF2895F0),
                 labelColor: const Color(0xFF1A3518)),
             InputField(
@@ -766,6 +767,7 @@ class OvcServicesWellbeingAssessment {
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF2895F0),
                 labelColor: const Color(0xFF1A3518),
+                isReadOnly: true,
                 options: [
                   InputFieldOption(
                       code: 'Positive',

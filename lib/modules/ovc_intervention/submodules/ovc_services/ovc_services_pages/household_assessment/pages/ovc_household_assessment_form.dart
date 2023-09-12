@@ -61,14 +61,15 @@ class _OvcHouseholdAssessmentFormState
     Timer(
       const Duration(milliseconds: 200),
       () async {
+        OvcHousehold? adult = Provider.of<OvcHouseholdCurrentSelectionState>(
+                context,
+                listen: false)
+            .currentOvcHousehold;
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
 
         await OvchouseHoldAssessmentSkipLogic.evaluateSkipLogics(
-          context,
-          formSections!,
-          dataObject,
-        );
+            context, formSections!, dataObject, adult?.hivStatus);
       },
     );
   }

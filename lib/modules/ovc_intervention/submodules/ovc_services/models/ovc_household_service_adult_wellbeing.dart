@@ -639,7 +639,8 @@ class OvcHouseholdServiceAdultWellbeing {
                     'Ha asa hlahloba  fetesitsa setsing sa tlhabollo',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518)),
+                labelColor: const Color(0xFF1A3518),
+                isReadOnly: true),
             InputField(
                 id: 'Uv26fX0HQvO',
                 name: 'If Yes when?',
@@ -680,7 +681,8 @@ class OvcHouseholdServiceAdultWellbeing {
                     '16. Na u ka ba le bolokolohile ba ho mpolella sephetho sa tlhahlobo eo?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518)),
+                labelColor: const Color(0xFF1A3518),
+                isReadOnly: true),
             InputField(
                 id: 'vNeOE9abQBB',
                 name: 'What is your HIV Status?',
@@ -688,6 +690,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518),
+                isReadOnly: true,
                 options: [
                   InputFieldOption(
                       code: 'Positive',
