@@ -77,7 +77,7 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
 
   void setFormSections() {
     var defaultFormSections = OvcClhivArtService.getFormSections();
-    var mandatoryFields = OvcClhivArtService.getMandatoryFields();
+    mandatoryFields = OvcClhivArtService.getMandatoryFields();
 
     var currentOvc =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)

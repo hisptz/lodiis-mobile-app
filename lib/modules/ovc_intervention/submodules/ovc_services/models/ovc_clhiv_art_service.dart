@@ -9,6 +9,15 @@ class OvcClhivArtService {
     return [
       'Yu00G1uhiYN',
       'RIpmBgYc0ZN',
+      'uVmlqLmHYpD',
+      'JgNSiXuArwl',
+      'wEKBn2SdrmA',
+      'FLI5NLYCqH9',
+      'QkoJ1afnMMK',
+      'IwM9O0a78QD',
+      'WKdeD28Oyn7',
+      'LaeDyUWYcoN',
+      'YxJQ58njlLM',
     ];
   }
 
