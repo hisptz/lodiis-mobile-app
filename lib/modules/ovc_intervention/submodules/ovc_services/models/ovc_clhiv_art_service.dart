@@ -92,22 +92,17 @@ class OvcClhivArtService {
             labelColor: const Color(0xFF1A3518),
             options: [
               InputFieldOption(
-                code: 'No',
-                name: 'No',
-                translatedName: 'Che',
+                code: '<3 Months',
+                name: '<3 Months',
               ),
               InputFieldOption(
-                code: '3 Months',
-                name: '3 Months',
+                code: '3-5 Months',
+                name: '3-5 Months',
               ),
               InputFieldOption(
-                code: '6 Months',
-                name: '6 Months',
+                code: '>=6 Months',
+                name: '\u22656 Months',
               ),
-              InputFieldOption(
-                code: 'Other (Specify)',
-                name: 'Other (Specify)',
-              )
             ],
           ),
           InputField(
