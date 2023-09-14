@@ -82,9 +82,23 @@ class OvcClhivArtService {
           InputField(
             id: 'IwM9O0a78QD',
             name: 'CLHIV ART CARD: VL Results',
-            valueType: 'NUMBER',
+            valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF1A3518),
+            options: [
+              InputFieldOption(
+                code: '<50 Copies',
+                name: '<50 Copies (suppressed and undetectable)',
+              ),
+              InputFieldOption(
+                code: '51 - 999 Copies',
+                name: '51 - 999 Copies (suppressed and detectable) ',
+              ),
+              InputFieldOption(
+                code: '>=1000 Copies',
+                name: '≥1000 Copies (unsuppressed and detectable)',
+              ),
+            ],
           ),
           InputField(
             id: 'WKdeD28Oyn7',
@@ -110,7 +124,7 @@ class OvcClhivArtService {
               ),
               InputFieldOption(
                 code: '>=6 Months',
-                name: '\u22656 Months',
+                name: '≥6 Months',
               ),
             ],
           ),
