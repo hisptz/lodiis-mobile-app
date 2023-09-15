@@ -9,6 +9,15 @@ class OvcClhivArtService {
     return [
       'Yu00G1uhiYN',
       'RIpmBgYc0ZN',
+      'uVmlqLmHYpD',
+      'JgNSiXuArwl',
+      'wEKBn2SdrmA',
+      'FLI5NLYCqH9',
+      'QkoJ1afnMMK',
+      'IwM9O0a78QD',
+      'WKdeD28Oyn7',
+      'LaeDyUWYcoN',
+      'YxJQ58njlLM',
     ];
   }
 
@@ -73,9 +82,23 @@ class OvcClhivArtService {
           InputField(
             id: 'IwM9O0a78QD',
             name: 'CLHIV ART CARD: VL Results',
-            valueType: 'NUMBER',
+            valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF1A3518),
+            options: [
+              InputFieldOption(
+                code: '<50 Copies',
+                name: '<50 Copies (suppressed and undetectable)',
+              ),
+              InputFieldOption(
+                code: '51 - 999 Copies',
+                name: '51 - 999 Copies (suppressed and detectable) ',
+              ),
+              InputFieldOption(
+                code: '>=1000 Copies',
+                name: '≥1000 Copies (unsuppressed and detectable)',
+              ),
+            ],
           ),
           InputField(
             id: 'WKdeD28Oyn7',
@@ -92,22 +115,17 @@ class OvcClhivArtService {
             labelColor: const Color(0xFF1A3518),
             options: [
               InputFieldOption(
-                code: 'No',
-                name: 'No',
-                translatedName: 'Che',
+                code: '<3 Months',
+                name: '<3 Months',
               ),
               InputFieldOption(
-                code: '3 Months',
-                name: '3 Months',
+                code: '3-5 Months',
+                name: '3-5 Months',
               ),
               InputFieldOption(
-                code: '6 Months',
-                name: '6 Months',
+                code: '>=6 Months',
+                name: '≥6 Months',
               ),
-              InputFieldOption(
-                code: 'Other (Specify)',
-                name: 'Other (Specify)',
-              )
             ],
           ),
           InputField(

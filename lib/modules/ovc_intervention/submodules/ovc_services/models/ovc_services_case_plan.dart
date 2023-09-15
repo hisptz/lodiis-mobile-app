@@ -5,6 +5,10 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
 class OvcServicesCasePlan {
+  static List<String> getMandatoryField() {
+    return [OvcCasePlanConstant.houseHoldCategorizationDataElement];
+  }
+
   static List<FormSection> getFormSections() {
     return [
       FormSection(
