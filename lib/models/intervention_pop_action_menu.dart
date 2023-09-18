@@ -21,6 +21,7 @@ class InterventionPopActionMenu {
       InterventionPopActionMenu(
         id: 'logout',
         name: 'Logout',
+        translatedName: ''
       ),
       InterventionPopActionMenu(
         id: 'about',

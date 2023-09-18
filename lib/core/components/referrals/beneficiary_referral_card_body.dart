@@ -102,7 +102,7 @@ class BeneficiaryReferralCardBody extends StatelessWidget {
                 value: referralEvent.type!,
               ),
               _getReferralDetails(
-                key: 'Status',
+                key: currentLanguage == 'lesotho'? 'Boemo': 'Status',
                 value: referralEvent.status!,
               ),
             ],

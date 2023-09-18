@@ -145,6 +145,7 @@ class OvcEnrollmentHousehold {
                 InputFieldOption(code: 'Single', name: 'Single'),
                 InputFieldOption(code: 'Widowed', name: 'Widowed'),
                 InputFieldOption(
+                    translatedName: 'Hlalane/Arohane',
                     code: 'Divorced/separated', name: 'Divorced/separated'),
               ]),
           InputField(
