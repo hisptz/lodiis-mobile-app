@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
@@ -215,56 +216,64 @@ class _AgywDreamsHTSConsentFormSubpartState
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DreamsBeneficiarySelectionState>(
-      builder: (context, dreamsBeneficiarySelectionState, child) {
-        AgywDream? agywDream = dreamsBeneficiarySelectionState.currentAgywDream;
-        return Consumer<ServiceFormState>(
-          builder: (context, serviceFormState, child) {
-            return Column(
-              children: [
-                DreamsBeneficiaryTopHeader(
-                  agywDream: agywDream,
-                ),
-                !isFormReady
-                    ? const CircularProcessLoader(
-                        color: Colors.blueGrey,
-                      )
-                    : Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 10.0,
-                              left: 13.0,
-                              right: 13.0,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) =>
+          Consumer<DreamsBeneficiarySelectionState>(
+        builder: (context, dreamsBeneficiarySelectionState, child) {
+          AgywDream? agywDream =
+              dreamsBeneficiarySelectionState.currentAgywDream;
+          return Consumer<ServiceFormState>(
+            builder: (context, serviceFormState, child) {
+              return Column(
+                children: [
+                  DreamsBeneficiaryTopHeader(
+                    agywDream: agywDream,
+                  ),
+                  !isFormReady
+                      ? const CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                top: 10.0,
+                                left: 13.0,
+                                right: 13.0,
+                              ),
+                              child: EntryFormContainer(
+                                formSections: formSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                unFilledMandatoryFields:
+                                    unFilledMandatoryFields,
+                                isEditableMode: serviceFormState.isEditableMode,
+                                dataObject: serviceFormState.formState,
+                                onInputValueChange: onInputValueChange,
+                              ),
                             ),
-                            child: EntryFormContainer(
-                              formSections: formSections,
-                              mandatoryFieldObject: mandatoryFieldObject,
-                              unFilledMandatoryFields: unFilledMandatoryFields,
-                              isEditableMode: serviceFormState.isEditableMode,
-                              dataObject: serviceFormState.formState,
-                              onInputValueChange: onInputValueChange,
-                            ),
-                          ),
-                          Visibility(
-                            visible: serviceFormState.isEditableMode,
-                            child: EntryFormSaveButton(
-                              label:
-                                  isSaving ? 'Saving ...' : 'Save and Continue',
-                              labelColor: Colors.white,
-                              buttonColor: const Color(0xFF258DCC),
-                              fontSize: 15.0,
-                              onPressButton: () => onSaveForm(context,
-                                  serviceFormState.formState, agywDream),
-                            ),
-                          )
-                        ],
-                      )
-              ],
-            );
-          },
-        );
-      },
+                            Visibility(
+                              visible: serviceFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? languageState.isSesothoLanguage
+                                        ? 'E ntse e boloka'
+                                        : 'Saving ...'
+                                    : 'Save and Continue',
+                                labelColor: Colors.white,
+                                buttonColor: const Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveForm(context,
+                                    serviceFormState.formState, agywDream),
+                              ),
+                            )
+                          ],
+                        )
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

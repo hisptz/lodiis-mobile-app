@@ -259,7 +259,9 @@ class _PpPrevInterventionEnrollmentFormState
                               visible: enrollmentFormState.isEditableMode,
                               child: EntryFormSaveButton(
                                 label: isSaving
-                                    ? 'Saving ...'
+                                    ? languageTranslationState.isSesothoLanguage
+                                        ? 'E ntse e boloka'
+                                        : 'Saving ...'
                                     : currentLanguage == 'lesotho'
                                         ? 'Boloka'
                                         : 'Save',

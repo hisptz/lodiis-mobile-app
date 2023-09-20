@@ -240,7 +240,10 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: isSaving
-                                              ? 'Saving ...'
+                                              ? languageTranslationState
+                                                      .isSesothoLanguage
+                                              ? 'E ntse e boloka'
+                                              : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'
                                                   : 'Save',

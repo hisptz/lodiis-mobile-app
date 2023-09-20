@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/constants/program_status.dart';
@@ -203,35 +204,41 @@ class _DreamsBeneficiaryStatusChangeState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(
-            top: 10.0,
-            left: 13.0,
-            right: 13.0,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) => Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(
+              top: 10.0,
+              left: 13.0,
+              right: 13.0,
+            ),
+            child: EntryFormContainer(
+              hiddenFields: hiddenFields,
+              hiddenSections: const {},
+              formSections: dreamsStatusChangeForm,
+              mandatoryFieldObject: mandatoryFieldObject,
+              unFilledMandatoryFields: unFilledMandatoryFields,
+              isEditableMode: true,
+              dataObject: dataObject,
+              onInputValueChange: onValueChanged,
+            ),
           ),
-          child: EntryFormContainer(
-            hiddenFields: hiddenFields,
-            hiddenSections: const {},
-            formSections: dreamsStatusChangeForm,
-            mandatoryFieldObject: mandatoryFieldObject,
-            unFilledMandatoryFields: unFilledMandatoryFields,
-            isEditableMode: true,
-            dataObject: dataObject,
-            onInputValueChange: onValueChanged,
-          ),
-        ),
-        EntryFormSaveButton(
-          label: isSaving ? 'Saving ...' : 'Save',
-          labelColor: Colors.white,
-          buttonColor: const Color(0xFF258DCC),
-          fontSize: 15.0,
-          onPressButton: () => onSaveForm(
-            context,
-          ),
-        )
-      ],
+          EntryFormSaveButton(
+            label: isSaving
+                ? languageState.isSesothoLanguage
+                    ? 'E ntse e boloka'
+                    : 'Saving ...'
+                : 'Save',
+            labelColor: Colors.white,
+            buttonColor: const Color(0xFF258DCC),
+            fontSize: 15.0,
+            onPressButton: () => onSaveForm(
+              context,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

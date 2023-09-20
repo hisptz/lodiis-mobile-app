@@ -26,6 +26,7 @@ class EducationLbse extends StatefulWidget {
 
 class _EducationLbseState extends State<EducationLbse> {
   final String title = 'LBSE List';
+  final String translatedTitle = 'Lethathamo la LBSE';
   final bool canEdit = true;
   final bool canView = true;
   final bool canExpand = true;
@@ -231,10 +232,10 @@ class _EducationLbseState extends State<EducationLbse> {
                 ? '$maleCount Botona  $femaleCount Botsehali'
                 : '$maleCount Male  $femaleCount Female';
             return SubModuleHomeContainer(
-              header: '$title : $sexCountLabel',
+              header:  isSesotho ? '$translatedTitle : $sexCountLabel' : '$title : $sexCountLabel',
               bodyContents: _buildBody(),
               showFilter: true,
-            );
+            ); 
           },
         );
       },

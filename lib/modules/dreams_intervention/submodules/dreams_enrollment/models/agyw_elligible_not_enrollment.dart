@@ -17,6 +17,7 @@ class AgywElligibleNotEnrollment {
     return [
       FormSection(
         name: 'AGYW/DREAMS Eligible Not Enrolled ',
+        translatedName: 'Bana ba AGYW/DREAMS ba nang le monyetla empa basa ngolisoa ',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(

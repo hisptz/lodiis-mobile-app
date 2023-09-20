@@ -213,7 +213,9 @@ class _EducationBursaryWithoutVulnerabilityCriteriaFormPageState
                             visible: enrollmentFormState.isEditableMode,
                             child: EntryFormSaveButton(
                               label: isSaving
-                                  ? 'Saving ...'
+                                  ?currentLanguage == 'lesotho'
+                                              ? 'E ntse e boloka'
+                                              : 'Saving ...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka'
                                       : 'Save',

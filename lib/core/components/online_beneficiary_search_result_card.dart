@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
@@ -60,109 +61,112 @@ class _OnlineBeneficiarySearchResultCardState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10.0,
-        horizontal: 15.0,
-      ),
-      child: MaterialCard(
-          body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 5.0,
-              horizontal: 15.0,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 9,
-                  child: Text(
-                    widget.searchResult.toString(),
-                    style: TextStyle(
-                        color: widget.primaryColor,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: downloading
-                        ? CircularProcessLoader(
-                            color: widget.primaryColor,
-                            height: 20.0,
-                            width: 20.0,
-                            size: 2,
-                          )
-                        : InkWell(
-                            onTap: () =>
-                                {downloaded ? null : onDownloadResult()},
-                            child: SizedBox(
-                              height: 20.0,
-                              width: 20.0,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: downloaded
-                                    ? Icon(
-                                        Icons.check,
-                                        color: widget.primaryColor,
-                                      )
-                                    : Icon(
-                                        Icons.download,
-                                        color: widget.primaryColor,
-                                      ),
-                              ),
-                            ),
-                          ))
-              ],
-            ),
-          ),
-          Container(
+    return Consumer<LanguageTranslationState>(
+      builder:(context, languageState, child) => 
+      Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10.0,
+          horizontal: 15.0,
+        ),
+        child: MaterialCard(
+            body: Column(
+          children: [
+            Container(
               padding: const EdgeInsets.symmetric(
-                vertical: 10.0,
+                vertical: 5.0,
                 horizontal: 15.0,
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Visibility(
-                      visible: widget.searchResult.primaryUIC != '',
-                      child: SearchResultDetails(
-                        label: 'Primary UIC',
-                        value: widget.searchResult.primaryUIC!,
-                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
-                      )),
-                  Visibility(
-                      visible: widget.searchResult.location != '',
-                      child: SearchResultDetails(
-                        label: 'Location',
-                        value: widget.searchResult.location!,
-                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
-                      )),
-                  Visibility(
-                      visible: widget.searchResult.sex != '',
-                      child: SearchResultDetails(
-                        label: 'Sex',
-                        value: widget.searchResult.sex!,
-                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
-                      )),
-                  Visibility(
-                      visible: widget.searchResult.dateOfBirth != '',
-                      child: SearchResultDetails(
-                        label: 'Date of Birth',
-                        value: widget.searchResult.dateOfBirth!,
-                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
-                      )),
-                  Visibility(
-                      visible: widget.searchResult.program != '',
-                      child: SearchResultDetails(
-                        label: 'Program',
-                        value: widget.searchResult.program!,
-                        primaryColor: widget.primaryColor ?? Colors.blueGrey,
-                      )),
+                  Expanded(
+                    flex: 9,
+                    child: Text(
+                      widget.searchResult.toString(),
+                      style: TextStyle(
+                          color: widget.primaryColor,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 1,
+                      child: downloading
+                          ? CircularProcessLoader(
+                              color: widget.primaryColor,
+                              height: 20.0,
+                              width: 20.0,
+                              size: 2,
+                            )
+                          : InkWell(
+                              onTap: () =>
+                                  {downloaded ? null : onDownloadResult()},
+                              child: SizedBox(
+                                height: 20.0,
+                                width: 20.0,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: downloaded
+                                      ? Icon(
+                                          Icons.check,
+                                          color: widget.primaryColor,
+                                        )
+                                      : Icon(
+                                          Icons.download,
+                                          color: widget.primaryColor,
+                                        ),
+                                ),
+                              ),
+                            ))
                 ],
-              ))
-        ],
-      )),
+              ),
+            ),
+            Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 15.0,
+                ),
+                child: Column(
+                  children: [
+                    Visibility(
+                        visible: widget.searchResult.primaryUIC != '',
+                        child: SearchResultDetails(
+                          label: 'Primary UIC',
+                          value: widget.searchResult.primaryUIC!,
+                          primaryColor: widget.primaryColor ?? Colors.blueGrey,
+                        )),
+                    Visibility(
+                        visible: widget.searchResult.location != '',
+                        child: SearchResultDetails(
+                          label: 'Location',
+                          value: widget.searchResult.location!,
+                          primaryColor: widget.primaryColor ?? Colors.blueGrey,
+                        )),
+                    Visibility(
+                        visible: widget.searchResult.sex != '',
+                        child: SearchResultDetails(
+                          label: 'Sex',
+                          value: widget.searchResult.sex!,
+                          primaryColor: widget.primaryColor ?? Colors.blueGrey,
+                        )),
+                    Visibility(
+                        visible: widget.searchResult.dateOfBirth != '',
+                        child: SearchResultDetails(
+                          label: 'Date of Birth',
+                          value: widget.searchResult.dateOfBirth!,
+                          primaryColor: widget.primaryColor ?? Colors.blueGrey,
+                        )),
+                    Visibility(
+                        visible: widget.searchResult.program != '',
+                        child: SearchResultDetails(
+                          label: languageState.currentLanguage == 'lesotho' ? 'Lenaneo': 'Program',
+                          value: widget.searchResult.program!,
+                          primaryColor: widget.primaryColor ?? Colors.blueGrey,
+                        )),
+                  ],
+                ))
+          ],
+        )),
+      ),
     );
   }
 }

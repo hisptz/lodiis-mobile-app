@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
@@ -17,6 +18,7 @@ class LbseRecordsPage extends StatefulWidget {
 
 class _LbseRecordsPageState extends State<LbseRecordsPage> {
   final String title = 'LBSE List';
+  final String translatedTitle = 'Lethathamo la LBSE';
   final bool canEdit = false;
   final bool canView = true;
   final bool canExpand = true;
@@ -134,14 +136,18 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EducationLbseInterventionState>(
-      builder: (context, educationLbseInterventionState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${educationLbseInterventionState.numberOfEducationLbse} beneficiaries',
-          bodyContents: _buildBody(),
-        );
-      },
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) =>
+          Consumer<EducationLbseInterventionState>(
+        builder: (context, educationLbseInterventionState, child) {
+          return SubModuleHomeContainer(
+            header: languageState.currentLanguage == 'lesotho'
+                ? '$translatedTitle : ${educationLbseInterventionState.numberOfEducationLbse} Ba unang melemo ka hare ho morero'
+                : '$title : ${educationLbseInterventionState.numberOfEducationLbse} beneficiaries',
+            bodyContents: _buildBody(),
+          );
+        },
+      ),
     );
   }
 }

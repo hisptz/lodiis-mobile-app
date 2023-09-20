@@ -234,54 +234,61 @@ class _NonAgywDreamsHTSRegisterFormState
         ),
       ),
       body: SubPageBody(
-        body: Consumer<EnrollmentFormState>(
-          builder: (context, enrollmentFormState, child) {
-            return Column(
-              children: [
-                !isFormReady
-                    ? const CircularProcessLoader(
-                        color: Colors.blueGrey,
-                      )
-                    : Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                              top: 10.0,
-                              left: 13.0,
-                              right: 13.0,
-                            ),
-                            child: EntryFormContainer(
-                              hiddenFields: enrollmentFormState.hiddenFields,
-                              hiddenSections:
-                                  enrollmentFormState.hiddenSections,
-                              formSections: formSections,
-                              mandatoryFieldObject: mandatoryFieldObject,
-                              isEditableMode:
-                                  enrollmentFormState.isEditableMode,
-                              dataObject: enrollmentFormState.formState,
-                              onInputValueChange: onInputValueChange,
-                              unFilledMandatoryFields: unFilledMandatoryFields,
-                            ),
-                          ),
-                          Visibility(
-                            visible: enrollmentFormState.isEditableMode,
-                            child: EntryFormSaveButton(
-                              label:
-                                  isSaving ? 'Saving ...' : 'Save and Continue',
-                              labelColor: Colors.white,
-                              buttonColor: const Color(0xFF258DCC),
-                              fontSize: 15.0,
-                              onPressButton: () => onSaveForm(
-                                context,
-                                enrollmentFormState.formState,
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageState, child) =>
+              Consumer<EnrollmentFormState>(
+            builder: (context, enrollmentFormState, child) {
+              return Column(
+                children: [
+                  !isFormReady
+                      ? const CircularProcessLoader(
+                          color: Colors.blueGrey,
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                top: 10.0,
+                                left: 13.0,
+                                right: 13.0,
+                              ),
+                              child: EntryFormContainer(
+                                hiddenFields: enrollmentFormState.hiddenFields,
+                                hiddenSections:
+                                    enrollmentFormState.hiddenSections,
+                                formSections: formSections,
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                isEditableMode:
+                                    enrollmentFormState.isEditableMode,
+                                dataObject: enrollmentFormState.formState,
+                                onInputValueChange: onInputValueChange,
+                                unFilledMandatoryFields:
+                                    unFilledMandatoryFields,
                               ),
                             ),
-                          )
-                        ],
-                      )
-              ],
-            );
-          },
+                            Visibility(
+                              visible: enrollmentFormState.isEditableMode,
+                              child: EntryFormSaveButton(
+                                label: isSaving
+                                    ? languageState.isSesothoLanguage
+                                        ? 'E ntse e boloka'
+                                        : 'Saving ...'
+                                    : 'Save and Continue',
+                                labelColor: Colors.white,
+                                buttonColor: const Color(0xFF258DCC),
+                                fontSize: 15.0,
+                                onPressButton: () => onSaveForm(
+                                  context,
+                                  enrollmentFormState.formState,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                ],
+              );
+            },
+          ),
         ),
       ),
       bottomNavigationBar: const InterventionBottomNavigationBarContainer(),

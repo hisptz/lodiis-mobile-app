@@ -365,7 +365,10 @@ class _PpPrevInterventionGenderNormsFormState
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? 'Saving ...'
+                                            ? languageTranslationState
+                                                    .isSesothoLanguage
+                                                ? 'E ntse e boloka'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',

@@ -301,7 +301,9 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? 'Saving ...'
+                                            ? currentLanguage == 'lesotho'
+                                              ? 'E ntse e boloka'
+                                              : 'Saving ...'
                                             : currentLanguage != 'lesotho'
                                                 ? 'Save'
                                                 : 'Boloka',

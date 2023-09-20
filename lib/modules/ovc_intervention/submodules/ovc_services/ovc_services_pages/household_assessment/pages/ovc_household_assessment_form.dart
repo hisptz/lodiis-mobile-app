@@ -267,7 +267,10 @@ class _OvcHouseholdAssessmentFormState
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? 'Saving ...'
+                                            ? languageTranslationState
+                                                    .isSesothoLanguage
+                                                ? 'E ntse e boloka'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',
