@@ -236,6 +236,7 @@ class EducationBursaryAssessment {
                 InputFieldOption(
                   code: "eOOYt94C8G7",
                   name: "Not interested",
+                  translatedName: 'Ha ke Thahaselle'
                 ),
                 InputFieldOption(
                   code: "oIGWbCQTZ8w",

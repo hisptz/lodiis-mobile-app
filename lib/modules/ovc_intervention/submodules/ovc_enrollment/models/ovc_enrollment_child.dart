@@ -70,9 +70,13 @@ class OvcEnrollmentChild {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'Biological mother', name: 'Biological mother'),
+                      code: 'Biological mother',
+                      name: 'Biological mother',
+                      translatedName: 'Me oa tlhaho'),
                   InputFieldOption(
-                      code: 'Biological father', name: 'Biological father'),
+                      code: 'Biological father',
+                      name: 'Biological father',
+                      translatedName: 'Ntate oa tlhaho'),
                   InputFieldOption(
                     code: 'Aunt/Uncle',
                     name: 'Aunt/Uncle',
@@ -208,7 +212,7 @@ class OvcEnrollmentChild {
               InputField(
                 id: 'iQdwzVfZdml',
                 name: 'Type of school',
-                translatedName: 'Mofuta oa sekolo',
+                translatedName: 'Mofutoa oa Sekolo',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),

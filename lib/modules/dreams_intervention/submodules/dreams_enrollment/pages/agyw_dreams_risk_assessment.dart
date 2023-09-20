@@ -39,6 +39,7 @@ class AgywDreamsRiskAssessment extends StatefulWidget {
 class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
   List<FormSection>? formSections;
   final String label = 'Risk Assessment';
+  final String translatedLabel = 'Tlhahlobo ea kotsi';
   final List<String> mandatoryFields =
       AgywEnrollmentRiskAssessment.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -305,6 +306,7 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedLabel,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },

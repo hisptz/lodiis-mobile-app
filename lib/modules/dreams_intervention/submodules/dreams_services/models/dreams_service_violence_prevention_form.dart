@@ -33,32 +33,34 @@ class DreamsServiceViolencePreventionForm {
               valueType: 'TEXT',
               options: [
                 InputFieldOption(
-                  code: 'Religion/Culture',
-                  name: 'Religion/Culture',
-                ),
+                    code: 'Religion/Culture',
+                    name: 'Religion/Culture',
+                    translatedName: 'Bolumeli/Setso'),
                 InputFieldOption(
-                  code: 'Service already provided',
-                  name: 'Service already provided (by other provider)',
-                ),
+                    code: 'Service already provided',
+                    name: 'Service already provided (by other provider)',
+                    translatedName:
+                        "Ts'ebeletso e se e fanoe (ke mofani e mong)"),
                 InputFieldOption(
                   code: 'NotReady',
                   name: 'Not Ready',
                 ),
                 InputFieldOption(
-                  code: 'HealthConcerns',
-                  name: 'Health Concerns',
-                ),
+                    code: 'HealthConcerns',
+                    name: 'Health Concerns',
+                    translatedName: 'Matšoenyeho a Bophelo bo Botle'),
                 InputFieldOption(
                   code: 'AccessIssues',
                   name: 'Access Issues (resources, time)',
                 ),
                 InputFieldOption(
-                  code: 'NotInterested',
-                  name: 'Not Interested',
-                ),
+                    code: 'NotInterested',
+                    name: 'Not Interested',
+                    translatedName: 'Ha ke Thahaselle'),
                 InputFieldOption(
                   code: 'Other(s)',
                   name: 'Other(s)',
+                  translatedName: 'Tse ling',
                 )
               ],
               inputColor: const Color(0xFF1F8ECE),
@@ -67,6 +69,8 @@ class DreamsServiceViolencePreventionForm {
             InputField(
               id: 'oTTL6vEpKok',
               name: 'Specify other reasons for service declining',
+              translatedName:
+                  'Hlalosa mabaka a mang a ho fokotseha ha litšebeletso',
               valueType: 'LONG_TEXT',
               firstDate: firstDate,
               inputColor: const Color(0xFF258DCC),

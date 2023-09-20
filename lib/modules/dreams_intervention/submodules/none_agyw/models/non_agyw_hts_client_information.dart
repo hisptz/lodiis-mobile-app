@@ -257,6 +257,7 @@ class NonAgywHTSClientInformation {
           ]),
       FormSection(
           name: 'Risk assessment',
+          translatedName: 'Tlhahlobo ea kotsi',
           color: const Color(0xFF737373),
           inputFields: [
             InputField(
