@@ -81,8 +81,12 @@ class DreamsServicePrepIntakeInfo {
                 labelColor: const Color(0xFF737373),
                 name: 'Current gender',
                 options: [
-                  InputFieldOption(code: 'Male', name: 'Male'),
-                  InputFieldOption(code: 'Female', name: 'Female'),
+                  InputFieldOption(
+                      code: 'Male', name: 'Male', translatedName: 'Botona'),
+                  InputFieldOption(
+                      code: 'Female',
+                      name: 'Female',
+                      translatedName: "Bots'ehali"),
                   InputFieldOption(
                       code: 'Transgender (male to female)',
                       name: 'Transgender (male to female)'),

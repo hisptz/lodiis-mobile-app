@@ -33,6 +33,7 @@ class DreamsReferral {
                 InputField(
                     id: 'y0bvausyTyh',
                     name: 'Implementing partner',
+                    translatedName: 'Basebetsi mmoho',
                     valueType: 'TEXT',
                     inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),

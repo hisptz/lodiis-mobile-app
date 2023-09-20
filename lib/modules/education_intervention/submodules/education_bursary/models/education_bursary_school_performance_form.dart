@@ -28,6 +28,7 @@ class EducationBursarySchoolPerformanceForm {
     return [
       FormSection(
           name: 'Student performance tracking',
+          translatedName: "Ts'alomorao ea ts'ebetso ea sekolo",
           color: const Color(0xFF009688),
           inputFields: [
             InputField(

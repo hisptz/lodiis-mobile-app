@@ -1403,7 +1403,7 @@ class AgywReAssessment {
               InputFieldOption(
                   code: 'Pregnancy',
                   name: 'Pregnancy',
-                  translatedName: 'Ke mokhachane'),
+                  translatedName: 'Boimana'),
               InputFieldOption(
                   code: 'Peer pressure',
                   name: 'Peer pressure',

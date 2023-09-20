@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/models/education_beneficiary.dart';
@@ -86,6 +87,9 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
   }
 
   Center _getEmptyListContainer(BuildContext context) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
     return Center(
       child: Column(
         children: [
@@ -93,8 +97,10 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
             margin: const EdgeInsets.only(
               top: 10.0,
             ),
-            child: const Text(
-              'There is no LBSE beneficiaries enrolled at the moment',
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha ho na bana ba LBSE ba ngolisitseng hajoale'
+                  : 'There is no LBSE beneficiaries enrolled at the moment',
             ),
           ),
         ],

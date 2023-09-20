@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/modules/education_intervention/components/education_beneficiary_button.dart';
-import 'package:provider/provider.dart';
 
 class EducationBeneficiaryBottonAction extends StatelessWidget {
   const EducationBeneficiaryBottonAction({
@@ -30,53 +28,50 @@ class EducationBeneficiaryBottonAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LanguageTranslationState>(
-      builder: (context, languageTranslationState, child) {
-        String currentLanguage = languageTranslationState.currentLanguage;
-
-        return ClipRRect(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(12.0),
-            bottomRight: Radius.circular(12.0),
-          ),
-          child: Container(
-            height: height,
-            color: const Color(0xFF009688).withOpacity(0.08),
-            child: Center(
-              child: ListView(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  EducationBeneficiaryButton(
-                    label: 'LEARNING OUTCOME',
-                    isVisible: isLbseLearningOutcomeVisible,
-                    hasSplitBorder: false,
-                    onTap: onOpenLbseLearningOutcome,
-                  ),
-                  EducationBeneficiaryButton(
-                    label: currentLanguage == 'lesotho' ? 'SEKOLO' : 'SCHOOL',
-                    isVisible: isBursarySchoolVisible,
-                    hasSplitBorder: isBursaryClubVisible,
-                    onTap: onOpenBursarySchool,
-                  ),
-                  EducationBeneficiaryButton(
-                    label: 'CLUB',
-                    isVisible: isBursaryClubVisible,
-                    hasSplitBorder: isBursaryClubReferralVisible,
-                    onTap: onOpenBursaryClub,
-                  ),
-                  EducationBeneficiaryButton(
-                    label: 'CLUB RERERRAL',
-                    isVisible: isBursaryClubReferralVisible,
-                    hasSplitBorder: false,
-                    onTap: onOpenBursaryClubReferral,
-                  ),
-                ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        bottomLeft: Radius.circular(12.0),
+        bottomRight: Radius.circular(12.0),
+      ),
+      child: Container(
+        height: height,
+        color: const Color(0xFF009688).withOpacity(0.08),
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            children: [
+              EducationBeneficiaryButton(
+                label: 'LEARNING OUTCOME',
+                translatedLabel: 'SEPHETHO SA BOITHUTO',
+                isVisible: isLbseLearningOutcomeVisible,
+                hasSplitBorder: false,
+                onTap: onOpenLbseLearningOutcome,
               ),
-            ),
+              EducationBeneficiaryButton(
+                label: 'SCHOOL',
+                translatedLabel: 'SEKOLO',
+                isVisible: isBursarySchoolVisible,
+                hasSplitBorder: isBursaryClubVisible,
+                onTap: onOpenBursarySchool,
+              ),
+              EducationBeneficiaryButton(
+                label: 'CLUB',
+                translatedLabel: "SEHLOTS'OANA",
+                isVisible: isBursaryClubVisible,
+                hasSplitBorder: isBursaryClubReferralVisible,
+                onTap: onOpenBursaryClub,
+              ),
+              EducationBeneficiaryButton(
+                label: 'CLUB RERERRAL',
+                isVisible: isBursaryClubReferralVisible,
+                hasSplitBorder: false,
+                onTap: onOpenBursaryClubReferral,
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

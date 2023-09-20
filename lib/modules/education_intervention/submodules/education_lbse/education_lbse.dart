@@ -154,6 +154,9 @@ class _EducationLbseState extends State<EducationLbse> {
   }
 
   Center _getEmptyListContainer(BuildContext context) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
     return Center(
       child: Column(
         children: [
@@ -161,8 +164,10 @@ class _EducationLbseState extends State<EducationLbse> {
             margin: const EdgeInsets.only(
               top: 10.0,
             ),
-            child: const Text(
-              'There is no LBSE beneficiaries enrolled at the moment',
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha ho na bana ba LBSE ba ngolisitseng hajoale'
+                  : 'There is no LBSE beneficiaries enrolled at the moment',
             ),
           ),
           IconButton(

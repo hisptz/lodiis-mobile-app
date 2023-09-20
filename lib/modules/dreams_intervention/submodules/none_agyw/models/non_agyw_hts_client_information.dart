@@ -519,7 +519,10 @@ class NonAgywHTSClientInformation {
               labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(code: 'None', name: 'None'),
-                InputFieldOption(code: 'Primary', name: 'Primary'),
+                InputFieldOption(
+                    code: 'Primary',
+                    name: 'Primary',
+                    translatedName: 'Mathomo'),
                 InputFieldOption(
                     code: 'Secondary school', name: 'Secondary school'),
                 InputFieldOption(code: 'High school', name: 'High school'),

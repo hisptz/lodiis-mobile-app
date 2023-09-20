@@ -175,6 +175,8 @@ class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
             builder: (BuildContext context, ScrollController scrollController) {
               return Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) {
+                String? currentLanguage =
+                    languageTranslationState.currentLanguage;
                 return Consumer<InterventionCardState>(
                     builder: (context, interventionCardState, child) {
                   String program =
@@ -246,7 +248,9 @@ class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
                                               }
                                           },
                                           child: Text(
-                                            'clear All',
+                                            currentLanguage == 'lesotho'
+                                                ? 'Hlakola Tsohle'
+                                                : 'clear All',
                                             style: TextStyle(
                                                 color: canSearch()
                                                     ? primaryColor

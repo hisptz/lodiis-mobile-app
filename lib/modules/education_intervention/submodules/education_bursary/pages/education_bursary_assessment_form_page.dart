@@ -37,6 +37,7 @@ class EducationBursaryAssessmentFormPage extends StatefulWidget {
 class _EducationBursaryAssessmentFormPageState
     extends State<EducationBursaryAssessmentFormPage> {
   final String label = 'Bursary Assessment Form';
+  final String translatedName = 'Foromo ea Tlhahlobo ea Lihlapiso';
 
   final List<String> mandatoryFields =
       EducationBursaryAssessment.getMandatoryField();
@@ -185,6 +186,7 @@ class _EducationBursaryAssessmentFormPageState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/synchronization_state/synchronization_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/material_card.dart';
@@ -142,6 +143,7 @@ class _OnlineBeneficiarySearchResultCardState
                       visible: widget.searchResult.sex != '',
                       child: SearchResultDetails(
                         label: 'Sex',
+                        translatedLabel: 'Boleng',
                         value: widget.searchResult.sex!,
                         primaryColor: widget.primaryColor ?? Colors.blueGrey,
                       )),
@@ -169,24 +171,29 @@ class _OnlineBeneficiarySearchResultCardState
 
 class SearchResultDetails extends StatelessWidget {
   final String label;
+  final String? translatedLabel;
   final String value;
   final Color primaryColor;
   const SearchResultDetails(
       {Key? key,
       required this.label,
       required this.value,
+      this.translatedLabel,
       required this.primaryColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
           Expanded(
             child: Text(
-              label,
+              currentLanguage == 'lesotho' ? translatedLabel ?? label : label,
               style: const TextStyle().copyWith(
                 color: primaryColor.withOpacity(0.6),
                 fontSize: 14.0,

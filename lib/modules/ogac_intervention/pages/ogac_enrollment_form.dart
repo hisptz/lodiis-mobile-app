@@ -37,6 +37,7 @@ class OgacEnrollmentForm extends StatefulWidget {
 
 class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
   final String label = 'OGAC Enrollment Form';
+  final String translatedName = 'Foromo ea ngoliso ea OGAC';
   final List<String> mandatoryFields =
       OgacInterventionFormSection.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -213,6 +214,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },

@@ -140,8 +140,10 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female')
+              InputFieldOption(
+                  code: 'Male', name: 'Male', translatedName: 'Botona'),
+              InputFieldOption(
+                  code: 'Female', name: 'Female', translatedName: "Bots'ehali")
             ],
           ),
           InputField(

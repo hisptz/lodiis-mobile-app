@@ -89,7 +89,9 @@ class DreamsHTSIndexContactCardBody extends StatelessWidget {
                             Expanded(
                                 flex: 1,
                                 child: Text(
-                                  'Age',
+                                  currentLanguage == 'lesotho'
+                                      ? 'Lilemo'
+                                      : 'Age',
                                   style: const TextStyle().copyWith(
                                       fontSize: 14.0,
                                       color: const Color(0xFF82898D),
@@ -143,7 +145,9 @@ class DreamsHTSIndexContactCardBody extends StatelessWidget {
                             Expanded(
                                 flex: 1,
                                 child: Text(
-                                  'Sex',
+                                  currentLanguage == 'lesotho'
+                                      ? 'Boleng'
+                                      : 'Sex',
                                   style: const TextStyle().copyWith(
                                       fontSize: 14.0,
                                       color: const Color(0xFF82898D),

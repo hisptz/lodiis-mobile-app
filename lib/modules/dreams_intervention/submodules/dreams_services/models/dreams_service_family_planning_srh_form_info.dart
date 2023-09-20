@@ -44,7 +44,10 @@ class DreamsContraceptivesForm {
                 InputFieldOption(
                     code: 'AccessIssues',
                     name: 'Access Issues (resources, time)'),
-                InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
+                InputFieldOption(
+                    code: 'NotInterested',
+                    name: 'Not Interested',
+                    translatedName: 'Ha ke na thahasello'),
                 InputFieldOption(code: 'Other(s)', name: 'Other(s)')
               ],
               firstDate: firstDate,

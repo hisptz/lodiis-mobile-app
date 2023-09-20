@@ -193,119 +193,129 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return makeFilterDismissible(
-        child: DraggableScrollableSheet(
-      initialChildSize: 0.8,
-      minChildSize: 0.5,
-      maxChildSize: 0.8,
-      builder: (BuildContext context, ScrollController scrollController) {
-        return Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-          List<BeneficiaryFilter> filters = getFilterMetadata(
-              interventionCardState.currentInterventionProgram);
-          var backgroundColor =
-              interventionCardState.currentInterventionProgram.background;
-          return Container(
-              padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
-              decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(20)),
-                  color: Color.alphaBlend(
-                      backgroundColor ?? Colors.white, Colors.white)),
-              child: Consumer<BeneficiaryFilterState>(
-                builder: (context, beneficiaryFilterState, child) {
-                  return Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String? currentLanguage = languageTranslationState.currentLanguage;
+
+      return makeFilterDismissible(
+          child: DraggableScrollableSheet(
+        initialChildSize: 0.8,
+        minChildSize: 0.5,
+        maxChildSize: 0.8,
+        builder: (BuildContext context, ScrollController scrollController) {
+          return Consumer<InterventionCardState>(
+              builder: (context, interventionCardState, child) {
+            List<BeneficiaryFilter> filters = getFilterMetadata(
+                interventionCardState.currentInterventionProgram);
+            var backgroundColor =
+                interventionCardState.currentInterventionProgram.background;
+            return Container(
+                padding:
+                    const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
+                decoration: BoxDecoration(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(20)),
+                    color: Color.alphaBlend(
+                        backgroundColor ?? Colors.white, Colors.white)),
+                child: Consumer<BeneficiaryFilterState>(
+                  builder: (context, beneficiaryFilterState, child) {
+                    return Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: const Text(
+                                    'Filters',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.0),
+                                  ),
+                                ),
+                              ),
+                              Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: const Text(
-                                  'Filters',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16.0),
+                                child: InkWell(
+                                  onTap: () => onClearFilters(
+                                      context,
+                                      interventionCardState
+                                          .currentInterventionProgram),
+                                  child: Text(
+                                    currentLanguage == 'lesotho'
+                                        ? 'Hlakola Tsohle'
+                                        : 'Clear All',
+                                    style: TextStyle(
+                                        color: interventionCardState
+                                            .currentInterventionProgram
+                                            .primaryColor),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: InkWell(
-                                onTap: () => onClearFilters(
-                                    context,
-                                    interventionCardState
-                                        .currentInterventionProgram),
-                                child: Text(
-                                  'Clear All',
-                                  style: TextStyle(
-                                      color: interventionCardState
-                                          .currentInterventionProgram
-                                          .primaryColor),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      LineSeparator(
-                          color: interventionCardState
-                              .currentInterventionProgram.countLabelColor!),
-                      Flexible(
-                          child: ListView(
-                        padding: const EdgeInsets.all(8.0),
-                        children: filters
-                            .map((BeneficiaryFilter filter) =>
-                                _buildFilterWidget(
-                                    filter,
-                                    interventionCardState
-                                        .currentInterventionProgram))
-                            .toList(),
-                      )),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10.0),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12.0)),
-                          color: interventionCardState
-                              .currentInterventionProgram.primaryColor,
-                        ),
-                        padding: const EdgeInsets.only(
-                          right: 5.0,
-                        ),
-                        child: TextButton(
-                          onPressed: () => onApplyFilters(
-                              interventionCardState.currentInterventionProgram),
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 15,
-                            ),
+                              )
+                            ],
                           ),
-                          child: Container(
-                            margin:
-                                const EdgeInsets.symmetric(horizontal: 25.0),
-                            child: const Text(
-                              "Apply filters",
-                              style: TextStyle(
-                                color: Color(0xFFFAFAFA),
+                        ),
+                        LineSeparator(
+                            color: interventionCardState
+                                .currentInterventionProgram.countLabelColor!),
+                        Flexible(
+                            child: ListView(
+                          padding: const EdgeInsets.all(8.0),
+                          children: filters
+                              .map((BeneficiaryFilter filter) =>
+                                  _buildFilterWidget(
+                                      filter,
+                                      interventionCardState
+                                          .currentInterventionProgram))
+                              .toList(),
+                        )),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12.0)),
+                            color: interventionCardState
+                                .currentInterventionProgram.primaryColor,
+                          ),
+                          padding: const EdgeInsets.only(
+                            right: 5.0,
+                          ),
+                          child: TextButton(
+                            onPressed: () => onApplyFilters(
+                                interventionCardState
+                                    .currentInterventionProgram),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
+                            ),
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 25.0),
+                              child: const Text(
+                                "Apply filters",
+                                style: TextStyle(
+                                  color: Color(0xFFFAFAFA),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).viewInsets.bottom))
-                    ],
-                  );
-                },
-              ));
-        });
-      },
-    ));
+                        Padding(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom))
+                      ],
+                    );
+                  },
+                ));
+          });
+        },
+      ));
+    });
   }
 }

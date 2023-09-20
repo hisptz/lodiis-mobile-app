@@ -39,6 +39,7 @@ class EducationLbseEnrollmentFormPage extends StatefulWidget {
 class _EducationLbseEnrollmentFormPageState
     extends State<EducationLbseEnrollmentFormPage> {
   final String label = 'LBSE Enrollment Form';
+  final String translatedName = 'Foromo ea ngoliso ea LBSE';
   final List<String> mandatoryFields =
       EducationLbseEnrollmentForm.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -213,6 +214,7 @@ class _EducationLbseEnrollmentFormPageState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
