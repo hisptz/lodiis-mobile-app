@@ -139,7 +139,9 @@ class DreamsReferral {
                             name: 'Post GBV Care (legal)'),
                         InputFieldOption(
                             code: 'HIVRiskAssessment',
-                            name: 'HIV Risk Assessment'),
+                            name: 'HIV Risk Assessment',
+                            translatedName:
+                                'Hlahlobo ea hoba tlokotsing ea HIV'),
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
@@ -254,7 +256,9 @@ class DreamsReferral {
                             name: 'Post GBV Care (legal)'),
                         InputFieldOption(
                             code: 'HIVRiskAssessment',
-                            name: 'HIV Risk Assessment'),
+                            name: 'HIV Risk Assessment',
+                            translatedName:
+                                'Hlahlobo ea hoba tlokotsing ea HIV'),
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),

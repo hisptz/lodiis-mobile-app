@@ -181,7 +181,10 @@ class ClientInformation {
                       code: 'Unknown',
                       name: 'Unknown',
                       translatedName: 'Tse sa tsejoeng'),
-                  InputFieldOption(code: 'No Response', name: 'No Response')
+                  InputFieldOption(
+                      code: 'No Response',
+                      name: 'No Response',
+                      translatedName: 'Ha ho Karabo')
                 ]),
             InputField(
                 id: 'DzRsmX6O9V6',

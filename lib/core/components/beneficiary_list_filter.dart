@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/education_intervention_state/education_b
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_bottom_navigation_state/intervention_bottom_navigation_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
@@ -129,39 +130,47 @@ class _BeneficiaryListFilterState extends State<BeneficiaryListFilter> {
       BeneficiaryFilter filter, InterventionCard currentIntervention) {
     bool isFilterSelected = isFilterApplied(filter.id, currentIntervention);
     Color filterColor = currentIntervention.primaryColor ?? Colors.blue;
-    return Container(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: Theme(
-          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-          child: ExpansionTile(
-            childrenPadding:
-                const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
-            title: Row(
-              children: [
-                Expanded(
-                    child: Text(
-                  filter.name,
-                  style: const TextStyle(
-                      fontSize: 16.0, fontWeight: FontWeight.w500),
-                )),
-                Visibility(
-                  visible: isFilterSelected,
-                  child: InputClearIcon(
-                    onClearInput: () {
-                      onClearFilterItem(filter.id, currentIntervention);
-                    },
-                    showClearIcon: true,
-                  ),
-                )
-              ],
+
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String? currentLanguage = languageTranslationState.currentLanguage;
+
+      return Container(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              childrenPadding:
+                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
+              title: Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                    currentLanguage == 'lesotho'
+                        ? filter.translatedName ?? filter.name
+                        : filter.name,
+                    style: const TextStyle(
+                        fontSize: 16.0, fontWeight: FontWeight.w500),
+                  )),
+                  Visibility(
+                    visible: isFilterSelected,
+                    child: InputClearIcon(
+                      onClearInput: () {
+                        onClearFilterItem(filter.id, currentIntervention);
+                      },
+                      showClearIcon: true,
+                    ),
+                  )
+                ],
+              ),
+              iconColor: filterColor,
+              textColor: filterColor,
+              collapsedTextColor: isFilterSelected ? filterColor : null,
+              collapsedIconColor: isFilterSelected ? filterColor : null,
+              children: [filter.filterInput],
             ),
-            iconColor: filterColor,
-            textColor: filterColor,
-            collapsedTextColor: isFilterSelected ? filterColor : null,
-            collapsedIconColor: isFilterSelected ? filterColor : null,
-            children: [filter.filterInput],
-          ),
-        ));
+          ));
+    });
   }
 
   void onClearFilters(

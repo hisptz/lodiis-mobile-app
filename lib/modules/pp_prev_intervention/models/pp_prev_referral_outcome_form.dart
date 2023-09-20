@@ -70,6 +70,7 @@ class PpPrevReferralOutcomeForm {
           InputField(
             id: 'oTTL6vEpKok',
             name: 'Specify other',
+            translatedName: 'Hlalosa tse ling',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'LONG_TEXT',
@@ -93,6 +94,7 @@ class PpPrevReferralOutcomeForm {
           InputField(
             id: 'LcG4J82PM4Z',
             name: 'Comments or next steps',
+            translatedName: 'Maikutlo kapa mehato e latelang',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'LONG_TEXT',

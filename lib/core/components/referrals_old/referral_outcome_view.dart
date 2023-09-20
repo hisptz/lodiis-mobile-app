@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_follow_up.dart';
 import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_following_up_modal_old.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -94,202 +95,215 @@ class ReferralOutComeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(12.0),
-      ),
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 20.0,
-            ),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 5.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'Date client reached the referral station',
-                              style: const TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: themeColor!.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            referralOutComeEvent!.dateClientReachStation!,
-                            style: const TextStyle().copyWith(
-                              fontSize: 14.0,
-                              color: const Color(0xFF1A3518),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 5.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'Date service was provided',
-                              style: const TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: themeColor!.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            referralOutComeEvent!.dateServiceProvided!,
-                            style: const TextStyle().copyWith(
-                              fontSize: 14.0,
-                              color: const Color(0xFF1A3518),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 5.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'Comments or next steps',
-                              style: const TextStyle().copyWith(
-                                fontSize: 14.0,
-                                color: themeColor!.withOpacity(0.8),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            referralOutComeEvent!.comments!,
-                            style: const TextStyle().copyWith(
-                              fontSize: 14.0,
-                              color: const Color(0xFF1A3518),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String currentLanguage = languageTranslationState.currentLanguage;
+
+        return ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(12.0),
           ),
-          Consumer<ServiceEventDataState>(
-            builder: (context, serviceEventDataState, child) {
-              Map<String?, List<Events>> eventListByProgramStage =
-                  serviceEventDataState.eventListByProgramStage;
-              List<ReferralOutcomeFollowUpEvent> referralOutComeFollowUpEvents =
-                  getReferralOutComeFollowUps(eventListByProgramStage);
-              bool? canAddFollowUp = true;
-              for (var referralOutcomeFollowUpEvent
-                  in referralOutComeFollowUpEvents) {
-                if (referralOutcomeFollowUpEvent.additionalFollowUpRequired !=
-                        null &&
-                    !referralOutcomeFollowUpEvent.additionalFollowUpRequired!) {
-                  canAddFollowUp =
-                      referralOutcomeFollowUpEvent.additionalFollowUpRequired;
-                }
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(
-                      bottom: 10.0,
-                      left: 20.0,
-                    ),
-                    child: ReferralOutComeFollowUp(
-                      isEditableMode: isEditableMode,
-                      themeColor: themeColor,
-                      onEditFollowUp: () => onEditOutComeFollowUp(context),
-                      referralOutComeFollowUpEvents:
-                          referralOutComeFollowUpEvents,
-                    ),
-                  ),
-                  Visibility(
-                    visible: isEditableMode &&
-                        referralOutComeEvent!.requiredFollowUp! &&
-                        referralOutComeEvent!.enrollmentOuAccessible!,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: themeColor,
-                      ),
-                      child: Visibility(
-                        visible: canAddFollowUp!,
-                        child: Row(
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 20.0,
+                ),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 5.0,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Date client reached the referral station',
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                    color: themeColor!.withOpacity(0.8),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Row(
                           children: [
                             Expanded(
-                              child: TextButton(
-                                onPressed: () =>
-                                    onAddReferralOutComeFollowUp(context),
-                                child: Text(
-                                  'ADD FOLLOW-UP',
-                                  style: const TextStyle().copyWith(
-                                    color: const Color(0XFFFAFAFA),
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                              child: Text(
+                                referralOutComeEvent!.dateClientReachStation!,
+                                style: const TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  color: const Color(0xFF1A3518),
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             )
                           ],
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 5.0,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currentLanguage == 'lesotho'
+                                      ? 'Ho fanoe ka tšebeletso ea letsatsi'
+                                      : 'Date service was provided',
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                    color: themeColor!.withOpacity(0.8),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                referralOutComeEvent!.dateServiceProvided!,
+                                style: const TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  color: const Color(0xFF1A3518),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 5.0,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  currentLanguage == 'lesotho'
+                                      ? "Maikutlo kapa mehato e latelang"
+                                      : 'Comments or next steps',
+                                  style: const TextStyle().copyWith(
+                                    fontSize: 14.0,
+                                    color: themeColor!.withOpacity(0.8),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                referralOutComeEvent!.comments!,
+                                style: const TextStyle().copyWith(
+                                  fontSize: 14.0,
+                                  color: const Color(0xFF1A3518),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<ReferralOutcomeFollowUpEvent>
+                      referralOutComeFollowUpEvents =
+                      getReferralOutComeFollowUps(eventListByProgramStage);
+                  bool? canAddFollowUp = true;
+                  for (var referralOutcomeFollowUpEvent
+                      in referralOutComeFollowUpEvents) {
+                    if (referralOutcomeFollowUpEvent
+                                .additionalFollowUpRequired !=
+                            null &&
+                        !referralOutcomeFollowUpEvent
+                            .additionalFollowUpRequired!) {
+                      canAddFollowUp = referralOutcomeFollowUpEvent
+                          .additionalFollowUpRequired;
+                    }
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          bottom: 10.0,
+                          left: 20.0,
+                        ),
+                        child: ReferralOutComeFollowUp(
+                          isEditableMode: isEditableMode,
+                          themeColor: themeColor,
+                          onEditFollowUp: () => onEditOutComeFollowUp(context),
+                          referralOutComeFollowUpEvents:
+                              referralOutComeFollowUpEvents,
                         ),
                       ),
-                    ),
-                  )
-                ],
-              );
-            },
-          )
-        ],
-      ),
+                      Visibility(
+                        visible: isEditableMode &&
+                            referralOutComeEvent!.requiredFollowUp! &&
+                            referralOutComeEvent!.enrollmentOuAccessible!,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: themeColor,
+                          ),
+                          child: Visibility(
+                            visible: canAddFollowUp!,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextButton(
+                                    onPressed: () =>
+                                        onAddReferralOutComeFollowUp(context),
+                                    child: Text(
+                                      'ADD FOLLOW-UP',
+                                      style: const TextStyle().copyWith(
+                                        color: const Color(0XFFFAFAFA),
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

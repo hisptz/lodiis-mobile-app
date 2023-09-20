@@ -242,7 +242,9 @@ class _OvcHouseholdExitFormContainerState
                           visible: serviceFormState.isEditableMode,
                           child: EntryFormSaveButton(
                             label: widget.isSaving
-                                ? 'Saving ...'
+                                ? currentLanguage == 'lesotho'
+                                    ? 'E ntse e boloka ...'
+                                    : 'Saving ...'
                                 : currentLanguage == 'lesotho'
                                     ? 'Boloka'
                                     : 'Save',

@@ -335,6 +335,7 @@ class OvcHouseholdServicesCasePlanGaps {
           InputField(
               id: 'WdZ3PnW5yV6',
               name: 'LEGAL PROTECTION',
+              translatedName: "TS'IRELETSO EA MOLAO",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),

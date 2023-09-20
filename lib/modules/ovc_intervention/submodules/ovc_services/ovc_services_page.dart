@@ -163,7 +163,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                             ovcHousehold,
                           ),
                           child: Text(
-                            'ASSESS',
+                            currentLanguage == 'lesotho'
+                                ? 'HLAHLOBA'
+                                : 'ASSESS',
                             style: const TextStyle().copyWith(
                               fontSize: 12.0,
                               color: const Color(0xFF4B9F46),
@@ -178,7 +180,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                           ovcHousehold,
                         ),
                         child: Text(
-                          'PLAN',
+                          currentLanguage == 'lesotho' ? 'MORALO' : 'PLAN',
                           style: const TextStyle().copyWith(
                             fontSize: 12.0,
                             color: const Color(0xFF4B9F46),
@@ -208,7 +210,9 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                           ovcHousehold,
                         ),
                         child: Text(
-                          'MONITOR',
+                          currentLanguage == 'lesotho'
+                              ? 'Etsa tlhahlobo e hlophisitsoeng'
+                              : 'MONITOR',
                           style: const TextStyle().copyWith(
                             fontSize: 12.0,
                             color: const Color(0xFF4B9F46),

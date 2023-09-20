@@ -175,7 +175,10 @@ class NoneAgywEnrollmentClientIntake {
                   code: 'Polygamous Marriage', name: 'Polygamous Marriage'),
               InputFieldOption(code: 'Divorced', name: 'Divorced'),
               InputFieldOption(code: 'Separated', name: 'Separated'),
-              InputFieldOption(code: 'Widowed', name: 'Widowed'),
+              InputFieldOption(
+                  code: 'Widowed',
+                  name: 'Widowed',
+                  translatedName: 'Mohlolo/Mohlolohali'),
               InputFieldOption(
                   code: 'Living with unmarried partner',
                   name: 'Living with unmarried partner'),
@@ -212,8 +215,8 @@ class NoneAgywEnrollmentClientIntake {
                   'Are you or your partner planning to have a child within next 2 years?',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
-                InputFieldOption(code: 'No', name: 'No'),
+                InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
+                InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
                 InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know')
               ],
               inputColor: const Color(0xFF258DCC),
@@ -415,9 +418,9 @@ class NoneAgywEnrollmentClientIntake {
               InputFieldOption(
                   code: 'Yes, but I don’t know the result',
                   name: 'Yes, but I don’t know the result'),
-              InputFieldOption(code: 'No', name: 'No'),
+              InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: 'Don\'t Know', name: 'Don\'t Know'),
-              InputFieldOption(code: 'N/A', name: 'N/A')
+              InputFieldOption(code: 'N/A', name: 'N/A', translatedName: 'N/A')
             ],
           ),
           InputField(
@@ -427,8 +430,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -439,8 +442,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -451,7 +454,7 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: '0', name: 'No'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
@@ -463,8 +466,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -514,7 +517,7 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
               InputFieldOption(code: '0', name: 'No'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
@@ -526,8 +529,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -546,8 +549,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -559,8 +562,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -572,8 +575,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -584,8 +587,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -596,8 +599,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -608,8 +611,8 @@ class NoneAgywEnrollmentClientIntake {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: '1', name: 'Yes'),
-              InputFieldOption(code: '0', name: 'No'),
+              InputFieldOption(code: '1', name: 'Yes', translatedName: 'E'),
+              InputFieldOption(code: '0', name: 'No', translatedName: 'Che'),
               InputFieldOption(code: '0.000001', name: 'NA')
             ],
           ),
@@ -778,6 +781,7 @@ class NoneAgywEnrollmentClientIntake {
           InputField(
             id: 'MlgzbQNpeqj_checkbox',
             name: 'Plan',
+            translatedName: 'Moralo',
             valueType: 'CHECK_BOX',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),

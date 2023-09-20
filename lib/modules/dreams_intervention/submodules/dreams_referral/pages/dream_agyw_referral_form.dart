@@ -377,7 +377,9 @@ class _DreamsAgywAddReferralFormState extends State<DreamsAgywAddReferralForm> {
                                   ),
                                   EntryFormSaveButton(
                                     label: isSaving
-                                        ? 'Saving ...'
+                                        ? currentLanguage == 'lesotho'
+                                            ? 'E ntse e boloka ...'
+                                            : 'Saving ...'
                                         : currentLanguage == 'lesotho'
                                             ? 'Boloka'
                                             : 'Save',

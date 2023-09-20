@@ -90,6 +90,7 @@ class PpPrevReferralForm {
           InputField(
             id: 'ud6oZeP3SKv',
             name: 'Specify other',
+            translatedName: 'Hlalosa tse ling',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
             valueType: 'TEXT',

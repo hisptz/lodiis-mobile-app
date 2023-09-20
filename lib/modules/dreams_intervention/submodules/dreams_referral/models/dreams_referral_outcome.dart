@@ -15,6 +15,7 @@ class DreamsReferralOutCome {
     return [
       FormSection(
           name: 'Referral Outcome',
+          translatedName: 'Sephetho sa phetisetso',
           color: const Color(0xFF737373),
           inputFields: [
             InputField(
@@ -35,6 +36,7 @@ class DreamsReferralOutCome {
             InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
+              translatedName: 'Ho fanoe ka tšebeletso ea letsatsi',
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: AgywDreamsCommonConstant.defaultColor,
@@ -119,6 +121,7 @@ class DreamsReferralOutCome {
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
+              translatedName: 'Maikutlo kapa mehato e latelang',
               valueType: 'LONG_TEXT',
               inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),

@@ -105,9 +105,9 @@ class PpPrevServiceForm {
                 translatedName: '4-6 likhoeli tse fetileng',
               ),
               InputFieldOption(
-                code: 'Above 12 months ago',
-                name: 'Above 12 months ago',
-              ),
+                  code: 'Above 12 months ago',
+                  name: 'Above 12 months ago',
+                  translatedName: 'Ka holimo ho likhoeli tse 12 tse fetileng'),
             ],
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),

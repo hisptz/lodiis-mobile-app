@@ -118,17 +118,15 @@ class EducationBursarySchoolPerformanceForm {
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                    code: 'Better',
-                    name: 'Better',
-                  ),
+                      code: 'Better', name: 'Better', translatedName: 'Betere'),
                   InputFieldOption(
-                    code: 'Same',
-                    name: 'Same',
-                  ),
+                      code: 'Same',
+                      name: 'Same',
+                      translatedName: "E ts'oanang"),
                   InputFieldOption(
-                    code: 'Worse',
-                    name: 'Worse',
-                  ),
+                      code: 'Worse',
+                      name: 'Worse',
+                      translatedName: 'E mpe le ho feta'),
                 ]),
             InputField(
               id: 'iBanzhFYlRN',
@@ -159,17 +157,17 @@ class EducationBursarySchoolPerformanceForm {
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                    code: 'Passed',
-                    name: 'Passed',
-                  ),
+                      code: 'Passed',
+                      name: 'Passed',
+                      translatedName: 'O pasitse'),
                   InputFieldOption(
-                    code: 'Failed',
-                    name: 'Failed',
-                  ),
+                      code: 'Failed',
+                      name: 'Failed',
+                      translatedName: 'Ha atleha'),
                   InputFieldOption(
-                    code: 'Did not write exams',
-                    name: 'Did not write exams',
-                  ),
+                      code: 'Did not write exams',
+                      name: 'Did not write exams',
+                      translatedName: 'Ha a ngola litlhahlobo'),
                 ]),
             InputField(
               id: 'lwLEpwalIlG',

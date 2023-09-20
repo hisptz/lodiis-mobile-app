@@ -30,6 +30,7 @@ class OvcHouseholdAssessment extends StatefulWidget {
 
 class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
   final String label = 'Household Assessment';
+  final String translatedName = 'Hlahlobo ea lelapa';
   final List<String> programStageIds = [
     OvcHouseholdAssessmentConstant.programStage
   ];
@@ -100,6 +101,7 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedName,
               activeInterventionProgram: activeInterventionProgram,
             );
           },

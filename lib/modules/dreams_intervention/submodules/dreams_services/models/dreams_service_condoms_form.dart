@@ -21,26 +21,33 @@ class DreamsCondomsForm {
             InputField(
                 id: 'lvT9gfpHIlT',
                 name: 'Date service was provided',
+                translatedName: 'Ho fanoe ka tšebeletso ea letsatsi',
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373)),     
+                labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'sdgj99xGuv3',
                 name: 'Number of condoms provided',
                 valueType: 'NUMBER',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
-                      InputField(
+            InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Religion/Culture', name: 'Religion/Culture'),
-                InputFieldOption(code: 'Service already provided', name: 'Service already provided (by other provider)'),
+                InputFieldOption(
+                    code: 'Religion/Culture', name: 'Religion/Culture'),
+                InputFieldOption(
+                    code: 'Service already provided',
+                    name: 'Service already provided (by other provider)'),
                 InputFieldOption(code: 'NotReady', name: 'Not Ready'),
-                InputFieldOption(code: 'HealthConcerns', name: 'Health Concerns'),
-                InputFieldOption(code: 'AccessIssues', name: 'Access Issues (resources, time)'),
+                InputFieldOption(
+                    code: 'HealthConcerns', name: 'Health Concerns'),
+                InputFieldOption(
+                    code: 'AccessIssues',
+                    name: 'Access Issues (resources, time)'),
                 InputFieldOption(code: 'NotInterested', name: 'Not Interested'),
                 InputFieldOption(code: 'Other(s)', name: 'Other(s)')
               ],
@@ -48,7 +55,7 @@ class DreamsCondomsForm {
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
             ),
-             InputField(
+            InputField(
               id: 'oTTL6vEpKok',
               name: 'Specify other reasons for service declining',
               valueType: 'LONG_TEXT',

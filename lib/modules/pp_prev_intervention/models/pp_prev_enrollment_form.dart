@@ -120,9 +120,9 @@ class PpPrevEnrollmentForm {
                 name: "Active",
               ),
               InputFieldOption(
-                code: "NewEnrollee",
-                name: "New Enrollee",
-              ),
+                  code: "NewEnrollee",
+                  name: "New Enrollee",
+                  translatedName: 'Ngoliso e ncha'),
             ],
           ),
         ],

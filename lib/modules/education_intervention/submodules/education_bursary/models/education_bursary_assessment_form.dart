@@ -254,6 +254,7 @@ class EducationBursaryAssessment {
             InputField(
                 id: 'Ha1E9m1x3Nn',
                 name: 'Specify other',
+                translatedName: 'Hlalosa tse ling',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT'),
@@ -367,6 +368,7 @@ class EducationBursaryAssessment {
             InputField(
                 id: 'JsNImCkS1gh',
                 name: 'Specify other',
+                translatedName: 'Hlalosa tse ling',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT')
@@ -457,6 +459,7 @@ class EducationBursaryAssessment {
             InputField(
               id: 'rHXVmf70LCM',
               name: 'Specify other',
+              translatedName: 'Hlalosa tse ling',
               valueType: 'TEXT',
               inputColor: const Color(0xFF009688),
               labelColor: const Color(0xFF737373),
@@ -516,6 +519,7 @@ class EducationBursaryAssessment {
             InputField(
                 id: 'fSWNHF4MmTl',
                 name: 'Specify other',
+                translatedName: 'Hlalosa tse ling',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT'),
@@ -570,13 +574,16 @@ class EducationBursaryAssessment {
                       code: 'oObzvgasBoK',
                       name: 'Cannot afford other necessity'),
                   InputFieldOption(
-                      code: 'hxWJ7bGS2Lh', name: 'Other (specify)'),
+                      code: 'hxWJ7bGS2Lh',
+                      name: 'Other (specify)',
+                      translatedName: 'Tse ling(hlalosa)'),
                 ]),
             InputField(
                 id: 'TwKzPVRTdR1',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 name: 'Specify other',
+                translatedName: 'Hlalosa tse ling',
                 valueType: 'TEXT'),
             InputField(
                 id: 'forms_of_assistance',
@@ -688,6 +695,7 @@ class EducationBursaryAssessment {
             InputField(
                 id: 'gNn6fGxFBvu',
                 name: 'Specify other',
+                translatedName: 'Hlalosa tse ling',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT')
@@ -741,6 +749,7 @@ class EducationBursaryAssessment {
             InputField(
                 id: 'EQIf299WMiS',
                 name: 'Specify other',
+                translatedName: 'Hlalosa tse ling',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT'),
@@ -818,6 +827,7 @@ class EducationBursaryAssessment {
             InputField(
                 id: 'H5glFCPsa9n',
                 name: 'Specify Other',
+                translatedName: 'Hlalosa tse ling',
                 inputColor: const Color(0xFF009688),
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT'),

@@ -114,26 +114,30 @@ class OvcGraduationReadinessForm {
               id: 'hiv_risks',
               name:
                   'Can you tell me how a young person your age living in your community might become infected with HIV?',
+              translatedName:
+                  'A na u ka mpolella hore na mocha oa lilemo tsa hau ea lulang motseng oa heno a ka tšoaetsoa HIV joang?',
               valueType: 'CHECK_BOX',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
               options: [
                 InputFieldOption(
-                  code: 'Yk4nznsVVME',
-                  name: 'Early sex (starting sex young)',
-                ),
+                    code: 'Yk4nznsVVME',
+                    name: 'Early sex (starting sex young)',
+                    translatedName:
+                        'Thobalano ea kapele (ho qala thobalano le sa le banyenyane)'),
                 InputFieldOption(
-                  code: 'SgnvNELORR5',
-                  name: 'Sex without a condom',
-                ),
+                    code: 'SgnvNELORR5',
+                    name: 'Sex without a condom',
+                    translatedName: 'Thobalano ntle le khohlopo'),
                 InputFieldOption(
                   code: 'RfunopzHoeR',
                   name: 'Sex with an older partner',
                 ),
                 InputFieldOption(
-                  code: 'jWYwiTRNvoF',
-                  name: 'Being sexually abused or raped',
-                ),
+                    code: 'jWYwiTRNvoF',
+                    name: 'Being sexually abused or raped',
+                    translatedName:
+                        'Ho hlekefetsoa ka thobalano kapa ho betoa'),
                 InputFieldOption(
                   code: 'z2COmFwfABt',
                   name: 'Sex with multiple partners',

@@ -331,9 +331,13 @@ class AgywEnrollmentRiskAssessment {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                  code: 'Biological mother', name: 'Biological mother'),
+                  code: 'Biological mother',
+                  name: 'Biological mother',
+                  translatedName: 'Mè ea u tsoalang'),
               InputFieldOption(
-                  code: 'Biological father', name: 'Biological father'),
+                  code: 'Biological father',
+                  name: 'Biological father',
+                  translatedName: 'Ntate ea u tsoalang'),
               InputFieldOption(
                   code: 'Aunt/Uncle',
                   name: 'Aunt/Uncle',

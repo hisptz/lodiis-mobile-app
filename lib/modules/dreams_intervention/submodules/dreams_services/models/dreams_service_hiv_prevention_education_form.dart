@@ -22,6 +22,7 @@ class DreamsServiceHIVPreventionEducationForm {
           InputField(
             id: 'lvT9gfpHIlT',
             name: 'Date service was provided',
+            translatedName: 'Ho fanoe ka tšebeletso ea letsatsi',
             firstDate: firstDate,
             inputColor: const Color(0xFF1F8ECE),
             labelColor: const Color(0xFF737373),

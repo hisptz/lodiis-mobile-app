@@ -22,6 +22,7 @@ class DreamsServiceViolencePreventionForm {
             InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
+              translatedName: 'Ho fanoe ka tšebeletso ea letsatsi',
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),

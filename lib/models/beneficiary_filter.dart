@@ -20,12 +20,14 @@ import 'package:provider/provider.dart';
 class BeneficiaryFilter {
   String id;
   String name;
+  String? translatedName;
   List<String>? interventions;
   Widget filterInput;
 
   BeneficiaryFilter({
     required this.id,
     required this.name,
+    this.translatedName,
     this.interventions = const [],
     required this.filterInput,
   });
@@ -579,6 +581,7 @@ class BeneficiaryFilter {
       BeneficiaryFilter(
         id: 'schoolName',
         name: 'School',
+        translatedName: 'Sekolo',
         interventions: ['education'],
         filterInput: getSchoolFilterInput(currentIntervention),
       ),
