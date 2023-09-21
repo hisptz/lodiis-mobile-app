@@ -63,6 +63,7 @@ class EducationBursaryReferralOutcomeFollowUpForm {
           InputField(
             id: 'LcG4J82PM4Z',
             name: 'Comments or next steps',
+            translatedName: 'Maikutlo kapa mehato e latelang',
             valueType: 'LONG_TEXT',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),

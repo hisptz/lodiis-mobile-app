@@ -311,7 +311,7 @@ class BeneficiaryReferralOutcome extends StatelessWidget {
             visible: referralOutcomeEvent.referralServiceProvided!,
             child: _getReferralOutcomeDetail(
               label: languageState.currentLanguage == 'lesotho'
-                  ? "Letsatsi leo ts'ebeletso e fanoeng ka lona"
+                  ? 'Ho fanoe ka tšebeletso ea letsatsi'
                   : 'Date service was provided',
               color: labelColor,
             ),

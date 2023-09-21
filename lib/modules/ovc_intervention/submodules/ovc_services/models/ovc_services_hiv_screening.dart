@@ -8,7 +8,7 @@ class OvcServicesHivScreening {
     return [
       FormSection(
           name: 'HIV Risk Assessment',
-           translatedName: 'Tlhahlobo ea Kotsi ea HIV',
+          translatedName: 'Hlahlobo ea hoba tlokotsing ea HIV',
           color: const Color(0xFF4B9F46),
           inputFields: [
             InputField(

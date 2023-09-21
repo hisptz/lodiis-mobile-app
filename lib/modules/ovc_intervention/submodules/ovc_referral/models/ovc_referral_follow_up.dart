@@ -47,6 +47,7 @@ class OvcReferralFollowUp {
             InputField(
               id: 'LcG4J82PM4Z',
               name: 'Comments or next steps',
+              translatedName: 'Maikutlo kapa mehato e latelang',
               valueType: 'LONG_TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),

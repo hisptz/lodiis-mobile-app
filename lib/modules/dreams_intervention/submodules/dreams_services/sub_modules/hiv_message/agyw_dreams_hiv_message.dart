@@ -32,6 +32,7 @@ class AgywDreamHIVMessage extends StatefulWidget {
 
 class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
   final String label = 'HIV Risk Assessment';
+  final String translatedName = 'Tlhahlobo ea Kotsi ea HIV';
   List<String> programStageIds = [HIVMessageConstant.programStage];
   @override
   void initState() {
@@ -111,6 +112,7 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedName,
               activeInterventionProgram: activeInterventionProgram,
             );
           },
@@ -195,11 +197,10 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
                                   ),
                                   EntryFormSaveButton(
                                     label: languageTranslationState
-                                                                .currentLanguage ==
-                                                            'lesotho'
-                                                        ? 'Tlatsa Tekolo ea Kotsi ea HIV'
-                                                        : 'ADD HIV Risk Assessment',
-                                
+                                                .currentLanguage ==
+                                            'lesotho'
+                                        ? 'Tlatsa Tekolo ea Kotsi ea HIV'
+                                        : 'ADD HIV Risk Assessment',
                                     labelColor: Colors.white,
                                     buttonColor: const Color(0xFF1F8ECE),
                                     fontSize: 15.0,

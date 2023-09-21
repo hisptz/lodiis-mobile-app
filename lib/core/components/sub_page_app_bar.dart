@@ -28,31 +28,30 @@ class SubPageAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
-      builder: (context, languageState, child) => AppBar(
-        title: Text(
-          languageState.currentLanguage == "lesotho"
-              ? translatedName ?? label
-              : label,
-          style: const TextStyle()
-              .copyWith(fontSize: 19.0, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: activeInterventionProgram.primaryColor,
-        actions: [
-          Visibility(
-            visible: disableSelectionOfActiveIntervention,
-            child: IconButton(
-                icon: const Icon(Icons.more_vert),
-                onPressed: () =>
-                    onOpenMoreMenu(context, activeInterventionProgram)),
-          )
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: Container(
-              margin: const EdgeInsets.only(bottom: 5.0),
-              child: const AppUpdateWarning()),
-        ),
-      ),
-    );
+        builder: (context, languageState, child) => AppBar(
+              title: Text(
+                languageState.currentLanguage == "lesotho"
+                    ? translatedName ?? label
+                    : label,
+                style: const TextStyle()
+                    .copyWith(fontSize: 19.0, fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: activeInterventionProgram.primaryColor,
+              actions: [
+                Visibility(
+                  visible: disableSelectionOfActiveIntervention,
+                  child: IconButton(
+                      icon: const Icon(Icons.more_vert),
+                      onPressed: () =>
+                          onOpenMoreMenu(context, activeInterventionProgram)),
+                )
+              ],
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(80.0),
+                child: Container(
+                    margin: const EdgeInsets.only(bottom: 5.0),
+                    child: const AppUpdateWarning()),
+              ),
+            ));
   }
 }

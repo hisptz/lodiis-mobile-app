@@ -25,24 +25,26 @@ class PpPrevReferralOutcome extends StatelessWidget {
 
   final double editIconHeight = 20.0;
 
-  Widget _getReferralOutcomeDetailsRow({
-    required String label,
-    required Color color,
-  }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 2.5,
-      ),
-      width: double.infinity,
-      child: Text(
-        label,
-        style: const TextStyle().copyWith(
-          fontSize: 14.0,
-          color: color,
-          fontWeight: FontWeight.w500,
+  Widget _getReferralOutcomeDetailsRow(
+      {required String label, required Color color, String? translatedLabel}) {
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String? currentLanguage = languageTranslationState.currentLanguage;
+      return Container(
+        margin: const EdgeInsets.symmetric(
+          vertical: 2.5,
         ),
-      ),
-    );
+        width: double.infinity,
+        child: Text(
+          currentLanguage == 'lesotho' ? translatedLabel ?? label : label,
+          style: const TextStyle().copyWith(
+            fontSize: 14.0,
+            color: color,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      );
+    });
   }
 
   Widget _getReferralOutcomeDetails() {

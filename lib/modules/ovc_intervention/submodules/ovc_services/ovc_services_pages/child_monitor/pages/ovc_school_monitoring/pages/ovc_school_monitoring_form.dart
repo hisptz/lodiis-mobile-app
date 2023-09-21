@@ -33,7 +33,10 @@ class OvcSchoolMonitoringForm extends StatefulWidget {
 }
 
 class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
+  String? currentLanguage;
   final String label = 'Child school performance monitoring tool';
+  final String translatedName =
+      'Sesebelisoa sa ho lekola tšebetso ea Sekolo sa Bana';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -138,6 +141,7 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -191,9 +195,8 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: isSaving
-                                              ? languageTranslationState
-                                                      .isSesothoLanguage
-                                                  ? 'E ntse e boloka'
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'E ntse e boloka...'
                                                   : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'

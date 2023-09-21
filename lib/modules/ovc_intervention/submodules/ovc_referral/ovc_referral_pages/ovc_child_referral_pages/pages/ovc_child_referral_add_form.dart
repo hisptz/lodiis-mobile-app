@@ -263,10 +263,9 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
                                   ),
                                   EntryFormSaveButton(
                                     label: isSaving
-                                        ? languageTranslationState
-                                                      .isSesothoLanguage
-                                              ? 'E ntse e boloka'
-                                              : 'Saving ...'
+                                        ? currentLanguage == 'lesotho'
+                                            ? 'E ntse e boloka...'
+                                            : 'Saving ...'
                                         : currentLanguage == 'lesotho'
                                             ? 'Boloka'
                                             : 'Save',

@@ -252,8 +252,9 @@ class _PpPrevInterventionReferralOutcomeFormState
                         visible: serviceFormState.isEditableMode,
                         child: EntryFormSaveButton(
                           label: isSaving
-                              ? languageTranslationState.isSesothoLanguage
-                                  ? 'E ntse e boloka'
+                              ? languageTranslationState.currentLanguage ==
+                                      'lesotho'
+                                  ? 'E ntse e boloka...'
                                   : 'Saving ...'
                               : languageTranslationState.currentLanguage ==
                                       'lesotho'

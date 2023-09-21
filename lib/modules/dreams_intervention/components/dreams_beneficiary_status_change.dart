@@ -206,40 +206,40 @@ class _DreamsBeneficiaryStatusChangeState
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
-      builder: (context, languageState, child) => Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 10.0,
-              left: 13.0,
-              right: 13.0,
-            ),
-            child: EntryFormContainer(
-              hiddenFields: hiddenFields,
-              hiddenSections: const {},
-              formSections: dreamsStatusChangeForm,
-              mandatoryFieldObject: mandatoryFieldObject,
-              unFilledMandatoryFields: unFilledMandatoryFields,
-              isEditableMode: true,
-              dataObject: dataObject,
-              onInputValueChange: onValueChanged,
-            ),
+        builder: (context, languageTranslationState, child) {
+      String currentLanguage = languageTranslationState.currentLanguage;
+      return Column(children: [
+        Container(
+          margin: const EdgeInsets.only(
+            top: 10.0,
+            left: 13.0,
+            right: 13.0,
           ),
-          EntryFormSaveButton(
-            label: isSaving
-                ? languageState.isSesothoLanguage
-                    ? 'E ntse e boloka'
-                    : 'Saving ...'
-                : 'Save',
-            labelColor: Colors.white,
-            buttonColor: const Color(0xFF258DCC),
-            fontSize: 15.0,
-            onPressButton: () => onSaveForm(
-              context,
-            ),
-          )
-        ],
-      ),
-    );
+          child: EntryFormContainer(
+            hiddenFields: hiddenFields,
+            hiddenSections: const {},
+            formSections: dreamsStatusChangeForm,
+            mandatoryFieldObject: mandatoryFieldObject,
+            unFilledMandatoryFields: unFilledMandatoryFields,
+            isEditableMode: true,
+            dataObject: dataObject,
+            onInputValueChange: onValueChanged,
+          ),
+        ),
+        EntryFormSaveButton(
+          label: isSaving
+              ? currentLanguage == 'lesotho'
+                  ? 'E ntse e boloka ...'
+                  : 'Saving ...'
+              : 'Save',
+          labelColor: Colors.white,
+          buttonColor: const Color(0xFF258DCC),
+          fontSize: 15.0,
+          onPressButton: () => onSaveForm(
+            context,
+          ),
+        )
+      ]);
+    });
   }
 }

@@ -156,7 +156,10 @@ class ServiceCardButtonAction extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'HIV Risk Assessment',
+                                    languageTranslationState.currentLanguage ==
+                                            'lesotho'
+                                        ? 'Hlahlobo ea hoba tlokotsing ea HIV'
+                                        : 'HIV Risk Assessment',
                                     style: const TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,
@@ -406,7 +409,8 @@ class ServiceCardButtonAction extends StatelessWidget {
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(languageTranslationState.currentLanguage ==
+                                  child: Text(
+                                    languageTranslationState.currentLanguage ==
                                             'lesotho'
                                         ? 'FOROMO EA TSEBELETSO'
                                         : 'SERVICE FORM',
@@ -558,10 +562,10 @@ class ServiceCardButtonAction extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                      languageTranslationState.currentLanguage ==
+                                    languageTranslationState.currentLanguage ==
                                             'lesotho'
                                         ? 'Thuto ea Thibelo ea tlhekefetso'
-                                        :'Violence Prevention Education',
+                                        : 'Violence Prevention Education',
                                     style: const TextStyle().copyWith(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.normal,

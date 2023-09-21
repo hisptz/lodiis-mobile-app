@@ -196,8 +196,8 @@ class _AgywDreamsIndexInfoAboutPosClientState
                                       child: EntryFormSaveButton(
                                         label: isSaving
                                             ? currentLanguage == 'lesotho'
-                                              ? 'E ntse e boloka'
-                                              : 'Saving ...'
+                                                ? 'E ntse e boloka...'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',

@@ -90,7 +90,7 @@ class EducationBursaryReferralBody extends StatelessWidget {
                     labelColor: labelColor,
                     valueColor: valueColor,
                     label: currentLanguage == 'lesotho'
-                        ? 'Referred To'
+                        ? 'Phetisetso ho'
                         : 'Referred To',
                     value: bursaryReferral.referralTo,
                   ),

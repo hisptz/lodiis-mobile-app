@@ -33,6 +33,7 @@ class DreamsReferral {
                 InputField(
                     id: 'y0bvausyTyh',
                     name: 'Implementing partner',
+                    translatedName: 'Basebetsi mmoho',
                     valueType: 'TEXT',
                     inputColor: AgywDreamsCommonConstant.defaultColor,
                     labelColor: const Color(0xFF737373),
@@ -143,7 +144,9 @@ class DreamsReferral {
                             name: 'Post GBV Care (legal)'),
                         InputFieldOption(
                             code: 'HIVRiskAssessment',
-                            name: 'HIV Risk Assessment'),
+                            name: 'HIV Risk Assessment',
+                            translatedName:
+                                'Hlahlobo ea hoba tlokotsing ea HIV'),
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),
@@ -228,10 +231,11 @@ class DreamsReferral {
                             name: 'Condom Education/Provision',
                             translatedName: 'Thuto/Phano ka Likhohlopo'),
                         InputFieldOption(
-                            code: 'ViolencePreventionEducation',
-                            name: 'Violence Prevention Education (GBV/VAC)',
-                            translatedName: 'Thuto ea Thibelo ea tlhekefetso (GBV/VAC)',
-                            ),
+                          code: 'ViolencePreventionEducation',
+                          name: 'Violence Prevention Education (GBV/VAC)',
+                          translatedName:
+                              'Thuto ea Thibelo ea tlhekefetso (GBV/VAC)',
+                        ),
                         InputFieldOption(
                             code: 'ComprehensiveEconomicStrengthening',
                             name: 'Comprehensive Economic Strengthening'),

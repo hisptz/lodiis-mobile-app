@@ -353,8 +353,8 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                             EntryFormSaveButton(
                               label: isSaving
                                   ? currentLanguage == 'lesotho'
-                                        ?  'E ntse e boloka'
-                                        : 'Saving ...'
+                                      ? 'E ntse e boloka...'
+                                      : 'Saving ...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka ebe u fetela pele'
                                       : 'Save and Continue',

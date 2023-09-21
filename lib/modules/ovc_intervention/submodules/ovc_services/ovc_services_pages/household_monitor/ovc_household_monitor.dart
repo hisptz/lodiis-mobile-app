@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 class OvcHouseholdMonitor extends StatelessWidget {
   const OvcHouseholdMonitor({Key? key}) : super(key: key);
   final String label = 'Household Monitor';
+  final String translatedName = 'Tlhahlobo e hlophisitsoeng ea lelapa';
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class OvcHouseholdMonitor extends StatelessWidget {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedName,
               activeInterventionProgram: activeInterventionProgram,
             );
           },

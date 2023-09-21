@@ -280,8 +280,8 @@ class _OvcEnrollmentChildViewEditContainerState
                                           label: _isSaving
                                               ? languageTranslationState
                                                       .isSesothoLanguage
-                                              ? 'E ntse e boloka'
-                                              : 'Saving ...'
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : languageTranslationState
                                                       .isSesothoLanguage
                                                   ? 'Boloka'

@@ -220,7 +220,10 @@ class OvcServicesWellbeingAssessment {
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF284227),
                 options: [
-                  InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Primary',
+                      name: 'Primary',
+                      translatedName: 'Mathomo'),
                   InputFieldOption(code: 'Secondary', name: 'Secondary')
                 ]),
             InputField(
@@ -231,11 +234,17 @@ class OvcServicesWellbeingAssessment {
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF284227),
                 options: [
-                  InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Primary',
+                      name: 'Primary',
+                      translatedName: 'Mathomo'),
                   InputFieldOption(
                       code: 'Secondary/High level',
                       name: 'Secondary/High level'),
-                  InputFieldOption(code: 'College', name: 'College')
+                  InputFieldOption(
+                      code: 'College',
+                      name: 'College',
+                      translatedName: 'Kholeche')
                 ]),
             InputField(
                 id: 'TRuxsvRahqm',
@@ -267,11 +276,17 @@ class OvcServicesWellbeingAssessment {
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF284227),
                 options: [
-                  InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Primary',
+                      name: 'Primary',
+                      translatedName: 'Mathomo'),
                   InputFieldOption(
                       code: 'Secondary/High level',
                       name: 'Secondary/High level'),
-                  InputFieldOption(code: 'College', name: 'College')
+                  InputFieldOption(
+                      code: 'College',
+                      name: 'College',
+                      translatedName: 'Kholeche')
                 ]),
             InputField(
                 id: 'KlbW2l1L1NC',
@@ -281,11 +296,17 @@ class OvcServicesWellbeingAssessment {
                 inputColor: const Color(0xFF9B2BAE),
                 labelColor: const Color(0xFF284227),
                 options: [
-                  InputFieldOption(code: 'Primary', name: 'Primary'),
+                  InputFieldOption(
+                      code: 'Primary',
+                      name: 'Primary',
+                      translatedName: 'Mathomo'),
                   InputFieldOption(
                       code: 'Secondary/High level',
                       name: 'Secondary/High level'),
-                  InputFieldOption(code: 'College', name: 'College')
+                  InputFieldOption(
+                      code: 'College',
+                      name: 'College',
+                      translatedName: 'Kholeche')
                 ]),
             InputField(
                 id: 'xbAukRUBixJ',

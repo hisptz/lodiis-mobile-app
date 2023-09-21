@@ -39,7 +39,7 @@ class AgywDreamsCondomsForm extends StatefulWidget {
 
 class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
   final String label = 'Condom Education/Provision';
-  final String translatedLabel ='Thuto/Phano ka Likhohlopo';
+  final String translatedLabel = 'Thuto/Phano ka Likhohlopo';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -304,7 +304,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
                                     child: EntryFormSaveButton(
                                       label: isSaving
                                           ? currentLanguage == 'lesotho'
-                                              ?  'E ntse e boloka'
+                                              ? 'E ntse e boloka...'
                                               : 'Saving ...'
                                           : currentLanguage == 'lesotho'
                                               ? 'Boloka'

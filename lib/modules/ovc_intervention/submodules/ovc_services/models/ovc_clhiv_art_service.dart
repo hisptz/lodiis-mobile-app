@@ -31,6 +31,7 @@ class OvcClhivArtService {
           InputField(
             id: 'Yu00G1uhiYN',
             name: 'Name of FBSW',
+            translatedName: 'Lebetso la mosebeletsi oa sechaba',
             isReadOnly: true,
             valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
@@ -115,17 +116,17 @@ class OvcClhivArtService {
             labelColor: const Color(0xFF1A3518),
             options: [
               InputFieldOption(
-                code: '<3 Months',
-                name: '<3 Months',
-              ),
+                  code: '<3 Months',
+                  name: '<3 Months',
+                  translatedName: 'Likhoeli tse 3'),
               InputFieldOption(
                 code: '3-5 Months',
                 name: '3-5 Months',
               ),
               InputFieldOption(
-                code: '>=6 Months',
-                name: '≥6 Months',
-              ),
+                  code: '>=6 Months',
+                  name: '≥6 Months',
+                  translatedName: 'Likhoeli tse 6'),
             ],
           ),
           InputField(

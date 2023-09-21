@@ -310,9 +310,8 @@ class _PpPrevInterventionServiceProvisionFormState
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? languageTranslationState
-                                                    .isSesothoLanguage
-                                                ? 'E ntse e boloka'
+                                            ? currentLanguage == 'lesotho'
+                                                ? 'E ntse e boloka...'
                                                 : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'

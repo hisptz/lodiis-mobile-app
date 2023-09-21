@@ -303,8 +303,8 @@ class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
                                       child: EntryFormSaveButton(
                                         label: isSaving
                                             ? currentLanguage == 'lesotho'
-                                              ? 'E ntse e boloka'
-                                              : 'Saving ...'
+                                                ? 'E ntse e boloka...'
+                                                : 'Saving ...'
                                             : currentLanguage != 'lesotho'
                                                 ? 'Save'
                                                 : 'Boloka',

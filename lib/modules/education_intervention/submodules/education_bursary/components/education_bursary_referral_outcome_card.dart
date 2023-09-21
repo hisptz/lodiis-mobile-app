@@ -166,7 +166,7 @@ class EducationBursaryReferralOutcomeCard extends StatelessWidget {
                     labelColor: labelColor,
                     valueColor: valueColor,
                     label: currentLanguage == 'lesotho'
-                        ? 'Comments or next steps'
+                        ? 'Maikutlo kapa mehato e latelang'
                         : 'Comments or next steps',
                     value: referralOutcomeEvent.comments,
                   ),

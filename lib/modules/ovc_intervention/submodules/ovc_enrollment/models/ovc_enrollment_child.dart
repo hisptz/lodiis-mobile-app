@@ -72,11 +72,11 @@ class OvcEnrollmentChild {
                   InputFieldOption(
                       code: 'Biological mother',
                       name: 'Biological mother',
-                      translatedName: 'Me oa tlhaho'),
+                      translatedName: 'Mè ea u tsoalang'),
                   InputFieldOption(
                       code: 'Biological father',
                       name: 'Biological father',
-                      translatedName: 'Ntate oa tlhaho'),
+                      translatedName: 'Ntate ea u tsoalang'),
                   InputFieldOption(
                     code: 'Aunt/Uncle',
                     name: 'Aunt/Uncle',
@@ -413,7 +413,10 @@ class OvcEnrollmentChild {
                 renderAsRadio: true,
                 options: [
                   InputFieldOption(code: 'New', name: 'New'),
-                  InputFieldOption(code: 'Re-enrolled', name: 'Re-enrolled')
+                  InputFieldOption(
+                      code: 'Re-enrolled',
+                      name: 'Re-enrolled',
+                      translatedName: 'Ngoliso phetho')
                 ],
               ),
               InputField(
@@ -443,9 +446,12 @@ class OvcEnrollmentChild {
               inputColor: const Color(0xFFFE7503),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
-                InputFieldOption(code: 'No', name: 'No'),
-                InputFieldOption(code: "Don't Know", name: "Don't Know"),
+                InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
+                InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
+                InputFieldOption(
+                    code: "Don't Know",
+                    name: "Don't Know",
+                    translatedName: 'Ha ke tsebe'),
               ]),
           InputField(
             id: 'ZPf4iCd2aw3',
@@ -571,9 +577,12 @@ class OvcEnrollmentChild {
               inputColor: const Color(0xFFFE7503),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
-                InputFieldOption(code: 'No', name: 'No'),
-                InputFieldOption(code: "Don't Know", name: "Don't Know"),
+                InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
+                InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
+                InputFieldOption(
+                    code: "Don't Know",
+                    name: "Don't Know",
+                    translatedName: 'Ha ke tsebe'),
               ]),
           InputField(
             id: 'd3HviODv676',

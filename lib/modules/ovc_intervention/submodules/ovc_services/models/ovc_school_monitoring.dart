@@ -94,9 +94,16 @@ class OvcSchoolMonitoring {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Better', name: 'Better'),
-                  InputFieldOption(code: 'Same', name: 'Same'),
-                  InputFieldOption(code: 'Worse', name: 'Worse')
+                  InputFieldOption(
+                      code: 'Better', name: 'Better', translatedName: 'Betere'),
+                  InputFieldOption(
+                      code: 'Same',
+                      name: 'Same',
+                      translatedName: "E ts'oanang"),
+                  InputFieldOption(
+                      code: 'Worse',
+                      name: 'Worse',
+                      translatedName: 'E mpe le ho feta')
                 ]),
             InputField(
                 id: 'iBanzhFYlRN',
@@ -115,10 +122,19 @@ class OvcSchoolMonitoring {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Passed', name: 'Passed'),
-                  InputFieldOption(code: 'Failed', name: 'Failed'),
                   InputFieldOption(
-                      code: 'Did not write exams', name: 'Did not write exams')
+                      code: 'Passed',
+                      name: 'Passed',
+                      translatedName: 'O pasitse'),
+                  InputFieldOption(
+                    code: 'Failed',
+                    name: 'Failed',
+                    translatedName: 'Ha atleha',
+                  ),
+                  InputFieldOption(
+                      code: 'Did not write exams',
+                      name: 'Did not write exams',
+                      translatedName: 'Ha a ngola litlhahlobo')
                 ]),
             InputField(
                 id: 'zpykd7zvLsC',

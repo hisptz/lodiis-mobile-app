@@ -334,11 +334,11 @@ class AgywEnrollmentRiskAssessment {
               InputFieldOption(
                   code: 'Biological mother',
                   name: 'Biological mother',
-                  translatedName: 'Me oa tlhaho'),
+                  translatedName: 'Mè ea u tsoalang'),
               InputFieldOption(
                   code: 'Biological father',
                   name: 'Biological father',
-                  translatedName: 'Ntate oa tlhaho'),
+                  translatedName: 'Ntate ea u tsoalang'),
               InputFieldOption(
                   code: 'Aunt/Uncle',
                   name: 'Aunt/Uncle',

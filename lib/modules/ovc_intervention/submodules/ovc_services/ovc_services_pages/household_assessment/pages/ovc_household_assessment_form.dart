@@ -40,6 +40,7 @@ class OvcHouseholdAssessmentForm extends StatefulWidget {
 class _OvcHouseholdAssessmentFormState
     extends State<OvcHouseholdAssessmentForm> {
   final String label = 'Household Assessment Form';
+  final String translatedName = 'Foromo ea hlahlobo ea lelapa';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -213,6 +214,7 @@ class _OvcHouseholdAssessmentFormState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -267,9 +269,8 @@ class _OvcHouseholdAssessmentFormState
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? languageTranslationState
-                                                    .isSesothoLanguage
-                                                ? 'E ntse e boloka'
+                                            ? currentLanguage == 'lesotho'
+                                                ? 'E ntse e boloka...'
                                                 : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'

@@ -62,8 +62,7 @@ class _OnlineBeneficiarySearchResultCardState
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
-      builder:(context, languageState, child) => 
-      Container(
+      builder: (context, languageState, child) => Container(
         padding: const EdgeInsets.symmetric(
           vertical: 10.0,
           horizontal: 15.0,
@@ -158,7 +157,9 @@ class _OnlineBeneficiarySearchResultCardState
                     Visibility(
                         visible: widget.searchResult.program != '',
                         child: SearchResultDetails(
-                          label: languageState.currentLanguage == 'lesotho' ? 'Lenaneo': 'Program',
+                          label: languageState.currentLanguage == 'lesotho'
+                              ? 'Lenaneo'
+                              : 'Program',
                           value: widget.searchResult.program!,
                           primaryColor: widget.primaryColor ?? Colors.blueGrey,
                         )),
@@ -173,24 +174,29 @@ class _OnlineBeneficiarySearchResultCardState
 
 class SearchResultDetails extends StatelessWidget {
   final String label;
+  final String? translatedLabel;
   final String value;
   final Color primaryColor;
   const SearchResultDetails(
       {Key? key,
       required this.label,
       required this.value,
+      this.translatedLabel,
       required this.primaryColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
           Expanded(
             child: Text(
-              label,
+              currentLanguage == 'lesotho' ? translatedLabel ?? label : label,
               style: const TextStyle().copyWith(
                 color: primaryColor.withOpacity(0.6),
                 fontSize: 14.0,

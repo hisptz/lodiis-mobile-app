@@ -16,6 +16,7 @@ class DreamsMsgHivInfo {
             InputField(
               id: 'qFwm4RM45gi',
               name: 'HIV Risk Assessment',
+              translatedName: 'Hlahlobo ea hoba tlokotsing ea HIV',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
