@@ -10,4 +10,5 @@ class OvcInterventionConstant {
   static const String artStatus = "l7op0btSqSc";
   static const String hivStatus = "oSKX8fFQdWc";
   static const String artFacility = "iBws3HMjiUT";
+  static const String programStatus = 'PN92g65TkVI';
 }
