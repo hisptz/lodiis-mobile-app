@@ -211,7 +211,7 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
                         ),
                         child: Text(
                           currentLanguage == 'lesotho'
-                              ? 'Etsa tlhahlobo e hlophisitsoeng'
+                              ? 'Etsa tlhahlobo e hlophisitsoeng'.toUpperCase()
                               : 'MONITOR',
                           style: const TextStyle().copyWith(
                             fontSize: 12.0,

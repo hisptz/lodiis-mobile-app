@@ -236,9 +236,9 @@ class EducationBursaryAssessment {
                   name: "Caregiver can't afford necessity",
                 ),
                 InputFieldOption(
-                  code: "Az3Rtp5Mtey",
-                  name: "Not important",
-                ),
+                    code: "Az3Rtp5Mtey",
+                    name: "Not important",
+                    translatedName: 'Ha e bohlokoa'),
                 InputFieldOption(
                     code: "eOOYt94C8G7",
                     name: "Not interested",

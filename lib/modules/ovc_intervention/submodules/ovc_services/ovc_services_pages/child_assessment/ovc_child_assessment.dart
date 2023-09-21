@@ -153,7 +153,7 @@ class OvcChildAssessment extends StatelessWidget {
                                 child: events.isEmpty
                                     ? const Center(
                                         child: Text(
-                                            'There is no asseement at moment'),
+                                            'There is no assessment at moment'),
                                       )
                                     : Column(
                                         children: events

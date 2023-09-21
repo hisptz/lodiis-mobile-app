@@ -23,7 +23,7 @@ class OvcChildAssessmentListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
       builder: (context, languageTranslationState, child) {
-        String currentLanguage = languageTranslationState.currentLanguage;
+        String? currentLanguage = languageTranslationState.currentLanguage;
 
         double iconHeight = 20;
 
@@ -55,9 +55,9 @@ class OvcChildAssessmentListCard extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text: programStageMap[eventData.programStage] ??
-                                        currentLanguage == 'lesotho'
-                                    ? 'Hlahlobo'
-                                    : 'Assessment',
+                                    (currentLanguage == 'lesotho'
+                                        ? 'Hlahlobo'
+                                        : 'Assessment'),
                                 style: const TextStyle().copyWith(
                                   color: const Color(0xFF1A3518),
                                   fontSize: 14.0,
