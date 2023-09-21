@@ -94,21 +94,19 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                translatedName: translatedName,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              translatedName: translatedName,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-
       ),
       body: SubPageBody(
         body: Consumer<OvcHouseholdCurrentSelectionState>(
@@ -197,6 +195,5 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
       ),
       bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
-
   }
 }
