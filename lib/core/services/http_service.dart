@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class HttpService {
-  static const String baseUrl = 'lsis-ovc-dreams.org';
+  static const String baseUrl = 'hisptz.com';
   final String? username;
   final String? password;
   String? basicAuth;
@@ -14,7 +14,7 @@ class HttpService {
   }
 
   Uri getApiUrl(String url, {Map<String, dynamic>? queryParameters}) {
-    return Uri.https(baseUrl, 'kbtraining/$url', queryParameters);
+    return Uri.https(baseUrl, 'kblesotho/$url', queryParameters);
   }
 
   Future<http.Response> httpPost(
