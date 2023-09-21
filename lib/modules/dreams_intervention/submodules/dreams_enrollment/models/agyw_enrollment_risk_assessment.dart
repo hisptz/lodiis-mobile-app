@@ -725,6 +725,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '6_E_O_S_V',
             name: '6. Experience of sexual violence (lifetime)',
+            translatedName: '6. Ho hlekefetsoa ka motabo (bophelo bohle)',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(

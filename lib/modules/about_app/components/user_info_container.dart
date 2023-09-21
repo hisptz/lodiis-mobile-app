@@ -81,7 +81,7 @@ class UserInfoContainer extends StatelessWidget {
                       ),
                       AboutPageUtil.getTableRowContent(
                         currentLanguage == 'lesotho'
-                            ? 'Sub implementing Partner'
+                            ? 'Sub Balekane ka hara morero'
                             : 'Sub implementing Partner',
                         currentUser?.subImplementingPartner ?? "",
                       ),
