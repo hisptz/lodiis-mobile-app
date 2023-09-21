@@ -302,7 +302,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: canViewChildReferral,
+                          visible: canViewChildReferral &&
+                              ovcHouseholdChild.hasExitedProgram != true &&
+                              ovcHousehold.hasExitedProgram != true,
                           child: Container(
                             margin: const EdgeInsets.only(
                               left: 10.0,
@@ -328,7 +330,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                         ),
                         Visibility(
                           visible: canEditChildInfo &&
-                              ovcHouseholdChild.enrollmentOuAccessible!,
+                              ovcHouseholdChild.enrollmentOuAccessible! &&
+                              ovcHouseholdChild.hasExitedProgram != true &&
+                              ovcHousehold.hasExitedProgram != true,
                           child: Container(
                             margin: const EdgeInsets.only(left: 10.0),
                             child: InkWell(
