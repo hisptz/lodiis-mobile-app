@@ -121,7 +121,7 @@ class _CasePlanGapServiceProvisionViewContainerState
                     child: Text(
                       currentLanguage != 'lesotho'
                           ? 'ADD SERVICE'
-                          : 'KENYA LITSEBELETSO',
+                          : 'TLATSA TSEBELETSO',
                       style: const TextStyle().copyWith(
                         color: widget.formSectionColor,
                         fontSize: 14.0,

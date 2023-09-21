@@ -28,6 +28,7 @@ class DreamsReferralOutCome {
             InputField(
               id: 'hXyqgOWZ17b',
               name: 'Referral service provided?',
+              translatedName: 'Ho fanoe ka litšebeletso tsa phetisetso?',
               valueType: 'BOOLEAN',
               inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),
@@ -35,6 +36,7 @@ class DreamsReferralOutCome {
             InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
+              translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: AgywDreamsCommonConstant.defaultColor,
@@ -43,6 +45,7 @@ class DreamsReferralOutCome {
             InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(
@@ -98,6 +101,7 @@ class DreamsReferralOutCome {
             InputField(
               id: 'DPf5mUDoZMy',
               name: 'Follow-up date',
+              translatedName: 'Latsatsi la tlhahlobo e latelang',
               allowFuturePeriod: true,
               disablePastPeriod: true,
               valueType: 'DATE',

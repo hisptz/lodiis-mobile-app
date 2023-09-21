@@ -40,6 +40,7 @@ class EducationBursaryReferralFormPage extends StatefulWidget {
 class _EducationBursaryReferralFormPageState
     extends State<EducationBursaryReferralFormPage> {
   final String label = 'Referral Form';
+  final String translatedLabel = 'Foromo ea phetisetso';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   List<String> mandatoryFields =
@@ -250,6 +251,7 @@ class _EducationBursaryReferralFormPageState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedLabel,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -309,8 +311,8 @@ class _EducationBursaryReferralFormPageState
                                       child: EntryFormSaveButton(
                                         label: isSaving
                                             ? currentLanguage == 'lesotho'
-                                              ? 'E ntse e boloka'
-                                              : 'Saving ...'
+                                                ? 'E ntse e boloka'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',

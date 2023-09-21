@@ -146,7 +146,8 @@ class OvcEnrollmentHousehold {
                 InputFieldOption(code: 'Widowed', name: 'Widowed'),
                 InputFieldOption(
                     translatedName: 'Hlalane/Arohane',
-                    code: 'Divorced/separated', name: 'Divorced/separated'),
+                    code: 'Divorced/separated',
+                    name: 'Divorced/separated'),
               ]),
           InputField(
               id: 'oSKX8fFQdWc',
@@ -169,7 +170,10 @@ class OvcEnrollmentHousehold {
                     code: 'Unknown',
                     name: 'Unknown',
                     translatedName: 'Tse sa tsejoeng'),
-                InputFieldOption(code: 'No Response', name: 'No Response'),
+                InputFieldOption(
+                    code: 'No Response',
+                    name: 'No Response',
+                    translatedName: 'Ha ho Karabo'),
               ]),
           InputField(
             id: 'l7op0btSqSc',

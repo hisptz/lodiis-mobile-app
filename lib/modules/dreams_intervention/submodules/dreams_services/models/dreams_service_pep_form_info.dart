@@ -19,6 +19,7 @@ class DreamsPEPInfo {
         InputField(
           id: 'lvT9gfpHIlT',
           name: 'Date service was provided',
+          translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
           valueType: 'DATE',
           firstDate: firstDate,
           inputColor: const Color(0xFF258DCC),
@@ -27,6 +28,7 @@ class DreamsPEPInfo {
         InputField(
           id: 'gEjigBuBTmh',
           name: 'Reasons for rejecting/declining service(s) offered',
+          translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
           valueType: 'TEXT',
           options: [
             InputFieldOption(

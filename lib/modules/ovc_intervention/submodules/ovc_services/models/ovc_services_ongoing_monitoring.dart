@@ -554,7 +554,10 @@ class OvcServicesOngoingMonitoring {
                     code: 'Negative',
                     name: 'Negative',
                     translatedName: 'T’soaetso haeo'),
-                InputFieldOption(code: 'No Response', name: 'No Response'),
+                InputFieldOption(
+                    code: 'No Response',
+                    name: 'No Response',
+                    translatedName: 'Ha ho Karabo'),
               ],
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373)),

@@ -131,6 +131,7 @@ class OvcClhivArtService {
           InputField(
             id: 'YxJQ58njlLM',
             name: 'Specify Other',
+            translatedName: 'Hlalosa tse ling',
             valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF1A3518),

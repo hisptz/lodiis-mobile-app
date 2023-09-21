@@ -235,6 +235,7 @@ class DreamsServicePrepIntakeInfo {
                 inputColor: const Color(0xFF1F8ECE),
                 labelColor: const Color(0xFF737373),
                 name: 'Type of test used',
+                translatedName: 'Mofuta oa Tlhahlobo',
                 options: [
                   InputFieldOption(code: 'Determine', name: 'Determine'),
                   InputFieldOption(code: 'Unigold', name: 'Unigold'),

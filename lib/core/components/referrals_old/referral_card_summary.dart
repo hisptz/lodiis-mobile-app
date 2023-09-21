@@ -136,7 +136,9 @@ class ReferralCardSummary extends StatelessWidget {
                       child: TextButton(
                         onPressed: onManage as void Function()?,
                         child: Text(
-                          'MANAGE',
+                          languageState.currentLanguage == 'lesotho'
+                              ? 'LAOLA'
+                              : 'MANAGE',
                           style: const TextStyle().copyWith(
                             fontSize: 12.0,
                             color: buttonLabelColor,

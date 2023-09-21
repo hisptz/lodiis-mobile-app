@@ -22,6 +22,7 @@ class PpPrevGenderNormsForm {
     return [
       FormSection(
         name: 'Gender Norms',
+        translatedName: 'Melao/litloahelo tsa tekano ea boleng',
         color: const Color(0xFF9B2BAE),
         inputFields: [
           InputField(

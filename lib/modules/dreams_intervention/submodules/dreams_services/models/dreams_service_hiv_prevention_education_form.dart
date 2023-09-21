@@ -10,6 +10,7 @@ class DreamsServiceHIVPreventionEducationForm {
     return [
       FormSection(
         name: 'HIV Prevention Education',
+        translatedName: 'Thuto ea Thibelo ea HIV',
         color: const Color(0xFF1F8ECE),
         inputFields: [
           InputField(
@@ -22,6 +23,7 @@ class DreamsServiceHIVPreventionEducationForm {
           InputField(
             id: 'lvT9gfpHIlT',
             name: 'Date service was provided',
+            translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
             firstDate: firstDate,
             inputColor: const Color(0xFF1F8ECE),
             labelColor: const Color(0xFF737373),
@@ -30,6 +32,7 @@ class DreamsServiceHIVPreventionEducationForm {
           InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
               valueType: 'BOOLEAN',

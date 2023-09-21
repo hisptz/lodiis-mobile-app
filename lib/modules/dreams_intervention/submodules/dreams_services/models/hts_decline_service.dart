@@ -14,6 +14,7 @@ class HTSConsentDeclineService {
             InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(

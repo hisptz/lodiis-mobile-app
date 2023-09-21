@@ -19,6 +19,7 @@ class DreamsReferralFollowUp {
             InputField(
               id: 'DPf5mUDoZMy',
               name: 'Follow-up date',
+              translatedName: 'Latsatsi la tlhahlobo e latelang',
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: AgywDreamsCommonConstant.defaultColor,
@@ -37,6 +38,7 @@ class DreamsReferralFollowUp {
             InputField(
               id: 'BzkeBAxdEVT',
               name: 'Additional follow up required',
+              translatedName: 'Ho hlokahala tlhahlobo hape',
               valueType: 'BOOLEAN',
               inputColor: AgywDreamsCommonConstant.defaultColor,
               labelColor: const Color(0xFF737373),

@@ -330,7 +330,10 @@ class OvcEnrollmentChild {
                       code: 'Unknown',
                       name: 'Unknown',
                       translatedName: 'Tse sa tsejoeng'),
-                  InputFieldOption(code: 'No Response', name: 'No Response'),
+                  InputFieldOption(
+                      code: 'No Response',
+                      name: 'No Response',
+                      translatedName: 'Ha ho Karabo'),
                 ],
               ),
               InputField(
@@ -511,7 +514,10 @@ class OvcEnrollmentChild {
                   code: 'Unknown',
                   name: 'Unknown',
                   translatedName: 'Tse sa tsejoeng'),
-              InputFieldOption(code: 'No Response', name: 'No Response'),
+              InputFieldOption(
+                  code: 'No Response',
+                  name: 'No Response',
+                  translatedName: 'Ha ho Karabo'),
             ],
           ),
           InputField(
@@ -636,7 +642,10 @@ class OvcEnrollmentChild {
                   code: 'Unknown',
                   name: 'Unknown',
                   translatedName: 'Tse sa tsejoeng'),
-              InputFieldOption(code: 'No Response', name: 'No Response'),
+              InputFieldOption(
+                  code: 'No Response',
+                  name: 'No Response',
+                  translatedName: 'Ha ho Karabo'),
             ],
           ),
           InputField(
@@ -811,7 +820,7 @@ class OvcEnrollmentChild {
           InputField(
             id: 'GM2mJDlGZin',
             name: 'Specify other type of action taken',
-            translatedName: "Hlakisa mofuta o mong oa bohato bo ileng ba nkoa",
+            translatedName: "Hlalosa mofuta o mong oa ts'ebetso e entsoeng",
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'TEXT',

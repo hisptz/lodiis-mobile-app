@@ -35,7 +35,7 @@ class BeneficiaryReferralCardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer <LanguageTranslationState>(
+    return Consumer<LanguageTranslationState>(
       builder: (context, languageState, child) => Container(
         margin: const EdgeInsets.symmetric(),
         child: ClipRRect(
@@ -67,7 +67,9 @@ class BeneficiaryReferralCardButton extends StatelessWidget {
                   ),
                 ),
                 _getButtonContainer(
-                  label: 'MANAGE',
+                  label: languageState.currentLanguage == 'lesotho'
+                      ? 'LAOLA'
+                      : 'MANAGE',
                   onTap: onManage,
                 ),
               ],

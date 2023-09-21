@@ -10,11 +10,13 @@ class DreamsServiceViolencePreventionForm {
     return [
       FormSection(
           name: 'Violence Prevention Education',
+          translatedName: 'Thuto ea Thibelo ea tlhekefetso',
           color: const Color(0xFF1F8ECE),
           inputFields: [
             InputField(
               id: 'u91LWo6Lz5E',
               name: 'Violence Prevention Education',
+              translatedName: 'Thuto ea Thibelo ea tlhekefetso',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF1F8ECE),
               labelColor: const Color(0xFF737373),
@@ -22,6 +24,7 @@ class DreamsServiceViolencePreventionForm {
             InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
+              translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: const Color(0xFF1F8ECE),
@@ -30,6 +33,7 @@ class DreamsServiceViolencePreventionForm {
             InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(

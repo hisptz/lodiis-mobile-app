@@ -10,6 +10,7 @@ class DreamsCondomsForm {
     return [
       FormSection(
           name: 'Condom Education/Provision',
+          translatedName: 'Thuto/Phano ka Likhohlopo',
           color: const Color(0xFF737373),
           inputFields: [
             InputField(
@@ -21,6 +22,7 @@ class DreamsCondomsForm {
             InputField(
                 id: 'lvT9gfpHIlT',
                 name: 'Date service was provided',
+                translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF258DCC),
@@ -28,12 +30,14 @@ class DreamsCondomsForm {
             InputField(
                 id: 'sdgj99xGuv3',
                 name: 'Number of condoms provided',
+                translatedName: 'Palo ea likhohlopo tse fanoeng',
                 valueType: 'NUMBER',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(

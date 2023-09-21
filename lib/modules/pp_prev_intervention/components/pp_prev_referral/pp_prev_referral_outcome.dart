@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/modules/pp_prev_intervention/models/pp_prev_referral_outcome_event.dart';
+import 'package:provider/provider.dart';
 
 class PpPrevReferralOutcome extends StatelessWidget {
   const PpPrevReferralOutcome({
@@ -97,45 +99,49 @@ class PpPrevReferralOutcome extends StatelessWidget {
   }
 
   Widget _getReferralOutcomeHeader() {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.symmetric(
-              vertical: 10.0,
-            ),
-            child: Text(
-              'OUTCOME',
-              style: const TextStyle().copyWith(
-                color: valueColor,
-                fontWeight: FontWeight.w700,
-                fontSize: 14.0,
-              ),
-            ),
-          ),
-        ),
-        Visibility(
-          visible: canEdit,
-          child: InkWell(
-            onTap: onEditReferralOutcome,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) => Row(
+        children: [
+          Expanded(
             child: Container(
-              height: editIconHeight,
-              width: editIconHeight,
               margin: const EdgeInsets.symmetric(
                 vertical: 10.0,
-                horizontal: 10.0,
               ),
-              child: SvgPicture.asset(
-                'assets/icons/edit-icon.svg',
-                colorFilter: ColorFilter.mode(
-                  labelColor,
-                  BlendMode.srcIn,
+              child: Text(
+                languageState.currentLanguage == 'lesotho'
+                    ? 'SEPHETHO'
+                    : 'OUTCOME',
+                style: const TextStyle().copyWith(
+                  color: valueColor,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14.0,
                 ),
               ),
             ),
           ),
-        )
-      ],
+          Visibility(
+            visible: canEdit,
+            child: InkWell(
+              onTap: onEditReferralOutcome,
+              child: Container(
+                height: editIconHeight,
+                width: editIconHeight,
+                margin: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 10.0,
+                ),
+                child: SvgPicture.asset(
+                  'assets/icons/edit-icon.svg',
+                  colorFilter: ColorFilter.mode(
+                    labelColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 

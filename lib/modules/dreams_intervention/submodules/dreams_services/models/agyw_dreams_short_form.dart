@@ -14,17 +14,20 @@ class AgywDreamsShortForm {
     return [
       FormSection(
           name: 'HTS Form',
+          translatedName: 'Foromo ea HTS',
           color: const Color(0xFF737373),
           inputFields: [
             InputField(
                 id: 'zbHpXUjGv5H',
                 name: 'HIV test provided',
+                translatedName: 'Ho fanoe ka tlhahlobo ea HIV',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF258DCC),
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'lvT9gfpHIlT',
                 name: 'Date service was provided',
+                translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF258DCC),
@@ -32,6 +35,7 @@ class AgywDreamsShortForm {
             InputField(
               id: 'GHfoqXKlK6o',
               name: 'Type of Test',
+              translatedName: 'Mofuta oa Tlhahlobo',
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
@@ -72,6 +76,7 @@ class AgywDreamsShortForm {
             InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(

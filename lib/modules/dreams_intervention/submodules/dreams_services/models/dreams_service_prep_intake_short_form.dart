@@ -46,11 +46,13 @@ class DreamsPrepIntakeShortForm {
               disablePastPeriod: true,
               allowFuturePeriod: true,
               name: 'Date for the next appointment',
+              translatedName: 'Letsatsi la kopano e latelang',
               valueType: 'DATE',
             ),
             InputField(
               id: 'gEjigBuBTmh',
               name: 'Reasons for rejecting/declining service(s) offered',
+              translatedName: 'Mabaka a ho hana litšebeletso tse fanoang',
               valueType: 'TEXT',
               options: [
                 InputFieldOption(

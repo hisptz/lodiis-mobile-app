@@ -40,6 +40,7 @@ class AgywDreamsHTSShortForm extends StatefulWidget {
 
 class _AgywDreamsHTSShortFormState extends State<AgywDreamsHTSShortForm> {
   final String label = "HTS Form";
+  final String translatedLabel = 'Foromo ea HTS';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   List<String> mandatoryFields = AgywDreamsShortForm.getMandatoryFields();

@@ -28,6 +28,7 @@ class OvcReferralOutCome {
             InputField(
               id: 'lvT9gfpHIlT',
               name: 'Date service was provided',
+              translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),
@@ -45,6 +46,7 @@ class OvcReferralOutCome {
               allowFuturePeriod: true,
               disablePastPeriod: true,
               name: 'Follow-up date',
+              translatedName: 'Latsatsi la tlhahlobo e latelang',
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),

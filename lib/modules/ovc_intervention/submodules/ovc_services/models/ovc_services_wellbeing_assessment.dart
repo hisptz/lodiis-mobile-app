@@ -210,7 +210,7 @@ class OvcServicesWellbeingAssessment {
                   InputFieldOption(
                       code: 'Vocational Training',
                       name: 'Vocational Training',
-                     translatedName: 'Koetliso ea mosebetsi oa matsoho'),
+                      translatedName: 'Koetliso ea mosebetsi oa matsoho'),
                 ]),
             InputField(
                 id: 'xYdWjIv5eup',
@@ -1376,7 +1376,7 @@ class OvcServicesWellbeingAssessment {
                   InputFieldOption(
                       code: 'No response',
                       name: 'No response',
-                      translatedName: 'Ha ho joalo')
+                      translatedName: 'Ha ho Karabo')
                 ]),
             InputField(
                 id: 'HqNP6ovZw3p',
@@ -1447,7 +1447,7 @@ class OvcServicesWellbeingAssessment {
                   InputFieldOption(
                       code: 'No response',
                       name: 'No response',
-                      translatedName: 'Ha ho joalo')
+                      translatedName: 'Ha ho Karabo')
                 ]),
             InputField(
                 id: 't1VRnFuBb7I',
@@ -1523,7 +1523,7 @@ class OvcServicesWellbeingAssessment {
                   InputFieldOption(
                       code: 'No response',
                       name: 'No response',
-                      translatedName: 'Ha ho joalo')
+                      translatedName: 'Ha ho Karabo')
                 ]),
             InputField(
                 id: 'MxioydJaOgX',
