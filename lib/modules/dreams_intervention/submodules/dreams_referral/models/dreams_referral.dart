@@ -145,8 +145,7 @@ class DreamsReferral {
                         InputFieldOption(
                             code: 'HIVRiskAssessment',
                             name: 'HIV Risk Assessment',
-                            translatedName:
-                                'Hlahlobo ea hoba tlokotsing ea HIV'),
+                            translatedName: 'Tlhahlobo ea Kotsi ea HIV'),
                         InputFieldOption(
                             code: 'Aflateen/toun', name: 'Aflateen/toun'),
                         InputFieldOption(code: 'Go Girls', name: 'Go Girls'),

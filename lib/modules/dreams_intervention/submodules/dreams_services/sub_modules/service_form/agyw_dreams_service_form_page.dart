@@ -280,7 +280,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                   EntryFormSaveButton(
                                     label: languageState.currentLanguage ==
                                             'lesotho'
-                                        ? 'TLATSA TSEBELETSO'
+                                        ? 'TLATSA TŠEBELETSO'
                                         : 'ADD SERVICE',
                                     labelColor: Colors.white,
                                     buttonColor: const Color(0xFF1F8ECE),

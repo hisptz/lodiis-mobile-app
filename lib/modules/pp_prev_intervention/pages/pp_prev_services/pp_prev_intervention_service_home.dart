@@ -185,7 +185,7 @@ class PpPrevInterventionServiceHome extends StatelessWidget {
                                     EntryFormSaveButton(
                                       label: languageState.currentLanguage ==
                                               'lesotho'
-                                          ? 'TLATSA TSEBELETSO'
+                                          ? 'TLATSA TŠEBELETSO'
                                           : 'ADD Service',
                                       labelColor: Colors.white,
                                       buttonColor: const Color(0xFF9B2BAE),

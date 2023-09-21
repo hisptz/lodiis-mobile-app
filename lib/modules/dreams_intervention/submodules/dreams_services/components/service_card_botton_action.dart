@@ -412,7 +412,7 @@ class ServiceCardButtonAction extends StatelessWidget {
                                   child: Text(
                                     languageTranslationState.currentLanguage ==
                                             'lesotho'
-                                        ? 'FOROMO EA TSEBELETSO'
+                                        ? 'FOROMO EA TŠEBELETSO'
                                         : 'SERVICE FORM',
                                     style: const TextStyle().copyWith(
                                       fontSize: 12.0,
