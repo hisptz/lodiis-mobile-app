@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
@@ -93,97 +94,107 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(65.0),
-        child: Consumer<InterventionCardState>(
-          builder: (context, interventionCardState, child) {
-            InterventionCard activeInterventionProgram =
-                interventionCardState.currentInterventionProgram;
-            return SubPageAppBar(
-              label: label,
-              translatedName: translatedName,
-              activeInterventionProgram: activeInterventionProgram,
-            );
-          },
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(65.0),
+          child: Consumer<InterventionCardState>(
+            builder: (context, interventionCardState, child) {
+              InterventionCard activeInterventionProgram =
+                  interventionCardState.currentInterventionProgram;
+              return SubPageAppBar(
+                label: label,
+                translatedName: translatedName,
+                activeInterventionProgram: activeInterventionProgram,
+              );
+            },
+          ),
         ),
-      ),
-      body: SubPageBody(
-        body: Consumer<OvcHouseholdCurrentSelectionState>(
-          builder: (context, ovcHouseholdCurrentSelectionState, child) {
-            var currentOvcHousehold =
-                ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-            return Column(
-              children: [
-                OvcHouseholdInfoTopHeader(
-                  currentOvcHousehold: currentOvcHousehold,
-                ),
-                Consumer<OvcHouseholdCurrentSelectionState>(
-                  builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                    OvcHousehold? currentOvcHousehold =
-                        ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                    return Consumer<ServiceEventDataState>(
-                      builder: (context, serviceEventDataState, child) {
-                        bool isLoading = serviceEventDataState.isLoading;
-                        return isLoading
-                            ? const CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              )
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                      top: 10.0,
-                                      right: 13.0,
-                                      left: 13.0,
-                                    ),
-                                    child: OvcHouseholdAssessmentListContainer(
-                                      programStageIds: programStageIds,
-                                      onEditHouseholdAssessment:
-                                          (Events assessment) =>
-                                              onEditHouseholdAssessment(
-                                        context,
-                                        currentOvcHousehold,
-                                        assessment,
+        body: Consumer<LanguageTranslationState>(
+            builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+
+          return SubPageBody(
+            body: Consumer<OvcHouseholdCurrentSelectionState>(
+              builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                var currentOvcHousehold =
+                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+                return Column(
+                  children: [
+                    OvcHouseholdInfoTopHeader(
+                      currentOvcHousehold: currentOvcHousehold,
+                    ),
+                    Consumer<OvcHouseholdCurrentSelectionState>(
+                      builder:
+                          (context, ovcHouseholdCurrentSelectionState, child) {
+                        OvcHousehold? currentOvcHousehold =
+                            ovcHouseholdCurrentSelectionState
+                                .currentOvcHousehold;
+                        return Consumer<ServiceEventDataState>(
+                          builder: (context, serviceEventDataState, child) {
+                            bool isLoading = serviceEventDataState.isLoading;
+                            return isLoading
+                                ? const CircularProcessLoader(
+                                    color: Colors.blueGrey,
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                          top: 10.0,
+                                          right: 13.0,
+                                          left: 13.0,
+                                        ),
+                                        child:
+                                            OvcHouseholdAssessmentListContainer(
+                                          programStageIds: programStageIds,
+                                          onEditHouseholdAssessment:
+                                              (Events assessment) =>
+                                                  onEditHouseholdAssessment(
+                                            context,
+                                            currentOvcHousehold,
+                                            assessment,
+                                          ),
+                                          onViewHouseholdAssessment:
+                                              (Events assessment) =>
+                                                  onViewHouseholdAssessment(
+                                            context,
+                                            currentOvcHousehold,
+                                            assessment,
+                                          ),
+                                        ),
                                       ),
-                                      onViewHouseholdAssessment:
-                                          (Events assessment) =>
-                                              onViewHouseholdAssessment(
-                                        context,
-                                        currentOvcHousehold,
-                                        assessment,
+                                      Visibility(
+                                        visible: !isLoading &&
+                                            currentOvcHousehold!
+                                                .enrollmentOuAccessible!,
+                                        child: EntryFormSaveButton(
+                                          label: currentLanguage == 'lesotho'
+                                              ? 'Hlahlobo e ncha'
+                                              : 'NEW ASSESSMENT',
+                                          labelColor: Colors.white,
+                                          fontSize: 10,
+                                          buttonColor: const Color(0xFF4B9F46),
+                                          onPressButton: () =>
+                                              onAddNewHouseholdAssessment(
+                                            context,
+                                            currentOvcHousehold,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: !isLoading &&
-                                        currentOvcHousehold!
-                                            .enrollmentOuAccessible!,
-                                    child: EntryFormSaveButton(
-                                      label: "NEW ASSESSMENT",
-                                      labelColor: Colors.white,
-                                      fontSize: 10,
-                                      buttonColor: const Color(0xFF4B9F46),
-                                      onPressButton: () =>
-                                          onAddNewHouseholdAssessment(
-                                        context,
-                                        currentOvcHousehold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
+                                    ],
+                                  );
+                          },
+                        );
                       },
-                    );
-                  },
-                )
-              ],
-            );
-          },
-        ),
-      ),
-      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
-    );
+                    )
+                  ],
+                );
+              },
+            ),
+          );
+        }),
+        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
   }
 }
