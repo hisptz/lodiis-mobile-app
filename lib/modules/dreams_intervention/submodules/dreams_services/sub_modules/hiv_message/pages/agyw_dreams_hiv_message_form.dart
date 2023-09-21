@@ -40,6 +40,7 @@ class AgywDreamHIVMessageForm extends StatefulWidget {
 
 class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
   final String label = 'HIV Risk Assessment form';
+  final String translatedLabel = 'Foromo ea Tlhahlobo ea Kotsi ea HIV';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -305,7 +306,7 @@ class _AgywDreamHIVMessageFormState extends State<AgywDreamHIVMessageForm> {
                                       child: EntryFormSaveButton(
                                         label: isSaving
                                             ? currentLanguage == 'lesotho'
-                                                ? 'E ntse e boloka ...'
+                                                ? 'E ntse e boloka...'
                                                 : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'

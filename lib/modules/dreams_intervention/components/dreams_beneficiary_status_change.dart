@@ -165,6 +165,7 @@ class _DreamsBeneficiaryStatusChangeState
           InputField(
             id: programStatusId,
             name: 'Beneficiary Status',
+            translatedName: 'Boemo ba mojalefa ka hara morero',
             valueType: 'TEXT',
             isReadOnly:
                 widget.agywDream.programStatus != ProgramStatus.inActive,

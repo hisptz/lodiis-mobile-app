@@ -32,6 +32,7 @@ class AgywDreamHIVMessage extends StatefulWidget {
 
 class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
   final String label = 'HIV Risk Assessment';
+  final String translatedName = 'Tlhahlobo ea Kotsi ea HIV';
   List<String> programStageIds = [HIVMessageConstant.programStage];
   @override
   void initState() {
@@ -102,121 +103,124 @@ class _AgywDreamHIVMessageState extends State<AgywDreamHIVMessage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LanguageTranslationState>(
-      builder: (context, languageTranslationState, child) {
-        String currentLanguage = languageTranslationState.currentLanguage;
-
-        return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(65.0),
-            child: Consumer<InterventionCardState>(
-              builder: (context, interventionCardState, child) {
-                InterventionCard activeInterventionProgram =
-                    interventionCardState.currentInterventionProgram;
-                return SubPageAppBar(
-                  label: currentLanguage == 'lesotho' ? '' : label,
-                  activeInterventionProgram: activeInterventionProgram,
-                );
-              },
-            ),
-          ),
-          body: SubPageBody(
-            body: Consumer<DreamsBeneficiarySelectionState>(
-              builder: (context, dreamBeneficiarySelectionState, child) {
-                return Consumer<ServiceEventDataState>(
-                  builder: (context, serviceEventDataState, child) {
-                    AgywDream? agywDream =
-                        dreamBeneficiarySelectionState.currentAgywDream;
-                    bool isLoading = serviceEventDataState.isLoading;
-                    Map<String?, List<Events>> eventListByProgramStage =
-                        serviceEventDataState.eventListByProgramStage;
-                    List<Events> events = TrackedEntityInstanceUtil
-                        .getAllEventListFromServiceDataStateByProgramStages(
-                      eventListByProgramStage,
-                      programStageIds,
-                      shouldSortByDate: true,
-                    );
-                    int hivMessageIndex = events.length + 1;
-                    return Column(
-                      children: [
-                        DreamsBeneficiaryTopHeader(
-                          agywDream: agywDream,
-                        ),
-                        Container(
-                          child: isLoading
-                              ? const CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                )
-                              : Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        vertical: 10.0,
-                                      ),
-                                      child: events.isEmpty
-                                          ? const Text(
-                                              'There is no visit at a moment')
-                                          : Container(
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 5.0,
-                                                horizontal: 13.0,
-                                              ),
-                                              child: Column(
-                                                children: events
-                                                    .map((Events eventData) {
-                                                  hivMessageIndex--;
-                                                  return Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                      bottom: 15.0,
-                                                    ),
-                                                    child:
-                                                        DreamsServiceVisitCard(
-                                                      visitName:
-                                                          "HIV Risk Assessment",
-                                                      onEdit: () =>
-                                                          onEditHIVMessageForm(
-                                                        context,
-                                                        eventData,
-                                                        agywDream!,
-                                                      ),
-                                                      onView: () =>
-                                                          onViewHIVMessageForm(
-                                                              context,
-                                                              eventData),
-                                                      eventData: eventData,
-                                                      visitCount:
-                                                          hivMessageIndex,
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              translatedName: translatedName,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
+        ),
+      ),
+      body: SubPageBody(
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) =>
+              Consumer<DreamsBeneficiarySelectionState>(
+            builder: (context, dreamBeneficiarySelectionState, child) {
+              return Consumer<ServiceEventDataState>(
+                builder: (context, serviceEventDataState, child) {
+                  AgywDream? agywDream =
+                      dreamBeneficiarySelectionState.currentAgywDream;
+                  bool isLoading = serviceEventDataState.isLoading;
+                  Map<String?, List<Events>> eventListByProgramStage =
+                      serviceEventDataState.eventListByProgramStage;
+                  List<Events> events = TrackedEntityInstanceUtil
+                      .getAllEventListFromServiceDataStateByProgramStages(
+                    eventListByProgramStage,
+                    programStageIds,
+                    shouldSortByDate: true,
+                  );
+                  int hivMessageIndex = events.length + 1;
+                  return Column(
+                    children: [
+                      DreamsBeneficiaryTopHeader(
+                        agywDream: agywDream,
+                      ),
+                      Container(
+                        child: isLoading
+                            ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                            : Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
                                     ),
-                                    EntryFormSaveButton(
-                                      label: 'ADD HIV Risk Assessment',
-                                      labelColor: Colors.white,
-                                      buttonColor: const Color(0xFF1F8ECE),
-                                      fontSize: 15.0,
-                                      onPressButton: () => onAddHIVMessageForm(
-                                        context,
-                                        agywDream!,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
+                                    child: events.isEmpty
+                                        ? Text(languageTranslationState
+                                                    .currentLanguage ==
+                                                'lesotho'
+                                            ? 'Ha ho na ketelo hajoale'
+                                            : 'There is no visit at a moment')
+                                        : Container(
+                                            margin: const EdgeInsets.symmetric(
+                                              vertical: 5.0,
+                                              horizontal: 13.0,
+                                            ),
+                                            child: Column(
+                                              children: events
+                                                  .map((Events eventData) {
+                                                hivMessageIndex--;
+                                                return Container(
+                                                  margin: const EdgeInsets.only(
+                                                    bottom: 15.0,
+                                                  ),
+                                                  child: DreamsServiceVisitCard(
+                                                    visitName: languageTranslationState
+                                                                .currentLanguage ==
+                                                            'lesotho'
+                                                        ? 'Tlhahlobo ea Kotsi ea HIV'
+                                                        : 'HIV Risk Assessment',
+                                                    onEdit: () =>
+                                                        onEditHIVMessageForm(
+                                                      context,
+                                                      eventData,
+                                                      agywDream!,
+                                                    ),
+                                                    onView: () =>
+                                                        onViewHIVMessageForm(
+                                                            context, eventData),
+                                                    eventData: eventData,
+                                                    visitCount: hivMessageIndex,
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                  ),
+                                  EntryFormSaveButton(
+                                    label: languageTranslationState
+                                                .currentLanguage ==
+                                            'lesotho'
+                                        ? 'Tlatsa Tekolo ea Kotsi ea HIV'
+                                        : 'ADD HIV Risk Assessment',
+                                    labelColor: Colors.white,
+                                    buttonColor: const Color(0xFF1F8ECE),
+                                    fontSize: 15.0,
+                                    onPressButton: () => onAddHIVMessageForm(
+                                      context,
+                                      agywDream!,
+                                    ),
+                                  )
+                                ],
+                              ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
-          bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
-        );
-      },
+        ),
+      ),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
     );
   }
 }

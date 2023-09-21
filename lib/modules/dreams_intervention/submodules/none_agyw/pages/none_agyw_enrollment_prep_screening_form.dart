@@ -255,7 +255,7 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                             EntryFormSaveButton(
                               label: isSaving
                                   ? currentLanguage == 'lesotho'
-                                      ? 'E ntse e boloka ...'
+                                      ? 'E ntse e boloka...'
                                       : 'Saving...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka ebe u fetela pele'

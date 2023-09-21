@@ -93,7 +93,7 @@ class OvcReferral {
                         InputFieldOption(
                             code: 'FamilyPlanningSRH',
                             name: 'Family planning/SRH',
-                            translatedName: 'Thero ea malapa '),
+                            translatedName: 'Thero ea malapa/SRH'),
                         InputFieldOption(
                             code: 'Condom supply',
                             name: 'Condom supply',

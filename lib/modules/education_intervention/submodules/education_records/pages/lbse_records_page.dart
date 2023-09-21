@@ -18,6 +18,7 @@ class LbseRecordsPage extends StatefulWidget {
 
 class _LbseRecordsPageState extends State<LbseRecordsPage> {
   final String title = 'LBSE List';
+  final String translatedTitle = 'Lethathamo la LBSE';
   final bool canEdit = false;
   final bool canView = true;
   final bool canExpand = true;
@@ -140,14 +141,18 @@ class _LbseRecordsPageState extends State<LbseRecordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EducationLbseInterventionState>(
-      builder: (context, educationLbseInterventionState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${educationLbseInterventionState.numberOfEducationLbse} beneficiaries',
-          bodyContents: _buildBody(),
-        );
-      },
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) =>
+          Consumer<EducationLbseInterventionState>(
+        builder: (context, educationLbseInterventionState, child) {
+          return SubModuleHomeContainer(
+            header: languageState.currentLanguage == 'lesotho'
+                ? '$translatedTitle : ${educationLbseInterventionState.numberOfEducationLbse} Ba unang melemo ka hare ho morero'
+                : '$title : ${educationLbseInterventionState.numberOfEducationLbse} beneficiaries',
+            bodyContents: _buildBody(),
+          );
+        },
+      ),
     );
   }
 }

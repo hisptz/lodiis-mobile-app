@@ -47,6 +47,7 @@ class OvcReferralOutCome {
               allowFuturePeriod: true,
               disablePastPeriod: true,
               name: 'Follow-up date',
+              translatedName: 'Latsatsi la tlhahlobo e latelang',
               valueType: 'DATE',
               firstDate: firstDate,
               inputColor: const Color(0xFF4B9F46),

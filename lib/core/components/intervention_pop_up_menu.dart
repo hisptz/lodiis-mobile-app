@@ -42,6 +42,7 @@ class InterventionPopUpMenu extends StatelessWidget {
                     return InterventionPopActionMenu(
                         id: interventionProgram.id,
                         name: 'Switch to ${interventionProgram.shortName}',
+                        translatedName: 'Fetolela ho ${interventionProgram.shortName}' ,
                         color: interventionProgram.primaryColor,
                         fontWeight: FontWeight.bold);
                   },

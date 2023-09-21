@@ -255,7 +255,7 @@ class _AgywDreamsHTSClientInformationServiceState
                                     child: EntryFormSaveButton(
                                       label: isSaving
                                           ? currentLanguage == 'lesotho'
-                                              ? 'E ntse e boloka ...'
+                                              ? 'E ntse e boloka...'
                                               : 'Saving ...'
                                           : 'Save ',
                                       labelColor: Colors.white,

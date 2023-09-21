@@ -212,7 +212,7 @@ class OvcEnrollmentChild {
               InputField(
                 id: 'iQdwzVfZdml',
                 name: 'Type of school',
-                translatedName: 'Mofuta oa sekolo',
+                translatedName: 'Mofutoa oa Sekolo',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
@@ -829,7 +829,7 @@ class OvcEnrollmentChild {
           InputField(
             id: 'GM2mJDlGZin',
             name: 'Specify other type of action taken',
-            translatedName: "Hlakisa mofuta o mong oa bohato bo ileng ba nkoa",
+            translatedName: "Hlalosa mofuta o mong oa ts'ebetso e entsoeng",
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'TEXT',

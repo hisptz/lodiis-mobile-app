@@ -240,9 +240,9 @@ class EducationBursaryAssessment {
                   name: "Not important",
                 ),
                 InputFieldOption(
-                  code: "eOOYt94C8G7",
-                  name: "Not interested",
-                ),
+                    code: "eOOYt94C8G7",
+                    name: "Not interested",
+                    translatedName: 'Ha ke Thahaselle'),
                 InputFieldOption(
                     code: "oIGWbCQTZ8w",
                     name: "Pregnancy",

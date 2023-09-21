@@ -102,10 +102,7 @@ class PpPrevReferralOutcome extends StatelessWidget {
 
   Widget _getReferralOutcomeHeader() {
     return Consumer<LanguageTranslationState>(
-        builder: (context, languageTranslationState, child) {
-      String currentLanguage = languageTranslationState.currentLanguage;
-
-      return Row(
+      builder: (context, languageState, child) => Row(
         children: [
           Expanded(
             child: Container(
@@ -113,7 +110,9 @@ class PpPrevReferralOutcome extends StatelessWidget {
                 vertical: 10.0,
               ),
               child: Text(
-                currentLanguage == 'lesotho' ? 'SEPHETHO' : 'OUTCOME',
+                languageState.currentLanguage == 'lesotho'
+                    ? 'SEPHETHO'
+                    : 'OUTCOME',
                 style: const TextStyle().copyWith(
                   color: valueColor,
                   fontWeight: FontWeight.w700,
@@ -144,8 +143,8 @@ class PpPrevReferralOutcome extends StatelessWidget {
             ),
           )
         ],
-      );
-    });
+      ),
+    );
   }
 
   @override

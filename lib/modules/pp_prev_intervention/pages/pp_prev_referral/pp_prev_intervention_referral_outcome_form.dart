@@ -254,7 +254,7 @@ class _PpPrevInterventionReferralOutcomeFormState
                           label: isSaving
                               ? languageTranslationState.currentLanguage ==
                                       'lesotho'
-                                  ? 'E ntse e boloka ...'
+                                  ? 'E ntse e boloka...'
                                   : 'Saving ...'
                               : languageTranslationState.currentLanguage ==
                                       'lesotho'

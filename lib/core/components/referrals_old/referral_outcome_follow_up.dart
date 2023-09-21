@@ -125,7 +125,9 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  'Follow-up date',
+                                  currentLanguage == 'lesotho'
+                                      ? 'Latsatsi la tlhahlobo e latelang'
+                                      : 'Follow-up date',
                                   style: const TextStyle().copyWith(
                                     fontSize: 14.0,
                                     color: themeColor!.withOpacity(0.8),

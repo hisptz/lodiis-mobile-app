@@ -18,6 +18,7 @@ class EducationBursaryReferralOutcomeForm {
           InputField(
             id: 'hXyqgOWZ17b',
             name: 'Referral service provided?',
+            translatedName: 'Ho fanoe ka litšebeletso tsa phetisetso?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF009688),
             labelColor: const Color(0xFF737373),
@@ -25,7 +26,7 @@ class EducationBursaryReferralOutcomeForm {
           InputField(
             id: 'lvT9gfpHIlT',
             name: 'Date service was provided',
-            translatedName: 'Ho fanoe ka tšebeletso ea letsatsi',
+            translatedName: "Letsatsi leo ts'ebeletso e fanoeng ka lona",
             valueType: 'DATE',
             firstDate: firstDate,
             inputColor: const Color(0xFF009688),
@@ -41,6 +42,7 @@ class EducationBursaryReferralOutcomeForm {
           InputField(
             id: 'DPf5mUDoZMy',
             name: 'Follow-up date',
+            translatedName: 'Latsatsi la tlhahlobo e latelang',
             allowFuturePeriod: true,
             disablePastPeriod: true,
             valueType: 'DATE',

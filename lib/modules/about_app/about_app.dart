@@ -19,7 +19,7 @@ class AboutApp extends StatefulWidget {
 
 class _AboutAppState extends State<AboutApp> {
   final String label = 'About App';
-
+  final String translatedName = 'Mabapi le App';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,6 +32,7 @@ class _AboutAppState extends State<AboutApp> {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedName,
               activeInterventionProgram: activeInterventionProgram,
               disableSelectionOfActiveIntervention: false,
             );

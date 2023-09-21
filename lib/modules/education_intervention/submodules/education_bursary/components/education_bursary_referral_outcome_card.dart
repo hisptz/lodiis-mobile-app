@@ -158,7 +158,7 @@ class EducationBursaryReferralOutcomeCard extends StatelessWidget {
                     labelColor: labelColor,
                     valueColor: valueColor,
                     label: currentLanguage == 'lesotho'
-                        ? 'Ho fanoe ka tšebeletso ea letsatsi'
+                        ? "Letsatsi leo ts'ebeletso e fanoeng ka lona"
                         : 'Date service was provided',
                     value: referralOutcomeEvent.dateOfServiceProvided,
                   ),

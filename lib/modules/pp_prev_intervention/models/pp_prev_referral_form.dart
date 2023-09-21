@@ -17,6 +17,7 @@ class PpPrevReferralForm {
     return [
       FormSection(
         name: "Referral form",
+        translatedName: 'Foromo ea phetisetso',
         color: const Color(0xFF9B2BAE),
         inputFields: [
           InputField(

@@ -259,7 +259,7 @@ class _OgacEnrollmentFormState extends State<OgacEnrollmentForm> {
                               child: EntryFormSaveButton(
                                 label: isSaving
                                     ? currentLanguage == 'lesotho'
-                                        ? 'E ntse e boloka ...'
+                                        ? 'E ntse e boloka...'
                                         : 'Saving ...'
                                     : currentLanguage == 'lesotho'
                                         ? 'Boloka'

@@ -64,7 +64,9 @@ class BeneficiaryReferralFollowUpContainer extends StatelessWidget {
                       child: Column(
                         children: [
                           _getReferralFollowUpDetail(
-                            label: 'Follow-up date',
+                            label: currentLanguage == 'lesotho'
+                                ? 'Latsatsi la tlhahlobo e latelang'
+                                : 'Follow-up date',
                             color: labelColor,
                           ),
                           _getReferralFollowUpDetail(

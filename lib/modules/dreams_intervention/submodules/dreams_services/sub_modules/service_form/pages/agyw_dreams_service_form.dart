@@ -45,6 +45,7 @@ class AgywDreamsServiceForm extends StatefulWidget {
 
 class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
   final String label = 'Service Form';
+  final String translatedLabel = 'Foromo ea Tšebeletso';
   final String sessionNumberInputField = 'vL6NpUA0rIU';
   final String typeOfIntervention = 'Eug4BXDFLym';
   List<FormSection>? formSections;
@@ -332,6 +333,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedLabel,
               activeInterventionProgram: activeInterventionProgram,
             );
           },
@@ -386,7 +388,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
                                     child: EntryFormSaveButton(
                                       label: isSaving
                                           ? currentLanguage == 'lesotho'
-                                              ? 'E ntse e boloka ...'
+                                              ? 'E ntse e boloka...'
                                               : 'Saving ...'
                                           : currentLanguage == 'lesotho'
                                               ? 'Boloka'

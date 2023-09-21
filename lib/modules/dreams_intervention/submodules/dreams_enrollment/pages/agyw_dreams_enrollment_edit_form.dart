@@ -46,6 +46,7 @@ class _AgywDreamsEnrollmentEditFormState
   List<FormSection>? consentFormSections;
   late List<FormSection> riskAssessmentFormSections;
   final String label = 'Agyw Enrolment Form';
+  final translatedLabel = 'Formo ea ngoliso ea AGYW';
   final Map mandatoryFieldObject = {};
   final List<String> mandatoryFields =
       AgywEnrollmentFormSection.getMandatoryField();
@@ -269,6 +270,7 @@ class _AgywDreamsEnrollmentEditFormState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedLabel,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -312,7 +314,7 @@ class _AgywDreamsEnrollmentEditFormState
                             EntryFormSaveButton(
                               label: isSaving
                                   ? currentLanguage == 'lesotho'
-                                      ? 'E ntse e boloka ...'
+                                      ? 'E ntse e boloka...'
                                       : 'Saving ...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka'

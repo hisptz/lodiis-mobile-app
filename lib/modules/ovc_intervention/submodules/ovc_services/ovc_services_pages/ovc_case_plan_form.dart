@@ -384,7 +384,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                         child: EntryFormSaveButton(
                                           label: _isSaving
                                               ? currentLanguage == 'lesotho'
-                                                  ? 'E ntse e boloka ...'
+                                                  ? 'E ntse e boloka...'
                                                   : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'

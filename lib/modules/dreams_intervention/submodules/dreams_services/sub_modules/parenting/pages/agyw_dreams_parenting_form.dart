@@ -305,7 +305,7 @@ class _AgywDreamsParentingFormState extends State<AgywDreamsParentingForm> {
                                       child: EntryFormSaveButton(
                                         label: isSaving
                                             ? currentLanguage == 'lesotho'
-                                                ? 'E ntse e boloka ...'
+                                                ? 'E ntse e boloka...'
                                                 : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'

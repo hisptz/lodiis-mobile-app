@@ -587,7 +587,7 @@ class OvcHouseholdServiceAdultWellbeing {
             InputField(
                 id: 'bmJjZctbkhX',
                 name: 'Specify Other',
-                translatedName: 'Hlakisa bo bong',
+                translatedName: 'Hlalosa tse ling',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),

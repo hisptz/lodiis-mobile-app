@@ -161,7 +161,7 @@ class _NonAgywDreamsHTSConsentFormState
                                 child: EntryFormSaveButton(
                                   label: isSaving
                                       ? currentLanguage == 'lesotho'
-                                          ? 'E ntse e boloka ...'
+                                          ? 'E ntse e boloka...'
                                           : 'Saving ...'
                                       : 'Save and Continue',
                                   labelColor: Colors.white,

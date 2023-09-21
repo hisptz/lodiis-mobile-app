@@ -216,9 +216,12 @@ class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
-                                  child: const Text(
-                                    'Offline Beneficiary Search',
-                                    style: TextStyle(
+                                  child: Text(
+                                    languageTranslationState.currentLanguage ==
+                                            'lesotho'
+                                        ? ' Batla ngoana kantle ho Marang-rang'
+                                        : 'Offline Beneficiary Search',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16.0),
                                   ),
@@ -343,9 +346,12 @@ class _OfflineBeneficiarySearchState extends State<OfflineBeneficiarySearch> {
                             child: Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 25.0),
-                              child: const Text(
-                                "Search",
-                                style: TextStyle(
+                              child: Text(
+                                languageTranslationState.currentLanguage ==
+                                        'lesotho'
+                                    ? "Batla"
+                                    : "Search",
+                                style: const TextStyle(
                                   color: Color(0xFFFAFAFA),
                                 ),
                               ),
