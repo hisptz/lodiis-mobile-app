@@ -59,7 +59,7 @@ class OvcCasePlanServiceProvisionHouseholdToOvcUtil {
   ) async {
     Map<String, dynamic> dataObject = {};
     List<CasePlanGapServiceProvisionEvent> gapServiceProvisions =
-        await OvcCasePlanService().getCasePlanServiveProvisonEvents(
+        await OvcCasePlanService().getCasePlanServiceProvisonEvents(
             date: casePlanDate,
             programStageId: OvcChildCasePlanConstant
                 .casePlanGapServiceProvisionProgramStage,

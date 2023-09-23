@@ -157,7 +157,9 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
                                   Visibility(
                                     visible: !isLoading &&
                                         currentOvcHousehold!
-                                            .enrollmentOuAccessible!,
+                                            .enrollmentOuAccessible! &&
+                                        currentOvcHousehold.hasExitedProgram !=
+                                            true,
                                     child: EntryFormSaveButton(
                                       label: "NEW ASSESSMENT",
                                       labelColor: Colors.white,

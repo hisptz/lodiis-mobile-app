@@ -14,11 +14,12 @@ class CasePlanHomeList extends StatelessWidget {
     required this.onViewCasePlan,
     required this.isOnCasePlanServiceProvision,
     required this.isOnCasePlanServiceMonitoring,
+    this.hasBeneficiaryExitedProgram = false,
   }) : super(key: key);
   final Map<String, List<Events>> casePlanByDates;
   final bool isOnCasePlanServiceProvision;
   final bool isOnCasePlanServiceMonitoring;
-
+  final bool hasBeneficiaryExitedProgram;
   final Function onEditCasePlan;
   final Function onViewCasePlan;
 
@@ -108,6 +109,7 @@ class CasePlanHomeList extends StatelessWidget {
                         ),
                         Visibility(
                           visible: hasEditAccess &&
+                              !hasBeneficiaryExitedProgram &&
                               !(isOnCasePlanServiceMonitoring ||
                                   isOnCasePlanServiceProvision),
                           child: _getActionButton(

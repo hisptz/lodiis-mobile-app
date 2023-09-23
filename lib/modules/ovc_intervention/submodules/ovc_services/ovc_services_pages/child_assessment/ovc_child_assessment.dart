@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
+import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
@@ -122,6 +123,8 @@ class OvcChildAssessment extends StatelessWidget {
           builder: (context, ovcHouseholdCurrentSelectionState, child) {
             OvcHouseholdChild? currentOvcHouseholdChild =
                 ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+            OvcHousehold? currentHousehold =
+                ovcHouseholdCurrentSelectionState.currentOvcHousehold;
             return Column(
               children: [
                 const OvcChildInfoTopHeader(),
@@ -185,7 +188,9 @@ class OvcChildAssessment extends StatelessWidget {
                   },
                 ),
                 Visibility(
-                  visible: currentOvcHouseholdChild!.enrollmentOuAccessible!,
+                  visible: currentOvcHouseholdChild!.enrollmentOuAccessible! &&
+                      (currentOvcHouseholdChild.hasExitedProgram != true &&
+                          currentHousehold?.hasExitedProgram != true),
                   child: EntryFormSaveButton(
                     label: 'NEW ASSESSMENT',
                     labelColor: Colors.white,
