@@ -302,9 +302,7 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: canViewChildReferral &&
-                              ovcHouseholdChild.hasExitedProgram != true &&
-                              ovcHousehold.hasExitedProgram != true,
+                          visible: canViewChildReferral,
                           child: Container(
                             margin: const EdgeInsets.only(
                               left: 10.0,

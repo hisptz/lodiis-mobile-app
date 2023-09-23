@@ -12,6 +12,7 @@ class ReferralCardSummary extends StatelessWidget {
     required this.titleColor,
     this.isOutgoingCLOReferral = false,
     this.isCLOReferral = false,
+    this.canManageReferral = true,
     this.onView,
     this.onManage,
   }) : super(key: key);
@@ -24,6 +25,7 @@ class ReferralCardSummary extends StatelessWidget {
   final Function? onManage;
   final bool isCLOReferral;
   final bool isOutgoingCLOReferral;
+  final bool canManageReferral;
 
   @override
   Widget build(BuildContext context) {
@@ -114,26 +116,32 @@ class ReferralCardSummary extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    height: 20.0,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          color: buttonLabelColor.withOpacity(0.3),
-                          width: 1.0,
+                  Visibility(
+                    visible: canManageReferral,
+                    child: Container(
+                      height: 20.0,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          left: BorderSide(
+                            color: buttonLabelColor.withOpacity(0.3),
+                            width: 1.0,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: onManage as void Function()?,
-                      child: Text(
-                        'MANAGE',
-                        style: const TextStyle().copyWith(
-                          fontSize: 12.0,
-                          color: buttonLabelColor,
-                          fontWeight: FontWeight.w500,
+                  Visibility(
+                    visible: canManageReferral,
+                    child: Expanded(
+                      child: TextButton(
+                        onPressed: onManage as void Function()?,
+                        child: Text(
+                          'MANAGE',
+                          style: const TextStyle().copyWith(
+                            fontSize: 12.0,
+                            color: buttonLabelColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
