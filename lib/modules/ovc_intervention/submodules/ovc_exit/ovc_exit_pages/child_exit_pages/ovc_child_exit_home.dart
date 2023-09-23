@@ -187,50 +187,63 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
                   ? const CircularProcessLoader(
                       color: Colors.blueGrey,
                     )
-                  : Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: 10.0),
-                          child: events.isEmpty
-                              ? const Center(
-                                  child: Text(
-                                      'There is no any exit details at moment'),
-                                )
-                              : Column(
-                                  children: events
-                                      .map(
-                                        (Events eventData) => OvcExitListCard(
-                                          eventData: eventData,
-                                          programStageMap: programStageMap,
-                                          onEditExit: () {
-                                            String? exitResponse =
-                                                programStageMap[
-                                                    eventData.programStage];
-                                            onEditExit(context, exitResponse,
-                                                eventData);
-                                          },
-                                          onViewExit: () {
-                                            String? exitResponse =
-                                                programStageMap[
-                                                    eventData.programStage];
-                                            onViewExit(context, exitResponse,
-                                                eventData);
-                                          },
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
-                        ),
-                        Consumer<OvcHouseholdCurrentSelectionState>(builder:
-                            (context, ovcHouseholdCurrentSelectionState,
-                                child) {
-                          var currentOvcHouseholdChild =
-                              ovcHouseholdCurrentSelectionState
-                                  .currentOvcHouseholdChild!;
-                          return Visibility(
+                  : Consumer<OvcHouseholdCurrentSelectionState>(builder:
+                      (context, ovcHouseholdCurrentSelectionState, child) {
+                      var currentOvcHouseholdChild =
+                          ovcHouseholdCurrentSelectionState
+                              .currentOvcHouseholdChild!;
+
+                      var currentOvcHousehold =
+                          ovcHouseholdCurrentSelectionState
+                              .currentOvcHousehold!;
+                      return Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 10.0),
+                            child: events.isEmpty
+                                ? const Center(
+                                    child: Text(
+                                        'There is no any exit details at moment'),
+                                  )
+                                : Column(
+                                    children: events
+                                        .map(
+                                          (Events eventData) => OvcExitListCard(
+                                            eventData: eventData,
+                                            programStageMap: programStageMap,
+                                            onEditExit: () {
+                                              String? exitResponse =
+                                                  programStageMap[
+                                                      eventData.programStage];
+                                              onEditExit(context, exitResponse,
+                                                  eventData);
+                                            },
+                                            onViewExit: () {
+                                              String? exitResponse =
+                                                  programStageMap[
+                                                      eventData.programStage];
+                                              onViewExit(context, exitResponse,
+                                                  eventData);
+                                            },
+                                            canEditExit:
+                                                currentOvcHouseholdChild
+                                                            .hasExitedProgram !=
+                                                        true &&
+                                                    currentOvcHousehold
+                                                            .hasExitedProgram !=
+                                                        true,
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                          ),
+                          Visibility(
                             visible: shouldAllowAddNewButton &&
                                 currentOvcHouseholdChild
-                                    .enrollmentOuAccessible!,
+                                    .enrollmentOuAccessible! &&
+                                currentOvcHouseholdChild.hasExitedProgram !=
+                                    true &&
+                                currentOvcHousehold.hasExitedProgram != true,
                             child: EntryFormSaveButton(
                               label: 'ADD',
                               labelColor: Colors.white,
@@ -241,10 +254,10 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
                                 events,
                               ),
                             ),
-                          );
-                        }),
-                      ],
-                    );
+                          ),
+                        ],
+                      );
+                    });
             },
           ),
         ]),

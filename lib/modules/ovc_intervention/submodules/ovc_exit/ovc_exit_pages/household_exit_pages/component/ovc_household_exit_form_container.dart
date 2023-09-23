@@ -193,36 +193,48 @@ class _OvcHouseholdExitFormContainerState
                             children: [
                               Container(
                                 alignment: Alignment.topRight,
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 5.0),
-                                  child: Visibility(
-                                    visible: !serviceFormState.isEditableMode &&
-                                        widget.event!.enrollmentOuAccessible!,
-                                    child: TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                            color: const Color(0xFF4B9F46)
-                                                .withOpacity(0.3),
+                                child:
+                                    Consumer<OvcHouseholdCurrentSelectionState>(
+                                  builder: (context, state, child) {
+                                    var currentHousehold =
+                                        state.currentOvcHousehold;
+                                    return Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: Visibility(
+                                        visible:
+                                            !serviceFormState.isEditableMode &&
+                                                widget.event!
+                                                    .enrollmentOuAccessible! &&
+                                                currentHousehold
+                                                        ?.hasExitedProgram !=
+                                                    true,
+                                        child: TextButton(
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Colors.transparent,
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                color: const Color(0xFF4B9F46)
+                                                    .withOpacity(0.3),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            padding: const EdgeInsets.all(5.0),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        padding: const EdgeInsets.all(5.0),
-                                      ),
-                                      onPressed: () => onEditForm(),
-                                      child: Text(
-                                        'Update',
-                                        style: const TextStyle().copyWith(
-                                          color: const Color(0xFF4B9F46),
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.normal,
+                                          onPressed: () => onEditForm(),
+                                          child: Text(
+                                            'Update',
+                                            style: const TextStyle().copyWith(
+                                              color: const Color(0xFF4B9F46),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
+                                    );
+                                  },
                                 ),
                               ),
                               EntryFormContainer(
