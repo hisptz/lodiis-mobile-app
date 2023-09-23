@@ -29,6 +29,9 @@ class CasePlanHomeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int casePlanIndex = casePlanByDates.keys.length;
+    var latestCasePlan = casePlanByDates.keys.first;
+
+    print('latestCasePlan $latestCasePlan');
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 17.0,
@@ -38,8 +41,9 @@ class CasePlanHomeList extends StatelessWidget {
           (String casePlanDate) {
             var index = casePlanIndex - 1;
             casePlanIndex--;
-            bool hasEditAccess =
-                OvcCasePlanUtil.hasAccessToEdit(casePlanByDates[casePlanDate]!);
+            bool hasEditAccess = OvcCasePlanUtil.hasAccessToEdit(
+                    casePlanByDates[casePlanDate]!) &&
+                latestCasePlan == casePlanDate;
             return Container(
               margin: const EdgeInsets.symmetric(
                 vertical: 7.0,
