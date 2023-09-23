@@ -30,8 +30,6 @@ class CasePlanHomeList extends StatelessWidget {
   Widget build(BuildContext context) {
     int casePlanIndex = casePlanByDates.keys.length;
     var latestCasePlan = casePlanByDates.keys.first;
-
-    print('latestCasePlan $latestCasePlan');
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 17.0,
