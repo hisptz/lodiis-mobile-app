@@ -18,6 +18,7 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_closure_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_closure_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/pages/ovc_exit_case_transfer_form.dart';
@@ -196,6 +197,10 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
                       var currentOvcHousehold =
                           ovcHouseholdCurrentSelectionState
                               .currentOvcHousehold!;
+
+                      List<String?> programStageIdsWithData = events
+                          .map((Events event) => event.programStage)
+                          .toList();
                       return Column(
                         children: [
                           Container(
@@ -241,9 +246,13 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
                             visible: shouldAllowAddNewButton &&
                                 currentOvcHouseholdChild
                                     .enrollmentOuAccessible! &&
-                                currentOvcHouseholdChild.hasExitedProgram !=
-                                    true &&
-                                currentOvcHousehold.hasExitedProgram != true,
+                                (currentOvcHouseholdChild.hasExitedProgram !=
+                                            true &&
+                                        currentOvcHousehold.hasExitedProgram !=
+                                            true ||
+                                    !programStageIdsWithData.contains(
+                                        OvcExitCaseClosureConstant
+                                            .programStage)),
                             child: EntryFormSaveButton(
                               label: 'ADD',
                               labelColor: Colors.white,

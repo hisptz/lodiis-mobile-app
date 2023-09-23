@@ -206,9 +206,10 @@ class _OvcHouseholdExitFormContainerState
                                             !serviceFormState.isEditableMode &&
                                                 widget.event!
                                                     .enrollmentOuAccessible! &&
-                                                currentHousehold
-                                                        ?.hasExitedProgram !=
-                                                    true,
+                                                (widget.exitType == 'closure' ||
+                                                    currentHousehold
+                                                            ?.hasExitedProgram !=
+                                                        true),
                                         child: TextButton(
                                           style: TextButton.styleFrom(
                                             backgroundColor: Colors.transparent,
