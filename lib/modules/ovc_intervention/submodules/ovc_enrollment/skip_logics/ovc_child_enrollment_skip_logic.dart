@@ -152,7 +152,8 @@ class OvcChildEnrollmentSkipLogic {
         hiddenFields['CePNVGSnj00'] = true;
         hiddenFields['GM2mJDlGZin'] = true;
       } else if (inputFieldId == 'GMcljM7jbNG') {
-        int age = AppUtil.getAgeInYear('${dataObject["qZP982qpSPS"]}');
+        int age =
+            AppUtil.getAgeInYear('${dataObject["qZP982qpSPS"]}', ceil: true);
         var isOvcHIVExposedInfant = (age >= 0 && age <= 2) &&
             '${dataObject["nO38lKlKHYi"]}' == 'Positive';
 
