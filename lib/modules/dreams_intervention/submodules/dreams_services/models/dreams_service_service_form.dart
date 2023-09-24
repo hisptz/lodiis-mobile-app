@@ -14,6 +14,7 @@ class DreamsServiceForm {
     return [
       FormSection(
           name: 'Service Form',
+          translatedName: 'Foromo ea Tšebeletso',
           color: const Color(0xFF737373),
           inputFields: [
             InputField(
@@ -60,14 +61,16 @@ class DreamsServiceForm {
                 InputFieldOption(
                   code: 'ViolencePreventionEducation',
                   name: 'Violence Prevention Education (GBV/VAC)',
+                  translatedName: 'Thuto ea Thibelo ea tlhekefetso (GBV/VAC)',
                 ),
                 InputFieldOption(
-                  code: 'CondomEducationProvision',
-                  name: 'Condom Education/Provision',
-                ),
+                    code: 'CondomEducationProvision',
+                    name: 'Condom Education/Provision',
+                    translatedName: 'Thuto/Phano ka Likhohlopo'),
                 InputFieldOption(
                   code: 'LBSE',
                   name: 'LBSE',
+                  translatedName: 'LBSE',
                 ),
                 InputFieldOption(
                   code: 'VACLegalMessaging',
@@ -78,9 +81,9 @@ class DreamsServiceForm {
                   name: 'GBV Legal Messaging',
                 ),
                 InputFieldOption(
-                  code: 'HIV Prevention Education',
-                  name: 'HIV Prevention Education',
-                ),
+                    code: 'HIV Prevention Education',
+                    name: 'HIV Prevention Education',
+                    translatedName: 'Thuto ea Thibelo ea HIV'),
               ],
             ),
             InputField(
@@ -103,6 +106,7 @@ class DreamsServiceForm {
             InputField(
               id: 'JT7pbPBJkoF',
               name: 'Caregiver first name',
+              translatedName: 'Lebitso la mohlokomeli',
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
@@ -110,6 +114,7 @@ class DreamsServiceForm {
             InputField(
               id: 'QATqUC6i5x2',
               name: 'Caregiver surname',
+              translatedName: 'Fane sa mohlokomeli',
               valueType: 'TEXT',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),

@@ -39,6 +39,7 @@ class AgywDreamsCondomsForm extends StatefulWidget {
 
 class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
   final String label = 'Condom Education/Provision';
+  final String translatedLabel = 'Thuto/Phano ka Likhohlopo';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -250,6 +251,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedLabel,
               activeInterventionProgram: activeInterventionProgram,
             );
           },
@@ -301,7 +303,9 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
                                     visible: serviceFormState.isEditableMode,
                                     child: EntryFormSaveButton(
                                       label: isSaving
-                                          ? 'Saving ...'
+                                          ? currentLanguage == 'lesotho'
+                                              ? 'E ntse e boloka...'
+                                              : 'Saving ...'
                                           : currentLanguage == 'lesotho'
                                               ? 'Boloka'
                                               : 'Save',

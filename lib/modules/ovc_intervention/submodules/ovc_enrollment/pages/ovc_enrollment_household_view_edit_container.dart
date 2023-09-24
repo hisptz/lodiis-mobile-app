@@ -269,6 +269,7 @@ class _OvcEnrollmentHouseholdViewEditContainerState
     return SafeArea(
       child: Consumer<LanguageTranslationState>(
         builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(65.0),
@@ -325,8 +326,12 @@ class _OvcEnrollmentHouseholdViewEditContainerState
                                 visible: enrollmentFormState.isEditableMode,
                                 child: EntryFormSaveButton(
                                   label: _isSaving
-                                      ? 'Saving Household ...'
-                                      : 'Save Household',
+                                      ? currentLanguage == 'lesotho'
+                                          ? 'E ntse e boloka lelapa ...'
+                                          : 'Saving Household ...'
+                                      : currentLanguage == 'lesotho'
+                                          ? 'Boloka lelapa'
+                                          : 'Save Household',
                                   labelColor: Colors.white,
                                   buttonColor: const Color(0xFF4B9F46),
                                   fontSize: 15.0,

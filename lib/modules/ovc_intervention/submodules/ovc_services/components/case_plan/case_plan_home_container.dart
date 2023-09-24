@@ -130,7 +130,9 @@ class CasePlanHomeContainer extends StatelessWidget {
                             ? 'Phano ea Litsebeletso'
                             : 'Service Provision'
                         : isOnCasePlanServiceMonitoring
-                            ? 'Service monitoring tool'
+                            ? currentLanguage == 'lesotho'
+                                ? "Sesebelisoa sa Tlhokomelo ya Ts'ebeletso"
+                                : 'Service monitoring tool'
                             : 'Child Case Plan Form',
                 isOnCasePlanPage: isOnCasePlanPage,
                 isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
@@ -162,107 +164,117 @@ class CasePlanHomeContainer extends StatelessWidget {
                   .currentOvcHouseholdChild?.hasExitedProgram ==
               true;
 
-      return Container(
-        margin: const EdgeInsets.symmetric(
-          vertical: 15.0,
-        ),
-        child: Consumer<ServiceEventDataState>(
-          builder: (context, serviceEventDataState, child) {
-            bool isLoading = serviceEventDataState.isLoading;
-            Map<String, List<Events>> casePlanByDates =
-                OvcCasePlanUtil.getCasePlanByDates(
-                    eventListByProgramStage:
-                        serviceEventDataState.eventListByProgramStage,
-                    programStageIds: [casePlanProgramStage]);
-            List<String> casePlanDates = casePlanByDates.keys.toList();
-            return isLoading
-                ? const CircularProgressIndicator(
-                    color: Colors.blueGrey,
-                  )
-                : Column(
-                    children: [
-                      Visibility(
-                        visible: casePlanByDates.keys.toList().isEmpty,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 17.0,
-                          ),
-                          child: const Center(
-                            child: Text('There is no case plan at moment'),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: casePlanByDates.keys.toList().isNotEmpty,
-                        child: CasePlanHomeList(
-                          isOnCasePlanServiceProvision:
-                              isOnCasePlanServiceProvision,
-                          isOnCasePlanServiceMonitoring:
-                              isOnCasePlanServiceMonitoring,
-                          casePlanByDates: casePlanByDates,
-                          hasBeneficiaryExitedProgram:
-                              hasBeneficiaryExitedProgram,
-                          onViewCasePlan: (
-                            List<Events> casePlanEvents,
-                            String currentCasePlanDate,
-                            bool disabled,
-                          ) =>
-                              onManageCasePlan(
-                            context: context,
-                            casePlanDates: casePlanDates,
-                            eventListByProgramStage:
-                                serviceEventDataState.eventListByProgramStage,
-                            isEditMode: false,
-                            currentCasePlanDate: currentCasePlanDate,
-                            casePlanEvents: casePlanEvents,
-                            isCaseDisabled: disabled,
-                          ),
-                          onEditCasePlan: (
-                            List<Events> casePlanEvents,
-                            String currentCasePlanDate,
-                          ) =>
-                              onManageCasePlan(
-                            context: context,
-                            casePlanDates: casePlanDates,
-                            eventListByProgramStage:
-                                serviceEventDataState.eventListByProgramStage,
-                            currentCasePlanDate: currentCasePlanDate,
-                            casePlanEvents: casePlanEvents,
-                            isCaseDisabled: false,
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: enrollmentOuAccessible &&
-                            !hasBeneficiaryExitedProgram &&
-                            !(isOnCasePlanServiceMonitoring ||
-                                isOnCasePlanServiceProvision),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: casePlanByDates.keys.toList().isEmpty
-                                ? 5.0
-                                : 10.0,
-                          ),
-                          child: EntryFormSaveButton(
-                            label: 'NEW CASE PLAN',
-                            labelColor: Colors.white,
-                            fontSize: 14.0,
-                            buttonColor: const Color(0xFF4B9F46),
-                            onPressButton: () => onManageCasePlan(
-                              context: context,
-                              casePlanDates: casePlanDates,
-                              onAddCasePlan: true,
-                              currentCasePlanDate:
-                                  AppUtil.formattedDateTimeIntoString(
-                                      DateTime.now()),
+      return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+          String currentLanguage = languageTranslationState.currentLanguage;
+
+          return Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 15.0,
+            ),
+            child: Consumer<ServiceEventDataState>(
+              builder: (context, serviceEventDataState, child) {
+                bool isLoading = serviceEventDataState.isLoading;
+                Map<String, List<Events>> casePlanByDates =
+                    OvcCasePlanUtil.getCasePlanByDates(
+                        eventListByProgramStage:
+                            serviceEventDataState.eventListByProgramStage,
+                        programStageIds: [casePlanProgramStage]);
+                List<String> casePlanDates = casePlanByDates.keys.toList();
+                return isLoading
+                    ? const CircularProgressIndicator(
+                        color: Colors.blueGrey,
+                      )
+                    : Column(
+                        children: [
+                          Visibility(
+                            visible: casePlanByDates.keys.toList().isEmpty,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 17.0,
+                              ),
+                              child: Center(
+                                child: Text(currentLanguage == 'lesotho'
+                                    ? 'Ha hona Case Plan ha joale'
+                                    : 'There is no case plan at moment'),
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  );
-          },
-        ),
+                          Visibility(
+                            visible: casePlanByDates.keys.toList().isNotEmpty,
+                            child: CasePlanHomeList(
+                              isOnCasePlanServiceProvision:
+                                  isOnCasePlanServiceProvision,
+                              isOnCasePlanServiceMonitoring:
+                                  isOnCasePlanServiceMonitoring,
+                              casePlanByDates: casePlanByDates,
+                              hasBeneficiaryExitedProgram:
+                                  hasBeneficiaryExitedProgram,
+                              onViewCasePlan: (
+                                List<Events> casePlanEvents,
+                                String currentCasePlanDate,
+                                bool disabled,
+                              ) =>
+                                  onManageCasePlan(
+                                context: context,
+                                casePlanDates: casePlanDates,
+                                eventListByProgramStage: serviceEventDataState
+                                    .eventListByProgramStage,
+                                isEditMode: false,
+                                currentCasePlanDate: currentCasePlanDate,
+                                casePlanEvents: casePlanEvents,
+                                isCaseDisabled: disabled,
+                              ),
+                              onEditCasePlan: (
+                                List<Events> casePlanEvents,
+                                String currentCasePlanDate,
+                              ) =>
+                                  onManageCasePlan(
+                                context: context,
+                                casePlanDates: casePlanDates,
+                                eventListByProgramStage: serviceEventDataState
+                                    .eventListByProgramStage,
+                                currentCasePlanDate: currentCasePlanDate,
+                                casePlanEvents: casePlanEvents,
+                                isCaseDisabled: false,
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: enrollmentOuAccessible &&
+                                !hasBeneficiaryExitedProgram &&
+                                !(isOnCasePlanServiceMonitoring ||
+                                    isOnCasePlanServiceProvision),
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                vertical: casePlanByDates.keys.toList().isEmpty
+                                    ? 5.0
+                                    : 10.0,
+                              ),
+                              child: EntryFormSaveButton(
+                                label: currentLanguage == 'lesotho'
+                                    ? 'NEW MORALO OA NYEOE'
+                                    : 'NEW CASE PLAN',
+                                labelColor: Colors.white,
+                                fontSize: 14.0,
+                                buttonColor: const Color(0xFF4B9F46),
+                                onPressButton: () => onManageCasePlan(
+                                  context: context,
+                                  casePlanDates: casePlanDates,
+                                  onAddCasePlan: true,
+                                  currentCasePlanDate:
+                                      AppUtil.formattedDateTimeIntoString(
+                                          DateTime.now()),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+              },
+            ),
+          );
+        },
       );
     });
   }

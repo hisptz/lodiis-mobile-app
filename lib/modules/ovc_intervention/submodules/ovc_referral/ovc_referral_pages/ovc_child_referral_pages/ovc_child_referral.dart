@@ -197,7 +197,7 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                           true,
                                   child: EntryFormSaveButton(
                                     label: currentLanguage == 'lesotho'
-                                        ? 'Kenya Referral'.toUpperCase()
+                                        ? 'Kenya Phetisetso'.toUpperCase()
                                         : 'ADD REFERRAL',
                                     labelColor: Colors.white,
                                     buttonColor: const Color(0xFF4B9F46),

@@ -54,21 +54,21 @@ class OvcServicesCasePlan {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: 'KnowledgeableAboutHIVEducation',
-                name: 'Knowledgeable about HIV education',
-              ),
+                  code: 'KnowledgeableAboutHIVEducation',
+                  name: 'Knowledgeable about HIV education',
+                  translatedName: 'Tsebo ka thuto ea HIV'),
               InputFieldOption(
                 code: 'To adhere to ART',
                 name: 'To adhere to ART',
               ),
               InputFieldOption(
-                code: 'Proper nutrition for my children',
-                name: 'Proper nutrition for my children',
-              ),
+                  code: 'Proper nutrition for my children',
+                  name: 'Proper nutrition for my children',
+                  translatedName: 'Phepo e nepahetseng bakeng sa bana ba ka'),
               InputFieldOption(
-                code: 'Access to PMTCT services',
-                name: 'Access to PMTCT services',
-              ),
+                  code: 'Access to PMTCT services',
+                  name: 'Access to PMTCT services',
+                  translatedName: 'Ho fihlella litšebeletso tsa PMTCT'),
             ],
           ),
           InputField(
@@ -80,21 +80,21 @@ class OvcServicesCasePlan {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                code: 'KnowledgeableAboutHIVEducation',
-                name: 'Knowledgeable about HIV education',
-              ),
+                  code: 'KnowledgeableAboutHIVEducation',
+                  name: 'Knowledgeable about HIV education',
+                  translatedName: 'Tsebo ka thuto ea HIV'),
               InputFieldOption(
                 code: 'To adhere to ART',
                 name: 'To adhere to ART',
               ),
               InputFieldOption(
-                code: 'Proper nutrition for my children',
-                name: 'Proper nutrition for my children',
-              ),
+                  code: 'Proper nutrition for my children',
+                  name: 'Proper nutrition for my children',
+                  translatedName: 'Phepo e nepahetseng bakeng sa bana ba ka'),
               InputFieldOption(
-                code: 'Access to PMTCT services',
-                name: 'Access to PMTCT services',
-              ),
+                  code: 'Access to PMTCT services',
+                  name: 'Access to PMTCT services',
+                  translatedName: 'Ho fihlella litšebeletso tsa PMTCT'),
             ],
           ),
         ],
@@ -116,13 +116,17 @@ class OvcServicesCasePlan {
             options: [
               InputFieldOption(
                   code: 'Knowledgeable about food security',
-                  name: 'Knowledgeable about food security'),
+                  name: 'Knowledgeable about food security',
+                  translatedName: 'Tsebo ka tshireletso le paballo ea lijo'),
               InputFieldOption(
                   code: 'Learn about food production and preservation',
-                  name: 'Learn about food production and preservation'),
+                  name: 'Learn about food production and preservation',
+                  translatedName: 'Ithute ka tshireletso le paballo ea lijo'),
               InputFieldOption(
                   code: 'To improve my family financial status',
-                  name: 'To improve my family financial status'),
+                  name: 'To improve my family financial status',
+                  translatedName:
+                      'Ho ntlafatsa boema ba lichelete lelapeng la ka.'),
             ],
           ),
           InputField(
@@ -135,13 +139,17 @@ class OvcServicesCasePlan {
             options: [
               InputFieldOption(
                   code: 'Knowledgeable about food security',
-                  name: 'Knowledgeable about food security'),
+                  name: 'Knowledgeable about food security',
+                  translatedName: 'Tsebo ka tshireletso le paballo ea lijo'),
               InputFieldOption(
                   code: 'Learn about food production and preservation',
-                  name: 'Learn about food production and preservation'),
+                  name: 'Learn about food production and preservation',
+                  translatedName: 'Ithute ka tshireletso le paballo ea lijo'),
               InputFieldOption(
                   code: 'To improve my family financial status',
-                  name: 'To improve my family financial status'),
+                  name: 'To improve my family financial status',
+                  translatedName:
+                      'Ho ntlafatsa boema ba lichelete lelapeng la ka.'),
             ],
           ),
         ],
@@ -163,10 +171,12 @@ class OvcServicesCasePlan {
             options: [
               InputFieldOption(
                   code: 'Knowledgeable about VAC',
-                  name: 'Knowledgeable about VAC'),
+                  name: 'Knowledgeable about VAC',
+                  translatedName: 'Tsebo ka VAC'),
               InputFieldOption(
                   code: 'Knowledgeable about child protection',
-                  name: 'Knowledgeable about child protection'),
+                  name: 'Knowledgeable about child protection',
+                  translatedName: 'Tsebo ka tlhokomelo ea bana'),
             ],
           ),
           InputField(
@@ -179,10 +189,12 @@ class OvcServicesCasePlan {
             options: [
               InputFieldOption(
                   code: 'Knowledgeable about VAC',
-                  name: 'Knowledgeable about VAC'),
+                  name: 'Knowledgeable about VAC',
+                  translatedName: 'Tsebo ka VAC'),
               InputFieldOption(
                   code: 'Knowledgeable about child protection',
-                  name: 'Knowledgeable about child protection'),
+                  name: 'Knowledgeable about child protection',
+                  translatedName: 'Tsebo ka tlhokomelo ea bana'),
             ],
           ),
         ],
@@ -204,10 +216,13 @@ class OvcServicesCasePlan {
             options: [
               InputFieldOption(
                   code: 'Better school attendance and performance',
-                  name: 'Better school attendance and performance'),
+                  name: 'Better school attendance and performance',
+                  translatedName: 'Ho kena sekol le ho sebetsa hantle'),
               InputFieldOption(
                   code: 'Equipped with social assets for better living',
-                  name: 'Equipped with social assets for better living'),
+                  name: 'Equipped with social assets for better living',
+                  translatedName:
+                      'Tsebo ka thepa ea sechaba bakeng sa bophelo bo betere.'),
             ],
           ),
           InputField(
@@ -220,10 +235,13 @@ class OvcServicesCasePlan {
             options: [
               InputFieldOption(
                   code: 'Better school attendance and performance',
-                  name: 'Better school attendance and performance'),
+                  name: 'Better school attendance and performance',
+                  translatedName: 'Ho kena sekol le ho sebetsa hantle'),
               InputFieldOption(
                   code: 'Equipped with social assets for better living',
-                  name: 'Equipped with social assets for better living'),
+                  name: 'Equipped with social assets for better living',
+                  translatedName:
+                      'Tsebo ka thepa ea sechaba bakeng sa bophelo bo betere.'),
             ],
           ),
         ],

@@ -41,7 +41,7 @@ class OvcExitInformationForm extends StatefulWidget {
 class _OvcExitInformationFormState extends State<OvcExitInformationForm>
     with OvcCaseExitSkipLogic {
   final String label = 'Exit';
-  final String translatedLabel = 'Koalac';
+  final String translatedLabel = 'Koala';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -253,7 +253,9 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: isSaving
-                                              ? 'Saving ...'
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'
                                                   : 'Save',

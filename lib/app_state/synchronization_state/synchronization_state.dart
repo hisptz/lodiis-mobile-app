@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_in
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_re_assessment_list_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_bursary_state.dart';
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ogac_intervention_list_state/ogac_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_intervention_list_state.dart';
 import 'package:kb_mobile_app/app_state/pp_prev_intervention_state/pp_prev_intervention_state.dart';
@@ -173,7 +174,10 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  checkingForAvailableBeneficiaryData() async {
+  checkingForAvailableBeneficiaryData(BuildContext context,) async {
+    String currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
     updateStatusForAvailableDataFromServer(status: true);
     setStatusMessageForAvailableDataFromServer(
         'Checking for available beneficiary data from server...');
@@ -199,7 +203,9 @@ class SynchronizationState with ChangeNotifier {
           onlineEnrollmentsCount > 0 || onlineEventsCount > 0;
       notifyListeners();
       setStatusMessageForAvailableDataFromServer(_isDataAvailableForDownload!
-          ? 'New beneficiary data are available, try to sync!'
+          ? currentLanguage == 'lesotho'
+              ? "Lintlha tse ncha tsa mojalefa lia fumaneha"
+              : 'New beneficiary data are available, try to sync!'
           : '');
     } catch (e) {
       AppLogs log =

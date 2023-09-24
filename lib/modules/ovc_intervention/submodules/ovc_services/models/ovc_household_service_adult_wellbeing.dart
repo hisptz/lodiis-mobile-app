@@ -587,7 +587,7 @@ class OvcHouseholdServiceAdultWellbeing {
             InputField(
                 id: 'bmJjZctbkhX',
                 name: 'Specify Other',
-                translatedName: 'Hlakisa bo bong',
+                translatedName: 'Hlalosa tse ling',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
@@ -667,9 +667,10 @@ class OvcHouseholdServiceAdultWellbeing {
                     translatedName: '4-6 likhoeli tse fetileng',
                   ),
                   InputFieldOption(
-                    code: 'Above 12 months ago',
-                    name: 'Above 12 months ago',
-                  ),
+                      code: 'Above 12 months ago',
+                      name: 'Above 12 months ago',
+                      translatedName:
+                          'Ka holimo ho likhoeli tse 12 tse fetileng'),
                 ],
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
