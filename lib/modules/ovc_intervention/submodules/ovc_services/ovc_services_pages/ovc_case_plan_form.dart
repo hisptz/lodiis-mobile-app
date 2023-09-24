@@ -129,7 +129,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     if (isAllDomainFilled) {
       _isSaving = true;
       setState(() {});
-      List<OvcHouseholdChild> childrens =
+      List<OvcHouseholdChild> children =
           Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
                   .currentOvcHousehold
                   ?.children ??
@@ -151,7 +151,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         await updateHouseholdCategorization(beneficiary, dataObject);
         await OvcCasePlanGapHouseholdToOvcUtil.autoSyncOvcsCasPlanGaps(
           currentCasePlanDate: widget.currentCasePlanDate,
-          childrens: childrens,
+          childrens: children,
           dataObject: dataObject,
         );
       }

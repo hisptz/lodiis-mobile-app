@@ -138,8 +138,8 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
       String programStatusId = 'PN92g65TkVI';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcExitInformationConstant.program,
-            OvcExitInformationConstant.programStage,
+            OvcExitCaseTransferConstant.program,
+            OvcExitCaseTransferConstant.programStage,
             currentOvcHouseholdChild!.orgUnit,
             formSections!,
             dataObject,

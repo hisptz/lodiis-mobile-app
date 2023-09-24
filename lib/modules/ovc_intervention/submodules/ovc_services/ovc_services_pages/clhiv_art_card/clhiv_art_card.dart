@@ -140,6 +140,9 @@ class ClhivArtCard extends StatelessWidget {
                 var currentOvc =
                     ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
 
+                var currentHousehold =
+                    ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+
                 return Consumer<ServiceEventDataState>(
                   builder: (context, serviceEventDataState, child) {
                     bool isLoading = serviceEventDataState.isLoading;
@@ -179,8 +182,14 @@ class ClhivArtCard extends StatelessWidget {
                                                 eventData: eventData,
                                                 visitCount: serviceIndex,
                                                 editDisabled: eventData
-                                                        .enrollmentOuAccessible !=
-                                                    true,
+                                                            .enrollmentOuAccessible !=
+                                                        true &&
+                                                    currentHousehold
+                                                            ?.hasExitedProgram !=
+                                                        true &&
+                                                    currentOvc
+                                                            ?.hasExitedProgram !=
+                                                        true,
                                                 onEdit: () =>
                                                     onEditClhivArtCardService(
                                                   context,
@@ -197,18 +206,23 @@ class ClhivArtCard extends StatelessWidget {
                                           }).toList(),
                                         ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                  ),
-                                  child: EntryFormSaveButton(
-                                    label: 'Add CLHIV ART Card Service',
-                                    labelColor: Colors.white,
-                                    fontSize: 14.0,
-                                    buttonColor: const Color(0xFF4B9F46),
-                                    onPressButton: () =>
-                                        onAddClhivArtCardService(
-                                            context, currentOvc!, null),
+                                Visibility(
+                                  visible: currentHousehold?.hasExitedProgram !=
+                                          true &&
+                                      currentOvc?.hasExitedProgram != true,
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                    ),
+                                    child: EntryFormSaveButton(
+                                      label: 'Add CLHIV ART Card Service',
+                                      labelColor: Colors.white,
+                                      fontSize: 14.0,
+                                      buttonColor: const Color(0xFF4B9F46),
+                                      onPressButton: () =>
+                                          onAddClhivArtCardService(
+                                              context, currentOvc!, null),
+                                    ),
                                   ),
                                 ),
                               ],

@@ -336,7 +336,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                           ),
                           Visibility(
                             visible: canEditChildInfo &&
-                                ovcHouseholdChild.enrollmentOuAccessible!,
+                                ovcHouseholdChild.enrollmentOuAccessible! &&
+                                ovcHouseholdChild.hasExitedProgram != true &&
+                                ovcHousehold.hasExitedProgram != true,
                             child: Container(
                               margin: const EdgeInsets.only(left: 10.0),
                               child: InkWell(
@@ -372,7 +374,9 @@ class OvcHouseholdCardButtonContent extends StatelessWidget {
                 color: Color(0xFFECF5EC),
               )),
           Visibility(
-            visible: canAddChild && ovcHousehold.enrollmentOuAccessible!,
+            visible: canAddChild &&
+                ovcHousehold.enrollmentOuAccessible! &&
+                ovcHousehold.hasExitedProgram != true,
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 5.0),
               child: InkWell(

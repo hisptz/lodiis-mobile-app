@@ -384,7 +384,7 @@ class FormUtil {
           dataObject[BeneficiaryIdentification.beneficiaryId] =
               dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
                   ? dataObject[BeneficiaryIdentification.beneficiaryId]
-                  : BeneficiaryIdentification().getBenificiaryId(
+                  : BeneficiaryIdentification().getBeneficiaryId(
                       organisationUnit!, dataObject, beneficiaryIndex);
       dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     }

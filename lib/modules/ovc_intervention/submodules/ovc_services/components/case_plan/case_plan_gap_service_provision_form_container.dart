@@ -206,6 +206,7 @@ class _CasePlanGapServiceProvisionFormContainerState
                     onInputValueChange: onInputValueChange,
                   ),
                   Visibility(
+                    visible: widget.isEditableMode,
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 10.0,

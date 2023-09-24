@@ -157,6 +157,10 @@ class _OvcHouseholdGraduationState extends State<OvcHouseholdGraduation> {
                                         child:
                                             OvcHouseholdGraduationListContainer(
                                           programStageIds: programStageIds,
+                                          hasBeneficiaryExited:
+                                              currentOvcHousehold
+                                                      ?.hasExitedProgram ==
+                                                  true,
                                           onEditHouseholdAchievement:
                                               (Events graduation) =>
                                                   onEditHouseholdAchievement(
@@ -176,7 +180,10 @@ class _OvcHouseholdGraduationState extends State<OvcHouseholdGraduation> {
                                       Visibility(
                                         visible: !isLoading &&
                                             currentOvcHousehold!
-                                                .enrollmentOuAccessible!,
+                                                .enrollmentOuAccessible! &&
+                                            currentOvcHousehold
+                                                    .hasExitedProgram !=
+                                                true,
                                         child: EntryFormSaveButton(
                                           label: currentLanguage == 'lesotho'
                                               ? 'Graduation e ncha'

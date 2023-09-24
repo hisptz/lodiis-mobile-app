@@ -12,12 +12,14 @@ class OvcExitListCard extends StatelessWidget {
     required this.programStageMap,
     this.onViewExit,
     this.onEditExit,
+    this.canEditExit = true,
   }) : super(key: key);
 
   final Events eventData;
   final Map programStageMap;
   final Function? onViewExit;
   final Function? onEditExit;
+  final bool canEditExit;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class OvcExitListCard extends StatelessWidget {
                           )),
                     ),
                     Visibility(
-                      visible: eventData.enrollmentOuAccessible!,
+                      visible: eventData.enrollmentOuAccessible! & canEditExit,
                       child: Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 5.0,
