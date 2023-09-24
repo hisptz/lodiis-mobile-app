@@ -246,10 +246,10 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
                             visible: shouldAllowAddNewButton &&
                                 currentOvcHouseholdChild
                                     .enrollmentOuAccessible! &&
-                                (currentOvcHouseholdChild.hasExitedProgram !=
+                                ((currentOvcHouseholdChild.hasExitedProgram !=
                                             true &&
                                         currentOvcHousehold.hasExitedProgram !=
-                                            true ||
+                                            true) ||
                                     !programStageIdsWithData.contains(
                                         OvcExitCaseClosureConstant
                                             .programStage)),
