@@ -93,6 +93,7 @@ class CasePlanHomeContainer extends StatelessWidget {
     required BuildContext context,
     required List<String> casePlanDates,
     bool isEditMode = true,
+    bool isCaseDisabled = false,
     bool onAddCasePlan = false,
     List<Events> casePlanEvents = const [],
     Map<String?, List<Events>> eventListByProgramStage = const {},
@@ -134,7 +135,8 @@ class CasePlanHomeContainer extends StatelessWidget {
                 isOnCasePlanPage: isOnCasePlanPage,
                 isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                 isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-                hasEditAccess: OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+                hasEditAccess: isCaseDisabled &&
+                    OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
                 isHouseholdCasePlan: isHouseholdCasePlan,
                 casePlanProgram: casePlanProgram,
                 casePlanProgramStage: casePlanProgramStage,
@@ -203,26 +205,31 @@ class CasePlanHomeContainer extends StatelessWidget {
                           onViewCasePlan: (
                             List<Events> casePlanEvents,
                             String currentCasePlanDate,
+                            bool disabled,
                           ) =>
                               onManageCasePlan(
-                                  context: context,
-                                  casePlanDates: casePlanDates,
-                                  eventListByProgramStage: serviceEventDataState
-                                      .eventListByProgramStage,
-                                  isEditMode: false,
-                                  currentCasePlanDate: currentCasePlanDate,
-                                  casePlanEvents: casePlanEvents),
+                            context: context,
+                            casePlanDates: casePlanDates,
+                            eventListByProgramStage:
+                                serviceEventDataState.eventListByProgramStage,
+                            isEditMode: false,
+                            currentCasePlanDate: currentCasePlanDate,
+                            casePlanEvents: casePlanEvents,
+                            isCaseDisabled: disabled,
+                          ),
                           onEditCasePlan: (
                             List<Events> casePlanEvents,
                             String currentCasePlanDate,
                           ) =>
                               onManageCasePlan(
-                                  context: context,
-                                  casePlanDates: casePlanDates,
-                                  eventListByProgramStage: serviceEventDataState
-                                      .eventListByProgramStage,
-                                  currentCasePlanDate: currentCasePlanDate,
-                                  casePlanEvents: casePlanEvents),
+                            context: context,
+                            casePlanDates: casePlanDates,
+                            eventListByProgramStage:
+                                serviceEventDataState.eventListByProgramStage,
+                            currentCasePlanDate: currentCasePlanDate,
+                            casePlanEvents: casePlanEvents,
+                            isCaseDisabled: false,
+                          ),
                         ),
                       ),
                       Visibility(

@@ -107,7 +107,9 @@ class CasePlanHomeList extends StatelessWidget {
                         _getActionButton(
                           icon: 'assets/icons/expand_icon.svg',
                           onTap: () => onViewCasePlan(
-                              casePlanByDates[casePlanDate], casePlanDate),
+                              casePlanByDates[casePlanDate],
+                              casePlanDate,
+                              latestCasePlan == casePlanDate),
                         ),
                         Visibility(
                           visible: hasEditAccess &&

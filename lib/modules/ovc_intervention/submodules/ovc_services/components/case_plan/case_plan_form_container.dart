@@ -50,7 +50,7 @@ class CasePlanFormContainer extends StatelessWidget {
     } else {
       dataObject[id] = previousValue;
       AppUtil.showToastMessage(
-        message: 'You can not clear all goals with intentified needs/gaps',
+        message: 'You can not clear all goals with identifier needs/gaps',
       );
     }
   }
