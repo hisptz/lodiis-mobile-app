@@ -133,6 +133,8 @@ class HouseholdGraduationReadinessForm {
             id: 'UwWV44GogSL',
             name:
                 '4.1. Were you or another caregiver in the household able to pay school fees for the last school year for all children and adolescents in your household under the age of 18?',
+            translatedName:
+                '4.1. Na uena kapa mohlokomeli e mong ka lapeng le khonne ho lefa chelete ea sekolo selemong se fetileng sa bana bohle le bacha ba lelapeng la hau ba ka tlase ho lilemo tse 18?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
@@ -149,6 +151,8 @@ class HouseholdGraduationReadinessForm {
             id: 'jRWqOcwnNkb',
             name:
                 '4.3. Were you able to pay for these school fees without selling something used to generate income that you did not plan or want to sell, such as livestock, land for agriculture, tools, or equipment for a business?',
+            translatedName:
+                '4.3. A na u ile ua khona ho lefella chelete ee ea sekolo ntle le ho rekisa ntho eo u neng u sa e rera kapa ua batla ho e rekisa, joalo ka leruo, mobu oa temo, lisebelisoa, kapa thepa ea khoebo?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
@@ -157,6 +161,8 @@ class HouseholdGraduationReadinessForm {
             id: 'C65Ca8Oel2w',
             name:
                 '4.4. Were you or another caregiver in the household able to pay all medical costs in the past 6 months for all children and adolescents in your household under the age of 18? Medical costs include medicine, clinic fees, and transport to medical appointments.',
+            translatedName:
+                '4.4. Na uena kapa mohlokomeli e mong ka lapeng le khonne ho lefa litšenyehelo tsohle tsa bongaka likhoeling tse 6 tse fetileng bakeng sa bana bohle le bacha ba lelapeng la hau ba ka tlase ho lilemo tse 18? Litšenyehelo tsa bongaka li kenyelletsa meriana, litefiso tsa tleliniki, le lipalangoang ho ea ho lingaka',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
@@ -173,6 +179,8 @@ class HouseholdGraduationReadinessForm {
             id: 'OeqFCpXjRCm',
             name:
                 '4.6. Were you able to pay for these medical costs without selling something used to generate income that you did not plan or want to sell, such as livestock, land for agriculture, tools, or equipment for a business?',
+            translatedName:
+                '4.6. Na u ile ua khona ho lefella litšenyehelo tsee tsa phekolo ntle le ho rekisa ntho e sebelisetsoang ho etsa chelete eo u sa kang ua e rera kapa ua batla ho e rekisa, e kang leruo, mobu oa temo, lisebelisoa, kapa thepa ea khoebo?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
@@ -197,6 +205,8 @@ class HouseholdGraduationReadinessForm {
             id: 'jJzwnW4XyMy',
             name:
                 '5.1. In the past 6 months, have you been punched, kicked, choked or beaten by a spouse or partner, or any other adult?',
+            translatedName:
+                '5.1. Likhoeling tse 6 tse fetileng, na u kile ua otloa ka litebele, ua rahoa, ua khangoa kapa ua shapuoa ke molekane, kapa motho ofe kapa ofe e moholo?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
@@ -205,6 +215,8 @@ class HouseholdGraduationReadinessForm {
             id: 'oPGYBk5RXif',
             name:
                 '5.2. In the past 6 months, are you aware of any child, adolescent, or youth in your household being punched, kicked, choked or beaten by an adult?',
+            translatedName:
+                '5.2. Likhoeling tse 6 tse fetileng, na u kile ua hlokomela ka ngoana kapa mocha ka lapeng la heno ea ileng a otloa ka litebele, a rahoa, a khangoa kapa a shapuoa ke motho e moholo?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),
@@ -237,6 +249,8 @@ class HouseholdGraduationReadinessForm {
             id: 'SdUYosM4meg',
             name:
                 '6.1. During the past 12 months, have all children and adolescents in the household been under the care of a stable adult caregiver?',
+            translatedName:
+                '6.1. Likhoeling tse 12 tse fetileng, na bana bohle le bacha ba ka tlung ba bile tlasa tlhokomelo ea mohlokomeli ea tsitsitseng ea holileng?',
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4D9E49),
             labelColor: const Color(0xFF737373),

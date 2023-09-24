@@ -103,6 +103,8 @@ class OvcExitCaseClosure {
             InputField(
               id: 'z3oHGQMNcwr',
               name: 'Care Transfer Form completed per the protocol?',
+              translatedName:
+                  'Foromo ea Phetisetso ea Tlhokomelo e tlatsitsoe ho latela litataiso?',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF07AD40),
               labelColor: const Color(0xFF737373),
@@ -118,6 +120,8 @@ class OvcExitCaseClosure {
             InputField(
               id: 'F687EjSn2TW',
               name: 'Inform necessary service providers of care transfer?',
+              translatedName:
+                  'Ho tsebisa bafani ba litšebeletso tse hlokahalang ka phetiso ea tlhokomelo?',
               valueType: 'BOOLEAN',
               inputColor: const Color(0xFF07AD40),
               labelColor: const Color(0xFF737373),

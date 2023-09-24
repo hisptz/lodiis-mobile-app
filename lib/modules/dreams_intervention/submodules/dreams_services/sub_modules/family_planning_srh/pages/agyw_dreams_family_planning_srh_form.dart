@@ -40,6 +40,7 @@ class AgywDreamsFamilyPlanningSrhForm extends StatefulWidget {
 class _AgywDreamsFamilyPlanningSrhFormState
     extends State<AgywDreamsFamilyPlanningSrhForm> {
   final String label = 'Family planning/SRH form';
+  final String translatedLabel = 'Foromo ea Thero ea Lelapa/SRH';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
@@ -251,6 +252,7 @@ class _AgywDreamsFamilyPlanningSrhFormState
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedLabel,
               activeInterventionProgram: activeInterventionProgram,
             );
           },
@@ -302,7 +304,9 @@ class _AgywDreamsFamilyPlanningSrhFormState
                                     visible: serviceFormState.isEditableMode,
                                     child: EntryFormSaveButton(
                                       label: isSaving
-                                          ? 'Saving ...'
+                                          ? currentLanguage == 'lesotho'
+                                              ? 'E ntse e boloka...'
+                                              : 'Saving ...'
                                           : currentLanguage == 'lesotho'
                                               ? 'Boloka'
                                               : 'Save',

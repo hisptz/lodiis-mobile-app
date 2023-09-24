@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
 import 'package:kb_mobile_app/core/components/referrals_old/referral_outcome_view_container.dart';
@@ -135,72 +136,84 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
 
   @override
   Widget build(BuildContext context) {
-    return !isFormReady
-        ? const CircularProcessLoader(
-            color: Colors.blueGrey,
-          )
-        : Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
-                child: Visibility(
-                  visible: isReferralOutComeFilled,
-                  child: ReferralOutComeViewContainer(
-                    isEditableMode: widget.isEditableMode,
-                    themeColor: themeColor,
-                    eventData: widget.eventData,
-                    beneficiary: widget.beneficiary,
-                    referralOutcomeFollowUpFormSections:
-                        referralOutcomeFollowUpFormSections,
-                    referralFollowUpStage: widget.referralFollowUpStage,
-                    referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
-                    referralProgram: widget.referralProgram,
-                    onEditReferralOutCome: () => onAddReferralOutCome(context),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: widget.isEditableMode &&
-                    (widget.isIncomingReferral || widget.isOvcIntervention) &&
-                    !isReferralOutComeFilled &&
-                    widget.eventData.enrollmentOuAccessible!,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(12.0),
-                    bottomRight: Radius.circular(12.0),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: themeColor!.withOpacity(0.03),
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String currentLanguage = languageTranslationState.currentLanguage;
+
+        return !isFormReady
+            ? const CircularProcessLoader(
+                color: Colors.blueGrey,
+              )
+            : Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 10.0),
+                    child: Visibility(
+                      visible: isReferralOutComeFilled,
+                      child: ReferralOutComeViewContainer(
+                        isEditableMode: widget.isEditableMode,
+                        themeColor: themeColor,
+                        eventData: widget.eventData,
+                        beneficiary: widget.beneficiary,
+                        referralOutcomeFollowUpFormSections:
+                            referralOutcomeFollowUpFormSections,
+                        referralFollowUpStage: widget.referralFollowUpStage,
+                        referralToFollowUpLinkage:
+                            widget.referralToFollowUpLinkage,
+                        referralProgram: widget.referralProgram,
+                        onEditReferralOutCome: () =>
+                            onAddReferralOutCome(context),
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        LineSeparator(
-                          color: themeColor!.withOpacity(0.2),
+                  ),
+                  Visibility(
+                    visible: widget.isEditableMode &&
+                        (widget.isIncomingReferral ||
+                            widget.isOvcIntervention) &&
+                        !isReferralOutComeFilled &&
+                        widget.eventData.enrollmentOuAccessible!,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(12.0),
+                        bottomRight: Radius.circular(12.0),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: themeColor!.withOpacity(0.03),
                         ),
-                        Row(
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: TextButton(
-                                onPressed: () => onAddReferralOutCome(context),
-                                child: Text(
-                                  'ADD OUTCOME',
-                                  style: const TextStyle().copyWith(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w700,
-                                    color: themeColor,
+                            LineSeparator(
+                              color: themeColor!.withOpacity(0.2),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextButton(
+                                    onPressed: () =>
+                                        onAddReferralOutCome(context),
+                                    child: Text(
+                                      currentLanguage == 'lesotho'
+                                          ? 'kenya Sephetho'
+                                          : 'ADD OUTCOME',
+                                      style: const TextStyle().copyWith(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w700,
+                                        color: themeColor,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )
-            ],
-          );
+                  )
+                ],
+              );
+      },
+    );
   }
 }

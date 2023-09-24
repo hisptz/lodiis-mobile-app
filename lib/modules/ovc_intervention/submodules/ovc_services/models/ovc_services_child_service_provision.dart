@@ -17,7 +17,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'y8ToqnbVz1o',
               name: 'HIVS&D Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVSCREEN',
+              translatedName: "Lits'ebeletso tsa HIVS&D li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -48,7 +48,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'mRoO7kgpgVg',
               name: 'CCFLS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea CCFLS',
+              translatedName: "Lits'ebeletso tsa CCFLS li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -79,7 +79,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'GNQ3gDA2CTI',
               name: 'CHILD STIMULATION  Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea CCFLS',
+              translatedName: "Lits'ebeletso tsa CHILD STIMULATION li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -111,7 +111,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'gSp9bgPW52L',
               name: 'TB SCREENING  Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea CCFLS',
+              translatedName: "Lits'ebeletso tsa TB SCREENING li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -135,7 +135,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'tnspdPfpuXm',
               name: 'FOOD PREV  Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea CCFLS',
+              translatedName: "Lits'ebeletso tsa FOOD PREV li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -298,7 +298,8 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'otd2tndsE4Z',
               name: 'HIV ADHERANCE SUPPORT Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVSCREEN',
+              translatedName:
+                  "Lits'ebeletso tsa HIV ADHERANCE SUPPORT li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -322,8 +323,8 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'JnqldNamliR',
               name: 'HTS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
               valueType: 'TRUE_ONLY',
+              translatedName: 'Litsebeletso tsa HTS li fanoe',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
             ),
@@ -345,8 +346,8 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'YFgrURiwirq',
               name: 'HIVTREAT Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVTREAT',
               valueType: 'TRUE_ONLY',
+              translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
             ),
@@ -368,7 +369,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'ESIjwQ9S6Ic',
               name: 'PRG&L Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea PRG&L',
+              translatedName: "Lits'ebeletso tsa PRG&L li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -391,7 +392,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'r8wPQAog7PJ',
               name: 'SAIDS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
+              translatedName: "Lits'ebeletso tsa SAIDS li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -414,7 +415,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'UKczyQWCB0L',
               name: 'IMMUNIZATION Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea IMMUNIZATION',
+              translatedName: "Lits'ebeletso tsa IMMUNIZATION li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -446,7 +447,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'KkqMjxjAR7g',
               name: 'MALNUTRITION Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea IMMUNIZATION',
+              translatedName: "Lits'ebeletso tsa Malnutrition li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -478,7 +479,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'mY7GqOTKtsQ',
               name: 'TB REFFER Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TB REFFER',
+              translatedName: "Lits'ebeletso tsa TB REFFER li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -510,7 +511,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'DoU7AeHDsUs',
               name: 'FOOD SUPPLIMENTS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TB REFFER',
+              translatedName: "Lits'ebeletso tsa FOOD SUPPLEMENTS li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -534,7 +535,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'eqhzeRBMftZ',
               name: 'HEALTH Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
+              translatedName: 'Litsebeletso tsa HEALTH tse fanoe',
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -591,7 +592,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'AnnOS2m6LZK',
               name: 'Savings Group Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SGROUP',
+              translatedName: "Litsebeletso tsa savings group li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF0000FF),
               labelColor: const Color(0xFF737373),
@@ -621,7 +622,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'lpTVK3t1Ahk',
               name: 'FINANCIAL EDUCATION  Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SGROUP',
+              translatedName: "Lits'ebeletso tsa FINANCIAL EDUCATION li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF0000FF),
               labelColor: const Color(0xFF737373),
@@ -651,7 +652,7 @@ class OvcServicesChildServiceProvision {
             InputField(
               id: 'lEkrLOFmLrH',
               name: 'K/TPLOTS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
+              translatedName: "Lits'ebeletso tsa K/TPLOTS li fanoe",
               isReadOnly: true,
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF0000FF),
@@ -692,7 +693,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'RNKOtUtLT4c',
             name: 'SLION Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea SLION',
+            translatedName: "Lits'ebeletso tsa SLION li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -722,7 +723,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'GImA3HB9YK5',
             name: 'RTEEN Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea RTEEN',
+            translatedName: "Lits'ebeletso tsa RTEEN li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -752,7 +753,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'Fj2RbXsb8Yj',
             name: 'RKIDS Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea RKIDS',
+            translatedName: "Lits'ebeletso tsa RKIDS li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -782,7 +783,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'gwwUOs6yt6C',
             name: 'P&FC Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea P&FC',
+            translatedName: "Lits'ebeletso tsa P&FC li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -812,7 +813,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'rMtSykWZ4HB',
             name: 'VAC MESSAGING Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
+            translatedName: "Lits'ebeletso tsa moalaetsa oa VAC li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -829,7 +830,7 @@ class OvcServicesChildServiceProvision {
           InputField(
               id: 'YPImSLRMLWH',
               name: 'VAC MESSAGING session number',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea VAC',
+              translatedName: "Lits'ebeletso tsa molaetsa oa session number",
               valueType: 'TEXT',
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
@@ -843,8 +844,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'QDFZ03HbjGj',
             name: 'VAC Legal Messaging Service provided',
-            // translatedName:
-            //     'Boemo ba Phano ea Litšebeletso ea VAC Legal Messaging',
+            translatedName: "Litsebeletso tsa molaetsa oa molao li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -875,7 +875,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'ysDSdiL7wNx',
             name: 'COUNSEL Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea COUNSEL',
+            translatedName: "Litsebeletso tsa boeletsi bp fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -905,7 +905,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'aGChpBlIzcd',
             name: 'BIRTHCERT Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea BIRTHCERT',
+            translatedName: "Lits'ebeletso tsa BIRTHCERT li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -935,8 +935,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'gfKsz88uxtg',
             name: 'LEGAL PROTECTION  Service provided',
-            // translatedName:
-            //     'Boemo ba Phano ea Litšebeletso ea LEGAL PROTECTION ',
+            translatedName: "Litsebeletso tsa ts'ireletso ea molao li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF0F9587),
             labelColor: const Color(0xFF737373),
@@ -976,7 +975,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'LcIB5EL3IjT',
             name: 'Aflatoun/teen Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea Aflatoun/teen',
+            translatedName: "Litsebeletso tsa Aflatoun li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -1007,7 +1006,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'hg2bpp1HqwU',
             name: 'HOMEWORK CLUB Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea Aflatoun/teen',
+            translatedName: "Litsebeletso tsa HOMEWORK CLUB li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -1038,7 +1037,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'fvgPnlOD7e9',
             name: 'BURSARY Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea BURSARY',
+            translatedName: " Tšebeletsoe ea lihlapiso e fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -1061,7 +1060,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'WQlWXUmYjI2',
             name: 'SMATERIAL Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea SMATERIAL',
+            translatedName: "Litsebeletso tsa SMATERIAL li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -1084,7 +1083,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'Zc0M1jsbfyA',
             name: 'REENROL Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea REENROL',
+            translatedName: "Litsebeletso tsa REENROL li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -1107,7 +1106,7 @@ class OvcServicesChildServiceProvision {
           InputField(
             id: 'MeMaUvt3O8j',
             name: 'SFEES Service provided',
-            // translatedName: 'Boemo ba Phano ea Litšebeletso ea SFEES',
+            translatedName: "Litsebeletso tsa SFEES li fanoe",
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),

@@ -163,58 +163,68 @@ class _CasePlanGapServiceMonitoringFormContainerState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 15.0,
-      ),
-      child: !_isFormReady
-          ? const CircularProcessLoader(
-              color: Colors.blueGrey,
-            )
-          : Column(
-              children: [
-                EntryFormContainer(
-                  hiddenFields: hiddenFields,
-                  hiddenSections: hiddenSections,
-                  elevation: 0.0,
-                  formSections: formSections,
-                  mandatoryFieldObject: mandatoryFieldObject,
-                  dataObject: widget.gapServiceMonitoringObject,
-                  isEditableMode: widget.isEditableMode,
-                  onInputValueChange: onInputValueChange,
-                ),
-                Visibility(
-                  visible: widget.isEditableMode,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 15.0,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        String currentLanguage = languageTranslationState.currentLanguage;
+
+        return Container(
+          margin: const EdgeInsets.symmetric(
+            vertical: 15.0,
+          ),
+          child: !_isFormReady
+              ? const CircularProcessLoader(
+                  color: Colors.blueGrey,
+                )
+              : Column(
+                  children: [
+                    EntryFormContainer(
+                      hiddenFields: hiddenFields,
+                      hiddenSections: hiddenSections,
+                      elevation: 0.0,
+                      formSections: formSections,
+                      mandatoryFieldObject: mandatoryFieldObject,
+                      dataObject: widget.gapServiceMonitoringObject,
+                      isEditableMode: widget.isEditableMode,
+                      onInputValueChange: onInputValueChange,
                     ),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: widget.formSectionColor,
-                      ),
-                      onPressed: onSaveCasePlanMonitoring,
+                    Visibility(
+                      visible: widget.isEditableMode,
                       child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 22.0,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15.0,
                         ),
-                        child: Text(
-                          _isSaving
-                              ? 'SAVING MONITORING ...'
-                              : 'SAVE MONITORING',
-                          style: const TextStyle().copyWith(
-                            color: const Color(0xFFFAFAFA),
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: widget.formSectionColor,
+                          ),
+                          onPressed: onSaveCasePlanMonitoring,
+                          child: Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 22.0,
+                            ),
+                            child: Text(
+                              _isSaving
+                                  ? currentLanguage == 'lesotho'
+                                      ? 'E ntse e boloka tlhahlobo e hlophisitsoeng ea lelapa'
+                                      : 'SAVING MONITORING ...'
+                                  : currentLanguage == 'lesotho'
+                                      ? 'Boloka tlhahlobo e hlophisitsoeng ea lelapa'
+                                      : 'SAVE MONITORING',
+                              style: const TextStyle().copyWith(
+                                color: const Color(0xFFFAFAFA),
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+                    )
+                  ],
+                ),
+        );
+      },
     );
   }
 }

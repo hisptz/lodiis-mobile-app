@@ -383,7 +383,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: _isSaving
-                                              ? 'Saving ...'
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'
                                                   : 'Save',
