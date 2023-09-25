@@ -183,12 +183,12 @@ class ClhivArtCard extends StatelessWidget {
                                                 visitCount: serviceIndex,
                                                 editDisabled: eventData
                                                             .enrollmentOuAccessible !=
-                                                        true &&
+                                                        true ||
                                                     currentHousehold
-                                                            ?.hasExitedProgram !=
-                                                        true &&
+                                                            ?.hasExitedProgram ==
+                                                        true ||
                                                     currentOvc
-                                                            ?.hasExitedProgram !=
+                                                            ?.hasExitedProgram ==
                                                         true,
                                                 onEdit: () =>
                                                     onEditClhivArtCardService(
