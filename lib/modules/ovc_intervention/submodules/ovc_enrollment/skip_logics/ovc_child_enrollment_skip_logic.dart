@@ -154,10 +154,13 @@ class OvcChildEnrollmentSkipLogic {
       } else if (inputFieldId == 'GMcljM7jbNG') {
         int age =
             AppUtil.getAgeInYear('${dataObject["qZP982qpSPS"]}', ceil: true);
-        var isOvcHIVExposedInfant = (age >= 0 && age <= 2) &&
-            '${dataObject["nO38lKlKHYi"]}' == 'Positive';
-
-        assignedFields[inputFieldId] = '$isOvcHIVExposedInfant';
+        if (age > 2) {
+          hiddenFields[inputFieldId] = true;
+        } else {
+          var isOvcHIVExposedInfant = (age >= 0 && age <= 2) &&
+              '${dataObject["nO38lKlKHYi"]}' == 'Positive';
+          assignedFields[inputFieldId] = '$isOvcHIVExposedInfant';
+        }
       } else if (inputFieldId == 'Mc3k3bSwXNe' &&
           (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['CePNVGSnj00'] = true;
