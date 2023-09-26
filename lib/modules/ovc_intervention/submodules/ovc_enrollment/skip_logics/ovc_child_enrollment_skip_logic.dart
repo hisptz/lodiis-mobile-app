@@ -114,15 +114,19 @@ class OvcChildEnrollmentSkipLogic {
           hiddenOptions['Double Orphan'] = true;
         }
         hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
-        if (dataObject['cJl00w5DjIL'] == 'No' &&
-            dataObject['R9e8v9r3lMM'] == 'No') {
+
+        if (dataObject['cJl00w5DjIL'] == 'Yes' &&
+            dataObject['R9e8v9r3lMM'] == 'Yes') {
           hiddenOptions['Single Orphan(Father)'] = true;
-          hiddenOptions['Single Orphan(Mother)'] = true;
-        } else if (dataObject['cJl00w5DjIL'] == 'No') {
           hiddenOptions['Single Orphan(Mother)'] = true;
           hiddenOptions['Double Orphan'] = true;
-        } else if (dataObject['R9e8v9r3lMM'] == 'No') {
+        }
+        if (dataObject['cJl00w5DjIL'] == 'Yes') {
           hiddenOptions['Single Orphan(Father)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        }
+        if (dataObject['R9e8v9r3lMM'] == 'Yes') {
+          hiddenOptions['Single Orphan(Mother)'] = true;
           hiddenOptions['Double Orphan'] = true;
         }
       } else if (inputFieldId == 'UeF4OvjIIEK') {
@@ -154,10 +158,13 @@ class OvcChildEnrollmentSkipLogic {
       } else if (inputFieldId == 'GMcljM7jbNG') {
         int age =
             AppUtil.getAgeInYear('${dataObject["qZP982qpSPS"]}', ceil: true);
-        var isOvcHIVExposedInfant = (age >= 0 && age <= 2) &&
-            '${dataObject["nO38lKlKHYi"]}' == 'Positive';
-
-        assignedFields[inputFieldId] = '$isOvcHIVExposedInfant';
+        if (age > 2) {
+          hiddenFields[inputFieldId] = true;
+        } else {
+          var isOvcHIVExposedInfant = (age >= 0 && age <= 2) &&
+              '${dataObject["nO38lKlKHYi"]}' == 'Positive';
+          assignedFields[inputFieldId] = '$isOvcHIVExposedInfant';
+        }
       } else if (inputFieldId == 'Mc3k3bSwXNe' &&
           (value.isEmpty || value.trim() != 'true')) {
         hiddenFields['CePNVGSnj00'] = true;
@@ -198,9 +205,8 @@ class OvcChildEnrollmentSkipLogic {
           !(value == 'PrimaryLevel' || value == 'SecondaryLevel')) {
         hiddenFields['oioDyk1WK1j'] = true;
       } else if (inputFieldId == 'oSKX8fFQdWc') {
-        if (value == 'Positive') {
-          assignedFields['wmKqYZML8GA'] = 'true';
-        } else if (value != 'Positive') {
+        assignedFields['wmKqYZML8GA'] = '${value == 'Positive'}';
+        if (value != 'Positive') {
           hiddenFields['l7op0btSqSc'] = true;
         }
       } else if (inputFieldId == 'l7op0btSqSc' && value != 'true') {

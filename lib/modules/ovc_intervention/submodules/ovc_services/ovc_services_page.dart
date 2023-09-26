@@ -118,7 +118,6 @@ class _OvcServicesPageState extends State<OvcServicesPage> {
   }
 
   Widget _buildBody(String? currentLanguage) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Consumer<OvcInterventionListState>(
       builder: (context, ovcListState, child) => RefreshIndicator(
         onRefresh: () async => refreshBeneficiaryList(ovcListState),
