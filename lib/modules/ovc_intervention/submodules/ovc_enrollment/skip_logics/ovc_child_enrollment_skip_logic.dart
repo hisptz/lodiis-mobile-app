@@ -114,15 +114,19 @@ class OvcChildEnrollmentSkipLogic {
           hiddenOptions['Double Orphan'] = true;
         }
         hiddenInputFieldOptions[inputFieldId] = hiddenOptions;
-        if (dataObject['cJl00w5DjIL'] == 'No' &&
-            dataObject['R9e8v9r3lMM'] == 'No') {
+
+        if (dataObject['cJl00w5DjIL'] == 'Yes' &&
+            dataObject['R9e8v9r3lMM'] == 'Yes') {
           hiddenOptions['Single Orphan(Father)'] = true;
-          hiddenOptions['Single Orphan(Mother)'] = true;
-        } else if (dataObject['cJl00w5DjIL'] == 'No') {
           hiddenOptions['Single Orphan(Mother)'] = true;
           hiddenOptions['Double Orphan'] = true;
-        } else if (dataObject['R9e8v9r3lMM'] == 'No') {
+        }
+        if (dataObject['cJl00w5DjIL'] == 'Yes') {
           hiddenOptions['Single Orphan(Father)'] = true;
+          hiddenOptions['Double Orphan'] = true;
+        }
+        if (dataObject['R9e8v9r3lMM'] == 'Yes') {
+          hiddenOptions['Single Orphan(Mother)'] = true;
           hiddenOptions['Double Orphan'] = true;
         }
       } else if (inputFieldId == 'UeF4OvjIIEK') {
