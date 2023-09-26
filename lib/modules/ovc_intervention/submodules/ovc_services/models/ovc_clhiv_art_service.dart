@@ -87,6 +87,7 @@ class OvcClhivArtService {
             valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF1A3518),
+            sortOptions: false,
             options: [
               InputFieldOption(
                 code: '<50 Copies',
@@ -115,6 +116,7 @@ class OvcClhivArtService {
             valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF1A3518),
+            sortOptions: false,
             options: [
               InputFieldOption(
                   code: '<3 Months',
