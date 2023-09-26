@@ -201,9 +201,8 @@ class OvcChildEnrollmentSkipLogic {
           !(value == 'PrimaryLevel' || value == 'SecondaryLevel')) {
         hiddenFields['oioDyk1WK1j'] = true;
       } else if (inputFieldId == 'oSKX8fFQdWc') {
-        if (value == 'Positive') {
-          assignedFields['wmKqYZML8GA'] = 'true';
-        } else if (value != 'Positive') {
+        assignedFields['wmKqYZML8GA'] = '${value == 'Positive'}';
+        if (value != 'Positive') {
           hiddenFields['l7op0btSqSc'] = true;
         }
       } else if (inputFieldId == 'l7op0btSqSc' && value != 'true') {
