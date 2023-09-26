@@ -69,10 +69,10 @@ class _CasePlanGapServiceMonitoringViewContainerState
   Widget build(BuildContext context) {
     return Consumer<OvcHouseholdCurrentSelectionState>(
         builder: ((context, state, child) {
-      var hasBeneficiaryExited =
-          state.currentOvcHousehold?.hasExitedProgram == true &&
-              (widget.isHouseholdCasePlan ||
-                  state.currentOvcHouseholdChild?.hasExitedProgram == true);
+      var hasBeneficiaryExited = widget.isHouseholdCasePlan
+          ? state.currentOvcHousehold?.hasExitedProgram
+          : state.currentOvcHousehold?.hasExitedProgram == true ||
+              state.currentOvcHouseholdChild?.hasExitedProgram == true;
       return Container(
         margin: const EdgeInsets.symmetric(),
         child: Column(

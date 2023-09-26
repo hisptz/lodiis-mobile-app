@@ -285,6 +285,7 @@ class InputFieldContainer extends StatelessWidget {
                                   hiddenInputFieldOptions[inputField.id] ?? {},
                               currentLanguage: currentLanguage,
                               color: inputField.inputColor,
+                              sortOptions: inputField.sortOptions,
                               isReadOnly: inputField.isReadOnly,
                               renderAsRadio: inputField.renderAsRadio,
                               onInputValueChange: (dynamic value) =>
