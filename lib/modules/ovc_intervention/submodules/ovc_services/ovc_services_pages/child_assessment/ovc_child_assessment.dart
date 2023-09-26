@@ -166,6 +166,12 @@ class OvcChildAssessment extends StatelessWidget {
                                                 eventData: eventData,
                                                 programStageMap:
                                                     programStageMap,
+                                                canEdit: (currentOvcHouseholdChild!
+                                                            .hasExitedProgram !=
+                                                        true &&
+                                                    currentHousehold
+                                                            ?.hasExitedProgram !=
+                                                        true),
                                                 onEditAssessment: () {
                                                   String? assessmentResponse =
                                                       programStageMap[eventData
@@ -174,7 +180,7 @@ class OvcChildAssessment extends StatelessWidget {
                                                       context,
                                                       assessmentResponse,
                                                       eventData,
-                                                      currentOvcHouseholdChild!);
+                                                      currentOvcHouseholdChild);
                                                 },
                                                 onViewAssessment: () {
                                                   String? assessmentResponse =
@@ -184,7 +190,7 @@ class OvcChildAssessment extends StatelessWidget {
                                                       context,
                                                       assessmentResponse,
                                                       eventData,
-                                                      currentOvcHouseholdChild!);
+                                                      currentOvcHouseholdChild);
                                                 },
                                               ),
                                             )

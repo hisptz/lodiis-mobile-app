@@ -12,12 +12,14 @@ class OvcChildAssessmentListCard extends StatelessWidget {
     required this.programStageMap,
     this.onViewAssessment,
     this.onEditAssessment,
+    this.canEdit = true,
   }) : super(key: key);
 
   final Events eventData;
   final Map programStageMap;
   final Function? onViewAssessment;
   final Function? onEditAssessment;
+  final bool? canEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +93,8 @@ class OvcChildAssessmentListCard extends StatelessWidget {
                             )),
                       ),
                       Visibility(
-                        visible: eventData.enrollmentOuAccessible!,
+                        visible: eventData.enrollmentOuAccessible! &&
+                            canEdit == true,
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: 5.0,
