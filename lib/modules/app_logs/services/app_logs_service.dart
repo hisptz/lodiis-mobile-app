@@ -98,16 +98,22 @@ class AppLogsService {
           RegExp(r"Event.programStage does not point to a valid programStage");
       RegExp attributeRegEx = RegExp(r"Attribute.value");
       RegExp notValidRegEx = RegExp(r"is not a valid");
+      RegExp clientConnection =
+          RegExp(r"ClientException: Software cause connection abort");
+      RegExp ouAccessRegEx =
+          RegExp(r"Program is not assigned to this organisation unit");
 
       // Check for possible error messages
-      if (socketRegex.hasMatch(message)) {
+      if (socketRegex.hasMatch(message) || clientConnection.hasMatch(message)) {
         formattedMessage = 'Internet connection error';
       } else if (accessRegex.hasMatch(message)) {
         String programStage = getProgramStageName(message);
-        formattedMessage = 'Current user has no access $programStage';
+        formattedMessage =
+            'Current user has no access to $programStage service';
       } else if (enrollmentRegex.hasMatch(message)) {
         String program = getProgramName(message);
-        formattedMessage = 'Beneficiaries not enrolled to$program program.';
+        formattedMessage =
+            'Beneficiaries not enrolled to $program intervention.';
       } else if (connectionRegex.hasMatch(message)) {
         formattedMessage = 'Failed to connect to the server';
       } else if (eventForTeiNotExistRegex.hasMatch(message)) {
@@ -118,6 +124,7 @@ class AppLogsService {
       } else if (attributeRegEx.hasMatch(message) ||
           notValidRegEx.hasMatch(message)) {
         formattedMessage = 'Attribute has invalid value type';
+      } else if (ouAccessRegEx.hasMatch(message)) {
       } else {
         formattedMessage = message;
       }
