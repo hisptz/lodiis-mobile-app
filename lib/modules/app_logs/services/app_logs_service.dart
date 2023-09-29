@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:kb_mobile_app/core/constants/app_logs_constants.dart';
 import 'package:kb_mobile_app/core/offline_db/app_logs_offline/app_logs_offline_provider.dart';
 import 'package:kb_mobile_app/core/services/http_service.dart';
+import 'package:kb_mobile_app/core/services/organisation_unit_service.dart';
 import 'package:kb_mobile_app/core/services/user_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/app_logs.dart';
@@ -20,11 +21,11 @@ class AppLogsService {
     try {
       List<AppLogs> appLogs =
           await AppLogsOfflineProvider().getLogs(page: page);
-      List<AppLogs> refactoredAppLogs = appLogs.map((log) {
-        log.message = getFormattedMessage(log.message ?? '');
-        return log;
-      }).toList();
-      appLogsList.addAll(refactoredAppLogs);
+
+      for (var logs in appLogs) {
+        logs.message = await getFormattedMessage(logs.message ?? '');
+        appLogsList.add(logs);
+      }
     } catch (e) {
       AppLogs log = AppLogs(
           type: AppLogsConstants.errorLogType,
@@ -85,7 +86,7 @@ class AppLogsService {
     return appLogsList;
   }
 
-  String getFormattedMessage(String message) {
+  Future<String> getFormattedMessage(String message) async {
     String formattedMessage = '';
     try {
       RegExp connectionRegex = RegExp(r"(timed out)");
@@ -125,6 +126,10 @@ class AppLogsService {
           notValidRegEx.hasMatch(message)) {
         formattedMessage = 'Attribute has invalid value type';
       } else if (ouAccessRegEx.hasMatch(message)) {
+        String ouId = message.split(':').last.trim();
+        var ou = (await OrganisationUnitService().getOrganisationUnits([ouId]))
+            .first;
+        formattedMessage = 'Intervention is not assigned to ${ou.name}';
       } else {
         formattedMessage = message;
       }
