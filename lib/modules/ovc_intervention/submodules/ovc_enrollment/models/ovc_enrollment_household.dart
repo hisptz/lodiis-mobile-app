@@ -141,11 +141,22 @@ class OvcEnrollmentHousehold {
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Married', name: 'Married'),
-                InputFieldOption(code: 'Single', name: 'Single'),
-                InputFieldOption(code: 'Widowed', name: 'Widowed'),
                 InputFieldOption(
-                    code: 'Divorced/separated', name: 'Divorced/separated'),
+                    code: 'Married',
+                    name: 'Married',
+                    translatedName: 'Ke nyetsoe'),
+                InputFieldOption(
+                    code: 'Single',
+                    name: 'Single',
+                    translatedName: 'Ha kea nyaloa'),
+                InputFieldOption(
+                    code: 'Widowed',
+                    name: 'Widowed',
+                    translatedName: 'Mohlolo/Mohlolohali'),
+                InputFieldOption(
+                    translatedName: 'Hlalane/Arohane',
+                    code: 'Divorced/separated',
+                    name: 'Divorced/separated'),
               ]),
           InputField(
               id: 'oSKX8fFQdWc',
@@ -156,10 +167,22 @@ class OvcEnrollmentHousehold {
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
-                InputFieldOption(code: 'Unknown', name: 'Unknown'),
-                InputFieldOption(code: 'No Response', name: 'No Response'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
+                InputFieldOption(
+                    code: 'Unknown',
+                    name: 'Unknown',
+                    translatedName: 'Tse sa tsejoeng'),
+                InputFieldOption(
+                    code: 'No Response',
+                    name: 'No Response',
+                    translatedName: 'Ha ho Karabo'),
               ]),
           InputField(
             id: 'l7op0btSqSc',
@@ -184,17 +207,36 @@ class OvcEnrollmentHousehold {
           InputField(
               id: 'qAivZumsnJ2',
               name: 'Caregiver education level',
-              translatedName: '',
+              translatedName: 'Boemo ba thuto ba mohlokomeli ke bofe?',
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Primary level', name: 'Primary level'),
                 InputFieldOption(
-                    code: 'Secondary level', name: 'Secondary level'),
-                InputFieldOption(code: 'Tertiary level', name: 'Tertiary'),
-                InputFieldOption(code: 'Vocational level', name: 'Vocational'),
-                InputFieldOption(code: 'None', name: 'Never been to School'),
+                  code: 'Primary level',
+                  name: 'Primary level',
+                  translatedName: 'Boemo ba sekolo sa mathomo',
+                ),
+                InputFieldOption(
+                  code: 'Secondary level',
+                  name: 'Secondary level',
+                  translatedName: 'Boemo ba sekolo se phahameng',
+                ),
+                InputFieldOption(
+                  code: 'Tertiary level',
+                  name: 'Tertiary',
+                  translatedName: 'Boemo ba college/university',
+                ),
+                InputFieldOption(
+                  code: 'Vocational level',
+                  name: 'Vocational',
+                  translatedName: 'Boemo ba sekolo sa matsoho',
+                ),
+                InputFieldOption(
+                  code: 'None',
+                  name: 'Never been to School',
+                  translatedName: 'Ha a kena sekolo',
+                ),
               ]),
           InputField(
             id: 'l9tcZ2TNgx6',

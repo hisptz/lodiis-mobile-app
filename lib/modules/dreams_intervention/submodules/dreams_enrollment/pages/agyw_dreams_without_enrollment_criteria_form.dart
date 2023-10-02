@@ -180,8 +180,8 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
             horizontal: 13.0,
           ),
           child: !isFormReady
-              ? Column(
-                  children: const [
+              ? const Column(
+                  children: [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,
@@ -208,7 +208,9 @@ class _AgywDreamsWithoutEnrollmentCriteriaFormState
                             visible: enrollmentFormState.isEditableMode,
                             child: EntryFormSaveButton(
                               label: isSaving
-                                  ? 'Saving ...'
+                                  ? currentLanguage == 'lesotho'
+                                      ? 'E ntse e boloka...'
+                                      : 'Saving ...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka'
                                       : 'Save',

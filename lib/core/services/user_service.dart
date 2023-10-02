@@ -78,7 +78,7 @@ class UserService {
     if (user != null) {
       user.isLogin = false;
       await setCurrentUser(user);
-      await setCurrentUserMetadatadataSyncStatus("false");
+      await setCurrentUserMetadataSyncStatus("false");
     }
   }
 
@@ -95,12 +95,12 @@ class UserService {
     try {
       var response = await http.httpGet(url, queryParameters: queryParameters);
       if (response.statusCode == 200) {
-        Map<String, dynamic> dataReponse = json.decode(response.body);
-        List<String> authorities = (dataReponse["authorities"] as List)
+        Map<String, dynamic> dataResponse = json.decode(response.body);
+        List<String> authorities = (dataResponse["authorities"] as List)
             .map((authority) => "$authority")
             .toList();
         List userGroups =
-            (dataReponse["userGroups"] as List).where((userGroup) {
+            (dataResponse["userGroups"] as List).where((userGroup) {
           List<String> allowedGroupsForDataEntry =
               UserAccountReference.allowedGroupsForDataEntry;
           String userGroupId =
@@ -152,12 +152,12 @@ class UserService {
     );
   }
 
-  Future setCurrentUserMetadatadataSyncStatus(dynamic status) async {
+  Future setCurrentUserMetadataSyncStatus(dynamic status) async {
     await PreferenceProvider.setPreferenceValue(
         userSuccessMetadataSyncKey, "$status");
   }
 
-  Future<bool> getCurrentUserMetadatadataSyncStatus() async {
+  Future<bool> getCurrentUserMetadataSyncStatus() async {
     var status =
         await PreferenceProvider.getPreferenceValue(userSuccessMetadataSyncKey);
     return "$status" == "true";

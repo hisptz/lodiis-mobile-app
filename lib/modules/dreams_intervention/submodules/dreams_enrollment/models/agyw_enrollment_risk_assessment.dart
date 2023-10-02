@@ -75,6 +75,7 @@ class AgywEnrollmentRiskAssessment {
     return [
       FormSection(
         name: 'Demographic Information',
+        translatedName: 'Litaba tsa Boitsebiso ba motho',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -133,8 +134,16 @@ class AgywEnrollmentRiskAssessment {
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Male', name: 'Male'),
-              InputFieldOption(code: 'Female', name: 'Female'),
+              InputFieldOption(
+                code: 'Male',
+                name: 'Male',
+                translatedName: 'Botona',
+              ),
+              InputFieldOption(
+                code: 'Female',
+                name: 'Female',
+                translatedName: 'Botsehali',
+              ),
               InputFieldOption(
                   code: 'Transgender (male to female)',
                   name: 'Transgender (male to female)'),
@@ -201,8 +210,7 @@ class AgywEnrollmentRiskAssessment {
           InputField(
               id: '',
               name: 'Have you been a member of',
-              translatedName:
-                  'Na u kile oa kena lithupelong tsa DREAMS tse latelang?',
+              translatedName: 'Na u bile setho sa',
               valueType: 'CHECK_BOX',
               inputColor: const Color(0xFF258DCC),
               labelColor: const Color(0xFF737373),
@@ -276,6 +284,7 @@ class AgywEnrollmentRiskAssessment {
       FormSection(
         id: 'householdInformation',
         name: 'Household Information',
+        translatedName: 'Boitsebiso ba lelapa',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -323,9 +332,13 @@ class AgywEnrollmentRiskAssessment {
             labelColor: const Color(0xFF737373),
             options: [
               InputFieldOption(
-                  code: 'Biological mother', name: 'Biological mother'),
+                  code: 'Biological mother',
+                  name: 'Biological mother',
+                  translatedName: 'Mè ea u tsoalang'),
               InputFieldOption(
-                  code: 'Biological father', name: 'Biological father'),
+                  code: 'Biological father',
+                  name: 'Biological father',
+                  translatedName: 'Ntate ea u tsoalang'),
               InputFieldOption(
                   code: 'Aunt/Uncle',
                   name: 'Aunt/Uncle',
@@ -366,12 +379,14 @@ class AgywEnrollmentRiskAssessment {
       ),
       FormSection(
         name: 'Risk Assessment',
+        translatedName: 'Tlhahlobo ea kotsi',
         color: const Color(0xFF258DCC),
         inputFields: [],
         subSections: [
           FormSection(
             id: '1_E_H_S',
             name: '1. Ever had sex',
+            translatedName: '1. O kile a etsa thobalano',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -429,6 +444,8 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '1_M_S_P',
             name: '1. Multiple sexual patners (in the last year)',
+            translatedName:
+                '1.  Na u entse thobalano le batho ba fapaneng (selemong se fetileng)',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -486,6 +503,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '2_H_O_P',
             name: '2. History of pregnancy',
+            translatedName: '2. Nalane ea bokhachane',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -531,7 +549,7 @@ class AgywEnrollmentRiskAssessment {
               ),
               InputField(
                 id: 'x9CWVcy9CZ2',
-                name: 'b. Were they treated?',
+                name: 'b. If yes, were they treated',
                 translatedName:
                     'b. Haeba karabo e le “E”, na mafu ao a ile a alafuoa?',
                 valueType: 'BOOLEAN',
@@ -543,6 +561,8 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '4_N_O_I_C_U',
             name: '4. No or irregular condom use',
+            translatedName:
+                '4. Ho sebelise kapa tšebeliso e sa nepahalang ea likhohlopo',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -585,6 +605,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '4_E_O_S_V',
             name: '4. Experience of sexual violence (lifetime)',
+            translatedName: '4. Ho hlekefetsoa ka motabo (bophelo bohle)',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -704,6 +725,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '6_E_O_S_V',
             name: '6. Experience of sexual violence (lifetime)',
+            translatedName: '6. Ho hlekefetsoa ka motabo (bophelo bohle)',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -768,6 +790,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '6_A_U',
             name: '6. Alcohol use',
+            translatedName: '6. Tšebeliso ea joala',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -804,6 +827,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '7_A_U',
             name: '7. Alcohol use',
+            translatedName: '7. Tšebeliso ea joala',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -840,6 +864,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '7_A_M',
             name: '7. Alcohol misuse',
+            translatedName: '7. Tšebeliso e mpe ea joala',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -876,6 +901,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '7_O_S',
             name: '7. Out of school',
+            translatedName: '7. Ha kene sekolo',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -897,13 +923,14 @@ class AgywEnrollmentRiskAssessment {
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                      code: 'School',
-                      name: 'School',
-                      translatedName: 'Sekolo se tloaelehileng'),
+                    code: 'School',
+                    name: 'School',
+                    translatedName: 'Sekolo se tloaelehileng',
+                  ),
                   InputFieldOption(
                       code: 'Vocational',
                       name: 'Vocational',
-                      translatedName: 'ekolo sa mosebetsi oa matsoho ')
+                      translatedName: 'ekolo sa mosebetsi oa matsoho ,')
                 ],
               ),
               InputField(
@@ -930,6 +957,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '8_O_O_S',
             name: '8. Out of school',
+            translatedName: '8. Ha kene sekolo',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -984,6 +1012,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '8_O_H',
             name: '8. Orphanhood',
+            translatedName: '8. Bokhutsana',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -1004,17 +1033,20 @@ class AgywEnrollmentRiskAssessment {
                 labelColor: const Color(0xFF737373),
                 options: [
                   InputFieldOption(
-                      code: 'Single Orphan(Mother)',
-                      name: 'Single Orphan(Mother Died)',
-                      translatedName: 'Khutsana Khulu (ntate le mme)'),
+                    code: 'Single Orphan(Mother)',
+                    name: 'Single Orphan(Mother Died)',
+                    translatedName: 'Khutsana Khulu (ntate le mme)',
+                  ),
                   InputFieldOption(
-                      code: 'Single Orphan(Father)',
-                      name: 'Single Orphan(Father Died)',
-                      translatedName: 'Khutsana ka Motsoali a le mong (ntate)'),
+                    code: 'Single Orphan(Father)',
+                    name: 'Single Orphan(Father Died)',
+                    translatedName: 'Khutsana ka Motsoali a le mong (ntate)',
+                  ),
                   InputFieldOption(
-                      code: 'Double Orphan',
-                      name: 'Double Orphan (Father & Mother Died)',
-                      translatedName: 'Khutsana Khulu (ntate le mme)'),
+                    code: 'Double Orphan',
+                    name: 'Double Orphan (Father & Mother Died)',
+                    translatedName: 'Khutsana Khulu (ntate le mme)',
+                  ),
                 ],
               ),
               InputField(
@@ -1069,6 +1101,7 @@ class AgywEnrollmentRiskAssessment {
           FormSection(
             id: '9_O_H',
             name: '9. Orphanhood',
+            translatedName: '9. Bokhutsana',
             color: const Color(0xFF258DCC),
             inputFields: [
               InputField(
@@ -1155,6 +1188,7 @@ class AgywEnrollmentRiskAssessment {
       ),
       FormSection(
         name: 'Enrollment Criteria',
+        translatedName: 'Mekhoa ea ho Ngolisa',
         id: 'E_O_C',
         color: const Color(0xFF258DCC),
         inputFields: [
@@ -1234,6 +1268,7 @@ class AgywEnrollmentRiskAssessment {
       FormSection(
         id: 'E_O_I',
         name: 'Enrollment Instructions',
+        translatedName: 'Litaelo tsa ho Ngolisa',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(

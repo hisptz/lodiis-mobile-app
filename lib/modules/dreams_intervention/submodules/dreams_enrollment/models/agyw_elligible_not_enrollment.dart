@@ -17,6 +17,7 @@ class AgywElligibleNotEnrollment {
     return [
       FormSection(
         name: 'AGYW/DREAMS Eligible Not Enrolled ',
+        translatedName: 'AGYW/DREAMS eka ngolisang empa ha e ea ngolisoa',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -92,8 +93,16 @@ class AgywElligibleNotEnrollment {
               labelColor: const Color(0xFF737373),
               renderAsRadio: true,
               options: [
-                InputFieldOption(code: 'Male', name: 'Male'),
-                InputFieldOption(code: 'Female', name: 'Female'),
+                InputFieldOption(
+                  code: 'Male',
+                  name: 'Male',
+                  translatedName: 'Botona',
+                ),
+                InputFieldOption(
+                  code: 'Female',
+                  name: 'Female',
+                  translatedName: 'Botsehali',
+                ),
                 InputFieldOption(
                     code: 'Transgender (male to female)',
                     name: 'Transgender (male to female)'),

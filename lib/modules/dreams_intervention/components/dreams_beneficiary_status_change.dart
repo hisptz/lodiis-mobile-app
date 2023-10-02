@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kb_mobile_app/app_state/dreams_intervention_list_state/dreams_intervention_list_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/constants/program_status.dart';
@@ -164,6 +165,7 @@ class _DreamsBeneficiaryStatusChangeState
           InputField(
             id: programStatusId,
             name: 'Beneficiary Status',
+            translatedName: 'Boemo ba mojalefa ka hara morero',
             valueType: 'TEXT',
             isReadOnly:
                 widget.agywDream.programStatus != ProgramStatus.inActive,
@@ -203,8 +205,10 @@ class _DreamsBeneficiaryStatusChangeState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String currentLanguage = languageTranslationState.currentLanguage;
+      return Column(children: [
         Container(
           margin: const EdgeInsets.only(
             top: 10.0,
@@ -223,7 +227,11 @@ class _DreamsBeneficiaryStatusChangeState
           ),
         ),
         EntryFormSaveButton(
-          label: isSaving ? 'Saving ...' : 'Save',
+          label: isSaving
+              ? currentLanguage == 'lesotho'
+                  ? 'E ntse e boloka ...'
+                  : 'Saving ...'
+              : 'Save',
           labelColor: Colors.white,
           buttonColor: const Color(0xFF258DCC),
           fontSize: 15.0,
@@ -231,7 +239,7 @@ class _DreamsBeneficiaryStatusChangeState
             context,
           ),
         )
-      ],
-    );
+      ]);
+    });
   }
 }

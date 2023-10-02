@@ -119,11 +119,14 @@ class _OvcSchoolMonitoringState extends State<OvcSchoolMonitoring> {
                     var currentOvcHouseholdChild =
                         ovcHouseholdCurrentSelectionState
                             .currentOvcHouseholdChild!;
+                    var currentOvcHousehold =
+                        ovcHouseholdCurrentSelectionState.currentOvcHousehold!;
                     return Consumer<LanguageTranslationState>(
                       builder: (context, languageTranslationState, child) =>
                           Visibility(
                         visible:
-                            currentOvcHouseholdChild.enrollmentOuAccessible!,
+                            currentOvcHouseholdChild.enrollmentOuAccessible! &&
+                                currentOvcHousehold.hasExitedProgram != true,
                         child: EntryFormSaveButton(
                           label: languageTranslationState.isSesothoLanguage
                               ? "KENYA TLHOKOMELO"

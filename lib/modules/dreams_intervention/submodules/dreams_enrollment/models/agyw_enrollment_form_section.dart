@@ -50,6 +50,7 @@ class AgywEnrollmentFormSection {
     return [
       FormSection(
         name: 'Enrollment Instructions',
+        translatedName: 'Litaelo tsa ho Ngolisa',
         color: const Color(0xFF258DCC),
         inputFields: [
           InputField(
@@ -541,6 +542,7 @@ class AgywEnrollmentFormSection {
           InputField(
             id: 'iQdwzVfZdml',
             name: 'Type of school',
+            translatedName: 'Mofutoa oa Sekolo',
             valueType: 'TEXT',
             inputColor: const Color(0xFF258DCC),
             labelColor: const Color(0xFF737373),
@@ -586,10 +588,6 @@ class AgywEnrollmentFormSection {
                   code: 'Vocational level',
                   name: 'Vocational level',
                   translatedName: 'Sekolo sa mosebetsi oa matsoho'),
-              // InputFieldOption(code: 'None', name: 'None'),
-              // InputFieldOption(code: 'Primary', name: 'Primary'),
-              // InputFieldOption(code: 'High school', name: 'High school'),
-              // InputFieldOption(code: 'Tertiary', name: 'Tertiary'),
               InputFieldOption(
                   code: 'Other',
                   name: 'Other',
@@ -671,7 +669,7 @@ class AgywEnrollmentFormSection {
               InputFieldOption(
                   code: 'Pregnancy',
                   name: 'Pregnancy',
-                  translatedName: 'Ke mokhachane'),
+                  translatedName: 'Boimana'),
               InputFieldOption(
                   code: 'Peer pressure',
                   name: 'Peer pressure',
@@ -679,7 +677,7 @@ class AgywEnrollmentFormSection {
               InputFieldOption(
                   code: 'Not interested',
                   name: 'Not interested',
-                  translatedName: 'Ha ke na tjantjello/thahasello'),
+                  translatedName: 'Ha ke Thahaselle'),
               InputFieldOption(
                   code: 'Awaiting to join secondary',
                   name: 'Awaiting to join secondary',
@@ -857,7 +855,7 @@ class AgywEnrollmentFormSection {
         ],
       ),
       FormSection(
-        name: 'Enrollment Module 3:  HIV Testing',
+        name: 'Enrollment Module 3: HIV Testing',
         translatedName: 'KAROLO EA 3: Tlhahlobo ea HIV',
         color: const Color(0xFF258DCC),
         inputFields: [
@@ -1076,7 +1074,7 @@ class AgywEnrollmentFormSection {
       ),
       FormSection(
         id: 'E_M_4_S_A',
-        name: 'Enrollment Module 4:  Sexual Activity',
+        name: 'Enrollment Module 4: Sexual Activity',
         translatedName: 'KAROLO EA 4: Thobalano',
         description:
             'INTERVIEWER SAY: Now I will ask you some questions about your sexual activity in order to gain a better understanding of some life issues.  Let me reassure you that your answers are completely confidential. If you are uncomfortable with any questions, please let me know. Remember, there is no right or wrong answer.',
@@ -1309,7 +1307,7 @@ class AgywEnrollmentFormSection {
         ],
       ),
       FormSection(
-        name: 'Enrollment Module 5:  Reproductive Health',
+        name: 'Enrollment Module 5: Reproductive Health',
         translatedName: 'KAROLO EA 5: Bophelo bo botle litabeng tsa thari',
         description:
             'INTERVIEWER SAY: Now I would like us to move on to some questions on your reproductive health. ',
@@ -2026,70 +2024,60 @@ class AgywEnrollmentFormSection {
         ],
       ),
       FormSection(
-          name:
-              'Enrollment Module 8:  Participation in HIV Prevention Programme',
-          translatedName:
-              'KAROLO EA 8: Ho kena mananehong a thibelo ea tšoaetso ea HIV',
-          description:
-              'INTERVIEWER SAY: I would like to ask you a final question about your participation in any of the below programs or interventions.',
-          translatedDescription:
-              'MOTHO EA BOTSANG LIPOTSO A RE: Ke kopa ho u botsa potso ea ho qetela. Na u kile oa kena mananehong a latelang:',
-          color: const Color(0xFF258DCC),
-          inputFields: [
-            InputField(
-                id: '',
-                name:
-                    '801. Have you ever participated or been trained in any of these programmes?',
-                translatedName:
-                    '801. Na u kile oa kena lithupelong kapa mananehong a latelang?',
-                valueType: 'CHECK_BOX',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373),
-                options: [
-                  InputFieldOption(
-                    code: 'Hn0P1sGIKe1',
-                    name: 'Go Girls: Sepheo Adopted Curriculum: Married Women',
-                    translatedName:
-                        'Go Girls: Sepheo Adopted Curriculum: Married Women',
-                  ),
-                  InputFieldOption(
-                    code: 'SaAW6b6glDZ',
-                    name:
-                        'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
-                    translatedName:
-                        'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
-                  ),
-                  InputFieldOption(
-                    code: 'hGzsAgaBPSY',
-                    name: 'Aflatoun Non Formal Education',
-                    translatedName: 'Aflatoun Non Formal Education',
-                  ),
-                  InputFieldOption(
-                    code: 'iFFZOpnvyDp',
-                    name: 'Financial Education',
-                    translatedName: 'Financial Education',
-                  ),
-                  InputFieldOption(
-                    code: 'Ue7KBKNtUzO',
-                    name: 'Savings and Internal Lending Communities (SILC)',
-                    translatedName:
-                        'Savings and Internal Lending Communities (SILC)',
-                  ),
-                  InputFieldOption(
-                    code: 'uEl5YpDbqnb',
-                    name: 'Condom Social Marketing CSM Toolkit (Pusha love)',
-                    translatedName:
-                        'Condom Social Marketing CSM Toolkit (Pusha love)',
-                  ),
-                ]),
-            InputField(
-                id: 'w4GPtcJq2x9',
-                name: 'Comments',
-                translatedName: 'Maikutlo',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF258DCC),
-                labelColor: const Color(0xFF737373)),
-          ]),
+        name: 'Enrollment Module 8:  Participation in HIV Prevention Programme',
+        translatedName:
+            'KAROLO EA 8: Ho kena mananehong a thibelo ea tšoaetso ea HIV',
+        description:
+            'INTERVIEWER SAY: I would like to ask you a final question about your participation in any of the below programs or interventions.',
+        translatedDescription:
+            'MOTHO EA BOTSANG LIPOTSO A RE: Ke kopa ho u botsa potso ea ho qetela. Na u kile oa kena mananehong a latelang:',
+        color: const Color(0xFF258DCC),
+        inputFields: [
+          InputField(
+              id: '',
+              name:
+                  '801. Have you ever participated or been trained in any of these programmes?',
+              translatedName:
+                  '801. Na u kile oa kena lithupelong kapa mananehong a latelang?',
+              valueType: 'CHECK_BOX',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: 'Hn0P1sGIKe1',
+                  name: 'Go Girls: Sepheo Adopted Curriculum: Married Women',
+                ),
+                InputFieldOption(
+                  code: 'SaAW6b6glDZ',
+                  name:
+                      'Singing to the Lions: A Facilitator\'s Guide to Overcoming Fear and Violence in Our Lives',
+                ),
+                InputFieldOption(
+                  code: 'hGzsAgaBPSY',
+                  name: 'Aflatoun Non Formal Education',
+                ),
+                InputFieldOption(
+                  code: 'iFFZOpnvyDp',
+                  name: 'Financial Education',
+                ),
+                InputFieldOption(
+                  code: 'Ue7KBKNtUzO',
+                  name: 'Savings and Internal Lending Communities (SILC)',
+                ),
+                InputFieldOption(
+                  code: 'uEl5YpDbqnb',
+                  name: 'Condom Social Marketing CSM Toolkit (Pusha love)',
+                ),
+              ]),
+          InputField(
+              id: 'w4GPtcJq2x9',
+              name: 'Comments',
+              translatedName: 'Maikutlo',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF258DCC),
+              labelColor: const Color(0xFF737373)),
+        ],
+      ),
     ];
   }
 }

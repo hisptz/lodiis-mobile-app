@@ -166,6 +166,7 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
           builder: (context, ovcHouseholdCurrentSelectionState, child) {
             OvcHousehold? currentOvcHousehold =
                 ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+
             return Column(
               children: [
                 OvcHouseholdInfoTopHeader(
@@ -184,17 +185,26 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
                         ? const CircularProcessLoader(
                             color: Colors.blueGrey,
                           )
-                        : OvcHouseholdExitFormContainer(
-                            event: event,
-                            isSaving: isSaving,
-                            exitType: 'transfer',
-                            formSections: formSections,
-                            onSaveForm: (dataObject) => onSaveForm(
-                              context,
-                              dataObject,
-                              currentOvcHousehold,
-                            ),
-                          );
+                        : currentOvcHousehold?.hasExitedProgram == true &&
+                                event == null
+                            ? Container(
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 13.0),
+                                child: const Text(
+                                    'There is no Transfer at a moment. The household has exited the program',
+                                    textAlign: TextAlign.center),
+                              )
+                            : OvcHouseholdExitFormContainer(
+                                event: event,
+                                isSaving: isSaving,
+                                exitType: 'transfer',
+                                formSections: formSections,
+                                onSaveForm: (dataObject) => onSaveForm(
+                                  context,
+                                  dataObject,
+                                  currentOvcHousehold,
+                                ),
+                              );
                   },
                 )
               ],

@@ -225,7 +225,7 @@ class _OvcExitPageState extends State<OvcExitPage> {
                             ),
                             onPressed: () => onViewExit(context, ovcHousehold),
                             child: Text(
-                              currentLanguage != 'lesotho' ? 'EXIT' : 'Koala',
+                              currentLanguage != 'lesotho' ? 'EXIT' : 'KOALA',
                               style: const TextStyle().copyWith(
                                 fontSize: 12.0,
                                 color: const Color(0xFF4B9F46),
@@ -290,14 +290,14 @@ class _OvcExitPageState extends State<OvcExitPage> {
                   child: Text(
                     currentLanguage == 'lesotho'
                         ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                        : 'There is no household enrolled at moment',
+                        : 'There is no household enrolled at the moment',
                   ),
                 ),
                 emptyListWidget: Center(
                   child: Text(
                     currentLanguage == 'lesotho'
                         ? 'Ha hona lelapa le ngolisitsoeng ha hajoale'
-                        : 'There is no household enrolled at moment',
+                        : 'There is no household enrolled at the moment',
                   ),
                 ),
               ),

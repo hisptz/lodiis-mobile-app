@@ -34,7 +34,8 @@ class EducationLbseEnrollmentService {
             LbseInterventionConstant.trackedEntityType,
             orgUnit,
             inputFieldIds,
-            dataObject);
+            dataObject,
+            hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
     Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,

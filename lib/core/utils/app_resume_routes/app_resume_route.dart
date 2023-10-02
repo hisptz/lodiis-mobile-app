@@ -143,6 +143,12 @@ class AppResumeRoute
         DreamsRoutesConstant.agywDreamsReferralNextPage) {
       redirectToAgywDreamsReferralForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsViolencePreventionEducationPage) {
+      redirectToAgywDreamsViolencePreventionEducation(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        DreamsRoutesConstant.agywDreamsViolencePreventionEducationNextPage) {
+      redirectToAgywDreamsViolencePreventionEducation(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
         DreamsRoutesConstant.agywDreamsPrEPHTSConsentPage) {
       redirectToAgywDreamsPrEPHTSConcentForm(context, formAutoSave);
     } else if (formAutoSave.nextPageModule ==
@@ -214,6 +220,9 @@ class AppResumeRoute
     } else if (formAutoSave.nextPageModule ==
         OvcRoutesConstant.householdTransferFormPage) {
       redirectToOvcHouseholdTransferForm(context, formAutoSave);
+    } else if (formAutoSave.nextPageModule ==
+        OvcRoutesConstant.ovcClhivArtCardServiceFormPage) {
+      redirectToClhivArtCardServiceForm(context, formAutoSave);
     }
   }
 

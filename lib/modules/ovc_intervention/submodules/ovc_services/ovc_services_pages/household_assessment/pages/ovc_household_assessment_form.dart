@@ -40,6 +40,7 @@ class OvcHouseholdAssessmentForm extends StatefulWidget {
 class _OvcHouseholdAssessmentFormState
     extends State<OvcHouseholdAssessmentForm> {
   final String label = 'Household Assessment Form';
+  final String translatedName = 'Foromo ea hlahlobo ea lelapa';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -61,14 +62,15 @@ class _OvcHouseholdAssessmentFormState
     Timer(
       const Duration(milliseconds: 200),
       () async {
+        OvcHousehold? adult = Provider.of<OvcHouseholdCurrentSelectionState>(
+                context,
+                listen: false)
+            .currentOvcHousehold;
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
 
         await OvchouseHoldAssessmentSkipLogic.evaluateSkipLogics(
-          context,
-          formSections!,
-          dataObject,
-        );
+            context, formSections!, dataObject, adult?.hivStatus);
       },
     );
   }
@@ -212,6 +214,7 @@ class _OvcHouseholdAssessmentFormState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -266,7 +269,9 @@ class _OvcHouseholdAssessmentFormState
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? 'Saving ...'
+                                            ? currentLanguage == 'lesotho'
+                                                ? 'E ntse e boloka...'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',

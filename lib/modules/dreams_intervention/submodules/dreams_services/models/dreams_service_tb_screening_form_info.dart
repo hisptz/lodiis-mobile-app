@@ -22,13 +22,20 @@ class DreamsServiceTBScreeningInfo {
         InputField(
           id: 'uRsImCXXDXe',
           name: 'HIV Status',
+          translatedName: 'Boemo ba HIV',
           valueType: 'TEXT',
           inputColor: const Color(0xFF1F8ECE),
           labelColor: const Color(0xFF737373),
           isReadOnly: true,
           options: [
-            InputFieldOption(code: 'Positive', name: 'Positive'),
-            InputFieldOption(code: 'Negative', name: 'Negative'),
+            InputFieldOption(
+                code: 'Positive',
+                name: 'Positive',
+                translatedName: 'T’soaetso e teng'),
+            InputFieldOption(
+                code: 'Negative',
+                name: 'Negative',
+                translatedName: 'T’soaetso haeo'),
             InputFieldOption(code: 'Indeterminate', name: 'Indeterminate')
           ],
         ),

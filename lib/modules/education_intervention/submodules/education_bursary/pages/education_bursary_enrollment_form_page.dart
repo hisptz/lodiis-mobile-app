@@ -252,7 +252,9 @@ class _EducationBursaryEnrollmentFormPageState
                               visible: enrollmentFormState.isEditableMode,
                               child: EntryFormSaveButton(
                                 label: isSaving
-                                    ? 'Saving ...'
+                                    ? currentLanguage == 'lesotho'
+                                        ? 'E ntse e boloka...'
+                                        : 'Saving ...'
                                     : currentLanguage == 'lesotho'
                                         ? 'Boloka'
                                         : 'Save',

@@ -13,7 +13,7 @@ class EducationLbseInterventionState with ChangeNotifier {
       <EducationBeneficiary>[];
   bool? _isLoading;
   int _numberOfEducationLbse = 0;
-  Map _numberOfEducationLbseBySex = {};
+  Map<String, int> _numberOfEducationLbseBySex = {};
   int _numberOfLbsePages = 0;
   int _numberOfLbseSearchablePages = 0;
   int? _nextLbsePage = 0;
@@ -26,8 +26,8 @@ class EducationLbseInterventionState with ChangeNotifier {
   Map get searchedAttributes => _searchedAttributes;
   bool get isLoading => _isLoading ?? false;
   int get numberOfEducationLbse => _numberOfEducationLbse;
-  String get numberOfEducationLbseBySex =>
-      '${_numberOfEducationLbseBySex['male'] ?? 0} Male  ${_numberOfEducationLbseBySex['female'] ?? 0} Female';
+  Map<String, int> get numberOfEducationLbseBySex =>
+      _numberOfEducationLbseBySex;
   int get numberOfPages => _searchedAttributes.isEmpty
       ? _numberOfLbsePages
       : _numberOfLbseSearchablePages;

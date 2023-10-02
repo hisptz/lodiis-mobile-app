@@ -220,8 +220,8 @@ class _NoneAgywEnrollmentPrepScreeningFormState
         ),
         body: SubPageBody(
           body: !isFormReady
-              ? Column(
-                  children: const [
+              ? const Column(
+                  children: [
                     Center(
                       child: CircularProcessLoader(
                         color: Colors.blueGrey,
@@ -254,7 +254,9 @@ class _NoneAgywEnrollmentPrepScreeningFormState
                             ),
                             EntryFormSaveButton(
                               label: isSaving
-                                  ? 'Saving...'
+                                  ? currentLanguage == 'lesotho'
+                                      ? 'E ntse e boloka...'
+                                      : 'Saving...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka ebe u fetela pele'
                                       : 'Save and Continue',

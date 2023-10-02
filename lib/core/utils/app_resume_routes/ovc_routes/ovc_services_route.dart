@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_e
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_clo_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/pages/ovc_child_referral_add_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/pages/ovc_household_add_referral_form.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/clhiv_art_card/pages/clhiv_art_card_service_form.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/pages/ovc_household_assessment_form.dart';
 
 class OvcServicesRoute {
@@ -130,7 +131,7 @@ class OvcServicesRoute {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const OvcExitCasePlanGraduationReadinessForm();
+          return const HouseholdGraduationReadinessFormForm();
         },
       ),
     );
@@ -155,6 +156,19 @@ class OvcServicesRoute {
       MaterialPageRoute(
         builder: (context) {
           return const OvcExitInformationForm();
+        },
+      ),
+    );
+  }
+
+  redirectToClhivArtCardServiceForm(
+      BuildContext context, FormAutoSave formAutoSave) {
+    AppResumeRouteUtil.setServiceFormState(context, formAutoSave);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const ClhivArtCardServiceForm();
         },
       ),
     );

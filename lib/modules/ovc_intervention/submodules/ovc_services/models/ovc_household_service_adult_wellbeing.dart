@@ -587,7 +587,7 @@ class OvcHouseholdServiceAdultWellbeing {
             InputField(
                 id: 'bmJjZctbkhX',
                 name: 'Specify Other',
-                translatedName: 'Hlakisa bo bong',
+                translatedName: 'Hlalosa tse ling',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
@@ -639,7 +639,8 @@ class OvcHouseholdServiceAdultWellbeing {
                     'Ha asa hlahloba  fetesitsa setsing sa tlhabollo',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518)),
+                labelColor: const Color(0xFF1A3518),
+                isReadOnly: true),
             InputField(
                 id: 'Uv26fX0HQvO',
                 name: 'If Yes when?',
@@ -651,13 +652,25 @@ class OvcHouseholdServiceAdultWellbeing {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: '0-3 months ago', name: '0-3 months ago'),
+                    code: '0-3 months ago',
+                    name: '0-3 months ago',
+                    translatedName: '0-3 likhoeli tse fetileng',
+                  ),
                   InputFieldOption(
-                      code: '4-6 months ago', name: '4-6 months ago'),
+                    code: '4-6 months ago',
+                    name: '4-6 months ago',
+                    translatedName: '4-6 likhoeli tse fetileng',
+                  ),
                   InputFieldOption(
-                      code: '7-12 months ago', name: '7-12 months ago'),
+                    code: '7-12 months ago',
+                    name: '7-12 months ago',
+                    translatedName: '4-6 likhoeli tse fetileng',
+                  ),
                   InputFieldOption(
-                      code: 'Above 12 months ago', name: 'Above 12 months ago'),
+                      code: 'Above 12 months ago',
+                      name: 'Above 12 months ago',
+                      translatedName:
+                          'Ka holimo ho likhoeli tse 12 tse fetileng'),
                 ],
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
@@ -669,7 +682,8 @@ class OvcHouseholdServiceAdultWellbeing {
                     '16. Na u ka ba le bolokolohile ba ho mpolella sephetho sa tlhahlobo eo?',
                 valueType: 'BOOLEAN',
                 inputColor: const Color(0xFF4B9F46),
-                labelColor: const Color(0xFF1A3518)),
+                labelColor: const Color(0xFF1A3518),
+                isReadOnly: true),
             InputField(
                 id: 'vNeOE9abQBB',
                 name: 'What is your HIV Status?',
@@ -677,6 +691,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518),
+                isReadOnly: true,
                 options: [
                   InputFieldOption(
                       code: 'Positive',

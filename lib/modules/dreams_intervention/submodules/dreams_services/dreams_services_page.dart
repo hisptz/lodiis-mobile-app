@@ -20,7 +20,6 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/family_planning_srh/agyw_dreams_family_planning_srh.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_message/agyw_dreams_hiv_message.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hiv_prevention_education/agyw_dreams_hiv_prevention_education.dart';
-import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_long_form/hts_long_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/hts_short_form/hts_short_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/parenting/agyw_dreams_parenting.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/pep/agyw_dreams_pep.dart';
@@ -29,7 +28,9 @@ import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_serv
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep/agyw_dreams_prep.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/prep_short_form/agyw_dreams_prep_short_form_home_page.dart';
 import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/service_form/agyw_dreams_service_form_page.dart';
+import 'package:kb_mobile_app/modules/dreams_intervention/submodules/dreams_services/sub_modules/violence_prevention_education/agyw_dreams_violence_prevention_education_page.dart';
 import 'package:provider/provider.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 
 class DreamsServicesPage extends StatefulWidget {
   const DreamsServicesPage({Key? key}) : super(key: key);
@@ -40,6 +41,7 @@ class DreamsServicesPage extends StatefulWidget {
 
 class _DreamsServicesPageState extends State<DreamsServicesPage> {
   final String title = 'BENEFICIARY LIST';
+  final String translatedTitle = "Lethathamo la bana ka hara morero";
   final bool canEdit = false;
   final bool canView = false;
   final bool canExpand = true;
@@ -54,19 +56,6 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
           ? trackedEntityInstance
           : '';
     });
-  }
-
-  void onOpenHTSLongForm(
-    BuildContext context,
-    AgywDream agywBeneficiary,
-  ) {
-    updateStateData(context, agywBeneficiary);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HTSLongFormHomePage(),
-      ),
-    );
   }
 
   void onOpenHTSShortForm(
@@ -263,6 +252,19 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
     );
   }
 
+  void onOpenViolencePreventionEducationForm(
+    BuildContext context,
+    AgywDream agywBeneficiary,
+  ) {
+    updateStateData(context, agywBeneficiary);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AgywDreamsViolencePreventionEducationPage(),
+      ),
+    );
+  }
+
   void updateStateData(
     BuildContext context,
     AgywDream agywBeneficiary,
@@ -285,126 +287,138 @@ class _DreamsServicesPageState extends State<DreamsServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DreamsInterventionListState>(
-      builder: (context, dreamInterventionListState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
-          bodyContents: _buildBody(),
-          showFilter: true,
-        );
-      },
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) =>
+          Consumer<DreamsInterventionListState>(
+        builder: (context, dreamInterventionListState, child) {
+          return SubModuleHomeContainer(
+            header: languageState.currentLanguage == 'lesotho'
+                ? '$translatedTitle : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} Ba unang melemo ka hare ho morero'
+                : '$title : ${dreamInterventionListState.numberOfAgywDreamsBeneficiaries} beneficiaries',
+            bodyContents: _buildBody(),
+            showFilter: true,
+          );
+        },
+      ),
     );
   }
 
   Widget _buildBody() {
-    return Consumer<DreamsInterventionListState>(
-      builder: (context, dreamInterventionListState, child) {
-        return RefreshIndicator(
-          onRefresh: () async {
-            refreshBeneficiaryList(dreamInterventionListState);
-          },
-          child: CustomPaginatedListView(
-            childBuilder: (context, agywBeneficiary, child) =>
-                DreamsBeneficiaryCard(
-              isAgywEnrollment: true,
-              agywDream: agywBeneficiary,
-              canEdit: canEdit,
-              canExpand: canExpand,
-              beneficiaryName: agywBeneficiary.toString(),
-              canView: canView,
-              isExpanded: agywBeneficiary.id == toggleCardId,
-              onCardToggle: () {
-                onCardToggle(
-                  context,
-                  agywBeneficiary.id,
-                );
-              },
-              cardBody: DreamsBeneficiaryCardBody(
-                agywBeneficiary: agywBeneficiary,
-                canViewServiceCategory: true,
-                isVerticalLayout: agywBeneficiary.id == toggleCardId,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageState, child) =>
+          Consumer<DreamsInterventionListState>(
+        builder: (context, dreamInterventionListState, child) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              refreshBeneficiaryList(dreamInterventionListState);
+            },
+            child: CustomPaginatedListView(
+              childBuilder: (context, agywBeneficiary, child) =>
+                  DreamsBeneficiaryCard(
+                isAgywEnrollment: true,
+                agywDream: agywBeneficiary,
+                canEdit: canEdit,
+                canExpand: canExpand,
+                beneficiaryName: agywBeneficiary.toString(),
+                canView: canView,
+                isExpanded: agywBeneficiary.id == toggleCardId,
+                onCardToggle: () {
+                  onCardToggle(
+                    context,
+                    agywBeneficiary.id,
+                  );
+                },
+                cardBody: DreamsBeneficiaryCardBody(
+                  agywBeneficiary: agywBeneficiary,
+                  canViewServiceCategory: true,
+                  isVerticalLayout: agywBeneficiary.id == toggleCardId,
+                ),
+                cardButtonActions: ServiceCardButtonAction(
+                  agywBeneficiary: agywBeneficiary,
+                  onOpenPrepLongForm: () => onOpenPrepLongForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenPrepShortForm: () => onOpenPrepShortForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenHTSShortForm: () => onOpenHTSShortForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenCondomForm: () => onOpenCondomForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenContraceptivesForm: () => onOpenContraceptivesForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenANCForm: () => onOpenANCForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenMSGHIVForm: () => onOpenMSGHIVForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenArtRefillForm: () => onOpenArtRefillForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenPEPForm: () => onOpenPEPForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenPostGBVForm: () => onOpenPostGBVForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenServiceForm: () => onOpenServiceForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenPostGBVLegalForm: () => onOpenPostGBVLegalForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenParentingForm: () => onOpenParentingForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenHIVPreventionEducationForm: () =>
+                      onOpenHIVPreventionEducationForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                  onOpenViolencePreventionEducationForm: () =>
+                      onOpenViolencePreventionEducationForm(
+                    context,
+                    agywBeneficiary,
+                  ),
+                ),
+                cardButtonContent: Container(),
               ),
-              cardButtonActions: ServiceCardButtonAction(
-                agywBeneficiary: agywBeneficiary,
-                onOpenPrepLongForm: () => onOpenPrepLongForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenPrepShortForm: () => onOpenPrepShortForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenHTSShortForm: () => onOpenHTSShortForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenHTSLongForm: () => onOpenHTSLongForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenCondomForm: () => onOpenCondomForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenContraceptivesForm: () => onOpenContraceptivesForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenANCForm: () => onOpenANCForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenMSGHIVForm: () => onOpenMSGHIVForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenArtRefillForm: () => onOpenArtRefillForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenPEPForm: () => onOpenPEPForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenPostGBVForm: () => onOpenPostGBVForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenServiceForm: () => onOpenServiceForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenPostGBVLegalForm: () => onOpenPostGBVLegalForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenParentingForm: () => onOpenParentingForm(
-                  context,
-                  agywBeneficiary,
-                ),
-                onOpenHIVPreventionEducationForm: () =>
-                    onOpenHIVPreventionEducationForm(
-                  context,
-                  agywBeneficiary,
+              pagingController: dreamInterventionListState.agywPagingController,
+              emptyListWidget: Center(
+                child: Text(
+                  languageState.currentLanguage == 'lesotho'
+                      ? 'Ha hona lethathamo la bana'
+                      : 'There is no beneficiary list at a moment',
                 ),
               ),
-              cardButtonContent: Container(),
+              errorWidget: Center(
+                child: Text(
+                  languageState.currentLanguage == 'lesotho'
+                      ? 'Ha hona lethathamo la bana'
+                      : 'There is no beneficiary list at a moment',
+                ),
+              ),
             ),
-            pagingController: dreamInterventionListState.agywPagingController,
-            emptyListWidget: const Center(
-              child: Text(
-                'There is no beneficiary list at a moment',
-              ),
-            ),
-            errorWidget: const Center(
-              child: Text(
-                'There is no beneficiary list at a moment',
-              ),
-            ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -178,6 +178,10 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
                                                       titleColor: const Color(
                                                           0xFF1B3518),
                                                       count: count,
+                                                      canManageReferral:
+                                                          currentOvcHousehold
+                                                                  ?.hasExitedProgram !=
+                                                              true,
                                                       cardBody:
                                                           ReferralCardBodySummary(
                                                         isIncomingReferral:
@@ -209,10 +213,13 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
                                     ),
                                     Visibility(
                                       visible: currentOvcHousehold!
-                                          .enrollmentOuAccessible!,
+                                              .enrollmentOuAccessible! &&
+                                          currentOvcHousehold
+                                                  .hasExitedProgram !=
+                                              true,
                                       child: EntryFormSaveButton(
                                         label: currentLanguage == 'lesotho'
-                                            ? 'Kenya Referral'.toUpperCase()
+                                            ? 'Kenya Phetisetso'.toUpperCase()
                                             : 'ADD REFERRAL',
                                         labelColor: Colors.white,
                                         buttonColor: const Color(0xFF4B9F46),

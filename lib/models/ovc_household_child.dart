@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
 
 class OvcHouseholdChild {
   String? id;
@@ -18,6 +19,8 @@ class OvcHouseholdChild {
   bool? enrollmentOuAccessible;
   String? ovcStatus;
   bool? isChildPrimary;
+  bool? hasExitedProgram;
+  String? artInitiationDate;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -37,12 +40,14 @@ class OvcHouseholdChild {
     this.isChildPrimary,
     this.ovcStatus,
     this.teiData,
+    this.artInitiationDate,
+    this.hasExitedProgram,
   });
 
   Map toMap({
     required String parentId,
   }) {
-    Map dataOject = {
+    Map dataObject = {
       "parentTrackedEntityInstance": parentId,
       "orgUnit": orgUnit,
       "enrollmentDate": createdDate,
@@ -50,9 +55,9 @@ class OvcHouseholdChild {
       "trackedEntityInstance": id,
     };
     for (Map attributeObj in teiData!.attributes ?? []) {
-      dataOject[attributeObj['attribute']] = attributeObj['value'];
+      dataObject[attributeObj['attribute']] = attributeObj['value'];
     }
-    return dataOject;
+    return dataObject;
   }
 
   OvcHouseholdChild fromTeiModel(
@@ -71,9 +76,11 @@ class OvcHouseholdChild {
       'PN92g65TkVI',
       'KO5NC4pfBmv',
       'qZP982qpSPS',
+      'EIMgHQW61kx',
       BeneficiaryIdentification.phoneNumber,
       BeneficiaryIdentification.primaryUIC,
-      BeneficiaryIdentification.secondaryUIC
+      BeneficiaryIdentification.secondaryUIC,
+      OvcInterventionConstant.programStatus,
     ];
     Map data = {};
     for (Map attributeObject in tei.attributes) {
@@ -94,6 +101,7 @@ class OvcHouseholdChild {
         primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
+        artInitiationDate: data['EIMgHQW61kx'],
         hivStatus: data['wmKqYZML8GA'] != null
             ? data['wmKqYZML8GA'] == 'true'
                 ? 'Positive'
@@ -103,7 +111,9 @@ class OvcHouseholdChild {
         isChildPrimary: "${data['KO5NC4pfBmv']}" == 'true',
         ovcStatus: data['PN92g65TkVI'] ?? '',
         orgUnit: orgUnit,
-        teiData: tei);
+        teiData: tei,
+        hasExitedProgram:
+            data[OvcInterventionConstant.programStatus] == 'Exit');
   }
 
   @override

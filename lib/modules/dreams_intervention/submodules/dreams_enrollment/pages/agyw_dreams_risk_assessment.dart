@@ -39,6 +39,7 @@ class AgywDreamsRiskAssessment extends StatefulWidget {
 class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
   List<FormSection>? formSections;
   final String label = 'Risk Assessment';
+  final String translatedLabel = 'Tlhahlobo ea kotsi';
   final List<String> mandatoryFields =
       AgywEnrollmentRiskAssessment.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -305,6 +306,7 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedLabel,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -317,8 +319,8 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
               horizontal: 13.0,
             ),
             child: !isFormReady
-                ? Column(
-                    children: const [
+                ? const Column(
+                    children: [
                       Center(
                         child: CircularProcessLoader(
                           color: Colors.blueGrey,
@@ -350,7 +352,9 @@ class _AgywDreamsRiskAssessmentState extends State<AgywDreamsRiskAssessment> {
                             ),
                             EntryFormSaveButton(
                               label: isSaving
-                                  ? 'Saving ...'
+                                  ? currentLanguage == 'lesotho'
+                                      ? 'E ntse e boloka...'
+                                      : 'Saving ...'
                                   : currentLanguage == 'lesotho'
                                       ? 'Boloka ebe u fetela pele'
                                       : 'Save and Continue',

@@ -32,7 +32,7 @@ class _AgywDreamsEnrollmentViewFormState
   late List<FormSection> consentFormSections;
   late List<FormSection> riskAssessmentFormSections;
   final String label = 'Agyw Enrolment Form';
-
+  final String translatedLabel = 'Formo ea ngoliso ea AGYW';
   bool isFormReady = false;
 
   @override
@@ -85,6 +85,7 @@ class _AgywDreamsEnrollmentViewFormState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedLabel,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -96,8 +97,8 @@ class _AgywDreamsEnrollmentViewFormState
                 const EdgeInsets.symmetric(vertical: 16.0, horizontal: 13.0),
             child: Container(
               child: !isFormReady
-                  ? Column(
-                      children: const [
+                  ? const Column(
+                      children: [
                         Center(
                           child: CircularProcessLoader(
                             color: Colors.blueGrey,

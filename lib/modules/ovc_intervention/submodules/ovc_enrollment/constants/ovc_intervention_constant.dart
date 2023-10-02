@@ -7,4 +7,8 @@ class OvcInterventionConstant {
   static const String phoneNumber = "tNdoR0jYr7R";
   static const String village = "RB8Wx75hGa4";
   static const String subVillage = "xiI8aC8RwjC";
+  static const String artStatus = "l7op0btSqSc";
+  static const String hivStatus = "oSKX8fFQdWc";
+  static const String artFacility = "iBws3HMjiUT";
+  static const String programStatus = 'PN92g65TkVI';
 }

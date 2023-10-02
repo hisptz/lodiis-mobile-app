@@ -13,6 +13,7 @@ class CasePlanFormContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.formSection,
     required this.isEditableMode,
+    required this.mandatoryFieldObject,
     required this.canAddDomainGaps,
     required this.dataObject,
     required this.onInputValueChange,
@@ -21,6 +22,7 @@ class CasePlanFormContainer extends StatelessWidget {
     required this.isOnCasePlanPage,
     required this.isOnCasePlanServiceProvision,
     required this.isOnCasePlanServiceMonitoring,
+    this.unFilledMandatoryFields,
     this.currentHouseholdChild,
   }) : super(key: key);
 
@@ -30,12 +32,14 @@ class CasePlanFormContainer extends StatelessWidget {
   final bool canAddDomainGaps;
   final Map dataObject;
   final Function onInputValueChange;
+  final Map? mandatoryFieldObject;
   final bool isHouseholdCasePlan;
   final bool hasEditAccess;
   final bool isOnCasePlanPage;
   final bool isOnCasePlanServiceProvision;
   final bool isOnCasePlanServiceMonitoring;
   final OvcHouseholdChild? currentHouseholdChild;
+  final List? unFilledMandatoryFields;
 
   void onValueChange(String id, dynamic value) {
     dynamic previousValue = dataObject[id] ?? '';
@@ -46,7 +50,7 @@ class CasePlanFormContainer extends StatelessWidget {
     } else {
       dataObject[id] = previousValue;
       AppUtil.showToastMessage(
-        message: 'You can not clear all goals with intentified needs/gaps',
+        message: 'You can not clear all goals with identifier needs/gaps',
       );
     }
   }
@@ -87,9 +91,10 @@ class CasePlanFormContainer extends StatelessWidget {
             child: Column(
               children: [
                 EntryFormContainer(
+                  unFilledMandatoryFields: unFilledMandatoryFields,
                   elevation: 0.0,
                   formSections: [formSection],
-                  mandatoryFieldObject: const {},
+                  mandatoryFieldObject: mandatoryFieldObject,
                   dataObject: dataObject,
                   isEditableMode: isEditableMode && isOnCasePlanPage,
                   onInputValueChange: onValueChange,

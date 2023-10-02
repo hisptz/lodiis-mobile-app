@@ -17,8 +17,8 @@ class HouseholdServiceProvision {
             InputField(
               id: 'JnqldNamliR',
               name: 'HTS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HTS',
               valueType: 'TRUE_ONLY',
+              translatedName: 'Litsebeletso tsa HTS li fanoe',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
             ),
@@ -40,8 +40,8 @@ class HouseholdServiceProvision {
             InputField(
               id: 'YFgrURiwirq',
               name: 'HIVTREAT Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HIVTREAT',
               valueType: 'TRUE_ONLY',
+              translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
             ),
@@ -63,7 +63,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'eqhzeRBMftZ',
               name: 'HEALTH Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea HEALTH',
+              translatedName: 'Litsebeletso tsa HEALTH tse fanoe',
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -86,7 +86,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'r8wPQAog7PJ',
               name: 'SAIDS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SAIDS',
+              translatedName: "Lits'ebeletso tsa SAIDS li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -109,7 +109,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'gV77yUM8NK8',
               name: 'WASH MESSAGING Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea WASH MESSAGING',
+              translatedName: "Lits'ebeletso tsa WASH MESSAGING li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -133,7 +133,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'qL9c5r7c6kK',
               name: 'SOAKAGE PIT Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SOAKAGE PIT',
+              translatedName: "Lits'ebeletso tsa SOAKAGE PIT li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -157,7 +157,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'FRWCmEerPic',
               name: 'TIPPY TAP Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea TIPPY TAP',
+              translatedName: "Lits'ebeletso tsa TIPPY TAP li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -189,6 +189,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'QnFYeBNZlbf',
               name: 'FOOD SUPPORT Service provided',
+              translatedName: "Lits'ebeletso tsa FOOD SUPPORT li fanoe",
               // translatedName: 'Boemo ba Phano ea Litšebeletso ea FOOD SUPPORT',
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
@@ -229,7 +230,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'xTO562B5g53',
               name: 'SILC Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea SILC',
+              translatedName: "Lits'ebeletso tsa SILC li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF0000FF),
               labelColor: const Color(0xFF737373),
@@ -259,7 +260,7 @@ class HouseholdServiceProvision {
             InputField(
               id: 'lEkrLOFmLrH',
               name: 'K/TPLOTS Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea K/TPLOTS',
+              translatedName: "Lits'ebeletso tsa K/TPLOTS li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF0000FF),
               labelColor: const Color(0xFF737373),
@@ -267,7 +268,7 @@ class HouseholdServiceProvision {
             InputField(
                 id: 'F8ALMOcc6C1',
                 name: 'K/TPLOTS Service Provision Date',
-                // translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa K/TPLOTS',
+                translatedName: "Lits'ebeletso tsa K/TPLOTS li fanoe",
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
@@ -281,107 +282,74 @@ class HouseholdServiceProvision {
                 labelColor: const Color(0xFF737373)),
           ]),
       FormSection(
-          id: 'Safe',
-          name: 'DOMAIN SAFE',
-          translatedName: 'TSIRELETSO',
-          color: const Color(0xFF0F9587),
-          borderColor: const Color(0xFF0F9587),
-          inputFields: [
-            InputField(
-              id: 'gfKsz88uxtg',
-              name: 'LEGAL PROTECTION Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea LEGAL PROTECTION',
-              valueType: 'TRUE_ONLY',
+        id: 'Safe',
+        name: 'DOMAIN SAFE',
+        translatedName: 'TSIRELETSO',
+        color: const Color(0xFF0F9587),
+        borderColor: const Color(0xFF0F9587),
+        inputFields: [
+          InputField(
+            id: 'gfKsz88uxtg',
+            name: 'LEGAL PROTECTION Service provided',
+            translatedName: "Lits'ebeletso tsa LEGAL PROTECTION li fanoe",
+            valueType: 'TRUE_ONLY',
+            inputColor: const Color(0xFF0F9587),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+              id: 'P06od0qmlSR',
+              name: 'LEGAL PROTECTION Service Provision Date',
+              translatedName:
+                  'Letsatsi la Kabo ea Litšebeletso tsa LEGAL PROTECTION',
+              valueType: 'DATE',
               inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'P06od0qmlSR',
-                name: 'LEGAL PROTECTION Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa LEGAL PROTECTION',
-                valueType: 'DATE',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'NwtohlveKHW',
-                name: 'LEGAL PROTECTION session number',
-                translatedName: 'Thupelo ea LEGAL PROTECTION',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'iz4CvIFovsF',
-                name: 'LEGAL PROTECTION Comment',
-                translatedName: 'Tlhaloso ea LEGAL PROTECTION',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'aGChpBlIzcd',
-              name: 'BIRTHCERT Service provided',
-              // translatedName: 'Boemo ba Phano ea Litšebeletso ea BIRTHCERT',
-              valueType: 'TRUE_ONLY',
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'NwtohlveKHW',
+              name: 'LEGAL PROTECTION session number',
+              translatedName: 'Thupelo ea LEGAL PROTECTION',
+              valueType: 'TEXT',
               inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'AXLxNo9pz8c',
-                name: 'BIRTHCERT Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa BIRTHCERT',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'RTEBrgDTe02',
-                name: 'BIRTHCERT session number',
-                translatedName: 'Thupelo ea BIRTHCERT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'cb773khL7XB',
-                name: 'BIRTHCERT Comment',
-                translatedName: 'Tlhaloso ea BIRTHCERT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0F9587),
-                labelColor: const Color(0xFF737373)),
-          ]),
-      FormSection(
-          name: 'Other Activities',
-          color: const Color(0xFF4D9E49),
-          borderColor: const Color(0xFF4D9E49),
-          inputFields: [
-            InputField(
-              id: 'TSx4O9Tf5v2',
-              name: 'OTHER ACTIVITIES Service provided',
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'x5VlMVD2a4E',
-                name: 'OTHER ACTIVITIES Service Provision Date',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'mPMxntJR5Qy',
-                name: 'OTHER ACTIVITIES session number',
-                translatedName: 'Thupelo ea OTHER ACTIVITIES',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'rJaHpLnWvfg',
-                name: 'OTHER ACTIVITIES Comment',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-          ])
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'iz4CvIFovsF',
+              name: 'LEGAL PROTECTION Comment',
+              translatedName: 'Tlhaloso ea LEGAL PROTECTION',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+            id: 'aGChpBlIzcd',
+            name: 'BIRTHCERT Service provided',
+            translatedName: "Lits'ebeletso tsa BIRTHCERT li fanoe",
+            valueType: 'TRUE_ONLY',
+            inputColor: const Color(0xFF0F9587),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+              id: 'AXLxNo9pz8c',
+              name: 'BIRTHCERT Service Provision Date',
+              translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa BIRTHCERT',
+              valueType: 'DATE',
+              firstDate: firstDate,
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'RTEBrgDTe02',
+              name: 'BIRTHCERT session number',
+              translatedName: 'Thupelo ea BIRTHCERT',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+          InputField(
+              id: 'cb773khL7XB',
+              name: 'BIRTHCERT Comment',
+              translatedName: 'Tlhaloso ea BIRTHCERT',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF0F9587),
+              labelColor: const Color(0xFF737373)),
+        ],
+      ),
     ];
   }
 }

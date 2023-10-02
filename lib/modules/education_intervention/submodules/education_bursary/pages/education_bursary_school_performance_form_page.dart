@@ -42,6 +42,7 @@ class EducationBursarySchoolPerformanceFormPage extends StatefulWidget {
 class _EducationBursarySchoolPerformanceFormPageState
     extends State<EducationBursarySchoolPerformanceFormPage> {
   final String label = 'Student Performance Tracking';
+  final String translatedName = "Ts'alomorao ea ts'ebetso ea sekolo";
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   List<String> mandatoryFields =
@@ -258,6 +259,7 @@ class _EducationBursarySchoolPerformanceFormPageState
                   interventionCardState.currentInterventionProgram;
               return SubPageAppBar(
                 label: label,
+                translatedName: translatedName,
                 activeInterventionProgram: activeInterventionProgram,
               );
             },
@@ -321,7 +323,9 @@ class _EducationBursarySchoolPerformanceFormPageState
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: isSaving
-                                              ? 'Saving ...'
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'
                                                   : 'Save',

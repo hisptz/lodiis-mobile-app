@@ -45,4 +45,8 @@ class OvcRoutesConstant {
   static const String ovcGraduationFormNextPage = 'OVC Graduation Form';
   static const String ovcTransferFormPage = 'OVC Transfer Form';
   static const String ovcTransferFormNextPage = 'OVC Transfer Form';
+  static const String ovcClhivArtCardServiceFormPage =
+      'CLHIV ART Card Service Form';
+  static const String ovcClhivArtCardServiceFormNextPage =
+      'CLHIV ART Card Service Form';
 }

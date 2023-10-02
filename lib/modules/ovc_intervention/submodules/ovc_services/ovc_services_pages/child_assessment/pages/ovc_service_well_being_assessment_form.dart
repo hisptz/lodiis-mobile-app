@@ -20,8 +20,8 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/constants/ovc_service_well_being_assessment_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_asessment/skip_logics/ovc_child_well_being_assessment_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/constants/ovc_service_well_being_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_well_being_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
@@ -63,13 +63,15 @@ class _OvcServiceWellBeingAssessmentFormState
     Timer(
       const Duration(milliseconds: 200),
       () async {
+        OvcHouseholdChild? child =
+            Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                    listen: false)
+                .currentOvcHouseholdChild;
+
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcChildWellBeingAssessmentSkipLogic.evaluateSkipLogics(
-          context,
-          formSections!,
-          dataObject,
-        );
+            context, formSections!, dataObject, child?.hivStatus);
       },
     );
   }
@@ -214,7 +216,9 @@ class _OvcServiceWellBeingAssessmentFormState
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: isSaving
-                                              ? 'Saving ...'
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'
                                                   : 'Save',

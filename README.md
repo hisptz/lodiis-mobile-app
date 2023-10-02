@@ -1,4 +1,4 @@
-# KB MOBILE APPLICATION
+# LODIIS MOBILE APPLICATION
 
 ### contents:
 - [Introduction](#intro)
@@ -11,7 +11,7 @@
 
 This is a mobile application that facilitates tracking of beneficiaries along with service provision within different interventions across all implementing partners. It is an essential part of the Lesotho OVC-DREAMS Integrated Information System (LODIIS) since it is the primary source of data within the system where it offers offline data capture from different implementing partners, with support for data synchronization.
 
-The mobile app is divided into multiple modules based on the interventions. These interventions includes:
+The mobile app is divided into multiple modules based on the interventions. These interventions include:
 
 <li>DREAMS Module</li>
 <li>OVC Module</li>
@@ -24,7 +24,7 @@ The mobile app is divided into multiple modules based on the interventions. Thes
 <li>PP_PREV Module</li>
 <li>OGAC Module</li>
 
-The access to these interventions is basing on user implementing partner, since the KB Mobile application allows access to multiple modules.
+The access to these interventions is based on the user implementing partner since the LODIIS Mobile application allows access to multiple modules.
 
 ## Pre-requisites <a name="preRrequisites"></a>
 
@@ -32,13 +32,13 @@ To get started with this project, it is required to have installed [flutter](htt
 
 ## Getting started <a name="started"></a>
 
-To get started with the project, clone repository with the below command:
+To get started with the project, clone the repository with the below command:
 
 ```
-git clone https://github.com/hisptz/kb-mobile-app
+git clone https://github.com/hisptz/lodiis-mobile-app
 ```
 
-The navigate to the created project folder and install the packages using the command:
+Navigate to the created project folder and install the packages using the command:
 
 ```
 flutter pub get
@@ -46,7 +46,7 @@ flutter pub get
 
 ## Source code structure <a name="structure"></a>
 
-The following tree represent the basic project structure with files and folders for the KB mobile applications.
+The following tree represents the basic project structure with files and folders for the KB mobile applications.
 
 ```
 |-android

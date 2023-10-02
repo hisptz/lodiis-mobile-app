@@ -4,6 +4,7 @@ import 'package:kb_mobile_app/app_state/education_intervention_state/education_i
 import 'package:kb_mobile_app/app_state/education_intervention_state/education_lbse_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/enrollment_form_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/paginated_list_view.dart';
 import 'package:kb_mobile_app/core/components/sub_module_home_container.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
@@ -25,6 +26,7 @@ class EducationLbse extends StatefulWidget {
 
 class _EducationLbseState extends State<EducationLbse> {
   final String title = 'LBSE List';
+  final String translatedTitle = 'Lethathamo la LBSE';
   final bool canEdit = true;
   final bool canView = true;
   final bool canExpand = true;
@@ -153,6 +155,9 @@ class _EducationLbseState extends State<EducationLbse> {
   }
 
   Center _getEmptyListContainer(BuildContext context) {
+    String? currentLanguage =
+        Provider.of<LanguageTranslationState>(context, listen: false)
+            .currentLanguage;
     return Center(
       child: Column(
         children: [
@@ -160,8 +165,10 @@ class _EducationLbseState extends State<EducationLbse> {
             margin: const EdgeInsets.only(
               top: 10.0,
             ),
-            child: const Text(
-              'There is no LBSE beneficiaries enrolled at moment',
+            child: Text(
+              currentLanguage == 'lesotho'
+                  ? 'Ha ho na bana ba LBSE ba ngolisitseng hajoale'
+                  : 'There is no LBSE beneficiaries enrolled at the moment',
             ),
           ),
           IconButton(
@@ -215,13 +222,26 @@ class _EducationLbseState extends State<EducationLbse> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EducationLbseInterventionState>(
-      builder: (context, educationLbseInterventionState, child) {
-        return SubModuleHomeContainer(
-          header:
-              '$title : ${educationLbseInterventionState.numberOfEducationLbseBySex}',
-          bodyContents: _buildBody(),
-          showFilter: true,
+    return Consumer<LanguageTranslationState>(
+      builder: (context, languageTranslationState, child) {
+        bool isSesotho = languageTranslationState.currentLanguage == 'lesotho';
+        return Consumer<EducationLbseInterventionState>(
+          builder: (context, educationLbseInterventionState, child) {
+            int maleCount = educationLbseInterventionState
+                    .numberOfEducationLbseBySex["male"] ??
+                0;
+            int femaleCount = educationLbseInterventionState
+                    .numberOfEducationLbseBySex["female"] ??
+                0;
+            String sexCountLabel = isSesotho
+                ? '$maleCount Botona  $femaleCount Botsehali'
+                : '$maleCount Male  $femaleCount Female';
+            return SubModuleHomeContainer(
+              header:  isSesotho ? '$translatedTitle : $sexCountLabel' : '$title : $sexCountLabel',
+              bodyContents: _buildBody(),
+              showFilter: true,
+            ); 
+          },
         );
       },
     );

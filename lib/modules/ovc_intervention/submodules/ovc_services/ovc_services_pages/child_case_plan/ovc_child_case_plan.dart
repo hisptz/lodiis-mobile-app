@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 class OvcChildCasePlan extends StatelessWidget {
   const OvcChildCasePlan({Key? key}) : super(key: key);
   final String label = 'Child Case Plan';
+  final String translatedName = 'Moralo oa nyeoe ea ngoana';
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class OvcChildCasePlan extends StatelessWidget {
                 interventionCardState.currentInterventionProgram;
             return SubPageAppBar(
               label: label,
+              translatedName: translatedName,
               activeInterventionProgram: activeInterventionProgram,
             );
           },

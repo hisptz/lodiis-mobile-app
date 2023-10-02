@@ -266,8 +266,8 @@ class _HIVPreventionEducationFormState
               String? currentLanguage =
                   languageTranslationState.currentLanguage;
               return Consumer<DreamsBeneficiarySelectionState>(
-                builder: (context, nonAgywState, child) {
-                  AgywDream? agywDream = nonAgywState.currentAgywDream;
+                builder: (context, agywState, child) {
+                  AgywDream? agywDream = agywState.currentAgywDream;
                   return Consumer<ServiceFormState>(
                     builder: (context, serviceFormState, child) {
                       return Column(
@@ -307,7 +307,9 @@ class _HIVPreventionEducationFormState
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? 'Saving ...'
+                                            ? currentLanguage == 'lesotho'
+                                                ? 'E ntse e boloka...'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',

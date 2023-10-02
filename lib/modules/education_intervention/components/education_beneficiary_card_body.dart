@@ -45,42 +45,46 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
     );
   }
 
-  Container _getVerticalRowCardData({
-    required Color labelColor,
-    required Color valueColor,
-    required String label,
-    String? value,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(
-        bottom: 10.0,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Text(
-              label,
-              style: const TextStyle().copyWith(
-                color: labelColor,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
+  Widget _getVerticalRowCardData(
+      {required Color labelColor,
+      required Color valueColor,
+      required String label,
+      String? value,
+      String? translatedLabel}) {
+    return Consumer<LanguageTranslationState>(
+        builder: (context, languageTranslationState, child) {
+      String? currentLanguage = languageTranslationState.currentLanguage;
+      return Container(
+        margin: const EdgeInsets.only(
+          bottom: 10.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                currentLanguage == 'lesotho' ? translatedLabel ?? label : label,
+                style: const TextStyle().copyWith(
+                  color: labelColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Text(
-              value!,
-              style: const TextStyle().copyWith(
-                color: valueColor,
-                fontSize: 14.0,
-                fontWeight: FontWeight.w500,
+            Expanded(
+              child: Text(
+                value!,
+                style: const TextStyle().copyWith(
+                  color: valueColor,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          )
-        ],
-      ),
-    );
+            )
+          ],
+        ),
+      );
+    });
   }
 
   @override
@@ -98,6 +102,7 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                   children: [
                     _getVerticalRowCardData(
                       label: 'Beneficiary ID',
+                      translatedLabel: 'Nomoro ea boitsebiso ea ngoana',
                       value: educationBeneficiary.beneficiaryId,
                       labelColor: labelColor,
                       valueColor: valueColor,
@@ -110,7 +115,7 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                     ),
                     _getVerticalRowCardData(
                       label: currentLanguage == 'lesotho'
-                          ? 'School Name'
+                          ? 'Lebitso la Sekolo'
                           : 'School Name',
                       value: educationBeneficiary.schoolName,
                       labelColor: labelColor,
@@ -123,15 +128,15 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
-                      label: currentLanguage == 'lesotho' ? 'Grade' : 'Grade',
+                      label:
+                          currentLanguage == 'lesotho' ? 'Sehlopha' : 'Grade',
                       value: educationBeneficiary.grade,
                       labelColor: labelColor,
                       valueColor: valueColor,
                     ),
                     _getVerticalRowCardData(
-                      label: currentLanguage == 'lesotho'
-                          ? 'Sebaka'
-                          : 'Location',
+                      label:
+                          currentLanguage == 'lesotho' ? 'Sebaka' : 'Location',
                       value: educationBeneficiary.location,
                       labelColor: labelColor,
                       valueColor: valueColor,
@@ -191,10 +196,9 @@ class EducationBeneficiaryCardBody extends StatelessWidget {
                                               valueColor: valueColor,
                                               label:
                                                   currentLanguage == 'lesotho'
-                                                      ? 'Grade'
+                                                      ? 'Sehlopha'
                                                       : 'Grade',
-                                              value:
-                                                  educationBeneficiary.grade,
+                                              value: educationBeneficiary.grade,
                                             )
                                           ],
                                         ),

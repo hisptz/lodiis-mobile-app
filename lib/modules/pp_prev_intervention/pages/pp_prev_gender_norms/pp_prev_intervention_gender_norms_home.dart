@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
@@ -178,91 +179,99 @@ class PpPrevInterventionGenderNormsHome extends StatelessWidget {
           ),
         ),
         body: SubPageBody(
-          body: Consumer<PpPrevInterventionCurrentSelectionState>(
-            builder: (context, ppPrevInterventionCurrentSelectionState, child) {
-              return Consumer<ServiceEventDataState>(
-                builder: (context, serviceEventDataState, child) {
-                  PpPrevBeneficiary? ppPrevBeneficiary =
-                      ppPrevInterventionCurrentSelectionState.currentPpPrev;
-                  bool isLoading = serviceEventDataState.isLoading;
-                  Map<String?, List<Events>> eventListByProgramStage =
-                      serviceEventDataState.eventListByProgramStage;
-                  List<Events> events = TrackedEntityInstanceUtil
-                      .getAllEventListFromServiceDataStateByProgramStages(
-                          eventListByProgramStage, programStageIds,
-                          shouldSortByDate: true);
-                  int serviceIndex = events.length + 1;
-                  return Column(
-                    children: [
-                      PpPrevBeneficiaryTopHeader(
-                        ppPrevBeneficiary: ppPrevBeneficiary!,
-                      ),
-                      Container(
-                        child: isLoading
-                            ? const CircularProcessLoader(
-                                color: Colors.blueGrey,
-                              )
-                            : Column(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                    ),
-                                    child: events.isEmpty
-                                        ? const Text(
-                                            'There is no Gender Norms services at a moment',
-                                          )
-                                        : Container(
-                                            margin: const EdgeInsets.symmetric(
-                                              vertical: 5.0,
-                                              horizontal: 13.0,
+          body: Consumer<LanguageTranslationState>(
+            builder: (context, languageState, child) =>
+                Consumer<PpPrevInterventionCurrentSelectionState>(
+              builder:
+                  (context, ppPrevInterventionCurrentSelectionState, child) {
+                return Consumer<ServiceEventDataState>(
+                  builder: (context, serviceEventDataState, child) {
+                    PpPrevBeneficiary? ppPrevBeneficiary =
+                        ppPrevInterventionCurrentSelectionState.currentPpPrev;
+                    bool isLoading = serviceEventDataState.isLoading;
+                    Map<String?, List<Events>> eventListByProgramStage =
+                        serviceEventDataState.eventListByProgramStage;
+                    List<Events> events = TrackedEntityInstanceUtil
+                        .getAllEventListFromServiceDataStateByProgramStages(
+                            eventListByProgramStage, programStageIds,
+                            shouldSortByDate: true);
+                    int serviceIndex = events.length + 1;
+                    return Column(
+                      children: [
+                        PpPrevBeneficiaryTopHeader(
+                          ppPrevBeneficiary: ppPrevBeneficiary!,
+                        ),
+                        Container(
+                          child: isLoading
+                              ? const CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: events.isEmpty
+                                          ? const Text(
+                                              'There is no Gender Norms services at a moment',
+                                            )
+                                          : Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 5.0,
+                                                horizontal: 13.0,
+                                              ),
+                                              child: Column(
+                                                children: events
+                                                    .map((Events eventData) {
+                                                  serviceIndex--;
+                                                  return PpPrevServiceVisitCard(
+                                                    eventData: eventData,
+                                                    visitName: languageState
+                                                                .currentLanguage ==
+                                                            'lesotho'
+                                                        ? 'Tšebeletso ea litloaelo tsa tekano $serviceIndex'
+                                                        : "Gender norms Service $serviceIndex",
+                                                    onEdit: () =>
+                                                        onEditPpPrevGenderNorms(
+                                                      context,
+                                                      ppPrevBeneficiary,
+                                                      eventData,
+                                                      events,
+                                                    ),
+                                                    onView: () =>
+                                                        onViewPpPrevGenderNorms(
+                                                      context,
+                                                      ppPrevBeneficiary,
+                                                      eventData,
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
                                             ),
-                                            child: Column(
-                                              children: events
-                                                  .map((Events eventData) {
-                                                serviceIndex--;
-                                                return PpPrevServiceVisitCard(
-                                                  eventData: eventData,
-                                                  visitName:
-                                                      "Gender norms Service $serviceIndex",
-                                                  onEdit: () =>
-                                                      onEditPpPrevGenderNorms(
-                                                    context,
-                                                    ppPrevBeneficiary,
-                                                    eventData,
-                                                    events,
-                                                  ),
-                                                  onView: () =>
-                                                      onViewPpPrevGenderNorms(
-                                                    context,
-                                                    ppPrevBeneficiary,
-                                                    eventData,
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                          ),
-                                  ),
-                                  EntryFormSaveButton(
-                                    label: 'ADD Gender Norms',
-                                    labelColor: Colors.white,
-                                    buttonColor: const Color(0xFF9B2BAE),
-                                    fontSize: 15.0,
-                                    onPressButton: () =>
-                                        onAddNewPpPrevGenderNorms(
-                                      context,
-                                      ppPrevBeneficiary,
-                                      events,
                                     ),
-                                  )
-                                ],
-                              ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
+                                    EntryFormSaveButton(
+                                      label: 'ADD Gender Norms',
+                                      labelColor: Colors.white,
+                                      buttonColor: const Color(0xFF9B2BAE),
+                                      fontSize: 15.0,
+                                      onPressButton: () =>
+                                          onAddNewPpPrevGenderNorms(
+                                        context,
+                                        ppPrevBeneficiary,
+                                        events,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

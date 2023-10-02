@@ -37,7 +37,7 @@ class NoneAgywPrepForm extends StatefulWidget {
 }
 
 class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
-  final String label = 'PREP VISIT-yes';
+  final String label = 'PREP VISIT';
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   late List<String> mandatoryFields;
@@ -315,7 +315,9 @@ class _NoneAgywPrepFormState extends State<NoneAgywPrepForm> {
                                       visible: serviceFormState.isEditableMode,
                                       child: EntryFormSaveButton(
                                         label: isSaving
-                                            ? 'Saving ...'
+                                            ? currentLanguage == 'lesotho'
+                                                ? 'E ntse e boloka...'
+                                                : 'Saving ...'
                                             : currentLanguage == 'lesotho'
                                                 ? 'Boloka'
                                                 : 'Save',

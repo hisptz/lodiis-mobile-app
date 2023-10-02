@@ -55,8 +55,14 @@ class NonAgywHTSRegister {
               name: '1st HIV test Determine',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               inputColor: const Color(0xFF258DCC),
@@ -81,8 +87,14 @@ class NonAgywHTSRegister {
               name: '2nd HIV test Unigold',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               inputColor: const Color(0xFF258DCC),
@@ -107,8 +119,14 @@ class NonAgywHTSRegister {
               name: '1st HIV test Repeat Determine',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               inputColor: const Color(0xFF258DCC),
@@ -133,8 +151,14 @@ class NonAgywHTSRegister {
               name: '2nd HIV test Repeat Unigold',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               inputColor: const Color(0xFF258DCC),
@@ -159,8 +183,14 @@ class NonAgywHTSRegister {
               name: '3rd HIV test Repeated SD Bioline',
               valueType: 'TEXT',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               inputColor: const Color(0xFF258DCC),
@@ -184,8 +214,14 @@ class NonAgywHTSRegister {
               id: 'uRf1K1yfkwy',
               name: 'DNA PCR Results',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               valueType: 'TEXT',
@@ -196,8 +232,14 @@ class NonAgywHTSRegister {
               id: 'Ybc2k1zv7gK',
               name: 'Final HIV Status',
               options: [
-                InputFieldOption(code: 'Positive', name: 'Positive'),
-                InputFieldOption(code: 'Negative', name: 'Negative'),
+                InputFieldOption(
+                    code: 'Positive',
+                    name: 'Positive',
+                    translatedName: 'T’soaetso e teng'),
+                InputFieldOption(
+                    code: 'Negative',
+                    name: 'Negative',
+                    translatedName: 'T’soaetso haeo'),
                 InputFieldOption(code: 'Indeterminate', name: 'Indeterminate'),
               ],
               valueType: 'TEXT',

@@ -71,8 +71,11 @@ class OvcCasePlanForm extends StatefulWidget {
 class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   List<FormSection> formSections = [];
   Map borderColors = {};
+  final List<Map> childrenMapObjects = [];
   bool _isSaving = false;
   bool _isFormReady = true;
+  final List<String> mandatoryFields = OvcServicesCasePlan.getMandatoryField();
+  final Map mandatoryFieldObject = {};
 
   @override
   void initState() {
@@ -83,6 +86,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   void _setFormMetadata() {
+    for (String id in mandatoryFields) {
+      mandatoryFieldObject[id] = true;
+    }
     _isFormReady = true;
     setState(() {});
     formSections = [];
@@ -119,10 +125,11 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       dataObject,
       isHouseholdCasePlan: widget.isHouseholdCasePlan,
     );
+
     if (isAllDomainFilled) {
       _isSaving = true;
       setState(() {});
-      List<OvcHouseholdChild> childrens =
+      List<OvcHouseholdChild> children =
           Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
                   .currentOvcHousehold
                   ?.children ??
@@ -144,7 +151,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         await updateHouseholdCategorization(beneficiary, dataObject);
         await OvcCasePlanGapHouseholdToOvcUtil.autoSyncOvcsCasPlanGaps(
           currentCasePlanDate: widget.currentCasePlanDate,
-          childrens: childrens,
+          childrens: children,
           dataObject: dataObject,
         );
       }
@@ -166,8 +173,10 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         }
       });
     } else {
+      setState(() {});
       AppUtil.showToastMessage(
-        message: 'Please fill at least one goal for all domain with gaps',
+        message:
+            'Please fill all mandatory field\nAnd at least one goal for all domain with gaps',
       );
     }
   }
@@ -336,6 +345,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                       (formSection) => Container(
                                         margin: const EdgeInsets.symmetric(),
                                         child: CasePlanFormContainer(
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           canAddDomainGaps: formSection.id !=
                                               OvcCasePlanConstant
                                                   .householdCategorizationSection,
@@ -372,7 +383,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                             serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: _isSaving
-                                              ? 'Saving ...'
+                                              ? currentLanguage == 'lesotho'
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : currentLanguage == 'lesotho'
                                                   ? 'Boloka'
                                                   : 'Save',

@@ -14,6 +14,7 @@ class PpPrevServiceForm {
     return [
       FormSection(
         name: "Service provision",
+        translatedName: "Phano ea lits'ebeletso",
         color: const Color(0xFF9B2BAE),
         inputFields: [
           InputField(
@@ -44,6 +45,7 @@ class PpPrevServiceForm {
       ),
       FormSection(
           name: "Condom Distribution",
+          translatedName: 'Phano ea likhohlopo',
           color: const Color(0xFF9B2BAE),
           inputFields: [
             InputField(
@@ -92,19 +94,22 @@ class PpPrevServiceForm {
               InputFieldOption(
                 code: '0-3 months ago',
                 name: '0-3 months ago',
+                translatedName: '0-3 likhoeli tse fetileng',
               ),
               InputFieldOption(
                 code: '4-6 months ago',
                 name: '4-6 months ago',
+                translatedName: '4-6 likhoeli tse fetileng',
               ),
               InputFieldOption(
                 code: '7-12 months ago',
                 name: '7-12 months ago',
+                translatedName: '4-6 likhoeli tse fetileng',
               ),
               InputFieldOption(
-                code: 'Above 12 months ago',
-                name: 'Above 12 months ago',
-              ),
+                  code: 'Above 12 months ago',
+                  name: 'Above 12 months ago',
+                  translatedName: 'Ka holimo ho likhoeli tse 12 tse fetileng'),
             ],
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
@@ -190,6 +195,7 @@ class PpPrevServiceForm {
           InputField(
             id: 'HwGBP9iNl1g',
             name: 'Specify other type of action taken',
+            translatedName: "Hlalosa mofuta o mong oa ts'ebetso e entsoeng",
             valueType: 'TEXT',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),

@@ -43,7 +43,8 @@ class EducationBursaryEnrollmentService {
             BursaryInterventionConstant.trackedEntityType,
             orgUnit,
             inputFieldIds,
-            dataObject);
+            dataObject,
+            hasBeneficiaryId: false);
     await FormUtil.savingTrackedEntityInstance(trackedEntityInstanceData);
     Enrollment enrollmentData = FormUtil.getEnrollmentPayLoad(
         enrollment,

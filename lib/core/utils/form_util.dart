@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
@@ -283,6 +284,28 @@ class FormUtil {
     return sections;
   }
 
+  static List<InputFieldOption> getFormFieldOptions(
+    List<FormSection> formSections,
+    String formSectionId,
+    String inputFieldId,
+  ) {
+    List<InputFieldOption> inputFieldOptions = [];
+
+    InputField? inputField = (formSections
+                .firstWhereOrNull(
+                    (formSection) => formSection.id == formSectionId)
+                ?.inputFields ??
+            [])
+        .firstWhereOrNull((field) => field.id == inputFieldId);
+
+    if (inputField != null) {
+      for (InputFieldOption inputFieldOption in (inputField.options ?? [])) {
+        inputFieldOptions.add(inputFieldOption);
+      }
+    }
+    return inputFieldOptions;
+  }
+
   static List<String> getFormFieldIds(
     List<FormSection> formSections, {
     bool includeLocationId = false,
@@ -295,7 +318,7 @@ class FormUtil {
         }
         if (inputField.valueType == 'CHECK_BOX') {
           for (var option in inputField.options!) {
-            fieldIds.add(option.code);
+            fieldIds.addAll([option.code, inputField.id]);
           }
         }
       }
@@ -361,7 +384,7 @@ class FormUtil {
           dataObject[BeneficiaryIdentification.beneficiaryId] =
               dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
                   ? dataObject[BeneficiaryIdentification.beneficiaryId]
-                  : BeneficiaryIdentification().getBenificiaryId(
+                  : BeneficiaryIdentification().getBeneficiaryId(
                       organisationUnit!, dataObject, beneficiaryIndex);
       dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     }
@@ -377,6 +400,8 @@ class FormUtil {
               ? '{"attribute": "$attribute", "value": "$value"}'
               : '';
         })
+        .toList()
+        .where((String attributeObj) => attributeObj.isNotEmpty)
         .toList()
         .join(',');
     dynamic trackedEntityInstanceJson =
@@ -466,6 +491,8 @@ class FormUtil {
               ? '{"dataElement": "$dataElement", "value": "$value"}'
               : '';
         })
+        .toList()
+        .where((String dataElementObj) => dataElementObj.isNotEmpty)
         .toList()
         .join(',');
     dynamic eventJson =

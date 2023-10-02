@@ -70,13 +70,33 @@ class OvcEnrollmentChild {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'Biological mother', name: 'Biological mother'),
+                      code: 'Biological mother',
+                      name: 'Biological mother',
+                      translatedName: 'Mè ea u tsoalang'),
                   InputFieldOption(
-                      code: 'Biological father', name: 'Biological father'),
-                  InputFieldOption(code: 'Aunt/Uncle', name: 'Aunt/Uncle'),
-                  InputFieldOption(code: 'Sibling', name: 'Sibling'),
-                  InputFieldOption(code: 'Grandparent', name: 'Grandparent'),
-                  InputFieldOption(code: 'Other', name: 'Other')
+                      code: 'Biological father',
+                      name: 'Biological father',
+                      translatedName: 'Ntate ea u tsoalang'),
+                  InputFieldOption(
+                    code: 'Aunt/Uncle',
+                    name: 'Aunt/Uncle',
+                    translatedName: 'Ke Malome/Rangoane/Rakhali/’Mangoane',
+                  ),
+                  InputFieldOption(
+                    code: 'Sibling',
+                    name: 'Sibling',
+                    translatedName: 'Ke ngoaneso',
+                  ),
+                  InputFieldOption(
+                    code: 'Grandparent',
+                    name: 'Grandparent',
+                    translatedName: 'Ke Nkhono/Ntate-moholo',
+                  ),
+                  InputFieldOption(
+                    code: 'Other',
+                    name: 'Other',
+                    translatedName: 'E mong',
+                  )
                 ],
               ),
               InputField(
@@ -192,14 +212,22 @@ class OvcEnrollmentChild {
               InputField(
                 id: 'iQdwzVfZdml',
                 name: 'Type of school',
-                translatedName: 'Mofuta oa sekolo',
+                translatedName: 'Mofutoa oa Sekolo',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 renderAsRadio: true,
                 options: [
-                  InputFieldOption(code: 'Formal', name: 'Formal'),
-                  InputFieldOption(code: 'Informal', name: 'Informal'),
+                  InputFieldOption(
+                    code: 'Formal',
+                    name: 'Formal',
+                    translatedName: 'Se ngolisitsoeng',
+                  ),
+                  InputFieldOption(
+                    code: 'Informal',
+                    name: 'Informal',
+                    translatedName: 'Se sa ngolisoang',
+                  ),
                 ],
               ),
               InputField(
@@ -218,14 +246,31 @@ class OvcEnrollmentChild {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
                 options: [
-                  InputFieldOption(code: 'Preschool', name: 'Pre-School'),
-                  InputFieldOption(code: 'PrimaryLevel', name: 'Primary Level'),
                   InputFieldOption(
-                      code: 'SecondaryLevel', name: 'Secondary Level'),
+                    code: 'Preschool',
+                    name: 'Pre-School',
+                    translatedName: 'Sekolo sa mathomo',
+                  ),
                   InputFieldOption(
-                      code: 'TertiaryLevel', name: 'Tertiary Level'),
+                    code: 'PrimaryLevel',
+                    name: 'Primary Level',
+                    translatedName: 'Sekolo se mahareng',
+                  ),
                   InputFieldOption(
-                      code: 'VocationalLevel', name: 'Vocational Level'),
+                    code: 'SecondaryLevel',
+                    name: 'Secondary Level',
+                    translatedName: 'Sekolo se phahameng (college/university)',
+                  ),
+                  InputFieldOption(
+                    code: 'TertiaryLevel',
+                    name: 'Tertiary Level',
+                    translatedName: 'Sekolo sa mosebetsi oa matsoho',
+                  ),
+                  InputFieldOption(
+                    code: 'VocationalLevel',
+                    name: 'Vocational Level',
+                    translatedName: 'Sekolo se seng',
+                  ),
                 ],
               ),
               InputField(
@@ -273,10 +318,22 @@ class OvcEnrollmentChild {
                 labelColor: const Color(0xFF737373),
                 valueType: 'TEXT',
                 options: [
-                  InputFieldOption(code: 'Positive', name: 'Positive'),
-                  InputFieldOption(code: 'Negative', name: 'Negative'),
-                  InputFieldOption(code: 'Unknown', name: 'Unknown'),
-                  InputFieldOption(code: 'No Response', name: 'No Response'),
+                  InputFieldOption(
+                      code: 'Positive',
+                      name: 'Positive',
+                      translatedName: 'T’soaetso e teng'),
+                  InputFieldOption(
+                      code: 'Negative',
+                      name: 'Negative',
+                      translatedName: 'T’soaetso haeo'),
+                  InputFieldOption(
+                      code: 'Unknown',
+                      name: 'Unknown',
+                      translatedName: 'Tse sa tsejoeng'),
+                  InputFieldOption(
+                      code: 'No Response',
+                      name: 'No Response',
+                      translatedName: 'Ha ho Karabo'),
                 ],
               ),
               InputField(
@@ -325,10 +382,25 @@ class OvcEnrollmentChild {
                 valueType: 'TEXT',
                 options: [
                   InputFieldOption(
-                      code: 'FullyImmunized', name: 'Fully Immunized'),
-                  InputFieldOption(code: 'NotCompleted', name: 'Not Completed'),
-                  InputFieldOption(code: 'NotImmunized', name: 'Not Immunized'),
-                  InputFieldOption(code: 'NotKnown', name: 'Not Known'),
+                    code: 'FullyImmunized',
+                    name: 'Fully Immunized',
+                    translatedName: 'O qetile li ente',
+                  ),
+                  InputFieldOption(
+                    code: 'NotCompleted',
+                    name: 'Not Completed',
+                    translatedName: 'Ha a qeta li ente',
+                  ),
+                  InputFieldOption(
+                    code: 'NotImmunized',
+                    name: 'Not Immunized',
+                    translatedName: 'Ha aso ente',
+                  ),
+                  InputFieldOption(
+                    code: 'NotKnown',
+                    name: 'Not Known',
+                    translatedName: 'Ha ke tsebe',
+                  ),
                 ],
               ),
               InputField(
@@ -341,7 +413,10 @@ class OvcEnrollmentChild {
                 renderAsRadio: true,
                 options: [
                   InputFieldOption(code: 'New', name: 'New'),
-                  InputFieldOption(code: 'Re-enrolled', name: 'Re-enrolled')
+                  InputFieldOption(
+                      code: 'Re-enrolled',
+                      name: 'Re-enrolled',
+                      translatedName: 'Ngoliso phetho')
                 ],
               ),
               InputField(
@@ -371,9 +446,12 @@ class OvcEnrollmentChild {
               inputColor: const Color(0xFFFE7503),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
-                InputFieldOption(code: 'No', name: 'No'),
-                InputFieldOption(code: "Don't Know", name: "Don't Know"),
+                InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
+                InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
+                InputFieldOption(
+                    code: "Don't Know",
+                    name: "Don't Know",
+                    translatedName: 'Ha ke tsebe'),
               ]),
           InputField(
             id: 'ZPf4iCd2aw3',
@@ -430,10 +508,22 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Unknown', name: 'Unknown'),
-              InputFieldOption(code: 'No Response', name: 'No Response'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
+              InputFieldOption(
+                  code: 'Unknown',
+                  name: 'Unknown',
+                  translatedName: 'Tse sa tsejoeng'),
+              InputFieldOption(
+                  code: 'No Response',
+                  name: 'No Response',
+                  translatedName: 'Ha ho Karabo'),
             ],
           ),
           InputField(
@@ -463,9 +553,20 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'HIVRelated', name: 'HIV Related'),
-              InputFieldOption(code: 'DoNotKnow', name: 'Do Not Know'),
-              InputFieldOption(code: 'OtherCauses', name: 'Other Causes'),
+              InputFieldOption(
+                code: 'HIVRelated',
+                name: 'HIV Related',
+                translatedName: 'Mafu a amahanngoang le HIV',
+              ),
+              InputFieldOption(
+                  code: 'DoNotKnow',
+                  name: 'Do Not Know',
+                  translatedName: 'Ha ke tsebe'),
+              InputFieldOption(
+                code: 'OtherCauses',
+                name: 'Other Causes',
+                translatedName: 'Mafu a mang',
+              ),
             ],
           ),
           InputField(
@@ -476,9 +577,12 @@ class OvcEnrollmentChild {
               inputColor: const Color(0xFFFE7503),
               labelColor: const Color(0xFF737373),
               options: [
-                InputFieldOption(code: 'Yes', name: 'Yes'),
-                InputFieldOption(code: 'No', name: 'No'),
-                InputFieldOption(code: "Don't Know", name: "Don't Know"),
+                InputFieldOption(code: 'Yes', name: 'Yes', translatedName: 'E'),
+                InputFieldOption(code: 'No', name: 'No', translatedName: 'Che'),
+                InputFieldOption(
+                    code: "Don't Know",
+                    name: "Don't Know",
+                    translatedName: 'Ha ke tsebe'),
               ]),
           InputField(
             id: 'd3HviODv676',
@@ -535,10 +639,22 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'Positive', name: 'Positive'),
-              InputFieldOption(code: 'Negative', name: 'Negative'),
-              InputFieldOption(code: 'Unknown', name: 'Unknown'),
-              InputFieldOption(code: 'No Response', name: 'No Response'),
+              InputFieldOption(
+                  code: 'Positive',
+                  name: 'Positive',
+                  translatedName: 'T’soaetso e teng'),
+              InputFieldOption(
+                  code: 'Negative',
+                  name: 'Negative',
+                  translatedName: 'T’soaetso haeo'),
+              InputFieldOption(
+                  code: 'Unknown',
+                  name: 'Unknown',
+                  translatedName: 'Tse sa tsejoeng'),
+              InputFieldOption(
+                  code: 'No Response',
+                  name: 'No Response',
+                  translatedName: 'Ha ho Karabo'),
             ],
           ),
           InputField(
@@ -568,9 +684,20 @@ class OvcEnrollmentChild {
             inputColor: const Color(0xFFFE7503),
             labelColor: const Color(0xFF737373),
             options: [
-              InputFieldOption(code: 'HIVRelated', name: 'HIV Related'),
-              InputFieldOption(code: 'DoNotKnow', name: 'Do Not Know'),
-              InputFieldOption(code: 'OtherCauses', name: 'Other Causes'),
+              InputFieldOption(
+                code: 'HIVRelated',
+                name: 'HIV Related',
+                translatedName: 'Mafu a amahanngoang le HIV',
+              ),
+              InputFieldOption(
+                  code: 'DoNotKnow',
+                  name: 'Do Not Know',
+                  translatedName: 'Ha ke tsebe'),
+              InputFieldOption(
+                code: 'OtherCauses',
+                name: 'Other Causes',
+                translatedName: 'Mafu a mang',
+              ),
             ],
           ),
         ],
@@ -615,17 +742,20 @@ class OvcEnrollmentChild {
             valueType: 'TEXT',
             options: [
               InputFieldOption(
-                  code: '0-3 months ago',
-                  name: '0-3 months ago',
-                  translatedName: '0-3 likhoeli tse fetileng'),
+                code: '0-3 months ago',
+                name: '0-3 months ago',
+                translatedName: '0-3 likhoeli tse fetileng',
+              ),
               InputFieldOption(
-                  code: '4-6 months ago',
-                  name: '4-6 months ago',
-                  translatedName: '4-6 likhoeli tse fetileng'),
+                code: '4-6 months ago',
+                name: '4-6 months ago',
+                translatedName: '4-6 likhoeli tse fetileng',
+              ),
               InputFieldOption(
-                  code: '7-12 months ago',
-                  name: '7-12 months ago',
-                  translatedName: '7-12 likhoeli tse fetileng'),
+                code: '7-12 months ago',
+                name: '7-12 months ago',
+                translatedName: '7-12 likhoeli tse fetileng',
+              ),
             ],
           ),
           InputField(
@@ -699,7 +829,7 @@ class OvcEnrollmentChild {
           InputField(
             id: 'GM2mJDlGZin',
             name: 'Specify other type of action taken',
-            translatedName: "Hlakisa mofuta o mong oa bohato bo ileng ba nkoa",
+            translatedName: "Hlalosa mofuta o mong oa ts'ebetso e entsoeng",
             inputColor: const Color(0xFFB0C7EA),
             labelColor: const Color(0xFF737373),
             valueType: 'TEXT',
@@ -813,33 +943,43 @@ class OvcEnrollmentChild {
                 translatedName: 'Khutsana',
               ),
               InputFieldOption(
-                  code: 'Child living with disability',
-                  name: 'Child living with disability (CLD)',
-                  translatedName: 'Ngoana ea phelang ka bokooa (CLD)'),
+                code: 'Child living with disability',
+                name: 'Child living with disability (CLD)',
+                translatedName: 'Ngoana ea phelang ka bokooa (CLD)',
+              ),
               InputFieldOption(
-                  code: 'Child living with HIV',
-                  name: 'Child living with HIV',
-                  translatedName: 'Ngoana ea phelang le HIV'),
+                code: 'Child living with HIV',
+                name: 'Child living with HIV',
+                translatedName: 'Ngoana ea phelang le HIV',
+              ),
               InputFieldOption(
-                  code: 'Child of PLHIV',
-                  name: 'Child of People Living with HIV (CPLHIV)?',
-                  translatedName:
-                      "Na ke ngoana oa batsoali ba phelang le ts'oaetso ea HIV (CPLHIV)?"),
+                code: 'Child of PLHIV',
+                name: 'Child of People Living with HIV (CPLHIV)?',
+                translatedName:
+                    "Na ke ngoana oa batsoali ba phelang le ts'oaetso ea HIV (CPLHIV)?",
+              ),
               InputFieldOption(
-                  code: 'HIV exposed infants',
-                  name: 'HIV exposed infants',
-                  translatedName: 'HIV e pepesa masea'),
+                code: 'HIV exposed infants',
+                name: 'HIV exposed infants',
+                translatedName: 'HIV e pepesa masea',
+              ),
               InputFieldOption(
-                  code: 'Child of a sex worker (FSW)',
-                  name: 'Child of a sex worker (CFSW)',
-                  translatedName:
-                      "Na ke ngoana oa 'm'e ea hoebang ka 'mele (CFSW)"),
+                code: 'Child of a sex worker (FSW)',
+                name: 'Child of a sex worker (CFSW)',
+                translatedName:
+                    "Na ke ngoana oa 'm'e ea hoebang ka 'mele (CFSW)",
+              ),
               InputFieldOption(
-                  code:
-                      'Child exposed/experiencing violence and abuse (Survivors of Vac)',
-                  name: 'Child Exposed/Experiencing Violence and Abuse (CEVA)',
-                  translatedName:
-                      'Na ke ngoana ea tobaneng/phelang ka hara pefo le tlhekefetso (CEVA)'),
+                code:
+                    'Child exposed/experiencing violence and abuse (Survivors of Vac)',
+                name: 'Child Exposed/Experiencing Violence and Abuse (CEVA)',
+                translatedName:
+                    'Na ke ngoana ea tobaneng/phelang ka hara pefo le tlhekefetso (CEVA)',
+              ),
+              InputFieldOption(
+                code: 'Sibling',
+                name: 'Sibling',
+              )
             ],
           ),
           InputField(

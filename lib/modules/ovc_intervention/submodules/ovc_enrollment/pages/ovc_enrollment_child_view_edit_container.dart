@@ -278,7 +278,10 @@ class _OvcEnrollmentChildViewEditContainerState
                                             enrollmentFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: _isSaving
-                                              ? 'Saving ...'
+                                              ? languageTranslationState
+                                                      .isSesothoLanguage
+                                                  ? 'E ntse e boloka...'
+                                                  : 'Saving ...'
                                               : languageTranslationState
                                                       .isSesothoLanguage
                                                   ? 'Boloka'

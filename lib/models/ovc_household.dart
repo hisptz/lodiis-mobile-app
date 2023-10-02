@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/core/constants/user_account_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
 
 class OvcHousehold {
   String? id;
@@ -16,6 +17,7 @@ class OvcHousehold {
   String? orgUnit;
   String? createdDate;
   String? primaryUIC;
+  String? hivStatus;
   String? secondaryUIC;
   String? ovcMaleCount;
   String? ovcFemaleCount;
@@ -26,6 +28,7 @@ class OvcHousehold {
   bool? enrollmentOuAccessible;
   bool? primaryChildExist;
   bool? primaryChildHasExited;
+  bool? hasExitedProgram;
   List<OvcHouseholdChild>? children;
   Map? dataObject;
   TrackedEntityInstance? teiData;
@@ -39,6 +42,7 @@ class OvcHousehold {
     this.children,
     this.primaryUIC,
     this.secondaryUIC,
+    this.hivStatus,
     this.location,
     this.phoneNumber,
     this.age,
@@ -54,6 +58,7 @@ class OvcHousehold {
     this.teiData,
     this.primaryChildExist,
     this.primaryChildHasExited,
+    this.hasExitedProgram,
     this.dataObject,
   });
 
@@ -78,6 +83,8 @@ class OvcHousehold {
       'PN92g65TkVI',
       'RB8Wx75hGa4',
       'qZP982qpSPS',
+      'oSKX8fFQdWc',
+      OvcInterventionConstant.programStatus,
       BeneficiaryIdentification.householdCategorization,
       UserAccountReference.implementingPartnerAttribute,
       BeneficiaryIdentification.primaryUIC,
@@ -92,6 +99,7 @@ class OvcHousehold {
       }
     }
     String village = data['RB8Wx75hGa4'] ?? '';
+    String hivStatus = data['oSKX8fFQdWc'] ?? '';
     String phoneNumber = getPhoneNumbers(data, phoneNumberIds);
     int maleCount = getChildCountBySex(children, 'male');
     int femaleCount = getChildCountBySex(children, 'female');
@@ -109,6 +117,7 @@ class OvcHousehold {
       createdDate: createdDate,
       ovcMaleCount: '$maleCount',
       ovcFemaleCount: '$femaleCount',
+      hivStatus: hivStatus,
       primaryUIC: data[BeneficiaryIdentification.primaryUIC] ?? '',
       secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
       houseHoldStatus: data['PN92g65TkVI'] ?? '',
@@ -124,6 +133,7 @@ class OvcHousehold {
       children: children,
       teiData: tei,
       dataObject: data,
+      hasExitedProgram: data[OvcInterventionConstant.programStatus] == 'Exit',
     );
   }
 
