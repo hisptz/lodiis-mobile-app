@@ -27,6 +27,7 @@ mixin OvcCasePlanGapSkipLogic {
     // Hiding gap based on the goal
     List<String> casPlanServiceGaps = OvcCasePlanConstant.casPlanServiceGaps;
     for (String gap in casPlanServiceGaps) {
+      //TODO handling remaping of goals to services to offer
       if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'KnowledgeableAboutHIVEducation' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'KnowledgeableAboutHIVEducation') &&
