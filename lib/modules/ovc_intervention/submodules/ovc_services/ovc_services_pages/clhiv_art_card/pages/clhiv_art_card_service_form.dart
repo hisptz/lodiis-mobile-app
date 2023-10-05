@@ -14,6 +14,7 @@ import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.d
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -24,7 +25,7 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_clhiv_art_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/clhiv_art_card/constants/clhiv_art_card_constants.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/clhiv_art_card/skip_logics/clhiv_art_card_service_skip_logics.dart';
@@ -91,8 +92,10 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
         inputColor: const Color(0xFF4B9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF1A3518),
-        allowedSelectedLevels: [3],
-        program: OvcInterventionConstant.program,
+        allowedSelectedLevels: [
+          AppHierarchyReference.communityLevel,
+        ],
+        program: OvcInterventionConstant.ovcProgramprogram,
       );
       formSections = [
         serviceProvisionForm,

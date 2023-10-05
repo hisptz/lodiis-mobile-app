@@ -1,5 +1,8 @@
 class OvcInterventionConstant {
-  static String program = 'em38qztTI8s';
+  static String ovcProgramprogram = 'em38qztTI8s';
+  static String caregiverProgramprogram = 'BNsDaCclOiu';
+  static String trackedEntityType = 'XZIKX0bA8WN';
+  static String relationshipType = 'UVV4IIKD73V';
   static const String firstName = "WTZ7GLTrE8Q";
   static const String middleName = "s1HaiT6OllL";
   static const String surname = "rSP9c21JsfC";

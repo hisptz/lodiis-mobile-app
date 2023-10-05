@@ -3,7 +3,7 @@ import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 
 class OvcServicesOngoingMonitoring {
   static List<FormSection> getFormSections() {
@@ -933,7 +933,7 @@ class OvcServicesOngoingMonitoring {
               translatedName: 'Setsi sa bophelo bo botle',
               valueType: 'ORGANISATION_UNIT',
               allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
-              filteredPrograms: [OvcInterventionConstant.program],
+              filteredPrograms: [OvcInterventionConstant.ovcProgramprogram],
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373)),
         ],
