@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 
 class OvcEnrollmentConsent {
   static List<String> getMandatoryField() {
@@ -28,10 +28,13 @@ class OvcEnrollmentConsent {
             translatedName: 'Sebaka',
             valueType: 'ORGANISATION_UNIT',
             allowedSelectedLevels: [
-                AppHierarchyReference.communityLevel,
-                AppHierarchyReference.facilityLevel
-              ],
-            filteredPrograms: [OvcInterventionConstant.program],
+              AppHierarchyReference.communityLevel,
+              AppHierarchyReference.facilityLevel
+            ],
+            filteredPrograms: [
+              OvcInterventionConstant.ovcProgramprogram,
+              OvcInterventionConstant.caregiverProgramprogram,
+            ],
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373)),
         InputField(
