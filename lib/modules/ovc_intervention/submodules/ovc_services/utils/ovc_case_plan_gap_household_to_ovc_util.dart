@@ -16,7 +16,6 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required Map dataObject,
   }) async {
     try {
-      //TODO later refactor merge with existing case plans for children if exist
       List<FormSection> formSections = OvcServicesCasePlan.getFormSections();
       Map<String, dynamic> sanitizedDataObjects =
           getSanitizedCaregiverDataObjects(dataObject);
