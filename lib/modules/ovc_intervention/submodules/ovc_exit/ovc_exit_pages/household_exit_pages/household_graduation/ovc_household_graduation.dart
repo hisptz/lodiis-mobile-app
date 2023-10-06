@@ -179,10 +179,8 @@ class _OvcHouseholdGraduationState extends State<OvcHouseholdGraduation> {
                                       ),
                                       Visibility(
                                         visible: !isLoading &&
-                                            currentOvcHousehold!
-                                                .enrollmentOuAccessible! &&
                                             currentOvcHousehold
-                                                    .hasExitedProgram !=
+                                                    ?.hasExitedProgram !=
                                                 true,
                                         child: EntryFormSaveButton(
                                           label: currentLanguage == 'lesotho'
