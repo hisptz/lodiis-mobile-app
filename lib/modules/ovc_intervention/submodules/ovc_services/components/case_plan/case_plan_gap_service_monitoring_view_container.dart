@@ -78,7 +78,9 @@ class _CasePlanGapServiceMonitoringViewContainerState
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+              ),
               child: CasePlanGapServiceMonitoringView(
                 domainId: widget.domainId,
                 formSectionColor: widget.formSectionColor,
@@ -97,6 +99,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
               ),
             ),
             Visibility(
+              //TODO handling this perfect
               visible: widget.hasEditAccess && hasBeneficiaryExited != true,
               child: Container(
                 alignment: Alignment.center,

@@ -77,6 +77,7 @@ class _CasePlanGapServiceProvisionViewContainerState
 
   @override
   Widget build(BuildContext context) {
+    print({"hasEditAccess": widget.hasEditAccess});
     return Consumer<OvcHouseholdCurrentSelectionState>(
         builder: (context, state, child) {
       var hasBeneficiaryExited =
@@ -88,7 +89,9 @@ class _CasePlanGapServiceProvisionViewContainerState
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+              ),
               child: CasePlanGapServiceProvisionView(
                 isHouseholdCasePlan: widget.isHouseholdCasePlan,
                 hasEditAccess:
@@ -105,6 +108,7 @@ class _CasePlanGapServiceProvisionViewContainerState
               ),
             ),
             Visibility(
+              //TODO handling this perfect
               visible: widget.hasEditAccess && hasBeneficiaryExited != true,
               child: Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {
