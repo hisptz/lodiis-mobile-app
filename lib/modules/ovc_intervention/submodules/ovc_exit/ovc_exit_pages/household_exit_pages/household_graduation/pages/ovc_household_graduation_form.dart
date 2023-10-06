@@ -66,6 +66,7 @@ class _OvcHouseholdGraduationFormState
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF1A3518),
               sectionLabelColor: const Color(0xFF1A3518),
+              formlabel: 'Location',
               allowedSelectedLevels: [
                 AppHierarchyReference.communityLevel,
               ],

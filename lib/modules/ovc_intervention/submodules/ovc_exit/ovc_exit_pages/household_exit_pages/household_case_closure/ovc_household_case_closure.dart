@@ -71,6 +71,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
             AppUtil.getServiceProvisionLocationSection(
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF1A3518),
+              formlabel: 'Location',
               sectionLabelColor: const Color(0xFF1A3518),
               allowedSelectedLevels: [
                 AppHierarchyReference.communityLevel,
