@@ -119,6 +119,8 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
         .setFormFieldState('eventDate', eventData.eventDate);
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('eventId', eventData.event);
+    Provider.of<ServiceFormState>(context, listen: false)
+        .setFormFieldState('location', eventData.orgUnit);
     for (Map dataValue in eventData.dataValues) {
       if (dataValue['value'] != '') {
         Provider.of<ServiceFormState>(context, listen: false)
@@ -244,13 +246,11 @@ class _OvcChildExitHomeState extends State<OvcChildExitHome> {
                           ),
                           Visibility(
                             visible: shouldAllowAddNewButton &&
-                                ((currentOvcHouseholdChild.hasExitedProgram !=
-                                            true &&
-                                        currentOvcHousehold.hasExitedProgram !=
-                                            true) ||
-                                    !programStageIdsWithData.contains(
-                                        OvcExitCaseClosureConstant
-                                            .programStage)),
+                                !programStageIdsWithData.contains(
+                                    OvcExitCaseClosureConstant.programStage) &&
+                                currentOvcHousehold.hasExitedProgram != true &&
+                                currentOvcHouseholdChild.hasExitedProgram !=
+                                    true,
                             child: EntryFormSaveButton(
                               label: 'ADD',
                               labelColor: Colors.white,
