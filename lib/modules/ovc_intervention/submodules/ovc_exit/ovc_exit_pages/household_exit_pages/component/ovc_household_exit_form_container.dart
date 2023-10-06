@@ -102,7 +102,10 @@ class _OvcHouseholdExitFormContainerState
   }
 
   void updateFormState(
-      BuildContext context, bool isEditableMode, Events? event) {
+    BuildContext context,
+    bool isEditableMode,
+    Events? event,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (event != null) {
@@ -111,6 +114,8 @@ class _OvcHouseholdExitFormContainerState
           .setFormFieldState('eventDate', event.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', event.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', event.orgUnit);
       for (Map dataValue in event.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
