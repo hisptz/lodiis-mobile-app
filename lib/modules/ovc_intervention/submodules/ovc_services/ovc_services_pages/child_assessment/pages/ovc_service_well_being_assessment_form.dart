@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -19,6 +20,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/constants/ovc_service_well_being_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_well_being_assessment_skip_logic.dart';
@@ -42,21 +44,36 @@ class _OvcServiceWellBeingAssessmentFormState
   @override
   void initState() {
     super.initState();
-    setFormSection();
+    setFormSections();
+  }
+
+  void setFormSections() {
+    OvcHouseholdChild? child =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    formSections = OvcServicesWellbeingAssessment.getFormSections(
+        firstDate: child!.createdDate!);
+    formSections = child.enrollmentOuAccessible!
+        ? formSections
+        : [
+            AppUtil.getServiceProvisionLocationSection(
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              sectionLabelColor: const Color(0xFF1A3518),
+              formlabel: 'Location',
+              allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+              ],
+              program: OvcInterventionConstant.ovcProgramprogram,
+            ),
+            ...formSections ?? []
+          ];
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
-  }
-
-  void setFormSection() {
-    OvcHouseholdChild? child =
-        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHouseholdChild;
-    formSections = OvcServicesWellbeingAssessment.getFormSections(
-        firstDate: child!.createdDate!);
   }
 
   evaluateSkipLogics() {
@@ -92,30 +109,30 @@ class _OvcServiceWellBeingAssessmentFormState
           dataObject['efNgDIqhlNs'] == null) {
         AppUtil.showToastMessage(message: "Fill atleast one goal");
       }
-      setState(() {
-        isSaving = true;
-      });
-
+      isSaving = true;
+      setState(() {});
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
-
+      String orgUnit =
+          dataObject['location'] ?? currentOvcHouseholdChild?.orgUnit ?? '';
       List<String> skippedFields = [
         'Wstcittf',
       ];
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcServiceWellBeingAssessmentConstant.program,
-            OvcServiceWellBeingAssessmentConstant.programStage,
-            currentOvcHouseholdChild!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            currentOvcHouseholdChild.id,
-            eventId,
-            null,
-            skippedFields: skippedFields);
+          OvcServiceWellBeingAssessmentConstant.program,
+          OvcServiceWellBeingAssessmentConstant.programStage,
+          orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          currentOvcHouseholdChild?.id ?? '',
+          eventId,
+          null,
+          skippedFields: skippedFields,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseholdChild.id);
+            .resetServiceEventDataState(currentOvcHouseholdChild?.id ?? '');
 
         Timer(const Duration(seconds: 1), () {
           setState(() {
@@ -152,97 +169,93 @@ class _OvcServiceWellBeingAssessmentFormState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(65.0),
-          child: Consumer<InterventionCardState>(
-            builder: (context, interventionCardState, child) {
-              InterventionCard activeInterventionProgram =
-                  interventionCardState.currentInterventionProgram;
-              return SubPageAppBar(
-                label: label,
-                activeInterventionProgram: activeInterventionProgram,
-              );
-            },
-          ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(65.0),
+        child: Consumer<InterventionCardState>(
+          builder: (context, interventionCardState, child) {
+            InterventionCard activeInterventionProgram =
+                interventionCardState.currentInterventionProgram;
+            return SubPageAppBar(
+              label: label,
+              activeInterventionProgram: activeInterventionProgram,
+            );
+          },
         ),
-        body: SubPageBody(
-          body: Consumer<LanguageTranslationState>(
-            builder: (context, languageTranslationState, child) {
-              String? currentLanguage =
-                  languageTranslationState.currentLanguage;
-              return Consumer<OvcHouseholdCurrentSelectionState>(
-                builder: (context, ovcHouseholdCurrentSelectionState, child) {
-                  OvcHouseholdChild? currentOvcHouseholdChild =
-                      ovcHouseholdCurrentSelectionState
-                          .currentOvcHouseholdChild;
-                  return Consumer<ServiceFormState>(
-                    builder: (context, serviceFormState, child) {
-                      return Column(
-                        children: [
-                          const OvcChildInfoTopHeader(),
-                          Container(
-                            child: !isFormReady
-                                ? const CircularProcessLoader(
-                                    color: Colors.blueGrey,
-                                  )
-                                : Column(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                          top: 10.0,
-                                          left: 13.0,
-                                          right: 13.0,
-                                        ),
-                                        child: EntryFormContainer(
-                                          hiddenSections:
-                                              serviceFormState.hiddenSections,
-                                          hiddenFields:
-                                              serviceFormState.hiddenFields,
-                                          hiddenInputFieldOptions:
-                                              serviceFormState
-                                                  .hiddenInputFieldOptions,
-                                          formSections: formSections,
-                                          mandatoryFieldObject: const {},
-                                          dataObject:
-                                              serviceFormState.formState,
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          onInputValueChange:
-                                              onInputValueChange,
-                                        ),
+      ),
+      body: SubPageBody(
+        body: Consumer<LanguageTranslationState>(
+          builder: (context, languageTranslationState, child) {
+            String? currentLanguage = languageTranslationState.currentLanguage;
+            return Consumer<OvcHouseholdCurrentSelectionState>(
+              builder: (context, ovcHouseholdCurrentSelectionState, child) {
+                OvcHouseholdChild? currentOvcHouseholdChild =
+                    ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
+                return Consumer<ServiceFormState>(
+                  builder: (context, serviceFormState, child) {
+                    return Column(
+                      children: [
+                        const OvcChildInfoTopHeader(),
+                        Container(
+                          child: !isFormReady
+                              ? const CircularProcessLoader(
+                                  color: Colors.blueGrey,
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                        top: 10.0,
+                                        left: 13.0,
+                                        right: 13.0,
                                       ),
-                                      Visibility(
-                                        visible:
+                                      child: EntryFormContainer(
+                                        hiddenSections:
+                                            serviceFormState.hiddenSections,
+                                        hiddenFields:
+                                            serviceFormState.hiddenFields,
+                                        hiddenInputFieldOptions:
+                                            serviceFormState
+                                                .hiddenInputFieldOptions,
+                                        formSections: formSections,
+                                        mandatoryFieldObject: const {},
+                                        dataObject: serviceFormState.formState,
+                                        isEditableMode:
                                             serviceFormState.isEditableMode,
-                                        child: EntryFormSaveButton(
-                                          label: isSaving
-                                              ? currentLanguage == 'lesotho'
-                                                  ? 'E ntse e boloka...'
-                                                  : 'Saving ...'
-                                              : currentLanguage == 'lesotho'
-                                                  ? 'Boloka'
-                                                  : 'Save',
-                                          labelColor: Colors.white,
-                                          buttonColor: const Color(0xFF4B9F46),
-                                          fontSize: 15.0,
-                                          onPressButton: () => onSaveForm(
-                                              context,
-                                              serviceFormState.formState,
-                                              currentOvcHouseholdChild),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                                        onInputValueChange: onInputValueChange,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: serviceFormState.isEditableMode,
+                                      child: EntryFormSaveButton(
+                                        label: isSaving
+                                            ? currentLanguage == 'lesotho'
+                                                ? 'E ntse e boloka...'
+                                                : 'Saving ...'
+                                            : currentLanguage == 'lesotho'
+                                                ? 'Boloka'
+                                                : 'Save',
+                                        labelColor: Colors.white,
+                                        buttonColor: const Color(0xFF4B9F46),
+                                        fontSize: 15.0,
+                                        onPressButton: () => onSaveForm(
+                                            context,
+                                            serviceFormState.formState,
+                                            currentOvcHouseholdChild),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            );
+          },
         ),
-        bottomNavigationBar: const InterventionBottomNavigationBarContainer());
+      ),
+      bottomNavigationBar: const InterventionBottomNavigationBarContainer(),
+    );
   }
 }

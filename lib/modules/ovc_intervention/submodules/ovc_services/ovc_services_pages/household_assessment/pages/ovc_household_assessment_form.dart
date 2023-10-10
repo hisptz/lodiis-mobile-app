@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -23,6 +24,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_household_service_adult_wellbeing.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/constants/ovc_household_assessment_constant.dart';
@@ -48,7 +50,29 @@ class _OvcHouseholdAssessmentFormState
   @override
   void initState() {
     super.initState();
+    setFormSections();
+  }
+
+  void setFormSections() {
+    OvcHousehold? household =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
     formSections = OvcHouseholdServiceAdultWellbeing.getFormSections();
+    formSections = household!.enrollmentOuAccessible == true
+        ? formSections
+        : [
+            AppUtil.getServiceProvisionLocationSection(
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              sectionLabelColor: const Color(0xFF1A3518),
+              formlabel: 'Location',
+              allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+              ],
+              program: OvcInterventionConstant.caregiverProgramprogram,
+            ),
+            ...formSections ?? []
+          ];
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -151,24 +175,25 @@ class _OvcHouseholdAssessmentFormState
       });
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
-
+      String orgUnit =
+          dataObject['location'] ?? currentOvcHousehold?.orgUnit ?? '';
       List<String> skippedFields = [];
       //Add Manually set keys
-
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcHouseholdAssessmentConstant.program,
-            OvcHouseholdAssessmentConstant.programStage,
-            currentOvcHousehold!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            currentOvcHousehold.id,
-            eventId,
-            null,
-            skippedFields: skippedFields);
+          OvcHouseholdAssessmentConstant.program,
+          OvcHouseholdAssessmentConstant.programStage,
+          orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          currentOvcHousehold?.id ?? '',
+          eventId,
+          null,
+          skippedFields: skippedFields,
+        );
         Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHousehold.id);
+            .resetServiceEventDataState(currentOvcHousehold?.id ?? '');
         Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
@@ -183,7 +208,7 @@ class _OvcHouseholdAssessmentFormState
             position: ToastGravity.TOP,
           );
           clearFormAutoSaveState(
-              context, currentOvcHousehold.id, eventId ?? '');
+              context, currentOvcHousehold?.id ?? '', eventId ?? '');
           Navigator.pop(context);
         });
       } catch (e) {

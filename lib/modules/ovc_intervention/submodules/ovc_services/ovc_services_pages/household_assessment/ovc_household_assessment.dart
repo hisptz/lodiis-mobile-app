@@ -47,6 +47,8 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
           .setFormFieldState('eventDate', assessment.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', assessment.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', assessment.orgUnit);
       for (Map dataValue in assessment.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -163,10 +165,8 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
                                     ),
                                     Visibility(
                                       visible: !isLoading &&
-                                          currentOvcHousehold!
-                                              .enrollmentOuAccessible! &&
                                           currentOvcHousehold
-                                                  .hasExitedProgram !=
+                                                  ?.hasExitedProgram !=
                                               true,
                                       child: EntryFormSaveButton(
                                         label: languageTranslationState
