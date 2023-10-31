@@ -40,6 +40,7 @@ class OvcCasePlanForm extends StatefulWidget {
     required this.casePlanLabel,
     required this.currentCasePlanDate,
     required this.hasEditAccess,
+    required this.enrollmentOuAccessible,
     required this.isHouseholdCasePlan,
     required this.casePlanProgram,
     required this.casePlanProgramStage,
@@ -59,6 +60,7 @@ class OvcCasePlanForm extends StatefulWidget {
   final String casePlanGapProgramStage;
   final String casePlanServiceProgramStage;
   final String casePlanMonitoringProgramStage;
+  final bool enrollmentOuAccessible;
   final bool isHouseholdCasePlan;
   final bool isOnCasePlanPage;
   final bool isOnCasePlanServiceProvision;
@@ -86,11 +88,13 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   void _setFormMetadata() {
+    print("enrollmentOuAccessible => ${widget.enrollmentOuAccessible}");
     for (String id in mandatoryFields) {
       mandatoryFieldObject[id] = true;
     }
     _isFormReady = true;
     setState(() {});
+    //TODO set location forms editi in case of enrollmentOuAccessible
     formSections = [];
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       // Removing the Schooled section for caregiver
@@ -129,6 +133,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     if (isAllDomainFilled) {
       _isSaving = true;
       setState(() {});
+      //TODO on saving forms below in case of enrollmentOuAccessible
       List<OvcHouseholdChild> children =
           Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
                   .currentOvcHousehold

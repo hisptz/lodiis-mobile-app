@@ -59,6 +59,7 @@ class CasePlanHomeContainer extends StatelessWidget {
         shouldContinue = false;
       }
     }
+    //TODO handling access to ou of enrolled ou as well as set ou of events if any
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditMode);
@@ -135,10 +136,12 @@ class CasePlanHomeContainer extends StatelessWidget {
                                 : 'Service monitoring tool'
                             : 'Child Case Plan Form',
                 isOnCasePlanPage: isOnCasePlanPage,
+                enrollmentOuAccessible: enrollmentOuAccessible,
                 isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                 isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
                 hasEditAccess: isCaseDisabled &&
-                    OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+                    OvcCasePlanUtil.hasAccessToEdit(
+                        casePlanEvents), //TODO check this editability of this forma
                 isHouseholdCasePlan: isHouseholdCasePlan,
                 casePlanProgram: casePlanProgram,
                 casePlanProgramStage: casePlanProgramStage,
@@ -241,8 +244,7 @@ class CasePlanHomeContainer extends StatelessWidget {
                             ),
                           ),
                           Visibility(
-                            visible: enrollmentOuAccessible &&
-                                !hasBeneficiaryExitedProgram &&
+                            visible: !hasBeneficiaryExitedProgram &&
                                 !(isOnCasePlanServiceMonitoring ||
                                     isOnCasePlanServiceProvision),
                             child: Container(
