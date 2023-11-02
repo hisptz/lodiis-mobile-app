@@ -17,6 +17,7 @@ class CasePlanGapServiceProvisionViewContainer extends StatefulWidget {
     required this.formSectionColor,
     required this.casePlanGap,
     required this.isHouseholdCasePlan,
+    required this.enrollmentOuAccessible,
     required this.hasEditAccess,
   }) : super(key: key);
 
@@ -24,6 +25,7 @@ class CasePlanGapServiceProvisionViewContainer extends StatefulWidget {
   final Color formSectionColor;
   final Map casePlanGap;
   final bool isHouseholdCasePlan;
+  final bool enrollmentOuAccessible;
   final bool hasEditAccess;
 
   @override
@@ -61,6 +63,7 @@ class _CasePlanGapServiceProvisionViewContainerState
       [programStage],
     );
     gapServiceObject["previousSessionMapping"] = previousSessionMapping;
+    //TODO handling other issues
     AppUtil.showActionSheetModal(
       context: context,
       initialHeightRatio: ratio,
@@ -68,6 +71,7 @@ class _CasePlanGapServiceProvisionViewContainerState
       containerBody: CasePlanGapServiceProvisionFormContainer(
         gapServiceObject: gapServiceObject,
         isHouseholdCasePlan: widget.isHouseholdCasePlan,
+        enrollmentOuAccessible: widget.enrollmentOuAccessible,
         domainId: widget.domainId,
         formSectionColor: widget.formSectionColor,
         isEditableMode: widget.hasEditAccess && isOnEditMode,

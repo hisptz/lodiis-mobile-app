@@ -27,6 +27,7 @@ class CasePlanGapServiceProvisionFormContainer extends StatefulWidget {
     Key? key,
     required this.gapServiceObject,
     required this.isHouseholdCasePlan,
+    required this.enrollmentOuAccessible,
     required this.domainId,
     required this.isEditableMode,
     required this.formSectionColor,
@@ -34,6 +35,7 @@ class CasePlanGapServiceProvisionFormContainer extends StatefulWidget {
 
   final Map gapServiceObject;
   final bool isHouseholdCasePlan;
+  final bool enrollmentOuAccessible;
   final String domainId;
   final bool isEditableMode;
   final Color formSectionColor;
@@ -77,6 +79,10 @@ class _CasePlanGapServiceProvisionFormContainerState
       formSection.borderColor = Colors.transparent;
       return formSection;
     }).toList();
+
+    print("enrollmentOuAccessible => ${widget.enrollmentOuAccessible}");
+
+    ///TODO set location in case of access issues
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = true;
       evaluateSkipLogics(context, formSections, widget.gapServiceObject);
@@ -95,6 +101,7 @@ class _CasePlanGapServiceProvisionFormContainerState
     setSessionNumberViolationMessages(sessionNumberValidation);
   }
 
+//TODO manage saving of this
   void onSaveCasePlanServiceProvision() async {
     bool hasAtLeastOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFields,
@@ -122,6 +129,7 @@ class _CasePlanGapServiceProvisionFormContainerState
                       listen: false)
                   .currentOvcHouseholdChild!
                   .teiData!;
+          //TODO get ou for saving forms
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             widget.isHouseholdCasePlan
                 ? OvcHouseholdCasePlanConstant.program
@@ -140,6 +148,7 @@ class _CasePlanGapServiceProvisionFormContainerState
             [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
           );
           if (widget.isHouseholdCasePlan) {
+            //TODO save ou on saving children forms
             await OvcCasePlanServiceProvisionHouseholdToOvcUtil
                 .autoSyncOvcsCasePlanServiceProvisions(
               childrens: Provider.of<OvcHouseholdCurrentSelectionState>(context,
