@@ -19,8 +19,10 @@ class AppUtil {
     required String program,
     bool isReadOnly = false,
     String formlabel = 'Service Provision Location',
+    String id = '',
   }) {
     return FormSection(
+      id: id.isEmpty ? AppUtil.getUid() : id,
       name: formlabel,
       color: sectionLabelColor,
       inputFields: [

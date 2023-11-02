@@ -14,6 +14,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required String currentCasePlanDate,
     required List<OvcHouseholdChild> childrens,
     required Map dataObject,
+    required String orgUnit,
   }) async {
     try {
       List<FormSection> formSections = OvcServicesCasePlan.getFormSections();
@@ -43,7 +44,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcChildCasePlanConstant.program,
             OvcChildCasePlanConstant.casePlanProgramStage,
-            child.orgUnit,
+            orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],
@@ -62,7 +63,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
                 .savingTrackedEntityInstanceEventData(
               OvcChildCasePlanConstant.program,
               OvcChildCasePlanConstant.casePlanGapProgramStage,
-              child.orgUnit,
+              orgUnit,
               domainGapFormSections,
               domainGapDataObject,
               domainGapDataObject['eventDate'],
