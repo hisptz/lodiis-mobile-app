@@ -17,7 +17,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.dataObject,
     required this.formSectionColor,
     required this.isHouseholdCasePlan,
-    required this.hasEditAccess,
+    required this.hasEditAccessToCasePlan,
     required this.isEditableMode,
     required this.canAddDomainGaps,
     required this.domainId,
@@ -27,7 +27,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
   }) : super(key: key);
 
   final bool isHouseholdCasePlan;
-  final bool hasEditAccess;
+  final bool hasEditAccessToCasePlan;
   final bool isEditableMode;
   final bool canAddDomainGaps;
 
@@ -139,7 +139,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
       child: Column(
         children: [
           CasePlanGapView(
-            hasEditAccess: hasEditAccess,
+            hasEditAccessToCasePlan: hasEditAccessToCasePlan,
             isEditableMode: isEditableMode,
             isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
             isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
@@ -167,7 +167,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
                       casePlanGap:
                           _getCasePlanGapObjects(dataObject['gaps'] ?? []),
                       isHouseholdCasePlan: isHouseholdCasePlan,
-                      hasEditAccess: hasEditAccess,
+                      hasEditAccess:
+                          hasEditAccessToCasePlan, //TODO checking this if applicable now for edit service provision
                     ),
                   ),
                   Visibility(
@@ -178,7 +179,8 @@ class CasePlanGapViewContainer extends StatelessWidget {
                       casePlanGap:
                           _getCasePlanGapObjects(dataObject['gaps'] ?? []),
                       isHouseholdCasePlan: isHouseholdCasePlan,
-                      hasEditAccess: hasEditAccess,
+                      hasEditAccess:
+                          hasEditAccessToCasePlan, //TODO checking this if applicable now for edit service monitoring
                     ),
                   )
                 ],

@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -39,7 +40,7 @@ class OvcCasePlanForm extends StatefulWidget {
     Key? key,
     required this.casePlanLabel,
     required this.currentCasePlanDate,
-    required this.hasEditAccess,
+    required this.hasEditAccessToCasePlan,
     required this.enrollmentOuAccessible,
     required this.isHouseholdCasePlan,
     required this.casePlanProgram,
@@ -54,7 +55,7 @@ class OvcCasePlanForm extends StatefulWidget {
 
   final String casePlanLabel;
   final String currentCasePlanDate;
-  final bool hasEditAccess;
+  final bool hasEditAccessToCasePlan;
   final String casePlanProgram;
   final String casePlanProgramStage;
   final String casePlanGapProgramStage;
@@ -88,13 +89,13 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   void _setFormMetadata() {
-    print("enrollmentOuAccessible => ${widget.enrollmentOuAccessible}");
+    print(
+        "enrollmentOuAccessible => ${widget.enrollmentOuAccessible} :: hasEditAccessToCasePlan =>${widget.hasEditAccessToCasePlan}");
     for (String id in mandatoryFields) {
       mandatoryFieldObject[id] = true;
     }
     _isFormReady = true;
     setState(() {});
-    //TODO set location forms editi in case of enrollmentOuAccessible
     formSections = [];
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       // Removing the Schooled section for caregiver
@@ -110,6 +111,23 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
               OvcCasePlanConstant.householdCategorizationSection) {
         formSections.remove(formSection);
       }
+    }
+    if (!widget.enrollmentOuAccessible) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          id: OvcCasePlanConstant.casePlanLocatinSectionId,
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: widget.casePlanProgram,
+        ),
+        ...formSections
+      ];
+      mandatoryFieldObject['location'] = true;
     }
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = false;
@@ -222,13 +240,15 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   Future<void> savingDomainsAndGaps({
     required Map dataObject,
     required TrackedEntityInstance beneficiary,
+    required String orgUnit,
   }) async {
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
       Map domainDataObject = dataObject[domainType];
-      if ((domainDataObject['gaps'].length > 0 &&
-              (domainDataObject[casePlanFirstGoal] != null ||
-                  '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) ||
+      if (domainType != OvcCasePlanConstant.casePlanLocatinSectionId &&
+              (domainDataObject['gaps'].length > 0 &&
+                  (domainDataObject[casePlanFirstGoal] != null ||
+                      '${domainDataObject[casePlanFirstGoal]}'.trim() != '')) ||
           domainType == OvcCasePlanConstant.householdCategorizationSection) {
         try {
           List<String> hiddenFields = [
@@ -256,7 +276,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
             widget.isHouseholdCasePlan
                 ? OvcHouseholdCasePlanConstant.casePlanProgramStage
                 : OvcChildCasePlanConstant.casePlanProgramStage,
-            beneficiary.orgUnit,
+            orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],
@@ -278,7 +298,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
               widget.isHouseholdCasePlan
                   ? OvcHouseholdCasePlanConstant.casePlanGapProgramStage
                   : OvcChildCasePlanConstant.casePlanGapProgramStage,
-              beneficiary.orgUnit,
+              orgUnit,
               domainGapFormSections,
               domainGapDataObject,
               domainGapDataObject['eventDate'],
@@ -360,11 +380,15 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                         child: CasePlanFormContainer(
                                           mandatoryFieldObject:
                                               mandatoryFieldObject,
-                                          canAddDomainGaps: formSection.id !=
-                                              OvcCasePlanConstant
-                                                  .householdCategorizationSection,
+                                          canAddDomainGaps: ![
+                                            OvcCasePlanConstant
+                                                .householdCategorizationSection,
+                                            OvcCasePlanConstant
+                                                .casePlanLocatinSectionId
+                                          ].contains(formSection.id),
                                           formSectionColor:
-                                              borderColors[formSection.id],
+                                              borderColors[formSection.id] ??
+                                                  Colors.transparent,
                                           formSection: formSection,
                                           isEditableMode:
                                               serviceFormState.isEditableMode,
@@ -377,7 +401,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                                   formSection.id, value),
                                           isHouseholdCasePlan:
                                               widget.isHouseholdCasePlan,
-                                          hasEditAccess: widget.hasEditAccess,
+                                          hasEditAccessToCasePlan:
+                                              widget.hasEditAccessToCasePlan,
                                           isOnCasePlanPage:
                                               widget.isOnCasePlanPage,
                                           isOnCasePlanServiceProvision: widget

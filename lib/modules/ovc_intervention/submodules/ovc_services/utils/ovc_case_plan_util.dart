@@ -81,7 +81,7 @@ class OvcCasePlanUtil {
     }
     return hasBeenFilled;
   }
- 
+
   static bool isAllDomainGoalAndGapFilled(
     Map dataObject, {
     required bool isHouseholdCasePlan,

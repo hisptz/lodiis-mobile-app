@@ -59,11 +59,11 @@ class CasePlanHomeContainer extends StatelessWidget {
         shouldContinue = false;
       }
     }
-    //TODO handling access to ou of enrolled ou as well as set ou of events if any
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditMode);
     Map casePlanDataObject = {};
+
     if (casePlanEvents.isNotEmpty) {
       eventDate = casePlanEvents.first.eventDate ?? eventDate;
       List<Events> casePlanGapsEvents =
@@ -72,6 +72,11 @@ class CasePlanHomeContainer extends StatelessWidget {
         casePlanEvents: casePlanEvents,
         casePlanGapsEvents: casePlanGapsEvents,
       );
+      if (!enrollmentOuAccessible) {
+        Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+            OvcCasePlanConstant.casePlanLocatinSectionId,
+            {"location": casePlanEvents.first.orgUnit ?? ''});
+      }
     }
     for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
       String formSectionId = formSection.id!;
@@ -94,7 +99,6 @@ class CasePlanHomeContainer extends StatelessWidget {
     required BuildContext context,
     required List<String> casePlanDates,
     bool isEditMode = true,
-    bool isCaseDisabled = false,
     bool onAddCasePlan = false,
     List<Events> casePlanEvents = const [],
     Map<String?, List<Events>> eventListByProgramStage = const {},
@@ -139,9 +143,9 @@ class CasePlanHomeContainer extends StatelessWidget {
                 enrollmentOuAccessible: enrollmentOuAccessible,
                 isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                 isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-                hasEditAccess: isCaseDisabled &&
-                    OvcCasePlanUtil.hasAccessToEdit(
-                        casePlanEvents), //TODO check this editability of this forma
+                hasEditAccessToCasePlan: OvcCasePlanUtil.hasAccessToEdit(
+                  casePlanEvents,
+                ), //Contrpol editing gaps for case plams
                 isHouseholdCasePlan: isHouseholdCasePlan,
                 casePlanProgram: casePlanProgram,
                 casePlanProgramStage: casePlanProgramStage,
@@ -216,18 +220,16 @@ class CasePlanHomeContainer extends StatelessWidget {
                               onViewCasePlan: (
                                 List<Events> casePlanEvents,
                                 String currentCasePlanDate,
-                                bool disabled,
                               ) =>
                                   onManageCasePlan(
-                                context: context,
-                                casePlanDates: casePlanDates,
-                                eventListByProgramStage: serviceEventDataState
-                                    .eventListByProgramStage,
-                                isEditMode: false,
-                                currentCasePlanDate: currentCasePlanDate,
-                                casePlanEvents: casePlanEvents,
-                                isCaseDisabled: disabled,
-                              ),
+                                      context: context,
+                                      casePlanDates: casePlanDates,
+                                      eventListByProgramStage:
+                                          serviceEventDataState
+                                              .eventListByProgramStage,
+                                      isEditMode: false,
+                                      currentCasePlanDate: currentCasePlanDate,
+                                      casePlanEvents: casePlanEvents),
                               onEditCasePlan: (
                                 List<Events> casePlanEvents,
                                 String currentCasePlanDate,
@@ -239,7 +241,6 @@ class CasePlanHomeContainer extends StatelessWidget {
                                     .eventListByProgramStage,
                                 currentCasePlanDate: currentCasePlanDate,
                                 casePlanEvents: casePlanEvents,
-                                isCaseDisabled: false,
                               ),
                             ),
                           ),
