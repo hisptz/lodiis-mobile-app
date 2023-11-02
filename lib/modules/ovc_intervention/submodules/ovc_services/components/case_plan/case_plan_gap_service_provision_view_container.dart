@@ -77,7 +77,6 @@ class _CasePlanGapServiceProvisionViewContainerState
 
   @override
   Widget build(BuildContext context) {
-    print({"hasEditAccess": widget.hasEditAccess});
     return Consumer<OvcHouseholdCurrentSelectionState>(
         builder: (context, state, child) {
       var hasBeneficiaryExited =
@@ -108,7 +107,7 @@ class _CasePlanGapServiceProvisionViewContainerState
               ),
             ),
             Visibility(
-              //TODO handling this perfect
+              //TODO handling this perfect wiht access outside provisions
               visible: widget.hasEditAccess && hasBeneficiaryExited != true,
               child: Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {

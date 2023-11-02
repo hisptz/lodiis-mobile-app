@@ -18,6 +18,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.isHouseholdCasePlan,
     required this.hasEditAccessToCasePlan,
+    required this.enrollmentOuAccessible,
     required this.isEditableMode,
     required this.canAddDomainGaps,
     required this.domainId,
@@ -28,6 +29,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
 
   final bool isHouseholdCasePlan;
   final bool hasEditAccessToCasePlan;
+  final bool enrollmentOuAccessible;
   final bool isEditableMode;
   final bool canAddDomainGaps;
 
