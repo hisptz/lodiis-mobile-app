@@ -64,19 +64,26 @@ class OvcCasePlanUtil {
     return map;
   }
 
+  static String getLocationFromCasePlanForm(Map dataObject, String sectionsId) {
+    Map locationSection = dataObject[sectionsId] ?? {};
+    return locationSection['location'] ?? '';
+  }
+
+ 
   static bool isAllDomainGoalAndGapFilled(
     Map dataObject, {
     required bool isHouseholdCasePlan,
   }) {
     bool isAllDomainFilled = true;
     for (String? domainType in dataObject.keys.toList()) {
-      Map domainDataObject = dataObject[domainType];
+      Map domainDataObject = dataObject[domainType] ?? {};
       String casePlanFirstGoal =
           domainDataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
       String casePlansSecondGoal =
           domainDataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
 
-      if (domainDataObject['gaps'].length > 0) {
+      if (domainDataObject.keys.contains('gaps') &&
+          domainDataObject['gaps'].length > 0) {
         if (casePlanFirstGoal.isEmpty) {
           if (casePlansSecondGoal.isEmpty) {
             isAllDomainFilled = false;
