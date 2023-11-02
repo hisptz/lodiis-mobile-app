@@ -148,9 +148,14 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   listen: false)
               .currentOvcHouseholdChild!
               .teiData!;
+      String orgUnit = widget.enrollmentOuAccessible
+          ? beneficiary.orgUnit ?? ''
+          : OvcCasePlanUtil.getLocationFromCasePlanForm(
+              dataObject, OvcCasePlanConstant.casePlanLocatinSectionId);
       await savingDomainsAndGaps(
         dataObject: dataObject,
         beneficiary: beneficiary,
+        orgUnit: orgUnit,
       );
       if (widget.isHouseholdCasePlan) {
         await updateHouseholdCategorization(beneficiary, dataObject);
@@ -158,6 +163,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           currentCasePlanDate: widget.currentCasePlanDate,
           childrens: children,
           dataObject: dataObject,
+          orgUnit: orgUnit,
         );
       }
       Provider.of<ServiceEventDataState>(context, listen: false)
