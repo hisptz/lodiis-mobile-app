@@ -69,6 +69,18 @@ class OvcCasePlanUtil {
     return locationSection['location'] ?? '';
   }
 
+  static bool isLocationOnCasePlanFormFilled(
+    Map dataObject, {
+    required String sectionsId,
+    required bool shouldCheck,
+  }) {
+    bool hasBeenFilled = true;
+    if (shouldCheck) {
+      hasBeenFilled =
+          getLocationFromCasePlanForm(dataObject, sectionsId).isNotEmpty;
+    }
+    return hasBeenFilled;
+  }
  
   static bool isAllDomainGoalAndGapFilled(
     Map dataObject, {
