@@ -129,11 +129,13 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       dataObject,
       isHouseholdCasePlan: widget.isHouseholdCasePlan,
     );
-
-    if (isAllDomainFilled) {
+    bool hasLocationFilled = OvcCasePlanUtil.isLocationOnCasePlanFormFilled(
+        dataObject,
+        sectionsId: OvcCasePlanConstant.casePlanLocatinSectionId,
+        shouldCheck: !widget.enrollmentOuAccessible);
+    if (isAllDomainFilled && hasLocationFilled) {
       _isSaving = true;
       setState(() {});
-      //TODO on saving forms below in case of enrollmentOuAccessible
       List<OvcHouseholdChild> children =
           Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
                   .currentOvcHousehold
