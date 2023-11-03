@@ -49,6 +49,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
   bool _isFormReady = false;
   bool _isSaving = false;
   List<FormSection> formSections = [];
+  List<String> mandatoryFields = [];
   Map mandatoryFieldObject = {};
 
   @override
@@ -68,10 +69,34 @@ class _CasePlanGapServiceMonitoringFormContainerState
             formSection.id == '' ||
             formSection.id == null)
         .toList();
+    if (!widget.enrollmentOuAccessible) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          id: OvcCasePlanConstant.casePlanLocatinSectionId,
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: widget.isHouseholdCasePlan
+              ? OvcHouseholdCasePlanConstant.program
+              : OvcChildCasePlanConstant.program,
+        ),
+        ...formSections
+      ];
+      String orgUnit = widget.gapServiceMonitoringObject['location'] ?? '';
+      onInputValueChange('location', orgUnit);
+      mandatoryFields.add('location');
+    }
     formSections = formSections.map((formSection) {
       formSection.borderColor = Colors.transparent;
       return formSection;
     }).toList();
+    for (String field in mandatoryFields) {
+      mandatoryFieldObject[field] = true;
+    }
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = true;
       evaluateSkipLogics(
