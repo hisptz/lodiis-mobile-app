@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/household_service_provision.dart';
@@ -52,6 +53,7 @@ class _CasePlanGapServiceProvisionFormContainerState
   bool _isFormReady = false;
   bool _isSaving = false;
   List<FormSection> formSections = [];
+  List<String> mandatoryFields = [];
   Map mandatoryFieldObject = {};
 
   @override
@@ -95,11 +97,15 @@ class _CasePlanGapServiceProvisionFormContainerState
       ];
       String orgUnit = widget.gapServiceObject['location'] ?? '';
       onInputValueChange('location', orgUnit);
+      mandatoryFields.add('location');
     }
     formSections = formSections.map((formSection) {
       formSection.borderColor = Colors.transparent;
       return formSection;
     }).toList();
+    for (String field in mandatoryFields) {
+      mandatoryFieldObject[field] = true;
+    }
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = true;
       evaluateSkipLogics(context, formSections, widget.gapServiceObject);
@@ -118,91 +124,110 @@ class _CasePlanGapServiceProvisionFormContainerState
     setSessionNumberViolationMessages(sessionNumberValidation);
   }
 
-//TODO manage saving of this
   void onSaveCasePlanServiceProvision() async {
     bool hasAtLeastOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFields,
       formSections: formSections,
       dataObject: widget.gapServiceObject,
     );
-    if (hasAtLeastOnFieldFilled) {
-      Map<String, dynamic> sessionNumberValidation =
-          OvcServiceProvisionUtil.getSessionNumberValidation(
-              widget.gapServiceObject);
-      setSessionNumberViolationMessages(sessionNumberValidation);
-      bool isSessionNumberExit = sessionNumberValidation["isSessionNumberExit"];
-      bool isSessionNumberInValid =
-          sessionNumberValidation["isSessionNumberInValid"];
-      if (!isSessionNumberExit && !isSessionNumberInValid) {
-        _isSaving = true;
-        setState(() {});
-        try {
-          TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
-              ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                      listen: false)
-                  .currentOvcHousehold!
-                  .teiData!
-              : Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                      listen: false)
-                  .currentOvcHouseholdChild!
-                  .teiData!;
-          //TODO get ou for saving forms
-          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            widget.isHouseholdCasePlan
-                ? OvcHouseholdCasePlanConstant.program
-                : OvcChildCasePlanConstant.program,
-            widget.isHouseholdCasePlan
-                ? OvcHouseholdCasePlanConstant
-                    .casePlanGapServiceProvisionProgramStage
-                : OvcChildCasePlanConstant
-                    .casePlanGapServiceProvisionProgramStage,
-            beneficiary.orgUnit,
-            formSections,
-            widget.gapServiceObject,
-            widget.gapServiceObject['eventDate'],
-            beneficiary.trackedEntityInstance,
-            widget.gapServiceObject['eventId'],
-            [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
-          );
-          if (widget.isHouseholdCasePlan) {
-            //TODO save ou on saving children forms
-            await OvcCasePlanServiceProvisionHouseholdToOvcUtil
-                .autoSyncOvcsCasePlanServiceProvisions(
-              childrens: Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                          listen: false)
-                      .currentOvcHousehold!
-                      .children ??
-                  [],
-              dataObject: widget.gapServiceObject,
-              domainId: widget.domainId,
-            );
-          }
-          Provider.of<ServiceEventDataState>(context, listen: false)
-              .resetServiceEventDataState(beneficiary.trackedEntityInstance);
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-          );
-          Navigator.pop(context);
-        } catch (e) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      widget.gapServiceObject,
+      hiddenFields: hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections,
+      ),
+    );
+    if (hadAllMandatoryFilled) {
+      if (hasAtLeastOnFieldFilled) {
+        Map<String, dynamic> sessionNumberValidation =
+            OvcServiceProvisionUtil.getSessionNumberValidation(
+                widget.gapServiceObject);
+        setSessionNumberViolationMessages(sessionNumberValidation);
+        bool isSessionNumberExit =
+            sessionNumberValidation["isSessionNumberExit"];
+        bool isSessionNumberInValid =
+            sessionNumberValidation["isSessionNumberInValid"];
+        if (!isSessionNumberExit && !isSessionNumberInValid) {
           _isSaving = true;
           setState(() {});
+          try {
+            List<OvcHouseholdChild> childrens =
+                Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                            listen: false)
+                        .currentOvcHousehold!
+                        .children ??
+                    [];
+            TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
+                ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                        listen: false)
+                    .currentOvcHousehold!
+                    .teiData!
+                : Provider.of<OvcHouseholdCurrentSelectionState>(context,
+                        listen: false)
+                    .currentOvcHouseholdChild!
+                    .teiData!;
+            String orgUnit = widget.gapServiceObject['location'] ??
+                beneficiary.orgUnit ??
+                '';
+            await TrackedEntityInstanceUtil
+                .savingTrackedEntityInstanceEventData(
+              widget.isHouseholdCasePlan
+                  ? OvcHouseholdCasePlanConstant.program
+                  : OvcChildCasePlanConstant.program,
+              widget.isHouseholdCasePlan
+                  ? OvcHouseholdCasePlanConstant
+                      .casePlanGapServiceProvisionProgramStage
+                  : OvcChildCasePlanConstant
+                      .casePlanGapServiceProvisionProgramStage,
+              orgUnit,
+              formSections,
+              widget.gapServiceObject,
+              widget.gapServiceObject['eventDate'],
+              beneficiary.trackedEntityInstance,
+              widget.gapServiceObject['eventId'],
+              [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
+            );
+            if (widget.isHouseholdCasePlan) {
+              await OvcCasePlanServiceProvisionHouseholdToOvcUtil
+                  .autoSyncOvcsCasePlanServiceProvisions(
+                      childrens: childrens,
+                      dataObject: widget.gapServiceObject,
+                      domainId: widget.domainId,
+                      orgUnit: orgUnit);
+            }
+            Provider.of<ServiceEventDataState>(context, listen: false)
+                .resetServiceEventDataState(beneficiary.trackedEntityInstance);
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
+            AppUtil.showToastMessage(
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+            );
+            Navigator.pop(context);
+          } catch (e) {
+            _isSaving = true;
+            setState(() {});
+            AppUtil.showToastMessage(
+              message: e.toString(),
+            );
+          }
+        } else {
           AppUtil.showToastMessage(
-            message: e.toString(),
+            message: 'Session number is invalid or already exist',
           );
         }
       } else {
         AppUtil.showToastMessage(
-          message: 'Session number is invalid or already exist',
+          message: 'Please fill at least one field',
         );
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least one field field',
+        message: 'Please fill all mandatory fields',
       );
     }
   }
