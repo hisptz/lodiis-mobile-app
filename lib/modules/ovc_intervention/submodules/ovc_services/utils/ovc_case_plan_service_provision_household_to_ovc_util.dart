@@ -34,16 +34,16 @@ class OvcCasePlanServiceProvisionHouseholdToOvcUtil {
           if (dataObject.isNotEmpty) {
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(
-              OvcChildCasePlanConstant.program,
-              OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage,
-              orgUnit,
-              formSections,
-              dataObject,
-              dataObject['eventDate'],
-              child.id,
-              dataObject['eventId'],
-              [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
-            );
+                    OvcChildCasePlanConstant.program,
+                    OvcChildCasePlanConstant
+                        .casePlanGapServiceProvisionProgramStage,
+                    orgUnit,
+                    formSections,
+                    dataObject,
+                    dataObject['eventDate'],
+                    child.id,
+                    dataObject['eventId'],
+                    [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage]);
           }
         }
       }
