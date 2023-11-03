@@ -18,7 +18,6 @@ class CasePlanGapServiceProvisionViewContainer extends StatefulWidget {
     required this.casePlanGap,
     required this.isHouseholdCasePlan,
     required this.enrollmentOuAccessible,
-    required this.hasEditAccess,
   }) : super(key: key);
 
   final String domainId;
@@ -26,7 +25,6 @@ class CasePlanGapServiceProvisionViewContainer extends StatefulWidget {
   final Map casePlanGap;
   final bool isHouseholdCasePlan;
   final bool enrollmentOuAccessible;
-  final bool hasEditAccess;
 
   @override
   State<CasePlanGapServiceProvisionViewContainer> createState() =>
@@ -41,6 +39,7 @@ class _CasePlanGapServiceProvisionViewContainerState
   }) async {
     double ratio = 0.8;
     gapServiceObject = gapServiceObject ?? {};
+    String location = gapServiceObject['location'] ?? '';
     String programStage = widget.isHouseholdCasePlan
         ? OvcHouseholdCasePlanConstant.casePlanGapServiceProvisionProgramStage
         : OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage;
@@ -57,13 +56,13 @@ class _CasePlanGapServiceProvisionViewContainerState
       gapServiceObject[key] = gapServiceObject[key] ?? widget.casePlanGap[key];
     }
     gapServiceObject['casePlanDate'] = widget.casePlanGap['eventDate'];
+    gapServiceObject['location'] = location;
     Map<String, List<String>> previousSessionMapping =
         OvcServiceProvisionUtil.getPreviousSessionMapping(
       context,
       [programStage],
     );
     gapServiceObject["previousSessionMapping"] = previousSessionMapping;
-    //TODO handling other issues
     AppUtil.showActionSheetModal(
       context: context,
       initialHeightRatio: ratio,
@@ -74,7 +73,7 @@ class _CasePlanGapServiceProvisionViewContainerState
         enrollmentOuAccessible: widget.enrollmentOuAccessible,
         domainId: widget.domainId,
         formSectionColor: widget.formSectionColor,
-        isEditableMode: widget.hasEditAccess && isOnEditMode,
+        isEditableMode: isOnEditMode,
       ),
     );
   }
@@ -97,8 +96,7 @@ class _CasePlanGapServiceProvisionViewContainerState
               ),
               child: CasePlanGapServiceProvisionView(
                 isHouseholdCasePlan: widget.isHouseholdCasePlan,
-                hasEditAccess:
-                    widget.hasEditAccess && hasBeneficiaryExited != true,
+                hasEditAccess: hasBeneficiaryExited != true,
                 formSectionColor: widget.formSectionColor,
                 domainId: widget.domainId,
                 casePlanGap: widget.casePlanGap,
@@ -111,8 +109,7 @@ class _CasePlanGapServiceProvisionViewContainerState
               ),
             ),
             Visibility(
-              //TODO handling this perfect wiht access outside provisions
-              visible: widget.hasEditAccess && hasBeneficiaryExited != true,
+              visible: hasBeneficiaryExited != true,
               child: Consumer<LanguageTranslationState>(
                 builder: (context, languageTranslationState, child) {
                   String? currentLanguage =
