@@ -12,6 +12,7 @@ class OvcCasePlanServiceProvisionHouseholdToOvcUtil {
     required List<OvcHouseholdChild> childrens,
     required Map dataObject,
     required String domainId,
+    required String orgUnit,
   }) async {
     try {
       List<FormSection> formSections =
@@ -35,7 +36,7 @@ class OvcCasePlanServiceProvisionHouseholdToOvcUtil {
                 .savingTrackedEntityInstanceEventData(
               OvcChildCasePlanConstant.program,
               OvcChildCasePlanConstant.casePlanGapServiceProvisionProgramStage,
-              child.orgUnit,
+              orgUnit,
               formSections,
               dataObject,
               dataObject['eventDate'],

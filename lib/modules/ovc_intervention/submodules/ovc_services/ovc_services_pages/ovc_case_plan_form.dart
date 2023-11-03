@@ -89,8 +89,6 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   void _setFormMetadata() {
-    print(
-        "enrollmentOuAccessible => ${widget.enrollmentOuAccessible} :: hasEditAccessToCasePlan =>${widget.hasEditAccessToCasePlan}");
     for (String id in mandatoryFields) {
       mandatoryFieldObject[id] = true;
     }
@@ -403,6 +401,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                               widget.isHouseholdCasePlan,
                                           hasEditAccessToCasePlan:
                                               widget.hasEditAccessToCasePlan,
+                                          enrollmentOuAccessible:
+                                              widget.enrollmentOuAccessible,
                                           isOnCasePlanPage:
                                               widget.isOnCasePlanPage,
                                           isOnCasePlanServiceProvision: widget

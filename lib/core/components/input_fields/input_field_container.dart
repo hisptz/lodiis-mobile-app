@@ -239,22 +239,25 @@ class InputFieldContainer extends StatelessWidget {
             )
           : Row(
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 10.0,
-                  ),
-                  child: Text(
-                    value.toString(),
-                    style: const TextStyle().copyWith(
-                      color: inputField != null && inputField.inputColor != null
-                          ? inputField.inputColor
-                          : null,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12.0,
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    child: Text(
+                      value.toString(),
+                      style: const TextStyle().copyWith(
+                        color:
+                            inputField != null && inputField.inputColor != null
+                                ? inputField.inputColor
+                                : null,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12.0,
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
     );

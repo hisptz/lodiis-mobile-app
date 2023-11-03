@@ -127,7 +127,9 @@ class _CasePlanGapServiceProvisionViewState
                                   ),
                                 ),
                                 Visibility(
-                                  visible: widget.hasEditAccess,
+                                  visible: widget.hasEditAccess &&
+                                      casePlanServiceProvision
+                                          .canCurrentUserEdit,
                                   child: _getActionIcon(
                                     icon: 'assets/icons/edit-icon.svg',
                                     onTap: () => widget.onEditCasePlanService(

@@ -18,6 +18,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
     required this.formSectionColor,
     required this.isHouseholdCasePlan,
     required this.hasEditAccessToCasePlan,
+    required this.enrollmentOuAccessible,
     required this.isEditableMode,
     required this.canAddDomainGaps,
     required this.domainId,
@@ -28,6 +29,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
 
   final bool isHouseholdCasePlan;
   final bool hasEditAccessToCasePlan;
+  final bool enrollmentOuAccessible;
   final bool isEditableMode;
   final bool canAddDomainGaps;
 
@@ -49,7 +51,6 @@ class CasePlanGapViewContainer extends StatelessWidget {
     Map? gapDataObject,
     bool isOnEdit = false,
   }) async {
-    //TODO handling access to ou of enrolled ou as well as set ou of events if any
     String caseToGapLinkageValue =
         dataObject[caseToGapLinkage] ?? AppUtil.getUid();
     String casePlanFirstGoal =
@@ -167,8 +168,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
                       casePlanGap:
                           _getCasePlanGapObjects(dataObject['gaps'] ?? []),
                       isHouseholdCasePlan: isHouseholdCasePlan,
-                      hasEditAccess:
-                          hasEditAccessToCasePlan, //TODO checking this if applicable now for edit service provision
+                      enrollmentOuAccessible: enrollmentOuAccessible,
                     ),
                   ),
                   Visibility(

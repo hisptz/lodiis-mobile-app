@@ -19,6 +19,7 @@ class CasePlanFormContainer extends StatelessWidget {
     required this.onInputValueChange,
     required this.isHouseholdCasePlan,
     required this.hasEditAccessToCasePlan,
+    required this.enrollmentOuAccessible,
     required this.isOnCasePlanPage,
     required this.isOnCasePlanServiceProvision,
     required this.isOnCasePlanServiceMonitoring,
@@ -35,6 +36,7 @@ class CasePlanFormContainer extends StatelessWidget {
   final Map? mandatoryFieldObject;
   final bool isHouseholdCasePlan;
   final bool hasEditAccessToCasePlan;
+  final bool enrollmentOuAccessible;
   final bool isOnCasePlanPage;
   final bool isOnCasePlanServiceProvision;
   final bool isOnCasePlanServiceMonitoring;
@@ -105,6 +107,7 @@ class CasePlanFormContainer extends StatelessWidget {
                   isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                   domainId: formSection.id!,
                   hasEditAccessToCasePlan: hasEditAccessToCasePlan,
+                  enrollmentOuAccessible: enrollmentOuAccessible,
                   canAddDomainGaps: canAddDomainGaps,
                   isEditableMode: isEditableMode && isOnCasePlanPage,
                   dataObject: dataObject,

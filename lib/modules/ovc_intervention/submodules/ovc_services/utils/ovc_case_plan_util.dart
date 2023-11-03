@@ -56,6 +56,7 @@ class OvcCasePlanUtil {
     Map map = {};
     map['eventDate'] = eventData.eventDate;
     map['eventId'] = eventData.event;
+    map['location'] = eventData.orgUnit ?? '';
     for (Map dataValue in eventData.dataValues) {
       if ('${dataValue['value']}'.trim() != '') {
         map[dataValue['dataElement']] = dataValue['value'];

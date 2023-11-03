@@ -29,7 +29,9 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
 
     for (String inputFieldId in inputFieldIds) {
-      hiddenFields[inputFieldId] = true;
+      if (inputFieldId != 'location') {
+        hiddenFields[inputFieldId] = true;
+      }
     }
 
     dataObject.forEach((key, value) {
