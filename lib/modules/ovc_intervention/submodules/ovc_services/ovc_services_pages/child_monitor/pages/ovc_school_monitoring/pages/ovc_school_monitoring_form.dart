@@ -119,54 +119,78 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
     Map dataObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcSchoolMonitoringConstant.program,
-            OvcSchoolMonitoringConstant.programStage,
-            currentOvcHouseholdChild!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            currentOvcHouseholdChild.id,
-            eventId,
-            null);
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseholdChild.id);
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-          });
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
+      if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+        setState(() {
+          isSaving = true;
+        });
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        List<String> hiddenFields = [];
+        String orgUnit =
+            dataObject['location'] ?? currentOvcHouseholdChild?.orgUnit ?? '';
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+                  OvcSchoolMonitoringConstant.program,
+                  OvcSchoolMonitoringConstant.programStage,
+                  orgUnit,
+                  formSections!,
+                  dataObject,
+                  eventDate,
+                  currentOvcHouseholdChild?.id,
+                  eventId,
+                  hiddenFields)
+              .then(
+            (_) {
+              Provider.of<ServiceEventDataState>(context, listen: false)
+                  .resetServiceEventDataState(currentOvcHouseholdChild?.id);
+              Timer(const Duration(seconds: 1), () {
+                setState(() {
+                  isSaving = false;
+                });
+                String? currentLanguage = Provider.of<LanguageTranslationState>(
+                        context,
+                        listen: false)
+                    .currentLanguage;
+                AppUtil.showToastMessage(
+                  message: currentLanguage == 'lesotho'
+                      ? 'Fomo e bolokeile'
+                      : 'Form has been saved successfully',
+                  position: ToastGravity.TOP,
+                );
+                Navigator.pop(context);
+              });
+            },
           );
-          Navigator.pop(context);
-        });
-      } catch (e) {
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-            AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
-            Navigator.pop(context);
+        } catch (e) {
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+              Navigator.pop(context);
+            });
           });
-        });
+        }
+      } else {
+        AppUtil.showToastMessage(
+            message: 'Please fill at least one form field',
+            position: ToastGravity.TOP);
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+      );
     }
   }
 
