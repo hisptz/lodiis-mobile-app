@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -75,15 +76,30 @@ class _CasePlanGapServiceProvisionFormContainerState
     formSections = formSections
         .where((formSection) => formSection.id == widget.domainId)
         .toList();
+    if (!widget.enrollmentOuAccessible) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          id: OvcCasePlanConstant.casePlanLocatinSectionId,
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: widget.isHouseholdCasePlan
+              ? OvcHouseholdCasePlanConstant.program
+              : OvcChildCasePlanConstant.program,
+        ),
+        ...formSections
+      ];
+      String orgUnit = widget.gapServiceObject['location'] ?? '';
+      onInputValueChange('location', orgUnit);
+    }
     formSections = formSections.map((formSection) {
       formSection.borderColor = Colors.transparent;
       return formSection;
     }).toList();
-
-    print("enrollmentOuAccessible => ${widget.enrollmentOuAccessible}");
-    print("gapServiceObject => ${widget.gapServiceObject}");
-
-    ///TODO set location in case of access issues
     Timer(const Duration(milliseconds: 200), () {
       _isFormReady = true;
       evaluateSkipLogics(context, formSections, widget.gapServiceObject);
