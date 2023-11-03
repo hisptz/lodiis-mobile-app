@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -19,6 +20,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_school_monitoring.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/ovc_school_monitoring/constants/ovc_school_monitoring_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_monitor/pages/ovc_school_monitoring/skip_logics/ovc_child_school_monitoring_skip_logic.dart';
@@ -40,17 +42,55 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
     super.initState();
-    formSections = OvcSchoolMonitoring.getFormSections();
+    setFormSections();
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
         evaluateSkipLogics();
       });
     });
+  }
+
+  void setFormSections() {
+    var defaultFormSections = OvcSchoolMonitoring.getFormSections();
+    var currentOvc =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild;
+    if (currentOvc?.enrollmentOuAccessible == true) {
+      formSections = defaultFormSections;
+    } else {
+      FormSection serviceProvisionForm =
+          AppUtil.getServiceProvisionLocationSection(
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              sectionLabelColor: const Color(0xFF1A3518),
+              allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+              ],
+              program: OvcInterventionConstant.ovcProgramprogram,
+              formlabel: 'Service Monitoring Location');
+      formSections = [
+        serviceProvisionForm,
+        ...defaultFormSections,
+      ];
+      mandatoryFields = [
+        ...mandatoryFields,
+        ...FormUtil.getFormFieldIds(
+          [serviceProvisionForm],
+          includeLocationId: true,
+        )
+      ];
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
   }
 
   evaluateSkipLogics() {
@@ -181,7 +221,8 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
                                           hiddenFields:
                                               serviceFormState.hiddenFields,
                                           formSections: formSections,
-                                          mandatoryFieldObject: const {},
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
                                           dataObject:
                                               serviceFormState.formState,
                                           isEditableMode:
