@@ -179,8 +179,7 @@ class CasePlanGapViewContainer extends StatelessWidget {
                       casePlanGap:
                           _getCasePlanGapObjects(dataObject['gaps'] ?? []),
                       isHouseholdCasePlan: isHouseholdCasePlan,
-                      hasEditAccess:
-                          hasEditAccessToCasePlan, //TODO checking this if applicable now for edit service monitoring
+                      enrollmentOuAccessible: enrollmentOuAccessible,
                     ),
                   )
                 ],

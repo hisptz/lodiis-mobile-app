@@ -27,6 +27,7 @@ class CasePlanGapServiceMonitoringFormContainer extends StatefulWidget {
     required this.formSectionColor,
     required this.gapServiceMonitoringObject,
     required this.isHouseholdCasePlan,
+    required this.enrollmentOuAccessible,
     required this.isEditableMode,
   }) : super(key: key);
 
@@ -34,6 +35,7 @@ class CasePlanGapServiceMonitoringFormContainer extends StatefulWidget {
   final Color formSectionColor;
   final Map gapServiceMonitoringObject;
   final bool isHouseholdCasePlan;
+  final bool enrollmentOuAccessible;
   final bool isEditableMode;
 
   @override
