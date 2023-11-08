@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -22,6 +23,7 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_house_referral_pages/constants/ovc_household_referral_constant.dart';
@@ -38,18 +40,45 @@ class OvcHouseholdAddReferralForm extends StatefulWidget {
 
 class _OvcHouseholdAddReferralFormState
     extends State<OvcHouseholdAddReferralForm> {
-  //final String label = 'Household Referral Form';
-  List<FormSection>? formSections;
+  List<FormSection> formSections = [];
+  List<String> mandatoryFields = [];
+  Map mandatoryFieldObject = {};
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
+    setFormSections();
+  }
+
+  void setFormSections() {
+    OvcHousehold? household =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
     formSections = OvcReferral.getFormSections();
+    if (household?.enrollmentOuAccessible != true) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Referral Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: OvcInterventionConstant.caregiverProgramprogram,
+        ),
+        ...formSections
+      ];
+      mandatoryFields.add('location');
+    }
+    for (String field in mandatoryFields) {
+      mandatoryFieldObject[field] = true;
+    }
     Timer(const Duration(seconds: 1), () {
+      isFormReady = true;
       setState(() {
-        isFormReady = true;
         evaluateSkipLogics();
       });
     });
@@ -63,7 +92,7 @@ class _OvcHouseholdAddReferralFormState
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcHouseholdReferralSkipLogic.evaluateSkipLogics(
           context,
-          formSections!,
+          formSections,
           dataObject,
         );
       },
@@ -239,7 +268,8 @@ class _OvcHouseholdAddReferralFormState
                                       hiddenInputFieldOptions: serviceFormState
                                           .hiddenInputFieldOptions,
                                       formSections: formSections,
-                                      mandatoryFieldObject: const {},
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
