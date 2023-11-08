@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/referral_outcome_follow_up_event.dart';
 import 'package:provider/provider.dart';
@@ -23,21 +23,7 @@ class ReferralOutComeFollowUp extends StatelessWidget {
   final double editIconHeight = 20;
 
   void editOutComeFollowUp(BuildContext context, Events? eventData) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: true);
-    if (eventData != null) {
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventDate', eventData.eventDate);
-      Provider.of<ServiceFormState>(context, listen: false)
-          .setFormFieldState('eventId', eventData.event);
-      for (Map dataValue in eventData.dataValues) {
-        if (dataValue['value'] != '') {
-          Provider.of<ServiceFormState>(context, listen: false)
-              .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-        }
-      }
-    }
+    FormUtil.updateServiceFormState(context, isEditableMode, eventData);
     onEditFollowUp();
   }
 

@@ -15,15 +15,15 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/o
 import 'package:provider/provider.dart';
 
 class ReferralOutcomeModalOld extends StatefulWidget {
-  const ReferralOutcomeModalOld(
-      {Key? key,
-      required this.themeColor,
-      required this.referralOutcomeFormSections,
-      required this.eventData,
-      required this.hiddenFields,
-      required this.referralToFollowUpLinkage,
-      required this.referralOutcomeMandatoryFields})
-      : super(key: key);
+  const ReferralOutcomeModalOld({
+    Key? key,
+    required this.themeColor,
+    required this.referralOutcomeFormSections,
+    required this.eventData,
+    required this.hiddenFields,
+    required this.referralToFollowUpLinkage,
+    required this.referralOutcomeMandatoryFields,
+  }) : super(key: key);
 
   final Color? themeColor;
   final List<FormSection>? referralOutcomeFormSections;
@@ -46,12 +46,16 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
   @override
   void initState() {
     super.initState();
-    isFormReady = true;
+    setFormState();
+  }
+
+  void setFormState() {
     for (String id in widget.referralOutcomeMandatoryFields) {
       referralOutcomeMandatoryFieldsObject[id] = true;
     }
     evaluateSkipLogics();
     Timer(const Duration(seconds: 1), () {
+      isFormReady = true;
       setState(() {});
     });
   }
@@ -133,7 +137,7 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
                     : 'Form has been saved successfully',
                 position: ToastGravity.TOP,
               );
-              Navigator.pop(context);
+              Navigator.popUntil(context, (route) => route.isFirst);
             });
           });
         } catch (e) {

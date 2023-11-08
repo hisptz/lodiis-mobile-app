@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
@@ -29,6 +28,7 @@ class ReferralOutComeCard extends StatefulWidget {
     required this.referralProgram,
     required this.isOvcIntervention,
     required this.isIncomingReferral,
+    required this.enrollmentOuAccessible,
     this.isEditableMode = true,
     this.isHouseholdReferral = false,
   }) : super(key: key);
@@ -39,6 +39,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
+  final bool enrollmentOuAccessible;
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
   final bool isIncomingReferral;
@@ -59,6 +60,10 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   @override
   void initState() {
     super.initState();
+    setFormState();
+  }
+
+  void setFormState() {
     hiddenFields.add(widget.referralToFollowUpLinkage);
     if (widget.isOvcIntervention) {
       themeColor = const Color(0xFF4B9F46);
@@ -93,20 +98,9 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
     });
   }
 
-  void updateFormState(BuildContext context, Events eventData) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: true);
-    for (Map dataValue in eventData.dataValues) {
-      if (dataValue['value'] != '') {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-      }
-    }
-  }
-
   void onAddReferralOutCome(BuildContext context) async {
-    updateFormState(context, widget.eventData);
+    double modalRatio = 0.75;
+    FormUtil.updateServiceFormState(context, true, widget.eventData);
     Widget modal = ReferralOutcomeModalOld(
       themeColor: themeColor,
       eventData: widget.eventData,
@@ -115,7 +109,12 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       hiddenFields: hiddenFields,
       referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
     );
-    await AppUtil.showPopUpModal(context, modal, true);
+    AppUtil.showActionSheetModal(
+      context: context,
+      containerBody: modal,
+      initialHeightRatio: modalRatio,
+      maxHeightRatio: modalRatio,
+    );
   }
 
   bool getReferralOutComeStatus() {
@@ -152,6 +151,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                       visible: isReferralOutComeFilled,
                       child: ReferralOutComeViewContainer(
                         isEditableMode: widget.isEditableMode,
+                        enrollmentOuAccessible: widget.enrollmentOuAccessible,
                         themeColor: themeColor,
                         eventData: widget.eventData,
                         beneficiary: widget.beneficiary,

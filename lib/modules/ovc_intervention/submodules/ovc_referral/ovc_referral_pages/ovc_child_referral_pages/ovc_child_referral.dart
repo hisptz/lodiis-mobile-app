@@ -42,7 +42,6 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
     String eventId = '';
     String formAutoSaveId =
         '${OvcRoutesConstant.ovcReferralFormPage}_${beneficiaryId}_$eventId';
-
     FormAutoSave formAutoSave =
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
@@ -156,8 +155,8 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                                   canManageReferral: currentOvcHousehold
                                                               ?.hasExitedProgram !=
                                                           true &&
-                                                      currentOvcHouseholdChild!
-                                                              .hasExitedProgram !=
+                                                      currentOvcHouseholdChild
+                                                              ?.hasExitedProgram !=
                                                           true,
                                                   cardBody:
                                                       ReferralCardBodySummary(
@@ -188,13 +187,12 @@ class _OvcChildReferralState extends State<OvcChildReferral> {
                                         ),
                                 ),
                                 Visibility(
-                                  visible: currentOvcHouseholdChild!
-                                          .enrollmentOuAccessible! &&
+                                  visible:
                                       currentOvcHousehold?.hasExitedProgram !=
-                                          true &&
-                                      currentOvcHouseholdChild
-                                              .hasExitedProgram !=
-                                          true,
+                                              true &&
+                                          currentOvcHouseholdChild
+                                                  ?.hasExitedProgram !=
+                                              true,
                                   child: EntryFormSaveButton(
                                     label: currentLanguage == 'lesotho'
                                         ? 'Kenya Phetisetso'.toUpperCase()
