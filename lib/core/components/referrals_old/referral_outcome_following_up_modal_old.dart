@@ -67,7 +67,7 @@ class _ReferralOutComeFollowUpModalOldState
             AppHierarchyReference.communityLevel,
           ],
           program: widget.referralProgram,
-          formlabel: 'Referral Completion Location',
+          formlabel: 'Referral Outcome Follow ups Location',
         ),
         ...formSections
       ];
@@ -87,21 +87,35 @@ class _ReferralOutComeFollowUpModalOldState
     BuildContext context,
     Map dataObject,
   ) async {
-    if (getReferralOutComeFollowUpStatus(dataObject)) {
+    unFilledMandatoryFields = [];
+    setState(() {});
+    List mandatoryFields = mandatoryFieldsObject.keys.toList();
+    bool isAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections,
+      ),
+    );
+    if (isAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
       try {
-        //TODO Orgunit support
         dataObject[widget.referralToFollowUpLinkage] =
             dataObject[widget.referralToFollowUpLinkage] ?? '';
+        String orgUnit =
+            dataObject['location'] ?? widget.beneficiary?.orgUnit ?? '';
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           widget.referralProgram,
           widget.referralFollowUpStage,
-          widget.beneficiary!.orgUnit, //TODO check this
+          orgUnit,
           formSections,
           dataObject,
           null,
-          widget.beneficiary!.trackedEntityInstance,
+          widget.beneficiary?.trackedEntityInstance,
           null,
           [widget.referralToFollowUpLinkage],
         );
@@ -125,16 +139,33 @@ class _ReferralOutComeFollowUpModalOldState
         });
       } catch (e) {
         Timer(const Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-            AppUtil.showToastMessage(
-              message: e.toString(),
-              position: ToastGravity.BOTTOM,
-            );
-            Navigator.pop(context);
-          });
+          isSaving = false;
+          setState(() {});
+          AppUtil.showToastMessage(
+            message: e.toString(),
+            position: ToastGravity.BOTTOM,
+          );
+          Navigator.pop(context);
         });
       }
+    } else {
+      setState(() {
+        unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+          mandatoryFields,
+          dataObject,
+          hiddenFields: Provider.of<ServiceFormState>(context, listen: false)
+              .hiddenFields,
+          checkBoxInputFields: FormUtil.getInputFieldByValueType(
+            valueType: 'CHECK_BOX',
+            formSections: formSections,
+          ),
+        );
+      });
+      AppUtil.showToastMessage(
+        message: 'Please fill all mandatory field',
+      );
+    }
+    if (getReferralOutComeFollowUpStatus(dataObject)) {
     } else {
       AppUtil.showToastMessage(
         message: 'Please fill at least one form field',
@@ -176,6 +207,7 @@ class _ReferralOutComeFollowUpModalOldState
                   dataObject: serviceFormState.formState,
                   isEditableMode: serviceFormState.isEditableMode,
                   onInputValueChange: onInputValueChange,
+                  unFilledMandatoryFields: unFilledMandatoryFields,
                 ),
               ),
               Container(
