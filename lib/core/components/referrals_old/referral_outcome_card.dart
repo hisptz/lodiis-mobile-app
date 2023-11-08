@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/line_separator.dart';
@@ -59,6 +58,10 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   @override
   void initState() {
     super.initState();
+    setFormState();
+  }
+
+  void setFormState() {
     hiddenFields.add(widget.referralToFollowUpLinkage);
     if (widget.isOvcIntervention) {
       themeColor = const Color(0xFF4B9F46);
@@ -93,20 +96,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
     });
   }
 
-  void updateFormState(BuildContext context, Events eventData) {
-    Provider.of<ServiceFormState>(context, listen: false).resetFormState();
-    Provider.of<ServiceFormState>(context, listen: false)
-        .updateFormEditabilityState(isEditableMode: true);
-    for (Map dataValue in eventData.dataValues) {
-      if (dataValue['value'] != '') {
-        Provider.of<ServiceFormState>(context, listen: false)
-            .setFormFieldState(dataValue['dataElement'], dataValue['value']);
-      }
-    }
-  }
-
   void onAddReferralOutCome(BuildContext context) async {
-    updateFormState(context, widget.eventData);
+    FormUtil.updateServiceFormState(context, true, widget.eventData);
     Widget modal = ReferralOutcomeModalOld(
       themeColor: themeColor,
       eventData: widget.eventData,
