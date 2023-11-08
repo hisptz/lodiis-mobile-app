@@ -16,18 +16,19 @@ import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
 import 'package:provider/provider.dart';
 
 class ReferralOutComeViewContainer extends StatefulWidget {
-  const ReferralOutComeViewContainer(
-      {Key? key,
-      required this.themeColor,
-      required this.eventData,
-      required this.beneficiary,
-      required this.referralFollowUpStage,
-      required this.referralToFollowUpLinkage,
-      required this.referralProgram,
-      required this.isEditableMode,
-      required this.referralOutcomeFollowUpFormSections,
-      required this.onEditReferralOutCome})
-      : super(key: key);
+  const ReferralOutComeViewContainer({
+    Key? key,
+    required this.themeColor,
+    required this.eventData,
+    required this.beneficiary,
+    required this.referralFollowUpStage,
+    required this.referralToFollowUpLinkage,
+    required this.referralProgram,
+    required this.isEditableMode,
+    required this.enrollmentOuAccessible,
+    required this.referralOutcomeFollowUpFormSections,
+    required this.onEditReferralOutCome,
+  }) : super(key: key);
 
   final Color? themeColor;
   final Events eventData;
@@ -36,6 +37,7 @@ class ReferralOutComeViewContainer extends StatefulWidget {
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
+  final bool enrollmentOuAccessible;
   final List<FormSection>? referralOutcomeFollowUpFormSections;
   final Function onEditReferralOutCome;
 
@@ -53,9 +55,13 @@ class _ReferralOutComeViewContainerState
   @override
   void initState() {
     super.initState();
+    setReferralOutComeView();
+  }
+
+  void setReferralOutComeView() {
     Timer(
       const Duration(
-        seconds: 1,
+        milliseconds: 400,
       ),
       () {
         setState(
@@ -183,6 +189,7 @@ class _ReferralOutComeViewContainerState
                       height: 1.0,
                     ),
                     ReferralOutComeView(
+                      enrollmentOuAccessible: widget.enrollmentOuAccessible,
                       isEditableMode: widget.isEditableMode,
                       referralOutComeEvent: referralOutComeEvent,
                       beneficiary: widget.beneficiary,

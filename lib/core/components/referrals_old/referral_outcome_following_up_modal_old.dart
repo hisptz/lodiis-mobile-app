@@ -6,6 +6,7 @@ import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_ev
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
@@ -17,6 +18,7 @@ class ReferralOutComeFollowUpModalOld extends StatefulWidget {
   const ReferralOutComeFollowUpModalOld({
     Key? key,
     required this.themeColor,
+    required this.enrollmentOuAccessible,
     required this.referralToFollowUpLinkage,
     required this.referralOutcomeFollowUpFormSections,
     required this.beneficiary,
@@ -26,7 +28,8 @@ class ReferralOutComeFollowUpModalOld extends StatefulWidget {
 
   final Color? themeColor;
   final String referralToFollowUpLinkage;
-  final List<FormSection>? referralOutcomeFollowUpFormSections;
+  final List<FormSection> referralOutcomeFollowUpFormSections;
+  final bool enrollmentOuAccessible;
   final TrackedEntityInstance? beneficiary;
   final String referralFollowUpStage;
   final String referralProgram;
@@ -38,12 +41,37 @@ class ReferralOutComeFollowUpModalOld extends StatefulWidget {
 
 class _ReferralOutComeFollowUpModalOldState
     extends State<ReferralOutComeFollowUpModalOld> {
+  List<FormSection> formSections = [];
+  final Map mandatoryFieldsObject = {};
+  List unFilledMandatoryFields = [];
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
+    setFormState();
+  }
+
+  void setFormState() {
+    mandatoryFieldsObject.clear();
+    formSections = widget.referralOutcomeFollowUpFormSections;
+    if (!widget.enrollmentOuAccessible) {
+      mandatoryFieldsObject['location'] = true;
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: widget.referralProgram,
+          formlabel: 'Referral Completion Location',
+        ),
+        ...formSections
+      ];
+    }
     Timer(const Duration(seconds: 1), () {
       isFormReady = true;
       setState(() {});
@@ -60,17 +88,17 @@ class _ReferralOutComeFollowUpModalOldState
     Map dataObject,
   ) async {
     if (getReferralOutComeFollowUpStatus(dataObject)) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
       try {
+        //TODO Orgunit support
         dataObject[widget.referralToFollowUpLinkage] =
             dataObject[widget.referralToFollowUpLinkage] ?? '';
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           widget.referralProgram,
           widget.referralFollowUpStage,
-          widget.beneficiary!.orgUnit,
-          widget.referralOutcomeFollowUpFormSections!,
+          widget.beneficiary!.orgUnit, //TODO check this
+          formSections,
           dataObject,
           null,
           widget.beneficiary!.trackedEntityInstance,
@@ -118,7 +146,7 @@ class _ReferralOutComeFollowUpModalOldState
   bool getReferralOutComeFollowUpStatus(Map dataObject) {
     bool isReferralOutcomeFilled = false;
     List<String> inputFields =
-        FormUtil.getFormFieldIds(widget.referralOutcomeFollowUpFormSections!);
+        FormUtil.getFormFieldIds(widget.referralOutcomeFollowUpFormSections);
     for (String id in inputFields) {
       if (dataObject.containsKey(id) && '${dataObject[id]}'.trim() != '') {
         isReferralOutcomeFilled = true;
@@ -143,8 +171,8 @@ class _ReferralOutComeFollowUpModalOldState
                 ),
                 child: EntryFormContainer(
                   elevation: 0.0,
-                  formSections: widget.referralOutcomeFollowUpFormSections,
-                  mandatoryFieldObject: const {},
+                  formSections: formSections,
+                  mandatoryFieldObject: mandatoryFieldsObject,
                   dataObject: serviceFormState.formState,
                   isEditableMode: serviceFormState.isEditableMode,
                   onInputValueChange: onInputValueChange,

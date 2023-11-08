@@ -137,7 +137,7 @@ class _ReferralOutcomeModalOldState extends State<ReferralOutcomeModalOld> {
                     : 'Form has been saved successfully',
                 position: ToastGravity.TOP,
               );
-              Navigator.pop(context);
+              Navigator.popUntil(context, (route) => route.isFirst);
             });
           });
         } catch (e) {

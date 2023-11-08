@@ -28,6 +28,7 @@ class ReferralOutComeCard extends StatefulWidget {
     required this.referralProgram,
     required this.isOvcIntervention,
     required this.isIncomingReferral,
+    required this.enrollmentOuAccessible,
     this.isEditableMode = true,
     this.isHouseholdReferral = false,
   }) : super(key: key);
@@ -38,6 +39,7 @@ class ReferralOutComeCard extends StatefulWidget {
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
+  final bool enrollmentOuAccessible;
   final bool isOvcIntervention;
   final bool isHouseholdReferral;
   final bool isIncomingReferral;
@@ -97,6 +99,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
   }
 
   void onAddReferralOutCome(BuildContext context) async {
+    double modalRatio = 0.75;
     FormUtil.updateServiceFormState(context, true, widget.eventData);
     Widget modal = ReferralOutcomeModalOld(
       themeColor: themeColor,
@@ -106,7 +109,12 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       hiddenFields: hiddenFields,
       referralToFollowUpLinkage: widget.referralToFollowUpLinkage,
     );
-    await AppUtil.showPopUpModal(context, modal, true);
+    AppUtil.showActionSheetModal(
+      context: context,
+      containerBody: modal,
+      initialHeightRatio: modalRatio,
+      maxHeightRatio: modalRatio,
+    );
   }
 
   bool getReferralOutComeStatus() {
@@ -143,6 +151,7 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
                       visible: isReferralOutComeFilled,
                       child: ReferralOutComeViewContainer(
                         isEditableMode: widget.isEditableMode,
+                        enrollmentOuAccessible: widget.enrollmentOuAccessible,
                         themeColor: themeColor,
                         eventData: widget.eventData,
                         beneficiary: widget.beneficiary,
