@@ -12,6 +12,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
@@ -164,65 +165,86 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
   void onSaveForm(
     BuildContext context,
     Map dataObject,
+    Map hiddenFieldsObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
+    bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
+      hiddenFields: hiddenFieldsObject,
+      formSections: formSections,
+      dataObject: dataObject,
+    );
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields: hiddenFieldsObject,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections,
+      ),
+    );
+    if (hadAllMandatoryFilled) {
+      if (hasAtLeasrOnFieldFilled) {
         isSaving = true;
-      });
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] =
-          dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] ??
-              AppUtil.getUid();
-      List<String> hiddenFields = [
-        OvcChildReferralConstant.referralToFollowUpLinkage
-      ];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcChildReferralConstant.program,
-          OvcChildReferralConstant.referralStage,
-          currentOvcHouseholdChild!.orgUnit,
-          formSections!,
-          dataObject,
-          eventDate,
-          currentOvcHouseholdChild.id,
-          eventId,
-          hiddenFields,
-        );
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseholdChild.id);
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-          });
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
+        setState(() {});
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        String orgUnit =
+            dataObject['location'] ?? currentOvcHouseholdChild?.orgUnit ?? '';
+        dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] =
+            dataObject[OvcChildReferralConstant.referralToFollowUpLinkage] ??
+                AppUtil.getUid();
+        List<String> hiddenFields = [
+          OvcChildReferralConstant.referralToFollowUpLinkage
+        ];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            OvcChildReferralConstant.program,
+            OvcChildReferralConstant.referralStage,
+            orgUnit,
+            formSections,
+            dataObject,
+            eventDate,
+            currentOvcHouseholdChild?.id,
+            eventId,
+            hiddenFields,
           );
-          clearFormAutoSaveState(
-              context, currentOvcHouseholdChild.id, eventId ?? '');
-          Navigator.pop(context);
-        });
-      } catch (e) {
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(currentOvcHouseholdChild?.id);
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+            });
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
             AppUtil.showToastMessage(
-              message: e.toString(),
-              position: ToastGravity.BOTTOM,
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
             );
+            clearFormAutoSaveState(
+                context, currentOvcHouseholdChild?.id, eventId ?? '');
+            Navigator.pop(context);
           });
-        });
+        } catch (e) {
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              AppUtil.showToastMessage(
+                message: e.toString(),
+                position: ToastGravity.BOTTOM,
+              );
+            });
+          });
+        }
+      } else {
+        AppUtil.showToastMessage(
+          message: 'Please fill at least one field',
+        );
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least one form field',
-        position: ToastGravity.TOP,
+        message: 'Please fill all mandatory fields',
       );
     }
   }
@@ -305,6 +327,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
                                     onPressButton: () => onSaveForm(
                                       context,
                                       serviceFormState.formState,
+                                      serviceFormState.hiddenFields,
                                       currentOvcHouseholdChild,
                                     ),
                                   )
