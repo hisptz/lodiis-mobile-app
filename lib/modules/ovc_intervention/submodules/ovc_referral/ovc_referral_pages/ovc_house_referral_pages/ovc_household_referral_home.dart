@@ -212,11 +212,9 @@ class _OvcHouseholdReferralHomeState extends State<OvcHouseholdReferralHome> {
                                             ),
                                     ),
                                     Visibility(
-                                      visible: currentOvcHousehold!
-                                              .enrollmentOuAccessible! &&
-                                          currentOvcHousehold
-                                                  .hasExitedProgram !=
-                                              true,
+                                      visible: currentOvcHousehold
+                                              ?.hasExitedProgram !=
+                                          true,
                                       child: EntryFormSaveButton(
                                         label: currentLanguage == 'lesotho'
                                             ? 'Kenya Phetisetso'.toUpperCase()
