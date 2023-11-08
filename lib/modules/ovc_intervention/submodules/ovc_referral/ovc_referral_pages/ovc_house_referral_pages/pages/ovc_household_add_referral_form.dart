@@ -53,6 +53,7 @@ class _OvcHouseholdAddReferralFormState
   }
 
   void setFormSections() {
+    mandatoryFieldObject.clear();
     OvcHousehold? household =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHousehold;
@@ -151,18 +152,18 @@ class _OvcHouseholdAddReferralFormState
   void onSaveForm(
     BuildContext context,
     Map dataObject,
-    Map hiddenFields,
+    Map hiddenFieldsObject,
     OvcHousehold? currentOvcHousehold,
   ) async {
     bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
-      hiddenFields: hiddenFields,
+      hiddenFields: hiddenFieldsObject,
       formSections: formSections,
       dataObject: dataObject,
     );
     bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
-      hiddenFields: hiddenFields,
+      hiddenFields: hiddenFieldsObject,
       checkBoxInputFields: FormUtil.getInputFieldByValueType(
         valueType: 'CHECK_BOX',
         formSections: formSections,

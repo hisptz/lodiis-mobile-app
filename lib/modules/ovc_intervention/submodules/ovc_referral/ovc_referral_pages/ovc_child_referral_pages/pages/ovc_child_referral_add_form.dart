@@ -23,6 +23,7 @@ import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/models/ovc_referral.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_referral/ovc_referral_pages/ovc_child_referral_pages/constants/ovc_child_referral_constant.dart';
@@ -38,14 +39,43 @@ class OvcChildReferralAddForm extends StatefulWidget {
 }
 
 class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
-  List<FormSection>? formSections;
+  List<FormSection> formSections = [];
+  List<String> mandatoryFields = [];
+  Map mandatoryFieldObject = {};
   bool isFormReady = false;
   bool isSaving = false;
 
   @override
   void initState() {
     super.initState();
+    setFormState();
+  }
+
+  void setFormState() {
+    mandatoryFieldObject.clear();
+    OvcHouseholdChild currentOvcHousehold =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHouseholdChild!;
     formSections = OvcReferral.getFormSections();
+    if (currentOvcHousehold.enrollmentOuAccessible != true) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Referral Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: OvcInterventionConstant.ovcProgramprogram,
+        ),
+        ...formSections
+      ];
+      mandatoryFields.add('location');
+    }
+    for (String field in mandatoryFields) {
+      mandatoryFieldObject[field] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       isFormReady = true;
       _autoPopulatingNextOfKinInfo();
@@ -82,7 +112,6 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
     var ovc =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild!;
-
     String? beneficiaryId = ovc.id;
     Map dataObject =
         Provider.of<ServiceFormState>(context, listen: false).formState;
@@ -111,7 +140,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
             Provider.of<ServiceFormState>(context, listen: false).formState;
         await OvcChildReferralSkipLogic.evaluateSkipLogics(
           context,
-          formSections!,
+          formSections,
           dataObject,
         );
       },
@@ -254,7 +283,8 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
                                       hiddenInputFieldOptions: serviceFormState
                                           .hiddenInputFieldOptions,
                                       formSections: formSections,
-                                      mandatoryFieldObject: const {},
+                                      mandatoryFieldObject:
+                                          mandatoryFieldObject,
                                       isEditableMode:
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
