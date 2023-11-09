@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/int
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -21,6 +22,7 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_household_service.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_information.dart';
@@ -46,7 +48,29 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
   @override
   void initState() {
     super.initState();
+    setFormSection();
+  }
+
+  void setFormSection() {
+    OvcHousehold? household =
+        Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
+            .currentOvcHousehold;
     formSections = OvcExitInformation.getFormSections();
+    formSections = household!.enrollmentOuAccessible == true
+        ? formSections
+        : [
+            AppUtil.getServiceProvisionLocationSection(
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              sectionLabelColor: const Color(0xFF1A3518),
+              formlabel: 'Location',
+              allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+              ],
+              program: OvcInterventionConstant.caregiverProgramprogram,
+            ),
+            ...formSections ?? []
+          ];
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -73,29 +97,34 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       String programStatusId = 'PN92g65TkVI';
+      String orgUnit =
+          dataObject['location'] ?? currentOvcHousehold?.orgUnit ?? '';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcHouseholdExitConstant.program,
+          OvcInterventionConstant.caregiverProgramprogram,
           OvcHouseholdExitConstant.programStage,
-          currentOvcHousehold!.orgUnit,
+          orgUnit,
           formSections!,
           dataObject,
           eventDate,
-          currentOvcHousehold.id,
+          currentOvcHousehold?.id ?? '',
           eventId,
           null,
         );
         await OvcEnrollmentHouseholdService().updateHouseholdStatus(
-            trackedEntityInstance: currentOvcHousehold.id,
-            orgUnit: currentOvcHousehold.orgUnit,
-            dataObject: {programStatusId: ProgramStatus.exit},
-            inputFieldIds: [programStatusId]);
+          trackedEntityInstance: currentOvcHousehold?.id ?? '',
+          orgUnit: orgUnit,
+          dataObject: {
+            programStatusId: ProgramStatus.exit,
+          },
+          inputFieldIds: [programStatusId],
+        );
         Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .refetchCurrentHousehold();
         Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHousehold.id);
+            .resetServiceEventDataState(currentOvcHousehold?.id ?? '');
         Timer(const Duration(seconds: 1), () {
           setState(() {
             isSaving = false;
@@ -110,7 +139,7 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
             position: ToastGravity.TOP,
           );
           clearFormAutoSaveState(
-              context, currentOvcHousehold.id, eventId ?? '');
+              context, currentOvcHousehold?.id ?? '', eventId ?? '');
           Navigator.pop(context);
         });
       } catch (e) {

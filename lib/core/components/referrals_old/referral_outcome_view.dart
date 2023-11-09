@@ -24,6 +24,7 @@ class ReferralOutComeView extends StatelessWidget {
     required this.referralOutcomeFollowUpFormSections,
     required this.referralProgram,
     required this.isEditableMode,
+    required this.enrollmentOuAccessible,
   }) : super(key: key);
 
   final ReferralOutcomeEvent? referralOutComeEvent;
@@ -34,6 +35,7 @@ class ReferralOutComeView extends StatelessWidget {
   final String referralToFollowUpLinkage;
   final String referralProgram;
   final bool isEditableMode;
+  final bool enrollmentOuAccessible;
 
   void updateFormState(BuildContext context, String? referralReference) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
@@ -44,28 +46,44 @@ class ReferralOutComeView extends StatelessWidget {
   }
 
   void onAddReferralOutComeFollowUp(BuildContext context) async {
+    double modalRatio = 0.75;
     updateFormState(context, referralOutComeEvent!.referralReference);
     Widget modal = ReferralOutComeFollowUpModalOld(
       themeColor: themeColor,
       referralProgram: referralProgram,
+      enrollmentOuAccessible: enrollmentOuAccessible,
       referralFollowUpStage: referralFollowUpStage,
       referralToFollowUpLinkage: referralToFollowUpLinkage,
-      referralOutcomeFollowUpFormSections: referralOutcomeFollowUpFormSections,
+      referralOutcomeFollowUpFormSections:
+          referralOutcomeFollowUpFormSections ?? [],
       beneficiary: beneficiary,
     );
-    await AppUtil.showPopUpModal(context, modal, true);
+    AppUtil.showActionSheetModal(
+      context: context,
+      containerBody: modal,
+      initialHeightRatio: modalRatio,
+      maxHeightRatio: modalRatio,
+    );
   }
 
   void onEditOutComeFollowUp(BuildContext context) async {
+    double modalRatio = 0.75;
     Widget modal = ReferralOutComeFollowUpModalOld(
       themeColor: themeColor,
       referralProgram: referralProgram,
+      enrollmentOuAccessible: enrollmentOuAccessible,
       referralFollowUpStage: referralFollowUpStage,
       referralToFollowUpLinkage: referralToFollowUpLinkage,
-      referralOutcomeFollowUpFormSections: referralOutcomeFollowUpFormSections,
+      referralOutcomeFollowUpFormSections:
+          referralOutcomeFollowUpFormSections ?? [],
       beneficiary: beneficiary,
     );
-    await AppUtil.showPopUpModal(context, modal, true);
+    AppUtil.showActionSheetModal(
+      context: context,
+      containerBody: modal,
+      initialHeightRatio: modalRatio,
+      maxHeightRatio: modalRatio,
+    );
   }
 
   List<ReferralOutcomeFollowUpEvent> getReferralOutComeFollowUps(
@@ -268,7 +286,8 @@ class ReferralOutComeView extends StatelessWidget {
                       Visibility(
                         visible: isEditableMode &&
                             referralOutComeEvent!.requiredFollowUp! &&
-                            referralOutComeEvent!.enrollmentOuAccessible!,
+                            referralOutComeEvent!
+                                .enrollmentOuAccessible!, //TODO
                         child: Container(
                           decoration: BoxDecoration(
                             color: themeColor,

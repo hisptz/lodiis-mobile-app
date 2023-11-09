@@ -12,6 +12,7 @@ class OvcCasePlanServiceMonitoringHouseholdToOvcUtil {
     required List<OvcHouseholdChild> childrens,
     required Map dataObject,
     required String domainId,
+    required String orgUnit,
   }) async {
     try {
       List<FormSection> formSections =
@@ -33,16 +34,16 @@ class OvcCasePlanServiceMonitoringHouseholdToOvcUtil {
           if (dataObject.isNotEmpty) {
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(
-              OvcChildCasePlanConstant.program,
-              OvcChildCasePlanConstant.casePlanGapServiceMonitoringProgramStage,
-              child.orgUnit,
-              formSections,
-              dataObject,
-              dataObject['eventDate'],
-              child.id,
-              dataObject['eventId'],
-              [OvcCasePlanConstant.casePlanGapToMonitoringLinkage],
-            );
+                    OvcChildCasePlanConstant.program,
+                    OvcChildCasePlanConstant
+                        .casePlanGapServiceMonitoringProgramStage,
+                    orgUnit,
+                    formSections,
+                    dataObject,
+                    dataObject['eventDate'],
+                    child.id,
+                    dataObject['eventId'],
+                    [OvcCasePlanConstant.casePlanGapToMonitoringLinkage]);
           }
         }
       }

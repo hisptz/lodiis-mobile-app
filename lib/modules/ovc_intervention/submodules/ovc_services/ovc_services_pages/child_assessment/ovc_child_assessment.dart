@@ -30,7 +30,9 @@ class OvcChildAssessment extends StatelessWidget {
   const OvcChildAssessment({Key? key}) : super(key: key);
 
   void onAddNewChildAssessment(
-      BuildContext context, OvcHouseholdChild child) async {
+    BuildContext context,
+    OvcHouseholdChild child,
+  ) async {
     updateFormStateData(context, null, child);
     Widget model = const OvcChildAssessmentSelection();
     String? assessmentResponse =
@@ -39,7 +41,10 @@ class OvcChildAssessment extends StatelessWidget {
   }
 
   void onRedirectToAssessmentForm(
-      BuildContext context, String? assessmentResponse, bool isEditableMode) {
+    BuildContext context,
+    String? assessmentResponse,
+    bool isEditableMode,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (assessmentResponse != null) {
@@ -70,7 +75,10 @@ class OvcChildAssessment extends StatelessWidget {
   }
 
   void updateFormStateData(
-      BuildContext context, Events? eventData, OvcHouseholdChild child) {
+    BuildContext context,
+    Events? eventData,
+    OvcHouseholdChild child,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .setFormFieldState('age', child.age);
@@ -79,6 +87,8 @@ class OvcChildAssessment extends StatelessWidget {
           .setFormFieldState('eventDate', eventData.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', eventData.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', eventData.orgUnit);
       for (Map dataValue in eventData.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -200,10 +210,9 @@ class OvcChildAssessment extends StatelessWidget {
                       },
                     ),
                     Visibility(
-                      visible: currentOvcHouseholdChild!
-                              .enrollmentOuAccessible! &&
-                          (currentOvcHouseholdChild.hasExitedProgram != true &&
-                              currentHousehold?.hasExitedProgram != true),
+                      visible:
+                          currentOvcHouseholdChild?.hasExitedProgram != true &&
+                              currentHousehold?.hasExitedProgram != true,
                       child: EntryFormSaveButton(
                         label: currentLanguage == 'lesotho'
                             ? 'Hlahlobo e ncha'
@@ -212,7 +221,9 @@ class OvcChildAssessment extends StatelessWidget {
                         fontSize: 14,
                         buttonColor: const Color(0xFF4B9F46),
                         onPressButton: () => onAddNewChildAssessment(
-                            context, currentOvcHouseholdChild),
+                          context,
+                          currentOvcHouseholdChild!,
+                        ),
                       ),
                     )
                   ],

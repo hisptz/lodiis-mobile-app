@@ -14,9 +14,9 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required String currentCasePlanDate,
     required List<OvcHouseholdChild> childrens,
     required Map dataObject,
+    required String orgUnit,
   }) async {
     try {
-      //TODO later refactor merge with existing case plans for children if exist
       List<FormSection> formSections = OvcServicesCasePlan.getFormSections();
       Map<String, dynamic> sanitizedDataObjects =
           getSanitizedCaregiverDataObjects(dataObject);
@@ -44,7 +44,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             OvcChildCasePlanConstant.program,
             OvcChildCasePlanConstant.casePlanProgramStage,
-            child.orgUnit,
+            orgUnit,
             domainFormSections,
             domainDataObject,
             domainDataObject['eventDate'],
@@ -63,7 +63,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
                 .savingTrackedEntityInstanceEventData(
               OvcChildCasePlanConstant.program,
               OvcChildCasePlanConstant.casePlanGapProgramStage,
-              child.orgUnit,
+              orgUnit,
               domainGapFormSections,
               domainGapDataObject,
               domainGapDataObject['eventDate'],
