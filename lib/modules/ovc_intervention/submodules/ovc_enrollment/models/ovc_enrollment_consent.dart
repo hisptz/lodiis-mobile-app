@@ -8,6 +8,7 @@ class OvcEnrollmentConsent {
   static List<String> getMandatoryField() {
     return [
       'location',
+      'enrollmentDate',
       'OVaqHW5kimy',
       'JCI4nxcE4N6',
       'XVRQaLDDSpx',
@@ -23,20 +24,31 @@ class OvcEnrollmentConsent {
     return [
       FormSection(name: '', color: const Color(0xFF737373), inputFields: [
         InputField(
-            id: 'location',
-            name: 'Location',
-            translatedName: 'Sebaka',
-            valueType: 'ORGANISATION_UNIT',
-            allowedSelectedLevels: [
-              AppHierarchyReference.communityLevel,
-              AppHierarchyReference.facilityLevel
-            ],
-            filteredPrograms: [
-              OvcInterventionConstant.ovcProgramprogram,
-              OvcInterventionConstant.caregiverProgramprogram,
-            ],
-            inputColor: const Color(0xFF4B9F46),
-            labelColor: const Color(0xFF737373)),
+          id: 'location',
+          name: 'Location',
+          translatedName: 'Sebaka',
+          valueType: 'ORGANISATION_UNIT',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+            AppHierarchyReference.facilityLevel
+          ],
+          filteredPrograms: [
+            OvcInterventionConstant.ovcProgramprogram,
+            OvcInterventionConstant.caregiverProgramprogram,
+          ],
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF737373),
+        ),
+        InputField(
+          id: 'enrollmentDate',
+          isReadOnly: false,
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF737373),
+          name: 'Date of Enrollment to Program',
+          translatedName: "Letsatsi leo lelapa le keneng ka hara morero",
+          valueType: 'DATE',
+          allowFuturePeriod: false,
+        ),
         InputField(
             id: 'OVaqHW5kimy',
             name:
