@@ -174,7 +174,9 @@ class SynchronizationState with ChangeNotifier {
     notifyListeners();
   }
 
-  checkingForAvailableBeneficiaryData(BuildContext context,) async {
+  checkingForAvailableBeneficiaryData(
+    BuildContext context,
+  ) async {
     String currentLanguage =
         Provider.of<LanguageTranslationState>(context, listen: false)
             .currentLanguage;
@@ -284,8 +286,10 @@ class SynchronizationState with ChangeNotifier {
         await startDataUploadActivity();
         break;
       case SynchronizationActionsConstants.downloadAndUpload:
-        await startDataDownloadActivity(skipUpload: false);
-        await startDataUploadActivity();
+        if (hasUnsyncedData) {
+          await startDataUploadActivity();
+        }
+        await startDataDownloadActivity();
         break;
       default:
         break;
@@ -321,7 +325,7 @@ class SynchronizationState with ChangeNotifier {
     );
   }
 
-  Future startDataDownloadActivity({bool skipUpload = true}) async {
+  Future startDataDownloadActivity() async {
     profileDataDownloadProgress = 0.0;
     eventsDataDownloadProgress = 0.0;
     overallDownloadProgress = 0.0;
