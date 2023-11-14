@@ -177,7 +177,7 @@ class _OvcEnrollmentHouseholdViewEditContainerState
       String orgUnit = dataObject['orgUnit'] ?? '';
       String enrollment = dataObject['enrollment'] ?? '';
       String enrollmentDate = dataObject['enrollmentDate'] ?? '';
-      String incidentDate = dataObject['incidentDate'] ?? '';
+      String incidentDate = dataObject['incidentDate'] ?? enrollmentDate;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,
         BeneficiaryIdentification.beneficiaryIndex,

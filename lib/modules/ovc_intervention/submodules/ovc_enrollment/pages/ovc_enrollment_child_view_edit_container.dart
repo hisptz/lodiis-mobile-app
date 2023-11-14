@@ -109,7 +109,7 @@ class _OvcEnrollmentChildViewEditContainerState
           dataObject['parentTrackedEntityInstance'];
       String? orgUnit = dataObject['orgUnit'];
       String? enrollmentDate = dataObject['enrollmentDate'];
-      String? incidentDate = dataObject['incidentDate'];
+      String? incidentDate = dataObject['incidentDate'] ?? enrollmentDate;
       bool shouldEnroll = dataObject['trackedEntityInstance'] == null;
       List<String> hiddenFields = [
         BeneficiaryIdentification.beneficiaryId,

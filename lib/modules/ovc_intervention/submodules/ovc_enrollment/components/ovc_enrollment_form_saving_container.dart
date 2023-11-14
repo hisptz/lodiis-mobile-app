@@ -84,13 +84,16 @@ class _OvcEnrollementFormSavingContaninerState
               user.subImplementingPartner;
     }
     String? orgUnit = dataObject['location'];
+    String enrollment = dataObject['enrollment'];
+    String enrollmentDate = dataObject['enrollmentDate'] ?? '';
+    String incidentDate = dataObject['incidentDate'] ?? enrollmentDate;
     await OvcEnrollmentHouseholdService().savingHouseholdForm(
       dataObject,
       trackedEntityInstance,
       orgUnit,
-      null,
-      null,
-      null,
+      enrollment,
+      enrollmentDate,
+      incidentDate,
       shouldEnroll,
       hiddenFields,
     );
@@ -98,8 +101,8 @@ class _OvcEnrollementFormSavingContaninerState
       trackedEntityInstance,
       orgUnit,
       childMapObjects,
-      null,
-      null,
+      enrollmentDate,
+      incidentDate,
       shouldEnroll,
       hiddenFields,
     );
