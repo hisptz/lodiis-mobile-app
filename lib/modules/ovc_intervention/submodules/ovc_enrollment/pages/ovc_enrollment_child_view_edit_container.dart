@@ -198,11 +198,11 @@ class _OvcEnrollmentChildViewEditContainerState
     if (id == 'enrollmentDate') {
       Map dataObject =
           Provider.of<EnrollmentFormState>(context, listen: false).formState;
-      String previousEnrollmentDate = dataObject['enrollmentDate'];
+      String previousEnrollmentDate = dataObject['enrollmentDate'] ?? '';
       if (previousEnrollmentDate != value) {
         String dobId = 'qZP982qpSPS';
         Provider.of<EnrollmentFormState>(context, listen: false)
-            .setFormFieldState(dobId, '');
+            .setFormFieldState(dobId, null);
       }
     }
     Provider.of<EnrollmentFormState>(context, listen: false)
