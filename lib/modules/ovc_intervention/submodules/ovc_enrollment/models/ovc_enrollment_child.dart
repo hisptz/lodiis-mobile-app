@@ -73,7 +73,6 @@ class OvcEnrollmentChild {
                 name: 'Date of Enrollment to Program',
                 translatedName: "Letsatsi leo lelapa le keneng ka hara morero",
                 valueType: 'DATE',
-                allowFuturePeriod: false,
               ),
               InputField(
                 id: 'iS9mAp3jDaU',

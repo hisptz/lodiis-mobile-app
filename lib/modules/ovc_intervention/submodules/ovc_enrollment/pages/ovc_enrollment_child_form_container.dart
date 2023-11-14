@@ -142,7 +142,7 @@ class _OvcEnrollmentChildFormContainerState
 
   void onInputValueChange(String id, dynamic value) {
     if (id == 'enrollmentDate') {
-      String previousEnrollmentDate = childrenMapObject['enrollmentDate'];
+      String previousEnrollmentDate = childrenMapObject['enrollmentDate'] ?? '';
       if (previousEnrollmentDate != value) {
         String dobId = 'qZP982qpSPS';
         childrenMapObject[dobId] = '';
