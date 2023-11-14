@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class OvcEnrollmentHousehold {
   static List<String> getMandatoryField() {
     return [
+      'enrollmentDate',
       'RB8Wx75hGa4',
       'xiI8aC8RwjC',
       'WTZ7GLTrE8Q',
@@ -21,7 +22,8 @@ class OvcEnrollmentHousehold {
     return ['location', 'yk0OH9p09C1', 'PN92g65TkVI'];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections(
+      {required bool isEnrolmentDateEditable}) {
     return [
       FormSection(
         name: '',
@@ -39,6 +41,16 @@ class OvcEnrollmentHousehold {
             valueType: 'ORGANISATION_UNIT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'enrollmentDate',
+            isReadOnly: !isEnrolmentDateEditable,
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+            name: 'Date of Enrollment to Program',
+            translatedName: "Letsatsi leo lelapa le keneng ka hara morero",
+            valueType: 'DATE',
+            allowFuturePeriod: false,
           ),
           InputField(
             id: 'RB8Wx75hGa4',
