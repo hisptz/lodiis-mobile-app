@@ -94,7 +94,8 @@ class _DateInputFieldContainerState extends State<DateInputFieldContainer> {
                 : 0,
             numberOfDays: 1,
           );
-    DateTime currentDate = DateTime.now();
+    DateTime currentDate =
+        widget.inputField.lastDate!.isNotEmpty ? lastDate : DateTime.now();
     int numberOfYearBetweenCurrentAndMaxDate = currentDate.year - lastDate.year;
     _date = _date ??
         AppUtil.formattedDateTimeIntoString(
