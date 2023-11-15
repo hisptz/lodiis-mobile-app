@@ -72,8 +72,8 @@ class _ReferralOutComeCardState extends State<ReferralOutComeCard> {
       );
       referralOutcomeMandatoryFields
           .addAll(OvcReferralOutCome.getMandatoryFields());
-      hiddenFields
-          .addAll(FormUtil.getFormFieldIds(OvcReferral.getFormSections()));
+      hiddenFields.addAll(FormUtil.getFormFieldIds(
+          OvcReferral.getFormSections(enrollmentDate: '')));
       referralOutcomeFollowUpFormSections = OvcReferralFollowUp.getFormSections(
         firstDate: widget.eventData.eventDate!,
       );
