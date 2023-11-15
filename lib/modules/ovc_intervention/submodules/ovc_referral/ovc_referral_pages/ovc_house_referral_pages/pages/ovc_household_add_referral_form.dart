@@ -42,6 +42,7 @@ class _OvcHouseholdAddReferralFormState
     extends State<OvcHouseholdAddReferralForm> {
   List<FormSection> formSections = [];
   List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
   Map mandatoryFieldObject = {};
   bool isFormReady = false;
   bool isSaving = false;
@@ -57,7 +58,10 @@ class _OvcHouseholdAddReferralFormState
     OvcHousehold? household =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHousehold;
-    formSections = OvcReferral.getFormSections();
+    mandatoryFields = OvcReferral.getMandatoryFields();
+    formSections = OvcReferral.getFormSections(
+      enrollmentDate: household?.createdDate ?? '',
+    );
     if (household?.enrollmentOuAccessible != true) {
       formSections = [
         AppUtil.getServiceProvisionLocationSection(
@@ -155,6 +159,7 @@ class _OvcHouseholdAddReferralFormState
     Map hiddenFieldsObject,
     OvcHousehold? currentOvcHousehold,
   ) async {
+    unFilledMandatoryFields = [];
     bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFieldsObject,
       formSections: formSections,
@@ -233,6 +238,17 @@ class _OvcHouseholdAddReferralFormState
         );
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections,
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory fields',
       );
@@ -303,6 +319,8 @@ class _OvcHouseholdAddReferralFormState
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
                                       onInputValueChange: onInputValueChange,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                     ),
                                   ),
                                   EntryFormSaveButton(
