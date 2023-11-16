@@ -73,13 +73,26 @@ class _CasePlanGapServiceMonitoringFormContainerState
             formSection.id == '' ||
             formSection.id == null)
         .toList();
+
+    formSections = [
+      AppUtil.getServiceProvisionEventDateSection(
+        inputColor: widget.formSectionColor,
+        labelColor: const Color(0xFF1A3518),
+        sectionLabelColor: widget.formSectionColor,
+        formSectionlabel: 'Service Monitoring Date',
+        inputFieldLabel: 'Service Monitoring On',
+        firstDate: widget.casePlanGapDate,
+      ),
+      ...formSections
+    ];
+    mandatoryFields = ['eventDate'];
     if (!widget.enrollmentOuAccessible) {
       formSections = [
         AppUtil.getServiceProvisionLocationSection(
           id: OvcCasePlanConstant.casePlanLocatinSectionId,
-          inputColor: const Color(0xFF4B9F46),
+          inputColor: widget.formSectionColor,
           labelColor: const Color(0xFF1A3518),
-          sectionLabelColor: const Color(0xFF1A3518),
+          sectionLabelColor: widget.formSectionColor,
           formlabel: 'Location',
           allowedSelectedLevels: [
             AppHierarchyReference.communityLevel,
@@ -157,6 +170,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
           String orgUnit = widget.gapServiceMonitoringObject['location'] ??
               beneficiary.orgUnit ??
               '';
+          String eventDate = widget.gapServiceMonitoringObject['eventDate'];
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             widget.isHouseholdCasePlan
                 ? OvcHouseholdCasePlanConstant.program
@@ -169,7 +183,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
             orgUnit,
             formSections,
             widget.gapServiceMonitoringObject,
-            widget.gapServiceMonitoringObject['eventDate'],
+            eventDate,
             beneficiary.trackedEntityInstance,
             widget.gapServiceMonitoringObject['eventId'],
             hiddenFields,
@@ -180,7 +194,8 @@ class _CasePlanGapServiceMonitoringFormContainerState
                     childrens: childrens,
                     dataObject: widget.gapServiceMonitoringObject,
                     domainId: widget.domainId,
-                    orgUnit: orgUnit);
+                    orgUnit: orgUnit,
+                    eventDate: eventDate);
           }
           Provider.of<ServiceEventDataState>(context, listen: false)
               .resetServiceEventDataState(beneficiary.trackedEntityInstance);
