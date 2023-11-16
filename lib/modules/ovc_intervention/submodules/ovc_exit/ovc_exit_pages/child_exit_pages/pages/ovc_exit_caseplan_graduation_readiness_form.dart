@@ -73,12 +73,12 @@ class _HouseholdGraduationReadinessFormFormState
             ),
             ...formSections ?? []
           ];
-    addChildNeededAttributesForGraduation(child);
+
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      isFormReady = true;
+      setState(() {});
+      addChildNeededAttributesForGraduation(child);
+      evaluateSkipLogics();
     });
   }
 
