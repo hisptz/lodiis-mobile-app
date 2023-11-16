@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
@@ -7,6 +8,14 @@ class OvcExitCaseTransfer {
     required String firstDate,
   }) {
     return [
+      AppUtil.getServiceProvisionEventDateSection(
+        inputColor: const Color(0xFF4A9F46),
+        labelColor: const Color(0xFF1A3518),
+        sectionLabelColor: const Color(0xFF0D3A16),
+        formSectionlabel: 'Case Transfer Date',
+        inputFieldLabel: 'Case Transfer On',
+        firstDate: firstDate,
+      ),
       FormSection(
           name: 'Case Transfer Plan',
           color: const Color(0xFF1B3519),

@@ -55,8 +55,9 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
     OvcHousehold? household =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHousehold;
-    formSections = OvcExitInformation.getFormSections();
-    formSections = household!.enrollmentOuAccessible == true
+    formSections =
+        OvcExitInformation.getFormSections(firstDate: household!.createdDate!);
+    formSections = household.enrollmentOuAccessible == true
         ? formSections
         : [
             AppUtil.getServiceProvisionLocationSection(
@@ -91,9 +92,8 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
     OvcHousehold? currentOvcHousehold,
   ) async {
     if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       String programStatusId = 'PN92g65TkVI';
