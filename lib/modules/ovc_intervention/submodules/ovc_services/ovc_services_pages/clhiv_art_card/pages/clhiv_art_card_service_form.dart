@@ -171,7 +171,8 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
         setState(() {
           isSaving = true;
         });
-        String? eventDate = dataObject['eventDate'];
+        String? eventDate =
+            dataObject['eventDate'] ?? dataObject['uVmlqLmHYpD'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
         String orgUnit = dataObject['location'] ?? ovc.orgUnit;
