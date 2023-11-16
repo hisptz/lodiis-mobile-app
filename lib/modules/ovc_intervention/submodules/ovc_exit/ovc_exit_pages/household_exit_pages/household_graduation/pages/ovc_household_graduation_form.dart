@@ -75,12 +75,11 @@ class _OvcHouseholdGraduationFormState
             ...formSections ?? []
           ];
     Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
+      addCaregiverAttributesNeededForGraduation(household);
+      setState(() {});
+      isFormReady = true;
+      evaluateSkipLogics();
     });
-    addCaregiverAttributesNeededForGraduation(household);
   }
 
   void addCaregiverAttributesNeededForGraduation(OvcHousehold ovcHousehold) {
