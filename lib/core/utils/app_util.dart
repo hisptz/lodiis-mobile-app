@@ -11,6 +11,30 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class AppUtil {
+  static FormSection getServiceProvisionEventDateSection({
+    required Color inputColor,
+    required Color labelColor,
+    required Color sectionLabelColor,
+    required String firstDate,
+    String formSectionlabel = 'Service Provision Date',
+    String inputFieldLabel = 'Services On',
+  }) {
+    return FormSection(
+      name: formSectionlabel,
+      color: sectionLabelColor,
+      inputFields: [
+        InputField(
+          id: 'eventDate',
+          name: inputFieldLabel,
+          valueType: 'DATE',
+          firstDate: firstDate,
+          inputColor: inputColor,
+          labelColor: labelColor,
+        ),
+      ],
+    );
+  }
+
   static FormSection getServiceProvisionLocationSection({
     required Color inputColor,
     required Color labelColor,
