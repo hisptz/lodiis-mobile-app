@@ -13,6 +13,7 @@ class OvcCasePlanServiceMonitoringHouseholdToOvcUtil {
     required Map dataObject,
     required String domainId,
     required String orgUnit,
+    required String eventDate,
   }) async {
     try {
       List<FormSection> formSections =
@@ -40,7 +41,7 @@ class OvcCasePlanServiceMonitoringHouseholdToOvcUtil {
                     orgUnit,
                     formSections,
                     dataObject,
-                    dataObject['eventDate'],
+                    eventDate,
                     child.id,
                     dataObject['eventId'],
                     [OvcCasePlanConstant.casePlanGapToMonitoringLinkage]);
