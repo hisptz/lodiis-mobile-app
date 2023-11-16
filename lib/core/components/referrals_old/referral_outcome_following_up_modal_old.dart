@@ -108,13 +108,14 @@ class _ReferralOutComeFollowUpModalOldState
             dataObject[widget.referralToFollowUpLinkage] ?? '';
         String orgUnit =
             dataObject['location'] ?? widget.beneficiary?.orgUnit ?? '';
+        var eventDate = dataObject['eventDate'] ?? dataObject['DPf5mUDoZMy'];
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           widget.referralProgram,
           widget.referralFollowUpStage,
           orgUnit,
           formSections,
           dataObject,
-          null,
+          eventDate,
           widget.beneficiary?.trackedEntityInstance,
           null,
           [widget.referralToFollowUpLinkage],
