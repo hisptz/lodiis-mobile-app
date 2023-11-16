@@ -31,9 +31,11 @@ class CasePlanGapServiceMonitoringFormContainer extends StatefulWidget {
     required this.isHouseholdCasePlan,
     required this.enrollmentOuAccessible,
     required this.isEditableMode,
+    required this.casePlanGapDate,
   }) : super(key: key);
 
   final String domainId;
+  final String casePlanGapDate;
   final Color formSectionColor;
   final Map gapServiceMonitoringObject;
   final bool isHouseholdCasePlan;
