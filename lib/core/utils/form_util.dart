@@ -193,6 +193,16 @@ class FormUtil {
     return inputFields;
   }
 
+  static List<String> getInputFieldIdsByValueType({
+    required String valueType,
+    required List<FormSection> formSections,
+  }) {
+    return getInputFieldByValueType(
+      valueType: valueType,
+      formSections: formSections,
+    ).map((InputField inputField) => inputField.id).toList();
+  }
+
   static hasAtLeastOnFieldFilled({
     required Map hiddenFields,
     required List<FormSection> formSections,
