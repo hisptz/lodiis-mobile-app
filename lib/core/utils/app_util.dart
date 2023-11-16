@@ -133,6 +133,30 @@ class AppUtil {
     return DateTime.tryParse(date) ?? DateTime.now();
   }
 
+  static DateTime getMinimumDateTimeFromDateList(List<String> dates) {
+    return dates.isEmpty
+        ? DateTime.now()
+        : dates
+            .map((String date) => getDateIntoDateTimeFormat(date))
+            .reduce((previousDate, currentDate) {
+            return currentDate.isBefore(previousDate)
+                ? currentDate
+                : previousDate;
+          });
+  }
+
+  static DateTime getMaxmumDateTimeFromDateList(List<String> dates) {
+    return dates.isEmpty
+        ? DateTime.now()
+        : dates
+            .map((String date) => getDateIntoDateTimeFormat(date))
+            .reduce((previousDate, currentDate) {
+            return currentDate.isAfter(previousDate)
+                ? currentDate
+                : previousDate;
+          });
+  }
+
   static Future<Position> getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
