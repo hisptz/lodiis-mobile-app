@@ -82,9 +82,9 @@ class _CasePlanGapServiceProvisionFormContainerState
       formSections = [
         AppUtil.getServiceProvisionLocationSection(
           id: OvcCasePlanConstant.casePlanLocatinSectionId,
-          inputColor: const Color(0xFF4B9F46),
+          inputColor: widget.formSectionColor,
           labelColor: const Color(0xFF1A3518),
-          sectionLabelColor: const Color(0xFF1A3518),
+          sectionLabelColor: widget.formSectionColor,
           formlabel: 'Location',
           allowedSelectedLevels: [
             AppHierarchyReference.communityLevel,
@@ -124,6 +124,16 @@ class _CasePlanGapServiceProvisionFormContainerState
     setSessionNumberViolationMessages(sessionNumberValidation);
   }
 
+  List<String> getServiceProvisionDates() {
+    return FormUtil.getInputFieldIdsByValueType(
+      valueType: "DATE",
+      formSections: formSections,
+    ).map((String inputFieldId) {
+      String date = widget.gapServiceObject[inputFieldId] ?? '';
+      return date;
+    }).toList();
+  }
+
   void onSaveCasePlanServiceProvision() async {
     bool hasAtLeastOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFields,
@@ -153,6 +163,10 @@ class _CasePlanGapServiceProvisionFormContainerState
           _isSaving = true;
           setState(() {});
           try {
+            String eventDate = widget.gapServiceObject['eventDate'] ??
+                AppUtil.formattedDateTimeIntoString(
+                    AppUtil.getMinimumDateTimeFromDateList(
+                        getServiceProvisionDates()));
             List<OvcHouseholdChild> childrens =
                 Provider.of<OvcHouseholdCurrentSelectionState>(context,
                             listen: false)
@@ -184,7 +198,7 @@ class _CasePlanGapServiceProvisionFormContainerState
               orgUnit,
               formSections,
               widget.gapServiceObject,
-              widget.gapServiceObject['eventDate'],
+              eventDate,
               beneficiary.trackedEntityInstance,
               widget.gapServiceObject['eventId'],
               [OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage],
@@ -195,7 +209,8 @@ class _CasePlanGapServiceProvisionFormContainerState
                       childrens: childrens,
                       dataObject: widget.gapServiceObject,
                       domainId: widget.domainId,
-                      orgUnit: orgUnit);
+                      orgUnit: orgUnit,
+                      eventDate: eventDate);
             }
             Provider.of<ServiceEventDataState>(context, listen: false)
                 .resetServiceEventDataState(beneficiary.trackedEntityInstance);
@@ -209,7 +224,8 @@ class _CasePlanGapServiceProvisionFormContainerState
             );
             Navigator.pop(context);
           } catch (e) {
-            _isSaving = true;
+            _isSaving = false;
+            print(e.toString());
             setState(() {});
             AppUtil.showToastMessage(
               message: e.toString(),
