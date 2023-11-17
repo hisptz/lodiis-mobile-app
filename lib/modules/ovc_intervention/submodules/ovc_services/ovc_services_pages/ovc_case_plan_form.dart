@@ -175,10 +175,14 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           ? beneficiary.orgUnit ?? ''
           : OvcCasePlanUtil.getLocationFromCasePlanForm(
               dataObject, OvcCasePlanConstant.casePlanLocatinSectionId);
+      String casePlanEventDate =
+          OvcCasePlanUtil.getCasePlanDateFromCasePlanForm(
+              dataObject, OvcCasePlanConstant.casePlanEventDateSectionId);
       await savingDomainsAndGaps(
         dataObject: dataObject,
         beneficiary: beneficiary,
         orgUnit: orgUnit,
+        eventDate: casePlanEventDate,
       );
       if (widget.isHouseholdCasePlan) {
         await updateHouseholdCategorization(beneficiary, dataObject);
@@ -187,6 +191,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           childrens: children,
           dataObject: dataObject,
           orgUnit: orgUnit,
+          eventDate: casePlanEventDate,
         );
       }
       Provider.of<ServiceEventDataState>(context, listen: false)
@@ -244,6 +249,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     required Map dataObject,
     required TrackedEntityInstance beneficiary,
     required String orgUnit,
+    required String eventDate,
   }) async {
     String casePlanFirstGoal = OvcCasePlanConstant.casePlanFirstGoal;
     for (String domainType in dataObject.keys.toList()) {
@@ -282,7 +288,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
             orgUnit,
             domainFormSections,
             domainDataObject,
-            domainDataObject['eventDate'],
+            eventDate,
             beneficiary.trackedEntityInstance,
             domainDataObject['eventId'],
             hiddenFields,
@@ -304,7 +310,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
               orgUnit,
               domainGapFormSections,
               domainGapDataObject,
-              domainGapDataObject['eventDate'],
+              eventDate,
               beneficiary.trackedEntityInstance,
               domainGapDataObject['eventId'],
               hiddenFields,

@@ -15,6 +15,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required List<OvcHouseholdChild> childrens,
     required Map dataObject,
     required String orgUnit,
+    required String eventDate,
   }) async {
     try {
       List<FormSection> formSections =
@@ -48,7 +49,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
             orgUnit,
             domainFormSections,
             domainDataObject,
-            domainDataObject['eventDate'],
+            eventDate,
             child.id,
             domainDataObject['eventId'],
             hiddenFields,
@@ -67,7 +68,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
               orgUnit,
               domainGapFormSections,
               domainGapDataObject,
-              domainGapDataObject['eventDate'],
+              eventDate,
               child.id,
               domainGapDataObject['eventId'],
               hiddenFields,
