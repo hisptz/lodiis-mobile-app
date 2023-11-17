@@ -39,6 +39,7 @@ class OvcCasePlanForm extends StatefulWidget {
   const OvcCasePlanForm({
     Key? key,
     required this.casePlanLabel,
+    required this.enrollmentDate,
     required this.currentCasePlanDate,
     required this.hasEditAccessToCasePlan,
     required this.enrollmentOuAccessible,
@@ -55,6 +56,7 @@ class OvcCasePlanForm extends StatefulWidget {
 
   final String casePlanLabel;
   final String currentCasePlanDate;
+  final String enrollmentDate;
   final bool hasEditAccessToCasePlan;
   final String casePlanProgram;
   final String casePlanProgramStage;
@@ -76,26 +78,26 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   Map borderColors = {};
   final List<Map> childrenMapObjects = [];
   bool _isSaving = false;
-  bool _isFormReady = true;
+  bool _isFormNotReady = true;
   final List<String> mandatoryFields = OvcServicesCasePlan.getMandatoryField();
   final Map mandatoryFieldObject = {};
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _setFormMetadata();
-    });
+    _setFormMetadata();
   }
 
   void _setFormMetadata() {
     for (String id in mandatoryFields) {
       mandatoryFieldObject[id] = true;
     }
-    _isFormReady = true;
+    _isFormNotReady = true;
     setState(() {});
     formSections = [];
-    for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+    for (FormSection formSection in OvcServicesCasePlan.getFormSections(
+      firstDate: widget.enrollmentDate,
+    )) {
       // Removing the Schooled section for caregiver
       if (!(widget.isHouseholdCasePlan &&
           ['Schooled'].contains(formSection.id))) {
@@ -127,8 +129,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       ];
       mandatoryFieldObject['location'] = true;
     }
-    Timer(const Duration(milliseconds: 200), () {
-      _isFormReady = false;
+    Timer(const Duration(milliseconds: 500), () {
+      _isFormNotReady = false;
       setState(() {});
     });
   }
@@ -347,7 +349,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                 Map dataObject = serviceFormState.formState;
                 return Container(
                   margin: const EdgeInsets.symmetric(),
-                  child: _isFormReady
+                  child: _isFormNotReady
                       ? const CircularProcessLoader(
                           color: Colors.blueGrey,
                         )
@@ -382,7 +384,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                             OvcCasePlanConstant
                                                 .householdCategorizationSection,
                                             OvcCasePlanConstant
-                                                .casePlanLocatinSectionId
+                                                .casePlanLocatinSectionId,
+                                            OvcCasePlanConstant
+                                                .casePlanEventDateSectionId
                                           ].contains(formSection.id),
                                           formSectionColor:
                                               borderColors[formSection.id] ??
