@@ -176,7 +176,7 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
         String orgUnit = dataObject['location'] ?? ovc.orgUnit;
-
+        orgUnit = orgUnit.isEmpty ? ovc.orgUnit ?? '' : orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             ClhivArtCardConstants.program,

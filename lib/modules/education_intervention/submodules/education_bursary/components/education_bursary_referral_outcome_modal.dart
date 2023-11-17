@@ -158,6 +158,7 @@ class _EducationBursaryReferralOutcomeModalState
         referralOutcomeToReferralOutComeFollowingUpLinkage
       ];
       String orgUnit = dataObject['location'] ?? bursaryBeneficiary?.orgUnit;
+      orgUnit = orgUnit.isEmpty ? bursaryBeneficiary?.orgUnit ?? '' : orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           BursaryInterventionConstant.program,

@@ -185,6 +185,7 @@ class _CasePlanGapServiceProvisionFormContainerState
             String orgUnit = widget.gapServiceObject['location'] ??
                 beneficiary.orgUnit ??
                 '';
+            orgUnit = orgUnit.isEmpty ? beneficiary.orgUnit ?? '' : orgUnit;
             await TrackedEntityInstanceUtil
                 .savingTrackedEntityInstanceEventData(
               widget.isHouseholdCasePlan

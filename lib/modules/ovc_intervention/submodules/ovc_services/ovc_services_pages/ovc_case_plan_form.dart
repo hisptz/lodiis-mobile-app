@@ -175,6 +175,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           ? beneficiary.orgUnit ?? ''
           : OvcCasePlanUtil.getLocationFromCasePlanForm(
               dataObject, OvcCasePlanConstant.casePlanLocatinSectionId);
+      orgUnit = orgUnit.isEmpty ? beneficiary.orgUnit ?? '' : orgUnit;
       String casePlanEventDate =
           OvcCasePlanUtil.getCasePlanDateFromCasePlanForm(
               dataObject, OvcCasePlanConstant.casePlanEventDateSectionId);

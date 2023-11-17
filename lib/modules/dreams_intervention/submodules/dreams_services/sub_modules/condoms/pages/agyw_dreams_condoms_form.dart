@@ -152,6 +152,7 @@ class _AgywDreamsCondomsFormState extends State<AgywDreamsCondomsForm> {
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
         String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
+        orgUnit = orgUnit.isEmpty ? agywDream!.orgUnit ?? '' : orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             CondomsConstant.program,

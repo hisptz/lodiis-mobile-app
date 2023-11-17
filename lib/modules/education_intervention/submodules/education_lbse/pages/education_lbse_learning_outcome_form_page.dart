@@ -179,6 +179,7 @@ class _EducationLbseLearningOutcomeFormPageState
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
       String orgUnit = dataObject['location'] ?? lbseBeneficiary.orgUnit;
+      orgUnit = orgUnit.isEmpty ? lbseBeneficiary.orgUnit ?? '' : orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           LbseInterventionConstant.program,

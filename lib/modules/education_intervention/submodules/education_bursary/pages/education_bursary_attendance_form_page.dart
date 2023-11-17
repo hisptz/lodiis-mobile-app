@@ -180,6 +180,7 @@ class _EducationBursaryAttendanceFormPageState
             : BursaryInterventionConstant.clubsAttendanceProgramStage;
         String program = BursaryInterventionConstant.program;
         String orgUnit = dataObject['location'] ?? bursaryBeneficiary.orgUnit;
+        orgUnit = orgUnit.isEmpty ? bursaryBeneficiary.orgUnit ?? '' : orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             program,
