@@ -83,6 +83,21 @@ class OvcCasePlanUtil {
     return hasBeenFilled;
   }
 
+  static String getCasePlanDateFromCasePlanForm(
+    Map dataObject,
+    String sectionsId,
+  ) {
+    Map casePlanDateSection = dataObject[sectionsId] ?? {};
+    return casePlanDateSection['eventDate'] ?? '';
+  }
+
+  static bool isCasePlanDateOnCasePlanFormFilled(
+    Map dataObject, {
+    required String sectionsId,
+  }) {
+    return getCasePlanDateFromCasePlanForm(dataObject, sectionsId).isNotEmpty;
+  }
+
   static bool isAllDomainGoalAndGapFilled(
     Map dataObject, {
     required bool isHouseholdCasePlan,
