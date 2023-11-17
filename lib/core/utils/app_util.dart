@@ -16,10 +16,12 @@ class AppUtil {
     required Color labelColor,
     required Color sectionLabelColor,
     required String firstDate,
+    String id = '',
     String formSectionlabel = 'Service Provision Date',
     String inputFieldLabel = 'Services On',
   }) {
     return FormSection(
+      id: id.isEmpty ? AppUtil.getUid() : id,
       name: formSectionlabel,
       color: sectionLabelColor,
       inputFields: [

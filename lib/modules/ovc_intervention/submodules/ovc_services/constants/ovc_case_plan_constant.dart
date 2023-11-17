@@ -1,6 +1,7 @@
 import 'package:kb_mobile_app/models/events.dart';
 
 class OvcCasePlanConstant {
+  static const String casePlanEventDateSectionId = 'casePlanEventDateId';
   static const String casePlanLocatinSectionId = 'casePlanLocationId';
   static const String casePlanToGapLinkage = 'ajqTV28fydL';
   static const String casePlanGapToMonitoringLinkage = 'H7BMnqZEqGN';
