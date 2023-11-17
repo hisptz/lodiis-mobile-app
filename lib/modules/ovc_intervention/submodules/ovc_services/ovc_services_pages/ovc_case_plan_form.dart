@@ -151,7 +151,10 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         dataObject,
         sectionsId: OvcCasePlanConstant.casePlanLocatinSectionId,
         shouldCheck: !widget.enrollmentOuAccessible);
-    if (isAllDomainFilled && hasLocationFilled) {
+    bool hasCasePlanDateFilled =
+        OvcCasePlanUtil.isCasePlanDateOnCasePlanFormFilled(dataObject,
+            sectionsId: OvcCasePlanConstant.casePlanEventDateSectionId);
+    if (isAllDomainFilled && hasLocationFilled && hasCasePlanDateFilled) {
       _isSaving = true;
       setState(() {});
       List<OvcHouseholdChild> children =
@@ -207,7 +210,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       setState(() {});
       AppUtil.showToastMessage(
         message:
-            'Please fill all mandatory field\nAnd at least one goal for all domain with gaps',
+            'Please fill all mandatory field and at least one goal for all domain with gaps',
       );
     }
   }
