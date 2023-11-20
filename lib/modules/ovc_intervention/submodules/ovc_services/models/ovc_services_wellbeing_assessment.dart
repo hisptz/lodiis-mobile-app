@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
@@ -9,6 +10,14 @@ class OvcServicesWellbeingAssessment {
     required String firstDate,
   }) {
     return [
+      AppUtil.getServiceProvisionEventDateSection(
+        inputColor: const Color(0xFF4A9F46),
+        labelColor: const Color(0xFF1A3518),
+        sectionLabelColor: const Color(0xFF0D3A16),
+        formSectionlabel: ' Well-being Assessment Date',
+        inputFieldLabel: 'Assessment Date',
+        firstDate: firstDate,
+      ),
       FormSection(
           name: 'Role/Impact of a Child to the family',
           translatedName: "Karolo/ts'usumetso ea ngoana ka hare ho lelapa",
