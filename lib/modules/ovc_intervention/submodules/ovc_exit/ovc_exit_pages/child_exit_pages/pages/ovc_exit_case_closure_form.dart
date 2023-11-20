@@ -51,11 +51,11 @@ class _OvcExitCaseClosureFormState extends State<OvcExitCaseClosureForm>
   }
 
   void setFormSection() {
-    OvcHouseholdChild? child =
+    OvcHouseholdChild child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
-            .currentOvcHouseholdChild;
+            .currentOvcHouseholdChild!;
     formSections =
-        OvcExitCaseClosure.getFormSections(firstDate: child!.createdDate!);
+        OvcExitCaseClosure.getFormSections(firstDate: child.createdDate!);
     formSections = child.enrollmentOuAccessible!
         ? formSections
         : [

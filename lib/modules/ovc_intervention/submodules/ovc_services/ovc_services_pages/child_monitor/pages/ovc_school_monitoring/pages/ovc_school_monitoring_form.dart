@@ -59,10 +59,11 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
   }
 
   void setFormSections() {
-    var defaultFormSections = OvcSchoolMonitoring.getFormSections();
     var currentOvc =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
+    var defaultFormSections = OvcSchoolMonitoring.getFormSections(
+        enrollmentDate: currentOvc?.createdDate ?? '');
     if (currentOvc?.enrollmentOuAccessible == true) {
       formSections = defaultFormSections;
     } else {
@@ -70,7 +71,7 @@ class _OvcSchoolMonitoringFormState extends State<OvcSchoolMonitoringForm> {
           AppUtil.getServiceProvisionLocationSection(
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF1A3518),
-              sectionLabelColor: const Color(0xFF1A3518),
+              sectionLabelColor: const Color(0xFF4B9F46),
               allowedSelectedLevels: [
                 AppHierarchyReference.communityLevel,
               ],

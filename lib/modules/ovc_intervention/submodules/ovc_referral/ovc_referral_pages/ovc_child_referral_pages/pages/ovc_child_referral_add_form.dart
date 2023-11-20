@@ -43,6 +43,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
   List<FormSection> formSections = [];
   List<String> mandatoryFields = [];
   Map mandatoryFieldObject = {};
+  List unFilledMandatoryFields = [];
   bool isFormReady = false;
   bool isSaving = false;
 
@@ -57,7 +58,9 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
     OvcHouseholdChild currentOvcHousehold =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild!;
-    formSections = OvcReferral.getFormSections();
+    mandatoryFields = OvcReferral.getMandatoryFields();
+    formSections = OvcReferral.getFormSections(
+        enrollmentDate: currentOvcHousehold.createdDate ?? '');
     if (currentOvcHousehold.enrollmentOuAccessible != true) {
       formSections = [
         AppUtil.getServiceProvisionLocationSection(
@@ -168,6 +171,7 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
     Map hiddenFieldsObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
+    unFilledMandatoryFields = [];
     bool hasAtLeasrOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFieldsObject,
       formSections: formSections,
@@ -243,6 +247,17 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
         );
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections,
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory fields',
       );
@@ -311,6 +326,8 @@ class _OvcChildReferralAddFormState extends State<OvcChildReferralAddForm> {
                                           serviceFormState.isEditableMode,
                                       dataObject: serviceFormState.formState,
                                       onInputValueChange: onInputValueChange,
+                                      unFilledMandatoryFields:
+                                          unFilledMandatoryFields,
                                     ),
                                   ),
                                   EntryFormSaveButton(

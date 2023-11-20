@@ -53,12 +53,6 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
   void initState() {
     super.initState();
     setFormSections();
-    Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
-    });
   }
 
   void evaluateSkipLogics() {
@@ -79,7 +73,6 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
   void setFormSections() {
     var defaultFormSections = OvcClhivArtService.getFormSections();
     mandatoryFields = OvcClhivArtService.getMandatoryFields();
-
     var currentOvc =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
@@ -112,6 +105,12 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
     for (String fieldId in mandatoryFields) {
       mandatoryFieldObject[fieldId] = true;
     }
+    Timer(const Duration(seconds: 1), () {
+      setState(() {
+        isFormReady = true;
+        evaluateSkipLogics();
+      });
+    });
   }
 
   void onInputValueChange(String id, dynamic value) {
@@ -171,11 +170,12 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
         setState(() {
           isSaving = true;
         });
-        String? eventDate = dataObject['eventDate'];
+        String? eventDate =
+            dataObject['eventDate'] ?? dataObject['uVmlqLmHYpD'];
         String? eventId = dataObject['eventId'];
         List<String> hiddenFields = [];
         String orgUnit = dataObject['location'] ?? ovc.orgUnit;
-
+        orgUnit = orgUnit.isEmpty ? ovc.orgUnit ?? '' : orgUnit;
         try {
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             ClhivArtCardConstants.program,
@@ -229,6 +229,17 @@ class _ClhivArtCardServiceFormState extends State<ClhivArtCardServiceForm> {
         );
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,

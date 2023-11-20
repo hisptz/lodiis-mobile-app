@@ -65,7 +65,9 @@ class ReferralOutComeFollowUp extends StatelessWidget {
                         Visibility(
                           visible: isEditableMode &&
                               referralOutComeFollowUpEvent
-                                  .enrollmentOuAccessible!,
+                                  .enrollmentOuAccessible! &&
+                              referralOutComeFollowUpEvents.last.id ==
+                                  referralOutComeFollowUpEvent.id,
                           child: InkWell(
                             onTap: () => {
                               editOutComeFollowUp(

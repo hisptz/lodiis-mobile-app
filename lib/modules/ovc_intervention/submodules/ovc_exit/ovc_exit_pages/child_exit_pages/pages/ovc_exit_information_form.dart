@@ -58,8 +58,9 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
-    formSections = OvcExitInformation.getFormSections();
-    formSections = child?.enrollmentOuAccessible == true
+    formSections =
+        OvcExitInformation.getFormSections(firstDate: child!.createdDate!);
+    formSections = child.enrollmentOuAccessible == true
         ? formSections
         : [
             AppUtil.getServiceProvisionLocationSection(

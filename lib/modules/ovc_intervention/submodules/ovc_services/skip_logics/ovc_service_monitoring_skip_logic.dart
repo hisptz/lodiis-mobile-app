@@ -37,9 +37,8 @@ class OvcServiceMonitoringSkipLogic {
         FormUtil.getFormFieldIds(sectionsToBeSkipped);
 
     for (String inputFieldId in inputFieldIds) {
-      if (inputFieldId != 'location') {
-        hiddenFields[inputFieldId] = true;
-      }
+      hiddenFields[inputFieldId] =
+          !['eventDate', 'location'].contains(inputFieldId);
     }
 
     // skip logics for non-progress fields

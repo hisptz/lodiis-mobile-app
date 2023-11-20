@@ -12,7 +12,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_interventio
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_child.dart';
 
 class OvcEnrollmentChildService {
-  final List<FormSection> formSections = OvcEnrollmentChild.getFormSections();
+  final List<FormSection> formSections = OvcEnrollmentChild.getFormSections(
+      isEnrolmentDateEditable: true, enrollmentDate: '');
 
   Future updateOvcStatus({
     String? trackedEntityInstance,

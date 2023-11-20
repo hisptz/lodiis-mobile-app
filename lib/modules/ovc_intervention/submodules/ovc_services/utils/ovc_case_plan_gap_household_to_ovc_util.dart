@@ -15,9 +15,11 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required List<OvcHouseholdChild> childrens,
     required Map dataObject,
     required String orgUnit,
+    required String eventDate,
   }) async {
     try {
-      List<FormSection> formSections = OvcServicesCasePlan.getFormSections();
+      List<FormSection> formSections =
+          OvcServicesCasePlan.getFormSections(firstDate: '');
       Map<String, dynamic> sanitizedDataObjects =
           getSanitizedCaregiverDataObjects(dataObject);
       for (OvcHouseholdChild child in childrens) {
@@ -47,7 +49,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
             orgUnit,
             domainFormSections,
             domainDataObject,
-            domainDataObject['eventDate'],
+            eventDate,
             child.id,
             domainDataObject['eventId'],
             hiddenFields,
@@ -66,7 +68,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
               orgUnit,
               domainGapFormSections,
               domainGapDataObject,
-              domainGapDataObject['eventDate'],
+              eventDate,
               child.id,
               domainGapDataObject['eventId'],
               hiddenFields,

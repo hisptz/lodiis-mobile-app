@@ -37,6 +37,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
     double ratio = 0.8;
     gapServiceMonitoringObject = gapServiceMonitoringObject ?? {};
     String location = gapServiceMonitoringObject['location'] ?? '';
+    String casePlanGapDate = widget.casePlanGap['eventDate'] ?? '';
     List skippedKeys = [
       'eventId',
       'eventDate',
@@ -64,6 +65,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
         isHouseholdCasePlan: widget.isHouseholdCasePlan,
         enrollmentOuAccessible: widget.enrollmentOuAccessible,
         isEditableMode: isOnEditMode,
+        casePlanGapDate: casePlanGapDate,
       ),
     );
   }

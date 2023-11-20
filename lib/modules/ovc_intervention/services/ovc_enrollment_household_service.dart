@@ -19,8 +19,9 @@ import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/models/ovc_enrollment_household.dart';
 
 class OvcEnrollmentHouseholdService {
-  final List<FormSection> formSections =
-      OvcEnrollmentHousehold.getFormSections();
+  final List<FormSection> formSections = OvcEnrollmentHousehold.getFormSections(
+    isEnrolmentDateEditable: true,
+  );
   final List<String> hiddenFields = OvcEnrollmentHousehold.getHiddenField();
   final List<String> consentFields = OvcEnrollmentConstant.getConsentFields();
 

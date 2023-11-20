@@ -18,6 +18,7 @@ class CasePlanHomeContainer extends StatelessWidget {
   const CasePlanHomeContainer({
     Key? key,
     required this.enrollmentOuAccessible,
+    required this.enrollmentDate,
     required this.isHouseholdCasePlan,
     required this.casePlanProgram,
     required this.casePlanProgramStage,
@@ -34,6 +35,7 @@ class CasePlanHomeContainer extends StatelessWidget {
   final String casePlanGapProgramStage;
   final String casePlanServiceProgramStage;
   final String casePlanMonitoringProgramStage;
+  final String enrollmentDate;
   final bool enrollmentOuAccessible;
   final bool isHouseholdCasePlan;
   final bool isOnCasePlanPage;
@@ -78,7 +80,8 @@ class CasePlanHomeContainer extends StatelessWidget {
             {"location": casePlanEvents.first.orgUnit ?? ''});
       }
     }
-    for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+    for (FormSection formSection
+        in OvcServicesCasePlan.getFormSections(firstDate: '')) {
       String formSectionId = formSection.id!;
       String casePlanToGapLinkage = AppUtil.getUid();
       Map map = casePlanDataObject.containsKey(formSectionId)
@@ -141,6 +144,7 @@ class CasePlanHomeContainer extends StatelessWidget {
                             : 'Child Case Plan Form',
                 isOnCasePlanPage: isOnCasePlanPage,
                 enrollmentOuAccessible: enrollmentOuAccessible,
+                enrollmentDate: enrollmentDate,
                 isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                 isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
                 hasEditAccessToCasePlan: OvcCasePlanUtil.hasAccessToEdit(
