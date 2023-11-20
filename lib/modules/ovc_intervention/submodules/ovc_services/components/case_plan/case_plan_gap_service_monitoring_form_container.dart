@@ -170,6 +170,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
           String orgUnit = widget.gapServiceMonitoringObject['location'] ??
               beneficiary.orgUnit ??
               '';
+          orgUnit = orgUnit.isEmpty ? beneficiary.orgUnit ?? '' : orgUnit;
           String eventDate = widget.gapServiceMonitoringObject['eventDate'];
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             widget.isHouseholdCasePlan

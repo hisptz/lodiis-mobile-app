@@ -211,6 +211,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
               'eventSessions'
             ];
             String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
+            orgUnit = orgUnit.isEmpty ? agywDream!.orgUnit ?? '' : orgUnit;
             try {
               await TrackedEntityInstanceUtil
                   .savingTrackedEntityInstanceEventData(
