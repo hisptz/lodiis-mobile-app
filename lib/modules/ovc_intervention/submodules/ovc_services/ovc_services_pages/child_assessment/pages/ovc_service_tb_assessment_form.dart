@@ -40,6 +40,9 @@ class _OvcServiceTBAssessmentFormState
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -48,11 +51,14 @@ class _OvcServiceTBAssessmentFormState
   }
 
   void setFormSections() {
+    mandatoryFields = ['eventDate'];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
-    formSections = OvcServicesTbscreening.getFormSections();
-    formSections = child?.enrollmentOuAccessible == true
+    formSections = OvcServicesTbscreening.getFormSections(
+      firstDate: child!.createdDate!,
+    );
+    formSections = child.enrollmentOuAccessible == true
         ? formSections
         : [
             AppUtil.getServiceProvisionLocationSection(
@@ -67,6 +73,9 @@ class _OvcServiceTBAssessmentFormState
             ),
             ...formSections ?? []
           ];
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -101,7 +110,17 @@ class _OvcServiceTBAssessmentFormState
     Map dataObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
       String? eventDate = dataObject['eventDate'];
@@ -148,9 +167,21 @@ class _OvcServiceTBAssessmentFormState
         });
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -202,7 +233,10 @@ class _OvcServiceTBAssessmentFormState
                                         hiddenFields:
                                             serviceFormState.hiddenFields,
                                         formSections: formSections,
-                                        mandatoryFieldObject: const {},
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                         dataObject: serviceFormState.formState,
                                         isEditableMode:
                                             serviceFormState.isEditableMode,
