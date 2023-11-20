@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcServicesTbscreening {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String firstDate,
+  }) {
     return [
+      AppUtil.getServiceProvisionEventDateSection(
+        inputColor: const Color(0xFF4A9F46),
+        labelColor: const Color(0xFF1A3518),
+        sectionLabelColor: const Color(0xFF0D3A16),
+        formSectionlabel: 'TB Screening Date',
+        inputFieldLabel: 'Assessment Date',
+        firstDate: firstDate,
+      ),
       FormSection(
           name: 'TB Screening',
           color: const Color(0xFF4B9F46),

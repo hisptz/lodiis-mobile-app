@@ -33,8 +33,8 @@ class OvcExitCaseClosure {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF0D3A16),
-        formSectionlabel: ' Date',
-        inputFieldLabel: 'School Monitoring On',
+        formSectionlabel: 'Case Closure Date',
+        inputFieldLabel: 'Case Closure On',
         firstDate: firstDate,
       ),
       FormSection(

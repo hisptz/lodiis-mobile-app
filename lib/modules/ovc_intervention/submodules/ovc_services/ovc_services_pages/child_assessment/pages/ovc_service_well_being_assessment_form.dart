@@ -40,6 +40,9 @@ class _OvcServiceWellBeingAssessmentFormState
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -48,11 +51,13 @@ class _OvcServiceWellBeingAssessmentFormState
   }
 
   void setFormSections() {
+    mandatoryFields = ['eventDate'];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
     formSections = OvcServicesWellbeingAssessment.getFormSections(
-        firstDate: child!.createdDate!);
+      firstDate: child!.createdDate!,
+    );
     formSections = child.enrollmentOuAccessible!
         ? formSections
         : [
@@ -68,6 +73,9 @@ class _OvcServiceWellBeingAssessmentFormState
             ),
             ...formSections ?? []
           ];
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -104,65 +112,84 @@ class _OvcServiceWellBeingAssessmentFormState
     Map dataObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
       if (dataObject['ADc3clrQRl4'] == null &&
           dataObject['efNgDIqhlNs'] == null) {
         AppUtil.showToastMessage(message: "Fill atleast one goal");
-      }
-      isSaving = true;
-      setState(() {});
-      String? eventDate = dataObject['eventDate'];
-      String? eventId = dataObject['eventId'];
-      String orgUnit =
-          dataObject['location'] ?? currentOvcHouseholdChild?.orgUnit ?? '';
-      List<String> skippedFields = [
-        'Wstcittf',
-      ];
-      try {
-        await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcServiceWellBeingAssessmentConstant.program,
-          OvcServiceWellBeingAssessmentConstant.programStage,
-          orgUnit,
-          formSections!,
-          dataObject,
-          eventDate,
-          currentOvcHouseholdChild?.id ?? '',
-          eventId,
-          null,
-          skippedFields: skippedFields,
-        );
-        Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseholdChild?.id ?? '');
-
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
-          });
-          String? currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
-          AppUtil.showToastMessage(
-            message: currentLanguage == 'lesotho'
-                ? 'Fomo e bolokeile'
-                : 'Form has been saved successfully',
-            position: ToastGravity.TOP,
+      } else {
+        isSaving = true;
+        setState(() {});
+        String? eventDate = dataObject['eventDate'];
+        String? eventId = dataObject['eventId'];
+        String orgUnit =
+            dataObject['location'] ?? currentOvcHouseholdChild?.orgUnit ?? '';
+        List<String> skippedFields = [
+          'Wstcittf',
+        ];
+        try {
+          await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
+            OvcServiceWellBeingAssessmentConstant.program,
+            OvcServiceWellBeingAssessmentConstant.programStage,
+            orgUnit,
+            formSections!,
+            dataObject,
+            eventDate,
+            currentOvcHouseholdChild?.id ?? '',
+            eventId,
+            null,
+            skippedFields: skippedFields,
           );
-          Navigator.pop(context);
-        });
-      } catch (e) {
-        Timer(const Duration(seconds: 1), () {
-          setState(() {
-            isSaving = false;
+          Provider.of<ServiceEventDataState>(context, listen: false)
+              .resetServiceEventDataState(currentOvcHouseholdChild?.id ?? '');
+          Timer(const Duration(seconds: 1), () {
+            String? currentLanguage =
+                Provider.of<LanguageTranslationState>(context, listen: false)
+                    .currentLanguage;
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: currentLanguage == 'lesotho'
+                  ? 'Fomo e bolokeile'
+                  : 'Form has been saved successfully',
+              position: ToastGravity.TOP,
+            );
             Navigator.pop(context);
           });
-        });
+        } catch (e) {
+          Timer(const Duration(seconds: 1), () {
+            setState(() {
+              isSaving = false;
+              AppUtil.showToastMessage(
+                  message: e.toString(), position: ToastGravity.BOTTOM);
+              Navigator.pop(context);
+            });
+          });
+        }
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -217,7 +244,10 @@ class _OvcServiceWellBeingAssessmentFormState
                                             serviceFormState
                                                 .hiddenInputFieldOptions,
                                         formSections: formSections,
-                                        mandatoryFieldObject: const {},
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                         dataObject: serviceFormState.formState,
                                         isEditableMode:
                                             serviceFormState.isEditableMode,
