@@ -46,6 +46,9 @@ class _OvcHouseholdAssessmentFormState
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -54,11 +57,14 @@ class _OvcHouseholdAssessmentFormState
   }
 
   void setFormSections() {
+    mandatoryFields = ['eventDate'];
     OvcHousehold? household =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHousehold;
-    formSections = OvcHouseholdServiceAdultWellbeing.getFormSections();
-    formSections = household!.enrollmentOuAccessible == true
+    formSections = OvcHouseholdServiceAdultWellbeing.getFormSections(
+      firstDate: household!.createdDate!,
+    );
+    formSections = household.enrollmentOuAccessible == true
         ? formSections
         : [
             AppUtil.getServiceProvisionLocationSection(
@@ -73,6 +79,9 @@ class _OvcHouseholdAssessmentFormState
             ),
             ...formSections ?? []
           ];
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -169,7 +178,17 @@ class _OvcHouseholdAssessmentFormState
     Map dataObject,
     OvcHousehold? currentOvcHousehold,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -178,7 +197,6 @@ class _OvcHouseholdAssessmentFormState
       String orgUnit =
           dataObject['location'] ?? currentOvcHousehold?.orgUnit ?? '';
       List<String> skippedFields = [];
-      //Add Manually set keys
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           OvcHouseholdAssessmentConstant.program,
@@ -222,9 +240,21 @@ class _OvcHouseholdAssessmentFormState
         });
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -282,8 +312,10 @@ class _OvcHouseholdAssessmentFormState
                                             serviceFormState
                                                 .hiddenInputFieldOptions,
                                         formSections: formSections,
-                                        // formSections: [],
-                                        mandatoryFieldObject: const {},
+                                        mandatoryFieldObject:
+                                            mandatoryFieldObject,
+                                        unFilledMandatoryFields:
+                                            unFilledMandatoryFields,
                                         dataObject: serviceFormState.formState,
                                         isEditableMode:
                                             serviceFormState.isEditableMode,
