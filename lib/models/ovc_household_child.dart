@@ -44,6 +44,8 @@ class OvcHouseholdChild {
     this.hasExitedProgram,
   });
 
+  bool get isClHiv => '$hivStatus' == 'Positive';
+
   Map toMap({
     required String parentId,
   }) {
