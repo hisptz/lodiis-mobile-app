@@ -1,5 +1,3 @@
-import 'package:kb_mobile_app/models/events.dart';
-
 class OvcCasePlanConstant {
   static const String casePlanEventDateSectionId = 'casePlanEventDateId';
   static const String casePlanLocatinSectionId = 'casePlanLocationId';
@@ -17,6 +15,7 @@ class OvcCasePlanConstant {
     'QDFZ03HbjGj', // VAC Legal messaging service provision
     'x3FxC6Bw139', // VAC Legal messaging service monitoring
   ];
+  //TODO update below for additional variables or missing servic provision results
   static const List<String> casePlanServiceProvisionResults = [
     'gwwUOs6yt6C',
     'gV77yUM8NK8',
@@ -71,6 +70,7 @@ class OvcCasePlanConstant {
     'TSx4O9Tf5v2',
     'QDFZ03HbjGj'
   ];
+  //TODO update below for additional variables or missing servic provision reasons
   static const List<String> casePlanServiceProvisionReasons = [
     'W5lbgijaXA6',
     'sxlVgySosg3',
@@ -126,90 +126,50 @@ class OvcCasePlanConstant {
     'aG42nUguLLW'
   ];
   static const List<String> casPlanServiceGaps = [
-    "XoSPWmpWXCy",
-    "JSQ3xP1NhuN",
-    "ylSjcj6cv42",
-    "AxtahhoHcXV",
-    "dTFLFtUUeEK",
-    "EaJTFrklMo5",
-    "Hvq9oisH7Gt",
-    "qTf8VSoojJ2",
-    "DQxqyncQtwm",
-    "e6NV2ZAzFEh",
-    "WrjNxZBVHCL",
-    "WdZ3PnW5yV6",
-    "hS7aONLz2cq",
-    "ksc7ov3MihX",
     "cx4xBY4jZXM",
-    "hJUuQ648wVF",
-    "BJrrrqQqwQO",
-    "LswSBpMoG5C",
-    "AwWKp6KmqgY",
+    "XoSPWmpWXCy",
+    "pbcXNnAuzfh",
+    "ylSjcj6cv42",
+    "d8vFkGjiux4",
     "HKCv7lkLexo",
-    "d2vXxEPeCq7",
+    "BJrrrqQqwQO",
+    "hJUuQ648wVF",
+    "AwWKp6KmqgY",
+    "JSQ3xP1NhuN",
     "x4yAqv4z2Xv",
     "AM9oJCOHM7f",
-    "gCKoJgBFdob",
     "uvJV4WGc5ct",
+    "rHgxOKM91wi",
+    "DQxqyncQtwm",
+    "Hvq9oisH7Gt",
+    "qTf8VSoojJ2",
+    "EaJTFrklMo5",
+    "d2vXxEPeCq7",
+    "LswSBpMoG5C",
+    "dTFLFtUUeEK",
+    "gCKoJgBFdob",
+    "AxtahhoHcXV",
+    "WrjNxZBVHCL",
+    "e6NV2ZAzFEh",
     "yPP7lkomNfK",
     "kvF996ugmMl",
     "uQiyym8SEvd",
-    "WiPTQhWLVU1",
-    "neF08iYV9Os",
-    "PoxYSqq8Hgz",
     "aPmPhwm8Zln",
     "AaqeRcyjbyS",
+    "WdZ3PnW5yV6",
     "Ccp4Odlh3BE",
-    "Cb8qzfdrg7d",
+    "WiPTQhWLVU1",
+    "PoxYSqq8Hgz",
+    "hS7aONLz2cq",
+    "GO3Ojp1UEX7",
+    "exHDkX1gPiC",
+    "yf6KmY3Rm5I",
     "X47zxNAqMv0",
     "qraZh4n14S4",
     "q2N7p3UbvSF",
     "NcMANzhhphO",
-    "TdReJf2LTXA"
+    "Cb8qzfdrg7d",
+    "TdReJf2LTXA",
+    "HsxFZOuV4oZ",
   ];
-  static Map getMappedCasePlanWithGapsByDomain(
-    List<Events> casePlanEvents,
-    List<Events> casePlanGapsEvents,
-  ) {
-    Map sanitizedDataObject = {};
-    List<Map> mappedCasePlanGaps =
-        OvcCasePlanConstant.getMappedCasePlanGaps(casePlanGapsEvents)
-            as List<Map<dynamic, dynamic>>;
-    for (Events casePlanEvent in casePlanEvents) {
-      Map data = OvcCasePlanConstant.getMappedEventObject(casePlanEvent);
-      String casePlanToGapLinkageValue =
-          data[OvcCasePlanConstant.casePlanToGapLinkage] ??
-              'casePlanToGapLinkage';
-      data['gaps'] = mappedCasePlanGaps
-          .where((Map data) =>
-              casePlanToGapLinkageValue.trim() != '' &&
-              data.containsValue(casePlanToGapLinkageValue))
-          .toList();
-      if (data.containsKey(OvcCasePlanConstant.casePlanDomainType)) {
-        sanitizedDataObject[data[OvcCasePlanConstant.casePlanDomainType]] =
-            data;
-      }
-    }
-    return sanitizedDataObject;
-  }
-
-  static List getMappedCasePlanGaps(
-    List<Events> casePlanGapsEvents,
-  ) {
-    return casePlanGapsEvents
-        .map((Events eventData) => getMappedEventObject(eventData))
-        .toList();
-  }
-
-  static Map getMappedEventObject(Events eventData) {
-    Map map = {};
-    map['eventDate'] = eventData.eventDate;
-    map['eventId'] = eventData.event;
-    for (Map dataValue in eventData.dataValues) {
-      if ('${dataValue['value']}'.trim() != '') {
-        map[dataValue['dataElement']] = dataValue['value'];
-      }
-    }
-    return map;
-  }
 }
