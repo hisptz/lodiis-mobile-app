@@ -81,8 +81,8 @@ class OvcCasePlanGapHouseholdToOvcUtil {
     required Map dataObject,
     required OvcHouseholdChild child,
   }) {
-    int age = int.tryParse(child.age ?? '') ?? 0;
     Map<String, dynamic> sanitizedDataObjects = {};
+    int age = int.tryParse(child.age ?? '') ?? 0;
     List<String> domains = OvcChildCasePlanConstant.domainToAutopopuledCasePlanGaps.keys.toList();
     for (String domain in domains) {
       Map domainConfig = OvcChildCasePlanConstant.domainToAutopopuledCasePlanGaps[domain] ?? {};

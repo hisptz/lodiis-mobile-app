@@ -11,7 +11,8 @@ class OvcChildCasePlanConstant {
     required Map domainConfig,
     required int age,
   }) {
-    List<String> validIds = domainConfig['generic'] ?? [];
+    List<String> validIds = [];
+    validIds.addAll(domainConfig['generic'] ?? []);
     List ageBased = domainConfig["ageBased"] ?? [];
     if (ageBased.isNotEmpty) {
       for (Map ageBasedConfig in ageBased) {
