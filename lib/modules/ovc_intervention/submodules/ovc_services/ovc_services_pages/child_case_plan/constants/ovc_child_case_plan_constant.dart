@@ -96,52 +96,129 @@ class OvcChildCasePlanConstant {
     },
   };
 
-  static const Map<String, List<String>> domainToAutopopuledCasePlanServiceProvision = {
-    "Health": [
-      //Defult for events
-      "eventDate",
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
-      //Tippy tap
-      "FRWCmEerPic", "lQYnoeqfKpe", "IiIVDSKX8yk",
-      //Soackage pit
-      "qL9c5r7c6kK", "pUphS6E1Gu5", "k5RGRpWRbbs", "SODPuEmHEGV",
-      //washmessage
-      "gV77yUM8NK8",
-      "aqJBZDBzh4m", "EtENRPlSnO0", "JFlnkaXlXm5"
-    ],
-    "Stable": [
-      //Defult for events
-      "eventDate",
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
-      //Silc
-      "xTO562B5g53", "uOMr56xoKDh", "hMdC0CMKSGn",
-      //KPlot
-      "lEkrLOFmLrH", "F8ALMOcc6C1", "ereN7hP7yuT", "p77CBdxxtHI"
-    ],
+  static const Map<String, Map> domainToAutopopuledCasePlanServiceProvision = {
+    "Health": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+        // FOOD PREV
+        "tnspdPfpuXm",
+        "V1HnY5m2Pmv",
+        "YRUnLuPerwn",
+        "eXh6Gag1uwp",
+        // FOOD PREP
+        "zK7kMYpgPQn", "GtejBpkVvtD", "F6z3SQxLskG", "g2X9vUL2d9m",
+        //FOOD SUPPORT
+        "QnFYeBNZlbf", "EnrZPBFxZuX", "vXuVPQLxw1d", "xdI5atw8DC4",
+        //TIPPY TAP
+        "FRWCmEerPic", "lQYnoeqfKpe", "IiIVDSKX8yk",
+        // WASH MESSAGE
+        "gV77yUM8NK8", "aqJBZDBzh4m", "EtENRPlSnO0", "JFlnkaXlXm5",
+        //SOACKAGE PIT
+        "qL9c5r7c6kK", "pUphS6E1Gu5", "k5RGRpWRbbs", "SODPuEmHEGV"
+      ],
+      "ageBased": []
+    },
+    "Safe": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+        //RTEEN/Parenting
+        "GImA3HB9YK5", "fFuabYbLUjz", "QBNhlIan0LR", "IFggJCXLYPD"
+      ],
+      "ageBased": [
+        {
+          "minAge": 0,
+          "maxAge": 5,
+          "ids": [
+            //P&FC
+            "gwwUOs6yt6C", "w2HlBCfHbZR", "n30r7v0ti1s", "aG42nUguLLW"
+          ],
+        },
+      ]
+    },
+    "Stable": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+        // SILC
+        "xTO562B5g53", "uOMr56xoKDh", "hMdC0CMKSGn",
+        // K/TPLOTS
+        "lEkrLOFmLrH", "F8ALMOcc6C1", "ereN7hP7yuT", "p77CBdxxtHI"
+      ],
+      "ageBased": [
+        {
+          "minAge": 9,
+          "maxAge": 18,
+          "ids": [
+            // FINANCIAL EDUCATION
+            "lpTVK3t1Ahk", "j1yzHzO0w6w", "KvHf0rBfa1L", "HGpA4kx5jLQ"
+          ],
+        },
+      ]
+    },
   };
 
-  static const Map<String, List<String>> domainToAutopopuledCasePlanServiceMonitoring = {
-    "Health": [
-      //Defult for events
-      "eventDate",
-      "eventId",
-      OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
-      //Tippy tap
-      "TaSyHHXKYhF",
-      //Soackage pit
-      "W4UjM09aOEw",
-      //washmessage
-      "qezhtOHXgaK"
-    ],
-    "Stable": [
-      //Defult for events
-      "eventDate",
-      "eventId",
-      OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
-      //Silc
-      "wNUBfCAg3Fq",
-      //KPlot
-      "legjCg7fomo",
-    ],
+  static const Map<String, Map> domainToAutopopuledCasePlanServiceMonitoring = {
+    "Health": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
+        // FOOD PREV
+
+        // FOOD PREP
+
+        //FOOD SUPPORT
+
+        //TIPPY TAP
+        "TaSyHHXKYhF",
+        // WASH MESSAGE
+        "qezhtOHXgaK",
+        //SOACKAGE PIT
+        "W4UjM09aOEw",
+      ],
+      "ageBased": []
+    },
+    "Safe": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
+        //RTEEN/Parenting
+      ],
+      "ageBased": [
+        {
+          "minAge": 0,
+          "maxAge": 5,
+          "ids": [
+            //P&FC
+          ],
+        },
+      ]
+    },
+    "Stable": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
+        // SILC
+        "wNUBfCAg3Fq",
+        // K/TPLOTS
+        "legjCg7fomo",
+      ],
+      "ageBased": [
+        {
+          "minAge": 9,
+          "maxAge": 18,
+          "ids": [
+            // FINANCIAL EDUCATION
+          ],
+        },
+      ]
+    },
   };
 }
