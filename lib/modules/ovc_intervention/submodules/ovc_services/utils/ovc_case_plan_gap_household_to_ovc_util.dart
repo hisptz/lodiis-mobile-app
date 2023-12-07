@@ -29,6 +29,7 @@ class OvcCasePlanGapHouseholdToOvcUtil {
         );
         for (String domainType in childDataObject.keys.toList()) {
           Map domainDataObject = childDataObject[domainType];
+          domainDataObject.remove('eventId');
           List<String> hiddenFields = [
             OvcCasePlanConstant.casePlanToGapLinkage,
             OvcCasePlanConstant.casePlanDomainType
