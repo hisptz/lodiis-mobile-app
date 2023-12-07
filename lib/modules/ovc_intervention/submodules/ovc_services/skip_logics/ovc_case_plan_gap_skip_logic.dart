@@ -31,7 +31,7 @@ mixin OvcCasePlanGapSkipLogic {
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'KnowledgeableAboutHIVEducation') &&
           ([
-            "cx4xBY4jZXM", //TODO 9-17 & caragivers
+            "cx4xBY4jZXM",
             "XoSPWmpWXCy",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
@@ -42,7 +42,7 @@ mixin OvcCasePlanGapSkipLogic {
           ([
             "ylSjcj6cv42",
             "HKCv7lkLexo",
-            "pbcXNnAuzfh", // 0-17 with clhiv status
+            "pbcXNnAuzfh",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
             gap, implementingPartner);
@@ -50,14 +50,13 @@ mixin OvcCasePlanGapSkipLogic {
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Proper nutrition for my children') &&
           ([
-            "BJrrrqQqwQO", //  yrs >=2, <  5
-            "hJUuQ648wVF", // <5 yrs
+            "BJrrrqQqwQO",
+            "hJUuQ648wVF",
             "AwWKp6KmqgY", //Care givers, propagate
             "JSQ3xP1NhuN", //Care givers, propagate
-            "x4yAqv4z2Xv", // <5
-            "AM9oJCOHM7f", // <5
-            "uvJV4WGc5ct", // <5
-            "rHgxOKM91wi", // Caregiver, propagate
+            "x4yAqv4z2Xv",
+            "AM9oJCOHM7f",
+            "uvJV4WGc5ct",
             "DQxqyncQtwm", // Caregiver, propagate
             "Hvq9oisH7Gt", // Caregiver, propagate
             "qTf8VSoojJ2", // Caregiver, propagate
@@ -70,9 +69,9 @@ mixin OvcCasePlanGapSkipLogic {
                   'Access to PMTCT services') &&
           ([
             "d2vXxEPeCq7",
-            "LswSBpMoG5C", // <5yrs
+            "LswSBpMoG5C",
             "dTFLFtUUeEK",
-            "gCKoJgBFdob", // <5yrs
+            "gCKoJgBFdob",
             "AxtahhoHcXV",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
@@ -99,9 +98,9 @@ mixin OvcCasePlanGapSkipLogic {
                   'To improve my family financial status') &&
           ([
             "e6NV2ZAzFEh", // Caregiver, propagate
-            "yPP7lkomNfK", // 9-17 yrs
-            "HsxFZOuV4oZ", // 0-17 yrs
-            "kvF996ugmMl", //  Caregiver, propagate
+            "yPP7lkomNfK",
+            "HsxFZOuV4oZ",
+            "kvF996ugmMl", //  Caregiver, propagate 9- 17
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
             gap, implementingPartner);
@@ -109,11 +108,11 @@ mixin OvcCasePlanGapSkipLogic {
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] ==
                   'Knowledgeable about VAC') &&
           ([
-            "uQiyym8SEvd", // 9-17yrs
-            "aPmPhwm8Zln", // 9-17 &caregiver
-            "AaqeRcyjbyS", // 9-17 &caregiver
-            "WdZ3PnW5yV6", //ALL
-            "Ccp4Odlh3BE", //ALL
+            "uQiyym8SEvd",
+            "aPmPhwm8Zln",
+            "AaqeRcyjbyS",
+            "WdZ3PnW5yV6",
+            "Ccp4Odlh3BE",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
             gap, implementingPartner);
@@ -122,28 +121,28 @@ mixin OvcCasePlanGapSkipLogic {
                   'Knowledgeable about child protection') &&
           ([
             "WiPTQhWLVU1", // Caregiver, propagate
-            "PoxYSqq8Hgz", // Caregiver, propagate to <5yrs ovcs
+            "PoxYSqq8Hgz", // Caregiver, propagate to <5
             "hS7aONLz2cq",
-            "GO3Ojp1UEX7", // 0-17
-            "exHDkX1gPiC", // 0-17
-            "yf6KmY3Rm5I", //0-17
+            "GO3Ojp1UEX7",
+            "exHDkX1gPiC",
+            "yf6KmY3Rm5I",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
             gap, implementingPartner);
       } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Better school attendance and performance' ||
               dataObject[OvcCasePlanConstant.casePlansSecondGoal] == 'Better school attendance and performance') &&
           ([
-            "X47zxNAqMv0", // 6-17 yrs
-            "qraZh4n14S4", // 13-17 yrs
-            "q2N7p3UbvSF", // 6-17 yrs
-            "NcMANzhhphO", // 6-17 & 18-20 in school
+            "X47zxNAqMv0",
+            "qraZh4n14S4",
+            "q2N7p3UbvSF",
+            "NcMANzhhphO",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
             gap, implementingPartner);
       } else if ((dataObject[OvcCasePlanConstant.casePlanFirstGoal] == 'Equipped with social assets for better living' || dataObject[OvcCasePlanConstant.casePlansSecondGoal] == 'Equipped with social assets for better living') &&
           ([
-            "Cb8qzfdrg7d", //9-17yrs
-            "TdReJf2LTXA", // 13-17 yrs
+            "Cb8qzfdrg7d",
+            "TdReJf2LTXA",
           ].contains(gap))) {
         hiddenFields[gap] = shouldServiceBeHiddenByImplementingPartner(
             gap, implementingPartner);
@@ -505,6 +504,7 @@ mixin OvcCasePlanGapSkipLogic {
       List<String> inputFieldIds, OvcHouseholdChild? currentHouseholdChild) {
     try {
       int age = int.parse(currentHouseholdChild!.age!);
+      String sex = currentHouseholdChild.sex ?? '';
       bool isClHiv = currentHouseholdChild.isClHiv;
       if (age > 17 || !isClHiv) {
         hiddenFields['pbcXNnAuzfh'] = true;
@@ -529,7 +529,9 @@ mixin OvcCasePlanGapSkipLogic {
       }
       if (age < 13 || age > 17) {
         hiddenFields['qraZh4n14S4'] = true;
-        hiddenFields['TdReJf2LTXA'] = true;
+        if (sex != 'Female') {
+          hiddenFields['TdReJf2LTXA'] = true;
+        }
       }
       if (age < 2 || age >= 5) {
         hiddenFields['BJrrrqQqwQO'] = true;

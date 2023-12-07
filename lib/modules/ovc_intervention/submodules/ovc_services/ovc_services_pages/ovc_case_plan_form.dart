@@ -99,16 +99,14 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       firstDate: widget.enrollmentDate,
     )) {
       // Removing the Schooled section for caregiver
-      if (!(widget.isHouseholdCasePlan &&
-          ['Schooled'].contains(formSection.id))) {
+      if (!(widget.isHouseholdCasePlan && ['Schooled'].contains(formSection.id))) {
         borderColors[formSection.id] = formSection.borderColor;
         formSection.borderColor = Colors.transparent;
         formSections.add(formSection);
       }
       // Removing the house categorization for child
       if (!widget.isHouseholdCasePlan &&
-          formSection.id ==
-              OvcCasePlanConstant.householdCategorizationSection) {
+          formSection.id == OvcCasePlanConstant.householdCategorizationSection) {
         formSections.remove(formSection);
       }
     }
@@ -136,8 +134,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
   }
 
   onInputValueChange(String? formSectionId, dynamic value) {
-    Provider.of<ServiceFormState>(context, listen: false)
-        .setFormFieldState(formSectionId, value);
+    Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(formSectionId, value);
   }
 
   void onSaveCasePlan({
@@ -147,13 +144,11 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       dataObject,
       isHouseholdCasePlan: widget.isHouseholdCasePlan,
     );
-    bool hasLocationFilled = OvcCasePlanUtil.isLocationOnCasePlanFormFilled(
-        dataObject,
+    bool hasLocationFilled = OvcCasePlanUtil.isLocationOnCasePlanFormFilled(dataObject,
         sectionsId: OvcCasePlanConstant.casePlanLocatinSectionId,
         shouldCheck: !widget.enrollmentOuAccessible);
-    bool hasCasePlanDateFilled =
-        OvcCasePlanUtil.isCasePlanDateOnCasePlanFormFilled(dataObject,
-            sectionsId: OvcCasePlanConstant.casePlanEventDateSectionId);
+    bool hasCasePlanDateFilled = OvcCasePlanUtil.isCasePlanDateOnCasePlanFormFilled(dataObject,
+        sectionsId: OvcCasePlanConstant.casePlanEventDateSectionId);
     if (isAllDomainFilled && hasLocationFilled && hasCasePlanDateFilled) {
       _isSaving = true;
       setState(() {});
@@ -163,12 +158,10 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                   ?.children ??
               [];
       TrackedEntityInstance beneficiary = widget.isHouseholdCasePlan
-          ? Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                  listen: false)
+          ? Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
               .currentOvcHousehold!
               .teiData!
-          : Provider.of<OvcHouseholdCurrentSelectionState>(context,
-                  listen: false)
+          : Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
               .currentOvcHouseholdChild!
               .teiData!;
       String orgUnit = widget.enrollmentOuAccessible
@@ -176,9 +169,8 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           : OvcCasePlanUtil.getLocationFromCasePlanForm(
               dataObject, OvcCasePlanConstant.casePlanLocatinSectionId);
       orgUnit = orgUnit.isEmpty ? beneficiary.orgUnit ?? '' : orgUnit;
-      String casePlanEventDate =
-          OvcCasePlanUtil.getCasePlanDateFromCasePlanForm(
-              dataObject, OvcCasePlanConstant.casePlanEventDateSectionId);
+      String casePlanEventDate = OvcCasePlanUtil.getCasePlanDateFromCasePlanForm(
+          dataObject, OvcCasePlanConstant.casePlanEventDateSectionId);
       await savingDomainsAndGaps(
         dataObject: dataObject,
         beneficiary: beneficiary,
@@ -200,8 +192,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
       Timer(const Duration(milliseconds: 200), () {
         if (Navigator.canPop(context)) {
           String currentLanguage =
-              Provider.of<LanguageTranslationState>(context, listen: false)
-                  .currentLanguage;
+              Provider.of<LanguageTranslationState>(context, listen: false).currentLanguage;
           AppUtil.showToastMessage(
             message: currentLanguage == 'lesotho'
                 ? 'Fomo e bolokeile'
@@ -215,8 +206,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
     } else {
       setState(() {});
       AppUtil.showToastMessage(
-        message:
-            'Please fill all mandatory field and at least one goal for all domain with gaps',
+        message: 'Please fill all mandatory field and at least one goal for all domain with gaps',
       );
     }
   }
@@ -229,16 +219,15 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
         trackedEntityInstance: beneficiary.trackedEntityInstance,
         orgUnit: beneficiary.orgUnit,
         dataObject: {
-          BeneficiaryIdentification.householdCategorization: dataObject[
-                      OvcCasePlanConstant.householdCategorizationSection]
-                  [OvcCasePlanConstant.houseHoldCategorizationDataElement] ??
-              ''
+          BeneficiaryIdentification.householdCategorization:
+              dataObject[OvcCasePlanConstant.householdCategorizationSection]
+                      [OvcCasePlanConstant.houseHoldCategorizationDataElement] ??
+                  ''
         },
         inputFieldIds: [
           BeneficiaryIdentification.householdCategorization
         ]).then((value) {
-      Provider.of<OvcInterventionListState>(context, listen: false)
-          .refreshOvcList();
+      Provider.of<OvcInterventionListState>(context, listen: false).refreshOvcList();
       Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
           .refetchCurrentHousehold();
       Provider.of<ServiceEventDataState>(context, listen: false)
@@ -271,13 +260,9 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
           List<FormSection> domainGapFormSections = widget.isHouseholdCasePlan
               ? OvcHouseholdServicesCasePlanGaps.getFormSections(
                   firstDate: '',
-                )
-                  .where(
-                      (FormSection formSection) => formSection.id == domainType)
-                  .toList()
+                ).where((FormSection formSection) => formSection.id == domainType).toList()
               : OvcServicesChildCasePlanGap.getFormSections(firstDate: '')
-                  .where(
-                      (FormSection formSection) => formSection.id == domainType)
+                  .where((FormSection formSection) => formSection.id == domainType)
                   .toList();
           await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
             widget.isHouseholdCasePlan
@@ -300,8 +285,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
             OvcCasePlanConstant.casePlanGapToMonitoringLinkage
           ];
           for (Map domainGapDataObject in domainDataObject['gaps']) {
-            await TrackedEntityInstanceUtil
-                .savingTrackedEntityInstanceEventData(
+            await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
               widget.isHouseholdCasePlan
                   ? OvcHouseholdCasePlanConstant.program
                   : OvcChildCasePlanConstant.program,
@@ -354,8 +338,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                       ? currentOvcHousehold!.age!
                       : currentOvcHouseholdChild!.age!) ??
                   0;
-              return Consumer<ServiceFormState>(
-                  builder: (context, serviceFormState, child) {
+              return Consumer<ServiceFormState>(builder: (context, serviceFormState, child) {
                 Map dataObject = serviceFormState.formState;
                 return Container(
                   margin: const EdgeInsets.symmetric(),
@@ -377,52 +360,39 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                               ),
                               child: Column(
                                 children: formSections
-                                    .where((formSection) =>
-                                        formSection.id == 'Schooled'
-                                            ? beneficairyAge > 5
-                                                ? true
-                                                : false
-                                            : true)
+                                    .where((formSection) => formSection.id == 'Schooled'
+                                        ? beneficairyAge > 5
+                                            ? true
+                                            : false
+                                        : true)
                                     .toList()
                                     .map(
                                       (formSection) => Container(
                                         margin: const EdgeInsets.symmetric(),
                                         child: CasePlanFormContainer(
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
+                                          mandatoryFieldObject: mandatoryFieldObject,
                                           canAddDomainGaps: ![
-                                            OvcCasePlanConstant
-                                                .householdCategorizationSection,
-                                            OvcCasePlanConstant
-                                                .casePlanLocatinSectionId,
-                                            OvcCasePlanConstant
-                                                .casePlanEventDateSectionId
+                                            OvcCasePlanConstant.householdCategorizationSection,
+                                            OvcCasePlanConstant.casePlanLocatinSectionId,
+                                            OvcCasePlanConstant.casePlanEventDateSectionId
                                           ].contains(formSection.id),
                                           formSectionColor:
-                                              borderColors[formSection.id] ??
-                                                  Colors.transparent,
+                                              borderColors[formSection.id] ?? Colors.transparent,
                                           formSection: formSection,
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          dataObject:
-                                              dataObject[formSection.id] ?? {},
+                                          isEditableMode: serviceFormState.isEditableMode,
+                                          dataObject: dataObject[formSection.id] ?? {},
                                           onInputValueChange: (
                                             dynamic value,
                                           ) =>
-                                              onInputValueChange(
-                                                  formSection.id, value),
-                                          isHouseholdCasePlan:
-                                              widget.isHouseholdCasePlan,
-                                          hasEditAccessToCasePlan:
-                                              widget.hasEditAccessToCasePlan,
-                                          enrollmentOuAccessible:
-                                              widget.enrollmentOuAccessible,
-                                          isOnCasePlanPage:
-                                              widget.isOnCasePlanPage,
-                                          isOnCasePlanServiceProvision: widget
-                                              .isOnCasePlanServiceProvision,
-                                          isOnCasePlanServiceMonitoring: widget
-                                              .isOnCasePlanServiceMonitoring,
+                                              onInputValueChange(formSection.id, value),
+                                          isHouseholdCasePlan: widget.isHouseholdCasePlan,
+                                          hasEditAccessToCasePlan: widget.hasEditAccessToCasePlan,
+                                          enrollmentOuAccessible: widget.enrollmentOuAccessible,
+                                          isOnCasePlanPage: widget.isOnCasePlanPage,
+                                          isOnCasePlanServiceProvision:
+                                              widget.isOnCasePlanServiceProvision,
+                                          isOnCasePlanServiceMonitoring:
+                                              widget.isOnCasePlanServiceMonitoring,
                                         ),
                                       ),
                                     )
@@ -431,8 +401,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                     Container(
                                       margin: const EdgeInsets.symmetric(),
                                       child: Visibility(
-                                        visible:
-                                            serviceFormState.isEditableMode,
+                                        visible: serviceFormState.isEditableMode,
                                         child: EntryFormSaveButton(
                                           label: _isSaving
                                               ? currentLanguage == 'lesotho'
@@ -445,8 +414,7 @@ class _OvcCasePlanFormState extends State<OvcCasePlanForm> {
                                           buttonColor: const Color(0xFF4B9F46),
                                           fontSize: 15.0,
                                           onPressButton: () => onSaveCasePlan(
-                                            dataObject:
-                                                serviceFormState.formState,
+                                            dataObject: serviceFormState.formState,
                                           ),
                                         ),
                                       ),
