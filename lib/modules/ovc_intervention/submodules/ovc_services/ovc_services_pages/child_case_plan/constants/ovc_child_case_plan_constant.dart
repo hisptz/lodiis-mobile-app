@@ -7,6 +7,25 @@ class OvcChildCasePlanConstant {
   static const String casePlanGapServiceProvisionProgramStage = 'CHFwighOquA';
   static const String casePlanGapServiceMonitoringProgramStage = 'v9Vrc5exzam';
 
+  static List<String> getValidIdForAutoPopulatingServiceData({
+    required Map domainConfig,
+    required int age,
+  }) {
+    List<String> validIds = domainConfig['generic'] ?? [];
+    List ageBased = domainConfig["ageBased"] ?? [];
+    if (ageBased.isNotEmpty) {
+      for (Map ageBasedConfig in ageBased) {
+        int? minAge = ageBasedConfig['minAge'];
+        int? maxAge = ageBasedConfig['maxAge'];
+        if (minAge != null && maxAge != null && age >= minAge && age < maxAge) {
+          List<String> ids = ageBasedConfig["ids"] ?? [];
+          validIds.addAll(ids);
+        }
+      }
+    }
+    return validIds;
+  }
+
   static const Map<String, Map> domainToAutopopuledCasePlanGaps = {
     "Health": {
       "generic": [
