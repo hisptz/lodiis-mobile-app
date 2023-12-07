@@ -6,39 +6,77 @@ class OvcChildCasePlanConstant {
   static const String casePlanGapProgramStage = 'gkNKXUxpyv9';
   static const String casePlanGapServiceProvisionProgramStage = 'CHFwighOquA';
   static const String casePlanGapServiceMonitoringProgramStage = 'v9Vrc5exzam';
-  //TODO review this on mapping
-  //TODO check for age restrictions
-  static const Map<String, List<String>> domainToAutopopuledCasePlanGaps = {
-    "Health": [
-      //Defult for events
-      "eventDate",
-      "eventId",
-      OvcCasePlanConstant.casePlanToGapLinkage,
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
-      OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
-      //Tippy tap
-      "DQxqyncQtwm", "P4I6rK6Xqxw", "WFKe1YpH1uK", "YJXb5rSVP0L",
-      //Soackage pit
-      "qTf8VSoojJ2", "ontonbgTJ8k", "AjYKLfIQPtT", "M2Aqvn027cd",
-      //washmessage
-      "Hvq9oisH7Gt", "ue6xLPEURqt", "vIbKIUgzBU4", "tQ3pKyJ0X9d"
-    ],
-    "Stable": [
-      //Defult for events
-      "eventDate",
-      "eventId",
-      OvcCasePlanConstant.casePlanToGapLinkage,
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
-      OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
-      //Silc
-      "e6NV2ZAzFEh", "JtfKB58MvNK", "MMjndp2xsoQ", "Hdf3EtTGfAb",
-      //KPlot
-      "WrjNxZBVHCL", "NWBZilCPutW", "boUUP8UeWDL", "d3k97F0fS2y",
-    ],
+
+  static const Map<String, Map> domainToAutopopuledCasePlanGaps = {
+    "Health": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanToGapLinkage,
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
+        // FOOD PREV
+        "AwWKp6KmqgY", "cXCdR7BvrSM", "u8yn7sY5eOX", "Mu0LxlAOoSp",
+        // FOOD PREP
+        "JSQ3xP1NhuN", "k6jzyzGOu5Y", "HrCyUkuZath", "MdmCqSwcrlk",
+        //FOOD SUPPORT
+        "EaJTFrklMo5", "rHgxOKM91wi", "v00dsDvhCRu", "WAq2HJHXZYS",
+        //TIPPY TAP
+        "DQxqyncQtwm", "P4I6rK6Xqxw", "WFKe1YpH1uK", "YJXb5rSVP0L",
+        // WASH MESSAGE
+        "Hvq9oisH7Gt", "ue6xLPEURqt", "vIbKIUgzBU4", "tQ3pKyJ0X9d",
+        //SOACKAGE PIT
+        "qTf8VSoojJ2", "ontonbgTJ8k", "AjYKLfIQPtT", "M2Aqvn027cd",
+      ],
+      "ageBased": []
+    },
+    "Safe": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanToGapLinkage,
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
+        //RTEEN/Parenting
+        "WiPTQhWLVU1", "E2CWztOcx2X", "xFXc0oacTEb", "BpLk6ruSL7e"
+      ],
+      "ageBased": [
+        {
+          "minAge": 0,
+          "maxAge": 5,
+          "ids": [
+            //P&FC
+            "PoxYSqq8Hgz", "O3mOdzWYmg3", "WFscqdyjgUy", "fCDk1LxN484"
+          ],
+        },
+      ]
+    },
+    "Stable": {
+      "generic": [
+        //Defult for events
+        "eventDate",
+        OvcCasePlanConstant.casePlanToGapLinkage,
+        OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
+        OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
+        // SILC
+        "e6NV2ZAzFEh", "JtfKB58MvNK", "MMjndp2xsoQ", "Hdf3EtTGfAb",
+        // K/TPLOTS
+        'WrjNxZBVHCL', "NWBZilCPutW", "boUUP8UeWDL", "d3k97F0fS2y"
+      ],
+      "ageBased": [
+        {
+          "minAge": 9,
+          "maxAge": 18,
+          "ids": [
+            // FINANCIAL EDUCATION
+            "kvF996ugmMl", "OMtcDA7tcVL", "Mz24UpWclb3", "zVCkEJuy2t8",
+          ],
+        },
+      ]
+    },
   };
 
-  static const Map<String, List<String>>
-      domainToAutopopuledCasePlanServiceProvision = {
+  static const Map<String, List<String>> domainToAutopopuledCasePlanServiceProvision = {
     "Health": [
       //Defult for events
       "eventDate",
@@ -62,8 +100,7 @@ class OvcChildCasePlanConstant {
     ],
   };
 
-  static const Map<String, List<String>>
-      domainToAutopopuledCasePlanServiceMonitoring = {
+  static const Map<String, List<String>> domainToAutopopuledCasePlanServiceMonitoring = {
     "Health": [
       //Defult for events
       "eventDate",
