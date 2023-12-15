@@ -32,20 +32,16 @@ class FormUtil {
     bool hasMandoryFieldCheckPass = true;
     List inputFieldWithData = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
-    List checkBoxInputFieldIds = checkBoxInputFields
-        .map((InputField inputField) => inputField.id)
-        .toSet()
-        .toList();
-    List filteredMandatoryFields = mandatoryFields
-        .where((field) => !hiddenFieldsIds.contains(field))
-        .toList();
+    List checkBoxInputFieldIds =
+        checkBoxInputFields.map((InputField inputField) => inputField.id).toSet().toList();
+    List filteredMandatoryFields =
+        mandatoryFields.where((field) => !hiddenFieldsIds.contains(field)).toList();
     for (var mandatoryField in filteredMandatoryFields) {
       if (!inputFieldWithData.contains(mandatoryField)) {
         if (checkBoxInputFieldIds.contains(mandatoryField)) {
           bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
             checkBoxInputFields
-                .where(
-                    (InputField inputField) => inputField.id == mandatoryField)
+                .where((InputField inputField) => inputField.id == mandatoryField)
                 .toList(),
             dataDynamic,
           );
@@ -61,8 +57,7 @@ class FormUtil {
           if (checkBoxInputFieldIds.contains(mandatoryField)) {
             bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
               checkBoxInputFields
-                  .where((InputField inputField) =>
-                      inputField.id == mandatoryField)
+                  .where((InputField inputField) => inputField.id == mandatoryField)
                   .toList(),
               dataDynamic,
             );
@@ -85,9 +80,8 @@ class FormUtil {
     bool hasAtLeastOneInputFieldFilled = false;
     List<String> ids = [];
     for (InputField inputField in checkBoxInputFields) {
-      ids.addAll((inputField.options ?? [])
-          .map((InputFieldOption option) => '${option.code}')
-          .toList());
+      ids.addAll(
+          (inputField.options ?? []).map((InputFieldOption option) => '${option.code}').toList());
     }
     for (String key in dataDynamic.keys.where((key) => ids.contains(key))) {
       dynamic value = dataDynamic[key];
@@ -107,20 +101,16 @@ class FormUtil {
     List unFilledMandatoryFields = [];
     List fieldIds = dataDynamic.keys.toList();
     List hiddenFieldsIds = hiddenFields.keys.toList();
-    List checkBoxInputFieldIds = checkBoxInputFields
-        .map((InputField inputField) => inputField.id)
-        .toSet()
-        .toList();
-    List filteredMandatoryFields = mandatoryFields
-        .where((field) => !hiddenFieldsIds.contains(field))
-        .toList();
+    List checkBoxInputFieldIds =
+        checkBoxInputFields.map((InputField inputField) => inputField.id).toSet().toList();
+    List filteredMandatoryFields =
+        mandatoryFields.where((field) => !hiddenFieldsIds.contains(field)).toList();
     for (var mandatoryField in filteredMandatoryFields) {
       if (!fieldIds.contains(mandatoryField)) {
         if (checkBoxInputFieldIds.contains(mandatoryField)) {
           bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
             checkBoxInputFields
-                .where(
-                    (InputField inputField) => inputField.id == mandatoryField)
+                .where((InputField inputField) => inputField.id == mandatoryField)
                 .toList(),
             dataDynamic,
           );
@@ -136,8 +126,7 @@ class FormUtil {
           if (checkBoxInputFieldIds.contains(mandatoryField)) {
             bool hasAtLeastOneInputFieldFilled = isAtLeastOneCheckBoxTicked(
               checkBoxInputFields
-                  .where((InputField inputField) =>
-                      inputField.id == mandatoryField)
+                  .where((InputField inputField) => inputField.id == mandatoryField)
                   .toList(),
               dataDynamic,
             );
@@ -163,8 +152,7 @@ class FormUtil {
       if (!fieldIds.contains(field)) {
         unFilledFields.add(field);
       } else {
-        if ('${dataDynamic[field]}'.trim() == '' ||
-            '${dataDynamic[field]}'.trim() == 'null') {
+        if ('${dataDynamic[field]}'.trim() == '' || '${dataDynamic[field]}'.trim() == 'null') {
           unFilledFields.add(field);
         }
       }
@@ -252,15 +240,13 @@ class FormUtil {
   }
 
   static List<FormSection> getFormSectionWithReadOnlyStatus(
-      List<FormSection> formSections,
-      bool isReadOnly,
-      List<String> skippedInputs) {
+      List<FormSection> formSections, bool isReadOnly, List<String> skippedInputs) {
     List<FormSection> sanitizedFormSections = [];
     for (FormSection formSection in formSections) {
-      List<InputField> inputFields = getInputFieldsWithStatus(
-          formSection.inputFields!, isReadOnly, skippedInputs);
-      List<FormSection> subSection = getFormSectionWithReadOnlyStatus(
-          formSection.subSections!, isReadOnly, skippedInputs);
+      List<InputField> inputFields =
+          getInputFieldsWithStatus(formSection.inputFields!, isReadOnly, skippedInputs);
+      List<FormSection> subSection =
+          getFormSectionWithReadOnlyStatus(formSection.subSections!, isReadOnly, skippedInputs);
       formSection.inputFields = inputFields;
       formSection.subSections = subSection;
       sanitizedFormSections.add(formSection);
@@ -281,8 +267,7 @@ class FormUtil {
     }).toList();
   }
 
-  static List<FormSection> getFlattenFormSections(
-      List<FormSection> formSections) {
+  static List<FormSection> getFlattenFormSections(List<FormSection> formSections) {
     List<FormSection> sections = [];
     for (FormSection formSection in formSections) {
       if (formSection.subSections!.isNotEmpty) {
@@ -302,8 +287,7 @@ class FormUtil {
     List<InputFieldOption> inputFieldOptions = [];
 
     InputField? inputField = (formSections
-                .firstWhereOrNull(
-                    (formSection) => formSection.id == formSectionId)
+                .firstWhereOrNull((formSection) => formSection.id == formSectionId)
                 ?.inputFields ??
             [])
         .firstWhereOrNull((field) => field.id == inputFieldId);
@@ -332,13 +316,10 @@ class FormUtil {
           }
         }
       }
-      List<String> subSectionFormFields =
-          getFormFieldIds(formSection.subSections!);
+      List<String> subSectionFormFields = getFormFieldIds(formSection.subSections!);
       fieldIds.addAll(subSectionFormFields);
     }
-    return includeLocationId
-        ? fieldIds
-        : fieldIds.where((String id) => id != 'location').toList();
+    return includeLocationId ? fieldIds : fieldIds.where((String id) => id != 'location').toList();
   }
 
   static bool geFormFilledStatus(
@@ -360,8 +341,7 @@ class FormUtil {
   static List<InputField> getFormInputFields(List<FormSection> formSections) {
     List<InputField> inputFields = [];
     for (FormSection formSection in formSections) {
-      List<InputField> subSectionFormFields =
-          getFormInputFields(formSection.subSections!);
+      List<InputField> subSectionFormFields = getFormInputFields(formSection.subSections!);
       inputFields.addAll(formSection.inputFields!);
       inputFields.addAll(subSectionFormFields);
     }
@@ -369,22 +349,22 @@ class FormUtil {
   }
 
   static Future<TrackedEntityInstance> geTrackedEntityInstanceEnrollmentPayLoad(
-      String? trackedEntityInstance,
-      String trackedEntityType,
-      String? orgUnit,
-      List<String> inputFieldIds,
-      Map dataObject,
-      {bool hasBeneficiaryId = true}) async {
+    String? trackedEntityInstance,
+    String trackedEntityType,
+    String? orgUnit,
+    List<String> inputFieldIds,
+    Map dataObject, {
+    bool hasBeneficiaryId = true,
+    List<String> skippedFields = const ['enrollmentDate', 'location'],
+  }) async {
+    inputFieldIds.removeWhere((field) => skippedFields.contains(field));
     trackedEntityInstance = trackedEntityInstance ?? AppUtil.getUid();
-    String appAndDeviceTrackingAttribute =
-        await AppInfoUtil.getAppAndDeviceTrackingInfo();
-    String? beneficiaryIndex =
-        dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
-            await ReservedAttributeValueService().getReservedAttributeValue();
+    String appAndDeviceTrackingAttribute = await AppInfoUtil.getAppAndDeviceTrackingInfo();
+    String? beneficiaryIndex = dataObject[BeneficiaryIdentification.beneficiaryIndex] ??
+        await ReservedAttributeValueService().getReservedAttributeValue();
     List<OrganisationUnit> organisationUnits =
         await OrganisationUnitService().getOrganisationUnits([orgUnit]);
-    OrganisationUnit? organisationUnit =
-        organisationUnits.isNotEmpty ? organisationUnits[0] : null;
+    OrganisationUnit? organisationUnit = organisationUnits.isNotEmpty ? organisationUnits[0] : null;
     dataObject[UserAccountReference.appAndDeviceTrackingAttribute] =
         dataObject[UserAccountReference.appAndDeviceTrackingAttribute] ??
             appAndDeviceTrackingAttribute;
@@ -394,21 +374,19 @@ class FormUtil {
           dataObject[BeneficiaryIdentification.beneficiaryId] =
               dataObject[BeneficiaryIdentification.beneficiaryIndex] != null
                   ? dataObject[BeneficiaryIdentification.beneficiaryId]
-                  : BeneficiaryIdentification().getBeneficiaryId(
-                      organisationUnit!, dataObject, beneficiaryIndex);
+                  : BeneficiaryIdentification()
+                      .getBeneficiaryId(organisationUnit!, dataObject, beneficiaryIndex);
       dataObject[BeneficiaryIdentification.beneficiaryIndex] = beneficiaryIndex;
     }
+
     String attributes = inputFieldIds
         .toSet()
         .toList()
         .map((String attribute) {
-          String value = dataObject.keys.toList().contains(attribute)
-              ? '${dataObject[attribute]}'.trim()
-              : '';
+          String value =
+              dataObject.keys.toList().contains(attribute) ? '${dataObject[attribute]}'.trim() : '';
           value = value == "null" ? '' : value;
-          return attribute != ''
-              ? '{"attribute": "$attribute", "value": "$value"}'
-              : '';
+          return attribute != '' ? '{"attribute": "$attribute", "value": "$value"}' : '';
         })
         .toList()
         .where((String attributeObj) => attributeObj.isNotEmpty)
@@ -416,8 +394,7 @@ class FormUtil {
         .join(',');
     dynamic trackedEntityInstanceJson =
         '{"trackedEntityInstance":"$trackedEntityInstance", "trackedEntityType":"$trackedEntityType", "orgUnit":"$orgUnit","syncStatus":"not-synced","attributes":[$attributes] }';
-    return TrackedEntityInstance()
-        .fromJson(json.decode(trackedEntityInstanceJson));
+    return TrackedEntityInstance().fromJson(json.decode(trackedEntityInstanceJson));
   }
 
   static Enrollment getEnrollmentPayLoad(
@@ -430,11 +407,8 @@ class FormUtil {
     Map? dataObject,
   ) {
     enrollment = enrollment ?? AppUtil.getUid();
-    enrollmentDate =
-        enrollmentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
-    incidentDate =
-        incidentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
-
+    enrollmentDate = enrollmentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
+    incidentDate = incidentDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String searchableValue =
         dataObject != null ? _getSearchableFieldFromDataObject(dataObject) : '';
     dynamic enrollmentJson =
@@ -487,8 +461,7 @@ class FormUtil {
   ) {
     event = event ?? AppUtil.getUid();
     trackedEntityInstance = trackedEntityInstance ?? '';
-    eventDate =
-        eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
+    eventDate = eventDate ?? AppUtil.formattedDateTimeIntoString(DateTime.now());
     String dataValues = inputFieldIds
         .toSet()
         .toList()
@@ -497,9 +470,7 @@ class FormUtil {
               ? '${dataObject[dataElement]}'.trim()
               : '';
           value = value == "null" ? '' : value;
-          return dataElement != ''
-              ? '{"dataElement": "$dataElement", "value": "$value"}'
-              : '';
+          return dataElement != '' ? '{"dataElement": "$dataElement", "value": "$value"}' : '';
         })
         .toList()
         .where((String dataElementObj) => dataElementObj.isNotEmpty)
@@ -523,8 +494,7 @@ class FormUtil {
   }
 
   static Future savingTeiRelationship(TeiRelationship teiRelationship) async {
-    await TeiRelationshipOfflineProvider()
-        .addOrUpdateTeiRelationship(teiRelationship);
+    await TeiRelationshipOfflineProvider().addOrUpdateTeiRelationship(teiRelationship);
   }
 
   static Future savingEvent(Events event) async {
