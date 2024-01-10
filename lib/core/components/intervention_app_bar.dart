@@ -198,6 +198,12 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actionsIconTheme: const IconThemeData().copyWith(
+        color: Colors.white,
+      ),
+      iconTheme: const IconThemeData().copyWith(
+        color: Colors.white,
+      ),
       backgroundColor: widget.activeInterventionProgram.primaryColor,
       title: Row(
         children: [
