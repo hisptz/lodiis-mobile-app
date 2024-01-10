@@ -18,6 +18,7 @@ class CasePlanHomeContainer extends StatelessWidget {
   const CasePlanHomeContainer({
     Key? key,
     required this.enrollmentOuAccessible,
+    required this.enrollmentDate,
     required this.isHouseholdCasePlan,
     required this.casePlanProgram,
     required this.casePlanProgramStage,
@@ -34,6 +35,7 @@ class CasePlanHomeContainer extends StatelessWidget {
   final String casePlanGapProgramStage;
   final String casePlanServiceProgramStage;
   final String casePlanMonitoringProgramStage;
+  final String enrollmentDate;
   final bool enrollmentOuAccessible;
   final bool isHouseholdCasePlan;
   final bool isOnCasePlanPage;
@@ -63,6 +65,7 @@ class CasePlanHomeContainer extends StatelessWidget {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditMode);
     Map casePlanDataObject = {};
+
     if (casePlanEvents.isNotEmpty) {
       eventDate = casePlanEvents.first.eventDate ?? eventDate;
       List<Events> casePlanGapsEvents =
@@ -71,8 +74,14 @@ class CasePlanHomeContainer extends StatelessWidget {
         casePlanEvents: casePlanEvents,
         casePlanGapsEvents: casePlanGapsEvents,
       );
+      if (!enrollmentOuAccessible) {
+        Provider.of<ServiceFormState>(context, listen: false).setFormFieldState(
+            OvcCasePlanConstant.casePlanLocatinSectionId,
+            {"location": casePlanEvents.first.orgUnit ?? ''});
+      }
     }
-    for (FormSection formSection in OvcServicesCasePlan.getFormSections()) {
+    for (FormSection formSection
+        in OvcServicesCasePlan.getFormSections(firstDate: '')) {
       String formSectionId = formSection.id!;
       String casePlanToGapLinkage = AppUtil.getUid();
       Map map = casePlanDataObject.containsKey(formSectionId)
@@ -93,7 +102,6 @@ class CasePlanHomeContainer extends StatelessWidget {
     required BuildContext context,
     required List<String> casePlanDates,
     bool isEditMode = true,
-    bool isCaseDisabled = false,
     bool onAddCasePlan = false,
     List<Events> casePlanEvents = const [],
     Map<String?, List<Events>> eventListByProgramStage = const {},
@@ -135,10 +143,13 @@ class CasePlanHomeContainer extends StatelessWidget {
                                 : 'Service monitoring tool'
                             : 'Child Case Plan Form',
                 isOnCasePlanPage: isOnCasePlanPage,
+                enrollmentOuAccessible: enrollmentOuAccessible,
+                enrollmentDate: enrollmentDate,
                 isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
                 isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-                hasEditAccess: isCaseDisabled &&
-                    OvcCasePlanUtil.hasAccessToEdit(casePlanEvents),
+                hasEditAccessToCasePlan: OvcCasePlanUtil.hasAccessToEdit(
+                  casePlanEvents,
+                ), //Contrpol editing gaps for case plams
                 isHouseholdCasePlan: isHouseholdCasePlan,
                 casePlanProgram: casePlanProgram,
                 casePlanProgramStage: casePlanProgramStage,
@@ -213,18 +224,16 @@ class CasePlanHomeContainer extends StatelessWidget {
                               onViewCasePlan: (
                                 List<Events> casePlanEvents,
                                 String currentCasePlanDate,
-                                bool disabled,
                               ) =>
                                   onManageCasePlan(
-                                context: context,
-                                casePlanDates: casePlanDates,
-                                eventListByProgramStage: serviceEventDataState
-                                    .eventListByProgramStage,
-                                isEditMode: false,
-                                currentCasePlanDate: currentCasePlanDate,
-                                casePlanEvents: casePlanEvents,
-                                isCaseDisabled: disabled,
-                              ),
+                                      context: context,
+                                      casePlanDates: casePlanDates,
+                                      eventListByProgramStage:
+                                          serviceEventDataState
+                                              .eventListByProgramStage,
+                                      isEditMode: false,
+                                      currentCasePlanDate: currentCasePlanDate,
+                                      casePlanEvents: casePlanEvents),
                               onEditCasePlan: (
                                 List<Events> casePlanEvents,
                                 String currentCasePlanDate,
@@ -236,13 +245,11 @@ class CasePlanHomeContainer extends StatelessWidget {
                                     .eventListByProgramStage,
                                 currentCasePlanDate: currentCasePlanDate,
                                 casePlanEvents: casePlanEvents,
-                                isCaseDisabled: false,
                               ),
                             ),
                           ),
                           Visibility(
-                            visible: enrollmentOuAccessible &&
-                                !hasBeneficiaryExitedProgram &&
+                            visible: !hasBeneficiaryExitedProgram &&
                                 !(isOnCasePlanServiceMonitoring ||
                                     isOnCasePlanServiceProvision),
                             child: Container(

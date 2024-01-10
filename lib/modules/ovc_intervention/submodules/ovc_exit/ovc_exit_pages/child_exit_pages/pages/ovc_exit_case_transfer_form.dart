@@ -13,6 +13,7 @@ import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
+import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/constants/program_status.dart';
 import 'package:kb_mobile_app/core/services/form_auto_save_offline_service.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
@@ -26,6 +27,7 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/services/ovc_enrollment_child_services.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/models/ovc_exit_case_transfer.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/ovc_exit_pages/child_exit_pages/constants/ovc_exit_case_transfer_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_exit/skip_logics/ovc_case_transfer_skip_logic.dart';
@@ -50,12 +52,6 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
   void initState() {
     super.initState();
     setFormSection();
-    Timer(const Duration(seconds: 1), () {
-      setState(() {
-        isFormReady = true;
-        evaluateSkipLogics();
-      });
-    });
   }
 
   void setFormSection() {
@@ -65,6 +61,27 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
     formSections = OvcExitCaseTransfer.getFormSections(
       firstDate: child!.createdDate!,
     );
+    formSections = child.enrollmentOuAccessible!
+        ? formSections
+        : [
+            AppUtil.getServiceProvisionLocationSection(
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF1A3518),
+              sectionLabelColor: const Color(0xFF1A3518),
+              formlabel: 'Location',
+              allowedSelectedLevels: [
+                AppHierarchyReference.communityLevel,
+              ],
+              program: OvcInterventionConstant.ovcProgramprogram,
+            ),
+            ...formSections ?? []
+          ];
+    Timer(const Duration(seconds: 1), () {
+      setState(() {
+        isFormReady = true;
+        evaluateSkipLogics();
+      });
+    });
   }
 
   evaluateSkipLogics() {
@@ -136,24 +153,29 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       String programStatusId = 'PN92g65TkVI';
+      String orgUnit =
+          dataObject['location'] ?? currentOvcHouseholdChild?.orgUnit ?? '';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-            OvcExitCaseTransferConstant.program,
-            OvcExitCaseTransferConstant.programStage,
-            currentOvcHouseholdChild!.orgUnit,
-            formSections!,
-            dataObject,
-            eventDate,
-            currentOvcHouseholdChild.id,
-            eventId,
-            null);
+          OvcInterventionConstant.ovcProgramprogram,
+          OvcExitCaseTransferConstant.programStage,
+          orgUnit,
+          formSections!,
+          dataObject,
+          eventDate,
+          currentOvcHouseholdChild?.id ?? '',
+          eventId,
+          null,
+        );
         await OvcEnrollmentChildService().updateOvcStatus(
-          trackedEntityInstance: currentOvcHouseholdChild.id,
-          orgUnit: currentOvcHouseholdChild.orgUnit,
-          dataObject: {programStatusId: ProgramStatus.transferred},
+          trackedEntityInstance: currentOvcHouseholdChild?.id ?? '',
+          orgUnit: orgUnit,
+          dataObject: {
+            programStatusId: ProgramStatus.transferred,
+          },
         );
         Provider.of<ServiceEventDataState>(context, listen: false)
-            .resetServiceEventDataState(currentOvcHouseholdChild.id);
+            .resetServiceEventDataState(currentOvcHouseholdChild?.id ?? '');
         Provider.of<OvcInterventionListState>(context, listen: false)
             .refreshOvcList();
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
@@ -173,7 +195,7 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
             position: ToastGravity.TOP,
           );
           clearFormAutoSaveState(
-              context, currentOvcHouseholdChild.id, eventId ?? '');
+              context, currentOvcHouseholdChild?.id ?? '', eventId ?? '');
           Navigator.pop(context);
         });
       } catch (e) {

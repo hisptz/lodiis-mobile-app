@@ -7,6 +7,7 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 class OvcEnrollmentChild {
   static List<String> getMandatoryField() {
     return [
+      'enrollmentDate',
       'iS9mAp3jDaU',
       'WTZ7GLTrE8Q',
       'rSP9c21JsfC',
@@ -49,7 +50,10 @@ class OvcEnrollmentChild {
     ];
   }
 
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required bool isEnrolmentDateEditable,
+    required String enrollmentDate,
+  }) {
     return [
       FormSection(
         name: '',
@@ -61,6 +65,15 @@ class OvcEnrollmentChild {
             translatedName: 'A. Lintlha tsa boitsebiso ba ngoana',
             color: const Color(0xFF4B9F46),
             inputFields: [
+              InputField(
+                id: 'enrollmentDate',
+                isReadOnly: !isEnrolmentDateEditable,
+                inputColor: const Color(0xFF4B9F46),
+                labelColor: const Color(0xFF737373),
+                name: 'Date of Enrollment to Program',
+                translatedName: "Letsatsi leo lelapa le keneng ka hara morero",
+                valueType: 'DATE',
+              ),
               InputField(
                 id: 'iS9mAp3jDaU',
                 name: 'Relationship to Caregiver',
@@ -163,6 +176,7 @@ class OvcEnrollmentChild {
                 valueType: 'DATE',
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF737373),
+                lastDate: enrollmentDate,
                 maxAgeInYear: 17,
                 numberOfMonth: 11,
                 minAgeInYear: 0,

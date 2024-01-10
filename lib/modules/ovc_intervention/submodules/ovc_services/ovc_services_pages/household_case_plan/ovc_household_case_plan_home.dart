@@ -51,8 +51,9 @@ class OvcHouseholdCasePlanHome extends StatelessWidget {
                       .casePlanGapServiceProvisionProgramStage,
                   casePlanMonitoringProgramStage: OvcHouseholdCasePlanConstant
                       .casePlanGapServiceMonitoringProgramStage,
+                  enrollmentDate: currentOvcHousehold!.createdDate!,
                   enrollmentOuAccessible:
-                      currentOvcHousehold!.enrollmentOuAccessible!,
+                      currentOvcHousehold.enrollmentOuAccessible!,
                   isHouseholdCasePlan: true,
                   isOnCasePlanPage: true,
                   isOnCasePlanServiceMonitoring: false,

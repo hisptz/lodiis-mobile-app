@@ -87,6 +87,7 @@ class _AgywDreamsHTSTBFormState extends State<AgywDreamsHTSTBForm> {
           widget.htsToTBLinkageValue;
       List<String> hiddenFields = [AgywDreamsHTSTBConstant.htsToTBLinkage];
       String orgUnit = dataObject['location'] ?? agywDream!.orgUnit;
+      orgUnit = orgUnit.isEmpty ? agywDream!.orgUnit ?? '' : orgUnit;
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
           AgywDreamsHTSTBConstant.program,

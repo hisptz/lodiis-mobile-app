@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcSchoolMonitoring {
-  static List<FormSection> getFormSections() {
+  static List<FormSection> getFormSections({
+    required String enrollmentDate,
+  }) {
     return [
+      AppUtil.getServiceProvisionEventDateSection(
+        inputColor: const Color(0xFF4A9F46),
+        labelColor: const Color(0xFF1A3518),
+        sectionLabelColor: const Color(0xFF4A9F46),
+        formSectionlabel: 'School Monitoring Date',
+        inputFieldLabel: 'School Monitoring On',
+        firstDate: enrollmentDate,
+      ),
       FormSection(
           name: 'DOMAIN SCHOOLED',
           translatedName: 'TSA SEKOLO',

@@ -11,6 +11,32 @@ import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 
 class AppUtil {
+  static FormSection getServiceProvisionEventDateSection({
+    required Color inputColor,
+    required Color labelColor,
+    required Color sectionLabelColor,
+    required String firstDate,
+    String id = '',
+    String formSectionlabel = 'Service Provision Date',
+    String inputFieldLabel = 'Services On',
+  }) {
+    return FormSection(
+      id: id.isEmpty ? AppUtil.getUid() : id,
+      name: formSectionlabel,
+      color: sectionLabelColor,
+      inputFields: [
+        InputField(
+          id: 'eventDate',
+          name: inputFieldLabel,
+          valueType: 'DATE',
+          firstDate: firstDate,
+          inputColor: inputColor,
+          labelColor: labelColor,
+        ),
+      ],
+    );
+  }
+
   static FormSection getServiceProvisionLocationSection({
     required Color inputColor,
     required Color labelColor,
@@ -19,8 +45,10 @@ class AppUtil {
     required String program,
     bool isReadOnly = false,
     String formlabel = 'Service Provision Location',
+    String id = '',
   }) {
     return FormSection(
+      id: id.isEmpty ? AppUtil.getUid() : id,
       name: formlabel,
       color: sectionLabelColor,
       inputFields: [
@@ -105,6 +133,30 @@ class AppUtil {
 
   static DateTime getDateIntoDateTimeFormat(String date) {
     return DateTime.tryParse(date) ?? DateTime.now();
+  }
+
+  static DateTime getMinimumDateTimeFromDateList(List<String> dates) {
+    return dates.isEmpty
+        ? DateTime.now()
+        : dates
+            .map((String date) => getDateIntoDateTimeFormat(date))
+            .reduce((previousDate, currentDate) {
+            return currentDate.isBefore(previousDate)
+                ? currentDate
+                : previousDate;
+          });
+  }
+
+  static DateTime getMaxmumDateTimeFromDateList(List<String> dates) {
+    return dates.isEmpty
+        ? DateTime.now()
+        : dates
+            .map((String date) => getDateIntoDateTimeFormat(date))
+            .reduce((previousDate, currentDate) {
+            return currentDate.isAfter(previousDate)
+                ? currentDate
+                : previousDate;
+          });
   }
 
   static Future<Position> getCurrentLocation() async {
