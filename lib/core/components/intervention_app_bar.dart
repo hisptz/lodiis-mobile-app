@@ -367,6 +367,7 @@ class _InterventionAppBarState extends State<InterventionAppBar> {
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     controller: widget.tabController,
                     unselectedLabelColor: Colors.white.withOpacity(0.3),
+                    labelColor: Colors.white,
                     indicatorColor: Colors.white,
                     tabs: widget.tabs
                         .map((tab) => Tab(
