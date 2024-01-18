@@ -28,6 +28,7 @@ class CasePlanHomeContainer extends StatelessWidget {
     required this.isOnCasePlanPage,
     required this.isOnCasePlanServiceProvision,
     required this.isOnCasePlanServiceMonitoring,
+    this.assessmentProgramStages = const [],
   }) : super(key: key);
 
   final String casePlanProgram;
@@ -36,6 +37,7 @@ class CasePlanHomeContainer extends StatelessWidget {
   final String casePlanServiceProgramStage;
   final String casePlanMonitoringProgramStage;
   final String enrollmentDate;
+  final List<String> assessmentProgramStages;
   final bool enrollmentOuAccessible;
   final bool isHouseholdCasePlan;
   final bool isOnCasePlanPage;

@@ -8,6 +8,9 @@ import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_home_container.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_service_hiv_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_service_tb_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_service_well_being_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_case_plan/constants/ovc_child_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +45,11 @@ class OvcChildCasePlan extends StatelessWidget {
                 OvcHouseholdChild? currentOvcHouseholdChild =
                     ovcHouseholdCurrentSelectionState.currentOvcHouseholdChild;
                 return CasePlanHomeContainer(
+                  assessmentProgramStages: [
+                    OvcServiceHIVAssessmentConstant.programStage,
+                    OvcServiceWellBeingAssessmentConstant.programStage,
+                    OvcServiceTBAssessmentConstant.programStage,
+                  ],
                   casePlanProgram: OvcChildCasePlanConstant.program,
                   casePlanProgramStage:
                       OvcChildCasePlanConstant.casePlanProgramStage,
