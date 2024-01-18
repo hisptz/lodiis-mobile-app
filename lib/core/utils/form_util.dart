@@ -31,7 +31,10 @@ class FormUtil {
   }) {
     bool hasMandoryFieldCheckPass = true;
     List inputFieldWithData = dataDynamic.keys.toList();
-    List hiddenFieldsIds = hiddenFields.keys.toList();
+    List hiddenFieldsIds = hiddenFields.keys
+        .toList()
+        .where((key) => hiddenFields[key] == true)
+        .toList();
     List checkBoxInputFieldIds = checkBoxInputFields
         .map((InputField inputField) => inputField.id)
         .toSet()
@@ -39,6 +42,7 @@ class FormUtil {
     List filteredMandatoryFields = mandatoryFields
         .where((field) => !hiddenFieldsIds.contains(field))
         .toList();
+
     for (var mandatoryField in filteredMandatoryFields) {
       if (!inputFieldWithData.contains(mandatoryField)) {
         if (checkBoxInputFieldIds.contains(mandatoryField)) {
@@ -106,7 +110,10 @@ class FormUtil {
   }) {
     List unFilledMandatoryFields = [];
     List fieldIds = dataDynamic.keys.toList();
-    List hiddenFieldsIds = hiddenFields.keys.toList();
+    List hiddenFieldsIds = hiddenFields.keys
+        .toList()
+        .where((key) => hiddenFields[key] == true)
+        .toList();
     List checkBoxInputFieldIds = checkBoxInputFields
         .map((InputField inputField) => inputField.id)
         .toSet()
