@@ -51,7 +51,10 @@ class _OvcServiceHIVAssessmentFormState
   }
 
   void setFormSections() {
-    mandatoryFields = ['eventDate'];
+    mandatoryFields = [
+      'eventDate',
+      ...OvcServicesHivScreening.getMandatoryFields()
+    ];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;

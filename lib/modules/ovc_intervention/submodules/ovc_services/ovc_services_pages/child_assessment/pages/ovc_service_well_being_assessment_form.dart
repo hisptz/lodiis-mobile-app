@@ -51,7 +51,10 @@ class _OvcServiceWellBeingAssessmentFormState
   }
 
   void setFormSections() {
-    mandatoryFields = ['eventDate'];
+    mandatoryFields = [
+      'eventDate',
+      ...OvcServicesWellbeingAssessment.getMandatoryFields()
+    ];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;

@@ -51,7 +51,10 @@ class _OvcServiceTBAssessmentFormState
   }
 
   void setFormSections() {
-    mandatoryFields = ['eventDate'];
+    mandatoryFields = [
+      'eventDate',
+      ...OvcServicesTbscreening.getMandatoryFields()
+    ];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
