@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -98,7 +99,17 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
     Map dataObject,
     OvcHousehold? currentOvcHousehold,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
       String? eventDate = dataObject['eventDate'];
@@ -162,8 +173,19 @@ class _OvcHouseholdExitState extends State<OvcHouseholdExit> {
         });
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
-        message: 'Please fill at least one form field',
+        message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
       );
     }
