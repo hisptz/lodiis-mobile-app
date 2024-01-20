@@ -47,6 +47,9 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -58,6 +61,7 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
+    mandatoryFields = ['eventDate', ...OvcExitInformation.getMandatoryFields()];
     formSections =
         OvcExitInformation.getFormSections(firstDate: child!.createdDate!);
     formSections = child.enrollmentOuAccessible == true
@@ -75,6 +79,9 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
             ),
             ...formSections ?? []
           ];
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -269,7 +276,10 @@ class _OvcExitInformationFormState extends State<OvcExitInformationForm>
                                           hiddenSections: hiddenSections,
                                           hiddenFields: hiddenFields,
                                           formSections: formSections,
-                                          mandatoryFieldObject: const {},
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
                                           dataObject:
                                               serviceFormState.formState,
                                           isEditableMode:

@@ -79,9 +79,6 @@ class _OvcServiceHIVAssessmentFormState
     for (String fieldId in mandatoryFields) {
       mandatoryFieldObject[fieldId] = true;
     }
-    for (String fieldId in mandatoryFields) {
-      mandatoryFieldObject[fieldId] = true;
-    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
