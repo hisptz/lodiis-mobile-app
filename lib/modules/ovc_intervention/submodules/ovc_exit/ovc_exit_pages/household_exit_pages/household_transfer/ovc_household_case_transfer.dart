@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_form_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
 import 'package:kb_mobile_app/app_state/intervention_card_state/intervention_card_state.dart';
@@ -47,6 +48,9 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
   bool isSaving = false;
   List<FormSection>? formSections;
   bool isFormReady = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -61,6 +65,10 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
     formSections = OvcExitCaseTransfer.getFormSections(
       firstDate: household!.createdDate!,
     );
+    mandatoryFields = [
+      'eventDate',
+      ...OvcExitCaseTransfer.getMandatoryFields()
+    ];
     formSections = household.enrollmentOuAccessible!
         ? formSections
         : [
@@ -76,7 +84,9 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
             ),
             ...formSections ?? []
           ];
-
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -96,7 +106,17 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
     Map dataObject,
     OvcHousehold? currentOvcHousehold,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -161,8 +181,19 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
         });
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
-        message: 'Please fill at least one form field',
+        message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
       );
     }
@@ -221,6 +252,9 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
                                 event: event,
                                 isSaving: isSaving,
                                 exitType: 'transfer',
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                unFilledMandatoryFields:
+                                    unFilledMandatoryFields,
                                 formSections: formSections,
                                 onSaveForm: (dataObject) => onSaveForm(
                                   context,

@@ -5,6 +5,7 @@ import 'package:kb_mobile_app/app_state/language_translation_state/language_tran
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/tracked_entity_instance_util.dart';
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_home_list.dart';
@@ -28,6 +29,7 @@ class CasePlanHomeContainer extends StatelessWidget {
     required this.isOnCasePlanPage,
     required this.isOnCasePlanServiceProvision,
     required this.isOnCasePlanServiceMonitoring,
+    this.assessmentProgramStages = const [],
   }) : super(key: key);
 
   final String casePlanProgram;
@@ -36,6 +38,7 @@ class CasePlanHomeContainer extends StatelessWidget {
   final String casePlanServiceProgramStage;
   final String casePlanMonitoringProgramStage;
   final String enrollmentDate;
+  final List<String> assessmentProgramStages;
   final bool enrollmentOuAccessible;
   final bool isHouseholdCasePlan;
   final bool isOnCasePlanPage;
@@ -186,6 +189,11 @@ class CasePlanHomeContainer extends StatelessWidget {
             child: Consumer<ServiceEventDataState>(
               builder: (context, serviceEventDataState, child) {
                 bool isLoading = serviceEventDataState.isLoading;
+                bool isAssessmentConducted = TrackedEntityInstanceUtil
+                        .getAllEventListFromServiceDataStateByProgramStages(
+                            serviceEventDataState.eventListByProgramStage,
+                            assessmentProgramStages)
+                    .isNotEmpty;
                 Map<String, List<Events>> casePlanByDates =
                     OvcCasePlanUtil.getCasePlanByDates(
                         eventListByProgramStage:
@@ -251,7 +259,8 @@ class CasePlanHomeContainer extends StatelessWidget {
                           Visibility(
                             visible: !hasBeneficiaryExitedProgram &&
                                 !(isOnCasePlanServiceMonitoring ||
-                                    isOnCasePlanServiceProvision),
+                                    isOnCasePlanServiceProvision) &&
+                                isAssessmentConducted,
                             child: Container(
                               margin: EdgeInsets.symmetric(
                                 vertical: casePlanByDates.keys.toList().isEmpty

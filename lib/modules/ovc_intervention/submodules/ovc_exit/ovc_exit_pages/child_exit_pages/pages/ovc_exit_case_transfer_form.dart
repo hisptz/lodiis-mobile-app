@@ -47,6 +47,9 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -61,6 +64,10 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
     formSections = OvcExitCaseTransfer.getFormSections(
       firstDate: child!.createdDate!,
     );
+    mandatoryFields = [
+      'eventDate',
+      ...OvcExitCaseTransfer.getMandatoryFields()
+    ];
     formSections = child.enrollmentOuAccessible!
         ? formSections
         : [
@@ -76,6 +83,9 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
             ),
             ...formSections ?? []
           ];
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -146,7 +156,17 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
     Map dataObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -209,9 +229,21 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
         });
       }
     } else {
+      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        dataObject,
+        hiddenFields:
+            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections ?? [],
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory field',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -263,7 +295,10 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
                                           hiddenFields: hiddenFields,
                                           hiddenSections: hiddenSections,
                                           formSections: formSections,
-                                          mandatoryFieldObject: const {},
+                                          mandatoryFieldObject:
+                                              mandatoryFieldObject,
+                                          unFilledMandatoryFields:
+                                              unFilledMandatoryFields,
                                           dataObject:
                                               serviceFormState.formState,
                                           isEditableMode:

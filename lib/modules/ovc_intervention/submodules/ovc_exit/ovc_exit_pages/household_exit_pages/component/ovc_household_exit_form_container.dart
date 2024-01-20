@@ -26,12 +26,16 @@ class OvcHouseholdExitFormContainer extends StatefulWidget {
     required this.formSections,
     required this.isSaving,
     required this.exitType,
+    this.mandatoryFieldObject = const {},
+    this.unFilledMandatoryFields = const [],
     this.onSaveForm,
   }) : super(key: key);
 
   final String exitType;
   final Events? event;
   final List<FormSection>? formSections;
+  final Map mandatoryFieldObject;
+  final List unFilledMandatoryFields;
   final bool isSaving;
   final Function? onSaveForm;
 
@@ -248,7 +252,10 @@ class _OvcHouseholdExitFormContainerState
                                 hiddenFields: serviceFormState.hiddenFields,
                                 hiddenSections: serviceFormState.hiddenSections,
                                 formSections: widget.formSections,
-                                mandatoryFieldObject: const {},
+                                mandatoryFieldObject:
+                                    widget.mandatoryFieldObject,
+                                unFilledMandatoryFields:
+                                    widget.unFilledMandatoryFields,
                                 dataObject: serviceFormState.formState,
                                 isEditableMode: serviceFormState.isEditableMode,
                                 onInputValueChange: onInputValueChange,

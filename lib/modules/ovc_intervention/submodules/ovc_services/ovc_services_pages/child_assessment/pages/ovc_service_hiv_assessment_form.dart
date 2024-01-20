@@ -21,8 +21,8 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_service_hiv_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_hiv_screening.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/constants/ovc_service_hiv_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_hiv_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -51,7 +51,10 @@ class _OvcServiceHIVAssessmentFormState
   }
 
   void setFormSections() {
-    mandatoryFields = ['eventDate'];
+    mandatoryFields = [
+      'eventDate',
+      ...OvcServicesHivScreening.getMandatoryFields()
+    ];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
@@ -73,9 +76,6 @@ class _OvcServiceHIVAssessmentFormState
             ),
             ...formSections ?? []
           ];
-    for (String fieldId in mandatoryFields) {
-      mandatoryFieldObject[fieldId] = true;
-    }
     for (String fieldId in mandatoryFields) {
       mandatoryFieldObject[fieldId] = true;
     }

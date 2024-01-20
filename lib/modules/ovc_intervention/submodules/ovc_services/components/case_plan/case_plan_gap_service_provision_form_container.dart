@@ -55,6 +55,7 @@ class _CasePlanGapServiceProvisionFormContainerState
   List<FormSection> formSections = [];
   List<String> mandatoryFields = [];
   Map mandatoryFieldObject = {};
+  List _unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -78,6 +79,12 @@ class _CasePlanGapServiceProvisionFormContainerState
     formSections = formSections
         .where((formSection) => formSection.id == widget.domainId)
         .toList();
+    mandatoryFields.addAll(
+      FormUtil.getInputFieldIdsByValueType(
+        valueType: "DATE",
+        formSections: formSections,
+      ),
+    );
     if (!widget.enrollmentOuAccessible) {
       formSections = [
         AppUtil.getServiceProvisionLocationSection(
@@ -120,6 +127,7 @@ class _CasePlanGapServiceProvisionFormContainerState
     Map<String, dynamic> sessionNumberValidation =
         OvcServiceProvisionUtil.getSessionNumberValidation(
             widget.gapServiceObject);
+    _unFilledMandatoryFields = [];
     setState(() {});
     setSessionNumberViolationMessages(sessionNumberValidation);
   }
@@ -135,6 +143,8 @@ class _CasePlanGapServiceProvisionFormContainerState
   }
 
   void onSaveCasePlanServiceProvision() async {
+    _unFilledMandatoryFields = [];
+    setState(() {});
     bool hasAtLeastOnFieldFilled = FormUtil.hasAtLeastOnFieldFilled(
       hiddenFields: hiddenFields,
       formSections: formSections,
@@ -242,6 +252,16 @@ class _CasePlanGapServiceProvisionFormContainerState
         );
       }
     } else {
+      _unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+        mandatoryFields,
+        widget.gapServiceObject,
+        hiddenFields: hiddenFields,
+        checkBoxInputFields: FormUtil.getInputFieldByValueType(
+          valueType: 'CHECK_BOX',
+          formSections: formSections,
+        ),
+      );
+      setState(() {});
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory fields',
       );
@@ -271,6 +291,7 @@ class _CasePlanGapServiceProvisionFormContainerState
                     dataObject: widget.gapServiceObject,
                     isEditableMode: widget.isEditableMode,
                     onInputValueChange: onInputValueChange,
+                    unFilledMandatoryFields: _unFilledMandatoryFields,
                   ),
                   Visibility(
                     visible: widget.isEditableMode,
