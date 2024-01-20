@@ -47,6 +47,9 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
   bool isSaving = false;
   List<FormSection>? formSections;
   bool isFormReady = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -61,6 +64,10 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
     formSections = OvcExitCaseTransfer.getFormSections(
       firstDate: household!.createdDate!,
     );
+    mandatoryFields = [
+      'eventDate',
+      ...OvcExitCaseTransfer.getMandatoryFields()
+    ];
     formSections = household.enrollmentOuAccessible!
         ? formSections
         : [
@@ -76,7 +83,9 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
             ),
             ...formSections ?? []
           ];
-
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -221,6 +230,9 @@ class _OvcHouseholdCaseTransferState extends State<OvcHouseholdCaseTransfer> {
                                 event: event,
                                 isSaving: isSaving,
                                 exitType: 'transfer',
+                                mandatoryFieldObject: mandatoryFieldObject,
+                                unFilledMandatoryFields:
+                                    unFilledMandatoryFields,
                                 formSections: formSections,
                                 onSaveForm: (dataObject) => onSaveForm(
                                   context,
