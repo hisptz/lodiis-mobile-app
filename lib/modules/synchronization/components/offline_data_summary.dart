@@ -112,8 +112,8 @@ class OfflineDataSummary extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 15.0),
                 child: EntryFormSaveButton(
-                  marginLeft: 40.0,
-                  marginRight: 40.0,
+                  marginLeft: 30.0,
+                  marginRight: 30.0,
                   vertical: 5.0,
                   label: 'Data download and upload',
                   svgIconPath: 'assets/icons/sync.svg',
