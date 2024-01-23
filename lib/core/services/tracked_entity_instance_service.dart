@@ -73,12 +73,21 @@ class TrackedEntityInstanceService {
           await saveTrackedEntityInstanceEnrollment(teiEnrollmentsJson);
           await saveTrackedEntityInstanceEvents(teiEventsJson);
           await saveTrackedEntityInstanceRelationShips(teiRelationshipsJson);
-
           if (teiRelationshipsJson.isNotEmpty && shouldDownloadRelatedTei) {
-            List<String> teiIds = _getTeiIdsFromRelationship(
-                teiRelationships: teiRelationshipsJson,
-                trackedEntityInstance: teiId);
-            for (String teiId in teiIds) {
+            List<TeiRelationship> teiRelationships = teiRelationshipsJson
+                .map((dynamic json) => TeiRelationship().fromOnline(json))
+                .toList();
+            List<String> teiIds = [];
+            for (TeiRelationship teiRelationship in teiRelationships) {
+              teiIds.addAll(
+                  [teiRelationship.fromTei ?? '', teiRelationship.toTei ?? '']);
+            }
+            List<String> releatedTeiIds =
+                (await getRelatedTrackedEntityInstanceIds(
+                        teiIds: teiIds, programs: programs))
+                    .where((String id) => id != teiId)
+                    .toList();
+            for (String teiId in releatedTeiIds) {
               await discoverTrackedEntityInstanceById(teiId);
             }
           }
