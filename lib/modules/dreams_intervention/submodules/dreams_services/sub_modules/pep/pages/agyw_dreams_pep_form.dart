@@ -80,6 +80,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
     defaultFormSections = DreamsPEPInfo.getFormSections(
       firstDate: agyw.createdDate!,
     );
+    mandatoryFields = DreamsPEPInfo.getMandatoryField();
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -95,13 +96,15 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields = FormUtil.getFormFieldIds(
-        [serviceProvisionForm],
-        includeLocationId: true,
+      mandatoryFields.addAll(
+        FormUtil.getFormFieldIds(
+          [serviceProvisionForm],
+          includeLocationId: true,
+        ),
       );
-      for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
     }
   }
 
@@ -144,16 +147,8 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
       ),
     );
     if (hadAllMandatoryFilled) {
-    } else {
-      AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
-        position: ToastGravity.TOP,
-      );
-    }
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
-      setState(() {
-        isSaving = true;
-      });
+      isSaving = true;
+      setState(() {});
       String? eventDate = dataObject['eventDate'];
       String? eventId = dataObject['eventId'];
       List<String> hiddenFields = [];
@@ -201,7 +196,7 @@ class _AgywDreamsPEPFormState extends State<AgywDreamsPEPForm> {
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill at least one form field',
+        message: 'Please fill all mandatory field',
         position: ToastGravity.TOP,
       );
     }
