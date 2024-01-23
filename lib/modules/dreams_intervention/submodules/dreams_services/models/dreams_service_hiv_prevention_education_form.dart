@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceHIVPreventionEducationForm {
+  static List<String> getMandatoryField() {
+    return FormUtil.getAllFormSectionInpiutFields(
+      getFormSections(
+        firstDate: '',
+      ),
+    );
+  }
+
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
@@ -15,7 +24,7 @@ class DreamsServiceHIVPreventionEducationForm {
         inputFields: [
           InputField(
             id: 'ytVTXe4RVUJ',
-            name: 'HIV Prevention Education',
+            name: 'HIV Prevention Education provided',
             inputColor: const Color(0xFF1F8ECE),
             labelColor: const Color(0xFF737373),
             valueType: 'BOOLEAN',

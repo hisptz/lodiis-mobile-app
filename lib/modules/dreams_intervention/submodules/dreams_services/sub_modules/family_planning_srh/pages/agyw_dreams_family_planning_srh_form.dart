@@ -82,6 +82,7 @@ class _AgywDreamsFamilyPlanningSrhFormState
     defaultFormSections = DreamsContraceptivesForm.getFormSections(
       firstDate: agyw.createdDate!,
     );
+    mandatoryFields = DreamsContraceptivesForm.getMandatoryField();
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -97,13 +98,15 @@ class _AgywDreamsFamilyPlanningSrhFormState
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields = FormUtil.getFormFieldIds(
-        [serviceProvisionForm],
-        includeLocationId: true,
+      mandatoryFields.addAll(
+        FormUtil.getFormFieldIds(
+          [serviceProvisionForm],
+          includeLocationId: true,
+        ),
       );
-      for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
     }
   }
 

@@ -99,9 +99,9 @@ class _AgywDreamsPrepFormPageState extends State<AgywDreamsPrepFormPage> {
         [serviceProvisionForm],
         includeLocationId: true,
       ));
-      for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
     }
   }
 

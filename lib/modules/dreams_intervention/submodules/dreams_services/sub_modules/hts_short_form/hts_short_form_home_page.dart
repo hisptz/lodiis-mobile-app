@@ -149,11 +149,14 @@ class _HTSShortFormHomePageState extends State<HTSShortFormHomePage> {
                                       vertical: 10.0,
                                     ),
                                     child: events.isEmpty
-                                        ? Text(languageTranslationState
-                                                    .currentLanguage ==
-                                                'lesotho'
-                                            ? 'Ha ho na ketelo hajoale'
-                                            : 'There is no visit at a moment')
+                                        ? Text(
+                                            languageTranslationState
+                                                        .currentLanguage ==
+                                                    'lesotho'
+                                                ? 'Ha ho na ketelo hajoale'
+                                                : 'There is no visit at a moment',
+                                            textAlign: TextAlign.center,
+                                          )
                                         : Container(
                                             margin: const EdgeInsets.symmetric(
                                               vertical: 5.0,
