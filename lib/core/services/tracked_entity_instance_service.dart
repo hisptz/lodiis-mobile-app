@@ -89,6 +89,46 @@ class TrackedEntityInstanceService {
     }
   }
 
+  Future<List<String>> getRelatedTrackedEntityInstanceIds({
+    required List<String> teiIds,
+    required List<String> programs,
+  }) async {
+    List<String> trackedEntityInstanceids = [];
+    try {
+      CurrentUser? currentUser = await (UserService().getCurrentUser());
+      HttpService httpService = HttpService(
+        username: currentUser!.username,
+        password: currentUser.password,
+      );
+      for (String teiId in teiIds) {
+        var url = "api/trackedEntityInstances/$teiId.json";
+        for (String program in programs) {
+          var queryParameters = {
+            "program": program,
+            "fields":
+                "relationships[from[trackedEntityInstance[trackedEntityInstance]],to[trackedEntityInstance[trackedEntityInstance]]]"
+          };
+          var response =
+              await httpService.httpGet(url, queryParameters: queryParameters);
+          if (response.statusCode == 200) {
+            Map<String, dynamic> teiJson = json.decode(response.body);
+            List teiRelationshipsJson = teiJson["relationships"] ?? [];
+            List<TeiRelationship> teiRelationships = teiRelationshipsJson
+                .map((dynamic json) => TeiRelationship().fromOnline(json))
+                .toList();
+            for (TeiRelationship teiRelationship in teiRelationships) {
+              trackedEntityInstanceids.addAll(
+                  [teiRelationship.fromTei ?? '', teiRelationship.toTei ?? '']);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      //
+    }
+    return trackedEntityInstanceids.toSet().toList();
+  }
+
   Future saveTrackedEntityInstanceProfile(dynamic teiJson) async {
     await TrackedEntityInstanceOfflineProvider()
         .addOrUpdateTrackedEntityInstance(
