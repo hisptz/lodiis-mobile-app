@@ -1,7 +1,7 @@
 import 'package:kb_mobile_app/core/constants/beneficiary_identification.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/tracked_entity_instance.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_enrollment/constants/ovc_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 
 class OvcHouseholdChild {
   String? id;
@@ -43,6 +43,8 @@ class OvcHouseholdChild {
     this.artInitiationDate,
     this.hasExitedProgram,
   });
+
+  bool get isClHiv => '$hivStatus' == 'Positive';
 
   Map toMap({
     required String parentId,

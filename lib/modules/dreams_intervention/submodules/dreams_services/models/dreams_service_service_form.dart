@@ -5,7 +5,11 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceForm {
   static List<String> getMandatoryField() {
-    return ['Eug4BXDFLym', 'vL6NpUA0rIU'];
+    return [
+      'Eug4BXDFLym',
+      'vL6NpUA0rIU',
+      'O7sjTjxUmEa',
+    ];
   }
 
   static List<FormSection> getFormSections({

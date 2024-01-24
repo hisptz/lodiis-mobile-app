@@ -39,7 +39,7 @@ class CasePlanHomeList extends StatelessWidget {
           (String casePlanDate) {
             var index = casePlanIndex - 1;
             casePlanIndex--;
-            bool hasEditAccess = OvcCasePlanUtil.hasAccessToEdit(
+            bool hasEditAccessToCasePlan = OvcCasePlanUtil.hasAccessToEdit(
                     casePlanByDates[casePlanDate]!) &&
                 latestCasePlan == casePlanDate;
             return Container(
@@ -107,12 +107,10 @@ class CasePlanHomeList extends StatelessWidget {
                         _getActionButton(
                           icon: 'assets/icons/expand_icon.svg',
                           onTap: () => onViewCasePlan(
-                              casePlanByDates[casePlanDate],
-                              casePlanDate,
-                              latestCasePlan == casePlanDate),
+                              casePlanByDates[casePlanDate], casePlanDate),
                         ),
                         Visibility(
-                          visible: hasEditAccess &&
+                          visible: hasEditAccessToCasePlan &&
                               !hasBeneficiaryExitedProgram &&
                               !(isOnCasePlanServiceMonitoring ||
                                   isOnCasePlanServiceProvision),

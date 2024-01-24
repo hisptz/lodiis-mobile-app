@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
@@ -31,6 +32,14 @@ class OvcGraduationReadinessForm {
     required String firstDate,
   }) {
     return [
+      AppUtil.getServiceProvisionEventDateSection(
+        inputColor: const Color(0xFF4A9F46),
+        labelColor: const Color(0xFF1A3518),
+        sectionLabelColor: const Color(0xFF4A9F46),
+        formSectionlabel: 'Case Plan Graduation Date',
+        inputFieldLabel: 'Case Plan Graduation On',
+        firstDate: firstDate,
+      ),
       FormSection(
         id: "DXmPLZhKQVp",
         name: 'Benchmark 1: Known HIV status',

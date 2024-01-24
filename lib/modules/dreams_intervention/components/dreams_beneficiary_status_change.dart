@@ -186,14 +186,6 @@ class _DreamsBeneficiaryStatusChangeState
               ),
             ],
           ),
-          // TODO followup on the reason for dropout
-          // InputField(
-          //   id: reasonToDropOutID,
-          //   name: 'Drop out reasons',
-          //   valueType: 'TEXT',
-          //   inputColor: const Color(0xFF258DCC),
-          //   labelColor: const Color(0xFF737373),
-          // )
         ],
       ));
       _trackedEntityInstance = widget.agywDream.trackedEntityInstanceData;

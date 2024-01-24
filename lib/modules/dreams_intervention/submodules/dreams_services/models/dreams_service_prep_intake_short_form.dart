@@ -6,13 +6,11 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsPrepIntakeShortForm {
   static List<String> getMandatoryField() {
-    const excludedFields = ['XhMaVycZx8l', 'lvT9gfpHIlT'];
-    List<String> inputFields = FormUtil.getFormFieldIds(getFormSections(
-      firstDate: '',
-    ));
-    inputFields =
-        inputFields.where((field) => !excludedFields.contains(field)).toList();
-    return inputFields;
+    return FormUtil.getAllFormSectionInpiutFields(
+      getFormSections(
+        firstDate: '',
+      ),
+    );
   }
 
   static List<FormSection> getFormSections({

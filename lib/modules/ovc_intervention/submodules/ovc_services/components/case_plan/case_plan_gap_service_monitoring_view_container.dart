@@ -14,14 +14,14 @@ class CasePlanGapServiceMonitoringViewContainer extends StatefulWidget {
     required this.formSectionColor,
     required this.casePlanGap,
     required this.isHouseholdCasePlan,
-    required this.hasEditAccess,
+    required this.enrollmentOuAccessible,
   }) : super(key: key);
 
   final String domainId;
   final Color formSectionColor;
   final Map casePlanGap;
   final bool isHouseholdCasePlan;
-  final bool hasEditAccess;
+  final bool enrollmentOuAccessible;
 
   @override
   State<CasePlanGapServiceMonitoringViewContainer> createState() =>
@@ -36,6 +36,8 @@ class _CasePlanGapServiceMonitoringViewContainerState
   }) async {
     double ratio = 0.8;
     gapServiceMonitoringObject = gapServiceMonitoringObject ?? {};
+    String location = gapServiceMonitoringObject['location'] ?? '';
+    String casePlanGapDate = widget.casePlanGap['eventDate'] ?? '';
     List skippedKeys = [
       'eventId',
       'eventDate',
@@ -49,6 +51,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
       gapServiceMonitoringObject[key] =
           gapServiceMonitoringObject[key] ?? widget.casePlanGap[key];
     }
+    gapServiceMonitoringObject['location'] = location;
     gapServiceMonitoringObject['casePlanDate'] =
         widget.casePlanGap['eventDate'];
     AppUtil.showActionSheetModal(
@@ -60,7 +63,9 @@ class _CasePlanGapServiceMonitoringViewContainerState
         formSectionColor: widget.formSectionColor,
         gapServiceMonitoringObject: gapServiceMonitoringObject,
         isHouseholdCasePlan: widget.isHouseholdCasePlan,
-        isEditableMode: widget.hasEditAccess && isOnEditMode,
+        enrollmentOuAccessible: widget.enrollmentOuAccessible,
+        isEditableMode: isOnEditMode,
+        casePlanGapDate: casePlanGapDate,
       ),
     );
   }
@@ -78,14 +83,15 @@ class _CasePlanGapServiceMonitoringViewContainerState
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15.0,
+              ),
               child: CasePlanGapServiceMonitoringView(
                 domainId: widget.domainId,
                 formSectionColor: widget.formSectionColor,
                 casePlanGap: widget.casePlanGap,
                 isHouseholdCasePlan: widget.isHouseholdCasePlan,
-                hasEditAccess:
-                    widget.hasEditAccess && hasBeneficiaryExited != true,
+                hasEditAccess: hasBeneficiaryExited != true,
                 onViewCasePlanServiceMonitoring: (Map dataObject) =>
                     onManageCasePlanGapServiceMonitoring(
                         gapServiceMonitoringObject: dataObject,
@@ -97,7 +103,7 @@ class _CasePlanGapServiceMonitoringViewContainerState
               ),
             ),
             Visibility(
-              visible: widget.hasEditAccess && hasBeneficiaryExited != true,
+              visible: hasBeneficiaryExited != true,
               child: Container(
                 alignment: Alignment.center,
                 margin: const EdgeInsets.symmetric(

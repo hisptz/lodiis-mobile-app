@@ -18,7 +18,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/components/ovc_household_assessment_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/constants/ovc_household_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_household_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/pages/ovc_household_assessment_form.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +47,8 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
           .setFormFieldState('eventDate', assessment.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', assessment.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', assessment.orgUnit);
       for (Map dataValue in assessment.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -163,10 +165,8 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
                                     ),
                                     Visibility(
                                       visible: !isLoading &&
-                                          currentOvcHousehold!
-                                              .enrollmentOuAccessible! &&
                                           currentOvcHousehold
-                                                  .hasExitedProgram !=
+                                                  ?.hasExitedProgram !=
                                               true,
                                       child: EntryFormSaveButton(
                                         label: languageTranslationState

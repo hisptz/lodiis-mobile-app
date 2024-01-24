@@ -243,6 +243,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                     'lesotho'
                                                 ? 'Ha ho na Litšebeletso hajoale'
                                                 : 'There is no Services at a moment',
+                                            textAlign: TextAlign.center,
                                           )
                                         : Container(
                                             margin: const EdgeInsets.symmetric(

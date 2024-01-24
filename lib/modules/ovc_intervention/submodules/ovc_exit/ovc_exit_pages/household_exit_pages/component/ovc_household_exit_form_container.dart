@@ -26,12 +26,16 @@ class OvcHouseholdExitFormContainer extends StatefulWidget {
     required this.formSections,
     required this.isSaving,
     required this.exitType,
+    this.mandatoryFieldObject = const {},
+    this.unFilledMandatoryFields = const [],
     this.onSaveForm,
   }) : super(key: key);
 
   final String exitType;
   final Events? event;
   final List<FormSection>? formSections;
+  final Map mandatoryFieldObject;
+  final List unFilledMandatoryFields;
   final bool isSaving;
   final Function? onSaveForm;
 
@@ -102,7 +106,10 @@ class _OvcHouseholdExitFormContainerState
   }
 
   void updateFormState(
-      BuildContext context, bool isEditableMode, Events? event) {
+    BuildContext context,
+    bool isEditableMode,
+    Events? event,
+  ) {
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditableMode);
     if (event != null) {
@@ -111,6 +118,8 @@ class _OvcHouseholdExitFormContainerState
           .setFormFieldState('eventDate', event.eventDate);
       Provider.of<ServiceFormState>(context, listen: false)
           .setFormFieldState('eventId', event.event);
+      Provider.of<ServiceFormState>(context, listen: false)
+          .setFormFieldState('location', event.orgUnit);
       for (Map dataValue in event.dataValues) {
         if (dataValue['value'] != '') {
           Provider.of<ServiceFormState>(context, listen: false)
@@ -243,7 +252,10 @@ class _OvcHouseholdExitFormContainerState
                                 hiddenFields: serviceFormState.hiddenFields,
                                 hiddenSections: serviceFormState.hiddenSections,
                                 formSections: widget.formSections,
-                                mandatoryFieldObject: const {},
+                                mandatoryFieldObject:
+                                    widget.mandatoryFieldObject,
+                                unFilledMandatoryFields:
+                                    widget.unFilledMandatoryFields,
                                 dataObject: serviceFormState.formState,
                                 isEditableMode: serviceFormState.isEditableMode,
                                 onInputValueChange: onInputValueChange,
