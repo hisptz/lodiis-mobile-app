@@ -21,7 +21,7 @@ class OvcExitCaseTransfer {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF0D3A16),
-        formSectionlabel: 'Case Transfer Date',
+        formSectionLabel: 'Case Transfer Date',
         inputFieldLabel: 'Case Transfer On',
         firstDate: firstDate,
       ),

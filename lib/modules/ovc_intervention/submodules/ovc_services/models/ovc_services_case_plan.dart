@@ -23,7 +23,7 @@ class OvcServicesCasePlan {
         labelColor: const Color(0xFF737373),
         sectionLabelColor: const Color(0xFF4D9E49),
         firstDate: firstDate,
-        formSectionlabel: 'Case Plan Date',
+        formSectionLabel: 'Case Plan Date',
         inputFieldLabel: 'Case Plan on',
       ),
       FormSection(

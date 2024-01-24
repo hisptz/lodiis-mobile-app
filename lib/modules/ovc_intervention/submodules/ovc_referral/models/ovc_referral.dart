@@ -30,7 +30,7 @@ class OvcReferral {
             labelColor: const Color(0xFF737373),
             sectionLabelColor: const Color(0xFF737373),
             inputFieldLabel: 'Referral Service On',
-            formSectionlabel: 'Referral Service Date',
+            formSectionLabel: 'Referral Service Date',
             firstDate: enrollmentDate,
           ),
           FormSection(

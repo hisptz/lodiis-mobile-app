@@ -23,7 +23,7 @@ class HouseholdGraduationReadinessForm {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF4A9F46),
-        formSectionlabel: 'Case Plan Graduation Date',
+        formSectionLabel: 'Case Plan Graduation Date',
         inputFieldLabel: 'Case Plan Graduation On',
         firstDate: firstDate,
       ),
