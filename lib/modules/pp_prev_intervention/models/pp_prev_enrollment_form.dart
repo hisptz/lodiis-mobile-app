@@ -14,7 +14,14 @@ class PpPrevEnrollmentForm {
       "qZP982qpSPS",
       "vIX4GTSCX4P",
       "RB8Wx75hGa4",
-      "m9WYpQhuIu4"
+      "agg0eUd8Wwo",
+      "ZxXscC5W9qb",
+      'muAZsONb53n',
+      'fSQY2z3L0lp',
+      'qCEK4EQvSbL',
+      'hZxlBQQlYLP',
+      'F2OyvIDdUFG',
+      'rAFWYJuAxTS',
     ];
   }
 
@@ -108,24 +115,6 @@ class PpPrevEnrollmentForm {
             valueType: 'PHONE_NUMBER',
             inputColor: const Color(0xFF9B2BAE),
             labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'm9WYpQhuIu4',
-            name: 'Beneficiary Status',
-            translatedName: 'Boemo ba mojalefa ka hara morero',
-            valueType: 'TEXT',
-            inputColor: const Color(0xFF9B2BAE),
-            labelColor: const Color(0xFF737373),
-            options: [
-              InputFieldOption(
-                code: "Active",
-                name: "Active",
-              ),
-              InputFieldOption(
-                  code: "NewEnrollee",
-                  name: "New Enrollee",
-                  translatedName: 'Ngoliso e ncha'),
-            ],
           ),
         ],
       ),

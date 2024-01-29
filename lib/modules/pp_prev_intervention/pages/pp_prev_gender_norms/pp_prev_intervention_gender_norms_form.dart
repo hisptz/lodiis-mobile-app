@@ -44,13 +44,15 @@ class _PpPrevInterventionGenderNormsFormState
   final List<String> offeredServices = [
     "fkYHRd1KrWO",
   ];
+  List<String> mandatoryFields = PpPrevGenderNormsForm.getMandatoryField();
+  final Map mandatoryFieldObject = {};
 
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
-  Map mandatoryFieldObject = {};
-  List<String> mandatoryFields = [];
+  // Map mandatoryFieldObject = {};
+  // List<String> mandatoryFields = [];
   List unFilledMandatoryFields = [];
 
   @override
@@ -99,14 +101,14 @@ class _PpPrevInterventionGenderNormsFormState
         program: PpPrevInterventionConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields = FormUtil.getFormFieldIds(
+      mandatoryFields = [...mandatoryFields,...FormUtil.getFormFieldIds(
         [serviceProvisionForm],
         includeLocationId: true,
-      );
-      for (String fieldId in mandatoryFields) {
+      )];  
+    }
+    for (String fieldId in mandatoryFields) {
         mandatoryFieldObject[fieldId] = true;
       }
-    }
   }
 
   evaluateSkipLogics() {
