@@ -72,9 +72,10 @@ class OvcHouseholdCasePlanAchievementSkipLogic {
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
       } // Benchmark 5
       else if (inputFieldId == 'OcbE9kN8Dcp') {
-        bool isBenchmarkMet = '${dataObject["jJzwnW4XyMy"]}' == 'true' &&
-            '${dataObject["oPGYBk5RXif"]}' == 'true' &&
-            '${dataObject["BV5IywMXKhe"]}' == 'true';
+        bool isBenchmarkMet = '${dataObject["jJzwnW4XyMy"]}' == 'false' &&
+            '${dataObject["oPGYBk5RXif"]}' == 'false' &&
+            '${dataObject["BV5IywMXKhe"]}' == 'false';
+        '${dataObject["oPGYBk5RXif"]}' == 'false';
         assignInputFieldValue(context, inputFieldId, '$isBenchmarkMet');
       } // Benchmark 6
       else if (inputFieldId == 'YdqDLYSE4qr') {

@@ -51,6 +51,7 @@ class OvcChildCasePlanGraduationSkipLogic {
       } else if (inputFieldId == 'zPggDcmT4zt' && value != 'true') {
         hiddenFields['UxPgBn3JRBQ'] = true;
       } else if (inputFieldId == 'fffETOzhGsU' && value != 'true') {
+        hiddenFields['LyCBmMgAW4P'] = true;
         hiddenFields['wGeVdyVO5hE'] = true;
       } else if (inputFieldId == 'hiv_risks') {
         var options = OvcGraduationReadinessForm.getInputFieldOptions(
