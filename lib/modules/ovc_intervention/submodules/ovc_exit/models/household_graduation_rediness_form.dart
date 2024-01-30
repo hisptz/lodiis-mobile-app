@@ -8,10 +8,10 @@ class HouseholdGraduationReadinessForm {
     return {
       "jZHYkQntXh9": 'wE7and4EnCR',
       "lMG85SRv6nS": 'R71zksHtVNn',
-      "wt4kydQK4OV": 'rPSpAEnnVS4',
-      "f410nsa35Jw": 'XxioqueCXcn',
-      "Ol19OWE8uDF": 'OcbE9kN8Dcp',
-      "BA3VEvk4tLo": 'YdqDLYSE4qr',
+      "wt4kydQK4OV": 'OcbE9kN8Dcp',
+      "f410nsa35Jw": 'YdqDLYSE4qr',
+      "Ol19OWE8uDF": 'obB7bvy6Nmh',
+      "BA3VEvk4tLo": 'iu8k78dy9VP',
     };
   }
 
@@ -59,7 +59,6 @@ class HouseholdGraduationReadinessForm {
           ),
         ],
       ),
-      // TODO see how to classify this as per instructions of the documents
       FormSection(
         id: 'lMG85SRv6nS',
         name: 'Benchmark 2: Virally suppressed',
@@ -123,7 +122,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'rPSpAEnnVS4',
+            id: 'OcbE9kN8Dcp',
             name: 'Has Benchmark 3 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
@@ -195,7 +194,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'XxioqueCXcn',
+            id: 'YdqDLYSE4qr',
             name: 'Has Benchmark 4 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
@@ -247,7 +246,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'OcbE9kN8Dcp',
+            id: 'obB7bvy6Nmh',
             name: 'Has Benchmark 5 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
@@ -273,7 +272,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'YdqDLYSE4qr',
+            id: 'iu8k78dy9VP',
             name: 'Has Benchmark 6 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,

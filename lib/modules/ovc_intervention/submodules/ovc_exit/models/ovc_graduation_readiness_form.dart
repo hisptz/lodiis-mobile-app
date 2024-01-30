@@ -11,9 +11,9 @@ class OvcGraduationReadinessForm {
       "DXmPLZhKQVp": 'wE7and4EnCR',
       "R4OiU8dHKDe": 'R71zksHtVNn',
       "A5NBGrJWy1z": 'rPSpAEnnVS4',
-      "ceYTaM00pTh": 'XxioqueCXcn',
-      "P90kJechZJT": 'OcbE9kN8Dcp',
-      "AScHzfI40br": 'YdqDLYSE4qr',
+      "ceYTaM00pTh": 'so1Hnb8K09j',
+      "P90kJechZJT": 'XxioqueCXcn',
+      "AScHzfI40br": 'wW0grvww5Iz',
     };
   }
 
@@ -72,7 +72,6 @@ class OvcGraduationReadinessForm {
           ),
         ],
       ),
-      // TODO see how to classify this as per instructions of the documents
       FormSection(
         id: 'R4OiU8dHKDe',
         name: 'Benchmark 2: Adherent / Virally suppressed',
