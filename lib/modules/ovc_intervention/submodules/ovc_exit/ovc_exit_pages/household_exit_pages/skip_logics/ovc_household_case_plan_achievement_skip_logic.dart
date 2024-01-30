@@ -73,6 +73,7 @@ class OvcHouseholdCasePlanAchievementSkipLogic {
       } // Benchmark 5
       else if (inputFieldId == 'obB7bvy6Nmh') {
         bool isBenchmarkMet = '${dataObject["jJzwnW4XyMy"]}' == 'false' &&
+            '${dataObject["AyBcZfx7zLA"]}' == 'false' &&
             '${dataObject["oPGYBk5RXif"]}' == 'false' &&
             '${dataObject["BV5IywMXKhe"]}' == 'false';
         '${dataObject["oPGYBk5RXif"]}' == 'false';
