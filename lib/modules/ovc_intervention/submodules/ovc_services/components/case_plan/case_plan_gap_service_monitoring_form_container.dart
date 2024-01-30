@@ -79,7 +79,7 @@ class _CasePlanGapServiceMonitoringFormContainerState
         inputColor: widget.formSectionColor,
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: widget.formSectionColor,
-        formSectionlabel: 'Service Monitoring Date',
+        formSectionLabel: 'Service Monitoring Date',
         inputFieldLabel: 'Service Monitoring On',
         firstDate: widget.casePlanGapDate,
       ),

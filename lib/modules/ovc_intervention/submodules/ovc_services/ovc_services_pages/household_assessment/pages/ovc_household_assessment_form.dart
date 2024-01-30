@@ -78,7 +78,7 @@ class _OvcHouseholdAssessmentFormState
               allowedSelectedLevels: [
                 AppHierarchyReference.communityLevel,
               ],
-              program: OvcInterventionConstant.caregiverProgramprogram,
+              program: OvcInterventionConstant.caregiverProgram,
             ),
             ...formSections ?? []
           ];

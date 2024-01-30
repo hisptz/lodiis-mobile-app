@@ -76,7 +76,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
               allowedSelectedLevels: [
                 AppHierarchyReference.communityLevel,
               ],
-              program: OvcInterventionConstant.caregiverProgramprogram,
+              program: OvcInterventionConstant.caregiverProgram,
             ),
             ...formSections ?? []
           ];
@@ -108,7 +108,7 @@ class _OvcHouseholdCaseClosureState extends State<OvcHouseholdCaseClosure> {
           dataObject['location'] ?? currentOvcHousehold?.orgUnit ?? '';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcInterventionConstant.caregiverProgramprogram,
+          OvcInterventionConstant.caregiverProgram,
           OvcHouseholdCaseClosureConstant.programStage,
           orgUnit,
           formSections!,
