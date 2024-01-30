@@ -70,7 +70,7 @@ class _OvcHouseholdGraduationFormState
               allowedSelectedLevels: [
                 AppHierarchyReference.communityLevel,
               ],
-              program: OvcInterventionConstant.caregiverProgramprogram,
+              program: OvcInterventionConstant.caregiverProgram,
             ),
             ...formSections ?? []
           ];
@@ -158,7 +158,7 @@ class _OvcHouseholdGraduationFormState
           dataObject['location'] ?? currentOvcHousehold?.orgUnit ?? '';
       try {
         await TrackedEntityInstanceUtil.savingTrackedEntityInstanceEventData(
-          OvcInterventionConstant.caregiverProgramprogram,
+          OvcInterventionConstant.caregiverProgram,
           OvcHouseholdGraduationConstant.programStage,
           orgUnit,
           formSections!,
