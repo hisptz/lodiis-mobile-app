@@ -281,6 +281,26 @@ class OvcGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
+              id: 'LyCBmMgAW4P',
+              name: '5.4 At what age was the infant tested?',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                  code: "six weeks",
+                  name: "Six weeks",
+                ),
+                InputFieldOption(
+                  code: "six months",
+                  name: "Six months",
+                ),
+                InputFieldOption(
+                  code: "eighteen months",
+                  name: "Eighteen months",
+                ),
+              ]),
+          InputField(
               id: 'wGeVdyVO5hE',
               name:
                   'If the infant has been tested for HIV, what is the Child HIV status?',

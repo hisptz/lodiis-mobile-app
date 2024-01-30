@@ -231,7 +231,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'BV5IywMXKhe',
+            id: 'oPGYBk5RXif',
             name:
                 '5.3. In the past 6 months, are you aware of any child, adolescent, or youth in your household being touched in a sexual way or forced to have sex against his or her will? Touching in a sexual way could include fondling, pinching, grabbing, or touching a child, adolescent, or youth on or around his or her sexual body parts',
             valueType: 'BOOLEAN',
@@ -239,8 +239,16 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
+            id: 'BV5IywMXKhe',
+            name:
+                '5.4. In the past 6 months, are you aware of any child, adolescent, or youth in your household being touched in a sexual way or forced to have sex against his or her will? Touching in a sexual way could include fondling, pinching, grabbing, or touching a child, adolescent, or youth on or around his or her sexual body parts',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF4D9E49),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
             id: 'OcbE9kN8Dcp',
-            name: 'Has Benchmark 5 been met? ',
+            name: 'Has Benchmark 5 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
