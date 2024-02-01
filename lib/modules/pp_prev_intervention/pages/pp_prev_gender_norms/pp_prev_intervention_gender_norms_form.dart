@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -42,7 +43,7 @@ class _PpPrevInterventionGenderNormsFormState
   final String label = "PP Prev Gender Norms Form";
   final String sessionNumberInputField = 'vL6NpUA0rIU';
   final List<String> offeredServices = [
-    "fkYHRd1KrWO",
+    "IOW7iC5ZuRQ",
   ];
   List<String> mandatoryFields = PpPrevGenderNormsForm.getMandatoryField();
   final Map mandatoryFieldObject = {};
@@ -51,8 +52,6 @@ class _PpPrevInterventionGenderNormsFormState
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
-  // Map mandatoryFieldObject = {};
-  // List<String> mandatoryFields = [];
   List unFilledMandatoryFields = [];
 
   @override
@@ -78,7 +77,6 @@ class _PpPrevInterventionGenderNormsFormState
         formSections: formSections ?? [],
       ),
     );
-    setState(() {});
   }
 
   setFormSections() {
@@ -101,14 +99,17 @@ class _PpPrevInterventionGenderNormsFormState
         program: PpPrevInterventionConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields = [...mandatoryFields,...FormUtil.getFormFieldIds(
-        [serviceProvisionForm],
-        includeLocationId: true,
-      )];  
+      mandatoryFields = [
+        ...mandatoryFields,
+        ...FormUtil.getFormFieldIds(
+          [serviceProvisionForm],
+          includeLocationId: true,
+        )
+      ];
     }
     for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+      mandatoryFieldObject[fieldId] = true;
+    }
   }
 
   evaluateSkipLogics() {
@@ -226,7 +227,20 @@ class _PpPrevInterventionGenderNormsFormState
         bool sessionExists = offeredServices.any((String service) =>
             PpPrevGenderNormsFormSkipLogic
                 .evaluateSkipLogicBySessionReoccurrence(dataObject, service));
-        if (sessionExists) {
+
+        bool allowedNumberOfSessions = offeredServices.any((String service) =>
+            PpPrevGenderNormsFormSkipLogic.evaluateSkipLogicBySessions(
+              dataObject,
+              service,
+            ));
+
+        if (!allowedNumberOfSessions) {
+          AppUtil.showToastMessage(
+            message:
+                "Sessions ${dataObject[sessionNumberInputField]} is not valid for the offered Service!",
+            position: ToastGravity.BOTTOM,
+          );
+        } else if (sessionExists) {
           AppUtil.showToastMessage(
             message:
                 "Sessions ${dataObject[sessionNumberInputField]} already exists for this service!",
