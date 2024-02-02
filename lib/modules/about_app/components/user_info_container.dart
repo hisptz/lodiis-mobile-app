@@ -43,7 +43,7 @@ class UserInfoContainer extends StatelessWidget {
                 children: [
                   Table(
                     defaultColumnWidth: FixedColumnWidth(
-                      size.width * 0.3,
+                      size.width * 0.35,
                     ),
                     children: [
                       AboutPageUtil.getTableRowContent(

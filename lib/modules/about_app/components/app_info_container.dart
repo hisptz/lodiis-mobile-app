@@ -47,7 +47,7 @@ class AppInfoContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Table(
-                    defaultColumnWidth: FixedColumnWidth(size.width * 0.3),
+                    defaultColumnWidth: FixedColumnWidth(size.width * 0.35),
                     children: [
                       AboutPageUtil.getTableRowContent(
                         currentLanguage == 'lesotho'
@@ -64,6 +64,12 @@ class AppInfoContainer extends StatelessWidget {
                       AboutPageUtil.getTableRowContent(
                         currentLanguage == 'lesotho' ? 'Id ea App' : 'App Id',
                         appInfoState.currentAppId,
+                      ),
+                      AboutPageUtil.getTableRowContent(
+                        currentLanguage == 'lesotho'
+                            ? 'Server Url'
+                            : 'Server Url',
+                        appInfoState.serverUrl,
                       ),
                     ],
                   ),
