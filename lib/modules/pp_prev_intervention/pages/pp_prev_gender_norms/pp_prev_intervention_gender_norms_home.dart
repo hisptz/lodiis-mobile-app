@@ -115,7 +115,7 @@ class PpPrevInterventionGenderNormsHome extends StatelessWidget {
   // Remove the current event from the copied list
   copiedEvents.removeWhere((eventData) => eventData.event == currentEventId);
 
-  for (Events event in (copiedEvents ?? [])) {
+  for (Events event in (copiedEvents)) {
     Map<String, String> data = {};
     for (Map dataValues in (event.dataValues ?? [])) {
       String? dataElement = dataValues['dataElement'];
