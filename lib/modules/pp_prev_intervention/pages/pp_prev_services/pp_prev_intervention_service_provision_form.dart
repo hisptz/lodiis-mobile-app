@@ -40,12 +40,13 @@ class PpPrevInterventionServiceProvisionForm extends StatefulWidget {
 class _PpPrevInterventionServiceProvisionFormState
     extends State<PpPrevInterventionServiceProvisionForm> {
   final String label = "PP Prev Service Provision Form";
+  List<String> mandatoryFields = PpPrevServiceForm.getMandatoryField();
+  final Map mandatoryFieldObject = {};
+
   List<FormSection>? formSections;
   List<FormSection>? defaultFormSections;
   bool isFormReady = false;
   bool isSaving = false;
-  Map mandatoryFieldObject = {};
-  List<String> mandatoryFields = [];
   List unFilledMandatoryFields = [];
 
   @override
@@ -94,13 +95,13 @@ class _PpPrevInterventionServiceProvisionFormState
         program: PpPrevInterventionConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields = FormUtil.getFormFieldIds(
+      mandatoryFields = [...mandatoryFields,...FormUtil.getFormFieldIds(
         [serviceProvisionForm],
         includeLocationId: true,
-      );
-      for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+      )];
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
     }
   }
 

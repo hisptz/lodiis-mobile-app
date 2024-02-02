@@ -40,7 +40,7 @@ class DreamsServiceForm {
               options: [
                 InputFieldOption(
                   code: 'AFLATEEN/TOUN',
-                  name: 'AFLATEEN/TOUN',
+                  name: 'AFLATOUN',
                 ),
                 InputFieldOption(
                   code: 'Go Girls',

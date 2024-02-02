@@ -5,7 +5,14 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class PpPrevServiceForm {
   static List<String> getMandatoryField() {
-    return [];
+    return [
+      'Nr7UJVA1CZE',
+      'mFxyT39XSE4',
+      'type_of_violence',
+      'pY4J9Z90qhb',
+      'action_taken',
+      'HwGBP9iNl1g',
+    ];
   }
 
   static List<FormSection> getFormSections({
@@ -27,7 +34,7 @@ class PpPrevServiceForm {
           ),
           InputField(
             id: 'XBekI82ixNm',
-            name: 'Condom Promotion and Provision',
+            name: 'Condom Messaging',
             translatedName: 'Khothaletso le phano ea likhohlopo',
             valueType: 'TRUE_ONLY',
             inputColor: const Color(0xFF9B2BAE),
