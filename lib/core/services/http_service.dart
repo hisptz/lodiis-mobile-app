@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class HttpService {
-  static const String baseUrl = 'lsis-ovc-dreams.org';
+  static const String baseUrl = 'lodiis.org';
   final String? username;
   final String? password;
   String? basicAuth;
