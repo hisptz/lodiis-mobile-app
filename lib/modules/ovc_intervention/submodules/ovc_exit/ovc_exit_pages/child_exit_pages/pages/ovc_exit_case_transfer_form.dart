@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
@@ -291,20 +292,23 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
                                           left: 13.0,
                                           right: 13.0,
                                         ),
-                                        child: EntryFormContainer(
-                                          hiddenFields: hiddenFields,
-                                          hiddenSections: hiddenSections,
-                                          formSections: formSections,
-                                          mandatoryFieldObject:
-                                              mandatoryFieldObject,
-                                          unFilledMandatoryFields:
-                                              unFilledMandatoryFields,
-                                          dataObject:
-                                              serviceFormState.formState,
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          onInputValueChange:
-                                              onInputValueChange,
+                                        child: MaterialCard(
+                                          body: EntryFormContainer(
+                                            elevation: 0.0,
+                                            hiddenFields: hiddenFields,
+                                            hiddenSections: hiddenSections,
+                                            formSections: formSections,
+                                            mandatoryFieldObject:
+                                                mandatoryFieldObject,
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
+                                            dataObject:
+                                                serviceFormState.formState,
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            onInputValueChange:
+                                                onInputValueChange,
+                                          ),
                                         ),
                                       ),
                                       Visibility(
