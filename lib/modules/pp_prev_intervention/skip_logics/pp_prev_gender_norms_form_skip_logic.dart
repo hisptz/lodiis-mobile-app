@@ -26,6 +26,7 @@ class PpPrevGenderNormsFormSkipLogic {
     inputFieldIds = inputFieldIds.toSet().toList();
     for (String inputFieldId in inputFieldIds) {
       // add logic per input field id here
+      print(inputFieldId);
     }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =

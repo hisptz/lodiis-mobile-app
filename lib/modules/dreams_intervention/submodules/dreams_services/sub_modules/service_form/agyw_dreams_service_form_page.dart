@@ -76,35 +76,33 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     }
   }
 
-Map<String?, List<dynamic>> getSessionsPerIntervention(
-  List<ServiceEvent>? serviceEvents,
-  Events? currentEvent,
-) {
-  Map<String?, List<String>> interventionSessions = {};
-  String currentEventId =
-      currentEvent != null ? currentEvent.event ?? '' : '';
+  Map<String?, List<dynamic>> getSessionsPerIntervention(
+    List<ServiceEvent>? serviceEvents,
+    Events? currentEvent,
+  ) {
+    Map<String?, List<String>> interventionSessions = {};
+    String currentEventId =
+        currentEvent != null ? currentEvent.event ?? '' : '';
 
-  // A copy of the serviceEvents list to avoid modifying the original list
-  List<ServiceEvent> copiedServiceEvents =
-      List<ServiceEvent>.from(serviceEvents ?? []);
+    // A copy of the serviceEvents list to avoid modifying the original list
+    List<ServiceEvent> copiedServiceEvents =
+        List<ServiceEvent>.from(serviceEvents ?? []);
 
-  // Remove the current event from the copied list
-  copiedServiceEvents
-      .removeWhere((eventData) => eventData.event == currentEventId);
+    // Remove the current event from the copied list
+    copiedServiceEvents
+        .removeWhere((eventData) => eventData.event == currentEventId);
 
-
-  for (ServiceEvent event in (copiedServiceEvents ?? [])) {
-    if (interventionSessions[event.interventionType] != null) {
-      interventionSessions[event.interventionType]!.add(event.sessionNumber!);
-      interventionSessions[event.interventionType]!.sort();
-    } else {
-      interventionSessions[event.interventionType] = [event.sessionNumber!];
+    for (ServiceEvent event in (copiedServiceEvents)) {
+      if (interventionSessions[event.interventionType] != null) {
+        interventionSessions[event.interventionType]!.add(event.sessionNumber!);
+        interventionSessions[event.interventionType]!.sort();
+      } else {
+        interventionSessions[event.interventionType] = [event.sessionNumber!];
+      }
     }
+
+    return interventionSessions;
   }
-
-  return interventionSessions;
-}
-
 
   void onAddService(
     BuildContext context,
@@ -164,7 +162,7 @@ Map<String?, List<dynamic>> getSessionsPerIntervention(
     List<ServiceEvent> serviceEvents,
   ) async {
     updateFormState(context, true, eventData, agywDream, serviceEvents);
-   
+
     CurrentUser? currentUser = await (UserService().getCurrentUser());
     String? youthMentorName = currentUser!.name;
     String? implementingPartner = currentUser.implementingPartner;
