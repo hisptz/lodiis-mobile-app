@@ -210,7 +210,8 @@ class ServiceCardButtonAction extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: currentUserState.canManageContraceptives,
+                          visible: currentUserState.canManageContraceptives ||
+                              currentUserState.canManageSrh,
                           child: InkWell(
                             onTap: onOpenContraceptivesForm,
                             child: Container(
