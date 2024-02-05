@@ -76,6 +76,7 @@ class _PpPrevInterventionGenderNormsFormState
         formSections: formSections ?? [],
       ),
     );
+    setState(() {});
   }
 
   setFormSections() {
