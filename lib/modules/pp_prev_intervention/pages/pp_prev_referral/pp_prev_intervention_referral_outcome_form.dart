@@ -128,10 +128,25 @@ class _PpPrevInterventionReferralOutcomeFormState
     await FormAutoSaveOfflineService().saveFormAutoSaveData(formAutoSave);
   }
 
+  void setMandatoryFields(Map<dynamic, dynamic> dataObject) {
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    setState(() {});
+  }
+
   void onSaveForm(
     BuildContext context,
     Map dataObject,
   ) async {
+    setMandatoryFields(dataObject);
     bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
       mandatoryFields,
       dataObject,
