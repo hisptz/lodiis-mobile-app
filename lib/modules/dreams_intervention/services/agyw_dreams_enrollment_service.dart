@@ -238,11 +238,11 @@ class AgywDreamsEnrollmentService {
   List<String> parseAgeRange(dynamic ageFilter) {
     List<String> ages = [];
     if (ageFilter is String && ageFilter.contains('-')) {
-      List<String> bounds = ageFilter.split('-');
-      if (bounds.length == 2) {
-        int start = int.parse(bounds[0]);
-        int end = int.parse(bounds[1]);
-        for (int age = start; age <= end; age++) {
+      List<String> ageBoundLimits = ageFilter.split('-');
+      if (ageBoundLimits.length == 2) {
+        int startAgeLimit = int.parse(ageBoundLimits.first);
+        int endAgeLimit = int.parse(ageBoundLimits.last);
+        for (int age = startAgeLimit; age <= endAgeLimit; age++) {
           ages.add(age.toString());
         }
       }
@@ -262,7 +262,7 @@ class AgywDreamsEnrollmentService {
 
     for (Map<String, dynamic> filter in filters) {
       String? implementingPartner = filter['implementingPartner'];
-      dynamic ageFilterValue = filter['age']; 
+      dynamic ageFilterValue = filter['age'];
       String? sex = filter['sex'];
       agywDreamList = implementingPartner == null
           ? agywDreamList

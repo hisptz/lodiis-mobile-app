@@ -33,7 +33,7 @@ class BeneficiaryFilter {
   });
 
   static void onUpdateFilter(BuildContext context,
-    InterventionCard currentIntervention, String id, dynamic value) {
+      InterventionCard currentIntervention, String id, dynamic value) {
     String interventionId = currentIntervention.id!;
     String implementingPartner =
         Provider.of<CurrentUserState>(context, listen: false)
@@ -45,9 +45,9 @@ class BeneficiaryFilter {
     String programId = interventionId == 'education'
         ? interventionBottomNavigation.id!
         : interventionId;
-   
-     Provider.of<BeneficiaryFilterState>(context, listen: false)
-          .addOrUpdateFilter(programId, id, value);
+
+    Provider.of<BeneficiaryFilterState>(context, listen: false)
+        .addOrUpdateFilter(programId, id, value);
   }
 
   static List<String> getImplementingPartners(
@@ -527,13 +527,15 @@ class BeneficiaryFilter {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                        text: TextSpan(
-                            text: ageInput.name,
-                            style: TextStyle(
-                              color: ageInput.labelColor,
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.normal,
-                            ))),
+                      text: TextSpan(
+                        text: ageInput.name,
+                        style: TextStyle(
+                          color: ageInput.labelColor,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
                     Consumer<InterventionBottomNavigationState>(
                       builder: (context, bottomNavigationState, child) {
                         InterventionBottomNavigation
@@ -542,11 +544,12 @@ class BeneficiaryFilter {
                                     currentIntervention,
                                     currentUserState.implementingPartner);
                         dynamic age = getFilterValue(
-                            context,
-                            currentIntervention,
-                            interventionBottomNavigation,
-                            ageInput.id);
-                      
+                          context,
+                          currentIntervention,
+                          interventionBottomNavigation,
+                          ageInput.id,
+                        );
+
                         return SelectInputField(
                           hiddenInputFieldOptions: const {},
                           selectedOption: age,
