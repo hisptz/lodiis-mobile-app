@@ -138,8 +138,6 @@ class PpPrevInterventionGenderNormsHome extends StatelessWidget {
     return interventionSessions;
   }
 
-  // print("interventionSessions $interventionSessions");
-
   void updateFormState(
     BuildContext context,
     bool isEditableMode,
