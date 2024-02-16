@@ -80,6 +80,7 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
     defaultFormSections = DreamsPostGBVInfo.getFormSections(
       firstDate: agyw.createdDate!,
     );
+    mandatoryFields = DreamsPostGBVInfo.getMandatoryField();
     if (agyw.enrollmentOuAccessible!) {
       formSections = defaultFormSections;
     } else {
@@ -95,13 +96,15 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields = FormUtil.getFormFieldIds(
-        [serviceProvisionForm],
-        includeLocationId: true,
+      mandatoryFields.addAll(
+        FormUtil.getFormFieldIds(
+          [serviceProvisionForm],
+          includeLocationId: true,
+        ),
       );
-      for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
     }
   }
 
@@ -200,7 +203,7 @@ class _AgywDreamsPostGBVFormState extends State<AgywDreamsPostGBVForm> {
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
+        message: 'Please fill all mandatory fields',
         position: ToastGravity.TOP,
       );
     }

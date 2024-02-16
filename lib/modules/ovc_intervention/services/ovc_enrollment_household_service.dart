@@ -56,7 +56,7 @@ class OvcEnrollmentHouseholdService {
           enrollmentDate,
           incidentDate,
           orgUnit,
-          OvcInterventionConstant.caregiverProgramprogram,
+          OvcInterventionConstant.caregiverProgram,
           trackedEntityInstance,
           dataObject);
       await FormUtil.savingEnrollment(enrollmentData);
@@ -165,10 +165,8 @@ class OvcEnrollmentHouseholdService {
     List<TrackedEntityInstance> allTrackedEntityInstanceList = [];
     try {
       List<Enrollment> enrollments = await EnrollmentOfflineProvider()
-          .getEnrollmentsByProgram(
-              OvcInterventionConstant.caregiverProgramprogram,
-              page: page,
-              searchedAttributes: searchedAttributes);
+          .getEnrollmentsByProgram(OvcInterventionConstant.caregiverProgram,
+              page: page, searchedAttributes: searchedAttributes);
       allTrackedEntityInstanceList =
           await TrackedEntityInstanceOfflineProvider()
               .getTrackedEntityInstanceByIds(enrollments
@@ -264,7 +262,7 @@ class OvcEnrollmentHouseholdService {
 
   Future<int> getHouseholdCount() async {
     return await EnrollmentOfflineProvider()
-        .getEnrollmentsCount(OvcInterventionConstant.caregiverProgramprogram);
+        .getEnrollmentsCount(OvcInterventionConstant.caregiverProgram);
   }
 
   Future<int> getNoneParticipationCount() async {

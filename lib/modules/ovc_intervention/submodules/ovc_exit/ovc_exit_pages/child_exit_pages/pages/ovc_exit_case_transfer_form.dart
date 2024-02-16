@@ -11,6 +11,7 @@ import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_interven
 import 'package:kb_mobile_app/core/components/intervention_bottom_navigation/intervention_bottom_navigation_bar_container.dart';
 import 'package:kb_mobile_app/core/components/circular_process_loader.dart';
 import 'package:kb_mobile_app/core/components/entry_forms/entry_form_container.dart';
+import 'package:kb_mobile_app/core/components/material_card.dart';
 import 'package:kb_mobile_app/core/components/sub_page_app_bar.dart';
 import 'package:kb_mobile_app/core/components/sup_page_body.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
@@ -47,6 +48,9 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
+  Map mandatoryFieldObject = {};
+  List<String> mandatoryFields = [];
+  List unFilledMandatoryFields = [];
 
   @override
   void initState() {
@@ -61,21 +65,29 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
     formSections = OvcExitCaseTransfer.getFormSections(
       firstDate: child!.createdDate!,
     );
-    formSections = child.enrollmentOuAccessible!
-        ? formSections
-        : [
-            AppUtil.getServiceProvisionLocationSection(
-              inputColor: const Color(0xFF4B9F46),
-              labelColor: const Color(0xFF1A3518),
-              sectionLabelColor: const Color(0xFF1A3518),
-              formlabel: 'Location',
-              allowedSelectedLevels: [
-                AppHierarchyReference.communityLevel,
-              ],
-              program: OvcInterventionConstant.ovcProgramprogram,
-            ),
-            ...formSections ?? []
-          ];
+    mandatoryFields = [
+      'eventDate',
+      ...OvcExitCaseTransfer.getMandatoryFields()
+    ];
+    if (child.enrollmentOuAccessible! != true) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: OvcInterventionConstant.ovcProgramprogram,
+        ),
+        ...formSections ?? []
+      ];
+      mandatoryFields.add('location');
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
+    }
     Timer(const Duration(seconds: 1), () {
       setState(() {
         isFormReady = true;
@@ -146,7 +158,28 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
     Map dataObject,
     OvcHouseholdChild? currentOvcHouseholdChild,
   ) async {
-    if (FormUtil.geFormFilledStatus(dataObject, formSections)) {
+    bool hadAllMandatoryFilled = FormUtil.hasAllMandatoryFieldsFilled(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    setState(() {});
+    if (hadAllMandatoryFilled) {
       setState(() {
         isSaving = true;
       });
@@ -210,8 +243,9 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
       }
     } else {
       AppUtil.showToastMessage(
-          message: 'Please fill at least one form field',
-          position: ToastGravity.TOP);
+        message: 'Please fill all mandatory fields',
+        position: ToastGravity.TOP,
+      );
     }
   }
 
@@ -259,17 +293,23 @@ class _OvcExitCaseTransferFormState extends State<OvcExitCaseTransferForm>
                                           left: 13.0,
                                           right: 13.0,
                                         ),
-                                        child: EntryFormContainer(
-                                          hiddenFields: hiddenFields,
-                                          hiddenSections: hiddenSections,
-                                          formSections: formSections,
-                                          mandatoryFieldObject: const {},
-                                          dataObject:
-                                              serviceFormState.formState,
-                                          isEditableMode:
-                                              serviceFormState.isEditableMode,
-                                          onInputValueChange:
-                                              onInputValueChange,
+                                        child: MaterialCard(
+                                          body: EntryFormContainer(
+                                            elevation: 0.0,
+                                            hiddenFields: hiddenFields,
+                                            hiddenSections: hiddenSections,
+                                            formSections: formSections,
+                                            mandatoryFieldObject:
+                                                mandatoryFieldObject,
+                                            unFilledMandatoryFields:
+                                                unFilledMandatoryFields,
+                                            dataObject:
+                                                serviceFormState.formState,
+                                            isEditableMode:
+                                                serviceFormState.isEditableMode,
+                                            onInputValueChange:
+                                                onInputValueChange,
+                                          ),
                                         ),
                                       ),
                                       Visibility(

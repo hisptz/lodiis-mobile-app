@@ -98,42 +98,43 @@ class PpPrevInterventionGenderNormsHome extends StatelessWidget {
     }
   }
 
-  Map<String?, List<String?>> getSessionsPerIntervention(
+  Map<String?, List<String>> getSessionsPerIntervention(
     Events? currentEvent,
     List<Events>? events,
   ) {
     String sessionNumberDataElement = 'vL6NpUA0rIU';
-    List<String> servicesOfConcern = [
-      "fkYHRd1KrWO",
-    ];
+    String interventionsDataElementId = 'IOW7iC5ZuRQ';
     Map<String?, List<String>> interventionSessions = {};
 
     String currentEventId =
         currentEvent != null ? currentEvent.event ?? '' : '';
-    (events ?? [])
-        .removeWhere((eventData) => eventData.event == currentEventId);
 
-    for (Events event in (events ?? [])) {
+    // A copy of the events list to avoid modifying the original list
+    List<Events> copiedEvents = List<Events>.from(events ?? []);
+
+    // Remove the current event from the copied list
+    copiedEvents.removeWhere((eventData) => eventData.event == currentEventId);
+
+    for (Events event in (copiedEvents)) {
       Map<String, String> data = {};
       for (Map dataValues in (event.dataValues ?? [])) {
         String? dataElement = dataValues['dataElement'];
-        if (dataElement != null &&
-            [sessionNumberDataElement, ...servicesOfConcern]
-                .contains(dataElement)) {
+        if (dataElement != null) {
           data[dataElement] = '${dataValues['value']}'.trim();
         }
       }
-      var sessionNumber = data[sessionNumberDataElement] ?? '';
-      for (var dataElement in servicesOfConcern) {
-        if (data[dataElement]!.isNotEmpty && data[dataElement] != 'null') {
-          interventionSessions[dataElement] = [
-            ...(interventionSessions[dataElement] ?? []),
+      // Check if the interventions data element is present in the event data
+      if (data.containsKey(interventionsDataElementId)) {
+        var selectedIntervention = data[interventionsDataElementId];
+        var sessionNumber = data[sessionNumberDataElement] ?? '';
+        if (selectedIntervention != null && selectedIntervention != 'null') {
+          interventionSessions[selectedIntervention] = [
+            ...(interventionSessions[selectedIntervention] ?? []),
             sessionNumber,
           ];
         }
       }
     }
-
     return interventionSessions;
   }
 

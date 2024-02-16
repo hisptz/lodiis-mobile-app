@@ -1,6 +1,7 @@
 class CurrentUserImplementingPartner {
   static const String implementPartnerAttribute = "wpiLo7DTwKF";
   static const String subImplementingPartnerAttribute = "P7YnaTZTSKl";
+  static const String crsPrefixValue = 'CRS -';
 
   static String getCurrentUserImplementingPartner(String? attributeValue) {
     Map implementingPartnerMapping = getImplementingPartnerMapping();
@@ -22,6 +23,7 @@ class CurrentUserImplementingPartner {
       "IuPPi2GpRMV": "CRS - SWAALES",
       "hmGY74BllyO": "CRS - Sentebale",
       "bcS6xVqOXxF": "PP_PREV",
+      "VTxHIHi4xBI": "BAYLOR",
     };
   }
 
@@ -38,6 +40,7 @@ class CurrentUserImplementingPartner {
       "cGenMNiLKqM": "EDUCATION",
       "pNg5CAXMtLP": "M2M",
       "DtCOQEoW52e": "CoHIP SEC",
+      "SM7K5UeB0He": "KB-Facility Based Social Worker"
     };
   }
 }

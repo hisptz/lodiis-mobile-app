@@ -24,11 +24,6 @@ class PpPrevGenderNormsFormSkipLogic {
     }
 
     inputFieldIds = inputFieldIds.toSet().toList();
-    for (String inputFieldId in inputFieldIds) {
-      if (inputFieldId == 'fkYHRd1KrWO') {
-        dataObject[inputFieldId] = 'true';
-      }
-    }
     for (String sectionId in hiddenSections.keys) {
       List<FormSection> allFormSections =
           FormUtil.getFlattenFormSections(formSections);
@@ -49,9 +44,12 @@ class PpPrevGenderNormsFormSkipLogic {
     String serviceField,
   ) {
     Map sessionsPerInterventions = dataObject['interventionSessions'];
+
     String sessionNumber = dataObject[sessionNumberInputField] ?? '';
 
-    List interventionSessions = sessionsPerInterventions[serviceField] ?? [];
+    String service = dataObject[serviceField] ?? '';
+
+    List interventionSessions = sessionsPerInterventions[service] ?? [];
 
     return serviceField.isEmpty || interventionSessions.isEmpty
         ? false
@@ -62,10 +60,12 @@ class PpPrevGenderNormsFormSkipLogic {
     Map dataObject,
     String serviceField,
   ) {
+    String interventionType = dataObject[serviceField] ?? '';
     String sessionNumber = dataObject[sessionNumberInputField] ?? '';
 
     List sessionMapping =
-        PpPrevGenderNormsSessionConstants.sessionMapping[serviceField] ?? [];
+        PpPrevGenderNormsSessionConstants.sessionMapping[interventionType] ??
+            [];
 
     return sessionNumber.isEmpty || sessionMapping.isEmpty
         ? true

@@ -8,10 +8,10 @@ class HouseholdGraduationReadinessForm {
     return {
       "jZHYkQntXh9": 'wE7and4EnCR',
       "lMG85SRv6nS": 'R71zksHtVNn',
-      "wt4kydQK4OV": 'rPSpAEnnVS4',
-      "f410nsa35Jw": 'XxioqueCXcn',
-      "Ol19OWE8uDF": 'OcbE9kN8Dcp',
-      "BA3VEvk4tLo": 'YdqDLYSE4qr',
+      "wt4kydQK4OV": 'OcbE9kN8Dcp',
+      "f410nsa35Jw": 'YdqDLYSE4qr',
+      "Ol19OWE8uDF": 'obB7bvy6Nmh',
+      "BA3VEvk4tLo": 'iu8k78dy9VP',
     };
   }
 
@@ -23,7 +23,7 @@ class HouseholdGraduationReadinessForm {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF4A9F46),
-        formSectionlabel: 'Case Plan Graduation Date',
+        formSectionLabel: 'Case Plan Graduation Date',
         inputFieldLabel: 'Case Plan Graduation On',
         firstDate: firstDate,
       ),
@@ -59,7 +59,6 @@ class HouseholdGraduationReadinessForm {
           ),
         ],
       ),
-      // TODO see how to classify this as per instructions of the documents
       FormSection(
         id: 'lMG85SRv6nS',
         name: 'Benchmark 2: Virally suppressed',
@@ -123,7 +122,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'rPSpAEnnVS4',
+            id: 'OcbE9kN8Dcp',
             name: 'Has Benchmark 3 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
@@ -195,7 +194,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'XxioqueCXcn',
+            id: 'YdqDLYSE4qr',
             name: 'Has Benchmark 4 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
@@ -221,7 +220,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'oPGYBk5RXif',
+            id: 'AyBcZfx7zLA',
             name:
                 '5.2. In the past 6 months, are you aware of any child, adolescent, or youth in your household being punched, kicked, choked or beaten by an adult?',
             translatedName:
@@ -231,7 +230,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'BV5IywMXKhe',
+            id: 'oPGYBk5RXif',
             name:
                 '5.3. In the past 6 months, are you aware of any child, adolescent, or youth in your household being touched in a sexual way or forced to have sex against his or her will? Touching in a sexual way could include fondling, pinching, grabbing, or touching a child, adolescent, or youth on or around his or her sexual body parts',
             valueType: 'BOOLEAN',
@@ -239,8 +238,16 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'OcbE9kN8Dcp',
-            name: 'Has Benchmark 5 been met? ',
+            id: 'BV5IywMXKhe',
+            name:
+                '5.4. In the past 6 months, are you aware of any child, adolescent, or youth in your household being touched in a sexual way or forced to have sex against his or her will? Touching in a sexual way could include fondling, pinching, grabbing, or touching a child, adolescent, or youth on or around his or her sexual body parts',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF4D9E49),
+            labelColor: const Color(0xFF737373),
+          ),
+          InputField(
+            id: 'obB7bvy6Nmh',
+            name: 'Has Benchmark 5 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,
             inputColor: const Color(0xFF4D9E49),
@@ -265,7 +272,7 @@ class HouseholdGraduationReadinessForm {
             labelColor: const Color(0xFF737373),
           ),
           InputField(
-            id: 'YdqDLYSE4qr',
+            id: 'iu8k78dy9VP',
             name: 'Has Benchmark 6 been met?',
             valueType: 'BOOLEAN',
             isReadOnly: true,

@@ -34,7 +34,7 @@ class OvcEnrollmentConsent {
           ],
           filteredPrograms: [
             OvcInterventionConstant.ovcProgramprogram,
-            OvcInterventionConstant.caregiverProgramprogram,
+            OvcInterventionConstant.caregiverProgram,
           ],
           inputColor: const Color(0xFF4B9F46),
           labelColor: const Color(0xFF737373),

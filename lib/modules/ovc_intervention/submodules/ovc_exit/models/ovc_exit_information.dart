@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcExitInformation {
-  static List<String> getMandatoryField() {
-    return [
-      'eventDate',
-      'iaVO2v6TsWa',
-      'zUU33n41Soa',
-      'vey0snuAsLj',
-      'jOXN2iPhkxj',
-      'RtAQJcTqUGF',
-      'q3mJ2FfV3oR'
-    ];
+  static List<String> getMandatoryFields() {
+    return FormUtil.getAllFormSectionInpiutFields(
+      getFormSections(
+        firstDate: '',
+      ),
+    );
   }
 
   static List<FormSection> getFormSections({
@@ -26,7 +23,7 @@ class OvcExitInformation {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF0D3A16),
-        formSectionlabel: 'Case Exit Date',
+        formSectionLabel: 'Case Exit Date',
         inputFieldLabel: 'Case Exit On',
         firstDate: firstDate,
       ),

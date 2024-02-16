@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
+import 'package:kb_mobile_app/core/constants/current_user_implementing_partner.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/modules/about_app/utils/about_page_util.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class UserInfoContainer extends StatelessWidget {
                 children: [
                   Table(
                     defaultColumnWidth: FixedColumnWidth(
-                      size.width * 0.3,
+                      size.width * 0.35,
                     ),
                     children: [
                       AboutPageUtil.getTableRowContent(
@@ -83,7 +84,11 @@ class UserInfoContainer extends StatelessWidget {
                         currentLanguage == 'lesotho'
                             ? 'Sub Balekane ka hara morero'
                             : 'Sub implementing Partner',
-                        currentUser?.subImplementingPartner ?? "",
+                        (currentUser?.subImplementingPartner ?? "")
+                            .split(
+                                CurrentUserImplementingPartner.crsPrefixValue)
+                            .last
+                            .trim(),
                       ),
                       AboutPageUtil.getTableRowContent(
                         currentLanguage == 'lesotho'

@@ -5,7 +5,7 @@ import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcExitCaseClosure {
-  static List<String> getMandatoryField() {
+  static List<String> getMandatoryFields() {
     return [
       'eventDate',
       'D9boflKTCM4',
@@ -33,7 +33,7 @@ class OvcExitCaseClosure {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF0D3A16),
-        formSectionlabel: 'Case Closure Date',
+        formSectionLabel: 'Case Closure Date',
         inputFieldLabel: 'Case Closure On',
         firstDate: firstDate,
       ),

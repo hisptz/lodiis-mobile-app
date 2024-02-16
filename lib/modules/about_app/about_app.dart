@@ -67,7 +67,7 @@ class _AboutAppState extends State<AboutApp> {
                               ),
                               child: Table(
                                 defaultColumnWidth:
-                                    FixedColumnWidth(size.width * 0.7),
+                                    FixedColumnWidth(size.width * 0.8),
                                 children: [
                                   TableRow(
                                     children: [

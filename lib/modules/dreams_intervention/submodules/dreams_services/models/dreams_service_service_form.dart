@@ -5,7 +5,11 @@ import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class DreamsServiceForm {
   static List<String> getMandatoryField() {
-    return ['Eug4BXDFLym', 'vL6NpUA0rIU'];
+    return [
+      'Eug4BXDFLym',
+      'vL6NpUA0rIU',
+      'O7sjTjxUmEa',
+    ];
   }
 
   static List<FormSection> getFormSections({
@@ -36,7 +40,7 @@ class DreamsServiceForm {
               options: [
                 InputFieldOption(
                   code: 'AFLATEEN/TOUN',
-                  name: 'AFLATEEN/TOUN',
+                  name: 'AFLATOUN',
                 ),
                 InputFieldOption(
                   code: 'Go Girls',
@@ -84,6 +88,9 @@ class DreamsServiceForm {
                     code: 'HIV Prevention Education',
                     name: 'HIV Prevention Education',
                     translatedName: 'Thuto ea Thibelo ea HIV'),
+                InputFieldOption(
+                    code: 'EducationSubsidiesSupport',
+                    name: 'Education Subsidies/support')
               ],
             ),
             InputField(

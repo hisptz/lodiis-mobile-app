@@ -21,8 +21,8 @@ import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info_top_header.dart';
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_service_hiv_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_hiv_screening.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/constants/ovc_service_hiv_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_hiv_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
@@ -51,30 +51,31 @@ class _OvcServiceHIVAssessmentFormState
   }
 
   void setFormSections() {
-    mandatoryFields = ['eventDate'];
+    mandatoryFields = [
+      'eventDate',
+      ...OvcServicesHivScreening.getMandatoryFields()
+    ];
     OvcHouseholdChild? child =
         Provider.of<OvcHouseholdCurrentSelectionState>(context, listen: false)
             .currentOvcHouseholdChild;
     formSections = OvcServicesHivScreening.getFormSections(
       firstDate: child!.createdDate!,
     );
-    formSections = child.enrollmentOuAccessible == true
-        ? formSections
-        : [
-            AppUtil.getServiceProvisionLocationSection(
-              inputColor: const Color(0xFF4B9F46),
-              labelColor: const Color(0xFF1A3518),
-              sectionLabelColor: const Color(0xFF1A3518),
-              formlabel: 'Location',
-              allowedSelectedLevels: [
-                AppHierarchyReference.communityLevel,
-              ],
-              program: OvcInterventionConstant.ovcProgramprogram,
-            ),
-            ...formSections ?? []
-          ];
-    for (String fieldId in mandatoryFields) {
-      mandatoryFieldObject[fieldId] = true;
+    if (child.enrollmentOuAccessible! != true) {
+      formSections = [
+        AppUtil.getServiceProvisionLocationSection(
+          inputColor: const Color(0xFF4B9F46),
+          labelColor: const Color(0xFF1A3518),
+          sectionLabelColor: const Color(0xFF1A3518),
+          formlabel: 'Location',
+          allowedSelectedLevels: [
+            AppHierarchyReference.communityLevel,
+          ],
+          program: OvcInterventionConstant.ovcProgramprogram,
+        ),
+        ...formSections ?? []
+      ];
+      mandatoryFields.add('location');
     }
     for (String fieldId in mandatoryFields) {
       mandatoryFieldObject[fieldId] = true;
@@ -123,6 +124,17 @@ class _OvcServiceHIVAssessmentFormState
         formSections: formSections ?? [],
       ),
     );
+    unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
+      mandatoryFields,
+      dataObject,
+      hiddenFields:
+          Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
+      checkBoxInputFields: FormUtil.getInputFieldByValueType(
+        valueType: 'CHECK_BOX',
+        formSections: formSections ?? [],
+      ),
+    );
+    setState(() {});
     if (hadAllMandatoryFilled) {
       isSaving = true;
       setState(() {});
@@ -168,25 +180,16 @@ class _OvcServiceHIVAssessmentFormState
           setState(() {
             isSaving = false;
             AppUtil.showToastMessage(
-                message: e.toString(), position: ToastGravity.BOTTOM);
+              message: e.toString(),
+              position: ToastGravity.BOTTOM,
+            );
             Navigator.pop(context);
           });
         });
       }
     } else {
-      unFilledMandatoryFields = FormUtil.getUnFilledMandatoryFields(
-        mandatoryFields,
-        dataObject,
-        hiddenFields:
-            Provider.of<ServiceFormState>(context, listen: false).hiddenFields,
-        checkBoxInputFields: FormUtil.getInputFieldByValueType(
-          valueType: 'CHECK_BOX',
-          formSections: formSections ?? [],
-        ),
-      );
-      setState(() {});
       AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
+        message: 'Please fill all mandatory fields',
         position: ToastGravity.TOP,
       );
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.dart';
 import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
 import 'package:kb_mobile_app/app_state/ovc_intervention_list_state/ovc_household_current_selection_state.dart';
 import 'package:kb_mobile_app/app_state/enrollment_service_form_state/service_event_data_state.dart';
@@ -18,7 +19,7 @@ import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_household_top_header.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_routes_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/components/ovc_household_assessment_list_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/constants/ovc_household_assessment_constant.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_household_assessment_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/household_assessment/pages/ovc_household_assessment_form.dart';
 import 'package:provider/provider.dart';
 
@@ -163,24 +164,28 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
                                         ),
                                       ),
                                     ),
-                                    Visibility(
-                                      visible: !isLoading &&
-                                          currentOvcHousehold
-                                                  ?.hasExitedProgram !=
-                                              true,
-                                      child: EntryFormSaveButton(
-                                        label: languageTranslationState
-                                                    .currentLanguage ==
-                                                'lesotho'
-                                            ? 'HLAHLOBO E NCHA'
-                                            : "NEW ASSESSMENT",
-                                        labelColor: Colors.white,
-                                        fontSize: 10,
-                                        buttonColor: const Color(0xFF4B9F46),
-                                        onPressButton: () =>
-                                            onAddNewHouseholdAssessment(
-                                          context,
-                                          currentOvcHousehold,
+                                    Consumer<CurrentUserState>(
+                                      builder:
+                                          (context, curentUserState, child) =>
+                                              Visibility(
+                                        visible: !curentUserState
+                                                .isKbFacilitySocialWorker &&
+                                            !isLoading &&
+                                            currentOvcHousehold
+                                                    ?.hasExitedProgram !=
+                                                true,
+                                        child: EntryFormSaveButton(
+                                          label: languageTranslationState
+                                                      .currentLanguage ==
+                                                  'lesotho'
+                                              ? 'HLAHLOBO E NCHA'
+                                              : "NEW ASSESSMENT",
+                                          labelColor: Colors.white,
+                                          fontSize: 10,
+                                          buttonColor: const Color(0xFF4B9F46),
+                                          onPressButton: () =>
+                                              onAddNewHouseholdAssessment(
+                                                  context, currentOvcHousehold),
                                         ),
                                       ),
                                     ),

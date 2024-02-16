@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/core/constants/app_hierarchy_reference.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
+import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
 import 'package:kb_mobile_app/models/input_field.dart';
 import 'package:kb_mobile_app/models/input_field_option.dart';
 
 class OvcHouseholdServiceAdultWellbeing {
+  static List<String> getMandatoryFields() {
+    return FormUtil.getAllFormSectionInpiutFields(
+      getFormSections(
+        firstDate: '',
+      ),
+    );
+  }
+
   static List<FormSection> getFormSections({
     required String firstDate,
   }) {
@@ -14,7 +23,7 @@ class OvcHouseholdServiceAdultWellbeing {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF0D3A16),
-        formSectionlabel: 'HouseHold Assessment Date',
+        formSectionLabel: 'HouseHold Assessment Date',
         inputFieldLabel: 'Assessment Date',
         firstDate: firstDate,
       ),
@@ -29,7 +38,7 @@ class OvcHouseholdServiceAdultWellbeing {
           borderColor: const Color(0xFF4B9F46),
           inputFields: [
             InputField(
-                id: '',
+                id: 'How-do-you-help-your-family',
                 name: '1. How do you help your family?',
                 translatedName: '1. U thusa lelapa la hau joang?',
                 valueType: 'CHECK_BOX',
@@ -73,7 +82,8 @@ class OvcHouseholdServiceAdultWellbeing {
                 inputColor: const Color(0xFF1A3518),
                 labelColor: const Color(0xFF4A9F46)),
             InputField(
-                id: '',
+                id:
+                    'How-do-other-adults-in-your-household-and-those-not-living-with-you-help-you',
                 name:
                     '2. How do other adults in your household and those not living with you help you?',
                 translatedName:
@@ -283,7 +293,8 @@ class OvcHouseholdServiceAdultWellbeing {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id:
+                    'If-today-you-had-an-unplanned-expense-for-the-family,-how-would-you-respond-in-meeting-this-need',
                 name:
                     '6. If today you had an unplanned expense for the family, how would you respond in meeting this need?',
                 translatedName:
@@ -347,7 +358,7 @@ class OvcHouseholdServiceAdultWellbeing {
                 inputColor: const Color(0xFF4B9F46),
                 labelColor: const Color(0xFF1A3518)),
             InputField(
-                id: '',
+                id: 'Do-you-know-of-any-of-the-following-programs',
                 name: '8. Do you know of any of the following programs?',
                 translatedName:
                     '8. Na u oa tseba ka manane tsebetso a latelang?',
@@ -453,7 +464,8 @@ class OvcHouseholdServiceAdultWellbeing {
                       translatedName: 'Mefuta eohle ea lihlopha tsa lijo ')
                 ]),
             InputField(
-                id: '',
+                id:
+                    'Over-the-past-one-month,-where-did-you-get-the-food-that-your-family-ate',
                 name:
                     '10. Over the past one month, where did you get the food that your family ate?',
                 translatedName:
@@ -480,7 +492,7 @@ class OvcHouseholdServiceAdultWellbeing {
                       translatedName: 'Limpho')
                 ]),
             InputField(
-                id: '',
+                id: 'What-type-of-disability-do-you-have',
                 name: '11. What type of disability do you have?',
                 translatedName:
                     '11. Ke mofuta ofe oa bokooa bo u nang le bona?',
@@ -1012,7 +1024,7 @@ class OvcHouseholdServiceAdultWellbeing {
                       code: 'NA', name: 'NA', translatedName: 'N/A')
                 ]),
             InputField(
-                id: '',
+                id: 'How-have-you-coped-with-HIV-related-stigma',
                 name: '27. How have you coped with HIV-related stigma?',
                 translatedName:
                     '27. O atleha ho phela joang tlaasa maemo a ho nenoa kapa ho khetholla ka baka la boemo ba hau ba HIV?',

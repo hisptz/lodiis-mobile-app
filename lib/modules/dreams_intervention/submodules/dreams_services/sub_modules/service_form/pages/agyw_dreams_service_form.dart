@@ -104,13 +104,15 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         program: AgywDreamsEnrollmentConstant.program,
       );
       formSections = [serviceProvisionForm, ...defaultFormSections!];
-      mandatoryFields.addAll(FormUtil.getFormFieldIds(
-        [serviceProvisionForm],
-        includeLocationId: true,
-      ));
-      for (String fieldId in mandatoryFields) {
-        mandatoryFieldObject[fieldId] = true;
-      }
+      mandatoryFields.addAll(
+        FormUtil.getFormFieldIds(
+          [serviceProvisionForm],
+          includeLocationId: true,
+        ),
+      );
+    }
+    for (String fieldId in mandatoryFields) {
+      mandatoryFieldObject[fieldId] = true;
     }
   }
 
@@ -282,7 +284,7 @@ class _AgywDreamsServiceFormState extends State<AgywDreamsServiceForm> {
         );
       });
       AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
+        message: 'Please fill all mandatory fields',
         position: ToastGravity.TOP,
       );
     }

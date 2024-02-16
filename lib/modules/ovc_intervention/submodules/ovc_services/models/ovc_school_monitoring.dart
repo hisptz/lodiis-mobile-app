@@ -13,7 +13,7 @@ class OvcSchoolMonitoring {
         inputColor: const Color(0xFF4A9F46),
         labelColor: const Color(0xFF1A3518),
         sectionLabelColor: const Color(0xFF4A9F46),
-        formSectionlabel: 'School Monitoring Date',
+        formSectionLabel: 'School Monitoring Date',
         inputFieldLabel: 'School Monitoring On',
         firstDate: enrollmentDate,
       ),

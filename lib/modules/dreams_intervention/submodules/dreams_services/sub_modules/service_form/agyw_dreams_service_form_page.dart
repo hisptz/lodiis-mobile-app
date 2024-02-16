@@ -83,9 +83,16 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     Map<String?, List<String>> interventionSessions = {};
     String currentEventId =
         currentEvent != null ? currentEvent.event ?? '' : '';
-    (serviceEvents ?? [])
+
+    // A copy of the serviceEvents list to avoid modifying the original list
+    List<ServiceEvent> copiedServiceEvents =
+        List<ServiceEvent>.from(serviceEvents ?? []);
+
+    // Remove the current event from the copied list
+    copiedServiceEvents
         .removeWhere((eventData) => eventData.event == currentEventId);
-    for (ServiceEvent event in (serviceEvents ?? [])) {
+
+    for (ServiceEvent event in (copiedServiceEvents)) {
       if (interventionSessions[event.interventionType] != null) {
         interventionSessions[event.interventionType]!.add(event.sessionNumber!);
         interventionSessions[event.interventionType]!.sort();
@@ -93,6 +100,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         interventionSessions[event.interventionType] = [event.sessionNumber!];
       }
     }
+
     return interventionSessions;
   }
 
@@ -154,6 +162,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
     List<ServiceEvent> serviceEvents,
   ) async {
     updateFormState(context, true, eventData, agywDream, serviceEvents);
+
     CurrentUser? currentUser = await (UserService().getCurrentUser());
     String? youthMentorName = currentUser!.name;
     String? implementingPartner = currentUser.implementingPartner;
@@ -165,6 +174,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
         await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
+
     if (shouldResumeWithUnSavedChanges) {
       AppResumeRoute().redirectToPages(context, formAutoSave);
     } else {
@@ -243,6 +253,7 @@ class _AgywDreamsServiceFormPage extends State<AgywDreamsServiceFormPage> {
                                                     'lesotho'
                                                 ? 'Ha ho na Litšebeletso hajoale'
                                                 : 'There is no Services at a moment',
+                                            textAlign: TextAlign.center,
                                           )
                                         : Container(
                                             margin: const EdgeInsets.symmetric(

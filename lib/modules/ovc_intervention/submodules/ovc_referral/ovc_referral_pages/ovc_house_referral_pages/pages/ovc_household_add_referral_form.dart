@@ -72,7 +72,7 @@ class _OvcHouseholdAddReferralFormState
           allowedSelectedLevels: [
             AppHierarchyReference.communityLevel,
           ],
-          program: OvcInterventionConstant.caregiverProgramprogram,
+          program: OvcInterventionConstant.caregiverProgram,
         ),
         ...formSections
       ];
