@@ -221,7 +221,7 @@ class _PpPrevInterventionReferralOutcomeFormState
       }
     } else {
       AppUtil.showToastMessage(
-        message: 'Please fill all mandatory field',
+        message: 'Please fill all mandatory fields',
         position: ToastGravity.TOP,
       );
     }
