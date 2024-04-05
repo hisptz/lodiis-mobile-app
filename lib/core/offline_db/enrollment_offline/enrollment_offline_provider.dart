@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 import 'package:kb_mobile_app/core/constants/pagination.dart';
 import 'package:kb_mobile_app/core/offline_db/offline_db_provider.dart';
 import 'package:kb_mobile_app/core/utils/app_util.dart';
 import 'package:kb_mobile_app/models/enrollment.dart';
 import 'package:sqflite/sqflite.dart';
-import "package:collection/collection.dart";
 
 class EnrollmentOfflineProvider extends OfflineDbProvider {
   final String table = 'enrollment';
@@ -430,18 +429,13 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     return enrollments;
   }
 
-  ///
-  /// enrollmentsMetadata :  is a map with 'searchedAttributes' as a map of key value pairs and  'data' as a List of map of enrollment database data
-  ///
   List<Map> _sanitizeSearchedEnrollments(
       Map<String, dynamic> enrollmentsMetadata) {
     var maps = enrollmentsMetadata['data'] ?? [] as List<Map>;
-    var searchedAttributes = enrollmentsMetadata['searchedAttributes'] ?? {};
     var groupedEnrollments =
         groupBy(maps, (Map data) => data[trackedEntityInstance]);
+    print(groupedEnrollments);
     return groupedEnrollments.values
-        .where((List<Map> dataGroup) =>
-            dataGroup.length == searchedAttributes.values.length)
         .map((List<Map> dataGroup) => dataGroup.first)
         .toList();
   }
@@ -451,6 +445,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     int? page,
     Map searchedAttributes = const {},
   }) async {
+    searchedAttributes.removeWhere((key, value) => value.isEmpty);
     List<Enrollment> enrollments = [];
     String attributesTable = 'tracked_entity_instance_attribute';
     String attribute = 'attribute';
@@ -479,20 +474,18 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
         params,
       );
       if (maps.isNotEmpty) {
-        Map<String, dynamic> enrollmentsMetadata = {
-          'searchedAttributes': searchedAttributes,
-          'data': maps
-        };
+        Map<String, dynamic> enrollmentsMetadata = {'data': maps};
         List<Map> sanitizedMaps =
-            await compute(_sanitizeSearchedEnrollments, enrollmentsMetadata);
+            _sanitizeSearchedEnrollments(enrollmentsMetadata);
         for (Map map in sanitizedMaps) {
           enrollments.add(Enrollment.fromOffline(map as Map<String, dynamic>));
         }
       }
     } catch (e) {
       //
+      print(e.toString());
     }
-    return enrollments
+    return enrollments.toSet().toList()
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
   }
 
@@ -501,6 +494,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     Map searchedAttributes = const {},
     List<String> requiredTeiList = const [],
   }) async {
+    searchedAttributes.removeWhere((key, value) => value.isEmpty);
     List<Enrollment> enrollments = [];
     String attributesTable = 'tracked_entity_instance_attribute';
     String attribute = 'attribute';
@@ -552,7 +546,7 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
             'data': maps
           };
           List<Map> sanitizedMaps =
-              await compute(_sanitizeSearchedEnrollments, enrollmentsMetadata);
+              _sanitizeSearchedEnrollments(enrollmentsMetadata);
           for (Map map in sanitizedMaps) {
             enrollments
                 .add(Enrollment.fromOffline(map as Map<String, dynamic>));
