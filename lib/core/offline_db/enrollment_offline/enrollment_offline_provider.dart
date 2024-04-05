@@ -434,7 +434,6 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
     var maps = enrollmentsMetadata['data'] ?? [] as List<Map>;
     var groupedEnrollments =
         groupBy(maps, (Map data) => data[trackedEntityInstance]);
-    print(groupedEnrollments);
     return groupedEnrollments.values
         .map((List<Map> dataGroup) => dataGroup.first)
         .toList();
@@ -483,7 +482,6 @@ class EnrollmentOfflineProvider extends OfflineDbProvider {
       }
     } catch (e) {
       //
-      print(e.toString());
     }
     return enrollments.toSet().toList()
       ..sort((b, a) => a.enrollmentDate!.compareTo(b.enrollmentDate!));
