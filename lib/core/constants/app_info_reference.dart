@@ -1,5 +1,5 @@
 class AppInfoReference {
-  static const String baseUrl = 'lodiis.org';
+  static const String baseUrl = 'test.lodiis.org';
   static const String subBaseUrl = 'test';
   static const String androidId = 'org.hisptanzania.kb_mobile_app.testing';
   static const String currentAppName = '[TEST] LODIIS';
