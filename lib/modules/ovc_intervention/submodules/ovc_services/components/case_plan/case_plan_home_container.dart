@@ -56,7 +56,30 @@ class CasePlanHomeContainer extends StatelessWidget {
   }) {
     bool shouldContinue = true;
     String eventDate = AppUtil.formattedDateTimeIntoString(DateTime.now());
-    if (casePlanDates.contains(eventDate)) {
+    String? casedate;
+    bool hasRecentCaseplan = casePlanDates.any((dateStr){
+      casedate = dateStr;
+      try {
+        DateTime caseDate = DateTime.parse(dateStr);
+        DateTime eventDateTime =DateTime.parse(eventDate);
+        return eventDateTime
+            .difference(caseDate)
+            .inDays
+            .abs() < 365;
+      }catch(e){
+        return false;
+      }
+    });
+   if(hasRecentCaseplan){
+      if(onAddCasePlan){
+        AppUtil.showToastMessage(
+          message:
+          'There is exiting case plan that has already created on $casedate',
+        );
+        shouldContinue = false;
+      }      }
+
+/*    if (casePlanDates.contains(eventDate)) {
       if (onAddCasePlan) {
         AppUtil.showToastMessage(
           message:
@@ -64,7 +87,7 @@ class CasePlanHomeContainer extends StatelessWidget {
         );
         shouldContinue = false;
       }
-    }
+    }*/
     Provider.of<ServiceFormState>(context, listen: false).resetFormState();
     Provider.of<ServiceFormState>(context, listen: false)
         .updateFormEditabilityState(isEditableMode: isEditMode);
@@ -135,16 +158,16 @@ class CasePlanHomeContainer extends StatelessWidget {
                             ? 'Litsebeletso tsa lelapa'
                             : 'Household Service Provision'
                         : isOnCasePlanServiceMonitoring
-                            ? 'Household Service monitoring tool'
+                            ? 'Household  monitoring tool'
                             : 'Household Case Plan Form'
                     : isOnCasePlanServiceProvision
                         ? currentLanguage == 'lesotho'
                             ? 'Phano ea Litsebeletso'
-                            : 'Service Provision'
+                            : 'Child Service Provision'
                         : isOnCasePlanServiceMonitoring
                             ? currentLanguage == 'lesotho'
                                 ? "Sesebelisoa sa Tlhokomelo ya Ts'ebeletso"
-                                : 'Service monitoring tool'
+                                : 'Child monitoring tool'
                             : 'Child Case Plan Form',
                 isOnCasePlanPage: isOnCasePlanPage,
                 enrollmentOuAccessible: enrollmentOuAccessible,
@@ -262,11 +285,13 @@ class CasePlanHomeContainer extends StatelessWidget {
                               bool isKbFacilitySocialWorker =
                                   currentUserState.isKbFacilitySocialWorker;
                               return Visibility(
-                                visible: !isKbFacilitySocialWorker &&
+                                visible:false,
+
+                                /*!isKbFacilitySocialWorker &&
                                     !hasBeneficiaryExitedProgram &&
                                     !(isOnCasePlanServiceMonitoring ||
                                         isOnCasePlanServiceProvision) &&
-                                    isAssessmentConducted,
+                                    isAssessmentConducted,*/
                                 child: Container(
                                   margin: EdgeInsets.symmetric(
                                     vertical:

@@ -63,7 +63,7 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
     String formAutoSaveId =
         "${OvcRoutesConstant.houseHoldAssessmentFormPage}_${beneficiaryId}_$eventId";
     FormAutoSave formAutoSave =
-        await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
+    await FormAutoSaveOfflineService().getSavedFormAutoData(formAutoSaveId);
     bool shouldResumeWithUnSavedChanges = await AppResumeRoute()
         .shouldResumeWithUnSavedChanges(context, formAutoSave);
 
@@ -76,11 +76,67 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
               builder: (context) => const OvcHouseholdAssessmentForm()));
     }
   }
+  Future<bool> _canStartNewAssessment() async {
+    // Grab the latest assessment event (you already have this state in the tree)
+    final lastEvent = context
+        .read<ServiceEventDataState>()
+        .latestEventForStage(OvcHouseholdAssessmentConstant.programStage);
 
-  void onAddNewHouseholdAssessment(
-    BuildContext context,
-    OvcHousehold? houseHold,
-  ) {
+    // No prior assessment? Allowed.
+    final lastDateStr = lastEvent?.eventDate ?? '';
+    if (lastDateStr.isEmpty) return true;
+
+    // Parse safely (assumes 'YYYY-MM-DD' or ISO-ish)
+    final parsed = DateTime.tryParse(lastDateStr);
+    if (parsed == null) return true; // if unknown format, fail open
+
+    // Use only Y-M-D to avoid time-of-day edge cases
+    final last = DateTime(parsed.year, parsed.month, parsed.day);
+    final nextAllowed = last.add(const Duration(days: 365));
+    final now = DateTime.now();
+
+    if (now.isBefore(nextAllowed)) {
+      String fmt(DateTime d) =>
+          '${d.year.toString().padLeft(4, '0')}-'
+              '${d.month.toString().padLeft(2, '0')}-'
+              '${d.day.toString().padLeft(2, '0')}';
+      final remainingDays = nextAllowed.difference(now).inDays + 1; // round up
+
+      await showDialog<void>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title:  Text('Last assessment on ${fmt(last)}'),
+          content: Text(
+                'An assessment can only be recorded  once in a year \nNext on ${fmt(nextAllowed)} '
+                'in ~$remainingDays day(s) 😊',
+          ),
+          actions: [
+            TextButton(
+
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK' ),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.green,
+              ),
+
+            ),
+          ],
+        ),
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  Future<void> onAddNewHouseholdAssessment(
+      BuildContext context,
+      OvcHousehold? houseHold,
+      ) async {
+    final allowed = await _canStartNewAssessment();
+    if(!allowed) {
+      return;
+    }
     updateFormState(context, true, null, houseHold);
   }
 
@@ -124,77 +180,77 @@ class _OvcHouseholdAssessmentState extends State<OvcHouseholdAssessment> {
                 Consumer<LanguageTranslationState>(
                   builder: (context, languageTranslationState, child) =>
                       Consumer<OvcHouseholdCurrentSelectionState>(
-                    builder:
-                        (context, ovcHouseholdCurrentSelectionState, child) {
-                      OvcHousehold? currentOvcHousehold =
-                          ovcHouseholdCurrentSelectionState.currentOvcHousehold;
-                      return Consumer<ServiceEventDataState>(
-                        builder: (context, serviceEventDataState, child) {
-                          bool isLoading = serviceEventDataState.isLoading;
-                          return isLoading
-                              ? const CircularProcessLoader(
-                                  color: Colors.blueGrey,
-                                )
-                              : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                        top: 10.0,
-                                        right: 13.0,
-                                        left: 13.0,
-                                      ),
-                                      child:
-                                          OvcHouseholdAssessmentListContainer(
-                                        programStageIds: programStageIds,
-                                        onEditHouseholdAssessment:
-                                            (Events assessment) =>
-                                                onEditHouseholdAssessment(
-                                          context,
-                                          currentOvcHousehold,
-                                          assessment,
-                                        ),
-                                        onViewHouseholdAssessment:
-                                            (Events assessment) =>
-                                                onViewHouseholdAssessment(
-                                          context,
-                                          currentOvcHousehold,
-                                          assessment,
-                                        ),
-                                      ),
+                        builder:
+                            (context, ovcHouseholdCurrentSelectionState, child) {
+                          OvcHousehold? currentOvcHousehold =
+                              ovcHouseholdCurrentSelectionState.currentOvcHousehold;
+                          return Consumer<ServiceEventDataState>(
+                            builder: (context, serviceEventDataState, child) {
+                              bool isLoading = serviceEventDataState.isLoading;
+                              return isLoading
+                                  ? const CircularProcessLoader(
+                                color: Colors.blueGrey,
+                              )
+                                  : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      top: 10.0,
+                                      right: 13.0,
+                                      left: 13.0,
                                     ),
-                                    Consumer<CurrentUserState>(
-                                      builder:
-                                          (context, curentUserState, child) =>
-                                              Visibility(
-                                        visible: !curentUserState
-                                                .isKbFacilitySocialWorker &&
-                                            !isLoading &&
-                                            currentOvcHousehold
-                                                    ?.hasExitedProgram !=
-                                                true,
-                                        child: EntryFormSaveButton(
-                                          label: languageTranslationState
-                                                      .currentLanguage ==
-                                                  'lesotho'
-                                              ? 'HLAHLOBO E NCHA'
-                                              : "NEW ASSESSMENT",
-                                          labelColor: Colors.white,
-                                          fontSize: 10,
-                                          buttonColor: const Color(0xFF4B9F46),
-                                          onPressButton: () =>
-                                              onAddNewHouseholdAssessment(
-                                                  context, currentOvcHousehold),
-                                        ),
-                                      ),
+                                    child:
+                                    OvcHouseholdAssessmentListContainer(
+                                      programStageIds: programStageIds,
+                                      onEditHouseholdAssessment:
+                                          (Events assessment) =>
+                                          onEditHouseholdAssessment(
+                                            context,
+                                            currentOvcHousehold,
+                                            assessment,
+                                          ),
+                                      onViewHouseholdAssessment:
+                                          (Events assessment) =>
+                                          onViewHouseholdAssessment(
+                                            context,
+                                            currentOvcHousehold,
+                                            assessment,
+                                          ),
                                     ),
-                                  ],
-                                );
+                                  ),
+                                  Consumer<CurrentUserState>(
+                                    builder:
+                                        (context, curentUserState, child) =>
+                                        Visibility(
+                                          visible: !curentUserState
+                                              .isKbFacilitySocialWorker &&
+                                              !isLoading &&
+                                              currentOvcHousehold
+                                                  ?.hasExitedProgram !=
+                                                  true,
+                                          child: EntryFormSaveButton(
+                                            label: languageTranslationState
+                                                .currentLanguage ==
+                                                'lesotho'
+                                                ? 'HLAHLOBO E NCHA'
+                                                : "NEW ASSESSMENT",
+                                            labelColor: Colors.white,
+                                            fontSize: 10,
+                                            buttonColor: const Color(0xFF4B9F46),
+                                            onPressButton: () =>
+                                                onAddNewHouseholdAssessment(
+                                                    context, currentOvcHousehold),
+                                          ),
+                                        ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
+                      ),
                 )
               ],
             );

@@ -173,7 +173,8 @@ class AppBarUtil {
     } else if (id == 'pp_prev') {
       await Provider.of<PpPrevInterventionState>(context, listen: false)
           .refreshPpPrevList();
-    } else if (id == 'education') {
+    }
+    else if (id == 'education') {
       await Provider.of<EducationLbseInterventionState>(context, listen: false)
           .refreshEducationLbseList();
       await Provider.of<EducationBursaryInterventionState>(context,
@@ -198,7 +199,8 @@ class AppBarUtil {
                         ? const PpPrevIntervention()
                         : id == 'education'
                             ? const EducationIntervention()
-                            : const DreamsIntervention();
+                              : const DreamsIntervention();
+
           },
         ),
       );

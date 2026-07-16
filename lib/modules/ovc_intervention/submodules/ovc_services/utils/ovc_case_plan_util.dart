@@ -6,6 +6,8 @@ import 'package:kb_mobile_app/models/case_plan_gap_service_provision_event.dart'
 import 'package:kb_mobile_app/models/events.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 
+import '../../../services/ovc_case_plan_service.dart';
+
 class OvcCasePlanUtil {
   static Map<String, List<Events>> getCasePlanByDates({
     required Map<String?, List<Events>> eventListByProgramStage,
@@ -13,7 +15,7 @@ class OvcCasePlanUtil {
   }) {
     List<Events> events = TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
-            eventListByProgramStage, programStageIds);
+        eventListByProgramStage, programStageIds);
     return TrackedEntityInstanceUtil.getGroupedEventByDates(events);
   }
 
@@ -25,6 +27,26 @@ class OvcCasePlanUtil {
             .length;
   }
 
+  /// Return ALL gap events for a given case-plan linkage, ignoring date windows.
+  /// Used to deduplicate when saving (so previously-saved gaps from any day aren’t re-added).
+  static Future<List<CasePlanGapEvent>> getCasePlanGapsForLinkage({
+    required String teiId,
+    required String programStageId,
+    required String linkage,
+  }) async {
+    try {
+      final gaps = await OvcCasePlanService().getCasePlanGapEvents(
+        date: '', // intentionally blank to fetch across dates
+        programStageId: programStageId,
+        teiId: teiId,
+        casePlanToGaps: [linkage],
+      );
+      return gaps;
+    } catch (_) {
+      return <CasePlanGapEvent>[];
+    }
+  }
+
   static Map getMappedCasePlanWithGapsByDomain({
     required List<Events> casePlanEvents,
     required List<Events> casePlanGapsEvents,
@@ -32,20 +54,20 @@ class OvcCasePlanUtil {
     Map casePlanDataObject = {};
     for (Events casePlanEventData in casePlanEvents) {
       CasePlanEvent casePlanEvent =
-          CasePlanEvent().toDataModel(eventData: casePlanEventData);
+      CasePlanEvent().toDataModel(eventData: casePlanEventData);
       String domainType = casePlanEvent.domainType!;
       Map casePlanObject = getMappedEventObject(casePlanEvent.eventData!);
       casePlanObject['gaps'] = casePlanGapsEvents
           .map(
             (Events casePlanGapEventData) =>
-                CasePlanGapEvent().toDataModel(eventData: casePlanGapEventData),
-          )
+            CasePlanGapEvent().toDataModel(eventData: casePlanGapEventData),
+      )
           .toList()
           .where((casePlanGapEvent) =>
-              casePlanGapEvent.casePlanToGap == casePlanEvent.casePlanToGap)
+      casePlanGapEvent.casePlanToGap == casePlanEvent.casePlanToGap)
           .toList()
           .map((casePlanGapEvent) =>
-              getMappedEventObject(casePlanGapEvent.eventData!))
+          getMappedEventObject(casePlanGapEvent.eventData!))
           .toList();
       casePlanDataObject[domainType] = casePlanObject;
     }
@@ -71,10 +93,10 @@ class OvcCasePlanUtil {
   }
 
   static bool isLocationOnCasePlanFormFilled(
-    Map dataObject, {
-    required String sectionsId,
-    required bool shouldCheck,
-  }) {
+      Map dataObject, {
+        required String sectionsId,
+        required bool shouldCheck,
+      }) {
     bool hasBeenFilled = true;
     if (shouldCheck) {
       hasBeenFilled =
@@ -84,87 +106,92 @@ class OvcCasePlanUtil {
   }
 
   static String getCasePlanDateFromCasePlanForm(
-    Map dataObject,
-    String sectionsId,
-  ) {
+      Map dataObject,
+      String sectionsId,
+      ) {
     Map casePlanDateSection = dataObject[sectionsId] ?? {};
     return casePlanDateSection['eventDate'] ?? '';
   }
 
   static bool isCasePlanDateOnCasePlanFormFilled(
-    Map dataObject, {
-    required String sectionsId,
-  }) {
+      Map dataObject, {
+        required String sectionsId,
+      }) {
     return getCasePlanDateFromCasePlanForm(dataObject, sectionsId).isNotEmpty;
   }
 
-  static bool isAllDomainGoalAndGapFilled(
-    Map dataObject, {
-    required bool isHouseholdCasePlan,
-  }) {
-    bool isAllDomainFilled = true;
-    for (String? domainType in dataObject.keys.toList()) {
-      Map domainDataObject = dataObject[domainType] ?? {};
-      String casePlanFirstGoal =
-          domainDataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
-      String casePlansSecondGoal =
-          domainDataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
+  /// NEW: validation without Goals and WITHOUT requiring HH Categorization.
+  /// We only require **at least one gap** anywhere (ignoring location/date; those are checked separately).
+  static bool isCasePlanValidWithoutGoals(
+      Map dataObject, {
+        required bool isHouseholdCasePlan,
+      }) {
+    bool hasAtLeastOneGap = false;
 
-      if (domainDataObject.keys.contains('gaps') &&
-          domainDataObject['gaps'].length > 0) {
-        if (casePlanFirstGoal.isEmpty) {
-          if (casePlansSecondGoal.isEmpty) {
-            isAllDomainFilled = false;
-          }
-        }
-      } else if (isHouseholdCasePlan &&
-          domainType == OvcCasePlanConstant.householdCategorizationSection) {
-        String houseHoldCategorization = domainDataObject[
-                OvcCasePlanConstant.houseHoldCategorizationDataElement] ??
-            '';
-        if (houseHoldCategorization.isEmpty) {
-          isAllDomainFilled = false;
-        }
+    for (final key in dataObject.keys) {
+      if (key == OvcCasePlanConstant.casePlanLocatinSectionId ||
+          key == OvcCasePlanConstant.casePlanEventDateSectionId ||
+          key == OvcCasePlanConstant.householdCategorizationSection) {
+        // ignore these sections in gap validation
+        continue;
+      }
+
+      final section = (dataObject[key] as Map?) ?? const {};
+      final gaps = (section['gaps'] as List?) ?? const [];
+      if (gaps.isNotEmpty) {
+        hasAtLeastOneGap = true;
       }
     }
-    return isAllDomainFilled;
+    return hasAtLeastOneGap;
+  }
+
+  /// Legacy entry point kept for backwards compatibility.
+  /// Internally delegates to the new validator (goals/categorization not required).
+  static bool isAllDomainGoalAndGapFilled(
+      Map dataObject, {
+        required bool isHouseholdCasePlan,
+      }) {
+    return isCasePlanValidWithoutGoals(
+      dataObject,
+      isHouseholdCasePlan: isHouseholdCasePlan,
+    );
   }
 
   static List<CasePlanGapServiceProvisionEvent>
-      getCasePlanGapServiceProvisionEvents({
+  getCasePlanGapServiceProvisionEvents({
     required Map<String?, List<Events>> eventListByProgramStage,
     required List<String> programStageIds,
     required String casePlanGapToServiceProvisionLinkage,
   }) {
     List<Events> events = TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
-            eventListByProgramStage, programStageIds);
+        eventListByProgramStage, programStageIds);
     return events
         .map((eventData) => CasePlanGapServiceProvisionEvent()
-            .toDataModel(eventData: eventData))
+        .toDataModel(eventData: eventData))
         .toList()
         .where((casePlanService) =>
-            casePlanService.casePlanGapToServiceProvisionLinkage ==
-            casePlanGapToServiceProvisionLinkage)
+    casePlanService.casePlanGapToServiceProvisionLinkage ==
+        casePlanGapToServiceProvisionLinkage)
         .toList();
   }
 
   static List<CasePlanGapServiceMonitoringEvent>
-      getCasePlanGapServiceMonitoringEvents({
+  getCasePlanGapServiceMonitoringEvents({
     required Map<String?, List<Events>> eventListByProgramStage,
     required List<String> programStageIds,
     required String casePlanGapToServiceMonitoringLinkage,
   }) {
     List<Events> events = TrackedEntityInstanceUtil
         .getAllEventListFromServiceDataStateByProgramStages(
-            eventListByProgramStage, programStageIds);
+        eventListByProgramStage, programStageIds);
     return events
         .map((eventData) => CasePlanGapServiceMonitoringEvent()
-            .toDataModel(eventData: eventData))
+        .toDataModel(eventData: eventData))
         .toList()
         .where((casePlanService) =>
-            casePlanService.casePlanGapToServiceMonitoringLinkage ==
-            casePlanGapToServiceMonitoringLinkage)
+    casePlanService.casePlanGapToServiceMonitoringLinkage ==
+        casePlanGapToServiceMonitoringLinkage)
         .toList();
   }
 }

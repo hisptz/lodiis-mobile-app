@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class InterventionCard {
@@ -64,13 +65,7 @@ class InterventionCard {
         nameColor: const Color(0xFF4B9F46),
         countColor: const Color(0xFF4B9F46).withOpacity(0.8),
         countLabelColor: const Color(0xFF4B9F46).withOpacity(0.3),
-        supportedTabs: [
-          "services",
-          "referral",
-          "enrollment",
-          "exit",
-          "records"
-        ],
+        supportedTabs: ["services", "referral", "enrollment", "exit", "records"],
       ),
       InterventionCard(
         id: 'dreams',
@@ -147,6 +142,8 @@ class InterventionCard {
         countLabelColor: const Color(0xFF9B2BAE).withOpacity(0.3),
         supportedTabs: [],
       ),
+
+
     ];
   }
 
@@ -155,3 +152,4 @@ class InterventionCard {
     return '$name - $id';
   }
 }
+

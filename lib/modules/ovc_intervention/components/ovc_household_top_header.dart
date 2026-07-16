@@ -137,7 +137,7 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageTranslationState>(
-      builder: (context, languageTranslationState, child) {
+      builder: (context, languageTranslationState, household) {
         String? currentLanguage = languageTranslationState.currentLanguage;
         return Material(
           type: MaterialType.card,
@@ -166,6 +166,19 @@ class OvcHouseholdInfoTopHeader extends StatelessWidget {
                           : 'Caregiver',
                       value: currentOvcHousehold.toString(),
                     ),
+                    _getOvcHouseholdDetailsWidget(
+                      key: currentLanguage == 'lesotho'
+                          ? 'Boemo ba HIV'
+                          : 'Hiv Status',
+                      value: currentOvcHousehold!.hivStatus ?? '',
+                    ),
+                    _getOvcHouseholdDetailsWidget(
+                      key: currentLanguage == 'lesotho'
+                          ? 'Lilemo'
+                          : 'Age',
+                      value: currentOvcHousehold!.age ?? '',
+                    ),
+
                   ],
                 ),
                 Row(

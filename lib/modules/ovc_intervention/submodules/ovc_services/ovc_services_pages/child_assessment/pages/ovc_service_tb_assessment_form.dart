@@ -36,7 +36,7 @@ class OvcServiceTBAssessmentForm extends StatefulWidget {
 
 class _OvcServiceTBAssessmentFormState
     extends State<OvcServiceTBAssessmentForm> {
-  final String label = 'Child TB Assessemnt';
+  final String label = 'Child TB Assessment';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;

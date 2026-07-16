@@ -40,15 +40,66 @@ class OvcChildCasePlanConstant {
         // FOOD PREP
         "JSQ3xP1NhuN", "k6jzyzGOu5Y", "HrCyUkuZath", "MdmCqSwcrlk",
         //FOOD SUPPORT
-        "EaJTFrklMo5", "rHgxOKM91wi", "v00dsDvhCRu", "WAq2HJHXZYS",
+        "EaJTFrklMo5","WAq2HJHXZYS",
+        //NUTRITION MESSAGING
+        "CaAOIbC10yv", "v7GBKBoqJPr",
+        //RTEEN/Parenting
+        "WiPTQhWLVU1", "E2CWztOcx2X", "xFXc0oacTEb", "BpLk6ruSL7e"
         //TIPPY TAP
         "DQxqyncQtwm", "P4I6rK6Xqxw", "WFKe1YpH1uK", "YJXb5rSVP0L",
         // WASH MESSAGE
         "Hvq9oisH7Gt", "ue6xLPEURqt", "vIbKIUgzBU4", "tQ3pKyJ0X9d",
         //SOACKAGE PIT
         "qTf8VSoojJ2", "ontonbgTJ8k", "AjYKLfIQPtT", "M2Aqvn027cd",
+
       ],
-      "ageBased": []
+      "ageBased": [
+        {
+          "minAge": 0,
+          "maxAge": 9,
+          "ids": [
+            //HIVS&D
+            "cx4xBY4jZXM", "SIEeRmPm0Q0",
+          ],
+        },
+        {
+          "minAge": 5,
+          "maxAge": 9,
+          "ids": [
+            //Oral Health
+            "ztDAwmkSwKf", "bK18Ebt1cRa",
+
+          ],
+        },
+        {
+          "minAge": 0,
+          "maxAge": 6,
+          "ids": [
+            //feeding sessions
+            "zkbTGkrT6bH","G4kPVSr7I8U",
+          ],
+        },
+
+      ],
+      "hivstatusBased": [
+        { "status": "positive",
+          "ids": ["HKCv7lkLexo", "JzlLk2tW4xh",
+            "gff7hjjVoI6","YI1Ckbt8mRn",
+            "vqRohVpTK2G","vUMhUm3i0b0",
+            "HKCv7lkLexo","JzlLk2tW4xh"
+
+
+
+
+          ] }
+      ],
+      "vlresultsBased": [
+        {"status": "High",
+        "ids":["XuZIbkwn5yi","uwuAbOBtPHf"]
+      }
+
+      ]
+
     },
     "Safe": {
       "generic": [
@@ -57,8 +108,7 @@ class OvcChildCasePlanConstant {
         OvcCasePlanConstant.casePlanToGapLinkage,
         OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
         OvcCasePlanConstant.casePlanGapToMonitoringLinkage,
-        //RTEEN/Parenting
-        "WiPTQhWLVU1", "E2CWztOcx2X", "xFXc0oacTEb", "BpLk6ruSL7e"
+
       ],
       "ageBased": [
         {
@@ -111,22 +161,59 @@ class OvcChildCasePlanConstant {
         "zK7kMYpgPQn", "GtejBpkVvtD", "F6z3SQxLskG", "g2X9vUL2d9m",
         //FOOD SUPPORT
         "QnFYeBNZlbf", "EnrZPBFxZuX", "vXuVPQLxw1d", "xdI5atw8DC4",
+        //Nutrition Messaging
+        "CRVDu0WUOFm", "cyEa4fwKL7O","OypZVFbZ1r0",
         //TIPPY TAP
         "FRWCmEerPic", "lQYnoeqfKpe", "IiIVDSKX8yk",
         // WASH MESSAGE
         "gV77yUM8NK8", "aqJBZDBzh4m", "EtENRPlSnO0", "JFlnkaXlXm5",
         //SOACKAGE PIT
         "qL9c5r7c6kK", "pUphS6E1Gu5", "k5RGRpWRbbs", "SODPuEmHEGV"
+        //RTEEN/Parenting
+            "GImA3HB9YK5", "fFuabYbLUjz", "QBNhlIan0LR", "IFggJCXLYPD"
       ],
-      "ageBased": []
+      "ageBased": [
+        {
+          "minAge": 0,
+          "maxAge": 9,
+          "ids": [
+            //HIVS&D service
+            "HzI5X2yHef6", "GyG2HcLsVka","y8ToqnbVz1o",
+            "E21r5xeRgBg","LcEBYlqwCij","zhSR0uBSq3f",
+            "yQkDGd2gLw2","lL8XiDgD8ZI","HfO5NXau7f2",
+            "otd2tndsE4Z","ruZFn94Hcyw","dwhnvU5m667",
+            "eGkOJf7odKm","W6GgMkwmVuf","D8G720HroqU",
+            "otd2tndsE4Z","ruZFn94Hcyw","dwhnvU5m667"
+
+          ],
+        },
+
+        {
+          "minAge": 0,
+          "maxAge": 6,
+          "ids": [
+            //feeding sessions service
+            "BWqkxqDJJEP", "E8Bi7BwHEXM","SGLSQWgUi8R"
+            "UKczyQWCB0L","jsEr16lnber","wZLjymsKsuj"
+          ],
+        },
+        {
+          "minAge": 5,
+          "maxAge": 9,
+          "ids": [
+
+                "U0zYyliGuQo","PXo8jxReklh","OoODkEfZ4hq"
+          ],
+        },
+
+      ]
     },
     "Safe": {
       "generic": [
         //Defult for events
         "eventDate",
         OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage,
-        //RTEEN/Parenting
-        "GImA3HB9YK5", "fFuabYbLUjz", "QBNhlIan0LR", "IFggJCXLYPD"
+
       ],
       "ageBased": [
         {
@@ -174,6 +261,8 @@ class OvcChildCasePlanConstant {
         "BLuel6eSkV3",
         //FOOD SUPPORT
         "gtXZARFG9Pa",
+        //Nutrition Messaging
+        "HKNayBlUGII",
         //TIPPY TAP
         "TaSyHHXKYhF",
         // WASH MESSAGE

@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ class InterventionSelectionContainer extends StatefulWidget {
     required this.numberPpPrev,
     required this.numberEducationLbse,
     required this.numberEducationBursary,
+
+
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
@@ -44,7 +47,6 @@ class InterventionSelectionContainer extends StatefulWidget {
   final int numberPpPrev;
   final int numberEducationBursary;
   final int numberEducationLbse;
-
   @override
   State<InterventionSelectionContainer> createState() =>
       _InterventionSelectionContainerState();
@@ -71,13 +73,13 @@ class _InterventionSelectionContainerState
   }
 
   void checkingForAutoSelectionOfIntervention(
-    CurrentUserState currentUserState,
-  ) {
+      CurrentUserState currentUserState,
+      ) {
     interventionPrograms =
         InterventionSelectionHelper.getInterventionSelections(
-      widget.interventionPrograms,
-      currentUserState,
-    );
+          widget.interventionPrograms,
+          currentUserState,
+        );
     if (interventionPrograms.length == 1) {
       onSelectingInterventionProgram(interventionPrograms[0]);
       setState(() {});
@@ -98,6 +100,7 @@ class _InterventionSelectionContainerState
 
   void onInterventionButtonClick() {
     if (activeInterventionProgram != null &&
+        activeInterventionProgram!.id != null &&
         activeInterventionProgram!.id!.isNotEmpty) {
       if (activeInterventionProgram!.id == 'dreams') {
         List<String> teiWithIncomingReferral =
@@ -105,29 +108,31 @@ class _InterventionSelectionContainerState
                 .beneficiariesWithIncomingReferrals;
         Provider.of<DreamsInterventionListState>(context, listen: false)
             .setTeiWithIncomingReferral(
-                teiWithIncomingReferral: teiWithIncomingReferral);
+            teiWithIncomingReferral: teiWithIncomingReferral);
       }
+
       interventionCardState
           .setCurrentInterventionProgram(activeInterventionProgram!);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => activeInterventionProgram!.id == 'ovc'
               ? const OvcIntervention()
               : activeInterventionProgram!.id == 'dreams'
-                  ? const DreamsIntervention()
-                  : activeInterventionProgram!.id == 'ogac'
-                      ? const OgacIntervention()
-                      : activeInterventionProgram!.id == 'pp_prev'
-                          ? const PpPrevIntervention()
-                          : activeInterventionProgram!.id == 'education'
-                              ? const EducationIntervention()
-                              : RoutePageNotFound(
-                                  pageTitle:
-                                      '${activeInterventionProgram!.name} is not found',
-                                  color:
-                                      activeInterventionProgram!.primaryColor,
-                                ),
+              ? const DreamsIntervention()
+              : activeInterventionProgram!.id == 'ogac'
+              ? const OgacIntervention()
+              : activeInterventionProgram!.id == 'pp_prev'
+              ? const PpPrevIntervention()
+              : activeInterventionProgram!.id == 'education'
+              ? const EducationIntervention()
+              : RoutePageNotFound(
+            pageTitle:
+            '${activeInterventionProgram!.name} is not found',
+            color:
+            activeInterventionProgram!.primaryColor,
+          ),
         ),
       );
     }
@@ -183,36 +188,39 @@ class _InterventionSelectionContainerState
           Container(
             child: isLoading
                 ? const Center(
-                    child: CircularProcessLoader(
-                      color: Colors.white,
-                    ),
-                  )
+              child: CircularProcessLoader(
+                color: Colors.white,
+              ),
+            )
                 : Column(
-                    children: [
-                      InterventionSelectionList(
-                        interventionPrograms: interventionPrograms,
-                        onInterventionSelection: onSelectingInterventionProgram,
-                        numberOfAgywDreamsBeneficiaries:
-                            widget.numberOfAgywDreamsBeneficiaries,
-                        numberOfNoneAgywDreamsBeneficiaries:
-                            widget.numberOfNoneAgywDreamsBeneficiaries,
-                        numberOfHouseholds: widget.numberOfHouseholds,
-                        numberOfOvcs: widget.numberOfOvcs,
-                        numberOfOgac: widget.numberOfOgac,
-                        numberPpPrev: widget.numberPpPrev,
-                        numberEducationLbse: widget.numberEducationLbse,
-                        numberEducationBursary: widget.numberEducationBursary,
-                      ),
-                      InterventionSelectionButton(
-                          isInterventionSelected: isInterventionSelected,
-                          onInterventionButtonClick: () {
-                            onInterventionButtonClick();
-                          })
-                    ],
-                  ),
+              children: [
+                InterventionSelectionList(
+                  interventionPrograms: interventionPrograms,
+                  onInterventionSelection: onSelectingInterventionProgram,
+                  numberOfAgywDreamsBeneficiaries:
+                  widget.numberOfAgywDreamsBeneficiaries,
+                  numberOfNoneAgywDreamsBeneficiaries:
+                  widget.numberOfNoneAgywDreamsBeneficiaries,
+                  numberOfHouseholds: widget.numberOfHouseholds,
+                  numberOfOvcs: widget.numberOfOvcs,
+                  numberOfOgac: widget.numberOfOgac,
+                  numberPpPrev: widget.numberPpPrev,
+                  numberEducationLbse: widget.numberEducationLbse,
+                  numberEducationBursary: widget.numberEducationBursary,
+
+
+                ),
+                InterventionSelectionButton(
+                  isInterventionSelected: isInterventionSelected,
+                  onInterventionButtonClick: () {
+                    onInterventionButtonClick();
+                  },
+                )
+              ],
+            ),
           ),
         ],
       ),
-    ); //;
+    );
   }
 }
