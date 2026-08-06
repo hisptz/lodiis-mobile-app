@@ -42,6 +42,7 @@ class InterventionBottomNavigationState with ChangeNotifier {
               interventionBottomNavigation.id != 'enrollment')
           .toList();
     }
+
     InterventionBottomNavigation interventionBottomNavigation =
         interventionBottomNavigations.isNotEmpty
             ? interventionBottomNavigations.first

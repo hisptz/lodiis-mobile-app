@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:kb_mobile_app/models/intervention_card.dart';
 import 'package:kb_mobile_app/modules/intervention_selection/components/Intervention_selection_card.dart';
@@ -15,6 +16,8 @@ class InterventionSelectionList extends StatefulWidget {
     required this.numberPpPrev,
     required this.numberEducationLbse,
     required this.numberEducationBursary,
+
+
   }) : super(key: key);
 
   final List<InterventionCard> interventionPrograms;
@@ -29,6 +32,7 @@ class InterventionSelectionList extends StatefulWidget {
   final int numberEducationBursary;
   final int numberEducationLbse;
 
+
   @override
   State<InterventionSelectionList> createState() =>
       _InterventionSelectionListState();
@@ -40,8 +44,11 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
   void setSelectedCard(InterventionCard interventionProgram) {
     setState(() {
       interventionProgramId = interventionProgram.id;
-      widget.onInterventionSelection!(interventionProgram);
     });
+
+    if (widget.onInterventionSelection != null) {
+      widget.onInterventionSelection!(interventionProgram);
+    }
   }
 
   @override
@@ -50,24 +57,26 @@ class _InterventionSelectionListState extends State<InterventionSelectionList> {
       children: widget.interventionPrograms
           .map(
             (InterventionCard interventionProgram) => GestureDetector(
-              onTap: () => setSelectedCard(interventionProgram),
-              child: InterventionSelectionCard(
-                interventionProgram: interventionProgram,
-                interventionProgramId: interventionProgramId,
-                numberOfAgywDreamsBeneficiaries:
-                    widget.numberOfAgywDreamsBeneficiaries,
-                numberOfNoneAgywDreamsBeneficiaries:
-                    widget.numberOfNoneAgywDreamsBeneficiaries,
-                numberOfHouseholds: widget.numberOfHouseholds,
-                numberOfOvcs: widget.numberOfOvcs,
-                numberOfOgac: widget.numberOfOgac,
-                numberPpPrev: widget.numberPpPrev,
-                numberEducationLbse: widget.numberEducationLbse,
-                numberEducationBursary: widget.numberEducationBursary,
-              ),
-            ),
-          )
+          onTap: () => setSelectedCard(interventionProgram),
+          child: InterventionSelectionCard(
+            interventionProgram: interventionProgram,
+            interventionProgramId: interventionProgramId,
+            numberOfAgywDreamsBeneficiaries:
+            widget.numberOfAgywDreamsBeneficiaries,
+            numberOfNoneAgywDreamsBeneficiaries:
+            widget.numberOfNoneAgywDreamsBeneficiaries,
+            numberOfHouseholds: widget.numberOfHouseholds,
+            numberOfOvcs: widget.numberOfOvcs,
+            numberOfOgac: widget.numberOfOgac,
+            numberPpPrev: widget.numberPpPrev,
+            numberEducationLbse: widget.numberEducationLbse,
+            numberEducationBursary: widget.numberEducationBursary,
+
+          ),
+        ),
+      )
           .toList(),
     );
   }
 }
+

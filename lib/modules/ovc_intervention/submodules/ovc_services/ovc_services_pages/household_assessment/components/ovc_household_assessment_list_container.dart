@@ -83,7 +83,7 @@ class OvcHouseholdAssessmentListContainer extends StatelessWidget {
                                                   text: currentLanguage ==
                                                           'lesotho'
                                                       ? 'Hlahlobo ${assessmentIndex + 1}'
-                                                      : 'Assessment ${assessmentIndex + 1}',
+                                                      : 'Household Assessment ${assessmentIndex + 1}',
                                                   style: const TextStyle()
                                                       .copyWith(
                                                     color:

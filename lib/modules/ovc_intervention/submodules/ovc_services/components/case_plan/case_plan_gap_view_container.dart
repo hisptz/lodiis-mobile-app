@@ -1,231 +1,136 @@
-import 'package:flutter/material.dart';
-import 'package:kb_mobile_app/app_state/language_translation_state/language_translation_state.dart';
-import 'package:kb_mobile_app/core/utils/app_util.dart';
-import 'package:kb_mobile_app/models/form_section.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_form_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_monitoring_view_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_service_provision_view_container.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/case_plan_gap_view.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_child_case_plan_gap.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_household_case_plan_gaps.dart';
-import 'package:provider/provider.dart';
 
-class CasePlanGapViewContainer extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:kb_mobile_app/models/form_section.dart';
+
+// Grouped gaps view you already use
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/components/case_plan/identified_gaps_grouped_view.dart';
+
+import '../cp_section_heading.dart';
+
+/// Container that renders Identified Gaps grouped by Benchmark/Subsection.
+/// - Collapsible title row (chevron on the right)
+/// - When expanded: shows grouped gaps + (NEW) an optional footer widget *after* the gaps
+/// - Use [footerAfterGaps] for "+ Gaps" so it collapses with the gaps.
+class CasePlanGapViewContainer extends StatefulWidget {
   const CasePlanGapViewContainer({
     Key? key,
-    required this.dataObject,
-    required this.formSectionColor,
+    required this.title,
     required this.isHouseholdCasePlan,
-    required this.hasEditAccessToCasePlan,
-    required this.enrollmentOuAccessible,
-    required this.isEditableMode,
-    required this.canAddDomainGaps,
+    required this.formSectionColor,
     required this.domainId,
-    required this.onInputValueChange,
-    required this.isOnCasePlanServiceProvision,
-    required this.isOnCasePlanServiceMonitoring,
+    required this.casePlanEvent,
+    required this.gapSections,
+    this.gapToggleDataElements,
+    this.onViewGapEvent,
+    this.margin,
+    this.trailingAction,   // kept for backward compat (stays in header)
+    this.footerAfterGaps,  // NEW: rendered inside expanded body after gaps
+    this.initiallyExpanded = false,
   }) : super(key: key);
 
+  final String title;
   final bool isHouseholdCasePlan;
-  final bool hasEditAccessToCasePlan;
-  final bool enrollmentOuAccessible;
-  final bool isEditableMode;
-  final bool canAddDomainGaps;
-
-  final bool isOnCasePlanServiceProvision;
-  final bool isOnCasePlanServiceMonitoring;
-  final Map dataObject;
   final Color formSectionColor;
   final String domainId;
-  final Function onInputValueChange;
+  final Map<String, dynamic> casePlanEvent;
+  final List<FormSection> gapSections;
 
-  final String caseToGapLinkage = OvcCasePlanConstant.casePlanToGapLinkage;
-  final String casePlanGapToServiceProvisionLinkage =
-      OvcCasePlanConstant.casePlanGapToServiceProvisionLinkage;
-  final String casePlanGapToServiceMonitoringLinkage =
-      OvcCasePlanConstant.casePlanGapToMonitoringLinkage;
+  final Set<String>? gapToggleDataElements;
+  final void Function(Map dataObject)? onViewGapEvent;
+  final EdgeInsetsGeometry? margin;
 
-  void onAddOrEditCasePlanGap(
-    BuildContext context, {
-    Map? gapDataObject,
-    bool isOnEdit = false,
-  }) async {
-    String caseToGapLinkageValue =
-        dataObject[caseToGapLinkage] ?? AppUtil.getUid();
-    String casePlanFirstGoal =
-        dataObject[OvcCasePlanConstant.casePlanFirstGoal] ?? '';
-    String casePlansSecondGoal =
-        dataObject[OvcCasePlanConstant.casePlansSecondGoal] ?? '';
-    if (casePlanFirstGoal.isEmpty && casePlansSecondGoal.isEmpty) {
-      AppUtil.showToastMessage(
-        message: 'Please fill at least one goal in $domainId domain',
-      );
-    } else {
-      double ratio = 0.8;
-      gapDataObject = gapDataObject ?? {};
-      gapDataObject[casePlanGapToServiceProvisionLinkage] =
-          gapDataObject[casePlanGapToServiceProvisionLinkage] ??
-              AppUtil.getUid();
-      gapDataObject[casePlanGapToServiceMonitoringLinkage] =
-          gapDataObject[casePlanGapToServiceMonitoringLinkage] ??
-              AppUtil.getUid();
-      gapDataObject[OvcCasePlanConstant.casePlanFirstGoal] = casePlanFirstGoal;
-      gapDataObject[OvcCasePlanConstant.casePlansSecondGoal] =
-          casePlansSecondGoal;
-      gapDataObject[caseToGapLinkage] = caseToGapLinkageValue;
-      List<FormSection> formSections = isHouseholdCasePlan
-          ? OvcHouseholdServicesCasePlanGaps.getFormSections(
-              firstDate: gapDataObject['eventDate'] ??
-                  AppUtil.formattedDateTimeIntoString(
-                    DateTime.now(),
-                  ),
-            ).where((FormSection form) => form.id == domainId).toList()
-          : OvcServicesChildCasePlanGap.getFormSections(
-              firstDate: gapDataObject['eventDate'] ??
-                  AppUtil.formattedDateTimeIntoString(
-                    DateTime.now(),
-                  ),
-            ).where((FormSection form) => form.id == domainId).toList();
-      formSections = formSections.map((FormSection form) {
-        form.borderColor = Colors.transparent;
-        return form;
-      }).toList();
-      var response = await AppUtil.showActionSheetModal(
-        context: context,
-        containerBody: CasePlanGapFormContainer(
-          formSections: formSections,
-          isEditableMode: isEditableMode,
-          formSectionColor: formSectionColor,
-          dataObject: gapDataObject,
-        ),
-        initialHeightRatio: ratio,
-        maxHeightRatio: ratio,
-      );
-      if (response != null) {
-        var eventId = response['eventId'] ?? '';
-        if (isOnEdit) {
-          dataObject['gaps'] = (dataObject['gaps'] ?? [])
-              .where((dynamic gap) => gap['eventId'] != eventId)
-              .toList();
-        }
-        dataObject['gaps'].add(response);
-        onValueChange('gaps', dataObject['gaps']);
-      }
-    }
-  }
+  /// Optional widget shown on the right side of the header row (stays visible when collapsed).
+  final Widget? trailingAction;
 
-  void onValueChange(String id, dynamic value) {
-    dataObject[id] = value;
-    onInputValueChange(dataObject);
-  }
+  /// NEW: Optional widget placed *below* the gaps, inside expanded area (collapses with the gaps).
+  final Widget? footerAfterGaps;
 
-  Map _getCasePlanGapObjects(List casePlanGapObjects) {
-    Map sanitizedDataObject = {};
-    for (dynamic casePlanGapObject in casePlanGapObjects) {
-      Map casePlanGap = Map<String, dynamic>.from(casePlanGapObject);
-      sanitizedDataObject = {...sanitizedDataObject, ...casePlanGap};
-    }
-    return sanitizedDataObject;
-  }
+  /// Start open?
+  final bool initiallyExpanded;
 
-  bool _hasCasPlanGaps(List casePlanGapObjects) {
-    return casePlanGapObjects.isNotEmpty;
-  }
+  @override
+  State<CasePlanGapViewContainer> createState() => _CasePlanGapViewContainerState();
+}
+
+class _CasePlanGapViewContainerState extends State<CasePlanGapViewContainer> {
+  late bool _expanded = widget.initiallyExpanded;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(),
+      margin: widget.margin ?? const EdgeInsets.only(bottom: 8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          CasePlanGapView(
-            hasEditAccessToCasePlan: hasEditAccessToCasePlan,
-            isEditableMode: isEditableMode,
-            isOnCasePlanServiceProvision: isOnCasePlanServiceProvision,
-            isOnCasePlanServiceMonitoring: isOnCasePlanServiceMonitoring,
-            domainId: domainId,
-            formSectionColor: formSectionColor,
-            isHouseholdCasePlan: isHouseholdCasePlan,
-            casePlanGapObjects: dataObject['gaps'] ?? [],
-            onEdiCasePlanGap: (dynamic gapDataObject) => onAddOrEditCasePlanGap(
-              context,
-              gapDataObject: gapDataObject,
-              isOnEdit: true,
-            ),
-          ),
-          Visibility(
-            visible: _hasCasPlanGaps(dataObject['gaps'] ?? []),
-            child: Container(
-              margin: const EdgeInsets.symmetric(),
-              child: Column(
-                children: [
-                  Visibility(
-                    visible: isOnCasePlanServiceProvision,
-                    child: CasePlanGapServiceProvisionViewContainer(
-                      domainId: domainId,
-                      formSectionColor: formSectionColor,
-                      casePlanGap:
-                          _getCasePlanGapObjects(dataObject['gaps'] ?? []),
-                      isHouseholdCasePlan: isHouseholdCasePlan,
-                      enrollmentOuAccessible: enrollmentOuAccessible,
-                    ),
-                  ),
-                  Visibility(
-                    visible: isOnCasePlanServiceMonitoring,
-                    child: CasePlanGapServiceMonitoringViewContainer(
-                      domainId: domainId,
-                      formSectionColor: formSectionColor,
-                      casePlanGap:
-                          _getCasePlanGapObjects(dataObject['gaps'] ?? []),
-                      isHouseholdCasePlan: isHouseholdCasePlan,
-                      enrollmentOuAccessible: enrollmentOuAccessible,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Visibility(
-            visible: (isEditableMode && canAddDomainGaps) &&
-                !(isOnCasePlanServiceMonitoring ||
-                    isOnCasePlanServiceProvision),
-            child: Container(
-              margin: const EdgeInsets.only(
-                bottom: 10.0,
-              ),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  disabledForegroundColor:
-                      formSectionColor.withOpacity(0.5).withOpacity(0.38),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: formSectionColor),
-                    borderRadius: BorderRadius.circular(12.0),
+          // Header: Title + (optional) trailingAction + chevron
+          InkWell(
+            onTap: () => setState(() => _expanded = !_expanded),
+            child: Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                // Add right padding so text doesn't sit under action/chevron
+                Padding(
+                  padding: EdgeInsets.only(right: widget.trailingAction == null ? 38.0 : 120.0),
+                  child: CpSectionHeading(
+                    title: widget.title,
+                    color: widget.formSectionColor,
                   ),
                 ),
-                onPressed: () => onAddOrEditCasePlanGap(context),
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 40.0,
-                  ),
-                  child: Consumer<LanguageTranslationState>(
-                    builder: (context, languageTranslationState, child) => Text(
-                      languageTranslationState.isSesothoLanguage
-                          ? "Eketsa sekheo"
-                          : 'Add Gap',
-                      style: const TextStyle().copyWith(
-                        color: formSectionColor,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
+                Positioned(
+                  right: 8,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.trailingAction != null) ...[
+                        // Absorb taps so they don't toggle expand/collapse
+                        GestureDetector(
+                          onTap: () {}, // keep header collapsed/expanded state unchanged
+                          behavior: HitTestBehavior.opaque,
+                          child: widget.trailingAction!,
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                      Icon(
+                        _expanded ? Icons.expand_less : Icons.expand_more,
+                        color: widget.formSectionColor,
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ),
+              ],
             ),
-          )
+          ),
+
+          // Body: Gaps + (NEW) footerAfterGaps; both collapse together
+          AnimatedCrossFade(
+            duration: const Duration(milliseconds: 180),
+            crossFadeState: _expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            firstChild: const SizedBox.shrink(),
+            secondChild: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  child: IdentifiedGapsGroupedView(
+                    isHouseholdCasePlan: widget.isHouseholdCasePlan,
+                    formSectionColor: widget.formSectionColor,
+                    domainId: widget.domainId,
+                    casePlan: widget.casePlanEvent,
+                    gapSections: widget.gapSections,
+                    gapToggleDataElements: widget.gapToggleDataElements,
+                    onViewGapEvent: widget.onViewGapEvent,
+                  ),
+                ),
+                if (widget.footerAfterGaps != null) ...[
+                  const SizedBox(height: 6),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    child: widget.footerAfterGaps!,
+                  ),
+                ],
+              ],
+            ),
+          ),
         ],
       ),
     );

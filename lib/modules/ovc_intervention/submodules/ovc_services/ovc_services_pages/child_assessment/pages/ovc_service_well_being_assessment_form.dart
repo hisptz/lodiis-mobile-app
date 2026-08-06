@@ -22,8 +22,8 @@ import 'package:kb_mobile_app/modules/ovc_intervention/components/ovc_child_info
 import 'package:kb_mobile_app/core/components/entry_form_save_button.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/constants/ovc_intervention_constant.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_service_well_being_assessment_constant.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_wellbeing_assessment.dart';
-import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_child_well_being_assessment_skip_logic.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/models/ovc_services_adolescent_wellbeing_assessment.dart';
+import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/ovc_services_pages/child_assessment/skip_logics/ovc_adolescent_wellbeing_assessment_skip_logic.dart';
 import 'package:provider/provider.dart';
 
 class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
@@ -36,7 +36,7 @@ class OvcServiceWellBeingAssessmentForm extends StatefulWidget {
 
 class _OvcServiceWellBeingAssessmentFormState
     extends State<OvcServiceWellBeingAssessmentForm> {
-  final String label = 'Child Well-being Assessment';
+  final String label = 'Adolescent Well-being Assessment';
   List<FormSection>? formSections;
   bool isFormReady = false;
   bool isSaving = false;
@@ -99,8 +99,8 @@ class _OvcServiceWellBeingAssessmentFormState
 
         Map dataObject =
             Provider.of<ServiceFormState>(context, listen: false).formState;
-        await OvcChildWellBeingAssessmentSkipLogic.evaluateSkipLogics(
-            context, formSections!, dataObject, child?.hivStatus);
+        await OvcAdolescentWellBeingAssessmentSkipLogic.evaluateSkipLogics(child,
+            context, formSections!, dataObject, child?.hivStatus, child?.tested, child?.artStatus);
       },
     );
   }
@@ -138,10 +138,7 @@ class _OvcServiceWellBeingAssessmentFormState
     );
     setState(() {});
     if (hadAllMandatoryFilled) {
-      if (dataObject['ADc3clrQRl4'] == null &&
-          dataObject['efNgDIqhlNs'] == null) {
-        AppUtil.showToastMessage(message: "Fill atleast one goal");
-      } else {
+
         isSaving = true;
         setState(() {});
         String? eventDate = dataObject['eventDate'];
@@ -188,7 +185,7 @@ class _OvcServiceWellBeingAssessmentFormState
             });
           });
         }
-      }
+
     } else {
       AppUtil.showToastMessage(
         message: 'Please fill all mandatory fields',

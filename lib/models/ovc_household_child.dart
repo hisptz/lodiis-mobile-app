@@ -21,6 +21,11 @@ class OvcHouseholdChild {
   bool? isChildPrimary;
   bool? hasExitedProgram;
   String? artInitiationDate;
+  bool? tested;
+  bool? isHei;
+  bool? artStatus;
+  bool? testedHeiAlgorithm;
+  String? pregnancyStatus;
   TrackedEntityInstance? teiData;
 
   OvcHouseholdChild({
@@ -42,10 +47,16 @@ class OvcHouseholdChild {
     this.teiData,
     this.artInitiationDate,
     this.hasExitedProgram,
+    this.tested,
+    this.isHei,
+    this.artStatus,
+    this.testedHeiAlgorithm,
+    this.pregnancyStatus,
+
   });
 
   bool get isClHiv => '$hivStatus' == 'Positive';
-
+  bool get isPregnant => '$pregnancyStatus' == 'Yes';
   Map toMap({
     required String parentId,
   }) {
@@ -67,7 +78,23 @@ class OvcHouseholdChild {
     String? orgUnit,
     String? createdDate,
     bool? enrollmentOuAccessible,
-  ) {
+  )
+
+
+
+  {
+
+    // Helper to parse booleans from "true/false", "Yes/No", "1/0"
+    bool? _parseBool(dynamic v) {
+      if (v == null) return null;
+      final s = v.toString().trim().toLowerCase();
+      if (s.isEmpty) return null;
+      if (s == 'true' || s == 'yes' || s == '1') return true;
+      if (s == 'false' || s == 'no' || s == '0') return false;
+      return null;
+    }
+
+
     List keys = [
       'WTZ7GLTrE8Q',
       's1HaiT6OllL',
@@ -78,7 +105,14 @@ class OvcHouseholdChild {
       'PN92g65TkVI',
       'KO5NC4pfBmv',
       'qZP982qpSPS',
+      'oSKX8fFQdWc',
       'EIMgHQW61kx',
+      'WAlaenCYazT',
+      'GMcljM7jbNG',
+      'l7op0btSqSc',
+      'IQX90Pjcrdh',
+      'XYPRtYgQUF8',
+
       BeneficiaryIdentification.phoneNumber,
       BeneficiaryIdentification.primaryUIC,
       BeneficiaryIdentification.secondaryUIC,
@@ -92,6 +126,12 @@ class OvcHouseholdChild {
       }
     }
     int age = AppUtil.getAgeInYear(data['qZP982qpSPS']);
+    Object tested = (_parseBool(data['WAlaenCYazT']) ?? '');
+    Object isHei = (_parseBool(data['GMcljM7jbNG']) ?? '');
+    Object artStatus = (_parseBool(data['l7op0btSqSc']) ?? '');
+    Object testedHeiAlgorithm = (_parseBool(data['IQX90Pjcrdh']) ?? '');
+    String hivStatus = data['oSKX8fFQdWc'] ?? '';
+  String pregnancyStatus = data['XYPRtYgQUF8'] ?? '';
     return OvcHouseholdChild(
         id: tei.trackedEntityInstance,
         firstName: data['WTZ7GLTrE8Q'] ?? '',
@@ -104,16 +144,17 @@ class OvcHouseholdChild {
         secondaryUIC: data[BeneficiaryIdentification.secondaryUIC] ?? '',
         createdDate: createdDate,
         artInitiationDate: data['EIMgHQW61kx'],
-        hivStatus: data['wmKqYZML8GA'] != null
-            ? data['wmKqYZML8GA'] == 'true'
-                ? 'Positive'
-                : 'Negative'
-            : '',
+        hivStatus: hivStatus,
         enrollmentOuAccessible: enrollmentOuAccessible,
         isChildPrimary: "${data['KO5NC4pfBmv']}" == 'true',
         ovcStatus: data['PN92g65TkVI'] ?? '',
         orgUnit: orgUnit,
         teiData: tei,
+        tested: tested is bool ? tested : null,
+        isHei: isHei is bool ? isHei  : null,
+        artStatus: artStatus is bool ? artStatus : null,
+        testedHeiAlgorithm: testedHeiAlgorithm is bool ? testedHeiAlgorithm : null,
+        pregnancyStatus:pregnancyStatus,
         hasExitedProgram:
             data[OvcInterventionConstant.programStatus] == 'Exit');
   }

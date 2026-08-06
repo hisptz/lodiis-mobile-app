@@ -3,6 +3,7 @@ import 'package:kb_mobile_app/app_state/current_user_state/current_user_state.da
 import 'package:kb_mobile_app/core/utils/form_util.dart';
 import 'package:kb_mobile_app/models/current_user.dart';
 import 'package:kb_mobile_app/models/form_section.dart';
+import 'package:kb_mobile_app/models/ovc_household_child.dart';
 import 'package:kb_mobile_app/modules/ovc_intervention/submodules/ovc_services/constants/ovc_case_plan_constant.dart';
 import 'package:provider/provider.dart';
 
@@ -12,15 +13,19 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
   Map childMapObject = {};
 
   Future evaluateSkipLogics(
-    BuildContext context,
-    List<FormSection> formSections,
-    Map dataObject,
-  ) async {
+      BuildContext context,
+      List<FormSection> formSections,
+      Map dataObject,
+      OvcHouseholdChild? currentHouseholdChild,
+
+      ) async {
     hiddenFields.clear();
     hiddenSections.clear();
     CurrentUser? currentUser = Provider.of<CurrentUserState>(context, listen: false).currentUser;
-    String implementingPartner = currentUser!.implementingPartner ?? "";
-
+    String implementingPartner = currentUser?.implementingPartner ?? "";
+    final int? childAge = currentHouseholdChild == null
+        ? null
+        : int.tryParse(currentHouseholdChild.age?.toString() ?? '');
     List<String> inputFieldIds = FormUtil.getFormFieldIds(formSections);
     for (var key in dataObject.keys) {
       inputFieldIds.add('$key');
@@ -33,6 +38,13 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
 
     //TOODO add additional services
     dataObject.forEach((key, value) {
+      // Child-only skip logic.
+      // For household case plan, currentHouseholdChild is null, so do not run age rules.
+      if (childAge != null && childAge < 9) {
+        hiddenFields['HzI5X2yHef6'] = true;
+        hiddenFields['FHvpd3Z5PAo'] = true;
+        hiddenFields['yQkDGd2gLw2'] = true;
+      }
       if (key == 'pbcXNnAuzfh' && value == 'true') {
         hiddenFields['RIpmBgYc0ZN'] = hideServicesByImplementingPartner(
           "RIpmBgYc0ZN",
@@ -53,7 +65,43 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
           hiddenFields['LtiZFxXw0Wc'] = false;
           hiddenFields['i9icxSZ8HCf'] = false;
         }
-      } else if (key == 'XoSPWmpWXCy' && value == 'true') {
+      }
+      else if (key == 'HKCv7lkLexo' && value == 'true') {
+        hiddenFields['otd2tndsE4Z'] = hideServicesByImplementingPartner(
+          "otd2tndsE4Z",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['otd2tndsE4Z']}';
+        if (inputValue == 'true') {
+          hiddenFields['ruZFn94Hcyw'] = false;
+          hiddenFields['dwhnvU5m667'] = false;
+        }
+      }
+
+      else if (key == 'ztDAwmkSwKf' && value == 'true'){
+        hiddenFields['U0zYyliGuQo'] = hideServicesByImplementingPartner(
+          "U0zYyliGuQo",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['U0zYyliGuQo']}';
+        if (inputValue == 'true') {
+          hiddenFields['OoODkEfZ4hq'] = false;
+          hiddenFields['PXo8jxReklh'] = false;
+        }
+      }
+
+      else if (key == 'bRv4ZZy5MDH' && value == 'true'){
+        hiddenFields['dJO2m3CXfM5'] = hideServicesByImplementingPartner(
+          "dJO2m3CXfM5",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['dJO2m3CXfM5']}';
+        if (inputValue == 'true') {
+          hiddenFields['YEebsaVMH19'] = false;
+          hiddenFields['eB10uAfk1El'] = false;
+        }
+      }
+      else if (key == 'XoSPWmpWXCy' && value == 'true') {
         hiddenFields['JnqldNamliR'] = hideServicesByImplementingPartner(
           "JnqldNamliR",
           implementingPartner,
@@ -65,7 +113,29 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
           hiddenFields['CNnzifTDF5a'] = false;
           hiddenFields['sxlVgySosg3'] = false;
         }
-      } else if (key == 'AxtahhoHcXV' && value == 'true') {
+      }
+      else if (key == 'vqRohVpTK2G' && value == 'true') {
+        hiddenFields['yQkDGd2gLw2'] = hideServicesByImplementingPartner(
+          "yQkDGd2gLw2",
+          implementingPartner,
+        );
+
+        var inputValue = '${dataObject['yQkDGd2gLw2']}';
+        if (inputValue == 'true') {
+
+          hiddenFields['lL8XiDgD8ZI'] = false;
+          hiddenFields['HfO5NXau7f2'] = false;
+        }
+      }
+      else if (key == 'HKCv7lkLexo' && value == 'true') {
+        hiddenFields['otd2tndsE4Z'] = hideServicesByImplementingPartner(
+          "otd2tndsE4Z",
+          implementingPartner,
+        );
+
+      }
+
+      else if (key == 'AxtahhoHcXV' && value == 'true') {
         hiddenFields['eqhzeRBMftZ'] = hideServicesByImplementingPartner(
           "eqhzeRBMftZ",
           implementingPartner,
@@ -330,7 +400,7 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
           hiddenFields['u8r8p0a3JqU'] = false;
           hiddenFields['W5lbgijaXA6'] = false;
         }
-      } else if (key == 'x4yAqv4z2Xv' && value == 'true') {
+      } else if (key == 'QrDmo9mOK41' && value == 'true') {
         hiddenFields['UKczyQWCB0L'] = hideServicesByImplementingPartner(
           "UKczyQWCB0L",
           implementingPartner,
@@ -340,7 +410,37 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
           hiddenFields['jsEr16lnber'] = false;
           hiddenFields['wZLjymsKsuj'] = false;
         }
-      } else if (key == 'AM9oJCOHM7f' && value == 'true') {
+      }
+
+
+      else if (key == 'dr1Oa2hfJHK' && value == 'true') {
+        hiddenFields['Xc1YkqS7CSB'] = hideServicesByImplementingPartner(
+          "Xc1YkqS7CSB",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['Xc1YkqS7CSB']}';
+        if (inputValue == 'true') {
+          hiddenFields['yCzUCzCVCyV'] = false;
+          hiddenFields['RDInAvhI5yh'] = false;
+        }
+      }
+
+
+      else if (key == 'x4yAqv4z2Xv' && value == 'true') {
+        hiddenFields['rWMLqnMWFt8'] = hideServicesByImplementingPartner(
+          "rWMLqnMWFt8",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['rWMLqnMWFt8']}';
+        if (inputValue == 'true') {
+          hiddenFields['SNE3A4VKXhl'] = false;
+          hiddenFields['pQTfX87p7QQ'] = false;
+        }
+      }
+
+
+
+      else if (key == 'AM9oJCOHM7f' && value == 'true') {
         hiddenFields['KkqMjxjAR7g'] = hideServicesByImplementingPartner(
           "KkqMjxjAR7g",
           implementingPartner,
@@ -425,7 +525,75 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
           hiddenFields['vXuVPQLxw1d'] = false;
           hiddenFields['xdI5atw8DC4'] = false;
         }
-      } else if (key == 'HsxFZOuV4oZ' && value == 'true') {
+      }
+
+      else if (key == 'CaAOIbC10yv' && value == 'true') {
+        hiddenFields['CRVDu0WUOFm'] = hideServicesByImplementingPartner(
+          "CRVDu0WUOFm",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['CRVDu0WUOFm']}';
+        if (inputValue == 'true') {
+          hiddenFields['cyEa4fwKL7O'] = false;
+          hiddenFields['hyVWFxIg7x6'] = false;
+          hiddenFields['OypZVFbZ1r0'] = false;
+        }
+      }
+
+      else if (key == 'zkbTGkrT6bH' && value == 'true') {
+        hiddenFields['BWqkxqDJJEP'] = hideServicesByImplementingPartner(
+          "BWqkxqDJJEP",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['BWqkxqDJJEP']}';
+        if (inputValue == 'true') {
+          hiddenFields['E8Bi7BwHEXM'] = false;
+          hiddenFields['SGLSQWgUi8R'] = false;
+
+        }
+      }
+
+      else if (key == 'gff7hjjVoI6' && value == 'true') {
+        hiddenFields['E21r5xeRgBg'] = hideServicesByImplementingPartner(
+          "E21r5xeRgBg",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['E21r5xeRgBg']}';
+        if (inputValue == 'true') {
+          hiddenFields['LcEBYlqwCij'] = false;
+          hiddenFields['zhSR0uBSq3f'] = false;
+
+        }
+      }
+
+
+      else if (key == 'eQTJrTcKzVK' && value == 'true') {
+        hiddenFields['FHvpd3Z5PAo'] = hideServicesByImplementingPartner(
+          "FHvpd3Z5PAo",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['FHvpd3Z5PAo']}';
+        if (inputValue == 'true') {
+          hiddenFields['xpSfl4fCE5B'] = false;
+          hiddenFields['r8oyCTs6Fd3'] = false;
+
+        }
+      }
+      else if (key == 'XuZIbkwn5yi' && value == 'true') {
+        hiddenFields['eGkOJf7odKm'] = hideServicesByImplementingPartner(
+          "eGkOJf7odKm",
+          implementingPartner,
+        );
+        var inputValue = '${dataObject['eGkOJf7odKm']}';
+        if (inputValue == 'true') {
+          hiddenFields['W6GgMkwmVuf'] = false;
+          hiddenFields['D8G720HroqU'] = false;
+
+        }
+      }
+
+
+      else if (key == 'HsxFZOuV4oZ' && value == 'true') {
         hiddenFields['KvLYMr8F4vg'] = hideServicesByImplementingPartner(
           "KvLYMr8F4vg",
           implementingPartner,
@@ -582,9 +750,9 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
   /// It's implemented based on Paralegal
   ///
   bool hideServicesByImplementingPartner(
-    String service,
-    String implementingPartner,
-  ) {
+      String service,
+      String implementingPartner,
+      ) {
     if (OvcCasePlanConstant.paralegalServices.contains(service)) {
       var isCurrentUserParalegal = implementingPartner == 'Paralegal';
       return !isCurrentUserParalegal;
@@ -604,10 +772,10 @@ mixin OvcCasePlanServiceProvisionSkipLogic {
   }
 
   assignInputFieldValue(
-    BuildContext context,
-    String inputFieldId,
-    String? value,
-  ) {
+      BuildContext context,
+      String inputFieldId,
+      String? value,
+      ) {
     childMapObject[inputFieldId] = value;
   }
 }

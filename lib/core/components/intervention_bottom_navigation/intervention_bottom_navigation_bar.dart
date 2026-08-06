@@ -58,7 +58,6 @@ class InterventionBottomNavigationBar extends StatelessWidget {
               !['enrollment', 'exit'].contains(navigation.id))
           .toList();
     }
-
     return interventionBottomNavigations;
   }
 

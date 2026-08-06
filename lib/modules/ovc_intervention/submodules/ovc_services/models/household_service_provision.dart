@@ -13,356 +13,500 @@ class HouseholdServiceProvision {
           translatedName: 'BOPHELO BO BOTLE',
           color: const Color(0xFF4D9E49),
           borderColor: const Color(0xFF4D9E49),
-          inputFields: [
-            InputField(
-              id: 'y8ToqnbVz1o',
-              name: 'HIVS&D Service provided',
-              translatedName: "Lits'ebeletso tsa HIVS&D li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
+
+          subSections: [
+            FormSection(
+                name: 'Knowledgeable about HIV Prevention',
+                translatedName: 'Knowledgeable about HIV Prevention',
+                id: 'knowledgeable_about_hiv_prevention',
+                color: const Color(0xFF4D9E49),
+                borderColor: const Color(0xFF4D9E49),
+                inputFields: [
+
+                  InputField(
+                    id: 'HzI5X2yHef6',
+                    name: 'HIV Prevention,Care and Treatment Messaging Service provided',
+                    translatedName: "Lits'ebeletso tsa HIVS&D li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'GyG2HcLsVka',
+                      name: 'HIV Prevention,Care and Treatment Messaging Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'y8ToqnbVz1o',
+                      name: 'HIV Prevention,Care and Treatment Messaging Comment',
+                      translatedName: 'Tlhaloso ea HIVS&D',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+
+
+                  InputField(
+                    id: 'JnqldNamliR',
+                    name: 'HTS Service provided',
+                    valueType: 'TRUE_ONLY',
+                    translatedName: 'Litsebeletso tsa HTS li fanoe',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'CNnzifTDF5a',
+                      name: 'HTS Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HTS',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'sxlVgySosg3',
+                      name: 'HTS Comment',
+                      translatedName: 'Tlhaloso ea HTS',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                    id: 'dJO2m3CXfM5',
+                    name: 'TB Testing referral completed',
+                    valueType: 'TRUE_ONLY',
+                    translatedName: 'Litsebeletso tsa TBTREAT li fanoe',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'YEebsaVMH19',
+                      name: 'TB Testing referral completed Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa TBTREAT',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'eB10uAfk1El',
+                      name: 'TB Testing referral Comment',
+                      translatedName: 'Tlhaloso ea TBTREAT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                ]
             ),
-            InputField(
-                id: 'GyG2HcLsVka',
-                name: 'HIVS&D Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'uU4TvD2O1uL',
-              name: 'HIVS&D session number',
-              translatedName: 'Thupelo ea HIVS&D',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
+            FormSection(
+                name: 'Adherent/Virally Suppressed',
+                translatedName: 'Adherent/Virally Suppressed',
+                id: 'adherent_Virally_suppressed',
+                color: const Color(0xFF4D9E49),
+                borderColor: const Color(0xFF4D9E49),
+                inputFields: [
+                  InputField(
+                    id: 'GImA3HB9YK5',
+                    name: 'Family psychosocial support  Service provided',
+                    translatedName: "Lits'ebeletso tsa RTEEN/Parenting  li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF0F9587),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'fFuabYbLUjz',
+                      name: 'Family psychosocial support Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa RTEEN/Parenting',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF0F9587),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                      id: 'IFggJCXLYPD',
+                      name: 'Family psychosocial support Comment',
+                      translatedName: 'Tlhaloso ea RTEEN/Parenting',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF0F9587),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                    id: 'FHvpd3Z5PAo',
+                    name: 'Disclosure Support Service Provided',
+                    translatedName: "Lits'ebeletso tsa Disclosure Support li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'xpSfl4fCE5B',
+                      name: 'Disclosure Support Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa Disclosure',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'r8oyCTs6Fd3',
+                      name: 'Disclosure Support Comment',
+                      translatedName: 'Tlhaloso ea Disclosure',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                    id: 'yQkDGd2gLw2',
+                    name: 'ART literacy Service Provided',
+                    valueType: 'TRUE_ONLY',
+                    translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'lL8XiDgD8ZI',
+                      name: 'ART literacy Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'HfO5NXau7f2',
+                      name: 'ART literacy  Comment',
+                      translatedName: 'Tlhaloso ea HIVTREAT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+
+
+                  InputField(
+                    id: 'YFgrURiwirq',
+                    name: 'ART Initiation Service provided',
+                    valueType: 'TRUE_ONLY',
+                    translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'LtiZFxXw0Wc',
+                      name: 'ART Initiation Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'i9icxSZ8HCf',
+                      name: 'ART Initiation Comment',
+                      translatedName: 'Tlhaloso ea HIVTREAT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                    id: 'E21r5xeRgBg',
+                    name: 'Community ART Adherance counseling Service Provided',
+                    translatedName: "Lits'ebeletso tsa Nutrition Messaging li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'LcEBYlqwCij',
+                      name: 'Community ART Adherance Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa Nutrition Messaging',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'zhSR0uBSq3f',
+                      name: 'Community ART Adherance counseling Description',
+                      translatedName: 'Tlhaloso ea FOOD SUPPORT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                    id: 'eGkOJf7odKm',
+                    name: 'Enhanced adherence counseling service provided',
+                    translatedName: "Lits'ebeletso tsa EAC li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'W6GgMkwmVuf',
+                      name: 'EAC Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa EAC',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'D8G720HroqU',
+                      name: 'Enhanced Adherance counseling Description',
+                      translatedName: 'Tlhaloso ea Enhanced Adherance counseling',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+
+
+
+
+                  InputField(
+                    id: 'otd2tndsE4Z',
+                    name: 'ADHERANCE SUPPORT Service provided',
+                    translatedName:
+                    "Lits'ebeletso tsa ADHERANCE SUPPORT li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'ruZFn94Hcyw',
+                      name: 'ADHERANCE SUPPORT Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa ADHERANCE SUPPORT',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'dwhnvU5m667',
+                      name: 'ADHERANCE SUPPORT Comment',
+                      translatedName: 'Tlhaloso ea ADHERANCE SUPPORT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                ]
             ),
-            InputField(
-                id: 'dwhnvU5m667',
-                name: 'HIVS&D Comment',
-                translatedName: 'Tlhaloso ea HIVS&D',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'JnqldNamliR',
-              name: 'HTS Service provided',
-              valueType: 'TRUE_ONLY',
-              translatedName: 'Litsebeletso tsa HTS li fanoe',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
+            FormSection(
+                name: 'Nutrition',
+                translatedName: 'Nutrition',
+                id: 'nutrition',
+                color: const Color(0xFF4D9E49),
+                borderColor: const Color(0xFF4D9E49),
+                inputFields: [
+                  InputField(
+                    id: 'U0zYyliGuQo',
+                    name: 'Oral Health Service provided',
+                    translatedName: "Lits'ebeletso tsa Oral Health li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'PXo8jxReklh',
+                      name: 'Oral Health Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa Oral Health',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'OoODkEfZ4hq',
+                      name: 'Oral Health Comment',
+                      translatedName: 'Tlhaloso ea Oral Health',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                    id: 'UKczyQWCB0L',
+                    name: 'IMMUNIZATION Service provided',
+                    translatedName: "Lits'ebeletso tsa IMMUNIZATION li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'jsEr16lnber',
+                      name: 'IMMUNIZATION Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa IMMUNIZATION',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'wZLjymsKsuj',
+                      name: 'IMMUNIZATION Comment',
+                      translatedName: 'Tlhaloso ea IMMUNIZATION',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                    id: 'QnFYeBNZlbf',
+                    name: 'FOOD SUPPORT Service provided',
+                    translatedName: "Lits'ebeletso tsa FOOD SUPPORT li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'EnrZPBFxZuX',
+                      name: 'FOOD SUPPORT Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa FOOD SUPPORT',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                      id: 'xdI5atw8DC4',
+                      name: 'FOOD SUPPORT Comment',
+                      translatedName: 'Tlhaloso ea FOOD SUPPORT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                    id: 'CRVDu0WUOFm',
+                    name: 'Nutrition Messaging Service provided',
+                    translatedName: "Lits'ebeletso tsa Nutrition Messaging li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'cyEa4fwKL7O',
+                      name: 'Nutrition Messaging Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa Nutrition Messaging',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'OypZVFbZ1r0',
+                      name: 'Nutrition Messaging Comment',
+                      translatedName: 'Tlhaloso ea FOOD SUPPORT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+                  InputField(
+                    id: 'BWqkxqDJJEP',
+                    name: 'Feeding Sessions Service provided',
+                    translatedName: "Lits'ebeletso tsa Nutrition Messaging li fanoe",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'E8Bi7BwHEXM',
+                      name: 'Feeding Sessions Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa Nutrition Messaging',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'SGLSQWgUi8R',
+                      name: 'Feeding Sessions Description',
+                      translatedName: 'Tlhaloso ea FOOD SUPPORT',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+
+
+                  InputField(
+                    id: 'J2VVqKMlJX0',
+                    name: 'Food Demonstration Service Provided',
+                    translatedName: "Lits'ebeletso tsa Food Demonstration",
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'c3CO4fvK7ZQ',
+                      name: 'Food Demonstration Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso Food Demonstration',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'B95FIqPFBjY',
+                      name: 'Food Demonstration Description',
+                      translatedName: 'Tlhaloso ea Food Demonstration',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+
+
+
+
+
+
+                ]
             ),
-            InputField(
-                id: 'CNnzifTDF5a',
-                name: 'HTS Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HTS',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'sxlVgySosg3',
-                name: 'HTS Comment',
-                translatedName: 'Tlhaloso ea HTS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'otd2tndsE4Z',
-              name: 'HIV ADHERANCE SUPPORT Service provided',
-              translatedName:
-                  "Lits'ebeletso tsa HIV ADHERANCE SUPPORT li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'ruZFn94Hcyw',
-                name: 'HIV ADHERANCE SUPPORT Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa HIV ADHERANCE SUPPORT',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'dwhnvU5m667',
-                name: 'HIV ADHERANCE SUPPORT Comment',
-                translatedName: 'Tlhaloso ea HIV ADHERANCE SUPPORT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'YFgrURiwirq',
-              name: 'HIVTREAT Service provided',
-              valueType: 'TRUE_ONLY',
-              translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'LtiZFxXw0Wc',
-                name: 'HIVTREAT Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'i9icxSZ8HCf',
-                name: 'HIVTREAT Comment',
-                translatedName: 'Tlhaloso ea HIVTREAT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'ESIjwQ9S6Ic',
-              name: 'PRG&L Service provided',
-              translatedName: "Lits'ebeletso tsa PRG&L li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'EYv3aMwJOUN',
-                name: 'PRG&L Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa PRG&L',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'GISFLEttRtU',
-                name: 'PRG&L Comment',
-                translatedName: 'Tlhaloso ea PRG&L',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'r8wPQAog7PJ',
-              name: 'SAIDS Service provided',
-              translatedName: "Lits'ebeletso tsa SAIDS li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'EgbO5h9cs5D',
-                name: 'SAIDS Service Provision Date',
-                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa SAIDS',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'itTgPQ0OrMU',
-                name: 'SAIDS Comment',
-                translatedName: 'Tlhaloso ea SAIDS',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'QnFYeBNZlbf',
-              name: 'FOOD SUPPORT Service provided',
-              translatedName: "Lits'ebeletso tsa FOOD SUPPORT li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'EnrZPBFxZuX',
-                name: 'FOOD SUPPORT Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa FOOD SUPPORT',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'vXuVPQLxw1d',
-              name: 'FOOD SUPPORT session number',
-              translatedName: 'Thupelo ea FOOD SUPPORT',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'xdI5atw8DC4',
-                name: 'FOOD SUPPORT Comment',
-                translatedName: 'Tlhaloso ea FOOD SUPPORT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'tnspdPfpuXm',
-              name: 'FOOD PREV  Service provided',
-              translatedName: "Lits'ebeletso tsa FOOD PREV li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'V1HnY5m2Pmv',
-                name: 'FOOD PREV Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa FOOD PREV',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'YRUnLuPerwn',
-              name: 'FOOD PREV  session number',
-              translatedName: 'Thupelo ea FOOD PREV ',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'eXh6Gag1uwp',
-                name: 'FOOD PREV  Comment',
-                translatedName: 'Tlhaloso ea FOOD PREV ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'zK7kMYpgPQn',
-              name: 'FOOD PREP  Service provided',
-              translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa FOOD PREP',
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'GtejBpkVvtD',
-                name: 'FOOD PREP Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa FOOD PREP',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'F6z3SQxLskG',
-              name: 'FOOD PREP session number',
-              translatedName: 'Thupelo ea FOOD PREP ',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'g2X9vUL2d9m',
-                name: 'FOOD PREP Comment',
-                translatedName: 'Tlhaloso ea FOOD PREP ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'gV77yUM8NK8',
-              name: 'WASH MESSAGING Service provided',
-              translatedName: "Lits'ebeletso tsa WASH MESSAGING li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'aqJBZDBzh4m',
-                name: 'WASH MESSAGING Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa WASH MESSAGING',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'JFlnkaXlXm5',
-                name: 'WASH MESSAGING Comment',
-                translatedName: 'Tlhaloso ea WASH MESSAGING',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'qL9c5r7c6kK',
-              name: 'SOAKAGE PIT Service provided',
-              translatedName: "Lits'ebeletso tsa SOAKAGE PIT li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'pUphS6E1Gu5',
-                name: 'SOAKAGE PIT Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa SOAKAGE PIT',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'SODPuEmHEGV',
-                name: 'SOAKAGE PIT Comment',
-                translatedName: 'Tlhaloso ea SOAKAGE PIT',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'FRWCmEerPic',
-              name: 'TIPPY TAP Service provided',
-              translatedName: "Lits'ebeletso tsa TIPPY TAP li fanoe",
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'lQYnoeqfKpe',
-                name: 'TIPPY TAP Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa TIPPY TAP',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'cBCJAB8Ogxd',
-              name: 'TIPPY TAP session number',
-              translatedName: 'Thupelo ea TIPPY TAP',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'w4EYZpbtUV8',
-                name: 'TIPPY TAP Comment',
-                translatedName: 'Tlhaloso ea TIPPY TAP',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-              id: 'eqhzeRBMftZ',
-              name: 'ANY HEALTH RELATED Service provided',
-              translatedName: 'Litsebeletso tsa ANY HEALTH RELATED tse fanoe',
-              valueType: 'TRUE_ONLY',
-              inputColor: const Color(0xFF4D9E49),
-              labelColor: const Color(0xFF737373),
-            ),
-            InputField(
-                id: 'F8x8QAoFQBO',
-                name: 'ANY HEALTH RELATED Service Provision Date',
-                translatedName:
-                    'Letsatsi la Kabo ea Litšebeletso tsa ANY HEALTH RELATED',
-                valueType: 'DATE',
-                firstDate: firstDate,
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'AStxMCkJhi5',
-                name: 'ANY HEALTH RELATED Comment',
-                translatedName: 'Tlhaloso ea ANY HEALTH RELATED',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF4D9E49),
-                labelColor: const Color(0xFF737373)),
-          ]),
+            FormSection(
+                name: 'EMTCT/Increased access to EMTCT services',
+                translatedName: 'EMTCT/Increased access to EMTCT services',
+                id: 'increased_access_to_emtct_services',
+                color: const Color(0xFF4D9E49),
+                borderColor: const Color(0xFF4D9E49),
+                inputFields: [
+                  InputField(
+                    id: 'eqhzeRBMftZ',
+                    name: 'ANY HEALTH RELATED Service provided',
+                    translatedName: 'Litsebeletso tsa ANY HEALTH RELATED tse fanoe',
+                    valueType: 'TRUE_ONLY',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'F8x8QAoFQBO',
+                      name: 'ANY HEALTH RELATED Service Provision Date',
+                      translatedName:
+                      'Letsatsi la Kabo ea Litšebeletso tsa ANY HEALTH RELATED',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'AStxMCkJhi5',
+                      name: 'ANY HEALTH RELATED Comment',
+                      translatedName: 'Tlhaloso ea ANY HEALTH RELATED',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                    id: 'kzN0Pylj9m4',
+                    name: 'ANC service Provided',
+                    valueType: 'TRUE_ONLY',
+                    translatedName: 'Litsebeletso tsa TBTREAT li fanoe',
+                    inputColor: const Color(0xFF4D9E49),
+                    labelColor: const Color(0xFF737373),
+                  ),
+                  InputField(
+                      id: 'NLNwk2zH4pp',
+                      name: 'ANC Service Provision Date',
+                      translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa TBTREAT',
+                      valueType: 'DATE',
+                      firstDate: firstDate,
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                  InputField(
+                      id: 'taavmnOAOJ4',
+                      name: 'ANC Service Comment',
+                      translatedName: 'Tlhaloso ea ANC',
+                      valueType: 'TEXT',
+                      inputColor: const Color(0xFF4D9E49),
+                      labelColor: const Color(0xFF737373)),
+                ]
+            )
+          ],
+          ),
       FormSection(
           id: 'Stable',
           name: 'DOMAIN STABLE',
@@ -386,13 +530,7 @@ class HouseholdServiceProvision {
                 firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'SzDHpqzsiLw',
-                name: 'SILC session number',
-                translatedName: 'Thupelo ea SILC',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
+
             InputField(
                 id: 'hMdC0CMKSGn',
                 name: 'SILC Comment',
@@ -440,13 +578,7 @@ class HouseholdServiceProvision {
                 firstDate: firstDate,
                 inputColor: const Color(0xFF0000FF),
                 labelColor: const Color(0xFF737373)),
-            InputField(
-                id: 'KvHf0rBfa1L',
-                name: 'FINANCIAL EDUCATION  session number',
-                translatedName: 'Thupelo ea FINANCIAL EDUCATION ',
-                valueType: 'TEXT',
-                inputColor: const Color(0xFF0000FF),
-                labelColor: const Color(0xFF737373)),
+
             InputField(
                 id: 'HGpA4kx5jLQ',
                 name: 'FINANCIAL EDUCATION  Comment',
@@ -479,13 +611,7 @@ class HouseholdServiceProvision {
               firstDate: firstDate,
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'NwtohlveKHW',
-              name: 'LEGAL PROTECTION session number',
-              translatedName: 'Thupelo ea LEGAL PROTECTION',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
+
           InputField(
               id: 'iz4CvIFovsF',
               name: 'LEGAL PROTECTION Comment',
@@ -509,13 +635,7 @@ class HouseholdServiceProvision {
               firstDate: firstDate,
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'RTEBrgDTe02',
-              name: 'BIRTHCERT session number',
-              translatedName: 'Thupelo ea BIRTHCERT',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
+
           InputField(
               id: 'cb773khL7XB',
               name: 'BIRTHCERT Comment',
@@ -540,13 +660,7 @@ class HouseholdServiceProvision {
               firstDate: firstDate,
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'YPImSLRMLWH',
-              name: 'VAC MESSAGING session number',
-              translatedName: "Lits'ebeletso tsa molaetsa oa session number",
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
+
           InputField(
               id: 'OMhFxj6SYhM',
               name: 'VAC MESSAGING Comment',
@@ -571,13 +685,7 @@ class HouseholdServiceProvision {
               firstDate: firstDate,
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'P4PMMDgWCSA',
-              name: 'VAC Legal Messaging session number',
-              translatedName: 'Thupelo ea VAC Legal Messaging',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
+
           InputField(
               id: 'KWk8waoLO7N',
               name: 'VAC Legal Messaging Comment',
@@ -602,13 +710,7 @@ class HouseholdServiceProvision {
               firstDate: firstDate,
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'LkQxvdt6YCw',
-              name: 'COUNSELLING session number',
-              translatedName: 'Thupelo ea COUNSELLING',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
+
           InputField(
               id: 'XUoqvbk0uVH',
               name: 'COUNSEL Comment',
@@ -616,37 +718,7 @@ class HouseholdServiceProvision {
               valueType: 'TEXT',
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
-          InputField(
-            id: 'GImA3HB9YK5',
-            name: 'RTEEN/Parenting  Service provided',
-            translatedName: "Lits'ebeletso tsa RTEEN/Parenting  li fanoe",
-            valueType: 'TRUE_ONLY',
-            inputColor: const Color(0xFF0F9587),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-              id: 'fFuabYbLUjz',
-              name: 'RTEEN/Parenting Service Provision Date',
-              translatedName:
-                  'Letsatsi la Kabo ea Litšebeletso tsa RTEEN/Parenting',
-              valueType: 'DATE',
-              firstDate: firstDate,
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'QBNhlIan0LR',
-              name: 'RTEEN/Parenting session number',
-              translatedName: 'Thupelo ea RTEEN',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'IFggJCXLYPD',
-              name: 'RTEEN/Parenting Comment',
-              translatedName: 'Tlhaloso ea RTEEN/Parenting',
-              valueType: 'TEXT',
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
+
           InputField(
             id: 'gwwUOs6yt6C',
             name: 'P&FC Service provided',
@@ -661,13 +733,6 @@ class HouseholdServiceProvision {
               translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa P&FC',
               valueType: 'DATE',
               firstDate: firstDate,
-              inputColor: const Color(0xFF0F9587),
-              labelColor: const Color(0xFF737373)),
-          InputField(
-              id: 'n30r7v0ti1s',
-              name: 'P&FC session number',
-              translatedName: 'Thupelo ea P&FC',
-              valueType: 'TEXT',
               inputColor: const Color(0xFF0F9587),
               labelColor: const Color(0xFF737373)),
           InputField(

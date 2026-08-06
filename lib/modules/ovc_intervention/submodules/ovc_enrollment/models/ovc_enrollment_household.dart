@@ -16,6 +16,11 @@ class OvcEnrollmentHousehold {
       'qZP982qpSPS',
       'oSKX8fFQdWc',
       'location',
+      'qAivZumsnJ2',
+      'RDobagXItZ6',
+      'iBws3HMjiUT',
+
+      'EIMgHQW61kx',
     ];
   }
 
@@ -51,7 +56,7 @@ class OvcEnrollmentHousehold {
             name: 'Date of Enrollment to Program',
             translatedName: "Letsatsi leo lelapa le keneng ka hara morero",
             valueType: 'DATE',
-            allowFuturePeriod: false,
+            allowFuturePeriod: true,
           ),
           InputField(
             id: 'RB8Wx75hGa4',
@@ -68,6 +73,42 @@ class OvcEnrollmentHousehold {
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373)),
+          InputField(
+            id: 'GoCWSZilk5T',
+            name: 'Point of Entry',
+            translatedName: 'Mofuta oa ngoliso ea ngoana',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+
+            options: [
+              InputFieldOption(
+                code: 'Community',
+                name: 'Community',
+                translatedName: 'Motseng',),
+              InputFieldOption(
+                  code: 'Facility',
+                  name: 'Facility',
+                  translatedName: 'Setsi sa bophelo')
+            ],
+          ),
+
+          InputField(
+            id: 'RDobagXItZ6',
+            name: 'Type of beneficiary',
+            translatedName: 'Mofuta oa ngoliso ea ngoana',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+
+            options: [
+              InputFieldOption(code: 'New', name: 'New'),
+              InputFieldOption(
+                  code: 'Re-enrolled',
+                  name: 'Re-enrolled',
+                  translatedName: 'Ngoliso phetho')
+            ],
+          ),
         ],
       ),
       FormSection(
@@ -75,6 +116,7 @@ class OvcEnrollmentHousehold {
         translatedName: "Lintlha tsa mohlokomeli",
         color: const Color(0xFF737373),
         inputFields: [
+
           InputField(
             id: 'WTZ7GLTrE8Q',
             name: 'First Name',
@@ -96,7 +138,7 @@ class OvcEnrollmentHousehold {
           InputField(
             id: 'rSP9c21JsfC',
             name: 'Surname',
-            translatedName: 'Le Fane',
+            translatedName: 'Fane',
             regExpValidation: RegExp('^[A-Za-z]{0,}'),
             valueType: 'TEXT',
             inputColor: const Color(0xFF4B9F46),
@@ -109,7 +151,7 @@ class OvcEnrollmentHousehold {
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
-              renderAsRadio: true,
+
               options: [
                 InputFieldOption(
                     code: 'Male', name: 'Male', translatedName: 'Botona'),
@@ -125,9 +167,9 @@ class OvcEnrollmentHousehold {
             valueType: 'DATE',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373),
-            minAgeInYear: 18,
-            hint: "Beneficiary's age should be 18 years and above",
-            translatedHint: "Lilemo tsa setho li be 18+",
+            minAgeInYear: 10,
+            hint: "Caregiver age should be 10(CHH) years and above",
+            translatedHint: "Lilemo tsa mohlokomeli li be 10+",
           ),
           InputField(
             id: 'ls9hlz2tyol',
@@ -138,6 +180,47 @@ class OvcEnrollmentHousehold {
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373),
           ),
+
+          //Reasons for enrolling
+          InputField(
+              id: 'OmXCV6vX3a1',
+              name: 'Reasons for enrolling child headed household',
+              translatedName: 'Mabaka a ho ngolisa lelapa le etelletsoeng pele ke ngoana',
+              valueType: 'TEXT',
+              inputColor: const Color(0xFF4B9F46),
+              labelColor: const Color(0xFF737373),
+              options: [
+                InputFieldOption(
+                    code: 'Single/Double orphans',
+                    name: 'Single/Double orphans',
+                    translatedName: 'Khutsana/Khutsana-khulu'),
+                InputFieldOption(
+                    code: 'Neglected children (more than 90 days without providing any form of support)',
+                    name: 'Neglected children (more than 90 days without providing any form of support)',
+                    translatedName: 'Bana ba nyahlalitsoeng ho feta matsatsi a 90'),
+                InputFieldOption(
+                    code: 'Child marriage (and there is no caregiver who lives with them)',
+                    name: 'Child marriage (and there is no caregiver who lives with them)',
+                    translatedName: 'Bana ba nyalaneng ho se mohlokomeli lelapeng'),
+                InputFieldOption(
+                    translatedName: 'Bana ba batsoali ba chankaneng',
+                    code: 'Children of imprisoned parents',
+                    name: 'Children of imprisoned parents'),
+                InputFieldOption(
+                    translatedName: 'Tse ling',
+                    code: 'Other (Specify)',
+                    name: 'Other (Specify)'),
+              ]),
+
+          InputField(
+            id: 'os6aZeXPkCM',
+            name: 'Other, Specify (Child-headed reason)',
+            translatedName: 'Tse ling, hlakisa',
+            valueType: 'TEXT',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+          ),
+
           InputField(
             id: 'tNdoR0jYr7R',
             name: 'Phone Number',
@@ -157,11 +240,11 @@ class OvcEnrollmentHousehold {
                 InputFieldOption(
                     code: 'Married',
                     name: 'Married',
-                    translatedName: 'Ke nyetsoe'),
+                    translatedName: 'Ke nyetsoe/nyetse'),
                 InputFieldOption(
                     code: 'Single',
                     name: 'Single',
-                    translatedName: 'Ha kea nyaloa'),
+                    translatedName: 'Ha kea nyaloa/nyala'),
                 InputFieldOption(
                     code: 'Widowed',
                     name: 'Widowed',
@@ -171,11 +254,24 @@ class OvcEnrollmentHousehold {
                     code: 'Divorced/separated',
                     name: 'Divorced/separated'),
               ]),
+
+          InputField(
+            id: 'WAlaenCYazT',
+            name: 'Has the caregiver ever been tested for HIV?',
+            translatedName: 'Mohlokomeli o kile a hlahlobela HIV?',
+            description: 'If no refer for testing',
+            translatedDescription: 'Ha asa hlahloba  fetesitsa setsing sa tlhabollo',
+            valueType: 'BOOLEAN',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+            //    isReadOnly: true
+          ),
+
           InputField(
               id: 'oSKX8fFQdWc',
               name: 'Caregiver HIV status',
               translatedName:
-                  'Sephetho sa mohlokomeli sa tlhatlhobo ea ho qetela sa HIV se reng?',
+              'Sephetho sa mohlokomeli sa tlhatlhobo ea ho qetela sa HIV se reng?',
               valueType: 'TEXT',
               inputColor: const Color(0xFF4B9F46),
               labelColor: const Color(0xFF737373),
@@ -192,16 +288,16 @@ class OvcEnrollmentHousehold {
                     code: 'Unknown',
                     name: 'Unknown',
                     translatedName: 'Tse sa tsejoeng'),
-                InputFieldOption(
-                    code: 'No Response',
-                    name: 'No Response',
-                    translatedName: 'Ha ho Karabo'),
+                // InputFieldOption(
+                //     code: 'No Response',
+                //     name: 'No Response',
+                //     translatedName: 'Ha ho Karabo'),
               ]),
           InputField(
             id: 'l7op0btSqSc',
             name: 'Is caregiver on ART?',
             translatedName:
-                "Haeba ts'oaetso e le teng, Na mohlokomeli o noa litlhare tsa ART?",
+            "Haeba ts'oaetso e le teng, Na mohlokomeli o noa litlhare tsa ART?",
             valueType: 'BOOLEAN',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373),
@@ -210,13 +306,35 @@ class OvcEnrollmentHousehold {
             id: 'iBws3HMjiUT',
             name: 'Facility obtaining ART',
             translatedName:
-                "Haeba a noa litlhare, Setsi sa bophelo moo mohlokomeli a fumanang litlhare tsa ART ke se fe?",
+            "Haeba a noa litlhare, Setsi sa bophelo moo mohlokomeli a fumanang litlhare tsa ART ke se fe?",
             allowedSelectedLevels: [AppHierarchyReference.facilityLevel],
             showCountryLevelTree: true,
             valueType: 'ORGANISATION_UNIT',
             inputColor: const Color(0xFF4B9F46),
             labelColor: const Color(0xFF737373),
           ),
+          InputField(
+            id: 'aX0niP9AH6t',
+            name: 'ART No.',
+            translatedName: 'Nomoro ea ART.',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+            valueType: 'TEXT',
+          ),
+          InputField(
+            id: 'EIMgHQW61kx',
+            name: 'Date of initiation',
+            translatedName:
+            'Letsatsi leo u qalileng litlare tsa ART ka lona?',
+            inputColor: const Color(0xFF4B9F46),
+            labelColor: const Color(0xFF737373),
+            valueType: 'DATE',
+          ),
+
+
+
+
+
           InputField(
               id: 'qAivZumsnJ2',
               name: 'Caregiver education level',
@@ -251,46 +369,7 @@ class OvcEnrollmentHousehold {
                   translatedName: 'Ha a kena sekolo',
                 ),
               ]),
-          InputField(
-            id: 'l9tcZ2TNgx6',
-            name:
-                'Male aged above 18 years and above currently living in household',
-            translatedName:
-                'Palo ea banna ba fetang lilemo tse 18 ba phelang kahare ho lelapa',
-            valueType: 'INTEGER_ZERO_OR_POSITIVE',
-            inputColor: const Color(0xFF4B9F46),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'rGAQnszNGVN',
-            name:
-                'Female aged 18 years and above currently living in household',
-            translatedName:
-                'Palo ea basali ba ka holimo ho lilemo tse 18 ba phelang kahare ho lelapa',
-            valueType: 'INTEGER_ZERO_OR_POSITIVE',
-            inputColor: const Color(0xFF4B9F46),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'kQehaqmaygZ',
-            isReadOnly: true,
-            name: 'Male aged below 18 years living in household',
-            translatedName:
-                'Kakaretso ea bashanyana ba ka tlase ho lilemo tse 18 ba lula kahare ho lelapa',
-            valueType: 'INTEGER_ZERO_OR_POSITIVE',
-            inputColor: const Color(0xFF4B9F46),
-            labelColor: const Color(0xFF737373),
-          ),
-          InputField(
-            id: 'BXUNH6LXeGA',
-            isReadOnly: true,
-            name: 'Female aged below 18 years currently living in household',
-            translatedName:
-                'Kakaretso ea banana ba ka tlase ho lilemo tse 18 ba lula kahare ho lelapa',
-            valueType: 'INTEGER_ZERO_OR_POSITIVE',
-            inputColor: const Color(0xFF4B9F46),
-            labelColor: const Color(0xFF737373),
-          ),
+
         ],
       ),
     ];

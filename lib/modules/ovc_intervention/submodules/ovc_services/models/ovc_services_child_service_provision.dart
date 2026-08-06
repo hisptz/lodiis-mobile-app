@@ -15,8 +15,79 @@ class OvcServicesChildServiceProvision {
           borderColor: const Color(0xFF4D9E49),
           inputFields: [
             InputField(
-              id: 'y8ToqnbVz1o',
-              name: 'HIVS&D Service provided',
+              id: 'FHvpd3Z5PAo',
+              name: 'Disclosure Support Service Provided',
+              translatedName: "Lits'ebeletso tsa Disclosure li fanoe",
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'xpSfl4fCE5B',
+                name: 'Disclosure Support Service Provision Date',
+                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa Disclosure',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'r8oyCTs6Fd3',
+                name: 'Disclosure Support Comment',
+                translatedName: 'Tlhaloso ea Disclosure',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+              id: 'BWqkxqDJJEP',
+              name: 'Feeding Sessions Service provided',
+              translatedName: "Lits'ebeletso tsa Nutrition Messaging li fanoe",
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'E8Bi7BwHEXM',
+                name: 'Feeding Sessions Service Provision Date',
+                translatedName:
+                'Letsatsi la Kabo ea Litšebeletso tsa Nutrition Messaging',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'SGLSQWgUi8R',
+                name: 'Feeding Sessions Description',
+                translatedName: 'Tlhaloso ea FOOD SUPPORT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+              id: 'E21r5xeRgBg',
+              name: 'Community ART Adherance counseling Service Provided',
+              translatedName: "Lits'ebeletso tsa Nutrition Messaging li fanoe",
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'LcEBYlqwCij',
+                name: 'Community ART Adherance Service Provision Date',
+                translatedName:
+                'Letsatsi la Kabo ea Litšebeletso tsa Nutrition Messaging',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'zhSR0uBSq3f',
+                name: 'Community ART Adherance counseling Description',
+                translatedName: 'Tlhaloso ea FOOD SUPPORT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+              id: 'HzI5X2yHef6',
+              name: 'HIV Prevention,Care and Treatment MessagingService provided',
               translatedName: "Lits'ebeletso tsa HIVS&D li fanoe",
               valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
@@ -24,27 +95,69 @@ class OvcServicesChildServiceProvision {
             ),
             InputField(
                 id: 'GyG2HcLsVka',
-                name: 'HIVS&D Service Provision Date',
+                name: 'HIV Prevention,Care and Treatment Messaging Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVS&D',
                 valueType: 'DATE',
                 firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
-              id: 'uU4TvD2O1uL',
-              name: 'HIVS&D session number',
-              translatedName: 'Thupelo ea HIVS&D',
-              valueType: 'TEXT',
+              id: 'eGkOJf7odKm',
+              name: 'Enhanced adherence counseling service provided',
+              translatedName: "Lits'ebeletso tsa EAC li fanoe",
+              valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
             ),
             InputField(
+                id: 'W6GgMkwmVuf',
+                name: 'EAC Service Provision Date',
+                translatedName:
+                'Letsatsi la Kabo ea Litšebeletso tsa EAC',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'D8G720HroqU',
+                name: 'Enhanced Adherance counseling Description',
+                translatedName: 'Tlhaloso ea Enhanced Adherance counseling',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+
+            InputField(
                 id: 'dwhnvU5m667',
-                name: 'HIVS&D Comment',
+                name: 'HIV Prevention,Care and Treatment Messaging Comment',
                 translatedName: 'Tlhaloso ea HIVS&D',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
+
+            InputField(
+              id: 'U0zYyliGuQo',
+              name: 'Oral Health Service provided',
+              translatedName: "Lits'ebeletso tsa Oral Health li fanoe",
+              valueType: 'TRUE_ONLY',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'PXo8jxReklh',
+                name: 'Oral Health Service Provision Date',
+                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa Oral Health',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'OoODkEfZ4hq',
+                name: 'Oral Health Comment',
+                translatedName: 'Tlhaloso ea Oral Health',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+
             InputField(
               id: 'mRoO7kgpgVg',
               name: 'CCFLS Service provided',
@@ -350,7 +463,6 @@ class OvcServicesChildServiceProvision {
               id: 'EtENRPlSnO0',
               name: 'WASH MESSAGING  session number',
               translatedName: 'Thupelo ea WASH MESSAGING',
-              isReadOnly: true,
               valueType: 'TEXT',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
@@ -365,7 +477,7 @@ class OvcServicesChildServiceProvision {
                 labelColor: const Color(0xFF737373)),
             InputField(
               id: 'otd2tndsE4Z',
-              name: 'HIV ADHERANCE SUPPORT Service provided',
+              name: 'ADHERANCE SUPPORT Service provided',
               translatedName:
                   "Lits'ebeletso tsa HIV ADHERANCE SUPPORT li fanoe",
               valueType: 'TRUE_ONLY',
@@ -374,7 +486,7 @@ class OvcServicesChildServiceProvision {
             ),
             InputField(
                 id: 'ruZFn94Hcyw',
-                name: 'HIV ADHERANCE SUPPORT Service Provision Date',
+                name: 'ADHERANCE SUPPORT Service Provision Date',
                 translatedName:
                     'Letsatsi la Kabo ea Litšebeletso tsa HIV ADHERANCE SUPPORT',
                 valueType: 'DATE',
@@ -383,7 +495,7 @@ class OvcServicesChildServiceProvision {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'dwhnvU5m667',
-                name: 'HIV ADHERANCE SUPPORT Comment',
+                name: 'ADHERANCE SUPPORT Comment',
                 translatedName: 'Tlhaloso ea HIV ADHERANCE SUPPORT',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
@@ -412,8 +524,33 @@ class OvcServicesChildServiceProvision {
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
             InputField(
+              id: 'yQkDGd2gLw2',
+              name: 'ART literacy Service Provided',
+              valueType: 'TRUE_ONLY',
+              translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'lL8XiDgD8ZI',
+                name: 'ART literacy Service Provision Date',
+                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'HfO5NXau7f2',
+                name: 'ART literacy  Comment',
+                translatedName: 'Tlhaloso ea HIVTREAT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+
+
+            InputField(
               id: 'YFgrURiwirq',
-              name: 'HIVTREAT Service provided',
+              name: 'ART Initiation Service provided',
               valueType: 'TRUE_ONLY',
               translatedName: 'Litsebeletso tsa HIVTREAT li fanoe',
               inputColor: const Color(0xFF4D9E49),
@@ -421,7 +558,7 @@ class OvcServicesChildServiceProvision {
             ),
             InputField(
                 id: 'LtiZFxXw0Wc',
-                name: 'HIVTREAT Service Provision Date',
+                name: 'ART Initiation Service Provision Date',
                 translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa HIVTREAT',
                 valueType: 'DATE',
                 firstDate: firstDate,
@@ -429,8 +566,31 @@ class OvcServicesChildServiceProvision {
                 labelColor: const Color(0xFF737373)),
             InputField(
                 id: 'i9icxSZ8HCf',
-                name: 'HIVTREAT Comment',
+                name: 'ART Initiation Comment',
                 translatedName: 'Tlhaloso ea HIVTREAT',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+              id: 'dJO2m3CXfM5',
+              name: 'TBTREAT Service provided',
+              valueType: 'TRUE_ONLY',
+              translatedName: 'Litsebeletso tsa TBTREAT li fanoe',
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'YEebsaVMH19',
+                name: 'TBTREAT Service Provision Date',
+                translatedName: 'Letsatsi la Kabo ea Litšebeletso tsa TBTREAT',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'eB10uAfk1El',
+                name: 'TBTREAT Comment',
+                translatedName: 'Tlhaloso ea TBTREAT',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
@@ -497,14 +657,47 @@ class OvcServicesChildServiceProvision {
                 firstDate: firstDate,
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
+
+
+
             InputField(
-              id: 'LUyWbpKKNgW',
-              name: 'HIMMUNIZATION  session number',
-              translatedName: 'Thupelo ea IMMUNIZATION',
-              valueType: 'TEXT',
+              id: 'rWMLqnMWFt8',
+              name: 'Deworming Service Provided',
+              translatedName: "Lits'ebeletso tsa Deworming li fanoe",
+              valueType: 'TRUE_ONLY',
               inputColor: const Color(0xFF4D9E49),
               labelColor: const Color(0xFF737373),
             ),
+            InputField(
+                id: 'pQTfX87p7QQ',
+                name: 'Deworming Service Provision Date',
+                translatedName:
+                'Letsatsi la Kabo ea Litšebeletso tsa Deworming Service',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+
+
+            InputField(
+              id: 'Xc1YkqS7CSB',
+              name: 'VitaminA Service Provided',
+              translatedName: "Lits'ebeletso tsa VitaminA li fanoe",
+              valueType: 'TRUE_ONLY',
+
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'RDInAvhI5yh',
+                name: 'VitaminA Service Provision Date',
+                translatedName:
+                'Letsatsi la Kabo ea Litšebeletso tsa Deworming Service',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+
             InputField(
                 id: 'wZLjymsKsuj',
                 name: 'IMMUNIZATION Comment',
@@ -573,6 +766,31 @@ class OvcServicesChildServiceProvision {
                 id: 'kBivIQr6mrW',
                 name: 'TB REFFER Comment',
                 translatedName: 'Tlhaloso ea TB REFFER',
+                valueType: 'TEXT',
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+              id: 'CRVDu0WUOFm',
+              name: 'Nutrition Messaging Service provided',
+              translatedName: "Lits'ebeletso tsa Nutrition Messaging li fanoe",
+              valueType: 'TRUE_ONLY',
+              isReadOnly: true,
+              inputColor: const Color(0xFF4D9E49),
+              labelColor: const Color(0xFF737373),
+            ),
+            InputField(
+                id: 'cyEa4fwKL7O',
+                name: 'Nutrition Messaging Service Provision Date',
+                translatedName:
+                'Letsatsi la Kabo ea Litšebeletso tsa Nutrition Messaging',
+                valueType: 'DATE',
+                firstDate: firstDate,
+                inputColor: const Color(0xFF4D9E49),
+                labelColor: const Color(0xFF737373)),
+            InputField(
+                id: 'OypZVFbZ1r0',
+                name: 'Nutrition Messaging Comment',
+                translatedName: 'Tlhaloso ea Nutrition Messaging',
                 valueType: 'TEXT',
                 inputColor: const Color(0xFF4D9E49),
                 labelColor: const Color(0xFF737373)),
